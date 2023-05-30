@@ -1,17 +1,17 @@
 # mssql-jdbc 
  
 # Bad smells
-I found 2043 bad smells with 567 repairable:
+I found 2044 bad smells with 567 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnnecessaryToStringCall | 509 | true |
 | FinalMethodInFinalClass | 222 | false |
 | JavadocDeclaration | 194 | false |
-| ConstantValue | 139 | false |
+| ConstantValue | 138 | false |
 | UnusedAssignment | 131 | false |
 | FieldMayBeFinal | 130 | false |
 | MissingSerialAnnotation | 77 | false |
-| DataFlowIssue | 51 | false |
+| DataFlowIssue | 52 | false |
 | RedundantCast | 46 | false |
 | FinalStaticMethod | 38 | false |
 | MarkedForRemoval | 35 | false |
@@ -51,12 +51,12 @@ I found 2043 bad smells with 567 repairable:
 | NonFinalFieldInEnum | 3 | false |
 | SimplifiableConditionalExpression | 3 | false |
 | RedundantTypeArguments | 3 | false |
+| SwitchStatementWithTooFewBranches | 3 | false |
 | ArraysAsListWithZeroOrOneArgument | 3 | false |
 | MagicConstant | 2 | false |
 | FinalPrivateMethod | 2 | false |
 | SimplifyOptionalCallChains | 2 | false |
 | PointlessNullCheck | 2 | false |
-| SwitchStatementWithTooFewBranches | 2 | false |
 | AutoCloseableResource | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
 | CopyConstructorMissesField | 2 | false |
@@ -90,18 +90,6 @@ I found 2043 bad smells with 567 repairable:
 ## RuleId[id=WrapperTypeMayBePrimitive]
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-            // Rescale the value if necessary
-            if (null != bigDecimalValue) {
-                Integer dtvScale, biScale = bigDecimalValue.scale();
-                if (null == dtv.getScale() && JDBCType.DECIMAL == dtv.getJdbcType()) {
-                    dtvScale = bigDecimalValue
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
 ```java
@@ -122,6 +110,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
                     Double doubleValue = (value instanceof String) ? Double.parseDouble((String) value)
                                                                    : (Double) value;
                     return ByteBuffer.allocate((Double.SIZE / Byte.SIZE)).order(ByteOrder.LITTLE_ENDIAN)
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+            // Rescale the value if necessary
+            if (null != bigDecimalValue) {
+                Integer dtvScale, biScale = bigDecimalValue.scale();
+                if (null == dtv.getScale() && JDBCType.DECIMAL == dtv.getJdbcType()) {
+                    dtvScale = bigDecimalValue
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -189,66 +189,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-        }
-
-        private Builder(TDSType tdsType, Strategy strategy) {
-            this.tdsType = tdsType;
-            this.strategy = strategy;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-             *         when an error occurs
-             */
-            public void apply(TypeInfo typeInfo, TDSReader tdsReader) throws SQLServerException;
-        }
-
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    private int maxValue = -1; // not assigned
-
-    private SQLServerDriverIntProperty(String name, int defaultValue) {
-        this.name = name;
-        this.defaultValue = defaultValue;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    private final String defaultValue;
-
-    private SQLServerDriverStringProperty(String name, String defaultValue) {
-        this.name = name;
-        this.defaultValue = defaultValue;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    private final boolean defaultValue;
-
-    private SQLServerDriverBooleanProperty(String name, boolean defaultValue) {
-        this.name = name;
-        this.defaultValue = defaultValue;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
 ```java
@@ -266,67 +206,7 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 ```java
     private final String name;
 
-    private ColumnEncryptionSetting(String name) {
-        this.name = name;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    }
-
-    private SQLServerDriverIntProperty(String name, int defaultValue, int minValue, int maxValue) {
-        this.name = name;
-        this.defaultValue = defaultValue;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    private final String name;
-
-    private AuthenticationScheme(String name) {
-        this.name = name;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    private final String defaultValue;
-
-    private SQLServerDriverObjectProperty(String name, String defaultValue) {
-        this.name = name;
-        this.defaultValue = defaultValue;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    private final String name;
-
-    private EncryptOption(String name) {
-        this.name = name;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    private final String name;
-
-    private KeyStoreAuthentication(String name) {
+    private SqlAuthentication(String name) {
         this.name = name;
     }
 ```
@@ -348,11 +228,71 @@ Modifier `private` is redundant for enum constructors
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
 ```java
+    private final boolean defaultValue;
+
+    private SQLServerDriverBooleanProperty(String name, boolean defaultValue) {
+        this.name = name;
+        this.defaultValue = defaultValue;
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
     private final String name;
 
-    private SqlAuthentication(String name) {
+    private AuthenticationScheme(String name) {
         this.name = name;
     }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+    }
+
+    private SQLServerDriverIntProperty(String name, int defaultValue, int minValue, int maxValue) {
+        this.name = name;
+        this.defaultValue = defaultValue;
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+    private final String defaultValue;
+
+    private SQLServerDriverObjectProperty(String name, String defaultValue) {
+        this.name = name;
+        this.defaultValue = defaultValue;
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+    private final String name;
+
+    private KeyStoreAuthentication(String name) {
+        this.name = name;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+    private final String defaultValue;
+
+    private SQLServerDriverStringProperty(String name, String defaultValue) {
+        this.name = name;
+        this.defaultValue = defaultValue;
 ```
 
 ### UnnecessaryModifier
@@ -372,10 +312,46 @@ Modifier `private` is redundant for enum constructors
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
 ```java
+    private int maxValue = -1; // not assigned
+
+    private SQLServerDriverIntProperty(String name, int defaultValue) {
+        this.name = name;
+        this.defaultValue = defaultValue;
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
      * Constructs a DatetimeType that sets the string value of the enum.
      */
     private DatetimeType(String value) {
         this.value = value;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+    private final String name;
+
+    private EncryptOption(String name) {
+        this.name = name;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+    private final String name;
+
+    private ColumnEncryptionSetting(String name) {
+        this.name = name;
     }
 ```
 
@@ -389,6 +365,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/SensitivityCla
         private SensitivityRank(int rank) {
             this.rank = rank;
         }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
+#### Snippet
+```java
+    private Charset charset;
+
+    private Encoding(String charsetName, boolean supportsAsciiConversion, boolean hasAsciiCompatibleSBCS) {
+        this.charsetName = charsetName;
+        this.supportsAsciiConversion = supportsAsciiConversion;
 ```
 
 ### UnnecessaryModifier
@@ -417,74 +405,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerPreparedStatement.java`
 
 ### UnnecessaryModifier
 Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
-#### Snippet
-```java
-    private Charset charset;
-
-    private Encoding(String charsetName, boolean supportsAsciiConversion, boolean hasAsciiCompatibleSBCS) {
-        this.charsetName = charsetName;
-        this.supportsAsciiConversion = supportsAsciiConversion;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
 in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
 #### Snippet
 ```java
-        private static final UpdaterConversion[] VALUES = values();
+        private static final SetterConversionAE[] VALUES = values();
 
-        private UpdaterConversion(JDBCType.Category from, EnumSet<SSType.Category> to) {
+        private SetterConversionAE(JavaType from, EnumSet<JDBCType> to) {
             this.from = from;
             this.to = to;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
-#### Snippet
-```java
-    }
-
-    private TDSType(int intValue) {
-        this.intValue = intValue;
-    }
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
-#### Snippet
-```java
-        private static final SetterConversion[] VALUES = values();
-
-        private SetterConversion(JDBCType.Category from, EnumSet<JDBCType.Category> to) {
-            this.from = from;
-            this.to = to;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
-#### Snippet
-```java
-    private final String name;
-
-    private StreamType(JDBCType jdbcType, String name) {
-        this.jdbcType = jdbcType;
-        this.name = name;
-```
-
-### UnnecessaryModifier
-Modifier `private` is redundant for enum constructors
-in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
-#### Snippet
-```java
-    }
-
-    private JDBCType(Category category, int intValue, String className) {
-        this.category = category;
-        this.intValue = intValue;
 ```
 
 ### UnnecessaryModifier
@@ -504,11 +432,11 @@ Modifier `private` is redundant for enum constructors
 in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
 #### Snippet
 ```java
-        private static final NormalizationAE[] VALUES = values();
+    }
 
-        private NormalizationAE(JDBCType from, EnumSet<SSType> to) {
-            this.from = from;
-            this.to = to;
+    private JDBCType(Category category, int intValue, String className) {
+        this.category = category;
+        this.intValue = intValue;
 ```
 
 ### UnnecessaryModifier
@@ -516,9 +444,21 @@ Modifier `private` is redundant for enum constructors
 in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
 #### Snippet
 ```java
-        private static final SetterConversionAE[] VALUES = values();
+    }
 
-        private SetterConversionAE(JavaType from, EnumSet<JDBCType> to) {
+    private TDSType(int intValue) {
+        this.intValue = intValue;
+    }
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+#### Snippet
+```java
+        private static final NormalizationAE[] VALUES = values();
+
+        private NormalizationAE(JDBCType from, EnumSet<SSType> to) {
             this.from = from;
             this.to = to;
 ```
@@ -540,11 +480,71 @@ Modifier `private` is redundant for enum constructors
 in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
 #### Snippet
 ```java
+        private static final UpdaterConversion[] VALUES = values();
+
+        private UpdaterConversion(JDBCType.Category from, EnumSet<SSType.Category> to) {
+            this.from = from;
+            this.to = to;
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+#### Snippet
+```java
+    private final String name;
+
+    private StreamType(JDBCType jdbcType, String name) {
+        this.jdbcType = jdbcType;
+        this.name = name;
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+#### Snippet
+```java
     static final BigDecimal MIN_VALUE_SMALLMONEY = new BigDecimal("-214748.3648");
 
     private SSType(Category category, String name, JDBCType jdbcType) {
         this.category = category;
         this.name = name;
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+#### Snippet
+```java
+        private static final SetterConversion[] VALUES = values();
+
+        private SetterConversion(JDBCType.Category from, EnumSet<JDBCType.Category> to) {
+            this.from = from;
+            this.to = to;
+```
+
+### UnnecessaryModifier
+Modifier `private` is redundant for enum constructors
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+        }
+
+        private Builder(TDSType tdsType, Strategy strategy) {
+            this.tdsType = tdsType;
+            this.strategy = strategy;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+             *         when an error occurs
+             */
+            public void apply(TypeInfo typeInfo, TDSReader tdsReader) throws SQLServerException;
+        }
+
 ```
 
 ### UnnecessaryModifier
@@ -560,66 +560,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
 ```
 
 ## RuleId[id=PointlessArithmeticExpression]
-### PointlessArithmeticExpression
-`pos + 0` can be replaced with 'pos'
-in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
-#### Snippet
-```java
-            a = shiftMix(a * k1) * k1;
-            c = b * k1 + hashLen0to16(s, pos, len);
-            d = shiftMix(a + (len >= 8 ? fetch64(s, pos + 0) : c));
-        }
-        else {
-```
-
-### PointlessArithmeticExpression
-`pos + 0` can be replaced with 'pos'
-in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
-#### Snippet
-```java
-
-            do {
-                a ^= shiftMix(fetch64(s, pos + 0) * k1) * k1;
-                a *= k1;
-                b ^= a;
-```
-
-### PointlessArithmeticExpression
-`pos + 0` can be replaced with 'pos'
-in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
-#### Snippet
-```java
-            y += v[0] + fetch64(s, pos + 40);
-            z = rotate(z + w[0], 33) * k1;
-            v = weakHashLen32WithSeeds(s, pos + 0, v[1] * k1, x + w[0]);
-            w = weakHashLen32WithSeeds(s, pos + 32, z + w[1], y + fetch64(s, pos + 16));
-            {
-```
-
-### PointlessArithmeticExpression
-`pos + 0` can be replaced with 'pos'
-in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
-#### Snippet
-```java
-        long[] v = weakHashLen32WithSeeds(s, pos + len - 64, len, z);
-        long[] w = weakHashLen32WithSeeds(s, pos + len - 32, y + k1, x);
-        x = x * k1 + fetch64(s, pos + 0);
-
-        len = (len - 1) & (~63);
-```
-
-### PointlessArithmeticExpression
-`pos + 0` can be replaced with 'pos'
-in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
-#### Snippet
-```java
-            y += v[0] + fetch64(s, pos + 40);
-            z = rotate(z + w[0], 33) * k1;
-            v = weakHashLen32WithSeeds(s, pos + 0, v[1] * k1, x + w[0]);
-            w = weakHashLen32WithSeeds(s, pos + 32, z + w[1], y + fetch64(s, pos + 16));
-            {
-```
-
 ### PointlessArithmeticExpression
 `i + 0` can be replaced with 'i'
 in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
@@ -645,42 +585,6 @@ in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 ```
 
 ### PointlessArithmeticExpression
-`pos + 0` can be replaced with 'pos'
-in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
-#### Snippet
-```java
-
-        long z = fetch64(s, pos + 24);
-        long a = fetch64(s, pos + 0) + (fetch64(s, pos + len - 16) + len) * k0;
-        long b = rotate(a + z, 52);
-        long c = rotate(a, 37);
-```
-
-### PointlessArithmeticExpression
-`pos + 0` can be replaced with 'pos'
-in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
-#### Snippet
-```java
-
-        if (len >= 16) {
-            return cityHash128WithSeed(s, pos + 16, len - 16, fetch64(s, pos + 0) ^ k3, fetch64(s, pos + 8));
-        }
-        else if (len >= 8) {
-```
-
-### PointlessArithmeticExpression
-`pos + 0` can be replaced with 'pos'
-in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
-#### Snippet
-```java
-        }
-        else if (len >= 8) {
-            return cityHash128WithSeed(new byte[0], 0, 0, fetch64(s, pos + 0) ^ (len * k0), fetch64(s, pos + len - 8) ^ k1);
-        }
-        else {
-```
-
-### PointlessArithmeticExpression
 `i + 0` can be replaced with 'i'
 in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 #### Snippet
@@ -697,11 +601,23 @@ in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 #### Snippet
 ```java
-            int pos,
-            int len) {
-        long a = fetch64(s, pos + 0) * k1;
-        long b = fetch64(s, pos + 8);
-        long c = fetch64(s, pos + len - 8) * k2;
+            a = shiftMix(a * k1) * k1;
+            c = b * k1 + hashLen0to16(s, pos, len);
+            d = shiftMix(a + (len >= 8 ? fetch64(s, pos + 0) : c));
+        }
+        else {
+```
+
+### PointlessArithmeticExpression
+`pos + 0` can be replaced with 'pos'
+in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
+#### Snippet
+```java
+
+            do {
+                a ^= shiftMix(fetch64(s, pos + 0) * k1) * k1;
+                a *= k1;
+                b ^= a;
 ```
 
 ### PointlessArithmeticExpression
@@ -741,63 +657,87 @@ in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 ```
 
 ### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+`pos + 0` can be replaced with 'pos'
+in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 #### Snippet
 ```java
 
-    static void writeLongBigEndian(long value, byte[] valueBytes, int offset) {
-        valueBytes[offset + 0] = (byte) ((value >> 56) & 0xFF);
-        valueBytes[offset + 1] = (byte) ((value >> 48) & 0xFF);
-        valueBytes[offset + 2] = (byte) ((value >> 40) & 0xFF);
+        if (len >= 16) {
+            return cityHash128WithSeed(s, pos + 16, len - 16, fetch64(s, pos + 0) ^ k3, fetch64(s, pos + 8));
+        }
+        else if (len >= 8) {
 ```
 
 ### PointlessArithmeticExpression
-`nOffset + 0` can be replaced with 'nOffset'
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+`pos + 0` can be replaced with 'pos'
+in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 #### Snippet
 ```java
-     */
-    static int readInt(byte[] data, int nOffset) {
-        int b1 = ((int) data[nOffset + 0] & 0xff);
-        int b2 = ((int) data[nOffset + 1] & 0xff) << 8;
-        int b3 = ((int) data[nOffset + 2] & 0xff) << 16;
+        }
+        else if (len >= 8) {
+            return cityHash128WithSeed(new byte[0], 0, 0, fetch64(s, pos + 0) ^ (len * k0), fetch64(s, pos + len - 8) ^ k1);
+        }
+        else {
 ```
 
 ### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+`pos + 0` can be replaced with 'pos'
+in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 #### Snippet
 ```java
-
-    static void writeIntBigEndian(int value, byte[] valueBytes, int offset) {
-        valueBytes[offset + 0] = (byte) ((value >> 24) & 0xFF);
-        valueBytes[offset + 1] = (byte) ((value >> 16) & 0xFF);
-        valueBytes[offset + 2] = (byte) ((value >> 8) & 0xFF);
+            int pos,
+            int len) {
+        long a = fetch64(s, pos + 0) * k1;
+        long b = fetch64(s, pos + 8);
+        long c = fetch64(s, pos + len - 8) * k2;
 ```
 
 ### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+`pos + 0` can be replaced with 'pos'
+in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 #### Snippet
 ```java
 
-    static void writeShort(short value, byte[] valueBytes, int offset) {
-        valueBytes[offset + 0] = (byte) ((value >> 0) & 0xFF);
-        valueBytes[offset + 1] = (byte) ((value >> 8) & 0xFF);
-    }
+        long z = fetch64(s, pos + 24);
+        long a = fetch64(s, pos + 0) + (fetch64(s, pos + len - 16) + len) * k0;
+        long b = rotate(a + z, 52);
+        long c = rotate(a, 37);
 ```
 
 ### PointlessArithmeticExpression
-`offset + 0` can be replaced with 'offset'
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+`pos + 0` can be replaced with 'pos'
+in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 #### Snippet
 ```java
+            y += v[0] + fetch64(s, pos + 40);
+            z = rotate(z + w[0], 33) * k1;
+            v = weakHashLen32WithSeeds(s, pos + 0, v[1] * k1, x + w[0]);
+            w = weakHashLen32WithSeeds(s, pos + 32, z + w[1], y + fetch64(s, pos + 16));
+            {
+```
 
-    static void writeShortBigEndian(short value, byte[] valueBytes, int offset) {
-        valueBytes[offset + 0] = (byte) ((value >> 8) & 0xFF);
-        valueBytes[offset + 1] = (byte) ((value >> 0) & 0xFF);
-    }
+### PointlessArithmeticExpression
+`pos + 0` can be replaced with 'pos'
+in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
+#### Snippet
+```java
+        long[] v = weakHashLen32WithSeeds(s, pos + len - 64, len, z);
+        long[] w = weakHashLen32WithSeeds(s, pos + len - 32, y + k1, x);
+        x = x * k1 + fetch64(s, pos + 0);
+
+        len = (len - 1) & (~63);
+```
+
+### PointlessArithmeticExpression
+`pos + 0` can be replaced with 'pos'
+in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
+#### Snippet
+```java
+            y += v[0] + fetch64(s, pos + 40);
+            z = rotate(z + w[0], 33) * k1;
+            v = weakHashLen32WithSeeds(s, pos + 0, v[1] * k1, x + w[0]);
+            w = weakHashLen32WithSeeds(s, pos + 32, z + w[1], y + fetch64(s, pos + 16));
+            {
 ```
 
 ### PointlessArithmeticExpression
@@ -818,6 +758,42 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 #### Snippet
 ```java
 
+    static void writeShortBigEndian(short value, byte[] valueBytes, int offset) {
+        valueBytes[offset + 0] = (byte) ((value >> 8) & 0xFF);
+        valueBytes[offset + 1] = (byte) ((value >> 0) & 0xFF);
+    }
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+
+    static void writeShort(short value, byte[] valueBytes, int offset) {
+        valueBytes[offset + 0] = (byte) ((value >> 0) & 0xFF);
+        valueBytes[offset + 1] = (byte) ((value >> 8) & 0xFF);
+    }
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+
+    static void writeLongBigEndian(long value, byte[] valueBytes, int offset) {
+        valueBytes[offset + 0] = (byte) ((value >> 56) & 0xFF);
+        valueBytes[offset + 1] = (byte) ((value >> 48) & 0xFF);
+        valueBytes[offset + 2] = (byte) ((value >> 40) & 0xFF);
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+
     static void writeInt(int value, byte[] valueBytes, int offset) {
         valueBytes[offset + 0] = (byte) ((value >> 0) & 0xFF);
         valueBytes[offset + 1] = (byte) ((value >> 8) & 0xFF);
@@ -826,14 +802,26 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 
 ### PointlessArithmeticExpression
 `offset + 0` can be replaced with 'offset'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+
+    static void writeIntBigEndian(int value, byte[] valueBytes, int offset) {
+        valueBytes[offset + 0] = (byte) ((value >> 24) & 0xFF);
+        valueBytes[offset + 1] = (byte) ((value >> 16) & 0xFF);
+        valueBytes[offset + 2] = (byte) ((value >> 8) & 0xFF);
+```
+
+### PointlessArithmeticExpression
+`nOffset + 0` can be replaced with 'nOffset'
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 #### Snippet
 ```java
      */
-    static int makeParamName(int nParam, char[] name, int offset) {
-        name[offset + 0] = '@';
-        name[offset + 1] = 'P';
-        if (nParam < 10) {
+    static int readInt(byte[] data, int nOffset) {
+        int b1 = ((int) data[nOffset + 0] & 0xff);
+        int b2 = ((int) data[nOffset + 1] & 0xff) << 8;
+        int b3 = ((int) data[nOffset + 2] & 0xff) << 16;
 ```
 
 ### PointlessArithmeticExpression
@@ -846,6 +834,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
             data[(i1 * 2) + 0] = b2;
         }
         return data;
+```
+
+### PointlessArithmeticExpression
+`offset + 0` can be replaced with 'offset'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+     */
+    static int makeParamName(int nParam, char[] name, int offset) {
+        name[offset + 0] = '@';
+        name[offset + 1] = 'P';
+        if (nParam < 10) {
 ```
 
 ## RuleId[id=MagicConstant]
@@ -1038,10 +1038,22 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 #### Snippet
 ```java
     @Override
-    @Deprecated(since = "9.4.1", forRemoval = true)
-    public void setAADSecurePrincipalId(String aadSecurePrincipalId) {
-        setStringProperty(connectionProps, SQLServerDriverStringProperty.AAD_SECURE_PRINCIPAL_ID.toString(),
-                aadSecurePrincipalId);
+    @Deprecated(since = "10.1.0", forRemoval = true)
+    public void setEncrypt(boolean encryptOption) {
+        setStringProperty(connectionProps, SQLServerDriverStringProperty.ENCRYPT.toString(),
+                Boolean.toString(encryptOption));
+```
+
+### MarkedForRemoval
+Overrides method that is deprecated and marked for removal in 'com.microsoft.sqlserver.jdbc.ISQLServerDataSource'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
+#### Snippet
+```java
+    @Deprecated(since = "12.1.0", forRemoval = true)
+    @Override
+    public int getMsiTokenCacheTtl() {
+        return 0;
+    }
 ```
 
 ### MarkedForRemoval
@@ -1061,47 +1073,11 @@ Overrides method that is deprecated and marked for removal in 'com.microsoft.sql
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 #### Snippet
 ```java
-    @Deprecated(since = "12.1.0", forRemoval = true)
-    @Override
-    public void setMSIClientId(String managedIdentityClientId) {
-        setStringProperty(connectionProps, SQLServerDriverStringProperty.MSI_CLIENT_ID.toString(),
-                managedIdentityClientId);
-```
-
-### MarkedForRemoval
-Overrides method that is deprecated and marked for removal in 'com.microsoft.sqlserver.jdbc.ISQLServerDataSource'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
-#### Snippet
-```java
-    @Override
-    @Deprecated(since = "10.1.0", forRemoval = true)
-    public void setEncrypt(boolean encryptOption) {
-        setStringProperty(connectionProps, SQLServerDriverStringProperty.ENCRYPT.toString(),
-                Boolean.toString(encryptOption));
-```
-
-### MarkedForRemoval
-Overrides method that is deprecated and marked for removal in 'com.microsoft.sqlserver.jdbc.ISQLServerDataSource'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
-#### Snippet
-```java
     @Override
     @Deprecated(since = "9.4.1", forRemoval = true)
-    public String getAADSecurePrincipalId() {
-        return getStringProperty(connectionProps, SQLServerDriverStringProperty.AAD_SECURE_PRINCIPAL_ID.toString(),
-                SQLServerDriverStringProperty.AAD_SECURE_PRINCIPAL_ID.getDefaultValue());
-```
-
-### MarkedForRemoval
-Overrides method that is deprecated and marked for removal in 'com.microsoft.sqlserver.jdbc.ISQLServerDataSource'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
-#### Snippet
-```java
-    @Deprecated(since = "12.1.0", forRemoval = true)
-    @Override
-    public void setMsiTokenCacheTtl(int timeToLive) {}
-
-    /**
+    public void setAADSecurePrincipalId(String aadSecurePrincipalId) {
+        setStringProperty(connectionProps, SQLServerDriverStringProperty.AAD_SECURE_PRINCIPAL_ID.toString(),
+                aadSecurePrincipalId);
 ```
 
 ### MarkedForRemoval
@@ -1114,6 +1090,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
     public void setJASSConfigurationName(String configurationName) {
         setStringProperty(connectionProps, SQLServerDriverStringProperty.JAAS_CONFIG_NAME.toString(),
                 configurationName);
+```
+
+### MarkedForRemoval
+Overrides method that is deprecated and marked for removal in 'com.microsoft.sqlserver.jdbc.ISQLServerDataSource'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
+#### Snippet
+```java
+    @Deprecated(since = "12.1.0", forRemoval = true)
+    @Override
+    public void setMsiTokenCacheTtl(int timeToLive) {}
+
+    /**
 ```
 
 ### MarkedForRemoval
@@ -1135,9 +1123,21 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 ```java
     @Deprecated(since = "12.1.0", forRemoval = true)
     @Override
-    public int getMsiTokenCacheTtl() {
-        return 0;
-    }
+    public void setMSIClientId(String managedIdentityClientId) {
+        setStringProperty(connectionProps, SQLServerDriverStringProperty.MSI_CLIENT_ID.toString(),
+                managedIdentityClientId);
+```
+
+### MarkedForRemoval
+Overrides method that is deprecated and marked for removal in 'com.microsoft.sqlserver.jdbc.ISQLServerDataSource'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
+#### Snippet
+```java
+    @Override
+    @Deprecated(since = "9.4.1", forRemoval = true)
+    public String getAADSecurePrincipalId() {
+        return getStringProperty(connectionProps, SQLServerDriverStringProperty.AAD_SECURE_PRINCIPAL_ID.toString(),
+                SQLServerDriverStringProperty.AAD_SECURE_PRINCIPAL_ID.getDefaultValue());
 ```
 
 ### MarkedForRemoval
@@ -1157,11 +1157,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-    @SuppressWarnings("deprecation")
-    public void checkLink() {
-        SecurityManager security = System.getSecurityManager();
-        if (null != security) {
-            security.checkLink(DLLNAME);
+
+        // check for setNetworkTimeout permission
+        SecurityManager secMgr = System.getSecurityManager();
+        if (secMgr != null) {
+            try {
 ```
 
 ### MarkedForRemoval
@@ -1169,11 +1169,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-    @SuppressWarnings("deprecation")
-    public void checkLink() {
-        SecurityManager security = System.getSecurityManager();
-        if (null != security) {
-            security.checkLink(DLLNAME);
+
+        // check for setNetworkTimeout permission
+        SecurityManager secMgr = System.getSecurityManager();
+        if (secMgr != null) {
+            try {
 ```
 
 ### MarkedForRemoval
@@ -1181,11 +1181,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        SecurityManager security = System.getSecurityManager();
-        if (null != security) {
-            security.checkLink(DLLNAME);
-        }
-    }
+            try {
+                SQLPermission perm = new SQLPermission(SET_NETWORK_TIMEOUT_PERM);
+                secMgr.checkPermission(perm);
+            } catch (SecurityException ex) {
+                MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_permissionDenied"));
 ```
 
 ### MarkedForRemoval
@@ -1198,6 +1198,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
     public void setMsiTokenCacheTtl(int timeToLive) {}
 
     /**
+```
+
+### MarkedForRemoval
+Overrides method that is deprecated and marked for removal in 'com.microsoft.sqlserver.jdbc.ISQLServerConnection'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+    @Deprecated(since = "12.1.0", forRemoval = true)
+    @Override
+    public int getMsiTokenCacheTtl() {
+        return 0;
+    }
 ```
 
 ### MarkedForRemoval
@@ -1273,27 +1285,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 ```
 
 ### MarkedForRemoval
-Overrides method that is deprecated and marked for removal in 'com.microsoft.sqlserver.jdbc.ISQLServerConnection'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-    @Deprecated(since = "12.1.0", forRemoval = true)
-    @Override
-    public int getMsiTokenCacheTtl() {
-        return 0;
-    }
-```
-
-### MarkedForRemoval
 'java.lang.SecurityManager' is deprecated and marked for removal
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-
-        // check for setNetworkTimeout permission
-        SecurityManager secMgr = System.getSecurityManager();
-        if (secMgr != null) {
-            try {
+    @SuppressWarnings("deprecation")
+    public void checkLink() {
+        SecurityManager security = System.getSecurityManager();
+        if (null != security) {
+            security.checkLink(DLLNAME);
 ```
 
 ### MarkedForRemoval
@@ -1301,11 +1301,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-
-        // check for setNetworkTimeout permission
-        SecurityManager secMgr = System.getSecurityManager();
-        if (secMgr != null) {
-            try {
+    @SuppressWarnings("deprecation")
+    public void checkLink() {
+        SecurityManager security = System.getSecurityManager();
+        if (null != security) {
+            security.checkLink(DLLNAME);
 ```
 
 ### MarkedForRemoval
@@ -1313,11 +1313,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-            try {
-                SQLPermission perm = new SQLPermission(SET_NETWORK_TIMEOUT_PERM);
-                secMgr.checkPermission(perm);
-            } catch (SecurityException ex) {
-                MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_permissionDenied"));
+        SecurityManager security = System.getSecurityManager();
+        if (null != security) {
+            security.checkLink(DLLNAME);
+        }
+    }
 ```
 
 ## RuleId[id=RedundantClassCall]
@@ -1353,6 +1353,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
         setObject(setterGetParam(parameterIndex), x, JavaType.of(x), JDBCType.of(targetSqlType),
                 (java.sql.Types.NUMERIC == targetSqlType || java.sql.Types.DECIMAL == targetSqlType
                         || InputStream.class.isInstance(x) || Reader.class.isInstance(x)) ? scale : null,
+                precision, forceEncrypt, parameterIndex, null);
+
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+        setObject(setterGetParam(parameterIndex), x, JavaType.of(x), JDBCType.of(targetSqlType),
+                (java.sql.Types.NUMERIC == targetSqlType || java.sql.Types.DECIMAL == targetSqlType
+                        || InputStream.class.isInstance(x) || Reader.class.isInstance(x)) ? scale : null,
+                precision, forceEncrypt, parameterIndex, null);
+
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+        setObject(setterGetParam(parameterIndex), x, JavaType.of(x), JDBCType.of(targetSqlType),
+                (java.sql.Types.NUMERIC == targetSqlType || java.sql.Types.DECIMAL == targetSqlType
+                        || InputStream.class.isInstance(x) || Reader.class.isInstance(x)) ? scale : null,
                 precision, false, parameterIndex, null);
 
 ```
@@ -1390,30 +1414,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
                         || microsoft.sql.Types.DATETIMEOFFSET == targetSqlType || InputStream.class.isInstance(x)
                         || Reader.class.isInstance(x)) ? scaleOrLength : null,
                 null, false, parameterIndex, null);
-
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        setObject(setterGetParam(parameterIndex), x, JavaType.of(x), JDBCType.of(targetSqlType),
-                (java.sql.Types.NUMERIC == targetSqlType || java.sql.Types.DECIMAL == targetSqlType
-                        || InputStream.class.isInstance(x) || Reader.class.isInstance(x)) ? scale : null,
-                precision, forceEncrypt, parameterIndex, null);
-
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        setObject(setterGetParam(parameterIndex), x, JavaType.of(x), JDBCType.of(targetSqlType),
-                (java.sql.Types.NUMERIC == targetSqlType || java.sql.Types.DECIMAL == targetSqlType
-                        || InputStream.class.isInstance(x) || Reader.class.isInstance(x)) ? scale : null,
-                precision, forceEncrypt, parameterIndex, null);
 
 ```
 
@@ -1507,11 +1507,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-
-        // Scroll to the last of the returned rows
-        while (scrollWindow.next(this));
-        scrollWindow.previous(this);
-
+        // contents, process the remainder of the current row and all subsequent rows.
+        try {
+            while (fetchBufferNext());
+        } catch (SQLServerException e) {
+            if (logger.isLoggable(java.util.logging.Level.FINER))
 ```
 
 ### EmptyStatementBody
@@ -1531,11 +1531,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-        // contents, process the remainder of the current row and all subsequent rows.
-        try {
-            while (fetchBufferNext());
-        } catch (SQLServerException e) {
-            if (logger.isLoggable(java.util.logging.Level.FINER))
+
+        // Scroll to the last of the returned rows
+        while (scrollWindow.next(this));
+        scrollWindow.previous(this);
+
 ```
 
 ### EmptyStatementBody
@@ -1555,11 +1555,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
-    private ArrayList<String> parseUserSQLForValueListDWHelper(ArrayList<String> listOfValues) {
-        // ignore all comments
-        while (checkAndRemoveCommentsAndSpace(false)) {}
 
-        // At this point, the next chunk of string is the value, without starting with ' (most likely a ?).
+    private void checkAdditionalQuery() {
+        while (checkAndRemoveCommentsAndSpace(true)) {}
+
+        // At this point, if localUserSQL is not empty (after removing all whitespaces, semicolons and comments), we
 ```
 
 ### EmptyStatementBody
@@ -1567,11 +1567,35 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
+    private ArrayList<String> parseUserSQLForColumnListDW() {
+        // ignore all comments
+        while (checkAndRemoveCommentsAndSpace(false)) {}
 
-    private void checkAdditionalQuery() {
-        while (checkAndRemoveCommentsAndSpace(true)) {}
+        // check if optional column list was provided
+```
 
-        // At this point, if localUserSQL is not empty (after removing all whitespaces, semicolons and comments), we
+### EmptyStatementBody
+`while` statement has empty body
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+        // And there could be in-line comments (with /* and */) in between.
+        // This method assumes the localUserSQL string starts with "insert".
+        while (checkAndRemoveCommentsAndSpace(false)) {}
+
+        StringBuilder sb = new StringBuilder();
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+    private ArrayList<String> parseUserSQLForValueListDWHelper(ArrayList<String> listOfValues) {
+        // ignore all comments
+        while (checkAndRemoveCommentsAndSpace(false)) {}
+
+        // At this point, the next chunk of string is the value, without starting with ' (most likely a ?).
 ```
 
 ### EmptyStatementBody
@@ -1608,18 +1632,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
                 while (checkAndRemoveCommentsAndSpace(false)) {}
             }
 
-```
-
-### EmptyStatementBody
-`while` statement has empty body
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        // And there could be in-line comments (with /* and */) in between.
-        // This method assumes the localUserSQL string starts with "insert".
-        while (checkAndRemoveCommentsAndSpace(false)) {}
-
-        StringBuilder sb = new StringBuilder();
 ```
 
 ### EmptyStatementBody
@@ -1660,42 +1672,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 
 ### EmptyStatementBody
 `while` statement has empty body
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-    private ArrayList<String> parseUserSQLForColumnListDW() {
-        // ignore all comments
-        while (checkAndRemoveCommentsAndSpace(false)) {}
-
-        // check if optional column list was provided
-```
-
-### EmptyStatementBody
-`while` statement has empty body
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        // Read any remaining response packets from the server.
-        // This operation may be timed out or cancelled from another thread.
-        while (tdsReader.readPacket());
-
-        // Postcondition: the entire response has been read
-```
-
-### EmptyStatementBody
-`while` statement has empty body
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            int bytesRead;
-
-            while (0 == (bytesRead = readInternal(oneByte, 0, oneByte.length)));
-
-            assert 1 == bytesRead || -1 == bytesRead;
-```
-
-### EmptyStatementBody
-`while` statement has empty body
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
@@ -1716,6 +1692,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
             while (0 == (bytesRead = readInternal(oneByte, 0, oneByte.length)));
 
             assert 1 == bytesRead || -1 == bytesRead;
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            int bytesRead;
+
+            while (0 == (bytesRead = readInternal(oneByte, 0, oneByte.length)));
+
+            assert 1 == bytesRead || -1 == bytesRead;
+```
+
+### EmptyStatementBody
+`while` statement has empty body
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        // Read any remaining response packets from the server.
+        // This operation may be timed out or cancelled from another thread.
+        while (tdsReader.readPacket());
+
+        // Postcondition: the entire response has been read
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -1771,6 +1771,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
 ```
 
 ### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+    // processed to translate the syntax.
+    private final static Pattern LIMIT_SYNTAX_GENERIC = Pattern
+            .compile("\\{\\s*[lL][iI][mM][iI][tT]\\s+(.*)(\\s+[oO][fF][fF][sS][eE][tT](.*)\\}|\\s*\\})");
+
+    private final static Pattern SELECT_PATTERN = Pattern.compile("([sS][eE][lL][eE][cC][tT])\\s+");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+    // processed to translate the syntax.
+    private final static Pattern LIMIT_SYNTAX_GENERIC = Pattern
+            .compile("\\{\\s*[lL][iI][mM][iI][tT]\\s+(.*)(\\s+[oO][fF][fF][sS][eE][tT](.*)\\}|\\s*\\})");
+
+    private final static Pattern SELECT_PATTERN = Pattern.compile("([sS][eE][lL][eE][cC][tT])\\s+");
+```
+
+### RegExpRedundantEscape
 Redundant character escape `\]` in RegExp
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
@@ -1792,30 +1816,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
                     + "(?:\\s*?\\((.*)\\))?\\s*\\}.*+");
 
     /*
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-     */
-    private final static Pattern LIMIT_ONLY_PATTERN = Pattern
-            .compile("\\{\\s*[lL][iI][mM][iI][tT]\\s+(((\\(|\\s)*)(\\d*|\\?)((\\)|\\s)*))\\s*\\}");
-
-    /**
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-    // It will throw an exception if OFFSET is present in the LIMIT escape syntax.
-    private final static Pattern LIMIT_SYNTAX_WITH_OFFSET = Pattern
-            .compile("\\{\\s*[lL][iI][mM][iI][tT]\\s+(.*)\\s+[oO][fF][fF][sS][eE][tT]\\s+(.*)\\}");
-    // This pattern is used to determine if the query has LIMIT escape syntax. If so, then the query is further
-    // processed to translate the syntax.
 ```
 
 ### RegExpRedundantEscape
@@ -1843,6 +1843,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 ```
 
 ### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+    // It will throw an exception if OFFSET is present in the LIMIT escape syntax.
+    private final static Pattern LIMIT_SYNTAX_WITH_OFFSET = Pattern
+            .compile("\\{\\s*[lL][iI][mM][iI][tT]\\s+(.*)\\s+[oO][fF][fF][sS][eE][tT]\\s+(.*)\\}");
+    // This pattern is used to determine if the query has LIMIT escape syntax. If so, then the query is further
+    // processed to translate the syntax.
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+     */
+    private final static Pattern LIMIT_ONLY_PATTERN = Pattern
+            .compile("\\{\\s*[lL][iI][mM][iI][tT]\\s+(((\\(|\\s)*)(\\d*|\\?)((\\)|\\s)*))\\s*\\}");
+
+    /**
+```
+
+### RegExpRedundantEscape
 Redundant character escape `\\]` in RegExp
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
@@ -1912,30 +1936,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
     private final static String SQL_IDENTIFIER_WITHOUT_GROUPS = "(" + SQL_IDENTIFIER_PART + "(?:\\."
             + SQL_IDENTIFIER_PART + "){0,3}?)";
 
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-    // processed to translate the syntax.
-    private final static Pattern LIMIT_SYNTAX_GENERIC = Pattern
-            .compile("\\{\\s*[lL][iI][mM][iI][tT]\\s+(.*)(\\s+[oO][fF][fF][sS][eE][tT](.*)\\}|\\s*\\})");
-
-    private final static Pattern SELECT_PATTERN = Pattern.compile("([sS][eE][lL][eE][cC][tT])\\s+");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-    // processed to translate the syntax.
-    private final static Pattern LIMIT_SYNTAX_GENERIC = Pattern
-            .compile("\\{\\s*[lL][iI][mM][iI][tT]\\s+(.*)(\\s+[oO][fF][fF][sS][eE][tT](.*)\\}|\\s*\\})");
-
-    private final static Pattern SELECT_PATTERN = Pattern.compile("([sS][eE][lL][eE][cC][tT])\\s+");
 ```
 
 ### RegExpRedundantEscape
@@ -1990,18 +1990,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/StreamRetValue.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
-#### Snippet
-```java
-     * of memory usage and run time) for very large PLPs. Use it only if a contiguous byte array is required.
-     */
-    final byte[] getBytes() throws SQLServerException {
-        // We should always retrieve the entire stream, and only once.
-        assert 0 == streamPos;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc42.java`
 #### Snippet
 ```java
@@ -2022,6 +2010,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc42.java`
     static final boolean checkSupportsJDBC43() {
         return false;
     }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
+#### Snippet
+```java
+     * of memory usage and run time) for very large PLPs. Use it only if a contiguous byte array is required.
+     */
+    final byte[] getBytes() throws SQLServerException {
+        // We should always retrieve the entire stream, and only once.
+        assert 0 == streamPos;
 ```
 
 ### FinalMethodInFinalClass
@@ -2062,278 +2062,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerParameterMetaData.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
 ```java
-     * @return the required object.
-     */
-    static final Object convertDoubleToObject(double doubleVal, JDBCType jdbcType, StreamType streamType) {
-        switch (jdbcType) {
-            case FLOAT:
-```
+            private StreamDone stmtDoneToken = null;
 
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    }
-
-    static final Object convertStreamToObject(BaseInputStream stream, TypeInfo typeInfo, JDBCType jdbcType,
-            InputStreamGetterArgs getterArgs) throws SQLServerException {
-        // Need to handle the simple case of a null value here, as it is not done
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    }
-
-    static final byte[] convertMoneyToBytes(BigDecimal bigDecimalVal, int bLength) {
-        byte[] valueBytes = new byte[bLength];
-
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the byte array containing the big-endian encoded value.
-     */
-    static final byte[] convertLongToBytes(long longValue) {
-        byte[] bytes = new byte[8];
-        for (int i = 8; i-- > 0;) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    }
-
-    static final byte[] convertBigDecimalToBytes(BigDecimal bigDecimalVal, int scale) {
-        byte[] valueBytes;
-
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the byte array containing the big-endian encoded value.
-     */
-    static final byte[] convertIntToBytes(int intValue, int valueLength) {
-        byte[] bytes = new byte[valueLength];
-        for (int i = valueLength; i-- > 0;) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return a Java object of the desired type.
-     */
-    static final Object convertTemporalToObject(JDBCType jdbcType, SSType ssType, Calendar timeZoneCalendar,
-            int daysSinceBaseDate, long ticksSinceMidnight, int fractionalSecondsScale) throws SQLServerException {
-
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the required object.
-     */
-    static final Object convertFloatToObject(float floatVal, JDBCType jdbcType, StreamType streamType) {
-        switch (jdbcType) {
-            case REAL:
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the required object.
-     */
-    static final Object convertIntegerToObject(int intValue, int valueLength, JDBCType jdbcType,
-            StreamType streamType) {
-        switch (jdbcType) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the required object.
-     */
-    static final Object convertStringToObject(String stringVal, Charset charset, JDBCType jdbcType,
-            StreamType streamType) throws UnsupportedEncodingException {
-        switch (jdbcType) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the required object.
-     */
-    static final Object convertBigDecimalToObject(BigDecimal bigDecimalVal, JDBCType jdbcType, StreamType streamType) {
-        switch (jdbcType) {
-            case DECIMAL:
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    static final InputStreamGetterArgs defaultArgs = new InputStreamGetterArgs(StreamType.NONE, false, false, "");
-
-    static final InputStreamGetterArgs getDefaultArgs() {
-        return defaultArgs;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     *         when an error occurs.
-     */
-    static final Object convertBytesToObject(byte[] bytesValue, JDBCType jdbcType,
-            TypeInfo baseTypeInfo) throws SQLServerException {
-        switch (jdbcType) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    private long length;
-
-    final long getLength() {
-        return length;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the required object.
-     */
-    static final Object convertMoneyToObject(BigDecimal bigDecimalVal, JDBCType jdbcType, StreamType streamType,
-            int numberOfBytes) {
-        switch (jdbcType) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    // Returns true if input bigDecimalValue exceeds allowable
-    // TDS wire format precision or scale for DECIMAL TDS token.
-    static final boolean exceedsMaxRPCDecimalPrecisionOrScale(BigDecimal bigDecimalValue) {
-        if (null == bigDecimalValue)
-            return false;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the required object.
-     */
-    static final Object convertLongToObject(long longVal, JDBCType jdbcType, SSType baseSSType, StreamType streamType) {
-        switch (jdbcType) {
-            case BIGINT:
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    }
-
-    final void setLength(long newLength) {
-        // We only expect length to be changed from an initial unknown value (-1)
-        // to an actual length (+ve or 0).
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Parameter.java`
-#### Snippet
-```java
-     * Skip value.
-     */
-    final void skipValue(TDSReader tdsReader, boolean isDiscard) throws SQLServerException {
-        if (null == getterDTV)
-            getterDTV = new DTV();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Parameter.java`
-#### Snippet
-```java
-     * semantics that we don't need here.
-     */
-    final Parameter cloneForBatch() {
-        Parameter clonedParam = new Parameter(shouldHonorAEForParameter);
-        clonedParam.typeInfo = typeInfo;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Parameter.java`
-#### Snippet
-```java
-    }
-
-    final CryptoMetadata getCryptoMetadata() {
-        return cryptoMeta;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Parameter.java`
-#### Snippet
-```java
-     * Skip value.
-     */
-    final void skipRetValStatus(TDSReader tdsReader) throws SQLServerException {
-
-        StreamRetValue srv = new StreamRetValue();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.java`
-#### Snippet
-```java
-    }
-
-    final public String toString() {
-        return traceID;
-    }
+            final boolean isUpdateCount() {
+                return null != stmtDoneToken;
+            }
 ```
 
 ### FinalMethodInFinalClass
@@ -2346,30 +2082,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
         final void processResponse(TDSReader tdsReader) throws SQLServerException {
             ensureExecuteResultsReader(tdsReader);
             processExecuteResults();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-        }
-
-        final boolean doExecute() throws SQLServerException {
-            stmt.doExecuteStatementBatch(this);
-            return false;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-        }
-
-        final boolean doExecute() throws SQLServerException {
-            stmt.doExecuteStatement(this);
-            return false;
 ```
 
 ### FinalMethodInFinalClass
@@ -2401,11 +2113,47 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
 ```java
+        final private boolean wasResponseBufferingSet;
+
+        final boolean wasResponseBufferingSet() {
+            return wasResponseBufferingSet;
+        }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        }
+
+        final boolean doExecute() throws SQLServerException {
+            stmt.doExecuteStatementBatch(this);
+            return false;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
             }
 
             final long getUpdateCount() {
                 return stmtDoneToken.getUpdateCount();
             }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        }
+
+        final boolean doExecute() throws SQLServerException {
+            stmt.doExecuteStatement(this);
+            return false;
 ```
 
 ### FinalMethodInFinalClass
@@ -2425,35 +2173,287 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
 ```java
-        final private boolean wasResponseBufferingSet;
-
-        final boolean wasResponseBufferingSet() {
-            return wasResponseBufferingSet;
-        }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-            private StreamDone stmtDoneToken = null;
-
-            final boolean isUpdateCount() {
-                return null != stmtDoneToken;
-            }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
         final private int holdability;
 
         final int getHoldability() {
             return holdability;
         }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    // Returns true if input bigDecimalValue exceeds allowable
+    // TDS wire format precision or scale for DECIMAL TDS token.
+    static final boolean exceedsMaxRPCDecimalPrecisionOrScale(BigDecimal bigDecimalValue) {
+        if (null == bigDecimalValue)
+            return false;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     *         when an error occurs.
+     */
+    static final Object convertBytesToObject(byte[] bytesValue, JDBCType jdbcType,
+            TypeInfo baseTypeInfo) throws SQLServerException {
+        switch (jdbcType) {
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
+    static final Object convertFloatToObject(float floatVal, JDBCType jdbcType, StreamType streamType) {
+        switch (jdbcType) {
+            case REAL:
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    static final InputStreamGetterArgs defaultArgs = new InputStreamGetterArgs(StreamType.NONE, false, false, "");
+
+    static final InputStreamGetterArgs getDefaultArgs() {
+        return defaultArgs;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return a Java object of the desired type.
+     */
+    static final Object convertTemporalToObject(JDBCType jdbcType, SSType ssType, Calendar timeZoneCalendar,
+            int daysSinceBaseDate, long ticksSinceMidnight, int fractionalSecondsScale) throws SQLServerException {
+
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
+    static final Object convertMoneyToObject(BigDecimal bigDecimalVal, JDBCType jdbcType, StreamType streamType,
+            int numberOfBytes) {
+        switch (jdbcType) {
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
+    static final Object convertStringToObject(String stringVal, Charset charset, JDBCType jdbcType,
+            StreamType streamType) throws UnsupportedEncodingException {
+        switch (jdbcType) {
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the byte array containing the big-endian encoded value.
+     */
+    static final byte[] convertIntToBytes(int intValue, int valueLength) {
+        byte[] bytes = new byte[valueLength];
+        for (int i = valueLength; i-- > 0;) {
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
+    static final Object convertDoubleToObject(double doubleVal, JDBCType jdbcType, StreamType streamType) {
+        switch (jdbcType) {
+            case FLOAT:
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    }
+
+    static final byte[] convertBigDecimalToBytes(BigDecimal bigDecimalVal, int scale) {
+        byte[] valueBytes;
+
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the byte array containing the big-endian encoded value.
+     */
+    static final byte[] convertLongToBytes(long longValue) {
+        byte[] bytes = new byte[8];
+        for (int i = 8; i-- > 0;) {
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
+    static final Object convertIntegerToObject(int intValue, int valueLength, JDBCType jdbcType,
+            StreamType streamType) {
+        switch (jdbcType) {
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
+    static final Object convertBigDecimalToObject(BigDecimal bigDecimalVal, JDBCType jdbcType, StreamType streamType) {
+        switch (jdbcType) {
+            case DECIMAL:
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    }
+
+    final void setLength(long newLength) {
+        // We only expect length to be changed from an initial unknown value (-1)
+        // to an actual length (+ve or 0).
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    private long length;
+
+    final long getLength() {
+        return length;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
+    static final Object convertLongToObject(long longVal, JDBCType jdbcType, SSType baseSSType, StreamType streamType) {
+        switch (jdbcType) {
+            case BIGINT:
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    }
+
+    static final byte[] convertMoneyToBytes(BigDecimal bigDecimalVal, int bLength) {
+        byte[] valueBytes = new byte[bLength];
+
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    }
+
+    static final Object convertStreamToObject(BaseInputStream stream, TypeInfo typeInfo, JDBCType jdbcType,
+            InputStreamGetterArgs getterArgs) throws SQLServerException {
+        // Need to handle the simple case of a null value here, as it is not done
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Parameter.java`
+#### Snippet
+```java
+    }
+
+    final CryptoMetadata getCryptoMetadata() {
+        return cryptoMeta;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Parameter.java`
+#### Snippet
+```java
+     * semantics that we don't need here.
+     */
+    final Parameter cloneForBatch() {
+        Parameter clonedParam = new Parameter(shouldHonorAEForParameter);
+        clonedParam.typeInfo = typeInfo;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Parameter.java`
+#### Snippet
+```java
+     * Skip value.
+     */
+    final void skipRetValStatus(TDSReader tdsReader) throws SQLServerException {
+
+        StreamRetValue srv = new StreamRetValue();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Parameter.java`
+#### Snippet
+```java
+     * Skip value.
+     */
+    final void skipValue(TDSReader tdsReader, boolean isDiscard) throws SQLServerException {
+        if (null == getterDTV)
+            getterDTV = new DTV();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.java`
+#### Snippet
+```java
+    }
+
+    final public String toString() {
+        return traceID;
+    }
 ```
 
 ### FinalMethodInFinalClass
@@ -2465,258 +2465,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerNClob.java`
     @Override
     final JDBCType getJdbcType() {
         return JDBCType.NCLOB;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-        }
-
-        final CallableStatement getMappedStatement(String databaseName) {
-            if (null != databaseName) {
-                if (null != statementMap && statementMap.containsKey(databaseName)) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-        }
-
-        final void addToMap(String databaseName, CallableStatement stmt) {
-            if (null != databaseName) {
-                nullCatalog = false;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-     * @return traceID string
-     */
-    final public String toString() {
-        return traceID;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void setCalendar(Calendar calendar) {
-        impl.setCalendar(calendar);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void setStreamSetterArgs(StreamSetterArgs streamSetterArgs) {
-        impl.setStreamSetterArgs(streamSetterArgs);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    // for the DTV when a null value is
-    // received from NBCROW for a particular column
-    final void initFromCompressedNull() {
-        assert valueMark == null;
-        isNull = true;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void skipValue(TypeInfo type, TDSReader tdsReader, boolean isDiscard) throws SQLServerException {
-        // indicates that this value was obtained from NBCROW
-        // So, there is nothing else to read from the wire
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-     * Returns the DTV's current JDBC type
-     */
-    final JDBCType getJdbcType() {
-        assert null != impl;
-        return impl.getJdbcType();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void setValue(Object value, JavaType javaType) {
-        impl.setValue(value, javaType);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void setScale(Integer scale) {
-        impl.setScale(scale);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-     * Returns the DTV's current JDBC type
-     */
-    final JavaType getJavaType() {
-        assert null != impl;
-        return impl.getJavaType();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-     * See DTVExecuteOp
-     */
-    final void executeOp(DTVExecuteOp op) throws SQLServerException {
-        JDBCType jdbcType = getJdbcType();
-        Object value = getSetterValue();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void setForceEncrypt(boolean forceEncrypt) {
-        impl.setForceEncrypt(forceEncrypt);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-     * @return true if impl is not null
-     */
-    final boolean isInitialized() {
-        return (null != impl);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void initFromCompressedNull() {
-        assert false;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void setJdbcType(JDBCType jdbcType) {
-        if (null == impl)
-            impl = new AppDTVImpl();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    private SqlVariant internalVariant;
-
-    final void skipValue(TypeInfo typeInfo, TDSReader tdsReader, boolean isDiscard) throws SQLServerException {
-        assert false;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void skipValue(TypeInfo type, TDSReader tdsReader, boolean isDiscard) throws SQLServerException {
-        if (null == impl)
-            impl = new ServerDTVImpl();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void initFromCompressedNull() {
-        if (null == impl)
-            impl = new ServerDTVImpl();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    }
-
-    final void clear() {
-        impl = null;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
-#### Snippet
-```java
-    }
-
-    final void setDriverErrorCode(int value) {
-        driverErrorCode = value;
     }
 ```
 
@@ -2734,14 +2482,26 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
+#### Snippet
+```java
+    }
+
+    final void setDriverErrorCode(int value) {
+        driverErrorCode = value;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
 #### Snippet
 ```java
     }
 
-    final void reset() {
-        currentRow = 0;
-    }
+    final void resize(int newSize) {
+        assert newSize > 0;
+        if (newSize != size)
 ```
 
 ### FinalMethodInFinalClass
@@ -2763,9 +2523,33 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
 ```java
     }
 
+    final void reset() {
+        currentRow = 0;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
+#### Snippet
+```java
+    }
+
     final boolean next(SQLServerResultSet rs) throws SQLServerException {
         if (SQLServerResultSet.logger.isLoggable(java.util.logging.Level.FINER))
             SQLServerResultSet.logger.finer(rs.toString() + logCursorState());
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
+#### Snippet
+```java
+    }
+
+    final String logCursorState() {
+        return " currentRow:" + currentRow + " maxRows:" + maxRows;
+    }
 ```
 
 ### FinalMethodInFinalClass
@@ -2787,9 +2571,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
 ```java
     }
 
-    final void resize(int newSize) {
-        assert newSize > 0;
-        if (newSize != size)
+    final void previous(SQLServerResultSet rs) throws SQLServerException {
+        if (SQLServerResultSet.logger.isLoggable(java.util.logging.Level.FINER))
+            SQLServerResultSet.logger.finer(rs.toString() + logCursorState());
 ```
 
 ### FinalMethodInFinalClass
@@ -2806,26 +2590,38 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-    }
-
-    final String logCursorState() {
-        return " currentRow:" + currentRow + " maxRows:" + maxRows;
+     * @return traceID string
+     */
+    final public String toString() {
+        return traceID;
     }
 ```
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-    }
+        }
 
-    final void previous(SQLServerResultSet rs) throws SQLServerException {
-        if (SQLServerResultSet.logger.isLoggable(java.util.logging.Level.FINER))
-            SQLServerResultSet.logger.finer(rs.toString() + logCursorState());
+        final void addToMap(String databaseName, CallableStatement stmt) {
+            if (null != databaseName) {
+                nullCatalog = false;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+        }
+
+        final CallableStatement getMappedStatement(String databaseName) {
+            if (null != databaseName) {
+                if (null != statementMap && statementMap.containsKey(databaseName)) {
 ```
 
 ### FinalMethodInFinalClass
@@ -2845,11 +2641,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
 ```java
+
+    @Override
+    final public String toString() {
+        return traceID;
     }
-
-    static final DriverPropertyInfo[] getPropertyInfoFromProperties(Properties props) {
-        DriverPropertyInfo[] properties = new DriverPropertyInfo[DRIVER_PROPERTIES.length];
-
 ```
 
 ### FinalMethodInFinalClass
@@ -2857,11 +2653,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
 ```java
-
-    @Override
-    final public String toString() {
-        return traceID;
     }
+
+    static final DriverPropertyInfo[] getPropertyInfoFromProperties(Properties props) {
+        DriverPropertyInfo[] properties = new DriverPropertyInfo[DRIVER_PROPERTIES.length];
+
 ```
 
 ### FinalMethodInFinalClass
@@ -2878,14 +2674,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/PLPInputStream.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
 #### Snippet
 ```java
-    private final ByteArrayInputStream bomStream = new ByteArrayInputStream(xmlBOM);
+    }
 
-    static final PLPXMLInputStream makeXMLStream(TDSReader tdsReader, InputStreamGetterArgs getterArgs,
-            ServerDTVImpl dtv) throws SQLServerException {
-        // Read total length of PLP stream.
+    static final int tdsLength() {
+        return TDS_LENGTH;
+    } // Length of collation in TDS (in bytes)
 ```
 
 ### FinalMethodInFinalClass
@@ -2919,21 +2715,33 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
 ```java
     }
 
-    static final int tdsLength() {
-        return TDS_LENGTH;
-    } // Length of collation in TDS (in bytes)
+    final boolean supportsAsciiConversion() {
+        return encoding.supportsAsciiConversion();
+    }
 ```
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/PLPInputStream.java`
 #### Snippet
 ```java
-    }
+    private final ByteArrayInputStream bomStream = new ByteArrayInputStream(xmlBOM);
 
-    final boolean supportsAsciiConversion() {
-        return encoding.supportsAsciiConversion();
-    }
+    static final PLPXMLInputStream makeXMLStream(TDSReader tdsReader, InputStreamGetterArgs getterArgs,
+            ServerDTVImpl dtv) throws SQLServerException {
+        // Read total length of PLP stream.
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
+#### Snippet
+```java
+            }
+
+            final boolean doExecute() throws SQLServerException {
+                int timeoutSeconds = copyOptions.getBulkCopyTimeout();
+                if (timeoutSeconds > 0) {
 ```
 
 ### FinalMethodInFinalClass
@@ -2962,78 +2770,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-            }
-
-            final boolean doExecute() throws SQLServerException {
-                int timeoutSeconds = copyOptions.getBulkCopyTimeout();
-                if (timeoutSeconds > 0) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBlob.java`
-#### Snippet
-```java
-     * Returns string representation of object
-     */
-    public final String toString() {
-        return traceID;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    }
-
-    final void setServerName(String name) {
-        serverName = name;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    private String serverName = "";
-
-    final String getServerName() {
-        return serverName;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    }
-
-    static final boolean isCharType(int jdbcType) {
-        switch (jdbcType) {
-            case java.sql.Types.CHAR:
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    }
-
-    final void setObjectName(String name) {
-        objectName = name;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 #### Snippet
 ```java
@@ -3051,93 +2787,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 ```java
     }
 
-    final void setDatabaseName(String name) {
-        databaseName = name;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    }
-
-    static final Boolean isBinaryType(int jdbcType) {
-        switch (jdbcType) {
-            case java.sql.Types.BINARY:
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    }
-
-    static final Boolean isCharType(SSType ssType) {
-        switch (ssType) {
-            case CHAR:
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    private String objectName = "";
-
-    final String getObjectName() {
-        return objectName;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    }
-
-    static final byte[] asGuidByteArray(UUID aId) {
-        long msb = aId.getMostSignificantBits();
-        long lsb = aId.getLeastSignificantBits();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    }
-
-    static final Boolean isBinaryType(SSType ssType) {
-        switch (ssType) {
-            case BINARY:
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    }
-
     final String asEscapedString() {
         StringBuilder fullName = new StringBuilder(256);
 
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    }
-
-    final void setSchemaName(String name) {
-        schemaName = name;
-    }
 ```
 
 ### FinalMethodInFinalClass
@@ -3171,6 +2823,66 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 ```java
     }
 
+    final void setServerName(String name) {
+        serverName = name;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    private String serverName = "";
+
+    final String getServerName() {
+        return serverName;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    }
+
+    static final byte[] asGuidByteArray(UUID aId) {
+        long msb = aId.getMostSignificantBits();
+        long lsb = aId.getLeastSignificantBits();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    }
+
+    static final boolean isCharType(int jdbcType) {
+        switch (jdbcType) {
+            case java.sql.Types.CHAR:
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    }
+
+    static final Boolean isBinaryType(SSType ssType) {
+        switch (ssType) {
+            case BINARY:
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    }
+
     static final String readGUID(byte[] inputGUID) {
         String guidTemplate = "NNNNNNNN-NNNN-NNNN-NNNN-NNNNNNNNNNNN";
         byte[] guid = inputGUID;
@@ -3178,14 +2890,290 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 #### Snippet
 ```java
-                }
+    }
 
-                final boolean doExecute() throws SQLServerException {
-                    TDSWriter tdsWriter = startRequest(TDS.PKT_RPC);
-                    tdsWriter.writeShort((short) 0xFFFF); // procedure name length -> use ProcIDs
+    static final Boolean isCharType(SSType ssType) {
+        switch (ssType) {
+            case CHAR:
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    }
+
+    final void setObjectName(String name) {
+        objectName = name;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    private String objectName = "";
+
+    final String getObjectName() {
+        return objectName;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    }
+
+    final void setDatabaseName(String name) {
+        databaseName = name;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    }
+
+    final void setSchemaName(String name) {
+        schemaName = name;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    }
+
+    static final Boolean isBinaryType(int jdbcType) {
+        switch (jdbcType) {
+            case java.sql.Types.BINARY:
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBlob.java`
+#### Snippet
+```java
+     * Returns string representation of object
+     */
+    public final String toString() {
+        return traceID;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void setStreamSetterArgs(StreamSetterArgs streamSetterArgs) {
+        impl.setStreamSetterArgs(streamSetterArgs);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+     * Returns the DTV's current JDBC type
+     */
+    final JDBCType getJdbcType() {
+        assert null != impl;
+        return impl.getJdbcType();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void skipValue(TypeInfo type, TDSReader tdsReader, boolean isDiscard) throws SQLServerException {
+        if (null == impl)
+            impl = new ServerDTVImpl();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    // for the DTV when a null value is
+    // received from NBCROW for a particular column
+    final void initFromCompressedNull() {
+        assert valueMark == null;
+        isNull = true;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void setValue(Object value, JavaType javaType) {
+        impl.setValue(value, javaType);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void setScale(Integer scale) {
+        impl.setScale(scale);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+     * @return true if impl is not null
+     */
+    final boolean isInitialized() {
+        return (null != impl);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void setCalendar(Calendar calendar) {
+        impl.setCalendar(calendar);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    private SqlVariant internalVariant;
+
+    final void skipValue(TypeInfo typeInfo, TDSReader tdsReader, boolean isDiscard) throws SQLServerException {
+        assert false;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void skipValue(TypeInfo type, TDSReader tdsReader, boolean isDiscard) throws SQLServerException {
+        // indicates that this value was obtained from NBCROW
+        // So, there is nothing else to read from the wire
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void setForceEncrypt(boolean forceEncrypt) {
+        impl.setForceEncrypt(forceEncrypt);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void initFromCompressedNull() {
+        if (null == impl)
+            impl = new ServerDTVImpl();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+     * See DTVExecuteOp
+     */
+    final void executeOp(DTVExecuteOp op) throws SQLServerException {
+        JDBCType jdbcType = getJdbcType();
+        Object value = getSetterValue();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void clear() {
+        impl = null;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void initFromCompressedNull() {
+        assert false;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+     * Returns the DTV's current JDBC type
+     */
+    final JavaType getJavaType() {
+        assert null != impl;
+        return impl.getJavaType();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    }
+
+    final void setJdbcType(JDBCType jdbcType) {
+        if (null == impl)
+            impl = new AppDTVImpl();
 ```
 
 ### FinalMethodInFinalClass
@@ -3193,23 +3181,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-            private final SQLServerStatement stmt;
-
-            final int getRowCount() {
-                return stmt.getServerCursorRowCount();
             }
-```
 
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        private TDSReaderMark startMark;
-
-        final void clearStartMark() {
-            startMark = null;
-        }
+            final boolean doExecute() throws SQLServerException {
+                doInsertRowRPC(this, tableName);
+                return true;
 ```
 
 ### FinalMethodInFinalClass
@@ -3219,9 +3195,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 ```java
             }
 
-            final int getServerCursorId() {
-                return 0;
-            }
+            final boolean doExecute() throws SQLServerException {
+                doUpdateRowRPC(this);
+                return true;
 ```
 
 ### FinalMethodInFinalClass
@@ -3241,11 +3217,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-         * Moves to the next row in the fetch buffer.
-         */
-        final RowType nextRow() throws SQLServerException {
-            fetchBufferCurrentRowType = RowType.UNKNOWN;
+        }
 
+        final boolean doExecute() throws SQLServerException {
+            TDSWriter tdsWriter = startRequest(TDS.PKT_RPC);
+            tdsWriter.writeShort((short) 0xFFFF); // procedure name length -> use ProcIDs
 ```
 
 ### FinalMethodInFinalClass
@@ -3265,11 +3241,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-         * Repositions the fetch buffer back to the beginning.
-         */
-        final void reset() {
-            assert null != tdsReader;
-            assert null != startMark;
+        private boolean needsServerCursorFixup;
+
+        final boolean needsServerCursorFixup() {
+            return needsServerCursorFixup;
+        }
 ```
 
 ### FinalMethodInFinalClass
@@ -3277,11 +3253,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-        }
+            }
 
-        final boolean doExecute() throws SQLServerException {
-            TDSWriter tdsWriter = startRequest(TDS.PKT_RPC);
-            tdsWriter.writeShort((short) 0xFFFF); // procedure name length -> use ProcIDs
+            final int getServerCursorId() {
+                return stmt.getServerCursorId();
+            }
 ```
 
 ### FinalMethodInFinalClass
@@ -3301,11 +3277,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-            }
+                }
 
-            final boolean doExecute() throws SQLServerException {
-                doUpdateRowRPC(this);
-                return true;
+                final boolean doExecute() throws SQLServerException {
+                    TDSWriter tdsWriter = startRequest(TDS.PKT_RPC);
+                    tdsWriter.writeShort((short) 0xFFFF); // procedure name length -> use ProcIDs
 ```
 
 ### FinalMethodInFinalClass
@@ -3340,7 +3316,7 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
             }
 
             final int getServerCursorId() {
-                return stmt.getServerCursorId();
+                return 0;
             }
 ```
 
@@ -3349,11 +3325,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-            }
+         * Moves to the next row in the fetch buffer.
+         */
+        final RowType nextRow() throws SQLServerException {
+            fetchBufferCurrentRowType = RowType.UNKNOWN;
 
-            final boolean doExecute() throws SQLServerException {
-                doInsertRowRPC(this, tableName);
-                return true;
 ```
 
 ### FinalMethodInFinalClass
@@ -3361,23 +3337,35 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-        private boolean needsServerCursorFixup;
+            private final SQLServerStatement stmt;
 
-        final boolean needsServerCursorFixup() {
-            return needsServerCursorFixup;
+            final int getRowCount() {
+                return stmt.getServerCursorRowCount();
+            }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+         * Repositions the fetch buffer back to the beginning.
+         */
+        final void reset() {
+            assert null != tdsReader;
+            assert null != startMark;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        private TDSReaderMark startMark;
+
+        final void clearStartMark() {
+            startMark = null;
         }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
-#### Snippet
-```java
-            private boolean foundParam;
-
-            final boolean foundParam() {
-                return foundParam;
-            }
 ```
 
 ### FinalMethodInFinalClass
@@ -3394,14 +3382,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc43.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
 #### Snippet
 ```java
-    }
+            private boolean foundParam;
 
-    static final void throwBatchUpdateException(SQLServerException lastError,
-            long[] updateCounts) throws BatchUpdateException {
-        throw new BatchUpdateException(lastError.getMessage(), lastError.getSQLState(), lastError.getErrorCode(),
+            final boolean foundParam() {
+                return foundParam;
+            }
 ```
 
 ### FinalMethodInFinalClass
@@ -3418,62 +3406,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc43.java`
 
 ### FinalMethodInFinalClass
 Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc43.java`
 #### Snippet
 ```java
-                    }
+    }
 
-                    final boolean doExecute() throws SQLServerException {
-                        TDSWriter tdsWriter = startRequest(TDS.PKT_RPC);
-                        tdsWriter.writeShort((short) 0xFFFF); // procedure name length -> use ProcIDs
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        }
-
-        final boolean doExecute() throws SQLServerException {
-            stmt.doExecutePreparedStatement(this);
-            return false;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-
-        @Override
-        final void processResponse(TDSReader tdsReader) throws SQLServerException {
-            ensureExecuteResultsReader(tdsReader);
-            processExecuteResults();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-
-        @Override
-        final void processResponse(TDSReader tdsReader) throws SQLServerException {
-            ensureExecuteResultsReader(tdsReader);
-            processExecuteResults();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        }
-
-        final boolean doExecute() throws SQLServerException {
-            stmt.doExecutePreparedStatementBatch(this);
-            return true;
+    static final void throwBatchUpdateException(SQLServerException lastError,
+            long[] updateCounts) throws BatchUpdateException {
+        throw new BatchUpdateException(lastError.getMessage(), lastError.getSQLState(), lastError.getErrorCode(),
 ```
 
 ### FinalMethodInFinalClass
@@ -3481,10 +3421,22 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
 #### Snippet
 ```java
-    private SQLIdentifier tableName;
+     * Clears the values associated with this column.
+     */
+    final void clear() {
+        getterDTV.clear();
+    }
+```
 
-    final void setTableName(SQLIdentifier name) {
-        tableName = name;
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
+#### Snippet
+```java
+    private int infoStatus;
+
+    final void setInfoStatus(int status) {
+        infoStatus = status;
     }
 ```
 
@@ -3507,8 +3459,8 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
 ```java
     }
 
-    final String getBaseColumnName() {
-        return baseColumnName;
+    final boolean hasDifferentName() {
+        return 0 != (infoStatus & TDS.COLINFO_STATUS_DIFFERENT_NAME);
     }
 ```
 
@@ -3517,10 +3469,10 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
 #### Snippet
 ```java
-     * Clears the values associated with this column.
-     */
-    final void clear() {
-        getterDTV.clear();
+    }
+
+    final TypeInfo getTypeInfo() {
+        return typeInfo;
     }
 ```
 
@@ -3529,10 +3481,10 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
 #### Snippet
 ```java
-     * true, if impl of getterDTV is not set to null
-     */
-    final boolean isInitialized() {
-        return getterDTV.isInitialized();
+    }
+
+    final boolean isKey() {
+        return 0 != (infoStatus & TDS.COLINFO_STATUS_KEY);
     }
 ```
 
@@ -3541,46 +3493,10 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
 #### Snippet
 ```java
-    private String columnName;
-
-    final void setColumnName(String name) {
-        columnName = name;
     }
-```
 
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
-#### Snippet
-```java
-     * If the column has not yet been read from the response then this method returns false.
-     */
-    final boolean isNull() {
-        return getterDTV.isNull();
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
-#### Snippet
-```java
-     * Sets Null value on the getterDTV of a column
-     */
-    final void initFromCompressedNull() {
-        getterDTV.initFromCompressedNull();
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
-#### Snippet
-```java
-    private int infoStatus;
-
-    final void setInfoStatus(int status) {
-        infoStatus = status;
+    final boolean isUpdatable() {
+        return !isExpression() && !isHidden() && tableName.getObjectName().length() > 0;
     }
 ```
 
@@ -3613,18 +3529,6 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
 #### Snippet
 ```java
-    }
-
-    final boolean isHidden() {
-        return 0 != (infoStatus & TDS.COLINFO_STATUS_HIDDEN);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
-#### Snippet
-```java
     private String baseColumnName;
 
     final void setBaseColumnName(String name) {
@@ -3637,34 +3541,10 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
 #### Snippet
 ```java
-    }
-
-    final boolean isKey() {
-        return 0 != (infoStatus & TDS.COLINFO_STATUS_KEY);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
-#### Snippet
-```java
-    }
-
-    final boolean isExpression() {
-        return 0 != (infoStatus & TDS.COLINFO_STATUS_EXPRESSION);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
-#### Snippet
-```java
-     * function assumes that the value is located at the current position in the response.
+     * Sets Null value on the getterDTV of a column
      */
-    final void skipValue(TDSReader tdsReader, boolean isDiscard) throws SQLServerException {
-        getterDTV.skipValue(typeInfo, tdsReader, isDiscard);
+    final void initFromCompressedNull() {
+        getterDTV.initFromCompressedNull();
     }
 ```
 
@@ -3685,10 +3565,82 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
 #### Snippet
 ```java
+    private SQLIdentifier tableName;
+
+    final void setTableName(SQLIdentifier name) {
+        tableName = name;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
+#### Snippet
+```java
+     * function assumes that the value is located at the current position in the response.
+     */
+    final void skipValue(TDSReader tdsReader, boolean isDiscard) throws SQLServerException {
+        getterDTV.skipValue(typeInfo, tdsReader, isDiscard);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
+#### Snippet
+```java
     }
 
-    final boolean isUpdatable() {
-        return !isExpression() && !isHidden() && tableName.getObjectName().length() > 0;
+    final boolean isExpression() {
+        return 0 != (infoStatus & TDS.COLINFO_STATUS_EXPRESSION);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
+#### Snippet
+```java
+     * true, if impl of getterDTV is not set to null
+     */
+    final boolean isInitialized() {
+        return getterDTV.isInitialized();
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
+#### Snippet
+```java
+    }
+
+    final boolean isHidden() {
+        return 0 != (infoStatus & TDS.COLINFO_STATUS_HIDDEN);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
+#### Snippet
+```java
+    private String columnName;
+
+    final void setColumnName(String name) {
+        columnName = name;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
+#### Snippet
+```java
+    }
+
+    final String getBaseColumnName() {
+        return baseColumnName;
     }
 ```
 
@@ -3721,119 +3673,71 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
 #### Snippet
 ```java
-    }
-
-    final boolean hasDifferentName() {
-        return 0 != (infoStatus & TDS.COLINFO_STATUS_DIFFERENT_NAME);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
-#### Snippet
-```java
-    }
-
-    final TypeInfo getTypeInfo() {
-        return typeInfo;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final long readLong() throws SQLServerException {
-        if (payloadOffset + 8 <= currentPacket.payloadLength) {
-            long value = Util.readLong(currentPacket.payload, payloadOffset);
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final char readChar() throws SQLServerException {
-        return (char) readShort();
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final TDSReaderMark mark() {
-        TDSReaderMark mark = new TDSReaderMark(currentPacket, payloadOffset);
-        isStreaming = false;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final Object readDecimal(int valueLength, TypeInfo typeInfo, JDBCType jdbcType,
-            StreamType streamType) throws SQLServerException {
-        if (valueLength > valueBytes.length) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final boolean isColumnEncryptionSettingEnabled() {
-        return useColumnEncryption;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final void endMessage() throws SQLServerException {
-        if (logger.isLoggable(Level.FINEST))
-            logger.finest(toString() + " Finishing TDS message");
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final byte getServerSupportedDataClassificationVersion() {
-        return serverSupportedDataClassificationVersion;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * the response and another thread that is trying to buffer it with TDSCommand.detach().
+     * If the column has not yet been read from the response then this method returns false.
      */
-    final boolean readPacket() throws SQLServerException {
-        lock.lock();
-        try {
+    final boolean isNull() {
+        return getterDTV.isNull();
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+
+        @Override
+        final void processResponse(TDSReader tdsReader) throws SQLServerException {
+            ensureExecuteResultsReader(tdsReader);
+            processExecuteResults();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+                    }
+
+                    final boolean doExecute() throws SQLServerException {
+                        TDSWriter tdsWriter = startRequest(TDS.PKT_RPC);
+                        tdsWriter.writeShort((short) 0xFFFF); // procedure name length -> use ProcIDs
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+        }
+
+        final boolean doExecute() throws SQLServerException {
+            stmt.doExecutePreparedStatementBatch(this);
+            return true;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+        }
+
+        final boolean doExecute() throws SQLServerException {
+            stmt.doExecutePreparedStatement(this);
+            return false;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+
+        @Override
+        final void processResponse(TDSReader tdsReader) throws SQLServerException {
+            ensureExecuteResultsReader(tdsReader);
+            processExecuteResults();
 ```
 
 ### FinalMethodInFinalClass
@@ -3841,11 +3745,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-    }
+    private final transient TDSWriter tdsWriter;
 
-    final Object readDateTime2(int valueLength, TypeInfo typeInfo, Calendar appTimeZoneCalendar,
-            JDBCType jdbcType) throws SQLServerException {
-        if (TDS.datetime2ValueLength(typeInfo.getScale()) != valueLength)
+    final TDSWriter getWriter() {
+        return tdsWriter;
+    }
 ```
 
 ### FinalMethodInFinalClass
@@ -3853,11 +3757,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-    }
+    static final byte ENCRYPT_INVALID = (byte) 0xFF;
 
-    final Object readReal(int valueLength, JDBCType jdbcType, StreamType streamType) throws SQLServerException {
-        if (4 != valueLength)
-            throwInvalidTDS();
+    static final String getEncryptionLevel(int level) {
+        switch (level) {
+            case ENCRYPT_OFF:
 ```
 
 ### FinalMethodInFinalClass
@@ -3879,21 +3783,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final void reset(TDSReaderMark mark) {
-        if (logger.isLoggable(Level.FINEST))
-            logger.finest(this.toString() + ": Resetting to: " + mark.toString());
-```
+    final SQLCollation readCollation() throws SQLServerException {
+        SQLCollation collation = null;
 
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @return the actual number of bytes available.
-     */
-    final int available() {
-        // The number of bytes that can be read without blocking is just the number
-        // of bytes that are currently buffered. That is the number of bytes left
 ```
 
 ### FinalMethodInFinalClass
@@ -3903,201 +3795,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final boolean isEOM() {
-        return TDS.STATUS_BIT_EOM == (header[TDS.PACKET_HEADER_MESSAGE_STATUS] & TDS.STATUS_BIT_EOM);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    static final int SQL_VARIANT_LENGTH = 8009;
-
-    static final String getTokenName(int tdsTokenType) {
-        switch (tdsTokenType) {
-            case TDS_RET_STAT:
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final Object readTime(int valueLength, TypeInfo typeInfo, Calendar appTimeZoneCalendar,
-            JDBCType jdbcType) throws SQLServerException {
-        if (TDS.timeValueLength(typeInfo.getScale()) != valueLength)
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final int readUnsignedByte() throws SQLServerException {
-        // Ensure that we have a packet to read from.
-        if (!ensurePayload())
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final void throwInvalidTDS() throws SQLServerException {
-        if (logger.isLoggable(Level.SEVERE))
-            logger.severe(toString() + " got unexpected value in TDS response at offset:" + payloadOffset);
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final Object readDate(int valueLength, Calendar appTimeZoneCalendar, JDBCType jdbcType) throws SQLServerException {
-        if (TDS.DAYS_INTO_CE_LENGTH != valueLength)
-            throwInvalidTDS();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    static final byte ENCRYPT_INVALID = (byte) 0xFF;
-
-    static final String getEncryptionLevel(int level) {
-        switch (level) {
-            case ENCRYPT_OFF:
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final int readInt() throws SQLServerException {
-        if (payloadOffset + 4 <= currentPacket.payloadLength) {
-            int value = Util.readInt(currentPacket.payload, payloadOffset);
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final void tryProcessFeatureExtAck(boolean featureExtAckReceived) throws SQLServerException {
-        // in case of redirection, do not check if TDS_FEATURE_EXTENSION_ACK is received or not.
-        if (null != this.con.getRoutingInfo()) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final Object readDateTimeOffset(int valueLength, TypeInfo typeInfo, JDBCType jdbcType) throws SQLServerException {
-        if (TDS.datetimeoffsetValueLength(typeInfo.getScale()) != valueLength)
-            throwInvalidTDS();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final int peekTokenType() throws SQLServerException {
-        // Check whether we're at EOF
-        if (!ensurePayload())
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     *         thrown if the socket timeout cannot be set
-     */
-    final void setNetworkTimeout(int timeout) throws IOException {
-        tcpSocket.setSoTimeout(timeout);
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final int read(byte[] data, int offset, int length) throws SQLServerException {
-        try {
-            inputStreamLock.lock();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final void stream() {
-        isStreaming = true;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final SQLServerConnection getConnection() {
-        return con;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        }
-
-        final void setFilteredStream(OutputStream os) {
-            filteredStream = os;
-        }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final void skip(int bytesToSkip) throws SQLServerException {
-        assert bytesToSkip >= 0;
-
+    final Object readDecimal(int valueLength, TypeInfo typeInfo, JDBCType jdbcType,
+            StreamType streamType) throws SQLServerException {
+        if (valueLength > valueBytes.length) {
 ```
 
 ### FinalMethodInFinalClass
@@ -4131,81 +3831,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final byte[] readWrappedBytes(int valueLength) throws SQLServerException {
-        assert valueLength <= valueBytes.length;
-        readBytes(valueBytes, 0, valueLength);
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    private static final Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.internals.TDS.Channel");
-
-    final Logger getLogger() {
-        return logger;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        }
-
-        final void setFilteredStream(InputStream is) {
-            filteredStream = is;
-        }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final void close() {
-        if (null != sslSocket)
-            disableSSL();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     *         default (no trust store, no password specified) path.
-     */
-    final InputStream loadTrustStore(String trustStoreFileName) {
-        FileInputStream is = null;
-
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * Reads a multi-part table name from TDS and returns it as an array of Strings.
-     */
-    final SQLIdentifier readSQLIdentifier() throws SQLServerException {
-        // Multi-part names should have between 1 and 4 parts
-        int numParts = readUnsignedByte();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @throws SQLServerException
-     */
-    final void readSkipBytes(int valueLength) throws SQLServerException {
-        for (int bytesSkipped = 0; bytesSkipped < valueLength;) {
-            // Ensure that we have a packet to read from.
+    final void error(String reason, SQLState sqlState, DriverError driverError) throws SQLServerException {
+        assert null != command;
+        command.interrupt(reason);
 ```
 
 ### FinalMethodInFinalClass
@@ -4225,35 +3853,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-    private transient ScheduledFuture<?> timeout;
-
-    final public String toString() {
-        return traceID;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    private final boolean isLoggingPackets = packetLogger.isLoggable(Level.FINEST);
-
-    final boolean isLoggingPackets() {
-        return isLoggingPackets;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    private final transient TDSWriter tdsWriter;
-
-    final TDSWriter getWriter() {
-        return tdsWriter;
-    }
+     * @return InetSocketAddress of the connection socket.
+     */
+    final InetSocketAddress open(String host, int port, int timeoutMillis, boolean useParallel, boolean useTnir,
+            boolean isTnirFirstAttempt, int timeoutMillisForFullTimeout,
+            String iPAddressPreference) throws SQLServerException {
 ```
 
 ### FinalMethodInFinalClass
@@ -4263,9 +3867,129 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final Object readFloat(int valueLength, JDBCType jdbcType, StreamType streamType) throws SQLServerException {
-        if (8 != valueLength)
+    final long readLong() throws SQLServerException {
+        if (payloadOffset + 8 <= currentPacket.payloadLength) {
+            long value = Util.readLong(currentPacket.payload, payloadOffset);
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final Object readDateTimeOffset(int valueLength, TypeInfo typeInfo, JDBCType jdbcType) throws SQLServerException {
+        if (TDS.datetimeoffsetValueLength(typeInfo.getScale()) != valueLength)
             throwInvalidTDS();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    // the client MUST send the next packet with both ignore bit (0x02) and EOM bit (0x01)
+    // set in the status to cancel the request.
+    final boolean ignoreMessage() throws SQLServerException {
+        if (packetNum > 0 || TDS.PKT_BULK == this.tdsMessageType) {
+            assert !isEOMSent;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final byte getServerSupportedDataClassificationVersion() {
+        return serverSupportedDataClassificationVersion;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final short readShort() throws SQLServerException {
+        if (payloadOffset + 2 <= currentPacket.payloadLength) {
+            short value = Util.readShort(currentPacket.payload, payloadOffset);
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final int readIntBigEndian() throws SQLServerException {
+        if (payloadOffset + 4 <= currentPacket.payloadLength) {
+            int value = Util.readIntBigEndian(currentPacket.payload, payloadOffset);
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * Reads a multi-part table name from TDS and returns it as an array of Strings.
+     */
+    final SQLIdentifier readSQLIdentifier() throws SQLServerException {
+        // Multi-part names should have between 1 and 4 parts
+        int numParts = readUnsignedByte();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final void flush() throws SQLServerException {
+        try {
+            con.idleNetworkTracker.markNetworkActivity();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * occur only from one thread at a time.
+     */
+    final boolean sendAttention() throws SQLServerException {
+        // If any request packets were already written to the server then send an
+        // attention signal to the server to tell it to ignore the request or
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    private static final Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.internals.TDS.Channel");
+
+    final Logger getLogger() {
+        return logger;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final byte[] readWrappedBytes(int valueLength) throws SQLServerException {
+        assert valueLength <= valueBytes.length;
+        readBytes(valueBytes, 0, valueLength);
 ```
 
 ### FinalMethodInFinalClass
@@ -4287,9 +4011,21 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final String readUnicodeString(int length) throws SQLServerException {
-        int byteLength = 2 * length;
-        byte[] bytes = new byte[byteLength];
+    final void endMessage() throws SQLServerException {
+        if (logger.isLoggable(Level.FINEST))
+            logger.finest(toString() + " Finishing TDS message");
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * @throws SQLServerException
+     */
+    final void readSkipBytes(int valueLength) throws SQLServerException {
+        for (int bytesSkipped = 0; bytesSkipped < valueLength;) {
+            // Ensure that we have a packet to read from.
 ```
 
 ### FinalMethodInFinalClass
@@ -4299,9 +4035,117 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final int readIntBigEndian() throws SQLServerException {
-        if (payloadOffset + 4 <= currentPacket.payloadLength) {
-            int value = Util.readIntBigEndian(currentPacket.payload, payloadOffset);
+    final int readUnsignedByte() throws SQLServerException {
+        // Ensure that we have a packet to read from.
+        if (!ensurePayload())
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    private final String traceID;
+
+    final public String toString() {
+        return traceID;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final TDSReaderMark mark() {
+        TDSReaderMark mark = new TDSReaderMark(currentPacket, payloadOffset);
+        isStreaming = false;
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final Object readDateTime2(int valueLength, TypeInfo typeInfo, Calendar appTimeZoneCalendar,
+            JDBCType jdbcType) throws SQLServerException {
+        if (TDS.datetime2ValueLength(typeInfo.getScale()) != valueLength)
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * @return the actual number of bytes available.
+     */
+    final int available() {
+        // The number of bytes that can be read without blocking is just the number
+        // of bytes that are currently buffered. That is the number of bytes left
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final boolean isEOM() {
+        return TDS.STATUS_BIT_EOM == (header[TDS.PACKET_HEADER_MESSAGE_STATUS] & TDS.STATUS_BIT_EOM);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final void throwInvalidTDSToken(String tokenName) throws SQLServerException {
+        if (logger.isLoggable(Level.SEVERE))
+            logger.severe(toString() + " got unexpected value in TDS response at offset:" + payloadOffset);
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final Object readFloat(int valueLength, JDBCType jdbcType, StreamType streamType) throws SQLServerException {
+        if (8 != valueLength)
+            throwInvalidTDS();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final void close() {
+        if (null != sslSocket)
+            disableSSL();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final void write(byte[] data, int offset, int length) throws SQLServerException {
+        try {
+            outputStreamLock.lock();
 ```
 
 ### FinalMethodInFinalClass
@@ -4335,129 +4179,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final Object readDateTime(int valueLength, Calendar appTimeZoneCalendar, JDBCType jdbcType,
-            StreamType streamType) throws SQLServerException {
-        // Build and return the right kind of temporal object.
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final boolean getServerSupportsColumnEncryption() {
-        return serverSupportsColumnEncryption;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    private final String traceID;
-
-    final public String toString() {
-        return traceID;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final SQLCollation readCollation() throws SQLServerException {
-        SQLCollation collation = null;
-
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * occur only from one thread at a time.
-     */
-    final boolean sendAttention() throws SQLServerException {
-        // If any request packets were already written to the server then send an
-        // attention signal to the server to tell it to ignore the request or
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @return InetSocketAddress of the connection socket.
-     */
-    final InetSocketAddress open(String host, int port, int timeoutMillis, boolean useParallel, boolean useTnir,
-            boolean isTnirFirstAttempt, int timeoutMillisForFullTimeout,
-            String iPAddressPreference) throws SQLServerException {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    volatile TDSPacket next;
-
-    final public String toString() {
-        return "TDSPacket(SPID:" + Util.readUnsignedShortBigEndian(header, TDS.PACKET_HEADER_SPID) + " Seq:"
-                + header[TDS.PACKET_HEADER_SEQUENCE_NUM] + ")";
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    private final String traceID;
-
-    final public String toString() {
-        return traceID;
-    }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final void throwInvalidTDSToken(String tokenName) throws SQLServerException {
-        if (logger.isLoggable(Level.SEVERE))
-            logger.severe(toString() + " got unexpected value in TDS response at offset:" + payloadOffset);
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final void error(String reason, SQLState sqlState, DriverError driverError) throws SQLServerException {
-        assert null != command;
-        command.interrupt(reason);
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    }
-
-    final int readUnsignedShort() throws SQLServerException {
-        if (payloadOffset + 2 <= currentPacket.payloadLength) {
-            int value = Util.readUnsignedShort(currentPacket.payload, payloadOffset);
+    final String readUnicodeString(int length) throws SQLServerException {
+        int byteLength = 2 * length;
+        byte[] bytes = new byte[byteLength];
 ```
 
 ### FinalMethodInFinalClass
@@ -4479,9 +4203,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final void flush() throws SQLServerException {
-        try {
-            con.idleNetworkTracker.markNetworkActivity();
+    final long readUnsignedInt() throws SQLServerException {
+        return readInt() & 0xFFFFFFFFL;
+    }
 ```
 
 ### FinalMethodInFinalClass
@@ -4491,9 +4215,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final void write(byte[] data, int offset, int length) throws SQLServerException {
-        try {
-            outputStreamLock.lock();
+    final int readInt() throws SQLServerException {
+        if (payloadOffset + 4 <= currentPacket.payloadLength) {
+            int value = Util.readInt(currentPacket.payload, payloadOffset);
 ```
 
 ### FinalMethodInFinalClass
@@ -4503,9 +4227,81 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final short readShort() throws SQLServerException {
+    final Object readDateTime(int valueLength, Calendar appTimeZoneCalendar, JDBCType jdbcType,
+            StreamType streamType) throws SQLServerException {
+        // Build and return the right kind of temporal object.
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final void stream() {
+        isStreaming = true;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     *         default (no trust store, no password specified) path.
+     */
+    final InputStream loadTrustStore(String trustStoreFileName) {
+        FileInputStream is = null;
+
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        }
+
+        final void setFilteredStream(OutputStream os) {
+            filteredStream = os;
+        }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final int readUnsignedShort() throws SQLServerException {
         if (payloadOffset + 2 <= currentPacket.payloadLength) {
-            short value = Util.readShort(currentPacket.payload, payloadOffset);
+            int value = Util.readUnsignedShort(currentPacket.payload, payloadOffset);
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final void tryProcessFeatureExtAck(boolean featureExtAckReceived) throws SQLServerException {
+        // in case of redirection, do not check if TDS_FEATURE_EXTENSION_ACK is received or not.
+        if (null != this.con.getRoutingInfo()) {
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final int peekTokenType() throws SQLServerException {
+        // Check whether we're at EOF
+        if (!ensurePayload())
 ```
 
 ### FinalMethodInFinalClass
@@ -4525,11 +4321,95 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
+    }
+
+    final Object readTime(int valueLength, TypeInfo typeInfo, Calendar appTimeZoneCalendar,
+            JDBCType jdbcType) throws SQLServerException {
+        if (TDS.timeValueLength(typeInfo.getScale()) != valueLength)
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
      * @return number of bytes available in the current packet
      */
     final int availableCurrentPacket() {
         /*
          * The number of bytes that can be read from the current chunk, without including the next chunk that is
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    private final String traceID;
+
+    final public String toString() {
+        return traceID;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final Object readDate(int valueLength, Calendar appTimeZoneCalendar, JDBCType jdbcType) throws SQLServerException {
+        if (TDS.DAYS_INTO_CE_LENGTH != valueLength)
+            throwInvalidTDS();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final void throwInvalidTDS() throws SQLServerException {
+        if (logger.isLoggable(Level.SEVERE))
+            logger.severe(toString() + " got unexpected value in TDS response at offset:" + payloadOffset);
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final void reset(TDSReaderMark mark) {
+        if (logger.isLoggable(Level.FINEST))
+            logger.finest(this.toString() + ": Resetting to: " + mark.toString());
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final int read(byte[] data, int offset, int length) throws SQLServerException {
+        try {
+            inputStreamLock.lock();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    static final int SQL_VARIANT_LENGTH = 8009;
+
+    static final String getTokenName(int tdsTokenType) {
+        switch (tdsTokenType) {
+            case TDS_RET_STAT:
 ```
 
 ### FinalMethodInFinalClass
@@ -4551,8 +4431,80 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
     }
 
-    final long readUnsignedInt() throws SQLServerException {
-        return readInt() & 0xFFFFFFFFL;
+    final boolean isColumnEncryptionSettingEnabled() {
+        return useColumnEncryption;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    volatile TDSPacket next;
+
+    final public String toString() {
+        return "TDSPacket(SPID:" + Util.readUnsignedShortBigEndian(header, TDS.PACKET_HEADER_SPID) + " Seq:"
+                + header[TDS.PACKET_HEADER_SEQUENCE_NUM] + ")";
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     *         thrown if the socket timeout cannot be set
+     */
+    final void setNetworkTimeout(int timeout) throws IOException {
+        tcpSocket.setSoTimeout(timeout);
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final void skip(int bytesToSkip) throws SQLServerException {
+        assert bytesToSkip >= 0;
+
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        }
+
+        final void setFilteredStream(InputStream is) {
+            filteredStream = is;
+        }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final char readChar() throws SQLServerException {
+        return (char) readShort();
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final SQLServerConnection getConnection() {
+        return con;
     }
 ```
 
@@ -4573,11 +4525,71 @@ Method declared `final` in 'final' class
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-    // the client MUST send the next packet with both ignore bit (0x02) and EOM bit (0x01)
-    // set in the status to cancel the request.
-    final boolean ignoreMessage() throws SQLServerException {
-        if (packetNum > 0 || TDS.PKT_BULK == this.tdsMessageType) {
-            assert !isEOMSent;
+    private final boolean isLoggingPackets = packetLogger.isLoggable(Level.FINEST);
+
+    final boolean isLoggingPackets() {
+        return isLoggingPackets;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final boolean getServerSupportsColumnEncryption() {
+        return serverSupportsColumnEncryption;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * the response and another thread that is trying to buffer it with TDSCommand.detach().
+     */
+    final boolean readPacket() throws SQLServerException {
+        lock.lock();
+        try {
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    private transient ScheduledFuture<?> timeout;
+
+    final public String toString() {
+        return traceID;
+    }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    }
+
+    final Object readReal(int valueLength, JDBCType jdbcType, StreamType streamType) throws SQLServerException {
+        if (4 != valueLength)
+            throwInvalidTDS();
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        }
+
+        final boolean doExecute() throws SQLServerException {
+            sendFedAuthToken(this, sqlFedAuthToken, tdsTokenHandler);
+            return true;
 ```
 
 ### FinalMethodInFinalClass
@@ -4601,18 +4613,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 
         final boolean doExecute() throws SQLServerException {
             logon(this);
-            return true;
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        }
-
-        final boolean doExecute() throws SQLServerException {
-            sendFedAuthToken(this, sqlFedAuthToken, tdsTokenHandler);
             return true;
 ```
 
@@ -4659,6 +4659,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
 ```java
 
+                case microsoft.sql.Types.SQL_VARIANT:
+                    return sourceResultSet.getObject(srcColOrdinal);
+                default:
+                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_BulkTypeNotSupported"));
+```
+
+### DuplicateBranchesInSwitch
+Duplicate branch in 'switch'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
+#### Snippet
+```java
+
             case MONEY4:
                 writeBulkCopySqlVariantHeader(21, TDSType.DECIMALN.byteValue(), (byte) 2, tdsWriter);
                 tdsWriter.writeByte((byte) 38);
@@ -4679,18 +4691,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
                 tdsWriter.writeDatetime(colValue.toString());
                 break;
 
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-
-                case microsoft.sql.Types.SQL_VARIANT:
-                    return sourceResultSet.getObject(srcColOrdinal);
-                default:
-                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_BulkTypeNotSupported"));
 ```
 
 ### DuplicateBranchesInSwitch
@@ -5131,18 +5131,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### SimplifiableConditionalExpression
-`!isTDS8 ? TDS.ENCRYPT_INVALID != negotiatedEncryptionLevel : true` can be simplified to 'isTDS8 \|\| TDS.ENCRYPT_INVALID != negotiatedEncryptionLevel'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-    final byte getNegotiatedEncryptionLevel() {
-        assert (!isTDS8 ? TDS.ENCRYPT_INVALID != negotiatedEncryptionLevel : true);
-        return negotiatedEncryptionLevel;
-    }
-```
-
-### SimplifiableConditionalExpression
 `(isDiscarded() || isExplicitlyDiscarded()) ? false : handleRefCount.incrementAndGet() > 0` can be simplified to '!isDiscarded() \&\& !isExplicitlyDiscarded() \&\& handleRefCount.incrementAndGet() \> 0'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
@@ -5152,6 +5140,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
             return (isDiscarded() || isExplicitlyDiscarded()) ? false : handleRefCount.incrementAndGet() > 0;
         }
 
+```
+
+### SimplifiableConditionalExpression
+`!isTDS8 ? TDS.ENCRYPT_INVALID != negotiatedEncryptionLevel : true` can be simplified to 'isTDS8 \|\| TDS.ENCRYPT_INVALID != negotiatedEncryptionLevel'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+
+    final byte getNegotiatedEncryptionLevel() {
+        assert (!isTDS8 ? TDS.ENCRYPT_INVALID != negotiatedEncryptionLevel : true);
+        return negotiatedEncryptionLevel;
+    }
 ```
 
 ## RuleId[id=TrivialStringConcatenation]
@@ -5269,143 +5269,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc42.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
 #### Snippet
 ```java
-     * @return the required object.
-     */
-    static final Object convertDoubleToObject(double doubleVal, JDBCType jdbcType, StreamType streamType) {
-        switch (jdbcType) {
-            case FLOAT:
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    }
-
-    static final Object convertStreamToObject(BaseInputStream stream, TypeInfo typeInfo, JDBCType jdbcType,
-            InputStreamGetterArgs getterArgs) throws SQLServerException {
-        // Need to handle the simple case of a null value here, as it is not done
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    }
-
-    static final byte[] convertMoneyToBytes(BigDecimal bigDecimalVal, int bLength) {
-        byte[] valueBytes = new byte[bLength];
-
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the byte array containing the big-endian encoded value.
-     */
-    static final byte[] convertLongToBytes(long longValue) {
-        byte[] bytes = new byte[8];
-        for (int i = 8; i-- > 0;) {
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    }
-
-    static final byte[] convertBigDecimalToBytes(BigDecimal bigDecimalVal, int scale) {
-        byte[] valueBytes;
-
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the byte array containing the big-endian encoded value.
-     */
-    static final byte[] convertIntToBytes(int intValue, int valueLength) {
-        byte[] bytes = new byte[valueLength];
-        for (int i = valueLength; i-- > 0;) {
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return a Java object of the desired type.
-     */
-    static final Object convertTemporalToObject(JDBCType jdbcType, SSType ssType, Calendar timeZoneCalendar,
-            int daysSinceBaseDate, long ticksSinceMidnight, int fractionalSecondsScale) throws SQLServerException {
-
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the required object.
-     */
-    static final Object convertFloatToObject(float floatVal, JDBCType jdbcType, StreamType streamType) {
-        switch (jdbcType) {
-            case REAL:
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the required object.
-     */
-    static final Object convertIntegerToObject(int intValue, int valueLength, JDBCType jdbcType,
-            StreamType streamType) {
-        switch (jdbcType) {
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the required object.
-     */
-    static final Object convertStringToObject(String stringVal, Charset charset, JDBCType jdbcType,
-            StreamType streamType) throws UnsupportedEncodingException {
-        switch (jdbcType) {
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-     * @return the required object.
-     */
-    static final Object convertBigDecimalToObject(BigDecimal bigDecimalVal, JDBCType jdbcType, StreamType streamType) {
-        switch (jdbcType) {
-            case DECIMAL:
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    static final InputStreamGetterArgs defaultArgs = new InputStreamGetterArgs(StreamType.NONE, false, false, "");
-
-    static final InputStreamGetterArgs getDefaultArgs() {
-        return defaultArgs;
-    }
+    // Returns true if input bigDecimalValue exceeds allowable
+    // TDS wire format precision or scale for DECIMAL TDS token.
+    static final boolean exceedsMaxRPCDecimalPrecisionOrScale(BigDecimal bigDecimalValue) {
+        if (null == bigDecimalValue)
+            return false;
 ```
 
 ### FinalStaticMethod
@@ -5427,6 +5295,42 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
 ```java
      * @return the required object.
      */
+    static final Object convertFloatToObject(float floatVal, JDBCType jdbcType, StreamType streamType) {
+        switch (jdbcType) {
+            case REAL:
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    static final InputStreamGetterArgs defaultArgs = new InputStreamGetterArgs(StreamType.NONE, false, false, "");
+
+    static final InputStreamGetterArgs getDefaultArgs() {
+        return defaultArgs;
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return a Java object of the desired type.
+     */
+    static final Object convertTemporalToObject(JDBCType jdbcType, SSType ssType, Calendar timeZoneCalendar,
+            int daysSinceBaseDate, long ticksSinceMidnight, int fractionalSecondsScale) throws SQLServerException {
+
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
     static final Object convertMoneyToObject(BigDecimal bigDecimalVal, JDBCType jdbcType, StreamType streamType,
             int numberOfBytes) {
         switch (jdbcType) {
@@ -5437,11 +5341,83 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
 #### Snippet
 ```java
-    // Returns true if input bigDecimalValue exceeds allowable
-    // TDS wire format precision or scale for DECIMAL TDS token.
-    static final boolean exceedsMaxRPCDecimalPrecisionOrScale(BigDecimal bigDecimalValue) {
-        if (null == bigDecimalValue)
-            return false;
+     * @return the required object.
+     */
+    static final Object convertStringToObject(String stringVal, Charset charset, JDBCType jdbcType,
+            StreamType streamType) throws UnsupportedEncodingException {
+        switch (jdbcType) {
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the byte array containing the big-endian encoded value.
+     */
+    static final byte[] convertIntToBytes(int intValue, int valueLength) {
+        byte[] bytes = new byte[valueLength];
+        for (int i = valueLength; i-- > 0;) {
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
+    static final Object convertDoubleToObject(double doubleVal, JDBCType jdbcType, StreamType streamType) {
+        switch (jdbcType) {
+            case FLOAT:
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    }
+
+    static final byte[] convertBigDecimalToBytes(BigDecimal bigDecimalVal, int scale) {
+        byte[] valueBytes;
+
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the byte array containing the big-endian encoded value.
+     */
+    static final byte[] convertLongToBytes(long longValue) {
+        byte[] bytes = new byte[8];
+        for (int i = 8; i-- > 0;) {
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
+    static final Object convertIntegerToObject(int intValue, int valueLength, JDBCType jdbcType,
+            StreamType streamType) {
+        switch (jdbcType) {
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+     * @return the required object.
+     */
+    static final Object convertBigDecimalToObject(BigDecimal bigDecimalVal, JDBCType jdbcType, StreamType streamType) {
+        switch (jdbcType) {
+            case DECIMAL:
 ```
 
 ### FinalStaticMethod
@@ -5458,6 +5434,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    }
+
+    static final byte[] convertMoneyToBytes(BigDecimal bigDecimalVal, int bLength) {
+        byte[] valueBytes = new byte[bLength];
+
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    }
+
+    static final Object convertStreamToObject(BaseInputStream stream, TypeInfo typeInfo, JDBCType jdbcType,
+            InputStreamGetterArgs getterArgs) throws SQLServerException {
+        // Need to handle the simple case of a null value here, as it is not done
+```
+
+### FinalStaticMethod
+'static' method declared `final`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
 ```java
@@ -5466,6 +5466,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
     static final DriverPropertyInfo[] getPropertyInfoFromProperties(Properties props) {
         DriverPropertyInfo[] properties = new DriverPropertyInfo[DRIVER_PROPERTIES.length];
 
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
+#### Snippet
+```java
+    }
+
+    static final int tdsLength() {
+        return TDS_LENGTH;
+    } // Length of collation in TDS (in bytes)
 ```
 
 ### FinalStaticMethod
@@ -5518,18 +5530,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/PLPInputStream.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
-#### Snippet
-```java
-    }
-
-    static final int tdsLength() {
-        return TDS_LENGTH;
-    } // Length of collation in TDS (in bytes)
-```
-
-### FinalStaticMethod
-'static' method declared `final`
 in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
 #### Snippet
 ```java
@@ -5538,18 +5538,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
     static final void throwConversionError(String fromType, String toType) throws SQLServerException {
         MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_unsupportedConversionFromTo"));
         Object[] msgArgs = {fromType, toType};
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
-#### Snippet
-```java
-
-    // Utility methods to check a reported length against the maximums allowed
-    static final long getCheckedLength(SQLServerConnection con, JDBCType jdbcType, long length,
-            boolean allowUnknown) throws SQLServerException {
-        long maxLength;
 ```
 
 ### FinalStaticMethod
@@ -5566,26 +5554,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
 #### Snippet
 ```java
-    }
 
-    static final byte[] asGuidByteArray(UUID aId) {
-        long msb = aId.getMostSignificantBits();
-        long lsb = aId.getLeastSignificantBits();
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-    }
-
-    static final boolean isCharType(int jdbcType) {
-        switch (jdbcType) {
-            case java.sql.Types.CHAR:
+    // Utility methods to check a reported length against the maximums allowed
+    static final long getCheckedLength(SQLServerConnection con, JDBCType jdbcType, long length,
+            boolean allowUnknown) throws SQLServerException {
+        long maxLength;
 ```
 
 ### FinalStaticMethod
@@ -5607,6 +5583,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 ```java
     }
 
+    static final String readGUID(byte[] inputGUID) {
+        String guidTemplate = "NNNNNNNN-NNNN-NNNN-NNNN-NNNNNNNNNNNN";
+        byte[] guid = inputGUID;
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    }
+
+    static final Boolean isCharType(SSType ssType) {
+        switch (ssType) {
+            case CHAR:
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+    }
+
     static final UUID readGUIDtoUUID(byte[] inputGUID) throws SQLServerException {
         if (inputGUID.length != 16) {
             throw new SQLServerException("guid length must be 16", null);
@@ -5619,9 +5619,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 ```java
     }
 
-    static final String readGUID(byte[] inputGUID) {
-        String guidTemplate = "NNNNNNNN-NNNN-NNNN-NNNN-NNNNNNNNNNNN";
-        byte[] guid = inputGUID;
+    static final byte[] asGuidByteArray(UUID aId) {
+        long msb = aId.getMostSignificantBits();
+        long lsb = aId.getLeastSignificantBits();
 ```
 
 ### FinalStaticMethod
@@ -5643,21 +5643,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 ```java
     }
 
-    static final Boolean isCharType(SSType ssType) {
-        switch (ssType) {
-            case CHAR:
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc43.java`
-#### Snippet
-```java
-    }
-
-    static final void throwBatchUpdateException(SQLServerException lastError,
-            long[] updateCounts) throws BatchUpdateException {
-        throw new BatchUpdateException(lastError.getMessage(), lastError.getSQLState(), lastError.getErrorCode(),
+    static final boolean isCharType(int jdbcType) {
+        switch (jdbcType) {
+            case java.sql.Types.CHAR:
 ```
 
 ### FinalStaticMethod
@@ -5670,6 +5658,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc43.java`
     static final boolean checkSupportsJDBC43() {
         return true;
     }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc43.java`
+#### Snippet
+```java
+    }
+
+    static final void throwBatchUpdateException(SQLServerException lastError,
+            long[] updateCounts) throws BatchUpdateException {
+        throw new BatchUpdateException(lastError.getMessage(), lastError.getSQLState(), lastError.getErrorCode(),
 ```
 
 ### FinalStaticMethod
@@ -5714,10 +5714,10 @@ Explicit type arguments can be inferred
 in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
 #### Snippet
 ```java
-    public Builder<K, V> weigher(EntryWeigher<? super K, ? super V> weigher) {
-      this.weigher = (weigher == Weighers.entrySingleton())
+    public Builder<K, V> weigher(Weigher<? super V> weigher) {
+      this.weigher = (weigher == Weighers.singleton())
           ? Weighers.<K, V>entrySingleton()
-          : new BoundedEntryWeigher<K, V>(weigher);
+          : new BoundedEntryWeigher<K, V>(Weighers.asEntryWeigher(weigher));
       return this;
 ```
 
@@ -5726,10 +5726,10 @@ Explicit type arguments can be inferred
 in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
 #### Snippet
 ```java
-    public Builder<K, V> weigher(Weigher<? super V> weigher) {
-      this.weigher = (weigher == Weighers.singleton())
+    public Builder<K, V> weigher(EntryWeigher<? super K, ? super V> weigher) {
+      this.weigher = (weigher == Weighers.entrySingleton())
           ? Weighers.<K, V>entrySingleton()
-          : new BoundedEntryWeigher<K, V>(Weighers.asEntryWeigher(weigher));
+          : new BoundedEntryWeigher<K, V>(weigher);
       return this;
 ```
 
@@ -5801,7 +5801,7 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
 ```java
             final int batchSize = batchStatementBuffer.size();
-            int[] updateCounts = new int[batchSize];
+            long[] updateCounts = new long[batchSize];
             for (int batchNum = 0; batchNum < batchSize; batchNum++)
                 updateCounts[batchNum] = Statement.EXECUTE_FAILED;
 
@@ -5813,7 +5813,7 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
 ```java
             final int batchSize = batchStatementBuffer.size();
-            long[] updateCounts = new long[batchSize];
+            int[] updateCounts = new int[batchSize];
             for (int batchNum = 0; batchNum < batchSize; batchNum++)
                 updateCounts[batchNum] = Statement.EXECUTE_FAILED;
 
@@ -5945,6 +5945,18 @@ Link specified as plain text
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
 #### Snippet
 ```java
+     * The set of locales is derived from the following resources:
+     *
+     * http://download.microsoft.com/download/9/5/e/95ef66af-9026-4bb0-a41d-a4f81802d92c/[MS-LCID].pdf Lists LCID values
+     * and their corresponding meanings (in RFC 3066 format). Used to derive the names for the various enumeration
+     * constants.
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
+#### Snippet
+```java
  * Enumeration of encodings that are supported by SQL Server (and hopefully the JVM).
  *
  * See, for example, https://docs.oracle.com/javase/8/docs/technotes/guides/intl/encoding.doc.html for a complete list
@@ -5954,14 +5966,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
 ```java
-     * The set of locales is derived from the following resources:
-     *
-     * http://download.microsoft.com/download/9/5/e/95ef66af-9026-4bb0-a41d-a4f81802d92c/[MS-LCID].pdf Lists LCID values
-     * and their corresponding meanings (in RFC 3066 format). Used to derive the names for the various enumeration
-     * constants.
+    /**
+     * Writes data for a batch of rows to the TDSWriter object. Writes the following part in the BulkLoadBCP stream
+     * (https://msdn.microsoft.com/en-us/library/dd340549.aspx) <ROW> ... </ROW>
+     */
+    private boolean writeBatchData(TDSWriter tdsWriter, TDSCommand command,
 ```
 
 ### JavadocLinkAsPlainText
@@ -5990,18 +6002,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-    /**
-     * Writes data for a batch of rows to the TDSWriter object. Writes the following part in the BulkLoadBCP stream
-     * (https://msdn.microsoft.com/en-us/library/dd340549.aspx) <ROW> ... </ROW>
-     */
-    private boolean writeBatchData(TDSWriter tdsWriter, TDSCommand command,
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 #### Snippet
 ```java
@@ -6017,11 +6017,11 @@ Link specified as plain text
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        /**
-         * Managed Identities endpoint URL
-         * https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/how-to-use-vm-token
-         */
-        static final String AZURE_REST_MSI_URL = "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01"; // NOSONAR
+     * than @@version or serverproperty('edition').
+     * 
+     * Reference: https://docs.microsoft.com/sql/t-sql/functions/serverproperty-transact-sql
+     * 
+     * <pre>
 ```
 
 ### JavadocLinkAsPlainText
@@ -6029,11 +6029,11 @@ Link specified as plain text
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * than @@version or serverproperty('edition').
-     * 
-     * Reference: https://docs.microsoft.com/sql/t-sql/functions/serverproperty-transact-sql
-     * 
-     * <pre>
+        /**
+         * Managed Identities endpoint URL
+         * https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/how-to-use-vm-token
+         */
+        static final String AZURE_REST_MSI_URL = "http://169.254.169.254/metadata/identity/oauth2/token?api-version=2018-02-01"; // NOSONAR
 ```
 
 ## RuleId[id=FieldCanBeLocal]
@@ -6066,11 +6066,23 @@ Field can be converted to a local variable
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256EncryptionKey.java`
 #### Snippet
 ```java
+    private final String algorithmName;
+    // Salt used to derive encryption key
+    private String encryptionKeySaltFormat;
+    // Salt used to derive mac key
+    private String macKeySaltFormat;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256EncryptionKey.java`
+#### Snippet
+```java
+    private String encryptionKeySaltFormat;
+    // Salt used to derive mac key
     private String macKeySaltFormat;
     // Salt used to derive iv key
     private String ivKeySaltFormat;
-    private SQLServerSymmetricKey encryptionKey;
-    private SQLServerSymmetricKey macKey;
 ```
 
 ### FieldCanBeLocal
@@ -6090,23 +6102,11 @@ Field can be converted to a local variable
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256EncryptionKey.java`
 #### Snippet
 ```java
-    private String encryptionKeySaltFormat;
-    // Salt used to derive mac key
     private String macKeySaltFormat;
     // Salt used to derive iv key
     private String ivKeySaltFormat;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256EncryptionKey.java`
-#### Snippet
-```java
-    private final String algorithmName;
-    // Salt used to derive encryption key
-    private String encryptionKeySaltFormat;
-    // Salt used to derive mac key
-    private String macKeySaltFormat;
+    private SQLServerSymmetricKey encryptionKey;
+    private SQLServerSymmetricKey macKey;
 ```
 
 ### FieldCanBeLocal
@@ -6114,11 +6114,11 @@ Field can be converted to a local variable
 in `src/main/java/com/microsoft/sqlserver/jdbc/UDTTDSHeader.java`
 #### Snippet
 ```java
+    private final String databaseName; // Database name where UDT type resides.
+    @SuppressWarnings("unused")
+    private final String schemaName; // Schema where UDT resides.
     private final String typeName; // Type name of UDT.
     @SuppressWarnings("unused")
-    private final String assemblyQualifiedName; // Assembly qualified name of UDT.
-
-    UDTTDSHeader(TDSReader tdsReader) throws SQLServerException {
 ```
 
 ### FieldCanBeLocal
@@ -6138,11 +6138,11 @@ Field can be converted to a local variable
 in `src/main/java/com/microsoft/sqlserver/jdbc/UDTTDSHeader.java`
 #### Snippet
 ```java
-    private final String databaseName; // Database name where UDT type resides.
-    @SuppressWarnings("unused")
-    private final String schemaName; // Schema where UDT resides.
     private final String typeName; // Type name of UDT.
     @SuppressWarnings("unused")
+    private final String assemblyQualifiedName; // Assembly qualified name of UDT.
+
+    UDTTDSHeader(TDSReader tdsReader) throws SQLServerException {
 ```
 
 ### FieldCanBeLocal
@@ -6166,18 +6166,6 @@ class SQLServerAeadAes256CbcHmac256Factory extends SQLServerEncryptionAlgorithmF
     // In future we can have more
     private byte algorithmVersion = 0x1;
     private ConcurrentHashMap<String, SQLServerAeadAes256CbcHmac256Algorithm> encryptionAlgorithms = new ConcurrentHashMap<>();
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-    private Integer scale;
-    @SuppressWarnings("unused")
-    private boolean forceEncrypt;
-    private SqlVariant internalVariant;
 
 ```
 
@@ -6207,6 +6195,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+    private Integer scale;
+    @SuppressWarnings("unused")
+    private boolean forceEncrypt;
+    private SqlVariant internalVariant;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerFMTQuery.java`
 #### Snippet
 ```java
@@ -6215,18 +6215,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerFMTQuery.java`
     private ArrayList<? extends Token> tokenList = null;
     private List<String> userColumns = new ArrayList<>();
     private List<String> tableTarget = new ArrayList<>();
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/microsoft/sqlserver/jdbc/XMLTDSHeader.java`
-#### Snippet
-```java
-final class XMLTDSHeader {
-    @SuppressWarnings("unused")
-    private final String databaseName; // Database name where XML schema resides.
-    @SuppressWarnings("unused")
-    private final String owningSchema; // Owner of XML schema (like dbo for example).
 ```
 
 ### FieldCanBeLocal
@@ -6255,6 +6243,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/XMLTDSHeader.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `src/main/java/com/microsoft/sqlserver/jdbc/XMLTDSHeader.java`
+#### Snippet
+```java
+final class XMLTDSHeader {
+    @SuppressWarnings("unused")
+    private final String databaseName; // Database name where XML schema resides.
+    @SuppressWarnings("unused")
+    private final String owningSchema; // Owner of XML schema (like dbo for example).
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
@@ -6267,18 +6267,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `SimpleInputStream.skip()` is ignored
-in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
-#### Snippet
-```java
-        // at the next item in the TDS response. Once the stream is closed,
-        // it can no longer access the discarded response data.
-        skip((long) payloadLength - (long) streamPos);
-
-        closeHelper();
-```
-
-### IgnoreResultOfCall
 Result of `SimpleInputStream.read()` is ignored
 in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
 #### Snippet
@@ -6288,6 +6276,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
             read(value);
             close();
         } catch (IOException e) {
+```
+
+### IgnoreResultOfCall
+Result of `SimpleInputStream.skip()` is ignored
+in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
+#### Snippet
+```java
+        // at the next item in the TDS response. Once the stream is closed,
+        // it can no longer access the discarded response data.
+        skip((long) payloadLength - (long) streamPos);
+
+        closeHelper();
 ```
 
 ### IgnoreResultOfCall
@@ -6352,30 +6352,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerVSMEnclaveProvider.java`
 
 ### IgnoreResultOfCall
 Result of `ByteBuffer.array()` is ignored
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-                                    .longValue();
-                            ByteBuffer bbuf = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN);
-                            bbuf.putInt((int) (moneyVal >> 32)).array();
-                            bbuf.putInt((int) moneyVal).array();
-                            op.execute(this, bbuf.array());
-```
-
-### IgnoreResultOfCall
-Result of `ByteBuffer.array()` is ignored
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-                            ByteBuffer bbuf = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN);
-                            bbuf.putInt((int) (moneyVal >> 32)).array();
-                            bbuf.putInt((int) moneyVal).array();
-                            op.execute(this, bbuf.array());
-                        } else {
-```
-
-### IgnoreResultOfCall
-Result of `ByteBuffer.array()` is ignored
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
 ```java
@@ -6396,6 +6372,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
                     bbuf.putInt((int) moneyVal).array();
                     return bbuf.array();
 
+```
+
+### IgnoreResultOfCall
+Result of `ByteBuffer.array()` is ignored
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                                    .longValue();
+                            ByteBuffer bbuf = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN);
+                            bbuf.putInt((int) (moneyVal >> 32)).array();
+                            bbuf.putInt((int) moneyVal).array();
+                            op.execute(this, bbuf.array());
+```
+
+### IgnoreResultOfCall
+Result of `ByteBuffer.array()` is ignored
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                            ByteBuffer bbuf = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN);
+                            bbuf.putInt((int) (moneyVal >> 32)).array();
+                            bbuf.putInt((int) moneyVal).array();
+                            op.execute(this, bbuf.array());
+                        } else {
 ```
 
 ### IgnoreResultOfCall
@@ -6599,15 +6599,15 @@ in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
 ```
 
 ### PointlessBitwiseExpression
-`value >> 0` can be replaced with 'value'
+`(data[nOffset + 3] & 0xFF) << 0` can be replaced with '(data\[nOffset + 3\] \& 0xFF)'
 in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 #### Snippet
 ```java
-        valueBytes[offset + 5] = (byte) ((value >> 16) & 0xFF);
-        valueBytes[offset + 6] = (byte) ((value >> 8) & 0xFF);
-        valueBytes[offset + 7] = (byte) ((value >> 0) & 0xFF);
-    }
 
+    static int readIntBigEndian(byte[] data, int nOffset) {
+        return ((data[nOffset + 3] & 0xFF) << 0) | ((data[nOffset + 2] & 0xFF) << 8)
+                | ((data[nOffset + 1] & 0xFF) << 16) | ((data[nOffset + 0] & 0xFF) << 24);
+    }
 ```
 
 ### PointlessBitwiseExpression
@@ -6615,9 +6615,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 #### Snippet
 ```java
-        valueBytes[offset + 1] = (byte) ((value >> 16) & 0xFF);
-        valueBytes[offset + 2] = (byte) ((value >> 8) & 0xFF);
-        valueBytes[offset + 3] = (byte) ((value >> 0) & 0xFF);
+    static void writeShortBigEndian(short value, byte[] valueBytes, int offset) {
+        valueBytes[offset + 0] = (byte) ((value >> 8) & 0xFF);
+        valueBytes[offset + 1] = (byte) ((value >> 0) & 0xFF);
     }
 
 ```
@@ -6639,23 +6639,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 #### Snippet
 ```java
-    static void writeShortBigEndian(short value, byte[] valueBytes, int offset) {
-        valueBytes[offset + 0] = (byte) ((value >> 8) & 0xFF);
-        valueBytes[offset + 1] = (byte) ((value >> 0) & 0xFF);
+        valueBytes[offset + 5] = (byte) ((value >> 16) & 0xFF);
+        valueBytes[offset + 6] = (byte) ((value >> 8) & 0xFF);
+        valueBytes[offset + 7] = (byte) ((value >> 0) & 0xFF);
     }
 
-```
-
-### PointlessBitwiseExpression
-`(data[nOffset + 3] & 0xFF) << 0` can be replaced with '(data\[nOffset + 3\] \& 0xFF)'
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
-#### Snippet
-```java
-
-    static int readIntBigEndian(byte[] data, int nOffset) {
-        return ((data[nOffset + 3] & 0xFF) << 0) | ((data[nOffset + 2] & 0xFF) << 8)
-                | ((data[nOffset + 1] & 0xFF) << 16) | ((data[nOffset + 0] & 0xFF) << 24);
-    }
 ```
 
 ### PointlessBitwiseExpression
@@ -6668,6 +6656,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
         valueBytes[offset + 0] = (byte) ((value >> 0) & 0xFF);
         valueBytes[offset + 1] = (byte) ((value >> 8) & 0xFF);
         valueBytes[offset + 2] = (byte) ((value >> 16) & 0xFF);
+```
+
+### PointlessBitwiseExpression
+`value >> 0` can be replaced with 'value'
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+        valueBytes[offset + 1] = (byte) ((value >> 16) & 0xFF);
+        valueBytes[offset + 2] = (byte) ((value >> 8) & 0xFF);
+        valueBytes[offset + 3] = (byte) ((value >> 0) & 0xFF);
+    }
+
 ```
 
 ### PointlessBitwiseExpression
@@ -6704,18 +6704,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
             encodedBytes[0] = (byte) ((daysIntoCE >> 0) & 0xFF);
             encodedBytes[1] = (byte) ((daysIntoCE >> 8) & 0xFF);
             encodedBytes[2] = (byte) ((daysIntoCE >> 16) & 0xFF);
-```
-
-### PointlessBitwiseExpression
-`0 | TDS.AE_METADATA` can be replaced with 'TDS.AE_METADATA'
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-        if (null != cryptoMeta)
-            writeByte((byte) (bOut ? 1 | TDS.AE_METADATA : 0 | TDS.AE_METADATA)); // status
-        else
-            writeByte((byte) (bOut ? 1 : 0)); // status
 ```
 
 ### PointlessBitwiseExpression
@@ -6778,6 +6766,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
             logBuffer.put(TDS.PACKET_HEADER_SEQUENCE_NUM, (byte) (packetNum % 256));
 ```
 
+### PointlessBitwiseExpression
+`0 | TDS.AE_METADATA` can be replaced with 'TDS.AE_METADATA'
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+        if (null != cryptoMeta)
+            writeByte((byte) (bOut ? 1 | TDS.AE_METADATA : 0 | TDS.AE_METADATA)); // status
+        else
+            writeByte((byte) (bOut ? 1 : 0)); // status
+```
+
 ## RuleId[id=PointlessNullCheck]
 ### PointlessNullCheck
 Unnecessary 'null' check before 'equals()' call
@@ -6805,6 +6805,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
+Variable `verificationSuccess` initializer `false` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/KeyStoreProviderCommon.java`
+#### Snippet
+```java
+            String masterKeyPath) throws SQLServerException {
+        Signature signVerify;
+        boolean verificationSuccess = false;
+        try {
+            signVerify = Signature.getInstance("SHA256withRSA");
+```
+
+### UnusedAssignment
+Variable `plainCEK` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/KeyStoreProviderCommon.java`
+#### Snippet
+```java
+    private static byte[] decryptRSAOAEP(byte[] cipherText,
+            CertificateDetails certificateDetails) throws SQLServerException {
+        byte[] plainCEK = null;
+        try {
+            Cipher rsa = Cipher.getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding");
+```
+
+### UnusedAssignment
 Variable `expiresIn` initializer `0` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
 #### Snippet
@@ -6826,30 +6850,6 @@ class FedAuthDllInfo {
     byte[] accessTokenBytes = null;
     long expiresIn = 0;
 
-```
-
-### UnusedAssignment
-Variable `plainCEK` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/KeyStoreProviderCommon.java`
-#### Snippet
-```java
-    private static byte[] decryptRSAOAEP(byte[] cipherText,
-            CertificateDetails certificateDetails) throws SQLServerException {
-        byte[] plainCEK = null;
-        try {
-            Cipher rsa = Cipher.getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding");
-```
-
-### UnusedAssignment
-Variable `verificationSuccess` initializer `false` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/KeyStoreProviderCommon.java`
-#### Snippet
-```java
-            String masterKeyPath) throws SQLServerException {
-        Signature signVerify;
-        boolean verificationSuccess = false;
-        try {
-            signVerify = Signature.getInstance("SHA256withRSA");
 ```
 
 ### UnusedAssignment
@@ -6877,6 +6877,42 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ParameterMetaDataCache.java`
 ```
 
 ### UnusedAssignment
+Variable `signedHash` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionJavaKeyStoreProvider.java`
+#### Snippet
+```java
+            CertificateDetails certificateDetails) throws SQLServerException {
+        Signature signature;
+        byte[] signedHash = null;
+
+        try {
+```
+
+### UnusedAssignment
+Variable `cipherText` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionJavaKeyStoreProvider.java`
+#### Snippet
+```java
+     */
+    private byte[] encryptRSAOAEP(byte[] plainText, CertificateDetails certificateDetails) throws SQLServerException {
+        byte[] cipherText = null;
+        try {
+            Cipher rsa = Cipher.getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding");
+```
+
+### UnusedAssignment
+Variable `keyStorePwd` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionJavaKeyStoreProvider.java`
+#### Snippet
+```java
+    String name = "MSSQL_JAVA_KEYSTORE";
+    String keyStorePath = null;
+    char[] keyStorePwd = null;
+
+    static final private java.util.logging.Logger javaKeyStoreLogger = java.util.logging.Logger
+```
+
+### UnusedAssignment
 Variable `keyStore` initializer `null` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionJavaKeyStoreProvider.java`
 #### Snippet
@@ -6901,18 +6937,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionJavaKeyS
 ```
 
 ### UnusedAssignment
-Variable `keyStorePwd` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionJavaKeyStoreProvider.java`
-#### Snippet
-```java
-    String name = "MSSQL_JAVA_KEYSTORE";
-    String keyStorePath = null;
-    char[] keyStorePwd = null;
-
-    static final private java.util.logging.Logger javaKeyStoreLogger = java.util.logging.Logger
-```
-
-### UnusedAssignment
 Variable `keyStorePath` initializer `null` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionJavaKeyStoreProvider.java`
 #### Snippet
@@ -6922,42 +6946,6 @@ public class SQLServerColumnEncryptionJavaKeyStoreProvider extends SQLServerColu
     String keyStorePath = null;
     char[] keyStorePwd = null;
 
-```
-
-### UnusedAssignment
-Variable `cipherText` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionJavaKeyStoreProvider.java`
-#### Snippet
-```java
-     */
-    private byte[] encryptRSAOAEP(byte[] plainText, CertificateDetails certificateDetails) throws SQLServerException {
-        byte[] cipherText = null;
-        try {
-            Cipher rsa = Cipher.getInstance("RSA/ECB/OAEPWithSHA-1AndMGF1Padding");
-```
-
-### UnusedAssignment
-Variable `signedHash` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionJavaKeyStoreProvider.java`
-#### Snippet
-```java
-            CertificateDetails certificateDetails) throws SQLServerException {
-        Signature signature;
-        byte[] signedHash = null;
-
-        try {
-```
-
-### UnusedAssignment
-Variable `cipherAlgorithm` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSecurityUtility.java`
-#### Snippet
-```java
-        // Given the symmetric key instantiate a SqlClientEncryptionAlgorithm object and cache it in metadata.
-        md.cipherAlgorithm = null;
-        SQLServerEncryptionAlgorithm cipherAlgorithm = null;
-        String algorithmName = validateAndGetEncryptionAlgorithmName(md.cipherAlgorithmId, md.cipherAlgorithmName); // may
-                                                                                                                    // throw
 ```
 
 ### UnusedAssignment
@@ -6997,15 +6985,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSecurityUtility.java`
 ```
 
 ### UnusedAssignment
-Variable `provider` initializer `null` is redundant
+Variable `cipherAlgorithm` initializer `null` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSecurityUtility.java`
 #### Snippet
 ```java
-
-        SQLServerException lastException = null;
-        SQLServerColumnEncryptionKeyStoreProvider provider = null;
-        byte[] plaintextKey = null;
-
+        // Given the symmetric key instantiate a SqlClientEncryptionAlgorithm object and cache it in metadata.
+        md.cipherAlgorithm = null;
+        SQLServerEncryptionAlgorithm cipherAlgorithm = null;
+        String algorithmName = validateAndGetEncryptionAlgorithmName(md.cipherAlgorithmId, md.cipherAlgorithmName); // may
+                                                                                                                    // throw
 ```
 
 ### UnusedAssignment
@@ -7030,6 +7018,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSecurityUtility.java`
         SqlAuthenticationToken sqlFedAuthToken = null;
 
         Optional<AccessToken> accessTokenOptional = mic.getToken(tokenRequestContext).blockOptional();
+```
+
+### UnusedAssignment
+Variable `provider` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSecurityUtility.java`
+#### Snippet
+```java
+
+        SQLServerException lastException = null;
+        SQLServerColumnEncryptionKeyStoreProvider provider = null;
+        byte[] plaintextKey = null;
+
 ```
 
 ### UnusedAssignment
@@ -7069,66 +7069,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algo
 ```
 
 ### UnusedAssignment
-Variable `columnNames` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataTable.java`
-#### Snippet
-```java
-    int columnCount = 0;
-    Map<Integer, SQLServerDataColumn> columnMetadata = null;
-    Set<String> columnNames = null;
-    Map<Integer, Object[]> rows = null;
-    private String tvpName = null;
-```
-
-### UnusedAssignment
-Variable `bd` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataTable.java`
-#### Snippet
-```java
-                case DECIMAL:
-                case NUMERIC:
-                    BigDecimal bd = null;
-                    boolean isColumnMetadataUpdated = false;
-                    bd = new BigDecimal(val.toString());
-```
-
-### UnusedAssignment
-Variable `rows` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataTable.java`
-#### Snippet
-```java
-    Map<Integer, SQLServerDataColumn> columnMetadata = null;
-    Set<String> columnNames = null;
-    Map<Integer, Object[]> rows = null;
-    private String tvpName = null;
-    private final Lock lock = new ReentrantLock();
-```
-
-### UnusedAssignment
-Variable `columnMetadata` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataTable.java`
-#### Snippet
-```java
-    int rowCount = 0;
-    int columnCount = 0;
-    Map<Integer, SQLServerDataColumn> columnMetadata = null;
-    Set<String> columnNames = null;
-    Map<Integer, Object[]> rows = null;
-```
-
-### UnusedAssignment
-Variable `parentClob` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
-#### Snippet
-```java
- */
-final class SQLServerClobAsciiOutputStream extends java.io.OutputStream {
-    private SQLServerClobBase parentClob = null;
-    private long streamPos;
-
-```
-
-### UnusedAssignment
 Variable `getterStream` initializer `null` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
 #### Snippet
@@ -7146,10 +7086,70 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
 #### Snippet
 ```java
  */
+final class SQLServerClobAsciiOutputStream extends java.io.OutputStream {
+    private SQLServerClobBase parentClob = null;
+    private long streamPos;
+
+```
+
+### UnusedAssignment
+Variable `parentClob` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
+#### Snippet
+```java
+ */
 final class SQLServerClobWriter extends java.io.Writer {
     private SQLServerClobBase parentClob = null;
     private long streamPos;
 
+```
+
+### UnusedAssignment
+Variable `rows` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataTable.java`
+#### Snippet
+```java
+    Map<Integer, SQLServerDataColumn> columnMetadata = null;
+    Set<String> columnNames = null;
+    Map<Integer, Object[]> rows = null;
+    private String tvpName = null;
+    private final Lock lock = new ReentrantLock();
+```
+
+### UnusedAssignment
+Variable `bd` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataTable.java`
+#### Snippet
+```java
+                case DECIMAL:
+                case NUMERIC:
+                    BigDecimal bd = null;
+                    boolean isColumnMetadataUpdated = false;
+                    bd = new BigDecimal(val.toString());
+```
+
+### UnusedAssignment
+Variable `columnMetadata` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataTable.java`
+#### Snippet
+```java
+    int rowCount = 0;
+    int columnCount = 0;
+    Map<Integer, SQLServerDataColumn> columnMetadata = null;
+    Set<String> columnNames = null;
+    Map<Integer, Object[]> rows = null;
+```
+
+### UnusedAssignment
+Variable `columnNames` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataTable.java`
+#### Snippet
+```java
+    int columnCount = 0;
+    Map<Integer, SQLServerDataColumn> columnMetadata = null;
+    Set<String> columnNames = null;
+    Map<Integer, Object[]> rows = null;
+    private String tvpName = null;
 ```
 
 ### UnusedAssignment
@@ -7174,6 +7174,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerVSMEnclaveProvider.java`
         Signature sig = null;
         try {
             sig = Signature.getInstance("RSASSA-PSS");
+```
+
+### UnusedAssignment
+Variable `stmtColumnEncriptionSetting` initializer `SQLServerStatementColumnEncryptionSetting.USE_CONNECTION_SETTING` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+     * behavior which overrides connection level setting.
+     */
+    protected SQLServerStatementColumnEncryptionSetting stmtColumnEncriptionSetting = SQLServerStatementColumnEncryptionSetting.USE_CONNECTION_SETTING;
+
+    /**
+```
+
+### UnusedAssignment
+Variable `index` initializer `0` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+     */
+    static String replaceParameterWithString(String str, char marker, String replaceStr) {
+        int index = 0;
+        while ((index = str.indexOf("" + marker)) >= 0) {
+            str = str.substring(0, index) + replaceStr + str.substring(index + 1, str.length());
 ```
 
 ### UnusedAssignment
@@ -7213,18 +7237,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Parameter.java`
 ```
 
 ### UnusedAssignment
-Variable `ssType` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.java`
-#### Snippet
-```java
-    @Override
-    public boolean isSearchable(int column) throws SQLServerException {
-        SSType ssType = null;
-        CryptoMetadata cryptoMetadata = rs.getColumn(column).getCryptoMetadata();
-
-```
-
-### UnusedAssignment
 Variable `updatability` initializer `-1` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.java`
 #### Snippet
@@ -7237,27 +7249,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.java`
 ```
 
 ### UnusedAssignment
-Variable `index` initializer `0` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+Variable `ssType` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.java`
 #### Snippet
 ```java
-     */
-    static String replaceParameterWithString(String str, char marker, String replaceStr) {
-        int index = 0;
-        while ((index = str.indexOf("" + marker)) >= 0) {
-            str = str.substring(0, index) + replaceStr + str.substring(index + 1, str.length());
-```
+    @Override
+    public boolean isSearchable(int column) throws SQLServerException {
+        SSType ssType = null;
+        CryptoMetadata cryptoMetadata = rs.getColumn(column).getCryptoMetadata();
 
-### UnusedAssignment
-Variable `stmtColumnEncriptionSetting` initializer `SQLServerStatementColumnEncryptionSetting.USE_CONNECTION_SETTING` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-     * behavior which overrides connection level setting.
-     */
-    protected SQLServerStatementColumnEncryptionSetting stmtColumnEncriptionSetting = SQLServerStatementColumnEncryptionSetting.USE_CONNECTION_SETTING;
-
-    /**
 ```
 
 ### UnusedAssignment
@@ -7282,54 +7282,6 @@ in `src/main/java/mssql/googlecode/cityhash/CityHash.java`
         long d = 0;
 
         int l = len - 16;
-```
-
-### UnusedAssignment
-Variable `orgCat` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    private SQLServerResultSet getResultSetFromInternalQueries(String catalog, String query) throws SQLException {
-        checkClosed();
-        String orgCat = null;
-        orgCat = switchCatalogs(catalog);
-        SQLServerResultSet rs = null;
-```
-
-### UnusedAssignment
-Variable `rs` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-        String orgCat = null;
-        orgCat = switchCatalogs(catalog);
-        SQLServerResultSet rs = null;
-        try {
-            SQLServerStatement statement = (SQLServerStatement) connection.createStatement();
-```
-
-### UnusedAssignment
-Variable `orgCat` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-        checkClosed();
-        assert null != arguments;
-        String orgCat = null;
-        orgCat = switchCatalogs(catalog);
-        SQLServerResultSet rs = null;
-```
-
-### UnusedAssignment
-Variable `userRs` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-        } else {
-            // Azure DW does not support foreign keys, return an empty result set with correct metadata.
-            ResultSet userRs = null;
-            PreparedStatement pstmt = null;
-            StringBuilder azureDwSelectBuilder = new StringBuilder();
 ```
 
 ### UnusedAssignment
@@ -7381,51 +7333,51 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 ```
 
 ### UnusedAssignment
-Variable `convertedValue` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+Variable `orgCat` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-            SSType baseSSType, TypeInfo typeInfo, JDBCType jdbcType, InputStreamGetterArgs streamGetterArgs,
-            Calendar cal) throws SQLServerException {
-        Object convertedValue = null;
-        int lengthConsumed = 2 + cbPropsActual; // We have already read 2bytes for baseType earlier.
-        int expectedValueLength = valueLength - lengthConsumed;
+        checkClosed();
+        assert null != arguments;
+        String orgCat = null;
+        orgCat = switchCatalogs(catalog);
+        SQLServerResultSet rs = null;
 ```
 
 ### UnusedAssignment
-Variable `collation` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+Variable `userRs` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-        int lengthConsumed = 2 + cbPropsActual; // We have already read 2bytes for baseType earlier.
-        int expectedValueLength = valueLength - lengthConsumed;
-        SQLCollation collation = null;
-        int precision;
-        int scale;
+        } else {
+            // Azure DW does not support foreign keys, return an empty result set with correct metadata.
+            ResultSet userRs = null;
+            PreparedStatement pstmt = null;
+            StringBuilder azureDwSelectBuilder = new StringBuilder();
 ```
 
 ### UnusedAssignment
-The value `2 + cbPropsActual` assigned to `lengthConsumed` is never used
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+Variable `orgCat` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-                internalVariant.setBaseJDBCType(jdbcType);
-                typeInfo.setDisplaySize("NNNNNNNN-NNNN-NNNN-NNNN-NNNNNNNNNNNN".length());
-                lengthConsumed = 2 + cbPropsActual;
-                convertedValue = tdsReader.readGUID(expectedValueLength, jdbcType, streamGetterArgs.streamType);
-                break;
+    private SQLServerResultSet getResultSetFromInternalQueries(String catalog, String query) throws SQLException {
+        checkClosed();
+        String orgCat = null;
+        orgCat = switchCatalogs(catalog);
+        SQLServerResultSet rs = null;
 ```
 
 ### UnusedAssignment
-Variable `readerValue` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+Variable `rs` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-            // If the stream is to be sent as Unicode, then assume it's an ASCII stream
-            if (JDBCType.NCHAR == jdbcType || JDBCType.NVARCHAR == jdbcType || JDBCType.LONGNVARCHAR == jdbcType) {
-                Reader readerValue = null;
-                readerValue = new InputStreamReader(inputStreamValue, StandardCharsets.US_ASCII);
-
+        String orgCat = null;
+        orgCat = switchCatalogs(catalog);
+        SQLServerResultSet rs = null;
+        try {
+            SQLServerStatement statement = (SQLServerStatement) connection.createStatement();
 ```
 
 ### UnusedAssignment
@@ -7434,18 +7386,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKey
 #### Snippet
 ```java
         System.arraycopy(cipherText, 0, dataToHash, destinationPosition, cipherText.length);
-
-        MessageDigest md = null;
-        try {
-            md = MessageDigest.getInstance(SHA_256);
-```
-
-### UnusedAssignment
-Variable `md` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
-#### Snippet
-```java
-                encryptedColumnEncryptionKey.length - signature.length);
 
         MessageDigest md = null;
         try {
@@ -7465,15 +7405,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKey
 ```
 
 ### UnusedAssignment
-Variable `mac` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
+Variable `md` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
 #### Snippet
 ```java
+                encryptedColumnEncryptionKey.length - signature.length);
 
-        // message authentication code
-        private Mac mac = null;
-
-        // negotiate flags from Challenge msg
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance(SHA_256);
 ```
 
 ### UnusedAssignment
@@ -7489,6 +7429,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
 ```
 
 ### UnusedAssignment
+Variable `mac` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
+#### Snippet
+```java
+
+        // message authentication code
+        private Mac mac = null;
+
+        // negotiate flags from Challenge msg
+```
+
+### UnusedAssignment
 Variable `token` initializer `null` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
 #### Snippet
@@ -7498,66 +7450,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
         ByteBuffer token = null;
         token = ByteBuffer.allocate(NTLM_NEGOTIATE_PAYLOAD_OFFSET + domainNameLen + workstationLen)
                 .order(ByteOrder.LITTLE_ENDIAN);
-```
-
-### UnusedAssignment
-Variable `charsRead` initializer `0` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/ReaderInputStream.java`
-#### Snippet
-```java
-            while (rawChars.hasRemaining()) {
-                int lastPosition = ((Buffer) rawChars).position();
-                int charsRead = 0;
-
-                // Try reading from the app-supplied Reader
-```
-
-### UnusedAssignment
-Variable `result` initializer `false` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-        }
-
-        boolean result = false;
-        try {
-            result = (Util.parseUrl(url, drLogger) != null);
-```
-
-### UnusedAssignment
-Variable `method` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-
-    static ColumnEncryptionSetting valueOfString(String value) throws SQLServerException {
-        ColumnEncryptionSetting method = null;
-
-        if (value.toLowerCase(Locale.US).equalsIgnoreCase(ColumnEncryptionSetting.ENABLED.toString())) {
-```
-
-### UnusedAssignment
-Variable `protocol` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-
-    static SSLProtocol valueOfString(String value) throws SQLServerException {
-        SSLProtocol protocol = null;
-
-        if (value.toLowerCase(Locale.ENGLISH).equalsIgnoreCase(SSLProtocol.TLS.toString())) {
-```
-
-### UnusedAssignment
-Variable `option` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-
-    static EncryptOption valueOfString(String value) throws SQLServerException {
-        EncryptOption option = null;
-
-        String val = value.toLowerCase(Locale.US);
 ```
 
 ### UnusedAssignment
@@ -7573,6 +7465,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 ```
 
 ### UnusedAssignment
+Variable `result` initializer `false` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+        }
+
+        boolean result = false;
+        try {
+            result = (Util.parseUrl(url, drLogger) != null);
+```
+
+### UnusedAssignment
+Variable `protocol` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+
+    static SSLProtocol valueOfString(String value) throws SQLServerException {
+        SSLProtocol protocol = null;
+
+        if (value.toLowerCase(Locale.ENGLISH).equalsIgnoreCase(SSLProtocol.TLS.toString())) {
+```
+
+### UnusedAssignment
 Variable `method` initializer `null` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
@@ -7585,6 +7501,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 ```
 
 ### UnusedAssignment
+Variable `option` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+
+    static EncryptOption valueOfString(String value) throws SQLServerException {
+        EncryptOption option = null;
+
+        String val = value.toLowerCase(Locale.US);
+```
+
+### UnusedAssignment
 Variable `method` initializer `null` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
@@ -7594,6 +7522,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
         KeyStoreAuthentication method = null;
 
         if (value.toLowerCase(Locale.US).equalsIgnoreCase(KeyStoreAuthentication.JAVA_KEYSTORE_PASSWORD.toString())) {
+```
+
+### UnusedAssignment
+Variable `method` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+
+    static ColumnEncryptionSetting valueOfString(String value) throws SQLServerException {
+        ColumnEncryptionSetting method = null;
+
+        if (value.toLowerCase(Locale.US).equalsIgnoreCase(ColumnEncryptionSetting.ENABLED.toString())) {
+```
+
+### UnusedAssignment
+Variable `charsRead` initializer `0` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/ReaderInputStream.java`
+#### Snippet
+```java
+            while (rawChars.hasRemaining()) {
+                int lastPosition = ((Buffer) rawChars).position();
+                int charsRead = 0;
+
+                // Try reading from the app-supplied Reader
 ```
 
 ### UnusedAssignment
@@ -7705,15 +7657,51 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
 ```
 
 ### UnusedAssignment
-Variable `dateTimeFormatter` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkRecord.java`
+Variable `longValue` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
 ```java
-        int precision;
-        int scale;
-        DateTimeFormatter dateTimeFormatter = null;
+    private byte[] normalizedValue(JDBCType destJdbcType, Object value, JDBCType srcJdbcType, int destPrecision,
+            int destScale, String destName) throws SQLServerException {
+        Long longValue = null;
+        byte[] byteValue = null;
+        int srcDataPrecision, srcDataScale;
+```
 
-        ColumnMetadata(String name, int type, int precision, int scale, DateTimeFormatter dateTimeFormatter) {
+### UnusedAssignment
+Variable `byteValue` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
+#### Snippet
+```java
+            int destScale, String destName) throws SQLServerException {
+        Long longValue = null;
+        byte[] byteValue = null;
+        int srcDataPrecision, srcDataScale;
+
+```
+
+### UnusedAssignment
+Variable `metaDataQuery` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
+#### Snippet
+```java
+        SQLServerResultSet rs = null;
+        SQLServerStatement stmt = null;
+        String metaDataQuery = null;
+
+        try {
+```
+
+### UnusedAssignment
+Variable `moreDataAvailable` initializer `false` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
+#### Snippet
+```java
+
+        TDSWriter tdsWriter = null;
+        boolean moreDataAvailable = false;
+
+        try {
 ```
 
 ### UnusedAssignment
@@ -7753,54 +7741,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 ```
 
 ### UnusedAssignment
-Variable `metaDataQuery` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-        SQLServerResultSet rs = null;
-        SQLServerStatement stmt = null;
-        String metaDataQuery = null;
-
-        try {
-```
-
-### UnusedAssignment
-Variable `moreDataAvailable` initializer `false` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-
-        TDSWriter tdsWriter = null;
-        boolean moreDataAvailable = false;
-
-        try {
-```
-
-### UnusedAssignment
-Variable `longValue` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-    private byte[] normalizedValue(JDBCType destJdbcType, Object value, JDBCType srcJdbcType, int destPrecision,
-            int destScale, String destName) throws SQLServerException {
-        Long longValue = null;
-        byte[] byteValue = null;
-        int srcDataPrecision, srcDataScale;
-```
-
-### UnusedAssignment
-Variable `byteValue` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-            int destScale, String destName) throws SQLServerException {
-        Long longValue = null;
-        byte[] byteValue = null;
-        int srcDataPrecision, srcDataScale;
-
-```
-
-### UnusedAssignment
 Variable `bytes` initializer `null` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
@@ -7810,6 +7750,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
                                     byte[] bytes = null;
                                     try {
                                         bytes = ParameterUtils.hexToBin(colValueStr);
+```
+
+### UnusedAssignment
+Variable `dateTimeFormatter` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkRecord.java`
+#### Snippet
+```java
+        int precision;
+        int scale;
+        DateTimeFormatter dateTimeFormatter = null;
+
+        ColumnMetadata(String name, int type, int precision, int scale, DateTimeFormatter dateTimeFormatter) {
 ```
 
 ### UnusedAssignment
@@ -7825,6 +7777,54 @@ final class SQLServerBlobOutputStream extends java.io.OutputStream {
 ```
 
 ### UnusedAssignment
+Variable `readerValue` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+            // If the stream is to be sent as Unicode, then assume it's an ASCII stream
+            if (JDBCType.NCHAR == jdbcType || JDBCType.NVARCHAR == jdbcType || JDBCType.LONGNVARCHAR == jdbcType) {
+                Reader readerValue = null;
+                readerValue = new InputStreamReader(inputStreamValue, StandardCharsets.US_ASCII);
+
+```
+
+### UnusedAssignment
+Variable `convertedValue` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+            SSType baseSSType, TypeInfo typeInfo, JDBCType jdbcType, InputStreamGetterArgs streamGetterArgs,
+            Calendar cal) throws SQLServerException {
+        Object convertedValue = null;
+        int lengthConsumed = 2 + cbPropsActual; // We have already read 2bytes for baseType earlier.
+        int expectedValueLength = valueLength - lengthConsumed;
+```
+
+### UnusedAssignment
+Variable `collation` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+        int lengthConsumed = 2 + cbPropsActual; // We have already read 2bytes for baseType earlier.
+        int expectedValueLength = valueLength - lengthConsumed;
+        SQLCollation collation = null;
+        int precision;
+        int scale;
+```
+
+### UnusedAssignment
+The value `2 + cbPropsActual` assigned to `lengthConsumed` is never used
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                internalVariant.setBaseJDBCType(jdbcType);
+                typeInfo.setDisplaySize("NNNNNNNN-NNNN-NNNN-NNNN-NNNNNNNNNNNN".length());
+                lengthConsumed = 2 + cbPropsActual;
+                convertedValue = tdsReader.readGUID(expectedValueLength, jdbcType, streamGetterArgs.streamType);
+                break;
+```
+
+### UnusedAssignment
 Variable `cekEntry` initializer `null` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
 #### Snippet
@@ -7834,6 +7834,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
         CekTableEntry cekEntry = null;
         boolean isRequestedByEnclave = false;
         SQLServerStatement statement = (SQLServerStatement) ((SQLServerPreparedStatement) stmt);
+```
+
+### UnusedAssignment
+Variable `value` initializer `""` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
+#### Snippet
+```java
+
+    private String readByteString(TDSReader tdsReader) throws SQLServerException {
+        String value = "";
+        int byteLen = (int) tdsReader.readUnsignedByte();
+        value = tdsReader.readUnicodeString(byteLen);
 ```
 
 ### UnusedAssignment
@@ -7858,30 +7870,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
                 int sensitivityRankProperty = SensitivityRank.NOT_DEFINED.getValue();
                 if (sensitivityRankSupported) {
                     sensitivityRankProperty = tdsReader.readInt();
-```
-
-### UnusedAssignment
-Variable `value` initializer `""` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
-#### Snippet
-```java
-
-    private String readByteString(TDSReader tdsReader) throws SQLServerException {
-        String value = "";
-        int byteLen = (int) tdsReader.readUnsignedByte();
-        value = tdsReader.readUnicodeString(byteLen);
-```
-
-### UnusedAssignment
-Variable `fa` initializer `0` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
-#### Snippet
-```java
-                throwIllegalWKTPosition();
-            }
-            byte fa = 0;
-
-            if (version == 1 && (CIRCULARSTRING_STR.equals(nextToken) || COMPOUNDCURVE_STR.equals(nextToken)
 ```
 
 ### UnusedAssignment
@@ -7921,6 +7909,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
 ```
 
 ### UnusedAssignment
+Variable `fa` initializer `0` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
+#### Snippet
+```java
+                throwIllegalWKTPosition();
+            }
+            byte fa = 0;
+
+            if (version == 1 && (CIRCULARSTRING_STR.equals(nextToken) || COMPOUNDCURVE_STR.equals(nextToken)
+```
+
+### UnusedAssignment
 Variable `typeCode` initializer `0` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
 #### Snippet
@@ -7930,18 +7930,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
             byte typeCode = 0;
 
             if (isInsideAnotherShape) {
-```
-
-### UnusedAssignment
-Variable `result` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
-#### Snippet
-```java
-        if (dsLogger.isLoggable(Level.FINER))
-            dsLogger.finer(toString() + " Begin create new connection.");
-        SQLServerConnection result = null;
-        result = DriverJDBCVersion.getSQLServerConnection(toString());
-        result.connect(mergedProps, pooledConnection);
 ```
 
 ### UnusedAssignment
@@ -7957,27 +7945,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc43.java`
 ```
 
 ### UnusedAssignment
-Variable `cekEntry` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+Variable `result` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 #### Snippet
 ```java
-
-                Map<Integer, CekTableEntry> cekList = new HashMap<>();
-                CekTableEntry cekEntry = null;
-                while (rs.next()) {
-                    int currentOrdinal = rs.getInt(DescribeParameterEncryptionResultSet1.KEYORDINAL.value());
-```
-
-### UnusedAssignment
-The value `true` assigned to `inRetry` is never used
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-                    // If we are AE_v3, remove the failed entry and try again.
-                    ParameterMetaDataCache.removeCacheEntry(connection, preparedSQL);
-                    inRetry = true;
-                    doExecutePreparedStatement(command);
-                } else {
+        if (dsLogger.isLoggable(Level.FINER))
+            dsLogger.finer(toString() + " Begin create new connection.");
+        SQLServerConnection result = null;
+        result = DriverJDBCVersion.getSQLServerConnection(toString());
+        result.connect(mergedProps, pooledConnection);
 ```
 
 ### UnusedAssignment
@@ -8065,15 +8041,27 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerParser.java`
 ```
 
 ### UnusedAssignment
-Variable `connected` initializer `false` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+Variable `cekEntry` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
-                                                                                             // default
 
-                        boolean connected = false;
-                        try {
-                            connected = ch.finishConnect();
+                Map<Integer, CekTableEntry> cekList = new HashMap<>();
+                CekTableEntry cekEntry = null;
+                while (rs.next()) {
+                    int currentOrdinal = rs.getInt(DescribeParameterEncryptionResultSet1.KEYORDINAL.value());
+```
+
+### UnusedAssignment
+The value `true` assigned to `inRetry` is never used
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+                    // If we are AE_v3, remove the failed entry and try again.
+                    ParameterMetaDataCache.removeCacheEntry(connection, preparedSQL);
+                    inRetry = true;
+                    doExecutePreparedStatement(command);
+                } else {
 ```
 
 ### UnusedAssignment
@@ -8086,42 +8074,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
         int minutesOffset = 0;
 
         try {
-```
-
-### UnusedAssignment
-Variable `serverSupportsColumnEncryption` initializer `false` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    private boolean isStreaming = true;
-    private boolean useColumnEncryption = false;
-    private boolean serverSupportsColumnEncryption = false;
-    private boolean serverSupportsDataClassification = false;
-    private byte serverSupportedDataClassificationVersion = TDS.DATA_CLASSIFICATION_NOT_ENABLED;
-```
-
-### UnusedAssignment
-Variable `minutesOffset` initializer `0` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        long utcMillis;
-        int subSecondNanos;
-        int minutesOffset = 0;
-
-        try {
-```
-
-### UnusedAssignment
-The value `false` assigned to `useTnir` is never used
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-                if ((useTnir) && (inetAddrs.length > IP_ADDRESS_LIMIT)) {
-                    useTnir = false;
-                    timeoutInMilliSeconds = timeoutInMilliSecondsForFullTimeout;
-                }
 ```
 
 ### UnusedAssignment
@@ -8197,6 +8149,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### UnusedAssignment
+The value `false` assigned to `useTnir` is never used
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+                if ((useTnir) && (inetAddrs.length > IP_ADDRESS_LIMIT)) {
+                    useTnir = false;
+                    timeoutInMilliSeconds = timeoutInMilliSecondsForFullTimeout;
+                }
+```
+
+### UnusedAssignment
 Variable `serverSupportedDataClassificationVersion` initializer `TDS.DATA_CLASSIFICATION_NOT_ENABLED` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
@@ -8206,6 +8170,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
     private byte serverSupportedDataClassificationVersion = TDS.DATA_CLASSIFICATION_NOT_ENABLED;
     private final transient Lock lock = new ReentrantLock();
 
+```
+
+### UnusedAssignment
+Variable `serverSupportsColumnEncryption` initializer `false` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    private boolean isStreaming = true;
+    private boolean useColumnEncryption = false;
+    private boolean serverSupportsColumnEncryption = false;
+    private boolean serverSupportsDataClassification = false;
+    private byte serverSupportedDataClassificationVersion = TDS.DATA_CLASSIFICATION_NOT_ENABLED;
+```
+
+### UnusedAssignment
+Variable `connected` initializer `false` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                                                                                             // default
+
+                        boolean connected = false;
+                        try {
+                            connected = ch.finishConnect();
 ```
 
 ### UnusedAssignment
@@ -8221,99 +8209,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### UnusedAssignment
-Variable `handle` initializer `0` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+Variable `minutesOffset` initializer `0` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-     */
-    class PreparedStatementHandle {
-        private int handle = 0;
-        private final AtomicInteger handleRefCount = new AtomicInteger();
-        private boolean isDirectSql;
-```
+        long utcMillis;
+        int subSecondNanos;
+        int minutesOffset = 0;
 
-### UnusedAssignment
-Variable `tdsTokenHandler` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        // Always update serialVersionUID when prompted.
-        private static final long serialVersionUID = 1L;
-        transient TDSTokenHandler tdsTokenHandler = null;
-        SqlAuthenticationToken sqlFedAuthToken = null;
-
-```
-
-### UnusedAssignment
-Variable `libraryType` initializer `-1` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        private static final long serialVersionUID = -6709861741957202475L;
-        boolean fedAuthRequiredPreLoginResponse;
-        int libraryType = -1;
-        byte[] accessToken = null;
-        SqlAuthentication authentication = null;
-```
-
-### UnusedAssignment
-The value `sleepInterval * 2` assigned to `sleepInterval` is never used
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                            Thread.currentThread().interrupt();
-                        }
-                        sleepInterval = sleepInterval * 2;
-                    }
-                }
-```
-
-### UnusedAssignment
-The value `null` assigned to `authentication` is never used
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                if (null != authentication) {
-                    authentication.releaseClientContext();
-                    authentication = null;
-                }
-                if (null != impersonatedUserCred) {
-```
-
-### UnusedAssignment
-Variable `statementHandle` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            // the remaining clean-up.
-            int handlesRemoved = 0;
-            PreparedStatementHandle statementHandle = null;
-
-            while (null != (statementHandle = discardedPreparedStatementHandles.poll())) {
-```
-
-### UnusedAssignment
-Variable `data` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-                // try to read data and throw if the arguments are bad, meaning the server sent us a bad token
-                String data = null;
-                try {
-                    byte[] dataArray = new byte[dataLen];
-```
-
-### UnusedAssignment
-The value `SQLServerDriverStringProperty.SERVER_CERTIFICATE.getDefaultValue()` assigned to `sPropValue` is never used
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                    sPropValue = activeConnectionProperties.getProperty(sPropKey);
-                    if (null == sPropValue) {
-                        sPropValue = SQLServerDriverStringProperty.SERVER_CERTIFICATE.getDefaultValue();
-                    }
-                    serverCertificate = activeConnectionProperties
+        try {
 ```
 
 ### UnusedAssignment
@@ -8326,18 +8230,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
                 String enclaveType = null;
 
                 if (null != enclaveAttestationUrl || (enclaveAttestationProtocol != null
-```
-
-### UnusedAssignment
-Variable `keystoreProvider` initializer `null` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-    SQLServerColumnEncryptionKeyStoreProvider getSystemOrGlobalColumnEncryptionKeyStoreProvider(
-            String providerName) throws SQLServerException {
-        SQLServerColumnEncryptionKeyStoreProvider keystoreProvider = null;
-
-        lock.lock();
 ```
 
 ### UnusedAssignment
@@ -8365,6 +8257,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 ```
 
 ### UnusedAssignment
+Variable `libraryType` initializer `-1` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        private static final long serialVersionUID = -6709861741957202475L;
+        boolean fedAuthRequiredPreLoginResponse;
+        int libraryType = -1;
+        byte[] accessToken = null;
+        SqlAuthentication authentication = null;
+```
+
+### UnusedAssignment
 Variable `sqlFedAuthToken` initializer `null` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
@@ -8374,6 +8278,102 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
         SqlAuthenticationToken sqlFedAuthToken = null;
 
         FedAuthTokenCommand(SqlAuthenticationToken sqlFedAuthToken, TDSTokenHandler tdsTokenHandler) {
+```
+
+### UnusedAssignment
+The value `null` assigned to `authentication` is never used
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                if (null != authentication) {
+                    authentication.releaseClientContext();
+                    authentication = null;
+                }
+                if (null != impersonatedUserCred) {
+```
+
+### UnusedAssignment
+Variable `handle` initializer `0` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+     */
+    class PreparedStatementHandle {
+        private int handle = 0;
+        private final AtomicInteger handleRefCount = new AtomicInteger();
+        private boolean isDirectSql;
+```
+
+### UnusedAssignment
+Variable `statementHandle` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            // the remaining clean-up.
+            int handlesRemoved = 0;
+            PreparedStatementHandle statementHandle = null;
+
+            while (null != (statementHandle = discardedPreparedStatementHandles.poll())) {
+```
+
+### UnusedAssignment
+Variable `data` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+
+                // try to read data and throw if the arguments are bad, meaning the server sent us a bad token
+                String data = null;
+                try {
+                    byte[] dataArray = new byte[dataLen];
+```
+
+### UnusedAssignment
+The value `sleepInterval * 2` assigned to `sleepInterval` is never used
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                            Thread.currentThread().interrupt();
+                        }
+                        sleepInterval = sleepInterval * 2;
+                    }
+                }
+```
+
+### UnusedAssignment
+The value `SQLServerDriverStringProperty.SERVER_CERTIFICATE.getDefaultValue()` assigned to `sPropValue` is never used
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                    sPropValue = activeConnectionProperties.getProperty(sPropKey);
+                    if (null == sPropValue) {
+                        sPropValue = SQLServerDriverStringProperty.SERVER_CERTIFICATE.getDefaultValue();
+                    }
+                    serverCertificate = activeConnectionProperties
+```
+
+### UnusedAssignment
+Variable `tdsTokenHandler` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        // Always update serialVersionUID when prompted.
+        private static final long serialVersionUID = 1L;
+        transient TDSTokenHandler tdsTokenHandler = null;
+        SqlAuthenticationToken sqlFedAuthToken = null;
+
+```
+
+### UnusedAssignment
+Variable `keystoreProvider` initializer `null` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+    SQLServerColumnEncryptionKeyStoreProvider getSystemOrGlobalColumnEncryptionKeyStoreProvider(
+            String providerName) throws SQLServerException {
+        SQLServerColumnEncryptionKeyStoreProvider keystoreProvider = null;
+
+        lock.lock();
 ```
 
 ## RuleId[id=ConstantValue]
@@ -8450,30 +8450,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
 ```
 
 ### ConstantValue
-Condition `value <= 255` is always `true` when reached
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-    public int read() throws IOException {
-        int value = containedStream.read();
-        if (value >= 0 && value <= 255)
-            return ASCII_FILTER[value];
-        return value;
-```
-
-### ConstantValue
-Condition `SSType.DATETIMEOFFSET == ssType` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-                        // Per driver spec, conversion to DateTimeOffset is only supported from
-                        // DATETIMEOFFSET SQL Server values.
-                        assert SSType.DATETIMEOFFSET == ssType;
-
-                        // For DATETIMEOFFSET SQL Server values, the time zone offset is in minutes.
-```
-
-### ConstantValue
 Condition `rec != null` is always `true`
 in `src/main/java/com/microsoft/sqlserver/jdbc/dns/DNSUtilities.java`
 #### Snippet
@@ -8522,6 +8498,42 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 ```
 
 ### ConstantValue
+Condition `SSType.DATETIMEOFFSET == ssType` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+                        // Per driver spec, conversion to DateTimeOffset is only supported from
+                        // DATETIMEOFFSET SQL Server values.
+                        assert SSType.DATETIMEOFFSET == ssType;
+
+                        // For DATETIMEOFFSET SQL Server values, the time zone offset is in minutes.
+```
+
+### ConstantValue
+Condition `value <= 255` is always `true` when reached
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+    public int read() throws IOException {
+        int value = containedStream.read();
+        if (value >= 0 && value <= 255)
+            return ASCII_FILTER[value];
+        return value;
+```
+
+### ConstantValue
+Condition `currentRow >= 1` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
+#### Snippet
+```java
+        // can be restored later if we ever move to this row again.
+        if (currentRow <= maxRows) {
+            assert currentRow >= 1;
+            updatedRow[currentRow - 1] = rs.getUpdatedCurrentRow();
+            deletedRow[currentRow - 1] = rs.getDeletedCurrentRow();
+```
+
+### ConstantValue
 Condition `SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type` is always `false`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
@@ -8531,6 +8543,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
                 || SQLServerResultSet.TYPE_SCROLL_SENSITIVE == type || SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type
                 || SQLServerResultSet.TYPE_SS_SERVER_CURSOR_FORWARD_ONLY == type);
     }
+```
+
+### ConstantValue
+Value `value` is always 'null'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+    final Object apply(Object value, JDBCType asJDBCType) throws SQLServerException {
+        if (null == value)
+            return value;
+        // Assumption: values will only be requested in integral or textual
+        // format
+```
+
+### ConstantValue
+Condition `null == statementMap` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+
+        HandleAssociation() {
+            if (null == statementMap) {
+                statementMap = new HashMap<>();
+            }
 ```
 
 ### ConstantValue
@@ -8570,54 +8606,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 ```
 
 ### ConstantValue
-Condition `SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-        checkResultType(type);
-        return (type == SQLServerResultSet.TYPE_SS_SCROLL_DYNAMIC || SQLServerResultSet.TYPE_FORWARD_ONLY == type
-                || SQLServerResultSet.TYPE_SCROLL_SENSITIVE == type || SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type
-                || SQLServerResultSet.TYPE_SS_SERVER_CURSOR_FORWARD_ONLY == type);
-    }
-```
-
-### ConstantValue
-Condition `SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-        checkResultType(type);
-        return (type == SQLServerResultSet.TYPE_SS_SCROLL_DYNAMIC || SQLServerResultSet.TYPE_FORWARD_ONLY == type
-                || SQLServerResultSet.TYPE_SCROLL_SENSITIVE == type || SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type
-                || SQLServerResultSet.TYPE_SS_SERVER_CURSOR_FORWARD_ONLY == type);
-    }
-```
-
-### ConstantValue
-Value `value` is always 'null'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    final Object apply(Object value, JDBCType asJDBCType) throws SQLServerException {
-        if (null == value)
-            return value;
-        // Assumption: values will only be requested in integral or textual
-        // format
-```
-
-### ConstantValue
-Condition `SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-        checkResultType(type);
-        return (type == SQLServerResultSet.TYPE_SS_SCROLL_DYNAMIC || SQLServerResultSet.TYPE_FORWARD_ONLY == type
-                || SQLServerResultSet.TYPE_SCROLL_SENSITIVE == type || SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type
-                || SQLServerResultSet.TYPE_SS_SERVER_CURSOR_FORWARD_ONLY == type);
-    }
-```
-
-### ConstantValue
 Condition `null == sCurr` is always `false`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
@@ -8627,30 +8615,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
         if (null == sCurr || sCurr.length() == 0)
             return null;
         return sCurr;
-```
-
-### ConstantValue
-Condition `SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-        checkResultType(type);
-        return (type == SQLServerResultSet.TYPE_SS_SCROLL_DYNAMIC || SQLServerResultSet.TYPE_FORWARD_ONLY == type
-                || SQLServerResultSet.TYPE_SCROLL_SENSITIVE == type || SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type
-                || SQLServerResultSet.TYPE_SS_SERVER_CURSOR_FORWARD_ONLY == type);
-    }
-```
-
-### ConstantValue
-Condition `null == statementMap` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-
-        HandleAssociation() {
-            if (null == statementMap) {
-                statementMap = new HashMap<>();
-            }
 ```
 
 ### ConstantValue
@@ -8666,6 +8630,54 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 ```
 
 ### ConstantValue
+Condition `SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+        checkResultType(type);
+        return (type == SQLServerResultSet.TYPE_SS_SCROLL_DYNAMIC || SQLServerResultSet.TYPE_FORWARD_ONLY == type
+                || SQLServerResultSet.TYPE_SCROLL_SENSITIVE == type || SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type
+                || SQLServerResultSet.TYPE_SS_SERVER_CURSOR_FORWARD_ONLY == type);
+    }
+```
+
+### ConstantValue
+Condition `SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+        checkResultType(type);
+        return (type == SQLServerResultSet.TYPE_SS_SCROLL_DYNAMIC || SQLServerResultSet.TYPE_FORWARD_ONLY == type
+                || SQLServerResultSet.TYPE_SCROLL_SENSITIVE == type || SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type
+                || SQLServerResultSet.TYPE_SS_SERVER_CURSOR_FORWARD_ONLY == type);
+    }
+```
+
+### ConstantValue
+Condition `SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+        checkResultType(type);
+        return (type == SQLServerResultSet.TYPE_SS_SCROLL_DYNAMIC || SQLServerResultSet.TYPE_FORWARD_ONLY == type
+                || SQLServerResultSet.TYPE_SCROLL_SENSITIVE == type || SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type
+                || SQLServerResultSet.TYPE_SS_SERVER_CURSOR_FORWARD_ONLY == type);
+    }
+```
+
+### ConstantValue
+Condition `SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+        checkResultType(type);
+        return (type == SQLServerResultSet.TYPE_SS_SCROLL_DYNAMIC || SQLServerResultSet.TYPE_FORWARD_ONLY == type
+                || SQLServerResultSet.TYPE_SCROLL_SENSITIVE == type || SQLServerResultSet.TYPE_SS_SCROLL_KEYSET == type
+                || SQLServerResultSet.TYPE_SS_SERVER_CURSOR_FORWARD_ONLY == type);
+    }
+```
+
+### ConstantValue
 Value `inID` is always 'null'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
@@ -8675,127 +8687,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
             return inID;
         // SQL bracket escaping rules.
         // See Using Wildcard Characters As Literals in SQL BOL
-```
-
-### ConstantValue
-Condition `TDSType.BIGVARBINARY == baseType` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-                if (TDSType.BIGBINARY == baseType)
-                    jdbcType = JDBCType.BINARY;// LONGVARCHAR;
-                else if (TDSType.BIGVARBINARY == baseType)
-                    jdbcType = JDBCType.VARBINARY;
-                maxLength = tdsReader.readUnsignedShort();
-```
-
-### ConstantValue
-Condition `valueMark == null` is always `true` when reached
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-        // either there should be a valueMark
-        // or valueMark should be null and isNull should be set to true(NBCROW case)
-        assert ((valueMark != null) || (valueMark == null && isNull));
-
-        if (null != streamGetterArgs) {
-```
-
-### ConstantValue
-Condition `Integer.MAX_VALUE < ticksSinceMidnight` is always `false` when reached
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-                int ticksSinceMidnight = (Util.readInt(decryptedValue, 4) * 10 + 1) / 3;
-
-                if (8 != decryptedValue.length || Integer.MAX_VALUE < ticksSinceMidnight) {
-                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_NormalizationErrorAE"));
-                    throw new SQLServerException(form.format(new Object[] {baseSSType}), null, 0, null);
-```
-
-### ConstantValue
-Value `byteArrayValue` is always 'null'
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-                        tdsWriter.writeEncryptedRPCPLP();
-                    } else {
-                        tdsWriter.writeEncryptedRPCByteArray(byteArrayValue);
-                    }
-
-```
-
-### ConstantValue
-Condition `(jdbcType == JDBCType.LONGNVARCHAR) && (JDBCType.VARCHAR == jdbcTypeSetByUser) ...` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-                            // jdbcType is set to LONGNVARCHAR if input data length is >
-                            // DataTypes.SHORT_VARTYPE_MAX_CHARS for string
-                            if ((jdbcType == JDBCType.LONGNVARCHAR) && (JDBCType.VARCHAR == jdbcTypeSetByUser)
-                                    && (DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength)) {
-                                MessageFormat form = new MessageFormat(
-                                        SQLServerException.getErrString("R_StreamingDataTypeAE"));
-```
-
-### ConstantValue
-Condition `DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-                            // DataTypes.SHORT_VARTYPE_MAX_CHARS for string
-                            if ((jdbcType == JDBCType.LONGNVARCHAR) && (JDBCType.VARCHAR == jdbcTypeSetByUser)
-                                    && (DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength)) {
-                                MessageFormat form = new MessageFormat(
-                                        SQLServerException.getErrString("R_StreamingDataTypeAE"));
-```
-
-### ConstantValue
-Condition `(null != cryptoMeta) && (DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength)` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-
-                case BYTEARRAY:
-                    if ((null != cryptoMeta) && (DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength)) {
-                        MessageFormat form = new MessageFormat(
-                                SQLServerException.getErrString("R_StreamingDataTypeAE"));
-```
-
-### ConstantValue
-Condition `DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength` is always `false` when reached
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-
-                case BYTEARRAY:
-                    if ((null != cryptoMeta) && (DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength)) {
-                        MessageFormat form = new MessageFormat(
-                                SQLServerException.getErrString("R_StreamingDataTypeAE"));
-```
-
-### ConstantValue
-Condition `0 == valueLength` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-                                    tdsWriter.writeEncryptedRPCDateTimeOffset(name, calendar, minutesOffset,
-                                            subSecondNanos,
-                                            (0 == valueLength ? TDS.MAX_FRACTIONAL_SECONDS_SCALE : valueLength),
-                                            isOutParam, statement);
-                                }
-```
-
-### ConstantValue
-Condition `currentRow >= 1` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
-#### Snippet
-```java
-        // can be restored later if we ever move to this row again.
-        if (currentRow <= maxRows) {
-            assert currentRow >= 1;
-            updatedRow[currentRow - 1] = rs.getUpdatedCurrentRow();
-            deletedRow[currentRow - 1] = rs.getDeletedCurrentRow();
 ```
 
 ### ConstantValue
@@ -8823,15 +8714,39 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
 ```
 
 ### ConstantValue
-Condition `null != reader` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/ReaderInputStream.java`
+Value `name` is always 'null'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
 ```java
-    @Override
-    public int available() throws IOException {
-        assert null != reader;
-        assert null != encodedChars;
+    static String getNormalizedPropertyName(String name, Logger logger) {
+        if (null == name)
+            return name;
 
+        for (String[] driverPropertiesSynonym : driverPropertiesSynonyms) {
+```
+
+### ConstantValue
+Value `name` is always 'null'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+    static String getPropertyOnlyName(String name, Logger logger) {
+        if (null == name)
+            return name;
+
+        for (SQLServerDriverPropertyInfo aDRIVER_PROPERTIES_PROPERTY_ONLY : DRIVER_PROPERTIES_PROPERTY_ONLY) {
+```
+
+### ConstantValue
+Value `name` is always 'null'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
+#### Snippet
+```java
+    static String getNormalizedPropertyValueName(String name) {
+        if (null == name)
+            return name;
+
+        for (String[] driverPropertyValueSynonym : driverPropertyValuesSynonyms) {
 ```
 
 ### ConstantValue
@@ -8859,6 +8774,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ReaderInputStream.java`
 ```
 
 ### ConstantValue
+Condition `null != reader` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/ReaderInputStream.java`
+#### Snippet
+```java
+    @Override
+    public int available() throws IOException {
+        assert null != reader;
+        assert null != encodedChars;
+
+```
+
+### ConstantValue
 Value `isFeatureExtAck` is always 'false'
 in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
 #### Snippet
@@ -8868,42 +8795,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
             tdsReader.tryProcessFeatureExtAck(isFeatureExtAck);
     }
 
-```
-
-### ConstantValue
-Value `name` is always 'null'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    static String getNormalizedPropertyValueName(String name) {
-        if (null == name)
-            return name;
-
-        for (String[] driverPropertyValueSynonym : driverPropertyValuesSynonyms) {
-```
-
-### ConstantValue
-Value `name` is always 'null'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    static String getNormalizedPropertyName(String name, Logger logger) {
-        if (null == name)
-            return name;
-
-        for (String[] driverPropertiesSynonym : driverPropertiesSynonyms) {
-```
-
-### ConstantValue
-Value `name` is always 'null'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-    static String getPropertyOnlyName(String name, Logger logger) {
-        if (null == name)
-            return name;
-
-        for (SQLServerDriverPropertyInfo aDRIVER_PROPERTIES_PROPERTY_ONLY : DRIVER_PROPERTIES_PROPERTY_ONLY) {
 ```
 
 ### ConstantValue
@@ -8919,15 +8810,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/PLPInputStream.java`
 ```
 
 ### ConstantValue
-Condition `null != jdbcType` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+Condition `colValue instanceof java.sql.Timestamp` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
 ```java
-            }
-
-            assert null != jdbcType;
-            return jdbcType;
-        }
+                calendar.setTimeInMillis(utcMillis);
+                int subSecondNanos;
+                if (colValue instanceof java.sql.Timestamp) {
+                    subSecondNanos = ((java.sql.Timestamp) colValue).getNanos();
+                } else {
 ```
 
 ### ConstantValue
@@ -8955,42 +8846,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 ```
 
 ### ConstantValue
-Condition `colValue instanceof byte[]` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-                writeBulkCopySqlVariantHeader(4 + length, TDSType.BIGVARBINARY.byteValue(), (byte) 2, tdsWriter);
-                tdsWriter.writeShort((short) (variantType.getMaxLength())); // length
-                if (colValue instanceof byte[]) {
-                    srcBytes = (byte[]) colValue;
-                } else {
-```
-
-### ConstantValue
-Condition `colValue instanceof byte[]` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-                writeBulkCopySqlVariantHeader(4 + length, TDSType.BIGVARBINARY.byteValue(), (byte) 2, tdsWriter);
-                tdsWriter.writeShort((short) (variantType.getMaxLength())); // length
-                if (colValue instanceof byte[]) {
-                    srcBytes = (byte[]) colValue;
-                } else {
-```
-
-### ConstantValue
-Condition `colValue instanceof java.sql.Timestamp` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-                calendar.setTimeInMillis(utcMillis);
-                int subSecondNanos;
-                if (colValue instanceof java.sql.Timestamp) {
-                    subSecondNanos = ((java.sql.Timestamp) colValue).getNanos();
-                } else {
-```
-
-### ConstantValue
 Condition `null != destCryptoMeta` is always `true` when reached
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
@@ -9000,6 +8855,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
         } else if ((null != serverBulkData) && (null != destCryptoMeta)) {
             // From CSV to encrypted column. Convert to respective object.
             if ((java.sql.Types.DATE == srcJdbcType) || (java.sql.Types.TIME == srcJdbcType)
+```
+
+### ConstantValue
+Condition `colValue instanceof byte[]` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
+#### Snippet
+```java
+                writeBulkCopySqlVariantHeader(4 + length, TDSType.BIGVARBINARY.byteValue(), (byte) 2, tdsWriter);
+                tdsWriter.writeShort((short) (variantType.getMaxLength())); // length
+                if (colValue instanceof byte[]) {
+                    srcBytes = (byte[]) colValue;
+                } else {
+```
+
+### ConstantValue
+Condition `colValue instanceof byte[]` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
+#### Snippet
+```java
+                writeBulkCopySqlVariantHeader(4 + length, TDSType.BIGVARBINARY.byteValue(), (byte) 2, tdsWriter);
+                tdsWriter.writeShort((short) (variantType.getMaxLength())); // length
+                if (colValue instanceof byte[]) {
+                    srcBytes = (byte[]) colValue;
+                } else {
 ```
 
 ### ConstantValue
@@ -9087,6 +8966,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 ```
 
 ### ConstantValue
+Condition `null != jdbcType` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+#### Snippet
+```java
+            }
+
+            assert null != jdbcType;
+            return jdbcType;
+        }
+```
+
+### ConstantValue
 Condition `this.minutesOffset >= MINUTES_OFFSET_MIN` is always `true`
 in `src/main/java/microsoft/sql/DateTimeOffset.java`
 #### Snippet
@@ -9159,6 +9050,103 @@ in `src/main/java/microsoft/sql/DateTimeOffset.java`
 ```
 
 ### ConstantValue
+Condition `0 == valueLength` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                                    tdsWriter.writeEncryptedRPCDateTimeOffset(name, calendar, minutesOffset,
+                                            subSecondNanos,
+                                            (0 == valueLength ? TDS.MAX_FRACTIONAL_SECONDS_SCALE : valueLength),
+                                            isOutParam, statement);
+                                }
+```
+
+### ConstantValue
+Condition `(jdbcType == JDBCType.LONGNVARCHAR) && (JDBCType.VARCHAR == jdbcTypeSetByUser) ...` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                            // jdbcType is set to LONGNVARCHAR if input data length is >
+                            // DataTypes.SHORT_VARTYPE_MAX_CHARS for string
+                            if ((jdbcType == JDBCType.LONGNVARCHAR) && (JDBCType.VARCHAR == jdbcTypeSetByUser)
+                                    && (DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength)) {
+                                MessageFormat form = new MessageFormat(
+                                        SQLServerException.getErrString("R_StreamingDataTypeAE"));
+```
+
+### ConstantValue
+Condition `DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                            // DataTypes.SHORT_VARTYPE_MAX_CHARS for string
+                            if ((jdbcType == JDBCType.LONGNVARCHAR) && (JDBCType.VARCHAR == jdbcTypeSetByUser)
+                                    && (DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength)) {
+                                MessageFormat form = new MessageFormat(
+                                        SQLServerException.getErrString("R_StreamingDataTypeAE"));
+```
+
+### ConstantValue
+Condition `(null != cryptoMeta) && (DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength)` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+
+                case BYTEARRAY:
+                    if ((null != cryptoMeta) && (DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength)) {
+                        MessageFormat form = new MessageFormat(
+                                SQLServerException.getErrString("R_StreamingDataTypeAE"));
+```
+
+### ConstantValue
+Condition `DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength` is always `false` when reached
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+
+                case BYTEARRAY:
+                    if ((null != cryptoMeta) && (DataTypes.MAX_VARTYPE_MAX_BYTES < valueLength)) {
+                        MessageFormat form = new MessageFormat(
+                                SQLServerException.getErrString("R_StreamingDataTypeAE"));
+```
+
+### ConstantValue
+Condition `valueMark == null` is always `true` when reached
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+        // either there should be a valueMark
+        // or valueMark should be null and isNull should be set to true(NBCROW case)
+        assert ((valueMark != null) || (valueMark == null && isNull));
+
+        if (null != streamGetterArgs) {
+```
+
+### ConstantValue
+Condition `TDSType.BIGVARBINARY == baseType` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                if (TDSType.BIGBINARY == baseType)
+                    jdbcType = JDBCType.BINARY;// LONGVARCHAR;
+                else if (TDSType.BIGVARBINARY == baseType)
+                    jdbcType = JDBCType.VARBINARY;
+                maxLength = tdsReader.readUnsignedShort();
+```
+
+### ConstantValue
+Value `byteArrayValue` is always 'null'
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                        tdsWriter.writeEncryptedRPCPLP();
+                    } else {
+                        tdsWriter.writeEncryptedRPCByteArray(byteArrayValue);
+                    }
+
+```
+
+### ConstantValue
 Value `spn` is always 'null'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SSPIAuthentication.java`
 #### Snippet
@@ -9180,6 +9168,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
                 if (null != c && !((ISQLServerConnection) c).getDelayLoadingLobs() && null != lob) {
                     lob.setDelayLoadingLob();
                 }
+```
+
+### ConstantValue
+Value `x` is always 'null'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+            }
+
+            column.updateValue(jdbcType, x, JavaType.OBJECT, null, // streamSetterArgs
+                    null, scale, stmt.connection, stmt.stmtColumnEncriptionSetting, precision, forceEncrypt, index);
+        } else {
 ```
 
 ### ConstantValue
@@ -9207,18 +9207,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 ```
 
 ### ConstantValue
-Value `x` is always 'null'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-            }
-
-            column.updateValue(jdbcType, x, JavaType.OBJECT, null, // streamSetterArgs
-                    null, scale, stmt.connection, stmt.stmtColumnEncriptionSetting, precision, forceEncrypt, index);
-        } else {
-```
-
-### ConstantValue
 Value `isRequestedByEnclave` is always 'true'
 in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
 #### Snippet
@@ -9228,6 +9216,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
                         serverName, isRequestedByEnclave, keySignature);
 
                 // DBID(4) + MDVER(8) + KEYID(2) + CEK(32) = 46
+```
+
+### ConstantValue
+Value `tvpName` is always 'null'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
+#### Snippet
+```java
+        } else
+            setObject(setterGetParam(findColumn(parameterName)), value, JavaType.of(value), JDBCType.of(sqlType), null,
+                    null, false, findColumn(parameterName), tvpName);
+        loggerExternal.exiting(getClassNameLogging(), "setObject");
+    }
 ```
 
 ### ConstantValue
@@ -9243,15 +9243,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
 ```
 
 ### ConstantValue
-Value `tvpName` is always 'null'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
+Condition `null != connection` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
-        } else
-            setObject(setterGetParam(findColumn(parameterName)), value, JavaType.of(value), JDBCType.of(sqlType), null,
-                    null, false, findColumn(parameterName), tvpName);
-        loggerExternal.exiting(getClassNameLogging(), "setObject");
-    }
+        ParsedSQLCacheItem parsedSQL = getCachedParsedSQL(sqlTextCacheKey);
+        if (null != parsedSQL) {
+            if (null != connection && connection.isStatementPoolingEnabled()) {
+                isExecutedAtLeastOnce = true;
+            }
 ```
 
 ### ConstantValue
@@ -9276,18 +9276,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
         if (null == localUserSQL || localUserSQL.length() < 2) {
             return false;
         }
-```
-
-### ConstantValue
-Condition `null != connection` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        ParsedSQLCacheItem parsedSQL = getCachedParsedSQL(sqlTextCacheKey);
-        if (null != parsedSQL) {
-            if (null != connection && connection.isStatementPoolingEnabled()) {
-                isExecutedAtLeastOnce = true;
-            }
 ```
 
 ### ConstantValue
@@ -9327,63 +9315,147 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCSVFileRecord.java`
 ```
 
 ### ConstantValue
-Condition `bytesRead < 0` is always `false`
+Condition `nValueLen <= DataTypes.MAX_VARTYPE_MAX_BYTES` is always `true` when reached
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
+        boolean isShortValue = (nValueLen <= DataTypes.SHORT_VARTYPE_MAX_BYTES);
 
-                // Check for invalid bytesRead returned from InputStream.read
-                if (bytesRead < 0 || bytesRead > buff.length - bytesToWrite) {
-                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_errorReadingStream"));
-                    Object[] msgArgs = {SQLServerException.getErrString("R_streamReadReturnedInvalidValue")};
+        boolean isPLP = (!isShortValue) && (nValueLen <= DataTypes.MAX_VARTYPE_MAX_BYTES);
+
+        // Handle Shiloh types here.
 ```
 
 ### ConstantValue
-Condition `-1 == bytesRead` is always `false` when reached
+Condition `isPLP` is always `true`
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-            while (0 == (bytesRead = readInternal(oneByte, 0, oneByte.length)));
-
-            assert 1 == bytesRead || -1 == bytesRead;
-            return 1 == bytesRead ? oneByte[0] : -1;
-        }
+        if (isShortValue) {
+            writeShort((short) DataTypes.SHORT_VARTYPE_MAX_BYTES);
+        } else if (isPLP) {
+            writeShort((short) DataTypes.SQL_USHORTVARMAXLEN);
+        } else {
 ```
 
 ### ConstantValue
-Condition `1 == bytesRead` is always `true`
+Condition `isPLP` is always `true`
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
+            if (isShortValue) {
+                writeShort((short) nValueLen); // actual len
+            } else if (isPLP) {
+                writeLong(nValueLen); // actual length
+            } else {
+```
 
-            assert 1 == bytesRead || -1 == bytesRead;
-            return 1 == bytesRead ? oneByte[0] : -1;
-        }
+### ConstantValue
+Condition `addr.isUnresolved()` is always `true` when reached
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        // cannot be resolved, but that InetSocketAddress(host, port) does not - it sets
+        // the returned InetSocketAddress as unresolved.
+        if (addr != null && addr.isUnresolved()) {
+            if (logger.isLoggable(Level.FINER)) {
+                logger.finer(this.toString() + "Failed to resolve host name: " + hostName
+```
+
+### ConstantValue
+Value `bOut` is always 'false'
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        } else { // non-PLP type
+            // Write maximum length of data
+            writeRPCNameValType(sName, bOut, TDSType.NVARCHAR);
+            writeShort((short) DataTypes.SHORT_VARTYPE_MAX_BYTES);
 
 ```
 
 ### ConstantValue
-Condition `DataTypes.UNKNOWN_STREAM_LENGTH == dataLength` is always `false`
+Condition `0 <= reLength` is always `true`
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-                    }
+            // For Shiloh, this is enforced in DTV by converting the Reader to some other length-
+            // prefixed value in the setter.
+            assert 0 <= reLength && reLength <= DataTypes.NTEXT_MAX_CHARS;
 
-                    else if (DataTypes.UNKNOWN_STREAM_LENGTH == dataLength)
-                        // Append v*max length.
-                        // UNKNOWN_PLP_LEN is 0xFFFFFFFFFFFFFFFE
+            // For non-PLP types, use the long TEXT type rather than the short VARCHAR
 ```
 
 ### ConstantValue
-Condition `DataTypes.UNKNOWN_STREAM_LENGTH == dataLength` is always `false`
+Condition `0 <= reLength && reLength <= DataTypes.NTEXT_MAX_CHARS` is always `true`
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-                        // Null header for v*max types is 0xFFFFFFFFFFFFFFFF.
-                        writeLong(0xFFFFFFFFFFFFFFFFL);
-                    else if (DataTypes.UNKNOWN_STREAM_LENGTH == dataLength)
-                        // Append v*max length.
-                        // UNKNOWN_PLP_LEN is 0xFFFFFFFFFFFFFFFE
+            // For Shiloh, this is enforced in DTV by converting the Reader to some other length-
+            // prefixed value in the setter.
+            assert 0 <= reLength && reLength <= DataTypes.NTEXT_MAX_CHARS;
+
+            // For non-PLP types, use the long TEXT type rather than the short VARCHAR
+```
+
+### ConstantValue
+Condition `reLength <= DataTypes.NTEXT_MAX_CHARS` is always `true` when reached
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            // For Shiloh, this is enforced in DTV by converting the Reader to some other length-
+            // prefixed value in the setter.
+            assert 0 <= reLength && reLength <= DataTypes.NTEXT_MAX_CHARS;
+
+            // For non-PLP types, use the long TEXT type rather than the short VARCHAR
+```
+
+### ConstantValue
+Condition `reLength <= DataTypes.SHORT_VARTYPE_MAX_CHARS` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            // type if the stream is too long to fit in the latter or if we don't know the length up
+            // front so we have to assume that it might be too long.
+            boolean useVarType = reLength <= DataTypes.SHORT_VARTYPE_MAX_CHARS;
+
+            writeRPCNameValType(sName, bOut, useVarType ? TDSType.NVARCHAR : TDSType.NTEXT);
+```
+
+### ConstantValue
+Condition `useVarType` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            boolean useVarType = reLength <= DataTypes.SHORT_VARTYPE_MAX_CHARS;
+
+            writeRPCNameValType(sName, bOut, useVarType ? TDSType.NVARCHAR : TDSType.NTEXT);
+
+            // Write maximum length, collation, and actual length of the data
+```
+
+### ConstantValue
+Condition `useVarType` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+            // Write maximum length, collation, and actual length of the data
+            if (useVarType) {
+                writeShort((short) DataTypes.SHORT_VARTYPE_MAX_BYTES);
+                collation.writeCollation(this);
+```
+
+### ConstantValue
+Condition `!isTDS8` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                    // then we can skip all of the KeyStore loading logic below.
+                    // The security provider's implementation takes care of everything for us.
+                    if (null == trustStoreFileName && null == con.encryptedTrustStorePassword && !isTDS8) {
+                        if (logger.isLoggable(Level.FINER)) {
+                            logger.finer(toString() + " Using system default trust store and password");
 ```
 
 ### ConstantValue
@@ -9483,15 +9555,87 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### ConstantValue
-Condition `addr.isUnresolved()` is always `true` when reached
+Condition `-1 == bytesRead` is always `false` when reached
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-        // cannot be resolved, but that InetSocketAddress(host, port) does not - it sets
-        // the returned InetSocketAddress as unresolved.
-        if (addr != null && addr.isUnresolved()) {
-            if (logger.isLoggable(Level.FINER)) {
-                logger.finer(this.toString() + "Failed to resolve host name: " + hostName
+            while (0 == (bytesRead = readInternal(oneByte, 0, oneByte.length)));
+
+            assert 1 == bytesRead || -1 == bytesRead;
+            return 1 == bytesRead ? oneByte[0] : -1;
+        }
+```
+
+### ConstantValue
+Condition `1 == bytesRead` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+            assert 1 == bytesRead || -1 == bytesRead;
+            return 1 == bytesRead ? oneByte[0] : -1;
+        }
+
+```
+
+### ConstantValue
+Value `atEOM` is always 'true'
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        // This flush() call ensures that all remaining data in the socket buffer is sent.
+        if (atEOM) {
+            flush(atEOM);
+            isEOMSent = true;
+            ++tdsChannel.numMsgsSent;
+```
+
+### ConstantValue
+Condition `charsRead < 0` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+                // Check for invalid bytesRead returned from Reader.read
+                if (charsRead < 0 || charsRead > currentPacketSize - charsToWrite) {
+                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_errorReadingStream"));
+                    Object[] msgArgs = {SQLServerException.getErrString("R_streamReadReturnedInvalidValue")};
+```
+
+### ConstantValue
+Condition `bytesRead < 0` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+                // Check for invalid bytesRead returned from InputStream.read
+                if (bytesRead < 0 || bytesRead > buff.length - bytesToWrite) {
+                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_errorReadingStream"));
+                    Object[] msgArgs = {SQLServerException.getErrString("R_streamReadReturnedInvalidValue")};
+```
+
+### ConstantValue
+Condition `SSType.DATETIME2 == ssType || SSType.DATETIMEOFFSET == ssType` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                // If the type is datetime2 or datetimeoffset, truncate only if its the max value supported
+                else {
+                    assert SSType.DATETIME2 == ssType || SSType.DATETIMEOFFSET == ssType : UNEXPECTED_SSTYPE + ssType;
+
+                    // ... then bump the date, provided that the resulting date is still within
+```
+
+### ConstantValue
+Condition `SSType.DATETIMEOFFSET == ssType` is always `true` when reached
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                // If the type is datetime2 or datetimeoffset, truncate only if its the max value supported
+                else {
+                    assert SSType.DATETIME2 == ssType || SSType.DATETIMEOFFSET == ssType : UNEXPECTED_SSTYPE + ssType;
+
+                    // ... then bump the date, provided that the resulting date is still within
 ```
 
 ### ConstantValue
@@ -9516,6 +9660,138 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
             if (useParallel || useTnir) {
                 // Ignore TNIR if host resolves to more than 64 IPs. Make sure we are using original timeout for this.
                 inetAddrs = InetAddress.getAllByName(hostName);
+```
+
+### ConstantValue
+Condition `DataTypes.UNKNOWN_STREAM_LENGTH == streamLength` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            // in memory so that we can determine its length and send that length to the server
+            // before the stream data itself.
+            if (DataTypes.UNKNOWN_STREAM_LENGTH == streamLength) {
+                // Create ByteArrayOutputStream with initial buffer size of 8K to handle typical
+                // binary field sizes more efficiently. Note we can grow beyond 8000 bytes.
+```
+
+### ConstantValue
+Condition `0 <= streamLength` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            }
+
+            assert 0 <= streamLength && streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES;
+
+            boolean useVarType = streamLength <= DataTypes.SHORT_VARTYPE_MAX_BYTES;
+```
+
+### ConstantValue
+Condition `0 <= streamLength && streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            }
+
+            assert 0 <= streamLength && streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES;
+
+            boolean useVarType = streamLength <= DataTypes.SHORT_VARTYPE_MAX_BYTES;
+```
+
+### ConstantValue
+Condition `streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES` is always `true` when reached
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            }
+
+            assert 0 <= streamLength && streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES;
+
+            boolean useVarType = streamLength <= DataTypes.SHORT_VARTYPE_MAX_BYTES;
+```
+
+### ConstantValue
+Condition `streamLength <= DataTypes.SHORT_VARTYPE_MAX_BYTES` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            assert 0 <= streamLength && streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES;
+
+            boolean useVarType = streamLength <= DataTypes.SHORT_VARTYPE_MAX_BYTES;
+
+            writeRPCNameValType(sName, bOut,
+```
+
+### ConstantValue
+Condition `useVarType` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+            writeRPCNameValType(sName, bOut,
+                    jdbcType.isTextual() ? (useVarType ? TDSType.BIGVARCHAR : TDSType.TEXT)
+                                         : (useVarType ? TDSType.BIGVARBINARY : TDSType.IMAGE));
+
+```
+
+### ConstantValue
+Condition `useVarType` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            writeRPCNameValType(sName, bOut,
+                    jdbcType.isTextual() ? (useVarType ? TDSType.BIGVARCHAR : TDSType.TEXT)
+                                         : (useVarType ? TDSType.BIGVARBINARY : TDSType.IMAGE));
+
+            // Write maximum length, optional collation, and actual length
+```
+
+### ConstantValue
+Condition `useVarType` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+            // Write maximum length, optional collation, and actual length
+            if (useVarType) {
+                writeShort((short) DataTypes.SHORT_VARTYPE_MAX_BYTES);
+                if (jdbcType.isTextual())
+```
+
+### ConstantValue
+Condition `charsRead < 0` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+                // Check for invalid bytesRead returned from Reader.read
+                if (charsRead < 0 || charsRead > streamCharBuffer.length - charsToWrite) {
+                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_errorReadingStream"));
+                    Object[] msgArgs = {SQLServerException.getErrString("R_streamReadReturnedInvalidValue")};
+```
+
+### ConstantValue
+Condition `DataTypes.UNKNOWN_STREAM_LENGTH == dataLength` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                    }
+
+                    else if (DataTypes.UNKNOWN_STREAM_LENGTH == dataLength)
+                        // Append v*max length.
+                        // UNKNOWN_PLP_LEN is 0xFFFFFFFFFFFFFFFE
+```
+
+### ConstantValue
+Condition `DataTypes.UNKNOWN_STREAM_LENGTH == dataLength` is always `false`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                        // Null header for v*max types is 0xFFFFFFFFFFFFFFFF.
+                        writeLong(0xFFFFFFFFFFFFFFFFL);
+                    else if (DataTypes.UNKNOWN_STREAM_LENGTH == dataLength)
+                        // Append v*max length.
+                        // UNKNOWN_PLP_LEN is 0xFFFFFFFFFFFFFFFE
 ```
 
 ### ConstantValue
@@ -9639,42 +9915,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### ConstantValue
-Condition `nValueLen <= DataTypes.MAX_VARTYPE_MAX_BYTES` is always `true` when reached
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        boolean isShortValue = (nValueLen <= DataTypes.SHORT_VARTYPE_MAX_BYTES);
-
-        boolean isPLP = (!isShortValue) && (nValueLen <= DataTypes.MAX_VARTYPE_MAX_BYTES);
-
-        // Handle Shiloh types here.
-```
-
-### ConstantValue
-Condition `isPLP` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        if (isShortValue) {
-            writeShort((short) DataTypes.SHORT_VARTYPE_MAX_BYTES);
-        } else if (isPLP) {
-            writeShort((short) DataTypes.SQL_USHORTVARMAXLEN);
-        } else {
-```
-
-### ConstantValue
-Condition `isPLP` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            if (isShortValue) {
-                writeShort((short) nValueLen); // actual len
-            } else if (isPLP) {
-                writeLong(nValueLen); // actual length
-            } else {
-```
-
-### ConstantValue
 Value `selectedChannel` is always 'null'
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
@@ -9684,258 +9924,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
             close(selectedChannel);
             throw ex;
         } finally {
-```
-
-### ConstantValue
-Condition `0 <= reLength` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            // For Shiloh, this is enforced in DTV by converting the Reader to some other length-
-            // prefixed value in the setter.
-            assert 0 <= reLength && reLength <= DataTypes.NTEXT_MAX_CHARS;
-
-            // For non-PLP types, use the long TEXT type rather than the short VARCHAR
-```
-
-### ConstantValue
-Condition `0 <= reLength && reLength <= DataTypes.NTEXT_MAX_CHARS` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            // For Shiloh, this is enforced in DTV by converting the Reader to some other length-
-            // prefixed value in the setter.
-            assert 0 <= reLength && reLength <= DataTypes.NTEXT_MAX_CHARS;
-
-            // For non-PLP types, use the long TEXT type rather than the short VARCHAR
-```
-
-### ConstantValue
-Condition `reLength <= DataTypes.NTEXT_MAX_CHARS` is always `true` when reached
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            // For Shiloh, this is enforced in DTV by converting the Reader to some other length-
-            // prefixed value in the setter.
-            assert 0 <= reLength && reLength <= DataTypes.NTEXT_MAX_CHARS;
-
-            // For non-PLP types, use the long TEXT type rather than the short VARCHAR
-```
-
-### ConstantValue
-Condition `reLength <= DataTypes.SHORT_VARTYPE_MAX_CHARS` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            // type if the stream is too long to fit in the latter or if we don't know the length up
-            // front so we have to assume that it might be too long.
-            boolean useVarType = reLength <= DataTypes.SHORT_VARTYPE_MAX_CHARS;
-
-            writeRPCNameValType(sName, bOut, useVarType ? TDSType.NVARCHAR : TDSType.NTEXT);
-```
-
-### ConstantValue
-Condition `useVarType` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            boolean useVarType = reLength <= DataTypes.SHORT_VARTYPE_MAX_CHARS;
-
-            writeRPCNameValType(sName, bOut, useVarType ? TDSType.NVARCHAR : TDSType.NTEXT);
-
-            // Write maximum length, collation, and actual length of the data
-```
-
-### ConstantValue
-Condition `useVarType` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-            // Write maximum length, collation, and actual length of the data
-            if (useVarType) {
-                writeShort((short) DataTypes.SHORT_VARTYPE_MAX_BYTES);
-                collation.writeCollation(this);
-```
-
-### ConstantValue
-Condition `SSType.DATETIME2 == ssType || SSType.DATETIMEOFFSET == ssType` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                // If the type is datetime2 or datetimeoffset, truncate only if its the max value supported
-                else {
-                    assert SSType.DATETIME2 == ssType || SSType.DATETIMEOFFSET == ssType : UNEXPECTED_SSTYPE + ssType;
-
-                    // ... then bump the date, provided that the resulting date is still within
-```
-
-### ConstantValue
-Condition `SSType.DATETIMEOFFSET == ssType` is always `true` when reached
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                // If the type is datetime2 or datetimeoffset, truncate only if its the max value supported
-                else {
-                    assert SSType.DATETIME2 == ssType || SSType.DATETIMEOFFSET == ssType : UNEXPECTED_SSTYPE + ssType;
-
-                    // ... then bump the date, provided that the resulting date is still within
-```
-
-### ConstantValue
-Value `bOut` is always 'false'
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        } else { // non-PLP type
-            // Write maximum length of data
-            writeRPCNameValType(sName, bOut, TDSType.NVARCHAR);
-            writeShort((short) DataTypes.SHORT_VARTYPE_MAX_BYTES);
-
-```
-
-### ConstantValue
-Condition `charsRead < 0` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-                // Check for invalid bytesRead returned from Reader.read
-                if (charsRead < 0 || charsRead > streamCharBuffer.length - charsToWrite) {
-                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_errorReadingStream"));
-                    Object[] msgArgs = {SQLServerException.getErrString("R_streamReadReturnedInvalidValue")};
-```
-
-### ConstantValue
-Condition `DataTypes.UNKNOWN_STREAM_LENGTH == streamLength` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            // in memory so that we can determine its length and send that length to the server
-            // before the stream data itself.
-            if (DataTypes.UNKNOWN_STREAM_LENGTH == streamLength) {
-                // Create ByteArrayOutputStream with initial buffer size of 8K to handle typical
-                // binary field sizes more efficiently. Note we can grow beyond 8000 bytes.
-```
-
-### ConstantValue
-Condition `0 <= streamLength` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            }
-
-            assert 0 <= streamLength && streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES;
-
-            boolean useVarType = streamLength <= DataTypes.SHORT_VARTYPE_MAX_BYTES;
-```
-
-### ConstantValue
-Condition `0 <= streamLength && streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            }
-
-            assert 0 <= streamLength && streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES;
-
-            boolean useVarType = streamLength <= DataTypes.SHORT_VARTYPE_MAX_BYTES;
-```
-
-### ConstantValue
-Condition `streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES` is always `true` when reached
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            }
-
-            assert 0 <= streamLength && streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES;
-
-            boolean useVarType = streamLength <= DataTypes.SHORT_VARTYPE_MAX_BYTES;
-```
-
-### ConstantValue
-Condition `streamLength <= DataTypes.SHORT_VARTYPE_MAX_BYTES` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            assert 0 <= streamLength && streamLength <= DataTypes.IMAGE_TEXT_MAX_BYTES;
-
-            boolean useVarType = streamLength <= DataTypes.SHORT_VARTYPE_MAX_BYTES;
-
-            writeRPCNameValType(sName, bOut,
-```
-
-### ConstantValue
-Condition `useVarType` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-            writeRPCNameValType(sName, bOut,
-                    jdbcType.isTextual() ? (useVarType ? TDSType.BIGVARCHAR : TDSType.TEXT)
-                                         : (useVarType ? TDSType.BIGVARBINARY : TDSType.IMAGE));
-
-```
-
-### ConstantValue
-Condition `useVarType` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            writeRPCNameValType(sName, bOut,
-                    jdbcType.isTextual() ? (useVarType ? TDSType.BIGVARCHAR : TDSType.TEXT)
-                                         : (useVarType ? TDSType.BIGVARBINARY : TDSType.IMAGE));
-
-            // Write maximum length, optional collation, and actual length
-```
-
-### ConstantValue
-Condition `useVarType` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-            // Write maximum length, optional collation, and actual length
-            if (useVarType) {
-                writeShort((short) DataTypes.SHORT_VARTYPE_MAX_BYTES);
-                if (jdbcType.isTextual())
-```
-
-### ConstantValue
-Condition `!isTDS8` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                    // then we can skip all of the KeyStore loading logic below.
-                    // The security provider's implementation takes care of everything for us.
-                    if (null == trustStoreFileName && null == con.encryptedTrustStorePassword && !isTDS8) {
-                        if (logger.isLoggable(Level.FINER)) {
-                            logger.finer(toString() + " Using system default trust store and password");
-```
-
-### ConstantValue
-Value `atEOM` is always 'true'
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        // This flush() call ensures that all remaining data in the socket buffer is sent.
-        if (atEOM) {
-            flush(atEOM);
-            isEOMSent = true;
-            ++tdsChannel.numMsgsSent;
-```
-
-### ConstantValue
-Condition `charsRead < 0` is always `false`
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-                // Check for invalid bytesRead returned from Reader.read
-                if (charsRead < 0 || charsRead > currentPacketSize - charsToWrite) {
-                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_errorReadingStream"));
-                    Object[] msgArgs = {SQLServerException.getErrString("R_streamReadReturnedInvalidValue")};
 ```
 
 ### ConstantValue
@@ -9987,42 +9975,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 ```
 
 ### ConstantValue
-Condition `null != enclaveAttestationProtocol` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                        // An attestation protocol also requires column encryption
-                        || (null != enclaveAttestationUrl && !enclaveAttestationUrl.isEmpty()
-                                && (null != enclaveAttestationProtocol || !enclaveAttestationProtocol.isEmpty())
-                                && (null == columnEncryptionSetting || !isColumnEncryptionSettingEnabled()))) {
-                    throw new SQLServerException(SQLServerException.getErrString("R_enclavePropertiesError"), null);
-```
-
-### ConstantValue
-Condition `null != enclaveAttestationProtocol || !enclaveAttestationProtocol.isEmpty()` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                        // An attestation protocol also requires column encryption
-                        || (null != enclaveAttestationUrl && !enclaveAttestationUrl.isEmpty()
-                                && (null != enclaveAttestationProtocol || !enclaveAttestationProtocol.isEmpty())
-                                && (null == columnEncryptionSetting || !isColumnEncryptionSettingEnabled()))) {
-                    throw new SQLServerException(SQLServerException.getErrString("R_enclavePropertiesError"), null);
-```
-
-### ConstantValue
-Condition `null != datagramSocket` is always `true`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-            // send UDP packet
-            assert null != datagramSocket;
-            try {
-                if (multiSubnetFailover) {
-```
-
-### ConstantValue
 Condition `null != passwordBytes` is always `true`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
@@ -10046,6 +9998,42 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
         tdsWriter.writeShort((short) (interfaceLibName.length()));
 ```
 
+### ConstantValue
+Condition `null != datagramSocket` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+
+            // send UDP packet
+            assert null != datagramSocket;
+            try {
+                if (multiSubnetFailover) {
+```
+
+### ConstantValue
+Condition `null != enclaveAttestationProtocol` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                        // An attestation protocol also requires column encryption
+                        || (null != enclaveAttestationUrl && !enclaveAttestationUrl.isEmpty()
+                                && (null != enclaveAttestationProtocol || !enclaveAttestationProtocol.isEmpty())
+                                && (null == columnEncryptionSetting || !isColumnEncryptionSettingEnabled()))) {
+                    throw new SQLServerException(SQLServerException.getErrString("R_enclavePropertiesError"), null);
+```
+
+### ConstantValue
+Condition `null != enclaveAttestationProtocol || !enclaveAttestationProtocol.isEmpty()` is always `true`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                        // An attestation protocol also requires column encryption
+                        || (null != enclaveAttestationUrl && !enclaveAttestationUrl.isEmpty()
+                                && (null != enclaveAttestationProtocol || !enclaveAttestationProtocol.isEmpty())
+                                && (null == columnEncryptionSetting || !isColumnEncryptionSettingEnabled()))) {
+                    throw new SQLServerException(SQLServerException.getErrString("R_enclavePropertiesError"), null);
+```
+
 ## RuleId[id=RedundantOperationOnEmptyContainer]
 ### RedundantOperationOnEmptyContainer
 Collection `openStatements` is always empty
@@ -10060,6 +10048,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 ```
 
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `statement`
+in `src/main/java/com/microsoft/sqlserver/jdbc/ParameterMetaDataCache.java`
+#### Snippet
+```java
+     * Returns the cache and enclave lookup keys for a given connection and statement
+     * 
+     * @param statement
+     *        The SQLServer statement used to construct part of the keys
+     * @param connection
+```
+
 ### JavadocReference
 Cannot resolve symbol `stmt`
 in `src/main/java/com/microsoft/sqlserver/jdbc/ParameterMetaDataCache.java`
@@ -10082,18 +10082,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ParameterMetaDataCache.java`
      * @param cekList
      *        The list of CEKs (from the first RS) that is also added to the cache as well as parameter metadata
      * @param userSql
-```
-
-### JavadocReference
-Cannot resolve symbol `statement`
-in `src/main/java/com/microsoft/sqlserver/jdbc/ParameterMetaDataCache.java`
-#### Snippet
-```java
-     * Returns the cache and enclave lookup keys for a given connection and statement
-     * 
-     * @param statement
-     *        The SQLServer statement used to construct part of the keys
-     * @param connection
 ```
 
 ### JavadocReference
@@ -10304,18 +10292,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-            valueBytes = new byte[2];
-            valueBytes[0] = (byte) scale;
-            valueBytes[1] = 0; // data length
-        } else {
-            boolean isNegative = (bigDecimalVal.signum() < 0);
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
 ```java
@@ -10351,15 +10327,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 ```
 
 ### DataFlowIssue
-Method invocation `length` may produce `NullPointerException`
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+Variable is already assigned to this value
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
 #### Snippet
 ```java
-                // If we were given an input stream length that we had to match and
-                // the actual stream length did not match then cancel the request.
-                if (DataTypes.UNKNOWN_STREAM_LENGTH != readerLength && stringValue.length() != readerLength) {
-                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_mismatchedStreamLength"));
-                    Object[] msgArgs = {readerLength, stringValue.length()};
+            valueBytes = new byte[2];
+            valueBytes[0] = (byte) scale;
+            valueBytes[1] = 0; // data length
+        } else {
+            boolean isNegative = (bigDecimalVal.signum() < 0);
 ```
 
 ### DataFlowIssue
@@ -10400,18 +10376,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSourceObjectFactory.
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
-#### Snippet
-```java
-                    isFeatureExtAck = true;
-                    tdsReader.getConnection().processFeatureExtAck(tdsReader);
-                    parsing = true;
-                    break;
-                case TDS.TDS_ENV_CHG:
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
 ```java
@@ -10420,6 +10384,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
             result = false;
         }
         loggerExternal.exiting(getClassNameLogging(), "acceptsURL", result);
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
+#### Snippet
+```java
+                    isFeatureExtAck = true;
+                    tdsReader.getConnection().processFeatureExtAck(tdsReader);
+                    parsing = true;
+                    break;
+                case TDS.TDS_ENV_CHG:
 ```
 
 ### DataFlowIssue
@@ -10432,18 +10408,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
         destinationTableName = tableName.trim();
 
         loggerExternal.exiting(loggerClassName, "setDestinationTableName");
-```
-
-### DataFlowIssue
-Method invocation `toUpperCase` may produce `NullPointerException`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-
-            String destType = getDestTypeFromSrcType(colMapping.sourceColumnOrdinal,
-                    colMapping.destinationColumnOrdinal, tdsWriter).toUpperCase(Locale.ENGLISH);
-            if (null != columnCollation && columnCollation.trim().length() > 0) {
-                // we are adding collate in command only for char and varchar
 ```
 
 ### DataFlowIssue
@@ -10471,15 +10435,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 ```
 
 ### DataFlowIssue
-Dereference of `bytes` may produce `NullPointerException`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBlob.java`
+Method invocation `toUpperCase` may produce `NullPointerException`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
 ```java
-                    true);
 
-        return setBytes(pos, bytes, 0, bytes.length);
-    }
-
+            String destType = getDestTypeFromSrcType(colMapping.sourceColumnOrdinal,
+                    colMapping.destinationColumnOrdinal, tdsWriter).toUpperCase(Locale.ENGLISH);
+            if (null != columnCollation && columnCollation.trim().length() > 0) {
+                // we are adding collate in command only for char and varchar
 ```
 
 ### DataFlowIssue
@@ -10531,6 +10495,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBlob.java`
 ```
 
 ### DataFlowIssue
+Dereference of `bytes` may produce `NullPointerException`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBlob.java`
+#### Snippet
+```java
+                    true);
+
+        return setBytes(pos, bytes, 0, bytes.length);
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `length` may produce `NullPointerException`
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                // If we were given an input stream length that we had to match and
+                // the actual stream length did not match then cancel the request.
+                if (DataTypes.UNKNOWN_STREAM_LENGTH != readerLength && stringValue.length() != readerLength) {
+                    MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_mismatchedStreamLength"));
+                    Object[] msgArgs = {readerLength, stringValue.length()};
+```
+
+### DataFlowIssue
 Method invocation `isUpdatable` may produce `NullPointerException`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
@@ -10543,18 +10531,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 ```
 
 ### DataFlowIssue
-Dereference of `encType` may produce `NullPointerException`
-in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
-#### Snippet
-```java
-                    params[paramIndex].cryptoMeta = new CryptoMetadata(cekEntry, (short) cekOrdinal,
-                            (byte) rs2.getInt(DescribeParameterEncryptionResultSet2.COLUMNENCRYPTIONALGORITHM.value()),
-                            null, encType.value,
-                            (byte) rs2.getInt(DescribeParameterEncryptionResultSet2.NORMALIZATIONRULEVERSION.value()));
-                    // Decrypt the symmetric key.(This will also validate and throw if needed).
-```
-
-### DataFlowIssue
 Argument `serverResponse` might be null
 in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
 #### Snippet
@@ -10564,6 +10540,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
         ByteBuffer sr = ByteBuffer.wrap(serverResponse);
         byte[] magic = new byte[8];
         sr.get(magic);
+```
+
+### DataFlowIssue
+Dereference of `encType` may produce `NullPointerException`
+in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
+#### Snippet
+```java
+                    params[paramIndex].cryptoMeta = new CryptoMetadata(cekEntry, (short) cekOrdinal,
+                            (byte) rs2.getInt(DescribeParameterEncryptionResultSet2.COLUMNENCRYPTIONALGORITHM.value()),
+                            null, encType.value,
+                            (byte) rs2.getInt(DescribeParameterEncryptionResultSet2.NORMALIZATIONRULEVERSION.value()));
+                    // Decrypt the symmetric key.(This will also validate and throw if needed).
 ```
 
 ### DataFlowIssue
@@ -10591,6 +10579,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
 ```
 
 ### DataFlowIssue
+Unboxing of `d.peek()` may produce `NullPointerException`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerParser.java`
+#### Snippet
+```java
+                        break;
+                    case SQLServerLexer.RR_BRACKET:
+                        if (d.peek() == SQLServerLexer.LR_BRACKET) {
+                            d.pop();
+                        }
+```
+
+### DataFlowIssue
 Method invocation `put` may produce `NullPointerException`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
@@ -10615,15 +10615,27 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 ```
 
 ### DataFlowIssue
-Unboxing of `d.peek()` may produce `NullPointerException`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerParser.java`
+Method invocation `length` may produce `NullPointerException`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
-                        break;
-                    case SQLServerLexer.RR_BRACKET:
-                        if (d.peek() == SQLServerLexer.LR_BRACKET) {
-                            d.pop();
-                        }
+            }
+            typeDefinitions[i] = typeDefinition;
+            stringLen += typeDefinition.length();
+
+            // While we are getting type definitions, check if the params are output and extend the builder if so.
+```
+
+### DataFlowIssue
+Argument `fileToParse` might be null
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCSVFileRecord.java`
+#### Snippet
+```java
+        try {
+            // Create the file reader
+            fis = new FileInputStream(fileToParse);
+            if (null == encoding || 0 == encoding.length()) {
+                sr = new InputStreamReader(fis);
 ```
 
 ### DataFlowIssue
@@ -10651,18 +10663,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCSVFileRecord.java`
 ```
 
 ### DataFlowIssue
-Argument `fileToParse` might be null
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCSVFileRecord.java`
-#### Snippet
-```java
-        try {
-            // Create the file reader
-            fis = new FileInputStream(fileToParse);
-            if (null == encoding || 0 == encoding.length()) {
-                sr = new InputStreamReader(fis);
-```
-
-### DataFlowIssue
 Argument `addr` might be null
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
@@ -10672,18 +10672,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
         return getConnectedSocket(addr, timeoutInMilliSeconds);
     }
 
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-        // Fill any remaining space in the staging buffer
-        remaining = stagingBuffer.remaining();
-        if (remaining > 0) {
-            stagingBuffer.put(value, 0, remaining);
 ```
 
 ### DataFlowIssue
@@ -10720,6 +10708,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
                 findSocketUsingThreading(inetAddrs, portNumber, timeoutInMilliSeconds);
             }
 
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+        // Fill any remaining space in the staging buffer
+        remaining = stagingBuffer.remaining();
+        if (remaining > 0) {
+            stagingBuffer.put(value, 0, remaining);
 ```
 
 ### DataFlowIssue
@@ -10797,15 +10797,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerParser.java`
 
 ## RuleId[id=MissingSerialAnnotation]
 ### MissingSerialAnnotation
-`writeReplace()` can be annotated with '@Serial' annotation
+`serialVersionUID` can be annotated with '@Serial' annotation
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXADataSource.java`
 #### Snippet
 ```java
-     *         if error
-     */
-    private Object writeReplace() throws java.io.ObjectStreamException {
-        return new SerializationProxy(this);
-    }
+    private static class SerializationProxy implements java.io.Serializable {
+        private final Reference ref;
+        private static final long serialVersionUID = 454661379842314126L;
+
+        SerializationProxy(SQLServerXADataSource ds) {
 ```
 
 ### MissingSerialAnnotation
@@ -10818,6 +10818,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXADataSource.java`
         private Object readResolve() {
             SQLServerXADataSource ds = new SQLServerXADataSource();
             ds.initializeFromReference(ref);
+```
+
+### MissingSerialAnnotation
+`writeReplace()` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXADataSource.java`
+#### Snippet
+```java
+     *         if error
+     */
+    private Object writeReplace() throws java.io.ObjectStreamException {
+        return new SerializationProxy(this);
+    }
 ```
 
 ### MissingSerialAnnotation
@@ -10834,14 +10846,26 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXADataSource.java`
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXADataSource.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolDataSource.java`
 #### Snippet
 ```java
     private static class SerializationProxy implements java.io.Serializable {
         private final Reference ref;
-        private static final long serialVersionUID = 454661379842314126L;
+        private static final long serialVersionUID = 654661379842314126L;
 
-        SerializationProxy(SQLServerXADataSource ds) {
+        SerializationProxy(SQLServerConnectionPoolDataSource ds) {
+```
+
+### MissingSerialAnnotation
+`readObject()` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolDataSource.java`
+#### Snippet
+```java
+     *         if error
+     */
+    private void readObject(java.io.ObjectInputStream stream) throws java.io.InvalidObjectException {
+        throw new java.io.InvalidObjectException("");
+    }
 ```
 
 ### MissingSerialAnnotation
@@ -10869,27 +10893,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolDataSource
 ```
 
 ### MissingSerialAnnotation
-`readObject()` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolDataSource.java`
-#### Snippet
-```java
-     *         if error
-     */
-    private void readObject(java.io.ObjectInputStream stream) throws java.io.InvalidObjectException {
-        throw new java.io.InvalidObjectException("");
-    }
-```
-
-### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolDataSource.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
 #### Snippet
 ```java
-    private static class SerializationProxy implements java.io.Serializable {
-        private final Reference ref;
-        private static final long serialVersionUID = 654661379842314126L;
+     * Always update serialVersionUID when prompted.
+     */
+    private static final long serialVersionUID = 3492921646187451164L;
 
-        SerializationProxy(SQLServerConnectionPoolDataSource ds) {
+    /** listeners */
 ```
 
 ### MissingSerialAnnotation
@@ -10902,18 +10914,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolProxy.java
     private static final long serialVersionUID = 5752599482349578127L;
 
     private SQLServerConnection wrappedConnection;
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-     * Always update serialVersionUID when prompted.
-     */
-    private static final long serialVersionUID = 3492921646187451164L;
-
-    /** listeners */
 ```
 
 ### MissingSerialAnnotation
@@ -10971,9 +10971,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
 ```java
      * Always refresh SerialVersionUID when prompted
      */
-    private static final long serialVersionUID = 8691072211054430124L;
+    private static final long serialVersionUID = 2872035282200133865L;
 
-    // The value of the CLOB that this Clob object represents.
+    // Loggers should be class static to avoid lock contention with multiple
 ```
 
 ### MissingSerialAnnotation
@@ -10983,21 +10983,45 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
 ```java
      * Always refresh SerialVersionUID when prompted
      */
-    private static final long serialVersionUID = 2872035282200133865L;
+    private static final long serialVersionUID = 8691072211054430124L;
 
-    // Loggers should be class static to avoid lock contention with multiple
+    // The value of the CLOB that this Clob object represents.
 ```
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
 ```java
      * Always update serialVersionUID when prompted.
      */
-    private static final long serialVersionUID = -5747558730471411712L;
+    private static final long serialVersionUID = -4421134713913331507L;
 
-    /** connection */
+    final static char LEFT_CURLY_BRACKET = 123;
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+         * Always update serialVersionUID when prompted.
+         */
+        private static final long serialVersionUID = 4534132352812876292L;
+        final SQLServerStatement stmt;
+        final String sql;
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+         * Always update serialVersionUID when prompted.
+         */
+        private static final long serialVersionUID = -4621631860790243331L;
+        final SQLServerStatement stmt;
+
 ```
 
 ### MissingSerialAnnotation
@@ -11026,38 +11050,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SharedTimer.java`
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.java`
 #### Snippet
 ```java
      * Always update serialVersionUID when prompted.
      */
-    private static final long serialVersionUID = -4421134713913331507L;
+    private static final long serialVersionUID = -5747558730471411712L;
 
-    final static char LEFT_CURLY_BRACKET = 123;
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-         * Always update serialVersionUID when prompted.
-         */
-        private static final long serialVersionUID = -4621631860790243331L;
-        final SQLServerStatement stmt;
-
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-         * Always update serialVersionUID when prompted.
-         */
-        private static final long serialVersionUID = 4534132352812876292L;
-        final SQLServerStatement stmt;
-        final String sql;
+    /** connection */
 ```
 
 ### MissingSerialAnnotation
@@ -11086,30 +11086,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerNClob.java`
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-     * Always update serialVersionUID when prompted.
-     */
-    private static final long serialVersionUID = -116977606028371577L;
-
-    /** connection */
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-     * Always refresh SerialVersionUID when prompted
-     */
-    private static final long serialVersionUID = 6641910171379986768L;
-
-    private int maxLength; // Max length of data
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
 #### Snippet
 ```java
@@ -11130,6 +11106,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
     private static final long serialVersionUID = 3028807583846251111L;
 
     /** Set of marks for the rows in the window */
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+     * Always update serialVersionUID when prompted.
+     */
+    private static final long serialVersionUID = -116977606028371577L;
+
+    /** connection */
 ```
 
 ### MissingSerialAnnotation
@@ -11194,18 +11182,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkRecord.java`
-#### Snippet
-```java
-     * Update serialVersionUID when making changes to this file
-     */
-    private static final long serialVersionUID = -170992637946357449L;
-
-    /*
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
 ```java
@@ -11242,6 +11218,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkRecord.java`
+#### Snippet
+```java
+     * Update serialVersionUID when making changes to this file
+     */
+    private static final long serialVersionUID = -170992637946357449L;
+
+    /*
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBlob.java`
 #### Snippet
 ```java
@@ -11250,18 +11238,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBlob.java`
     private static final long serialVersionUID = -3526170228097889085L;
 
     // Error messages
-```
-
-### MissingSerialAnnotation
-`readResolve()` can be annotated with '@Serial' annotation
-in `src/main/java/microsoft/sql/DateTimeOffset.java`
-#### Snippet
-```java
-        private static final long serialVersionUID = 664661379547314226L;
-
-        private Object readResolve() {
-            java.sql.Timestamp timestamp = new java.sql.Timestamp(utcMillis);
-            timestamp.setNanos(nanos);
 ```
 
 ### MissingSerialAnnotation
@@ -11274,6 +11250,30 @@ in `src/main/java/microsoft/sql/DateTimeOffset.java`
     private void readObject(java.io.ObjectInputStream stream) throws java.io.InvalidObjectException {
         // For added security/robustness, the only way to rehydrate a serialized DateTimeOffset
         // is to use a SerializationProxy. Direct use of readObject() is not supported.
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/microsoft/sql/DateTimeOffset.java`
+#### Snippet
+```java
+        }
+
+        private static final long serialVersionUID = 664661379547314226L;
+
+        private Object readResolve() {
+```
+
+### MissingSerialAnnotation
+`readResolve()` can be annotated with '@Serial' annotation
+in `src/main/java/microsoft/sql/DateTimeOffset.java`
+#### Snippet
+```java
+        private static final long serialVersionUID = 664661379547314226L;
+
+        private Object readResolve() {
+            java.sql.Timestamp timestamp = new java.sql.Timestamp(utcMillis);
+            timestamp.setNanos(nanos);
 ```
 
 ### MissingSerialAnnotation
@@ -11302,50 +11302,14 @@ in `src/main/java/microsoft/sql/DateTimeOffset.java`
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/microsoft/sql/DateTimeOffset.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
 #### Snippet
 ```java
-        }
+     * Always refresh SerialVersionUID when prompted
+     */
+    private static final long serialVersionUID = 6641910171379986768L;
 
-        private static final long serialVersionUID = 664661379547314226L;
-
-        private Object readResolve() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-                 * Always update serialVersionUID when prompted.
-                 */
-                private static final long serialVersionUID = 1L;
-
-                CloseServerCursorCommand() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-             * Always update serialVersionUID when prompted.
-             */
-            private static final long serialVersionUID = 1L;
-
-            DeleteRowRPC() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-             * Always update serialVersionUID when prompted.
-             */
-            private static final long serialVersionUID = 1L;
-            final String tableName;
-
+    private int maxLength; // Max length of data
 ```
 
 ### MissingSerialAnnotation
@@ -11358,6 +11322,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
     private static final long serialVersionUID = -1624082547992040463L;
 
     /**
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+             * Always update serialVersionUID when prompted.
+             */
+            private static final long serialVersionUID = 1L;
+            final String tableName;
+
 ```
 
 ### MissingSerialAnnotation
@@ -11381,7 +11357,43 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
              */
             private static final long serialVersionUID = 1L;
 
+            DeleteRowRPC() {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+                 * Always update serialVersionUID when prompted.
+                 */
+                private static final long serialVersionUID = 1L;
+
+                CloseServerCursorCommand() {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+             * Always update serialVersionUID when prompted.
+             */
+            private static final long serialVersionUID = 1L;
+
             UpdateRowRPC() {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
+#### Snippet
+```java
+     * Always update serialVersionUID when prompted.
+     */
+    private static final long serialVersionUID = 5044984771674532350L;
+
+    private static final String GET_TIMESTAMP = "getTimestamp";
 ```
 
 ### MissingSerialAnnotation
@@ -11397,15 +11409,27 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkBatchInsertRecord.ja
 ```
 
 ### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
+`readResolve()` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 #### Snippet
 ```java
-     * Always update serialVersionUID when prompted.
-     */
-    private static final long serialVersionUID = 5044984771674532350L;
+        }
 
-    private static final String GET_TIMESTAMP = "getTimestamp";
+        private Object readResolve() {
+            SQLServerDataSource ds = new SQLServerDataSource();
+            ds.initializeFromReference(ref);
+```
+
+### MissingSerialAnnotation
+`writeReplace()` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
+#### Snippet
+```java
+     *         if error
+     */
+    private Object writeReplace() throws java.io.ObjectStreamException {
+        return new SerializationProxy(this);
+    }
 ```
 
 ### MissingSerialAnnotation
@@ -11445,51 +11469,63 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 ```
 
 ### MissingSerialAnnotation
-`readResolve()` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
+`readObject()` can be annotated with '@Serial' annotation
+in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
 #### Snippet
 ```java
-        }
+  }
 
-        private Object readResolve() {
-            SQLServerDataSource ds = new SQLServerDataSource();
-            ds.initializeFromReference(ref);
+  private void readObject(ObjectInputStream stream) throws InvalidObjectException {
+    throw new InvalidObjectException("Proxy required");
+  }
 ```
 
 ### MissingSerialAnnotation
 `writeReplace()` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
+in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
 #### Snippet
 ```java
-     *         if error
-     */
-    private Object writeReplace() throws java.io.ObjectStreamException {
-        return new SerializationProxy(this);
+  static final long serialVersionUID = 1;
+
+  Object writeReplace() {
+    return new SerializationProxy<K, V>(this);
+  }
+```
+
+### MissingSerialAnnotation
+`writeReplace()` can be annotated with '@Serial' annotation
+in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
+#### Snippet
+```java
+    }
+
+    Object writeReplace() {
+      return weigher;
     }
 ```
 
 ### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+`readResolve()` can be annotated with '@Serial' annotation
+in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
 #### Snippet
 ```java
-         * Always update serialVersionUID when prompted.
-         */
-        private static final long serialVersionUID = 4098801171124750861L;
+    }
 
-        private final SQLServerPreparedStatement stmt;
+    Object readResolve() {
+      ConcurrentLinkedHashMap<K, V> map = new Builder<K, V>()
+          .concurrencyLevel(concurrencyLevel)
 ```
 
 ### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+`writeReplace()` can be annotated with '@Serial' annotation
+in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
 #### Snippet
 ```java
-                     * Always update serialVersionUID when prompted.
-                     */
-                    private static final long serialVersionUID = -8944096664249990764L;
+    }
 
-                    PreparedHandleClose() {
+    Object writeReplace() {
+      return new SimpleEntry<K, V>(this);
+    }
 ```
 
 ### MissingSerialAnnotation
@@ -11517,63 +11553,27 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 ```
 
 ### MissingSerialAnnotation
-`writeReplace()` can be annotated with '@Serial' annotation
-in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
-    }
+         * Always update serialVersionUID when prompted.
+         */
+        private static final long serialVersionUID = 4098801171124750861L;
 
-    Object writeReplace() {
-      return weigher;
-    }
+        private final SQLServerPreparedStatement stmt;
 ```
 
 ### MissingSerialAnnotation
-`writeReplace()` can be annotated with '@Serial' annotation
-in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
-  static final long serialVersionUID = 1;
+                     * Always update serialVersionUID when prompted.
+                     */
+                    private static final long serialVersionUID = -8944096664249990764L;
 
-  Object writeReplace() {
-    return new SerializationProxy<K, V>(this);
-  }
-```
-
-### MissingSerialAnnotation
-`writeReplace()` can be annotated with '@Serial' annotation
-in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
-#### Snippet
-```java
-    }
-
-    Object writeReplace() {
-      return new SimpleEntry<K, V>(this);
-    }
-```
-
-### MissingSerialAnnotation
-`readObject()` can be annotated with '@Serial' annotation
-in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
-#### Snippet
-```java
-  }
-
-  private void readObject(ObjectInputStream stream) throws InvalidObjectException {
-    throw new InvalidObjectException("Proxy required");
-  }
-```
-
-### MissingSerialAnnotation
-`readResolve()` can be annotated with '@Serial' annotation
-in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
-#### Snippet
-```java
-    }
-
-    Object readResolve() {
-      ConcurrentLinkedHashMap<K, V> map = new Builder<K, V>()
-          .concurrencyLevel(concurrencyLevel)
+                    PreparedHandleClose() {
 ```
 
 ### MissingSerialAnnotation
@@ -11607,9 +11607,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
      * Always update serialVersionUID when prompted.
      */
-    private static final long serialVersionUID = -866497813437384090L;
+    private static final long serialVersionUID = -392905303734809731L;
 
-    private static final Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.internals.TDS.Channel");
+    private static final Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.internals.TDS.Reader");
 ```
 
 ### MissingSerialAnnotation
@@ -11631,57 +11631,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```java
      * Always update serialVersionUID when prompted.
      */
-    private static final long serialVersionUID = -392905303734809731L;
+    private static final long serialVersionUID = -866497813437384090L;
 
-    private static final Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.internals.TDS.Reader");
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-             * Always update serialVersionUID when prompted.
-             */
-            private static final long serialVersionUID = 1L;
-            final String sql;
-
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     * Always refresh SerialVersionUID when prompted
-     */
-    private static final long serialVersionUID = 1965647556064751510L;
-
-    /** timer expiry */
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-         * Always update serialVersionUID when prompted
-         */
-        private static final long serialVersionUID = -6709861741957202475L;
-        boolean fedAuthRequiredPreLoginResponse;
-        int libraryType = -1;
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-    final class FedAuthTokenCommand extends UninterruptableTDSCommand {
-        // Always update serialVersionUID when prompted.
-        private static final long serialVersionUID = 1L;
-        transient TDSTokenHandler tdsTokenHandler = null;
-        SqlAuthenticationToken sqlFedAuthToken = null;
+    private static final Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.internals.TDS.Channel");
 ```
 
 ### MissingSerialAnnotation
@@ -11701,11 +11653,23 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-    private final class LogonCommand extends UninterruptableTDSCommand {
-        // Always update serialVersionUID when prompted.
-        private static final long serialVersionUID = 1L;
+         * Always update serialVersionUID when prompted
+         */
+        private static final long serialVersionUID = -6709861741957202475L;
+        boolean fedAuthRequiredPreLoginResponse;
+        int libraryType = -1;
+```
 
-        LogonCommand() {
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+             * Always update serialVersionUID when prompted.
+             */
+            private static final long serialVersionUID = 1L;
+            final String sql;
+
 ```
 
 ### MissingSerialAnnotation
@@ -11720,19 +11684,43 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
         private long[] segments;
 ```
 
-## RuleId[id=StringOperationCanBeSimplified]
-### StringOperationCanBeSimplified
-Call to `toString()` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCertificateUtils.java`
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                    .equals(cert.getPublicKey())) {
-                MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_publicKeyMismatch"));
-                Object[] msgArgs = {certFile.toString()};
-                throw new CertificateException(form.format(msgArgs));
-            }
+     * Always refresh SerialVersionUID when prompted
+     */
+    private static final long serialVersionUID = 1965647556064751510L;
+
+    /** timer expiry */
 ```
 
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+    final class FedAuthTokenCommand extends UninterruptableTDSCommand {
+        // Always update serialVersionUID when prompted.
+        private static final long serialVersionUID = 1L;
+        transient TDSTokenHandler tdsTokenHandler = null;
+        SqlAuthenticationToken sqlFedAuthToken = null;
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+    private final class LogonCommand extends UninterruptableTDSCommand {
+        // Always update serialVersionUID when prompted.
+        private static final long serialVersionUID = 1L;
+
+        LogonCommand() {
+```
+
+## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 `new String()` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/TVP.java`
@@ -11743,6 +11731,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/TVP.java`
         ary[position] = new String();
         return position;
     }
+```
+
+### StringOperationCanBeSimplified
+Call to `toString()` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCertificateUtils.java`
+#### Snippet
+```java
+                    .equals(cert.getPublicKey())) {
+                MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_publicKeyMismatch"));
+                Object[] msgArgs = {certFile.toString()};
+                throw new CertificateException(form.format(msgArgs));
+            }
 ```
 
 ### StringOperationCanBeSimplified
@@ -11818,18 +11818,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 ```
 
 ### StringOperationCanBeSimplified
-Unnecessary arguments
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-            case NVARCHARMAX:
-                try {
-                    String strVal = new String(decryptedValue, 0, decryptedValue.length,
-                            (null == baseTypeInfo.getCharset()) ? con.getDatabaseCollation().getCharset()
-                                                                : baseTypeInfo.getCharset());
-```
-
-### StringOperationCanBeSimplified
 Unnecessary zero argument
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
@@ -11842,6 +11830,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 ```
 
 ### StringOperationCanBeSimplified
+Unnecessary arguments
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+            case NVARCHARMAX:
+                try {
+                    String strVal = new String(decryptedValue, 0, decryptedValue.length,
+                            (null == baseTypeInfo.getCharset()) ? con.getDatabaseCollation().getCharset()
+                                                                : baseTypeInfo.getCharset());
+```
+
+### StringOperationCanBeSimplified
 Unnecessary string length argument
 in `src/main/java/com/microsoft/sqlserver/jdbc/FailOverInfo.java`
 #### Snippet
@@ -11851,18 +11851,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/FailOverInfo.java`
                 instanceValue = failoverPartner.substring(px + 1, failoverPartner.length());
                 failoverPartner = failoverPartner.substring(0, px);
                 con.validateMaxSQLLoginName(SQLServerDriverStringProperty.INSTANCE_NAME.toString(), instanceValue);
-```
-
-### StringOperationCanBeSimplified
-`toString()` call can be replaced with 'contentEquals()'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-                if (localUserSQL.charAt(0) == ',') {
-                    localUserSQL = localUserSQL.substring(1);
-                    if (!"?".equals(sb.toString())) {
-                        // throw IllegalArgumentException and fallback to original logic for batch insert
-                        throw new IllegalArgumentException(SQLServerException.getErrString("R_onlyFullParamAllowed"));
 ```
 
 ### StringOperationCanBeSimplified
@@ -11887,6 +11875,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
             sb.append(localUserSQL.substring(0, tempint + 1));
             localUserSQL = localUserSQL.substring(tempint + 1);
             return sb.toString() + parseUserSQLForTableNameDW(true, true, true, false);
+```
+
+### StringOperationCanBeSimplified
+`toString()` call can be replaced with 'contentEquals()'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+                if (localUserSQL.charAt(0) == ',') {
+                    localUserSQL = localUserSQL.substring(1);
+                    if (!"?".equals(sb.toString())) {
+                        // throw IllegalArgumentException and fallback to original logic for batch insert
+                        throw new IllegalArgumentException(SQLServerException.getErrString("R_onlyFullParamAllowed"));
 ```
 
 ### StringOperationCanBeSimplified
@@ -11928,27 +11928,15 @@ public interface ISQLServerBulkRecord extends ISQLServerBulkData {
 
 ## RuleId[id=UnnecessaryCallToStringValueOf]
 ### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
+Unnecessary `Long.toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
 #### Snippet
 ```java
-                typeInfo.setPrecision(precision);
-                scale = 4;
-                typeInfo.setDisplaySize(("-" + "." + Integer.toString(Integer.MAX_VALUE)).length());
-                typeInfo.setScale(scale);
-                internalVariant.setPrecision(precision);
-```
-
-### UnnecessaryCallToStringValueOf
-Unnecessary `Integer.toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-                scale = 4;
-                typeInfo.setPrecision(precision);
-                typeInfo.setDisplaySize(("-" + "." + Integer.toString(Integer.MAX_VALUE)).length());
-                typeInfo.setScale(scale);
-                internalVariant.setPrecision(precision);
+        BIGINT(TDSType.INT8, new FixedLenStrategy(SSType.BIGINT, 8, // TDS length (bytes)
+                Long.toString(Long.MAX_VALUE).length(), // precision (max numeric precision, in decimal digits)
+                ("-" + Long.toString(Long.MAX_VALUE)).length(), // column display size (includes sign)
+                0) // scale
+        ),
 ```
 
 ### UnnecessaryCallToStringValueOf
@@ -11964,18 +11952,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
 ```
 
 ### UnnecessaryCallToStringValueOf
-Unnecessary `Long.toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-        BIGINT(TDSType.INT8, new FixedLenStrategy(SSType.BIGINT, 8, // TDS length (bytes)
-                Long.toString(Long.MAX_VALUE).length(), // precision (max numeric precision, in decimal digits)
-                ("-" + Long.toString(Long.MAX_VALUE)).length(), // column display size (includes sign)
-                0) // scale
-        ),
-```
-
-### UnnecessaryCallToStringValueOf
 Unnecessary `Short.toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
 #### Snippet
@@ -11988,18 +11964,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
 ```
 
 ### UnnecessaryCallToStringValueOf
-Unnecessary `Long.toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-        MONEY(TDSType.MONEY8, new FixedLenStrategy(SSType.MONEY, 8, // TDS length (bytes)
-                Long.toString(Long.MAX_VALUE).length(), // precision (max unscaled numeric precision, in decimal digits)
-                ("-" + "." + Long.toString(Long.MAX_VALUE)).length(), // column display size (includes sign and decimal
-                                                                      // for scale)
-                4) // scale
-```
-
-### UnnecessaryCallToStringValueOf
 Unnecessary `Integer.toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
 #### Snippet
@@ -12009,6 +11973,42 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
                 ("-" + Integer.toString(Integer.MAX_VALUE)).length(), // column display size (includes sign)
                 0) // scale
         ),
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                typeInfo.setPrecision(precision);
+                scale = 4;
+                typeInfo.setDisplaySize(("-" + "." + Integer.toString(Integer.MAX_VALUE)).length());
+                typeInfo.setScale(scale);
+                internalVariant.setPrecision(precision);
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Integer.toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+                scale = 4;
+                typeInfo.setPrecision(precision);
+                typeInfo.setDisplaySize(("-" + "." + Integer.toString(Integer.MAX_VALUE)).length());
+                typeInfo.setScale(scale);
+                internalVariant.setPrecision(precision);
+```
+
+### UnnecessaryCallToStringValueOf
+Unnecessary `Long.toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
+#### Snippet
+```java
+        MONEY(TDSType.MONEY8, new FixedLenStrategy(SSType.MONEY, 8, // TDS length (bytes)
+                Long.toString(Long.MAX_VALUE).length(), // precision (max unscaled numeric precision, in decimal digits)
+                ("-" + "." + Long.toString(Long.MAX_VALUE)).length(), // column display size (includes sign and decimal
+                                                                      // for scale)
+                4) // scale
 ```
 
 ## RuleId[id=RedundantCollectionOperation]
@@ -12025,6 +12025,18 @@ in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashM
 ```
 
 ## RuleId[id=SwitchStatementWithTooFewBranches]
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
+#### Snippet
+```java
+        // Add as needed here for future XAER_RMFAIL exceptions
+        if (root instanceof SocketException) {
+            switch (err) {
+                case CONN_RESET:
+                    return true;
+```
+
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
@@ -12471,30 +12483,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
-#### Snippet
-```java
-        if (failure != 0) {
-            if (authLogger.isLoggable(Level.WARNING)) {
-                authLogger.warning(toString() + " Authentication failed code : " + failure);
-            }
-            con.terminate(SQLServerException.DRIVER_ERROR_NONE,
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
-#### Snippet
-```java
-        }
-        if (authLogger.isLoggable(Level.FINER)) {
-            authLogger.finer(toString() + " Release client context status : " + success);
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXADataSource.java`
 #### Snippet
 ```java
@@ -12543,6 +12531,174 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXADataSource.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
+#### Snippet
+```java
+        if (failure != 0) {
+            if (authLogger.isLoggable(Level.WARNING)) {
+                authLogger.warning(toString() + " Authentication failed code : " + failure);
+            }
+            con.terminate(SQLServerException.DRIVER_ERROR_NONE,
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
+#### Snippet
+```java
+        }
+        if (authLogger.isLoggable(Level.FINER)) {
+            authLogger.finer(toString() + " Release client context status : " + success);
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+    public void close() throws SQLException {
+        if (pcLogger.isLoggable(Level.FINER))
+            pcLogger.finer(toString() + " Closing physical connection, " + safeCID());
+        lock.lock();
+        try {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+    public void addConnectionEventListener(ConnectionEventListener listener) {
+        if (pcLogger.isLoggable(Level.FINER))
+            pcLogger.finer(toString() + safeCID());
+        listenersLock.lock();
+        try {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+    public void removeConnectionEventListener(ConnectionEventListener listener) {
+        if (pcLogger.isLoggable(Level.FINER))
+            pcLogger.finer(toString() + safeCID());
+        listenersLock.lock();
+        try {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+    void notifyEvent(SQLServerException e) {
+        if (pcLogger.isLoggable(Level.FINER))
+            pcLogger.finer(toString() + " Exception:" + e + safeCID());
+
+        // close the proxy on fatal error event. Note exception is null then the event comes from the proxy close.
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+                if (null == e) {
+                    if (pcLogger.isLoggable(Level.FINER))
+                        pcLogger.finer(toString() + " notifyEvent:connectionClosed " + safeCID());
+                    listener.connectionClosed(ev);
+                } else {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+                } else {
+                    if (pcLogger.isLoggable(Level.FINER))
+                        pcLogger.finer(toString() + " notifyEvent:connectionErrorOccurred " + safeCID());
+                    listener.connectionErrorOccurred(ev);
+                }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+    public Connection getConnection() throws SQLException {
+        if (pcLogger.isLoggable(Level.FINER))
+            pcLogger.finer(toString() + " user:(default).");
+        lock.lock();
+        try {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+            physicalConnection.doSecurityCheck();
+            if (pcLogger.isLoggable(Level.FINE))
+                pcLogger.fine(toString() + " Physical connection, " + safeCID());
+
+            if (physicalConnection.needsReconnect()) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+                if (!lastProxyConnection.isClosed()) {
+                    if (pcLogger.isLoggable(Level.FINE)) {
+                        pcLogger.fine(toString() + "proxy " + lastProxyConnection.toString()
+                                + " is not closed before getting the connection.");
+                    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+            lastProxyConnection = new SQLServerConnectionPoolProxy(physicalConnection);
+            if (pcLogger.isLoggable(Level.FINE) && !lastProxyConnection.isClosed())
+                pcLogger.fine(toString() + " proxy " + lastProxyConnection.toString() + " is returned.");
+
+            return lastProxyConnection;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+
+        if (pcLogger.isLoggable(Level.FINER))
+            pcLogger.finer(toString() + " Start create new connection for pool.");
+
+        physicalConnection = createNewConnection();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+        physicalConnection = createNewConnection();
+        if (pcLogger.isLoggable(Level.FINE))
+            pcLogger.fine(toString() + " created by (" + ds.toString() + ")" + " Physical connection " + safeCID()
+                    + ", End create new connection for pool");
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
 #### Snippet
 ```java
@@ -12551,54 +12707,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
                 logger.finest(logger.toString() + authenticationString + ": get FedAuth token integrated, realm name:"
                         + kerberosPrincipal.getRealm());
             }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
-#### Snippet
-```java
-
-            if (logger.isLoggable(Level.FINEST)) {
-                logger.finest(logger.toString() + authenticationResult.account().username() + ACCESS_TOKEN_EXPIRE
-                        + authenticationResult.expiresOnDate());
-            }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
-#### Snippet
-```java
-
-        if (logger.isLoggable(Level.FINEST)) {
-            logger.finest(logger.toString() + authenticationString + ": get FedAuth token for user: " + user);
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
-#### Snippet
-```java
-
-            if (logger.isLoggable(Level.FINEST)) {
-                logger.finest(logger.toString() + authenticationResult.account().username() + ACCESS_TOKEN_EXPIRE
-                        + authenticationResult.expiresOnDate());
-            }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
-#### Snippet
-```java
-        if (logger.isLoggable(Level.FINEST)) {
-            logger.finest(
-                    logger.toString() + authenticationString + ": get FedAuth token for principal: " + aadPrincipalID);
-        }
-
 ```
 
 ### UnnecessaryToStringCall
@@ -12687,6 +12795,54 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
+#### Snippet
+```java
+        if (logger.isLoggable(Level.FINEST)) {
+            logger.finest(
+                    logger.toString() + authenticationString + ": get FedAuth token for principal: " + aadPrincipalID);
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
+#### Snippet
+```java
+
+            if (logger.isLoggable(Level.FINEST)) {
+                logger.finest(logger.toString() + authenticationResult.account().username() + ACCESS_TOKEN_EXPIRE
+                        + authenticationResult.expiresOnDate());
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
+#### Snippet
+```java
+
+        if (logger.isLoggable(Level.FINEST)) {
+            logger.finest(logger.toString() + authenticationString + ": get FedAuth token for user: " + user);
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerMSAL4JUtils.java`
+#### Snippet
+```java
+
+            if (logger.isLoggable(Level.FINEST)) {
+                logger.finest(logger.toString() + authenticationResult.account().username() + ACCESS_TOKEN_EXPIRE
+                        + authenticationResult.expiresOnDate());
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolProxy.java`
 #### Snippet
 ```java
@@ -12711,150 +12867,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnectionPoolProxy.java
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-    public Connection getConnection() throws SQLException {
-        if (pcLogger.isLoggable(Level.FINER))
-            pcLogger.finer(toString() + " user:(default).");
-        lock.lock();
-        try {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-            physicalConnection.doSecurityCheck();
-            if (pcLogger.isLoggable(Level.FINE))
-                pcLogger.fine(toString() + " Physical connection, " + safeCID());
-
-            if (physicalConnection.needsReconnect()) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-                if (!lastProxyConnection.isClosed()) {
-                    if (pcLogger.isLoggable(Level.FINE)) {
-                        pcLogger.fine(toString() + "proxy " + lastProxyConnection.toString()
-                                + " is not closed before getting the connection.");
-                    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-            lastProxyConnection = new SQLServerConnectionPoolProxy(physicalConnection);
-            if (pcLogger.isLoggable(Level.FINE) && !lastProxyConnection.isClosed())
-                pcLogger.fine(toString() + " proxy " + lastProxyConnection.toString() + " is returned.");
-
-            return lastProxyConnection;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-    public void addConnectionEventListener(ConnectionEventListener listener) {
-        if (pcLogger.isLoggable(Level.FINER))
-            pcLogger.finer(toString() + safeCID());
-        listenersLock.lock();
-        try {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-    public void close() throws SQLException {
-        if (pcLogger.isLoggable(Level.FINER))
-            pcLogger.finer(toString() + " Closing physical connection, " + safeCID());
-        lock.lock();
-        try {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-    void notifyEvent(SQLServerException e) {
-        if (pcLogger.isLoggable(Level.FINER))
-            pcLogger.finer(toString() + " Exception:" + e + safeCID());
-
-        // close the proxy on fatal error event. Note exception is null then the event comes from the proxy close.
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-                if (null == e) {
-                    if (pcLogger.isLoggable(Level.FINER))
-                        pcLogger.finer(toString() + " notifyEvent:connectionClosed " + safeCID());
-                    listener.connectionClosed(ev);
-                } else {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-                } else {
-                    if (pcLogger.isLoggable(Level.FINER))
-                        pcLogger.finer(toString() + " notifyEvent:connectionErrorOccurred " + safeCID());
-                    listener.connectionErrorOccurred(ev);
-                }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-
-        if (pcLogger.isLoggable(Level.FINER))
-            pcLogger.finer(toString() + " Start create new connection for pool.");
-
-        physicalConnection = createNewConnection();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-        physicalConnection = createNewConnection();
-        if (pcLogger.isLoggable(Level.FINE))
-            pcLogger.fine(toString() + " created by (" + ds.toString() + ")" + " Physical connection " + safeCID()
-                    + ", End create new connection for pool");
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-    public void removeConnectionEventListener(ConnectionEventListener listener) {
-        if (pcLogger.isLoggable(Level.FINER))
-            pcLogger.finer(toString() + safeCID());
-        listenersLock.lock();
-        try {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCertificateUtils.java`
 #### Snippet
 ```java
@@ -12875,30 +12887,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCertificateUtils.java`
                             logger.finer(logContext + " certificate:\n" + cert.toString());
                         }
                     }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
-#### Snippet
-```java
-        checkClosed();
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + " Skipping :" + n);
-        if (n < 0)
-            return 0L;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
-#### Snippet
-```java
-        if (isAdaptive && null != dtv) {
-            if (logger.isLoggable(java.util.logging.Level.FINER))
-                logger.finer(toString() + " closing the adaptive stream.");
-            dtv.setPositionAfterStreamed(tdsReader);
-        }
 ```
 
 ### UnnecessaryToStringCall
@@ -12939,6 +12927,42 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
+#### Snippet
+```java
+        checkClosed();
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + " Skipping :" + n);
+        if (n < 0)
+            return 0L;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleInputStream.java`
+#### Snippet
+```java
+        if (isAdaptive && null != dtv) {
+            if (logger.isLoggable(java.util.logging.Level.FINER))
+                logger.finer(toString() + " closing the adaptive stream.");
+            dtv.setPositionAfterStreamed(tdsReader);
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerTrustManager.java`
+#### Snippet
+```java
+    ServerCertificateX509TrustManager(TDSChannel tdsChannel, String cert, String hostName) {
+        this.logger = tdsChannel.getLogger();
+        this.logContext = tdsChannel.toString() + " (ServerCertificateX509TrustManager):";
+        // canonical name is in lower case so convert this to lowercase too.
+        this.hostName = hostName.toLowerCase(Locale.ENGLISH);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerTrustManager.java`
 #### Snippet
 ```java
@@ -12963,14 +12987,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerTrustManager.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerTrustManager.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSQLXML.java`
 #### Snippet
 ```java
-    ServerCertificateX509TrustManager(TDSChannel tdsChannel, String cert, String hostName) {
-        this.logger = tdsChannel.getLogger();
-        this.logContext = tdsChannel.toString() + " (ServerCertificateX509TrustManager):";
-        // canonical name is in lower case so convert this to lowercase too.
-        this.hostName = hostName.toLowerCase(Locale.ENGLISH);
+        this.typeInfo = typeInfo;
+        if (logger.isLoggable(java.util.logging.Level.FINE))
+            logger.fine(toString() + " created by (null connection)");
+    }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -12983,18 +13007,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSQLXML.java`
             logger.fine(toString() + " created by (" + connection.toString() + ")");
         getterArgs = null; // make the compiler happy
         typeInfo = null;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSQLXML.java`
-#### Snippet
-```java
-        this.typeInfo = typeInfo;
-        if (logger.isLoggable(java.util.logging.Level.FINE))
-            logger.fine(toString() + " created by (null connection)");
-    }
-
 ```
 
 ### UnnecessaryToStringCall
@@ -13175,6 +13187,342 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerParameterMetaData.java`
             logger.fine(toString() + " created by (" + st.toString() + ")");
         }
         try {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeUpdate", sql);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeUpdate", sql);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate", sql);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate", sql);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+            loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate", new Object[] {sql, autoGeneratedKeys});
+            if (Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+            loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate", new Object[] {sql, autoGeneratedKeys});
+            if (Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeLargeBatch");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeLargeBatch");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeQuery", sql);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeQuery", sql);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+
+        if (stmtlogger.isLoggable(java.util.logging.Level.FINER)) {
+            stmtlogger.finer("Properties for " + toString() + ":" + " Result type:" + appResultSetType + " ("
+                    + resultSetType + ")" + " Concurrency:" + resultSetConcurrency + " Fetchsize:" + nFetchSize
+                    + " bIsClosed:" + bIsClosed + " useLastUpdateCount:" + connection.useLastUpdateCount());
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+
+        if (stmtlogger.isLoggable(java.util.logging.Level.FINE)) {
+            stmtlogger.fine(toString() + " created by (" + connection.toString() + ")");
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+
+        if (stmtlogger.isLoggable(java.util.logging.Level.FINE)) {
+            stmtlogger.fine(toString() + " created by (" + connection.toString() + ")");
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "execute", sql);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "execute", sql);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+            loggerExternal.entering(getClassNameLogging(), "executeUpdate", new Object[] {sql, autoGeneratedKeys});
+            if (Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+            loggerExternal.entering(getClassNameLogging(), "executeUpdate", new Object[] {sql, autoGeneratedKeys});
+            if (Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+            loggerExternal.entering(getClassNameLogging(), "execute", new Object[] {sql, autoGeneratedKeys});
+            if (Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+            loggerExternal.entering(getClassNameLogging(), "execute", new Object[] {sql, autoGeneratedKeys});
+            if (Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+    private void doExecuteCursored(StmtExecCmd execCmd, String sql) throws SQLServerException {
+        if (stmtlogger.isLoggable(java.util.logging.Level.FINER)) {
+            stmtlogger.finer(toString() + " Execute for cursor open" + " SQL:" + sql + " Scrollability:"
+                    + getResultSetScrollOpt() + " Concurrency:" + getResultSetCCOpt());
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        if (isCursorable(executeMethod) && isSelect(sql)) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        if (isCursorable(executeMethod) && isSelect(sql)) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        if (isCursorable(executeMethod) && isSelect(sql)) {
+            if (stmtlogger.isLoggable(java.util.logging.Level.FINE))
+                stmtlogger.fine(toString() + " Executing server side cursor " + sql);
+
+            doExecuteCursored(execCmd, sql);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+
+            if (stmtlogger.isLoggable(java.util.logging.Level.FINE))
+                stmtlogger.fine(toString() + " Executing (not server cursor) " + sql);
+
+            // Start the response
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeBatch");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeBatch");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
 ```
 
 ### UnnecessaryToStringCall
@@ -13539,10 +13887,46 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/FailOverMapSingleton.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate", sql);
+            // necessary changes to enableSSL() function's exception handling mechanism.
+            sb.append(LOG_CLIENT_CONNECTION_ID_PREFIX);
+            sb.append(clientConnId.toString());
+            return sb.toString();
+        } else {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
+#### Snippet
+```java
+
+        if (exLogger.isLoggable(Level.FINE))
+            exLogger.fine("*** SQLException:" + id + " " + this.toString() + " " + errText);
+        if (bStack && exLogger.isLoggable(Level.FINE)) {
+            StringBuilder sb = new StringBuilder(100);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
+#### Snippet
+```java
+
+            if (SQLServerResultSet.logger.isLoggable(java.util.logging.Level.FINEST))
+                SQLServerResultSet.logger.finest(rs.toString() + " Set mark " + rowMark[currentRow - 1] + " for row "
+                        + currentRow + " of type " + rowType[currentRow - 1]);
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String col) throws SQLServerException, SQLTimeoutException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13551,10 +13935,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate", sql);
+            String col) throws SQLServerException, SQLTimeoutException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13563,10 +13947,46 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "executeUpdate", sql);
+            String columnNamePattern) throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String columnNamePattern) throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+                                .append("'");
+                    } else {
+                        sb.append(o.toString());
+                    }
+                } else {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+    public ResultSet getSuperTypes(String catalog, String schemaPattern, String typeNamePattern) throws SQLException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13575,10 +13995,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "executeUpdate", sql);
+    public ResultSet getSuperTypes(String catalog, String schemaPattern, String typeNamePattern) throws SQLException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13587,118 +14007,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-
-        if (stmtlogger.isLoggable(java.util.logging.Level.FINER)) {
-            stmtlogger.finer("Properties for " + toString() + ":" + " Result type:" + appResultSetType + " ("
-                    + resultSetType + ")" + " Concurrency:" + resultSetConcurrency + " Fetchsize:" + nFetchSize
-                    + " bIsClosed:" + bIsClosed + " useLastUpdateCount:" + connection.useLastUpdateCount());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-
-        if (stmtlogger.isLoggable(java.util.logging.Level.FINE)) {
-            stmtlogger.fine(toString() + " created by (" + connection.toString() + ")");
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-
-        if (stmtlogger.isLoggable(java.util.logging.Level.FINE)) {
-            stmtlogger.fine(toString() + " created by (" + connection.toString() + ")");
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        if (isCursorable(executeMethod) && isSelect(sql)) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        if (isCursorable(executeMethod) && isSelect(sql)) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-        if (isCursorable(executeMethod) && isSelect(sql)) {
-            if (stmtlogger.isLoggable(java.util.logging.Level.FINE))
-                stmtlogger.fine(toString() + " Executing server side cursor " + sql);
-
-            doExecuteCursored(execCmd, sql);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-
-            if (stmtlogger.isLoggable(java.util.logging.Level.FINE))
-                stmtlogger.fine(toString() + " Executing (not server cursor) " + sql);
-
-            // Start the response
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "executeQuery", sql);
+    public java.sql.ResultSet getSchemas() throws SQLException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13707,10 +14019,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "executeQuery", sql);
+    public java.sql.ResultSet getSchemas() throws SQLException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13719,46 +14031,34 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-            loggerExternal.entering(getClassNameLogging(), "executeUpdate", new Object[] {sql, autoGeneratedKeys});
-            if (Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
+            String proc) throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
+
 ```
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-            loggerExternal.entering(getClassNameLogging(), "executeUpdate", new Object[] {sql, autoGeneratedKeys});
-            if (Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
+            String proc) throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
+
 ```
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-    private void doExecuteCursored(StmtExecCmd execCmd, String sql) throws SQLServerException {
-        if (stmtlogger.isLoggable(java.util.logging.Level.FINER)) {
-            stmtlogger.finer(toString() + " Execute for cursor open" + " SQL:" + sql + " Scrollability:"
-                    + getResultSetScrollOpt() + " Concurrency:" + getResultSetCCOpt());
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "executeBatch");
+    public java.sql.ResultSet getColumns(String catalog, String schema, String table, String col) throws SQLException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13767,10 +14067,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "executeBatch");
+    public java.sql.ResultSet getColumns(String catalog, String schema, String table, String col) throws SQLException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13779,34 +14079,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-            loggerExternal.entering(getClassNameLogging(), "execute", new Object[] {sql, autoGeneratedKeys});
-            if (Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-            loggerExternal.entering(getClassNameLogging(), "execute", new Object[] {sql, autoGeneratedKeys});
-            if (Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "executeLargeBatch");
+            int[] types) throws SQLException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13815,10 +14091,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "executeLargeBatch");
+            int[] types) throws SQLException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13827,10 +14103,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "execute", sql);
+    public java.sql.ResultSet getCatalogs() throws SQLException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13839,10 +14115,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "execute", sql);
+    public java.sql.ResultSet getCatalogs() throws SQLException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13851,26 +14127,266 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-            loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate", new Object[] {sql, autoGeneratedKeys});
-            if (Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
+    public String getUserName() throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
+        checkClosed();
 ```
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-            loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate", new Object[] {sql, autoGeneratedKeys});
-            if (Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
+    public String getUserName() throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String attributeNamePattern) throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String attributeNamePattern) throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String[] types) throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String[] types) throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String table) throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String table) throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+    public java.sql.ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        return getSchemasInternal(catalog, schemaPattern);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+    public java.sql.ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        return getSchemasInternal(catalog, schemaPattern);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+    public java.sql.ResultSet getTypeInfo() throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+    public java.sql.ResultSet getTypeInfo() throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String table) throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String table) throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+    public ResultSet getSuperTables(String catalog, String schemaPattern, String tableNamePattern) throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+    public ResultSet getSuperTables(String catalog, String schemaPattern, String tableNamePattern) throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            boolean approximate) throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            boolean approximate) throws SQLServerException, SQLTimeoutException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String tab2) throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+            String tab2) throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+    public java.sql.ResultSet getTableTypes() throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+    public java.sql.ResultSet getTableTypes() throws SQLException {
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
 ```
 
 ### UnnecessaryToStringCall
@@ -13914,7 +14430,7 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-            String attributeNamePattern) throws SQLException {
+            String table) throws SQLServerException, SQLTimeoutException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13926,31 +14442,7 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-            String attributeNamePattern) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getTypeInfo() throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getTypeInfo() throws SQLException {
+            String table) throws SQLServerException, SQLTimeoutException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -13974,54 +14466,6 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 #### Snippet
 ```java
-            String proc) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String proc) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getCatalogs() throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getCatalogs() throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
             boolean nullable) throws SQLServerException, SQLTimeoutException {
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
@@ -14039,438 +14483,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
         checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public ResultSet getSuperTables(String catalog, String schemaPattern, String tableNamePattern) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public ResultSet getSuperTables(String catalog, String schemaPattern, String tableNamePattern) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getSchemas() throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getSchemas() throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String columnNamePattern) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String columnNamePattern) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String col) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String col) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String[] types) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String[] types) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String table) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String table) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getTableTypes() throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getTableTypes() throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String tab2) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String tab2) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            boolean approximate) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            boolean approximate) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        return getSchemasInternal(catalog, schemaPattern);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getSchemas(String catalog, String schemaPattern) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        return getSchemasInternal(catalog, schemaPattern);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public String getUserName() throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public String getUserName() throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getColumns(String catalog, String schema, String table, String col) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public java.sql.ResultSet getColumns(String catalog, String schema, String table, String col) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public ResultSet getSuperTypes(String catalog, String schemaPattern, String typeNamePattern) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-    public ResultSet getSuperTypes(String catalog, String schemaPattern, String typeNamePattern) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-                                .append("'");
-                    } else {
-                        sb.append(o.toString());
-                    }
-                } else {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            int[] types) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            int[] types) throws SQLException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String table) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String table) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String table) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-            String table) throws SQLServerException, SQLTimeoutException {
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
-#### Snippet
-```java
-            // necessary changes to enableSSL() function's exception handling mechanism.
-            sb.append(LOG_CLIENT_CONNECTION_ID_PREFIX);
-            sb.append(clientConnId.toString());
-            return sb.toString();
-        } else {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
-#### Snippet
-```java
-
-        if (exLogger.isLoggable(Level.FINE))
-            exLogger.fine("*** SQLException:" + id + " " + this.toString() + " " + errText);
-        if (bStack && exLogger.isLoggable(Level.FINE)) {
-            StringBuilder sb = new StringBuilder(100);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/ScrollWindow.java`
-#### Snippet
-```java
-
-            if (SQLServerResultSet.logger.isLoggable(java.util.logging.Level.FINEST))
-                SQLServerResultSet.logger.finest(rs.toString() + " Set mark " + rowMark[currentRow - 1] + " for row "
-                        + currentRow + " of type " + rowType[currentRow - 1]);
-
 ```
 
 ### UnnecessaryToStringCall
@@ -14514,6 +14526,18 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
 #### Snippet
 ```java
+            token.put(context.targetInfo, 0, context.targetInfo.length);
+            if (logger.isLoggable(Level.WARNING)) {
+                logger.warning(toString()
+                        + " MsvAvTimestamp not recieved from SQL Server in Challenge Message. MIC field will not be set.");
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
+#### Snippet
+```java
 
             if (logger.isLoggable(Level.FINEST)) {
                 logger.finest(toString() + " SPN detected: " + spn);
@@ -14547,18 +14571,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
-#### Snippet
-```java
-            token.put(context.targetInfo, 0, context.targetInfo.length);
-            if (logger.isLoggable(Level.WARNING)) {
-                logger.warning(toString()
-                        + " MsvAvTimestamp not recieved from SQL Server in Challenge Message. MIC field will not be set.");
-            }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
 #### Snippet
 ```java
@@ -14567,6 +14579,54 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
                 logger.finest(tdsReader.toString() + ": " + tdsTokenHandler.logContext + ": Processing "
                         + ((-1 == tdsTokenType) ? "EOF" : TDS.getTokenName(tdsTokenType)));
             }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
+#### Snippet
+```java
+                xex.errorCode = XAException.XAER_RMERR;
+                if (xaLogger.isLoggable(Level.FINER))
+                    xaLogger.finer(toString() + " exception:" + xex);
+                throw xex;
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
+#### Snippet
+```java
+            xids[i] = al.get(i);
+            if (xaLogger.isLoggable(Level.FINER))
+                xaLogger.finer(toString() + xids[i].toString());
+        }
+        return xids;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
+#### Snippet
+```java
+        timeoutSeconds = seconds;
+        if (xaLogger.isLoggable(Level.FINER))
+            xaLogger.finer(toString() + " TransactionTimeout:" + seconds);
+        return true;
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
+#### Snippet
+```java
+            } catch (Exception e) {
+                if (xaLogger.isLoggable(Level.WARNING))
+                    xaLogger.warning(toString() + "Closing exception ignored: " + e);
+            }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -14850,42 +14910,6 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
 #### Snippet
 ```java
-                xex.errorCode = XAException.XAER_RMERR;
-                if (xaLogger.isLoggable(Level.FINER))
-                    xaLogger.finer(toString() + " exception:" + xex);
-                throw xex;
-            }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
-#### Snippet
-```java
-            xids[i] = al.get(i);
-            if (xaLogger.isLoggable(Level.FINER))
-                xaLogger.finer(toString() + xids[i].toString());
-        }
-        return xids;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
-#### Snippet
-```java
-        timeoutSeconds = seconds;
-        if (xaLogger.isLoggable(Level.FINER))
-            xaLogger.finer(toString() + " TransactionTimeout:" + seconds);
-        return true;
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
-#### Snippet
-```java
         }
         if (xaLogger.isLoggable(Level.FINE))
             xaLogger.fine(toString() + " created by (" + loginfo + ")");
@@ -14903,18 +14927,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
             xaLogger.finer(toString() + " xares:" + xares);
 
         // Change to return true if its the same database physical connection
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
-#### Snippet
-```java
-            } catch (Exception e) {
-                if (xaLogger.isLoggable(Level.WARNING))
-                    xaLogger.warning(toString() + "Closing exception ignored: " + e);
-            }
-
 ```
 
 ### UnnecessaryToStringCall
@@ -15342,7 +15354,19 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "refreshRow");
+            } catch (SQLException e) {
+                if (logger.isLoggable(java.util.logging.Level.FINER)) {
+                    logger.finer(toString() + "Filling Lobs before closing: " + e.getMessage());
+                }
+            } finally {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "insertRow");
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -15354,7 +15378,7 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "refreshRow");
+        loggerExternal.entering(getClassNameLogging(), "insertRow");
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -15367,6 +15391,54 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
 
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "last");
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "beforeFirst");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "beforeFirst");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        }
         if (logger.isLoggable(java.util.logging.Level.FINER))
             logger.finer(toString() + logCursorState());
 
@@ -15390,23 +15462,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "first");
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "close");
+        loggerExternal.entering(getClassNameLogging(), "afterLast");
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
-        closeInternal();
+
 ```
 
 ### UnnecessaryToStringCall
@@ -15414,11 +15474,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "close");
+        loggerExternal.entering(getClassNameLogging(), "afterLast");
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
-        closeInternal();
+
 ```
 
 ### UnnecessaryToStringCall
@@ -15426,7 +15486,7 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "last");
+
         if (logger.isLoggable(java.util.logging.Level.FINER))
             logger.finer(toString() + logCursorState());
 
@@ -15439,6 +15499,246 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
         loggerExternal.entering(getClassNameLogging(), "moveToInsertRow");
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "deleteRow");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        final class DeleteRowRPC extends TDSCommand {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "deleteRow");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        final class DeleteRowRPC extends TDSCommand {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "previous");
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "getRow");
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "close");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        closeInternal();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "close");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        closeInternal();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "isLast");
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "next");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "next");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        }
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "updateRow");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        final class UpdateRowRPC extends TDSCommand {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "updateRow");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        final class UpdateRowRPC extends TDSCommand {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "isBeforeFirst");
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "refreshRow");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "refreshRow");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "isAfterLast");
+        if (logger.isLoggable(java.util.logging.Level.FINER))
+            logger.finer(toString() + logCursorState());
+
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "isFirst");
         if (logger.isLoggable(java.util.logging.Level.FINER))
             logger.finer(toString() + logCursorState());
 
@@ -15510,54 +15810,6 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "previous");
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "beforeFirst");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "beforeFirst");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        }
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
     final void doServerFetch(int fetchType, int startRow, int numRows) throws SQLServerException {
         if (logger.isLoggable(java.util.logging.Level.FINER))
             logger.finer(toString() + " fetchType:" + fetchType + " startRow:" + startRow + " numRows:" + numRows);
@@ -15582,35 +15834,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "insertRow");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "insertRow");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
 
         if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
+            logger.finer(toString() + " Getting Column:" + index);
 
-        checkClosed();
+        fillLOBs();
 ```
 
 ### UnnecessaryToStringCall
@@ -15618,19 +15846,7 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-            } catch (SQLException e) {
-                if (logger.isLoggable(java.util.logging.Level.FINER)) {
-                    logger.finer(toString() + "Filling Lobs before closing: " + e.getMessage());
-                }
-            } finally {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "isAfterLast");
+        loggerExternal.entering(getClassNameLogging(), "first");
         if (logger.isLoggable(java.util.logging.Level.FINER))
             logger.finer(toString() + logCursorState());
 
@@ -15647,210 +15863,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
             logger.finer(toString() + logCursorState());
 
         checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "next");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "next");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        }
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "updateRow");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        final class UpdateRowRPC extends TDSCommand {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "updateRow");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        final class UpdateRowRPC extends TDSCommand {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "isFirst");
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "isBeforeFirst");
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "getRow");
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "isLast");
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "deleteRow");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        final class DeleteRowRPC extends TDSCommand {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "deleteRow");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        final class DeleteRowRPC extends TDSCommand {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "afterLast");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "afterLast");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + logCursorState());
-
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-
-        if (logger.isLoggable(java.util.logging.Level.FINER))
-            logger.finer(toString() + " Getting Column:" + index);
-
-        fillLOBs();
 ```
 
 ### UnnecessaryToStringCall
@@ -15891,14 +15903,26 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/FailOverInfo.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
 #### Snippet
 ```java
-            if (px >= 0) {
-                if (con.getConnectionLogger().isLoggable(Level.FINE))
-                    con.getConnectionLogger().fine(con.toString() + " Failover server :" + failoverPartner);
-                instanceValue = failoverPartner.substring(px + 1, failoverPartner.length());
-                failoverPartner = failoverPartner.substring(0, px);
+        closeActiveStream();
+        if (getStatementLogger().isLoggable(java.util.logging.Level.FINER))
+            getStatementLogger().finer(toString() + " Getting Param:" + index);
+
+        // Dynamically load OUT params from TDS response buffer
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
+#### Snippet
+```java
+            if ((outParamIndex < 0 || outParamIndex >= inOutParam.length) || (!inOutParam[outParamIndex].isOutput())) {
+                if (getStatementLogger().isLoggable(java.util.logging.Level.INFO)) {
+                    getStatementLogger().info(toString() + " Unexpected outParamIndex: " + outParamIndex
+                            + "; adjustment: " + outParamIndexAdjustment);
+                }
 ```
 
 ### UnnecessaryToStringCall
@@ -15927,26 +15951,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/FailOverInfo.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/FailOverInfo.java`
 #### Snippet
 ```java
-            if ((outParamIndex < 0 || outParamIndex >= inOutParam.length) || (!inOutParam[outParamIndex].isOutput())) {
-                if (getStatementLogger().isLoggable(java.util.logging.Level.INFO)) {
-                    getStatementLogger().info(toString() + " Unexpected outParamIndex: " + outParamIndex
-                            + "; adjustment: " + outParamIndexAdjustment);
-                }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
-#### Snippet
-```java
-        closeActiveStream();
-        if (getStatementLogger().isLoggable(java.util.logging.Level.FINER))
-            getStatementLogger().finer(toString() + " Getting Param:" + index);
-
-        // Dynamically load OUT params from TDS response buffer
+            if (px >= 0) {
+                if (con.getConnectionLogger().isLoggable(Level.FINE))
+                    con.getConnectionLogger().fine(con.toString() + " Failover server :" + failoverPartner);
+                instanceValue = failoverPartner.substring(px + 1, failoverPartner.length());
+                failoverPartner = failoverPartner.substring(0, px);
 ```
 
 ### UnnecessaryToStringCall
@@ -16002,6 +16014,42 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
+        loggerExternal.entering(getClassNameLogging(), "executeQuery");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeQuery");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+                param.skipValue(tdsReader, true);
+                if (getStatementLogger().isLoggable(java.util.logging.Level.FINER))
+                    getStatementLogger().finer(toString() + ": Setting PreparedHandle:" + prepStmtHandle);
+
+                return true;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
         loggerExternal.entering(getClassNameLogging(), EXECUTE_BATCH_STRING);
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
@@ -16015,6 +16063,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
         loggerExternal.entering(getClassNameLogging(), EXECUTE_BATCH_STRING);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate");
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
@@ -16038,130 +16110,10 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
-    private void buildServerCursorExecParams(TDSWriter tdsWriter) throws SQLServerException {
-        if (getStatementLogger().isLoggable(java.util.logging.Level.FINE))
-            getStatementLogger().fine(toString() + ": calling sp_cursorexecute: PreparedHandle:"
-                    + getPreparedStatementHandle() + ", SQL:" + preparedSQL);
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-                param.skipValue(tdsReader, true);
-                if (getStatementLogger().isLoggable(java.util.logging.Level.FINER))
-                    getStatementLogger().finer(toString() + ": Setting PreparedHandle:" + prepStmtHandle);
-
-                return true;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "executeLargeUpdate");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-    private void buildExecParams(TDSWriter tdsWriter) throws SQLServerException {
-        if (getStatementLogger().isLoggable(java.util.logging.Level.FINE))
-            getStatementLogger().fine(toString() + ": calling sp_execute: PreparedHandle:"
-                    + getPreparedStatementHandle() + ", SQL:" + preparedSQL);
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "executeUpdate");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "executeUpdate");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
     private void buildPrepExecParams(TDSWriter tdsWriter) throws SQLServerException {
         if (getStatementLogger().isLoggable(java.util.logging.Level.FINE))
             getStatementLogger().fine(toString() + ": calling sp_prepexec: PreparedHandle:"
                     + getPreparedStatementHandle() + ", SQL:" + preparedSQL);
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-    private void buildServerCursorPrepExecParams(TDSWriter tdsWriter) throws SQLServerException {
-        if (getStatementLogger().isLoggable(java.util.logging.Level.FINE))
-            getStatementLogger().fine(toString() + ": calling sp_cursorprepexec: PreparedHandle:"
-                    + getPreparedStatementHandle() + ", SQL:" + preparedSQL);
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
 
 ```
 
@@ -16218,6 +16170,18 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
+    private void buildServerCursorPrepExecParams(TDSWriter tdsWriter) throws SQLServerException {
+        if (getStatementLogger().isLoggable(java.util.logging.Level.FINE))
+            getStatementLogger().fine(toString() + ": calling sp_cursorprepexec: PreparedHandle:"
+                    + getPreparedStatementHandle() + ", SQL:" + preparedSQL);
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
         loggerExternal.entering(getClassNameLogging(), "executeLargeBatch");
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
@@ -16235,6 +16199,66 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
         checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeUpdate");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+        loggerExternal.entering(getClassNameLogging(), "executeUpdate");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        // Create the parameter array that we'll use for all the items in this batch.
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        // Create the parameter array that we'll use for all the items in this batch.
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+    private void buildExecParams(TDSWriter tdsWriter) throws SQLServerException {
+        if (getStatementLogger().isLoggable(java.util.logging.Level.FINE))
+            getStatementLogger().fine(toString() + ": calling sp_execute: PreparedHandle:"
+                    + getPreparedStatementHandle() + ", SQL:" + preparedSQL);
+
 ```
 
 ### UnnecessaryToStringCall
@@ -16254,23 +16278,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
 #### Snippet
 ```java
-        loggerExternal.entering(getClassNameLogging(), "executeQuery");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
+    private void buildServerCursorExecParams(TDSWriter tdsWriter) throws SQLServerException {
+        if (getStatementLogger().isLoggable(java.util.logging.Level.FINE))
+            getStatementLogger().fine(toString() + ": calling sp_cursorexecute: PreparedHandle:"
+                    + getPreparedStatementHandle() + ", SQL:" + preparedSQL);
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-        loggerExternal.entering(getClassNameLogging(), "executeQuery");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
 ```
 
 ### UnnecessaryToStringCall
@@ -16282,7 +16294,7 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
-        // Create the parameter array that we'll use for all the items in this batch.
+
 ```
 
 ### UnnecessaryToStringCall
@@ -16294,7 +16306,7 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
         if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
             loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
-        // Create the parameter array that we'll use for all the items in this batch.
+
 ```
 
 ### UnnecessaryToStringCall
@@ -16326,34 +16338,10 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-        public synchronized void setReceiveBufferSize(int size) throws SocketException {
-            if (logger.isLoggable(Level.FINER))
-                logger.finer(toString() + " Ignoring setReceiveBufferSize size:" + size);
-        }
 
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                break;
-            default:
-                assert false : "Unexpected JDBC type " + jdbcType.toString();
-        }
+        if (logger.isLoggable(Level.FINER))
+            logger.finer("Send Trace Header - ActivityID: " + activityId.toString());
     }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        public void shutdownOutput() throws IOException {
-            if (logger.isLoggable(Level.FINER))
-                logger.finer(toString() + " Ignoring shutdownOutput");
-        }
 
 ```
 
@@ -16362,47 +16350,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-
+    final void resetPooledConnection() {
         if (logger.isLoggable(Level.FINEST))
-            logger.finest(this.toString() + ": Reading response...");
-
-        try {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        } catch (SQLServerException e) {
-            if (logger.isLoggable(Level.FINEST))
-                logger.finest(this.toString() + ": Exception reading response: " + e.getMessage());
-
-            throw e;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-        if (logger.isLoggable(Level.FINEST))
-            logger.finest(this.toString() + ": Buffering from: " + mark.toString());
-
-        return mark;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        public void setReuseAddress(boolean on) throws SocketException {
-            if (logger.isLoggable(Level.FINER))
-                logger.finer(toString() + " Ignoring setReuseAddress");
-        }
-
+            logger.finest(toString() + " resetPooledConnection");
+        sendResetConnection = TDS.STATUS_BIT_RESET_CONN;
+    }
 ```
 
 ### UnnecessaryToStringCall
@@ -16422,11 +16374,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-            } catch (SQLServerException interruptException) {
-                if (logger.isLoggable(Level.FINE))
-                    logger.fine(this.toString() + ": Ignoring error in sending attention: "
-                            + interruptException.getMessage());
-            }
+        if (isStreaming) {
+            if (logger.isLoggable(Level.FINEST))
+                logger.finest(toString() + " Moving to next packet -- unlinking consumed packet");
+
+            consumedPacket.next = null;
 ```
 
 ### UnnecessaryToStringCall
@@ -16434,11 +16386,23 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-    final void endMessage() throws SQLServerException {
-        if (logger.isLoggable(Level.FINEST))
-            logger.finest(toString() + " Finishing TDS message");
-        writePacket(TDS.STATUS_BIT_EOM);
+        public void shutdownInput() throws IOException {
+            if (logger.isLoggable(Level.FINER))
+                logger.finer(toString() + " Ignoring shutdownInput");
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+    final void log(Level level, String message) {
+        logger.log(level, toString() + ": " + message);
     }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -16446,11 +16410,71 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-            this.tdsChannel = tdsChannel;
-            this.logger = tdsChannel.getLogger();
-            this.logContext = tdsChannel.toString() + " (ProxySocket):";
+            try {
+                if (logger.isLoggable(Level.FINEST)) {
+                    logger.finest(toString() + "(networkSocketStillConnected) Checking for socket disconnect.");
+                }
 
-            // Create the I/O streams
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                } catch (SocketException e) {
+                    if (logger.isLoggable(Level.FINE)) {
+                        logger.fine(toString()
+                                + "(networkSocketStillConnected) channelSocket.getSoTimeout() failed. Unable to poll connection:"
+                                + e.getMessage());
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                    if (logger.isLoggable(Level.FINEST)) {
+                        if (pollResult) {
+                            logger.finest(toString() + "(networkSocketStillConnected) Network still connected.");
+                        } else {
+                            logger.finest(toString() + "(networkSocketStillConnected) Network disconnected:");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                            logger.finest(toString() + "(networkSocketStillConnected) Network still connected.");
+                        } else {
+                            logger.finest(toString() + "(networkSocketStillConnected) Network disconnected:");
+                        }
+                    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                    if (logger.isLoggable(Level.FINE)) {
+                        logger.fine(
+                                toString() + "(networkSocketStillConnected) getSoTimeout failed:" + se.getMessage());
+                    }
+                    return false;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+        if (logger.isLoggable(Level.FINEST)) {
+            logger.finest(toString() + " Writing " + length + " bytes");
+        }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -16554,42 +16578,6 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-
-            if (logger.isLoggable(Level.FINEST))
-                logger.finest(toString() + " Skipping " + bytesToSkip + " bytes from offset " + payloadOffset);
-
-            bytesSkipped += bytesToSkip;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-        if (logger.isLoggable(Level.FINER))
-            logger.finer("Send Trace Header - ActivityID: " + activityId.toString());
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        public void shutdownInput() throws IOException {
-            if (logger.isLoggable(Level.FINER))
-                logger.finer(toString() + " Ignoring shutdownInput");
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
             this.messageStarted = false;
             this.logger = tdsChannel.getLogger();
             this.logContext = tdsChannel.toString() + " (SSLHandshakeOutputStream):";
@@ -16602,11 +16590,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-                if (bytesRead < 0) {
-                    if (logger.isLoggable(Level.FINER))
-                        logger.finer(toString() + " Premature EOS in response. packetNum:" + packetNum
-                                + " headerBytesRead:" + headerBytesRead);
-
+            } catch (SQLServerException interruptException) {
+                if (logger.isLoggable(Level.FINE))
+                    logger.fine(this.toString() + ": Ignoring error in sending attention: "
+                            + interruptException.getMessage());
+            }
 ```
 
 ### UnnecessaryToStringCall
@@ -16614,11 +16602,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-            if (packetLength < TDS.PACKET_HEADER_SIZE || packetLength > con.getTDSPacketSize()) {
-                if (logger.isLoggable(Level.WARNING)) {
-                    logger.warning(toString() + " TDS header contained invalid packet length:" + packetLength
-                            + "; packet size:" + con.getTDSPacketSize());
-                }
+
+                default:
+                    assert false : "Unexpected JDBC type " + jdbcType.toString();
+            }
+            // Column name - must be null (from TDS - TVP_COLMETADATA)
 ```
 
 ### UnnecessaryToStringCall
@@ -16686,167 +16674,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-        public void setOOBInline(boolean on) throws SocketException {
-            if (logger.isLoggable(Level.FINER))
-                logger.finer(toString() + " Ignoring setOOBInline");
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        public void setTrafficClass(int tc) throws SocketException {
-            if (logger.isLoggable(Level.FINER))
-                logger.finer(toString() + " Ignoring setTrafficClass");
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            this.sslHandshakeOutputStream = sslHandshakeOutputStream;
-            this.logger = tdsChannel.getLogger();
-            this.logContext = tdsChannel.toString() + " (SSLHandshakeInputStream):";
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    final void resetPooledConnection() {
-        if (logger.isLoggable(Level.FINEST))
-            logger.finest(toString() + " resetPooledConnection");
-        sendResetConnection = TDS.STATUS_BIT_RESET_CONN;
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    void processResponse(TDSReader tdsReader) throws SQLServerException {
-        if (logger.isLoggable(Level.FINEST))
-            logger.finest(this.toString() + ": Processing response");
-        try {
-            TDSParser.parse(tdsReader, getLogContext());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-            if (logger.isLoggable(Level.FINEST))
-                logger.finest(this.toString() + ": Ignoring error from database: " + e.getMessage());
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        // it can happen, but it should have no effect.
-        if (logger.isLoggable(Level.FINEST)) {
-            logger.finest(toString() + " Ignoring interrupt of uninterruptable TDS command; Reason:" + reason);
-        }
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        public synchronized void setSendBufferSize(int size) throws SocketException {
-            if (logger.isLoggable(Level.FINER))
-                logger.finer(toString() + " Ignoring setSendBufferSize size:" + size);
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            if (attentionPending) {
-                if (logger.isLoggable(Level.SEVERE)) {
-                    logger.severe(this.toString()
-                            + ": expected attn ack missing or not processed; terminating connection...");
-                }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
     final void throwInvalidTDS() throws SQLServerException {
         if (logger.isLoggable(Level.SEVERE))
             logger.severe(toString() + " got unexpected value in TDS response at offset:" + payloadOffset);
         con.throwInvalidTDS();
     }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    final void throwInvalidTDSToken(String tokenName) throws SQLServerException {
-        if (logger.isLoggable(Level.SEVERE))
-            logger.severe(toString() + " got unexpected value in TDS response at offset:" + payloadOffset);
-        con.throwInvalidTDSToken(tokenName);
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-    final void log(Level level, String message) {
-        logger.log(level, toString() + ": " + message);
-    }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        } catch (IOException e) {
-            if (logger.isLoggable(Level.FINER))
-                logger.finer(toString() + " flush failed:" + e.getMessage());
-
-            con.terminate(SQLServerException.DRIVER_ERROR_IO_FAILED, e.getMessage(), e);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-                default:
-                    assert false : "Unexpected JDBC type " + jdbcType.toString();
-            }
-            // Column name - must be null (from TDS - TVP_COLMETADATA)
 ```
 
 ### UnnecessaryToStringCall
@@ -16878,59 +16710,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-        } catch (IOException e) {
+
             if (logger.isLoggable(Level.FINER))
-                logger.finer(toString() + " write failed:" + e.getMessage());
-
-            con.terminate(SQLServerException.DRIVER_ERROR_IO_FAILED, e.getMessage(), e);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
-        if (logger.isLoggable(Level.FINEST)) {
-            logger.finest(toString() + " Writing " + length + " bytes");
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-            // Copy some bytes from the current packet to the destination value.
-            if (logger.isLoggable(Level.FINEST))
-                logger.finest(toString() + " Reading " + bytesToCopy + " bytes from offset " + payloadOffset);
-
-            System.arraycopy(currentPacket.payload, payloadOffset, value, valueOffset + bytesRead, bytesToCopy);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                isValid = false;
-                if (logger.isLoggable(Level.FINER))
-                    logger.finer(toString() + "TrustStoreType is required alongside with TrustStore.");
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        if (isStreaming) {
-            if (logger.isLoggable(Level.FINEST))
-                logger.finest(toString() + " Moving to next packet -- unlinking consumed packet");
-
-            consumedPacket.next = null;
+                logger.finest(toString() + " Finishing TDS message by sending ignore bit and end of message");
+            writePacket(TDS.STATUS_BIT_EOM | TDS.STATUS_BIT_ATTENTION);
+            return true;
 ```
 
 ### UnnecessaryToStringCall
@@ -17166,71 +16950,47 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-            try {
-                if (logger.isLoggable(Level.FINEST)) {
-                    logger.finest(toString() + "(networkSocketStillConnected) Checking for socket disconnect.");
-                }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                } catch (SocketException e) {
-                    if (logger.isLoggable(Level.FINE)) {
-                        logger.fine(toString()
-                                + "(networkSocketStillConnected) channelSocket.getSoTimeout() failed. Unable to poll connection:"
-                                + e.getMessage());
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                    if (logger.isLoggable(Level.FINEST)) {
-                        if (pollResult) {
-                            logger.finest(toString() + "(networkSocketStillConnected) Network still connected.");
-                        } else {
-                            logger.finest(toString() + "(networkSocketStillConnected) Network disconnected:");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                            logger.finest(toString() + "(networkSocketStillConnected) Network still connected.");
-                        } else {
-                            logger.finest(toString() + "(networkSocketStillConnected) Network disconnected:");
-                        }
-                    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                    if (logger.isLoggable(Level.FINE)) {
-                        logger.fine(
-                                toString() + "(networkSocketStillConnected) getSoTimeout failed:" + se.getMessage());
-                    }
-                    return false;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-
+        public void setOOBInline(boolean on) throws SocketException {
             if (logger.isLoggable(Level.FINER))
-                logger.finest(toString() + " Finishing TDS message by sending ignore bit and end of message");
-            writePacket(TDS.STATUS_BIT_EOM | TDS.STATUS_BIT_ATTENTION);
-            return true;
+                logger.finer(toString() + " Ignoring setOOBInline");
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            this.tdsChannel = tdsChannel;
+            this.logger = tdsChannel.getLogger();
+            this.logContext = tdsChannel.toString() + " (ProxySocket):";
+
+            // Create the I/O streams
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            // Copy some bytes from the current packet to the destination value.
+            if (logger.isLoggable(Level.FINEST))
+                logger.finest(toString() + " Reading " + bytesToCopy + " bytes from offset " + payloadOffset);
+
+            System.arraycopy(currentPacket.payload, payloadOffset, value, valueOffset + bytesRead, bytesToCopy);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        // it can happen, but it should have no effect.
+        if (logger.isLoggable(Level.FINEST)) {
+            logger.finest(toString() + " Ignoring interrupt of uninterruptable TDS command; Reason:" + reason);
+        }
+    }
 ```
 
 ### UnnecessaryToStringCall
@@ -17247,254 +17007,254 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-                        // wait for connectRetryInterval before retry
-                        if (connectionlogger.isLoggable(Level.FINEST)) {
-                            connectionlogger.finest(toString() + "Connection failed on transient error "
-                                    + sqlServerError.getErrorNumber() + ". Wait for connectRetryInterval("
-                                    + connectRetryInterval + ")s before retry.");
+        } catch (IOException e) {
+            if (logger.isLoggable(Level.FINER))
+                logger.finer(toString() + " flush failed:" + e.getMessage());
+
+            con.terminate(SQLServerException.DRIVER_ERROR_IO_FAILED, e.getMessage(), e);
 ```
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-        loggingClassName += ":" + connectionID;
-        if (connectionlogger.isLoggable(Level.FINE))
-            connectionlogger.fine(toString() + " created by (" + parentInfo + ")");
-        initResettableValues();
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkValidHoldability(holdability);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkValidHoldability(holdability);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        if (sessionRecovery.isReconnectRunning() && !sessionRecovery.isConnectionRecoveryPossible()) {
-            if (connectionlogger.isLoggable(Level.WARNING)) {
-                connectionlogger.warning(this.toString()
-                        + "SessionRecovery feature extension ack was not sent by the server during reconnection.");
-            }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-    public String toString() {
-        if (null != clientConnectionId)
-            return traceID + " ClientConnectionId: " + clientConnectionId.toString();
-        else
-            return traceID;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            loggerExternal.entering(loggingClassName, "setTransactionIsolation", level);
-            if (Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            loggerExternal.entering(loggingClassName, "setTransactionIsolation", level);
-            if (Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        if (maxFieldSize != limit) {
-            if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
-            // If no limit on field size, set text size to max (2147483647), NOT default (0 --> 4K)
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        if (maxFieldSize != limit) {
-            if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
-            // If no limit on field size, set text size to max (2147483647), NOT default (0 --> 4K)
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-             * be invalid if the statement fails to close, even though query execution succeeded.
-             */
-            connectionlogger.fine(toString() + " Exception checking connection validity: " + e.getMessage());
+        public synchronized void setReceiveBufferSize(int size) throws SocketException {
+            if (logger.isLoggable(Level.FINER))
+                logger.finer(toString() + " Ignoring setReceiveBufferSize size:" + size);
         }
 
 ```
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
+            if (attentionPending) {
+                if (logger.isLoggable(Level.SEVERE)) {
+                    logger.severe(this.toString()
+                            + ": expected attn ack missing or not processed; terminating connection...");
                 }
-                if (connectionlogger.isLoggable(Level.FINER))
-                    connectionlogger.finer(toString() + " Network packet size is " + tdsPacketSize + " bytes");
-                break;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                isValid = false;
+                if (logger.isLoggable(Level.FINER))
+                    logger.finer(toString() + "TrustStoreType is required alongside with TrustStore.");
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+        if (logger.isLoggable(Level.FINEST))
+            logger.finest(this.toString() + ": Reading response...");
+
+        try {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        } catch (SQLServerException e) {
+            if (logger.isLoggable(Level.FINEST))
+                logger.finest(this.toString() + ": Exception reading response: " + e.getMessage());
+
+            throw e;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    void processResponse(TDSReader tdsReader) throws SQLServerException {
+        if (logger.isLoggable(Level.FINEST))
+            logger.finest(this.toString() + ": Processing response");
+        try {
+            TDSParser.parse(tdsReader, getLogContext());
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+            if (logger.isLoggable(Level.FINEST))
+                logger.finest(this.toString() + ": Ignoring error from database: " + e.getMessage());
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    final void endMessage() throws SQLServerException {
+        if (logger.isLoggable(Level.FINEST))
+            logger.finest(toString() + " Finishing TDS message");
+        writePacket(TDS.STATUS_BIT_EOM);
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+            if (logger.isLoggable(Level.FINEST))
+                logger.finest(toString() + " Skipping " + bytesToSkip + " bytes from offset " + payloadOffset);
+
+            bytesSkipped += bytesToSkip;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+
+        if (logger.isLoggable(Level.FINEST))
+            logger.finest(this.toString() + ": Buffering from: " + mark.toString());
+
+        return mark;
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        public synchronized void setSendBufferSize(int size) throws SocketException {
+            if (logger.isLoggable(Level.FINER))
+                logger.finer(toString() + " Ignoring setSendBufferSize size:" + size);
+        }
 
 ```
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-                        op = " enlisted";
+            this.sslHandshakeOutputStream = sslHandshakeOutputStream;
+            this.logger = tdsChannel.getLogger();
+            this.logContext = tdsChannel.toString() + " (SSLHandshakeInputStream):";
+        }
 
-                    connectionlogger.finer(toString() + op);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        public void setReuseAddress(boolean on) throws SocketException {
+            if (logger.isLoggable(Level.FINER))
+                logger.finer(toString() + " Ignoring setReuseAddress");
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                if (bytesRead < 0) {
+                    if (logger.isLoggable(Level.FINER))
+                        logger.finer(toString() + " Premature EOS in response. packetNum:" + packetNum
+                                + " headerBytesRead:" + headerBytesRead);
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+            if (packetLength < TDS.PACKET_HEADER_SIZE || packetLength > con.getTDSPacketSize()) {
+                if (logger.isLoggable(Level.WARNING)) {
+                    logger.warning(toString() + " TDS header contained invalid packet length:" + packetLength
+                            + "; packet size:" + con.getTDSPacketSize());
                 }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+    final void throwInvalidTDSToken(String tokenName) throws SQLServerException {
+        if (logger.isLoggable(Level.SEVERE))
+            logger.severe(toString() + " got unexpected value in TDS response at offset:" + payloadOffset);
+        con.throwInvalidTDSToken(tokenName);
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
                 break;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                if (inXATransaction) {
-                    if (connectionlogger.isLoggable(Level.FINER))
-                        connectionlogger.finer(toString() + " rolled back. (DTC)");
-
-                    // Do not clear the transaction descriptor if the connection is in DT.
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                } else {
-                    if (connectionlogger.isLoggable(Level.FINER))
-                        connectionlogger.finer(toString() + " rolled back");
-
-                    Arrays.fill(getTransactionDescriptor(), (byte) 0);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            case ENVCHANGE_XACT_COMMIT:
-                if (connectionlogger.isLoggable(Level.FINER))
-                    connectionlogger.finer(toString() + " committed");
-
-                Arrays.fill(getTransactionDescriptor(), (byte) 0);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            case ENVCHANGE_DTC_DEFECT:
-                if (connectionlogger.isLoggable(Level.FINER))
-                    connectionlogger.finer(toString() + " defected");
-
-                Arrays.fill(getTransactionDescriptor(), (byte) 0);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            case ENVCHANGE_USER_INFO:
-                if (connectionlogger.isLoggable(Level.FINER))
-                    connectionlogger.finer(toString() + " Ignored env change: " + envchange);
-                break;
-            case ENVCHANGE_ROUTING:
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                } finally {
-                    if (connectionlogger.isLoggable(Level.FINER)) {
-                        connectionlogger.finer(toString() + " Received routing ENVCHANGE with the following values."
-                                + " routingDataValueLength:" + routingDataValueLength + " protocol:" + routingProtocol
-                                + " portNumber:" + routingPortNumber + " serverNameLength:" + routingServerNameLength
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-                        if (connectionlogger.isLoggable(Level.FINER)) {
-                            connectionlogger.finer(toString() + "Using new host to validate the SSL certificate");
-                        }
-                    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
             default:
-                if (connectionlogger.isLoggable(Level.WARNING)) {
-                    connectionlogger.warning(toString() + " Unknown environment change: " + envchange);
-                }
-                throwInvalidTDS();
+                assert false : "Unexpected JDBC type " + jdbcType.toString();
+        }
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        } catch (IOException e) {
+            if (logger.isLoggable(Level.FINER))
+                logger.finer(toString() + " write failed:" + e.getMessage());
+
+            con.terminate(SQLServerException.DRIVER_ERROR_IO_FAILED, e.getMessage(), e);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        public void shutdownOutput() throws IOException {
+            if (logger.isLoggable(Level.FINER))
+                logger.finer(toString() + " Ignoring shutdownOutput");
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        public void setTrafficClass(int tc) throws SocketException {
+            if (logger.isLoggable(Level.FINER))
+                logger.finer(toString() + " Ignoring setTrafficClass");
+        }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -17502,11 +17262,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        // Make the initial tcp-ip connection.
-        if (connectionlogger.isLoggable(Level.FINE)) {
-            connectionlogger.fine(toString() + " Connecting with server: " + serverInfo.getServerName() + " port: "
-                    + serverInfo.getPortNumber() + " Timeout slice: " + timeOutSliceInMillis + " Timeout Full: "
-                    + timeOutFullInSeconds);
+
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkValidHoldability(holdability);
 ```
 
 ### UnnecessaryToStringCall
@@ -17514,11 +17274,23 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-            // load seems to contribute to likelihood. Retry once to mitigate.
-            if (connectionlogger.isLoggable(Level.FINER)) {
-                connectionlogger.finer(toString() + " Generating a random UUID has failed due to : " + e.getMessage()
-                        + "Retrying once.");
+
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkValidHoldability(holdability);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        if (!idleNetworkTracker.isIdle()) {
+            if (connectionlogger.isLoggable(Level.FINEST)) {
+                connectionlogger.finest(toString() + " Network not idle. Skipping networkSocketStillConnected check.");
             }
+            return false;
 ```
 
 ### UnnecessaryToStringCall
@@ -17526,11 +17298,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                    .getOriginalNegotiatedEncryptionLevel()) {
-                if (connectionlogger.isLoggable(Level.WARNING)) {
-                    connectionlogger.warning(toString()
-                            + " The server did not preserve SSL encryption during a recovery attempt, connection recovery is not possible.");
+                if (connectionlogger.isLoggable(Level.FINEST)) {
+                    connectionlogger
+                            .finest(toString() + " Network not idle. Skipping networkSocketStillConnected check.");
                 }
+                return false;
 ```
 
 ### UnnecessaryToStringCall
@@ -17538,11 +17310,23 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                            if (connectionlogger.isLoggable(Level.FINER)) {
-                                connectionlogger.fine(
-                                        toString() + " SQLServerConnection.getFedAuthToken.AdalException category:"
-                                                + errorCategory + " error: " + errorStatus);
-                            }
+        loggerExternal.entering(loggingClassName, "commit");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        loggerExternal.entering(loggingClassName, "commit");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -17551,10 +17335,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
 
-                        if (connectionlogger.isLoggable(Level.FINER)) {
-                            connectionlogger.fine(toString() + " SQLServerConnection.getFedAuthToken sleeping: "
-                                    + sleepInterval + " milliseconds.");
-                            connectionlogger.fine(toString() + " SQLServerConnection.getFedAuthToken remaining: "
+        if (connectionlogger.isLoggable(Level.FINER)) {
+            connectionlogger.fine(toString() + " FEDAUTHINFO token stream length = " + tokenLen);
+        }
+
 ```
 
 ### UnnecessaryToStringCall
@@ -17562,11 +17346,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                            connectionlogger.fine(toString() + " SQLServerConnection.getFedAuthToken sleeping: "
-                                    + sleepInterval + " milliseconds.");
-                            connectionlogger.fine(toString() + " SQLServerConnection.getFedAuthToken remaining: "
-                                    + millisecondsRemaining + " milliseconds.");
-                        }
+            // the token must at least contain a DWORD(length is 4 bytes) indicating the number of info IDs
+            if (connectionlogger.isLoggable(Level.SEVERE)) {
+                connectionlogger.severe(toString() + "FEDAUTHINFO token stream length too short for CountOfInfoIDs.");
+            }
+            throw new SQLServerException(
 ```
 
 ### UnnecessaryToStringCall
@@ -17574,11 +17358,35 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
+
+        if (connectionlogger.isLoggable(Level.FINER)) {
+            connectionlogger.fine(toString() + " CountOfInfoIDs = " + optionsCount);
+        }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            if (connectionlogger.isLoggable(Level.FINER)) {
+                connectionlogger
+                        .fine(toString() + " Read rest of FEDAUTHINFO token stream: " + Arrays.toString(tokenData));
+            }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+
                 if (connectionlogger.isLoggable(Level.FINER)) {
-                    connectionlogger.fine(
-                            toString() + " Received feature extension acknowledgement for federated authentication.");
+                    connectionlogger.fine(toString() + " FedAuthInfoOpt: ID=" + id + ", DataLen=" + dataLen
+                            + ", Offset=" + dataOffset);
                 }
-
 ```
 
 ### UnnecessaryToStringCall
@@ -17586,9 +17394,9 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                if (!federatedAuthenticationRequested) {
+                if (dataOffset < totalOptionsSize || dataOffset >= tokenLen) {
                     if (connectionlogger.isLoggable(Level.SEVERE)) {
-                        connectionlogger.severe(toString() + " Did not request federated authentication.");
+                        connectionlogger.severe(toString() + "FedAuthInfoDataOffset points to an invalid location.");
                     }
                     MessageFormat form = new MessageFormat(
 ```
@@ -17598,11 +17406,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                        if (0 != data.length) {
-                            if (connectionlogger.isLoggable(Level.SEVERE)) {
-                                connectionlogger.severe(toString()
-                                        + " Federated authentication feature extension ack for ADAL and Security Token includes extra data.");
-                            }
+                    data = new String(dataArray, UTF_16LE);
+                } catch (Exception e) {
+                    connectionlogger.severe(toString() + "Failed to read FedAuthInfoData.");
+                    throw new SQLServerException(SQLServerException.getErrString("R_FedAuthInfoFailedToReadData"), e);
+                }
 ```
 
 ### UnnecessaryToStringCall
@@ -17610,11 +17418,23 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                        if (connectionlogger.isLoggable(Level.SEVERE)) {
-                            connectionlogger.severe(
-                                    toString() + " Attempting to use unknown federated authentication library.");
+
+                if (connectionlogger.isLoggable(Level.FINER)) {
+                    connectionlogger.fine(toString() + " FedAuthInfoData: " + data);
+                }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                        if (connectionlogger.isLoggable(Level.FINER)) {
+                            connectionlogger
+                                    .fine(toString() + " Ignoring unknown federated authentication info option: " + id);
                         }
-                        MessageFormat form = new MessageFormat(
+                        break;
 ```
 
 ### UnnecessaryToStringCall
@@ -17622,11 +17442,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-            case TDS.TDS_FEATURE_EXT_AE: {
-                if (connectionlogger.isLoggable(Level.FINER)) {
-                    connectionlogger.fine(toString() + " Received feature extension acknowledgement for AE.");
-                }
-
+            if (connectionlogger.isLoggable(Level.SEVERE)) {
+                connectionlogger.severe(
+                        toString() + "FEDAUTHINFO token stream is not long enough to contain the data it claims to.");
+            }
+            MessageFormat form = new MessageFormat(
 ```
 
 ### UnnecessaryToStringCall
@@ -17634,11 +17454,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                if (connectionlogger.isLoggable(Level.FINER)) {
-                    connectionlogger
-                            .fine(toString() + " Received feature extension acknowledgement for Data Classification.");
-                }
-
+            // We should be receiving both stsurl and spn
+            if (connectionlogger.isLoggable(Level.SEVERE)) {
+                connectionlogger.severe(toString() + "FEDAUTHINFO token stream does not contain both STSURL and SPN.");
+            }
+            throw new SQLServerException(SQLServerException.getErrString("R_FedAuthInfoDoesNotContainStsurlAndSpn"),
 ```
 
 ### UnnecessaryToStringCall
@@ -17646,11 +17466,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-            case TDS.TDS_FEATURE_EXT_UTF8SUPPORT: {
-                if (connectionlogger.isLoggable(Level.FINER)) {
-                    connectionlogger.fine(toString() + " Received feature extension acknowledgement for UTF8 support.");
-                }
-
+        loggerExternal.entering(loggingClassName, "rollback", s);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
 ```
 
 ### UnnecessaryToStringCall
@@ -17658,11 +17478,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                if (connectionlogger.isLoggable(Level.FINER)) {
-                    connectionlogger.fine(
-                            toString() + " Received feature extension acknowledgement for Azure SQL DNS Caching.");
-                }
-
+        loggerExternal.entering(loggingClassName, "rollback", s);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
 ```
 
 ### UnnecessaryToStringCall
@@ -17670,11 +17490,71 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                if (connectionlogger.isLoggable(Level.FINER)) {
-                    connectionlogger.fine(
-                            toString() + " Received feature extension acknowledgement for Idle Connection Resiliency.");
-                }
-                sessionRecovery.parseInitialSessionStateData(data,
+        loggerExternal.entering(loggingClassName, SET_SAVE_POINT);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        loggerExternal.entering(loggingClassName, SET_SAVE_POINT);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                instancePort = getInstancePort(primary, primaryInstanceName);
+                if (connectionlogger.isLoggable(Level.FINER))
+                    connectionlogger.fine(toString() + " SQL Server port returned by SQL Browser: " + instancePort);
+                try {
+                    if (null != instancePort) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        if (maxFieldSize != limit) {
+            if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+            // If no limit on field size, set text size to max (2147483647), NOT default (0 --> 4K)
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        if (maxFieldSize != limit) {
+            if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+            // If no limit on field size, set text size to max (2147483647), NOT default (0 --> 4K)
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            if (0 != SQLServerConnection.globalSystemColumnEncryptionKeyStoreProviders.size()) {
+                keyStores += ","
+                        + SQLServerConnection.globalSystemColumnEncryptionKeyStoreProviders.keySet().toString();
+            }
+            return keyStores;
 ```
 
 ### UnnecessaryToStringCall
@@ -17994,11 +17874,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        loggerExternal.entering(loggingClassName, "rollback");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
+                }
+                if (connectionlogger.isLoggable(Level.FINER))
+                    connectionlogger.finer(toString() + " Network packet size is " + tdsPacketSize + " bytes");
+                break;
+
 ```
 
 ### UnnecessaryToStringCall
@@ -18006,11 +17886,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        loggerExternal.entering(loggingClassName, "rollback");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
+                        op = " enlisted";
+
+                    connectionlogger.finer(toString() + op);
+                }
+                break;
 ```
 
 ### UnnecessaryToStringCall
@@ -18018,11 +17898,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-            if (dataLength < 7) {
-                if (connectionlogger.isLoggable(Level.SEVERE))
-                    connectionlogger.severe(toString()
-                            + "SESSIONSTATETOKEN token stream is not long enough to contain the data it claims to.");
-                sessionRecovery.getSessionStateTable().setMasterRecoveryDisabled(true);
+                if (inXATransaction) {
+                    if (connectionlogger.isLoggable(Level.FINER))
+                        connectionlogger.finer(toString() + " rolled back. (DTC)");
+
+                    // Do not clear the transaction descriptor if the connection is in DT.
 ```
 
 ### UnnecessaryToStringCall
@@ -18030,11 +17910,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-            if (dataBytesRead != dataLength) {
-                if (connectionlogger.isLoggable(Level.SEVERE))
-                    connectionlogger.severe(toString() + " Session State data length is corrupt.");
-                sessionRecovery.getSessionStateTable().setMasterRecoveryDisabled(true);
-                tdsReader.throwInvalidTDS();
+                } else {
+                    if (connectionlogger.isLoggable(Level.FINER))
+                        connectionlogger.finer(toString() + " rolled back");
+
+                    Arrays.fill(getTransactionDescriptor(), (byte) 0);
 ```
 
 ### UnnecessaryToStringCall
@@ -18042,11 +17922,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-            if (connectionlogger.isLoggable(Level.SEVERE))
-                connectionlogger
-                        .severe(toString() + " Session state received when session recovery was not negotiated.");
-            tdsReader.throwInvalidTDSToken(TDS.getTokenName(tdsReader.peekTokenType()));
-        }
+            case ENVCHANGE_XACT_COMMIT:
+                if (connectionlogger.isLoggable(Level.FINER))
+                    connectionlogger.finer(toString() + " committed");
+
+                Arrays.fill(getTransactionDescriptor(), (byte) 0);
 ```
 
 ### UnnecessaryToStringCall
@@ -18054,11 +17934,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        loggerExternal.entering(loggingClassName, SET_SAVE_POINT);
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
+            case ENVCHANGE_DTC_DEFECT:
+                if (connectionlogger.isLoggable(Level.FINER))
+                    connectionlogger.finer(toString() + " defected");
+
+                Arrays.fill(getTransactionDescriptor(), (byte) 0);
 ```
 
 ### UnnecessaryToStringCall
@@ -18066,11 +17946,71 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        loggerExternal.entering(loggingClassName, SET_SAVE_POINT);
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
+            case ENVCHANGE_USER_INFO:
+                if (connectionlogger.isLoggable(Level.FINER))
+                    connectionlogger.finer(toString() + " Ignored env change: " + envchange);
+                break;
+            case ENVCHANGE_ROUTING:
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                } finally {
+                    if (connectionlogger.isLoggable(Level.FINER)) {
+                        connectionlogger.finer(toString() + " Received routing ENVCHANGE with the following values."
+                                + " routingDataValueLength:" + routingDataValueLength + " protocol:" + routingProtocol
+                                + " portNumber:" + routingPortNumber + " serverNameLength:" + routingServerNameLength
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+
+                        if (connectionlogger.isLoggable(Level.FINER)) {
+                            connectionlogger.finer(toString() + "Using new host to validate the SSL certificate");
+                        }
+                    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            default:
+                if (connectionlogger.isLoggable(Level.WARNING)) {
+                    connectionlogger.warning(toString() + " Unknown environment change: " + envchange);
+                }
+                throwInvalidTDS();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                        // wait for connectRetryInterval before retry
+                        if (connectionlogger.isLoggable(Level.FINEST)) {
+                            connectionlogger.finest(toString() + "Connection failed on transient error "
+                                    + sqlServerError.getErrorNumber() + ". Wait for connectRetryInterval("
+                                    + connectRetryInterval + ")s before retry.");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        loggingClassName += ":" + connectionID;
+        if (connectionlogger.isLoggable(Level.FINE))
+            connectionlogger.fine(toString() + " created by (" + parentInfo + ")");
+        initResettableValues();
+
 ```
 
 ### UnnecessaryToStringCall
@@ -18102,35 +18042,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        if (maxRows != limit) {
-            if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
-            connectionCommand("SET ROWCOUNT " + limit, "setMaxRows");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        if (maxRows != limit) {
-            if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-            }
-            connectionCommand("SET ROWCOUNT " + limit, "setMaxRows");
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-        if (connectionlogger.isLoggable(Level.FINER)) {
-            connectionlogger.fine(toString() + " FEDAUTHINFO token stream length = " + tokenLen);
+        loggerExternal.entering(loggingClassName, SET_SAVE_POINT, sName);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
-
+        checkClosed();
 ```
 
 ### UnnecessaryToStringCall
@@ -18138,119 +18054,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-            // the token must at least contain a DWORD(length is 4 bytes) indicating the number of info IDs
-            if (connectionlogger.isLoggable(Level.SEVERE)) {
-                connectionlogger.severe(toString() + "FEDAUTHINFO token stream length too short for CountOfInfoIDs.");
-            }
-            throw new SQLServerException(
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-        if (connectionlogger.isLoggable(Level.FINER)) {
-            connectionlogger.fine(toString() + " CountOfInfoIDs = " + optionsCount);
+        loggerExternal.entering(loggingClassName, SET_SAVE_POINT, sName);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
         }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            if (connectionlogger.isLoggable(Level.FINER)) {
-                connectionlogger
-                        .fine(toString() + " Read rest of FEDAUTHINFO token stream: " + Arrays.toString(tokenData));
-            }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-                if (connectionlogger.isLoggable(Level.FINER)) {
-                    connectionlogger.fine(toString() + " FedAuthInfoOpt: ID=" + id + ", DataLen=" + dataLen
-                            + ", Offset=" + dataOffset);
-                }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                if (dataOffset < totalOptionsSize || dataOffset >= tokenLen) {
-                    if (connectionlogger.isLoggable(Level.SEVERE)) {
-                        connectionlogger.severe(toString() + "FedAuthInfoDataOffset points to an invalid location.");
-                    }
-                    MessageFormat form = new MessageFormat(
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                    data = new String(dataArray, UTF_16LE);
-                } catch (Exception e) {
-                    connectionlogger.severe(toString() + "Failed to read FedAuthInfoData.");
-                    throw new SQLServerException(SQLServerException.getErrString("R_FedAuthInfoFailedToReadData"), e);
-                }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-                if (connectionlogger.isLoggable(Level.FINER)) {
-                    connectionlogger.fine(toString() + " FedAuthInfoData: " + data);
-                }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                        if (connectionlogger.isLoggable(Level.FINER)) {
-                            connectionlogger
-                                    .fine(toString() + " Ignoring unknown federated authentication info option: " + id);
-                        }
-                        break;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            if (connectionlogger.isLoggable(Level.SEVERE)) {
-                connectionlogger.severe(
-                        toString() + "FEDAUTHINFO token stream is not long enough to contain the data it claims to.");
-            }
-            MessageFormat form = new MessageFormat(
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            // We should be receiving both stsurl and spn
-            if (connectionlogger.isLoggable(Level.SEVERE)) {
-                connectionlogger.severe(toString() + "FEDAUTHINFO token stream does not contain both STSURL and SPN.");
-            }
-            throw new SQLServerException(SQLServerException.getErrString("R_FedAuthInfoDoesNotContainStsurlAndSpn"),
+        checkClosed();
 ```
 
 ### UnnecessaryToStringCall
@@ -18294,11 +18102,263 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
+            loggerExternal.entering(loggingClassName, "setTransactionIsolation", level);
+            if (Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            loggerExternal.entering(loggingClassName, "setTransactionIsolation", level);
+            if (Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
             }
             if (connectionlogger.isLoggable(Level.FINER)) {
                 connectionlogger.finer(toString() + " Connection closed and returned to connection pool");
             }
         }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        if (sessionRecovery.isReconnectRunning() && !sessionRecovery.isConnectionRecoveryPossible()) {
+            if (connectionlogger.isLoggable(Level.WARNING)) {
+                connectionlogger.warning(this.toString()
+                        + "SessionRecovery feature extension ack was not sent by the server during reconnection.");
+            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        loggerExternal.entering(loggingClassName, "setCatalog", catalog);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        loggerExternal.entering(loggingClassName, "setCatalog", catalog);
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                browserResult = new String(receiveBuffer, 3, receiveBuffer.length - 3);
+                if (connectionlogger.isLoggable(Level.FINER))
+                    connectionlogger.fine(toString() + " Received SSRP UDP response from IP address: "
+                            + udpResponse.getAddress().getHostAddress());
+            } catch (IOException ioException) {
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_sqlBrowserFailed"));
+            Object[] msgArgs = {server, instanceName, ioException.toString()};
+            connectionlogger.log(Level.FINE, toString() + " " + lastErrorMessage, ioException);
+            SQLServerException.makeFromDriverError(this, this, form.format(msgArgs),
+                    SQLServerException.EXCEPTION_XOPEN_CONNECTION_CANT_ESTABLISH, false);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        if (maxRows != limit) {
+            if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+            connectionCommand("SET ROWCOUNT " + limit, "setMaxRows");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        if (maxRows != limit) {
+            if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+                loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+            }
+            connectionCommand("SET ROWCOUNT " + limit, "setMaxRows");
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        loggerExternal.entering(loggingClassName, "rollback");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        loggerExternal.entering(loggingClassName, "rollback");
+        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
+            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+        }
+        checkClosed();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                if (connectionlogger.isLoggable(Level.FINER)) {
+                    connectionlogger.fine(
+                            toString() + " Received feature extension acknowledgement for federated authentication.");
+                }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                if (!federatedAuthenticationRequested) {
+                    if (connectionlogger.isLoggable(Level.SEVERE)) {
+                        connectionlogger.severe(toString() + " Did not request federated authentication.");
+                    }
+                    MessageFormat form = new MessageFormat(
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                        if (0 != data.length) {
+                            if (connectionlogger.isLoggable(Level.SEVERE)) {
+                                connectionlogger.severe(toString()
+                                        + " Federated authentication feature extension ack for ADAL and Security Token includes extra data.");
+                            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                        if (connectionlogger.isLoggable(Level.SEVERE)) {
+                            connectionlogger.severe(
+                                    toString() + " Attempting to use unknown federated authentication library.");
+                        }
+                        MessageFormat form = new MessageFormat(
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            case TDS.TDS_FEATURE_EXT_AE: {
+                if (connectionlogger.isLoggable(Level.FINER)) {
+                    connectionlogger.fine(toString() + " Received feature extension acknowledgement for AE.");
+                }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                if (connectionlogger.isLoggable(Level.FINER)) {
+                    connectionlogger
+                            .fine(toString() + " Received feature extension acknowledgement for Data Classification.");
+                }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            case TDS.TDS_FEATURE_EXT_UTF8SUPPORT: {
+                if (connectionlogger.isLoggable(Level.FINER)) {
+                    connectionlogger.fine(toString() + " Received feature extension acknowledgement for UTF8 support.");
+                }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                if (connectionlogger.isLoggable(Level.FINER)) {
+                    connectionlogger.fine(
+                            toString() + " Received feature extension acknowledgement for Azure SQL DNS Caching.");
+                }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                if (connectionlogger.isLoggable(Level.FINER)) {
+                    connectionlogger.fine(
+                            toString() + " Received feature extension acknowledgement for Idle Connection Resiliency.");
+                }
+                sessionRecovery.parseInitialSessionStateData(data,
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+    public String toString() {
+        if (null != clientConnectionId)
+            return traceID + " ClientConnectionId: " + clientConnectionId.toString();
+        else
+            return traceID;
 ```
 
 ### UnnecessaryToStringCall
@@ -18378,11 +18438,23 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        if (!idleNetworkTracker.isIdle()) {
-            if (connectionlogger.isLoggable(Level.FINEST)) {
-                connectionlogger.finest(toString() + " Network not idle. Skipping networkSocketStillConnected check.");
+        // Make the initial tcp-ip connection.
+        if (connectionlogger.isLoggable(Level.FINE)) {
+            connectionlogger.fine(toString() + " Connecting with server: " + serverInfo.getServerName() + " port: "
+                    + serverInfo.getPortNumber() + " Timeout slice: " + timeOutSliceInMillis + " Timeout Full: "
+                    + timeOutFullInSeconds);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            // load seems to contribute to likelihood. Retry once to mitigate.
+            if (connectionlogger.isLoggable(Level.FINER)) {
+                connectionlogger.finer(toString() + " Generating a random UUID has failed due to : " + e.getMessage()
+                        + "Retrying once.");
             }
-            return false;
 ```
 
 ### UnnecessaryToStringCall
@@ -18390,47 +18462,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-                if (connectionlogger.isLoggable(Level.FINEST)) {
-                    connectionlogger
-                            .finest(toString() + " Network not idle. Skipping networkSocketStillConnected check.");
+                    .getOriginalNegotiatedEncryptionLevel()) {
+                if (connectionlogger.isLoggable(Level.WARNING)) {
+                    connectionlogger.warning(toString()
+                            + " The server did not preserve SSL encryption during a recovery attempt, connection recovery is not possible.");
                 }
-                return false;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        loggerExternal.entering(loggingClassName, "commit");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        loggerExternal.entering(loggingClassName, "commit");
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                instancePort = getInstancePort(primary, primaryInstanceName);
-                if (connectionlogger.isLoggable(Level.FINER))
-                    connectionlogger.fine(toString() + " SQL Server port returned by SQL Browser: " + instancePort);
-                try {
-                    if (null != instancePort) {
 ```
 
 ### UnnecessaryToStringCall
@@ -18474,11 +18510,71 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        loggerExternal.entering(loggingClassName, "rollback", s);
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+                            if (connectionlogger.isLoggable(Level.FINER)) {
+                                connectionlogger.fine(
+                                        toString() + " SQLServerConnection.getFedAuthToken.AdalException category:"
+                                                + errorCategory + " error: " + errorStatus);
+                            }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+
+                        if (connectionlogger.isLoggable(Level.FINER)) {
+                            connectionlogger.fine(toString() + " SQLServerConnection.getFedAuthToken sleeping: "
+                                    + sleepInterval + " milliseconds.");
+                            connectionlogger.fine(toString() + " SQLServerConnection.getFedAuthToken remaining: "
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                            connectionlogger.fine(toString() + " SQLServerConnection.getFedAuthToken sleeping: "
+                                    + sleepInterval + " milliseconds.");
+                            connectionlogger.fine(toString() + " SQLServerConnection.getFedAuthToken remaining: "
+                                    + millisecondsRemaining + " milliseconds.");
+                        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            if (dataLength < 7) {
+                if (connectionlogger.isLoggable(Level.SEVERE))
+                    connectionlogger.severe(toString()
+                            + "SESSIONSTATETOKEN token stream is not long enough to contain the data it claims to.");
+                sessionRecovery.getSessionStateTable().setMasterRecoveryDisabled(true);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            if (dataBytesRead != dataLength) {
+                if (connectionlogger.isLoggable(Level.SEVERE))
+                    connectionlogger.severe(toString() + " Session State data length is corrupt.");
+                sessionRecovery.getSessionStateTable().setMasterRecoveryDisabled(true);
+                tdsReader.throwInvalidTDS();
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            if (connectionlogger.isLoggable(Level.SEVERE))
+                connectionlogger
+                        .severe(toString() + " Session state received when session recovery was not negotiated.");
+            tdsReader.throwInvalidTDSToken(TDS.getTokenName(tdsReader.peekTokenType()));
         }
-        checkClosed();
 ```
 
 ### UnnecessaryToStringCall
@@ -18486,95 +18582,11 @@ Unnecessary `toString()` call
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-        loggerExternal.entering(loggingClassName, "rollback", s);
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
+             * be invalid if the statement fails to close, even though query execution succeeded.
+             */
+            connectionlogger.fine(toString() + " Exception checking connection validity: " + e.getMessage());
         }
-        checkClosed();
-```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        loggerExternal.entering(loggingClassName, "setCatalog", catalog);
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        loggerExternal.entering(loggingClassName, "setCatalog", catalog);
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            if (0 != SQLServerConnection.globalSystemColumnEncryptionKeyStoreProviders.size()) {
-                keyStores += ","
-                        + SQLServerConnection.globalSystemColumnEncryptionKeyStoreProviders.keySet().toString();
-            }
-            return keyStores;
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                browserResult = new String(receiveBuffer, 3, receiveBuffer.length - 3);
-                if (connectionlogger.isLoggable(Level.FINER))
-                    connectionlogger.fine(toString() + " Received SSRP UDP response from IP address: "
-                            + udpResponse.getAddress().getHostAddress());
-            } catch (IOException ioException) {
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            MessageFormat form = new MessageFormat(SQLServerException.getErrString("R_sqlBrowserFailed"));
-            Object[] msgArgs = {server, instanceName, ioException.toString()};
-            connectionlogger.log(Level.FINE, toString() + " " + lastErrorMessage, ioException);
-            SQLServerException.makeFromDriverError(this, this, form.format(msgArgs),
-                    SQLServerException.EXCEPTION_XOPEN_CONNECTION_CANT_ESTABLISH, false);
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        loggerExternal.entering(loggingClassName, SET_SAVE_POINT, sName);
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        loggerExternal.entering(loggingClassName, SET_SAVE_POINT, sName);
-        if (loggerExternal.isLoggable(Level.FINER) && Util.isActivityTraceOn()) {
-            loggerExternal.finer(toString() + ACTIVITY_ID + ActivityCorrelator.getNext().toString());
-        }
-        checkClosed();
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
@@ -18603,6 +18615,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleTtlCache.java`
 ```
 
 ### SuspiciousMethodCalls
+Suspicious call to 'Map.get()'
+in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
+#### Snippet
+```java
+   */
+  public V getQuietly(Object key) {
+    final Node<K, V> node = data.get(key);
+    return (node == null) ? null : node.getValue();
+  }
+```
+
+### SuspiciousMethodCalls
 Suspicious call to 'ConcurrentLinkedHashMap.remove()'
 in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
 #### Snippet
@@ -18612,18 +18636,6 @@ in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashM
       return map.remove(entry.getKey(), entry.getValue());
     }
   }
-```
-
-### SuspiciousMethodCalls
-Suspicious call to 'Map.get()'
-in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
-#### Snippet
-```java
-  @Override
-  public boolean remove(Object key, Object value) {
-    final Node<K, V> node = data.get(key);
-    if ((node == null) || (value == null)) {
-      return false;
 ```
 
 ### SuspiciousMethodCalls
@@ -18643,11 +18655,11 @@ Suspicious call to 'Map.get()'
 in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/ConcurrentLinkedHashMap.java`
 #### Snippet
 ```java
-   */
-  public V getQuietly(Object key) {
+  @Override
+  public boolean remove(Object key, Object value) {
     final Node<K, V> node = data.get(key);
-    return (node == null) ? null : node.getValue();
-  }
+    if ((node == null) || (value == null)) {
+      return false;
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
@@ -18688,18 +18700,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `ColumnMetadata` may be 'static'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkRecord.java`
-#### Snippet
-```java
-     * Class to represent the column metadata
-     */
-    protected class ColumnMetadata {
-        String columnName;
-        int columnType;
-```
-
-### InnerClassMayBeStatic
 Inner class `ColumnMapping` may be 'static'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
@@ -18724,14 +18724,26 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `ProxyOutputStream` may be 'static'
+Inner class `ColumnMetadata` may be 'static'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkRecord.java`
+#### Snippet
+```java
+     * Class to represent the column metadata
+     */
+    protected class ColumnMetadata {
+        String columnName;
+        int columnType;
+```
+
+### InnerClassMayBeStatic
+Inner class `SSLHandshakeOutputStream` may be 'static'
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-     * FilteredOutputStream transforms block writes to sequences of single-byte writes.
+     * in TDS messages) to the TDS channel.
      */
-    final class ProxyOutputStream extends OutputStream {
-        private OutputStream filteredStream;
+    private class SSLHandshakeOutputStream extends OutputStream {
+        private final TDSWriter tdsWriter;
 
 ```
 
@@ -18748,14 +18760,26 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### InnerClassMayBeStatic
-Inner class `SSLHandshakeOutputStream` may be 'static'
+Inner class `ProxyOutputStream` may be 'static'
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-     * in TDS messages) to the TDS channel.
+     * FilteredOutputStream transforms block writes to sequences of single-byte writes.
      */
-    private class SSLHandshakeOutputStream extends OutputStream {
-        private final TDSWriter tdsWriter;
+    final class ProxyOutputStream extends OutputStream {
+        private OutputStream filteredStream;
+
+```
+
+### InnerClassMayBeStatic
+Inner class `ActiveDirectoryAuthentication` may be 'static'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+    }
+
+    class ActiveDirectoryAuthentication {
+        static final String JDBC_FEDAUTH_CLIENT_ID = "7f98cb04-cd1e-40df-9140-3bf7e2cea4db";
 
 ```
 
@@ -18780,18 +18804,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
      */
     class IdleNetworkTracker {
         private Instant lastNetworkActivity = Instant.now();
-
-```
-
-### InnerClassMayBeStatic
-Inner class `ActiveDirectoryAuthentication` may be 'static'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-    }
-
-    class ActiveDirectoryAuthentication {
-        static final String JDBC_FEDAUTH_CLIENT_ID = "7f98cb04-cd1e-40df-9140-3bf7e2cea4db";
 
 ```
 
@@ -18870,30 +18882,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-
-                case SQL_VARIANT:
-                    /**
-                     * SQL_Variant has the following structure: 1- basetype: the underlying type 2- probByte: holds
-                     * count of property bytes expected for a sql_variant structure 3- properties: For example VARCHAR
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
-#### Snippet
-```java
-        }
-
-        /**
-         * Section 2.2.2.1 AV_PAIR
-         *
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
 in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
 #### Snippet
 ```java
@@ -18913,6 +18901,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
 
         /**
          * Section 3.1.5.1.2 Client Receives a CHALLENGE_MESSAGE from the Server
+         *
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
+#### Snippet
+```java
+        }
+
+        /**
+         * Section 2.2.2.1 AV_PAIR
          *
 ```
 
@@ -18942,14 +18942,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
 #### Snippet
 ```java
-abstract class SQLServerSpatialDatatype {
 
-    /** WKT = Well-Known-Text, WKB = Well-Knwon-Binary, CLR = Client Runtime Language */
-    /**
-     * As a general rule, the ~IndexEnd variables are non-inclusive (i.e. pointIndexEnd = 8 means the shape using it
+                case SQL_VARIANT:
+                    /**
+                     * SQL_Variant has the following structure: 1- basetype: the underlying type 2- probByte: holds
+                     * count of property bytes expected for a sql_variant structure 3- properties: For example VARCHAR
 ```
 
 ### DanglingJavadoc
@@ -18966,6 +18966,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
 
 ### DanglingJavadoc
 Dangling Javadoc comment
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
+#### Snippet
+```java
+abstract class SQLServerSpatialDatatype {
+
+    /** WKT = Well-Known-Text, WKB = Well-Knwon-Binary, CLR = Client Runtime Language */
+    /**
+     * As a general rule, the ~IndexEnd variables are non-inclusive (i.e. pointIndexEnd = 8 means the shape using it
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCSVFileRecord.java`
 #### Snippet
 ```java
@@ -18973,6 +18985,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCSVFileRecord.java`
 
     /**
      * Resources associated with reading in the file
+     */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+    private boolean sendTemporalDataTypesAsStringForBulkCopy = true;
+
+    /**
+     * https://docs.microsoft.com/sql/t-sql/functions/serverproperty-transact-sql
      */
 ```
 
@@ -19000,19 +19024,19 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
              */
 ```
 
-### DanglingJavadoc
-Dangling Javadoc comment
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+## RuleId[id=SwitchStatementWithConfusingDeclaration]
+### SwitchStatementWithConfusingDeclaration
+Local variable `subSecondNanos` declared in one 'switch' branch and used in another
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
 ```java
-    private boolean sendTemporalDataTypesAsStringForBulkCopy = true;
-
-    /**
-     * https://docs.microsoft.com/sql/t-sql/functions/serverproperty-transact-sql
-     */
+                utcMillis = ((java.sql.Timestamp) colValue).getTime();
+                calendar.setTimeInMillis(utcMillis);
+                int subSecondNanos;
+                if (colValue instanceof java.sql.Timestamp) {
+                    subSecondNanos = ((java.sql.Timestamp) colValue).getNanos();
 ```
 
-## RuleId[id=SwitchStatementWithConfusingDeclaration]
 ### SwitchStatementWithConfusingDeclaration
 Local variable `length` declared in one 'switch' branch and used in another
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
@@ -19071,18 +19095,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
                 byte[] b = (byte[]) colValue;
                 length = b.length;
                 writeBulkCopySqlVariantHeader(4 + length, TDSType.BIGVARBINARY.byteValue(), (byte) 2, tdsWriter);
-```
-
-### SwitchStatementWithConfusingDeclaration
-Local variable `subSecondNanos` declared in one 'switch' branch and used in another
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-                utcMillis = ((java.sql.Timestamp) colValue).getTime();
-                calendar.setTimeInMillis(utcMillis);
-                int subSecondNanos;
-                if (colValue instanceof java.sql.Timestamp) {
-                    subSecondNanos = ((java.sql.Timestamp) colValue).getNanos();
 ```
 
 ### SwitchStatementWithConfusingDeclaration
@@ -19209,18 +19221,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerParameterMetaData.java`
 
 ### TrivialIf
 `if` statement can be simplified
-in `src/main/java/com/microsoft/sqlserver/jdbc/StreamTabName.java`
-#### Snippet
-```java
-
-    void setFromTDS(TDSReader tdsReader) throws SQLServerException {
-        if (TDS.TDS_TABNAME != tdsReader.readUnsignedByte())
-            assert false : "Not a TABNAME token";
-
-```
-
-### TrivialIf
-`if` statement can be simplified
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
 ```java
@@ -19228,6 +19228,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
                 // In this case, the command is likely to be a RAISERROR, but it could be anything.
                 if (doneToken.isError())
                     return false;
+
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/com/microsoft/sqlserver/jdbc/StreamTabName.java`
+#### Snippet
+```java
+
+    void setFromTDS(TDSReader tdsReader) throws SQLServerException {
+        if (TDS.TDS_TABNAME != tdsReader.readUnsignedByte())
+            assert false : "Not a TABNAME token";
 
 ```
 
@@ -19322,9 +19334,9 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Geography.java`
 #### Snippet
 ```java
      */
-    protected Geography(byte[] clr) throws SQLServerException {
-        if (null == clr || clr.length <= 0) {
-            throwIllegalByteArray();
+    Geography(String wkt, int srid) throws SQLServerException {
+        if (null == wkt || wkt.length() <= 0) {
+            throwIllegalWKT();
         }
 ```
 
@@ -19334,22 +19346,10 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Geography.java`
 #### Snippet
 ```java
      */
-    Geography(String wkt, int srid) throws SQLServerException {
-        if (null == wkt || wkt.length() <= 0) {
-            throwIllegalWKT();
+    protected Geography(byte[] clr) throws SQLServerException {
+        if (null == clr || clr.length <= 0) {
+            throwIllegalByteArray();
         }
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
-in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
-#### Snippet
-```java
-         * Windows XP, and Windows Server 2003
-         */
-        if (null == context.timestamp || 0 >= context.timestamp.length) {
-            // this SHOULD always be present but for some reason occasionally this had seen to be missing
-            if (logger.isLoggable(Level.WARNING)) {
 ```
 
 ### NonStrictComparisonCanBeEquality
@@ -19361,6 +19361,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
          */
         if (null == context.timestamp || 0 >= context.timestamp.length) {
             token.put(context.targetInfo, 0, context.targetInfo.length);
+            if (logger.isLoggable(Level.WARNING)) {
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
+#### Snippet
+```java
+         * Windows XP, and Windows Server 2003
+         */
+        if (null == context.timestamp || 0 >= context.timestamp.length) {
+            // this SHOULD always be present but for some reason occasionally this had seen to be missing
             if (logger.isLoggable(Level.WARNING)) {
 ```
 
@@ -19501,18 +19513,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCertificateUtils.java`
 ```
 
 ### ConditionCoveredByFurtherCondition
-Condition 'firstDash \> 0' covered by subsequent condition 'firstDash == YEAR_LENGTH'
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-        // Convert the date
-        boolean parsedDate = false;
-        if (firstDash > 0 && secondDash > 0 && secondDash < dividingSpace - 1 && firstDash == YEAR_LENGTH
-                && (secondDash - firstDash > 1 && secondDash - firstDash <= MONTH_LENGTH + 1)
-                && (dividingSpace - secondDash > 1 && dividingSpace - secondDash <= DAY_LENGTH + 1)) {
-```
-
-### ConditionCoveredByFurtherCondition
 Condition 'ResultSet.TYPE_SCROLL_SENSITIVE != nType' covered by subsequent condition 'SQLServerResultSet.TYPE_SS_SCROLL_KEYSET != nType'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 #### Snippet
@@ -19558,6 +19558,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
                 resultSetType = (null == selectMethod
                         || !"cursor".equals(selectMethod)) ? SQLServerResultSet.TYPE_SS_DIRECT_FORWARD_ONLY : // Default
                                                                                                               // forward-only,
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'firstDash \> 0' covered by subsequent condition 'firstDash == YEAR_LENGTH'
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+        // Convert the date
+        boolean parsedDate = false;
+        if (firstDash > 0 && secondDash > 0 && secondDash < dividingSpace - 1 && firstDash == YEAR_LENGTH
+                && (secondDash - firstDash > 1 && secondDash - firstDash <= MONTH_LENGTH + 1)
+                && (dividingSpace - secondDash > 1 && dividingSpace - secondDash <= DAY_LENGTH + 1)) {
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -19754,13 +19766,25 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerVSMEnclaveProvider.java`
 ```
 
 ### RedundantCast
-Casting `(Weigher``)SetWeigher.INSTANCE` to `Weigher`> is redundant
+Casting `getMaxRows()` to `long` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+        loggerExternal.exiting(getClassNameLogging(), "getLargeMaxRows", (long) maxRows);
+
+        return (long) getMaxRows();
+    }
+
+```
+
+### RedundantCast
+Casting `(Weigher``)ListWeigher.INSTANCE` to `Weigher`> is redundant
 in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/Weighers.java`
 #### Snippet
 ```java
   @SuppressWarnings({"cast", "unchecked"})
-  public static <E> Weigher<? super Set<E>> set() {
-    return (Weigher<Set<E>>) (Weigher<?>) SetWeigher.INSTANCE;
+  public static <E> Weigher<? super List<E>> list() {
+    return (Weigher<List<E>>) (Weigher<?>) ListWeigher.INSTANCE;
   }
 
 ```
@@ -19778,30 +19802,6 @@ in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/Weighers.java`
 ```
 
 ### RedundantCast
-Casting `(Weigher``)CollectionWeigher.INSTANCE` to `Weigher`> is redundant
-in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/Weighers.java`
-#### Snippet
-```java
-  @SuppressWarnings({"cast", "unchecked"})
-  public static <E> Weigher<? super Collection<E>> collection() {
-    return (Weigher<Collection<E>>) (Weigher<?>) CollectionWeigher.INSTANCE;
-  }
-
-```
-
-### RedundantCast
-Casting `(Weigher``)ListWeigher.INSTANCE` to `Weigher`> is redundant
-in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/Weighers.java`
-#### Snippet
-```java
-  @SuppressWarnings({"cast", "unchecked"})
-  public static <E> Weigher<? super List<E>> list() {
-    return (Weigher<List<E>>) (Weigher<?>) ListWeigher.INSTANCE;
-  }
-
-```
-
-### RedundantCast
 Casting `(Weigher``)MapWeigher.INSTANCE` to `Weigher`> is redundant
 in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/Weighers.java`
 #### Snippet
@@ -19814,14 +19814,26 @@ in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/Weighers.java`
 ```
 
 ### RedundantCast
-Casting `getMaxRows()` to `long` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+Casting `(Weigher``)SetWeigher.INSTANCE` to `Weigher`> is redundant
+in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/Weighers.java`
 #### Snippet
 ```java
-        loggerExternal.exiting(getClassNameLogging(), "getLargeMaxRows", (long) maxRows);
+  @SuppressWarnings({"cast", "unchecked"})
+  public static <E> Weigher<? super Set<E>> set() {
+    return (Weigher<Set<E>>) (Weigher<?>) SetWeigher.INSTANCE;
+  }
 
-        return (long) getMaxRows();
-    }
+```
+
+### RedundantCast
+Casting `(Weigher``)CollectionWeigher.INSTANCE` to `Weigher`> is redundant
+in `src/main/java/mssql/googlecode/concurrentlinkedhashmap/Weighers.java`
+#### Snippet
+```java
+  @SuppressWarnings({"cast", "unchecked"})
+  public static <E> Weigher<? super Collection<E>> collection() {
+    return (Weigher<Collection<E>>) (Weigher<?>) CollectionWeigher.INSTANCE;
+  }
 
 ```
 
@@ -19970,6 +19982,90 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerNoneEnclaveProvider.java
 ```
 
 ### RedundantCast
+Casting `logBuffer` to `Buffer` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                    logBuffer.put(value, offset + bytesWritten, bytesToWrite);
+                else
+                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + bytesToWrite);
+            }
+
+```
+
+### RedundantCast
+Casting `logBuffer` to `Buffer` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                    logBuffer.putLong(value);
+                else
+                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 8);
+            }
+        } else {
+```
+
+### RedundantCast
+Casting `logBuffer` to `Buffer` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                    logBuffer.putChar(value);
+                else
+                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 2);
+            }
+        } else {
+```
+
+### RedundantCast
+Casting `stagingBuffer` to `Buffer` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                if (con.equals(srcStmt.getConnection()) && 0 != resultSetServerCursorId) {
+                    cachedTVPHeaders = ByteBuffer.allocate(stagingBuffer.capacity()).order(stagingBuffer.order());
+                    cachedTVPHeaders.put(stagingBuffer.array(), 0, ((Buffer) stagingBuffer).position());
+
+                    cachedCommand = this.command;
+```
+
+### RedundantCast
+Casting `cachedTVPHeaders` to `Buffer` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                    ((Buffer) stagingBuffer).clear();
+                    ((Buffer) logBuffer).clear();
+                    writeBytes(cachedTVPHeaders.array(), 0, ((Buffer) cachedTVPHeaders).position());
+                }
+
+```
+
+### RedundantCast
+Casting `logBuffer` to `Buffer` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                    logBuffer.putDouble(value);
+                else
+                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 8);
+            }
+        } else {
+```
+
+### RedundantCast
+Casting `logBuffer` to `Buffer` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+                    logBuffer.putInt(value);
+                else
+                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 4);
+            }
+        } else {
+```
+
+### RedundantCast
 Casting `socketBuffer` to `Buffer` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
@@ -20054,54 +20150,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### RedundantCast
-Casting `stagingBuffer` to `Buffer` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                if (con.equals(srcStmt.getConnection()) && 0 != resultSetServerCursorId) {
-                    cachedTVPHeaders = ByteBuffer.allocate(stagingBuffer.capacity()).order(stagingBuffer.order());
-                    cachedTVPHeaders.put(stagingBuffer.array(), 0, ((Buffer) stagingBuffer).position());
-
-                    cachedCommand = this.command;
-```
-
-### RedundantCast
-Casting `cachedTVPHeaders` to `Buffer` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                    ((Buffer) stagingBuffer).clear();
-                    ((Buffer) logBuffer).clear();
-                    writeBytes(cachedTVPHeaders.array(), 0, ((Buffer) cachedTVPHeaders).position());
-                }
-
-```
-
-### RedundantCast
-Casting `0` to `long` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-    void writeEncryptedRPCPLP() throws SQLServerException {
-        writeShort((short) DataTypes.SQL_USHORTVARMAXLEN);
-        writeLong((long) 0); // actual length
-        writeInt(0); // PLP_TERMINATOR, 0x00000000
-    }
-```
-
-### RedundantCast
-Casting `logBuffer` to `Buffer` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                    logBuffer.put(value, offset + bytesWritten, bytesToWrite);
-                else
-                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + bytesToWrite);
-            }
-
-```
-
-### RedundantCast
 Casting `logBuffer` to `Buffer` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
@@ -20111,42 +20159,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
                     ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 2);
             }
         } else {
-```
-
-### RedundantCast
-Casting `logBuffer` to `Buffer` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                    logBuffer.putLong(value);
-                else
-                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 8);
-            }
-        } else {
-```
-
-### RedundantCast
-Casting `logBuffer` to `Buffer` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                    logBuffer.putDouble(value);
-                else
-                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 8);
-            }
-        } else {
-```
-
-### RedundantCast
-Casting `socketBuffer` to `Buffer` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-        }
-
-        ((Buffer) socketBuffer).position(((Buffer) socketBuffer).limit());
-        ((Buffer) stagingBuffer).clear();
-
 ```
 
 ### RedundantCast
@@ -20174,27 +20186,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### RedundantCast
-Casting `logBuffer` to `Buffer` is redundant
+Casting `0` to `long` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-                    logBuffer.put(value);
-                else
-                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 1);
-            }
-        } else {
-```
-
-### RedundantCast
-Casting `logBuffer` to `Buffer` is redundant
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-                    logBuffer.putChar(value);
-                else
-                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 2);
-            }
-        } else {
+    void writeEncryptedRPCPLP() throws SQLServerException {
+        writeShort((short) DataTypes.SQL_USHORTVARMAXLEN);
+        writeLong((long) 0); // actual length
+        writeInt(0); // PLP_TERMINATOR, 0x00000000
+    }
 ```
 
 ### RedundantCast
@@ -20210,13 +20210,25 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### RedundantCast
+Casting `socketBuffer` to `Buffer` is redundant
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+        }
+
+        ((Buffer) socketBuffer).position(((Buffer) socketBuffer).limit());
+        ((Buffer) stagingBuffer).clear();
+
+```
+
+### RedundantCast
 Casting `logBuffer` to `Buffer` is redundant
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-                    logBuffer.putInt(value);
+                    logBuffer.put(value);
                 else
-                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 4);
+                    ((Buffer) logBuffer).position(((Buffer) logBuffer).position() + 1);
             }
         } else {
 ```
@@ -20259,6 +20271,66 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerConnection.java`
 ```
 
 ### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
+#### Snippet
+```java
+     * Returns the base type as JDBC type.
+     * 
+     * @return
+     */
+    JDBCType getBaseJDBCType() {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
+#### Snippet
+```java
+     * Returns the maximum length.
+     * 
+     * @return
+     */
+    int getMaxLength() {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
+#### Snippet
+```java
+     * Returns the collation.
+     * 
+     * @return
+     */
+    SQLCollation getCollation() {
+```
+
+### JavadocDeclaration
+`@param scale` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
+#### Snippet
+```java
+     * Sets the scale if applicable.
+     * 
+     * @param scale
+     */
+    void setScale(int scale) {
+```
+
+### JavadocDeclaration
+`@param maxLength` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
+#### Snippet
+```java
+     * Sets the maximum length.
+     * 
+     * @param maxLength
+     */
+    void setMaxLength(int maxLength) {
+```
+
+### JavadocDeclaration
 `@param baseJDBCType` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
 #### Snippet
@@ -20283,15 +20355,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
 ```
 
 ### JavadocDeclaration
-`@param maxLength` tag description is missing
+`@param collation` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
 #### Snippet
 ```java
-     * Sets the maximum length.
+     * Sets the collation if applicable.
      * 
-     * @param maxLength
+     * @param collation
      */
-    void setMaxLength(int maxLength) {
+    void setCollation(SQLCollation collation) {
 ```
 
 ### JavadocDeclaration
@@ -20299,47 +20371,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
 #### Snippet
 ```java
-     * Returns the maximum length.
+     * Returns the scale.
      * 
      * @return
      */
-    int getMaxLength() {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
-#### Snippet
-```java
-     * Returns the base type for sql-variant.
-     * 
-     * @return
-     */
-    int getBaseType() {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
-#### Snippet
-```java
-     * Returns if the basetype for variant is of time value.
-     * 
-     * @return
-     */
-    boolean isBaseTypeTimeValue() {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
-#### Snippet
-```java
-     * Returns the collation.
-     * 
-     * @return
-     */
-    SQLCollation getCollation() {
+    int getScale() {
 ```
 
 ### JavadocDeclaration
@@ -20359,42 +20395,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
 #### Snippet
 ```java
-     * Returns the scale.
-     * 
-     * @return
-     */
-    int getScale() {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
-#### Snippet
-```java
-     * Returns the base type as JDBC type.
-     * 
-     * @return
-     */
-    JDBCType getBaseJDBCType() {
-```
-
-### JavadocDeclaration
-`@param collation` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
-#### Snippet
-```java
-     * Sets the collation if applicable.
-     * 
-     * @param collation
-     */
-    void setCollation(SQLCollation collation) {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
-#### Snippet
-```java
      * Returns the precision.
      * 
      * @return
@@ -20403,15 +20403,27 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
 ```
 
 ### JavadocDeclaration
-`@param scale` tag description is missing
+`@return` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
 #### Snippet
 ```java
-     * Sets the scale if applicable.
+     * Returns if the basetype for variant is of time value.
      * 
-     * @param scale
+     * @return
      */
-    void setScale(int scale) {
+    boolean isBaseTypeTimeValue() {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SqlVariant.java`
+#### Snippet
+```java
+     * Returns the base type for sql-variant.
+     * 
+     * @return
+     */
+    int getBaseType() {
 ```
 
 ### JavadocDeclaration
@@ -20424,6 +20436,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Encr
      * @throws SQLServerException
      */
     SQLServerAeadAes256CbcHmac256EncryptionKey(byte[] rootKey, String algorithmName) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
+#### Snippet
+```java
+     *
+     * @return SQLServerConnection instance
+     * @throws SQLException
+     */
+    private SQLServerConnection createNewConnection() throws SQLException {
 ```
 
 ### JavadocDeclaration
@@ -20460,18 +20484,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCertificateUtils.java`
      * @throws CertificateException
      */
     static void validateServerCerticate(X509Certificate cert, String certFile) throws CertificateException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
-#### Snippet
-```java
-     *
-     * @return SQLServerConnection instance
-     * @throws SQLException
-     */
-    private SQLServerConnection createNewConnection() throws SQLException {
 ```
 
 ### JavadocDeclaration
@@ -20520,18 +20532,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ParameterUtils.java`
      * @throws SQLServerException
      *         when [sql] does not follow
      */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/KeyVaultCustomCredentialPolicy.java`
-#### Snippet
-```java
-     * @param credential
-     *        the token credential to authenticate the request
-     * @throws SQLServerException
-     */
-    KeyVaultCustomCredentialPolicy(KeyVaultTokenCredential credential) throws SQLServerException {
 ```
 
 ### JavadocDeclaration
@@ -20643,6 +20643,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSecurityUtility.java`
 ```
 
 ### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/KeyVaultCustomCredentialPolicy.java`
+#### Snippet
+```java
+     * @param credential
+     *        the token credential to authenticate the request
+     * @throws SQLServerException
+     */
+    KeyVaultCustomCredentialPolicy(KeyVaultTokenCredential credential) throws SQLServerException {
+```
+
+### JavadocDeclaration
 `@return` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSQLXML.java`
 #### Snippet
@@ -20652,78 +20664,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSQLXML.java`
      * @return
      */
     private static int nextInstanceID() {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
-#### Snippet
-```java
-     * Initializes the Kerberos client security context
-     * 
-     * @throws SQLServerException
-     */
-    @SuppressWarnings("deprecation")
-```
-
-### JavadocDeclaration
-`@param con` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
-#### Snippet
-```java
-    /**
-     * 
-     * @param con
-     * @param address
-     * @param port
-```
-
-### JavadocDeclaration
-`@param address` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
-#### Snippet
-```java
-     * 
-     * @param con
-     * @param address
-     * @param port
-     * @param impersonatedUserCred
-```
-
-### JavadocDeclaration
-`@param port` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
-#### Snippet
-```java
-     * @param con
-     * @param address
-     * @param port
-     * @param impersonatedUserCred
-     */
-```
-
-### JavadocDeclaration
-`@param impersonatedUserCred` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
-#### Snippet
-```java
-     * @param address
-     * @param port
-     * @param impersonatedUserCred
-     */
-    KerbAuthentication(SQLServerConnection con, String address, int port, GSSCredential impersonatedUserCred,
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
-#### Snippet
-```java
-     *        specify if encryption needs authentication
-     * @return cipher text
-     * @throws SQLServerException
-     */
-    protected byte[] encryptData(byte[] plainText, boolean hasAuthenticationTag) throws SQLServerException {
 ```
 
 ### JavadocDeclaration
@@ -20800,14 +20740,74 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algo
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
 #### Snippet
 ```java
-     * Converts the stream to String.
+     *        specify if encryption needs authentication
+     * @return cipher text
+     * @throws SQLServerException
+     */
+    protected byte[] encryptData(byte[] plainText, boolean hasAuthenticationTag) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@param con` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
+#### Snippet
+```java
+    /**
+     * 
+     * @param con
+     * @param address
+     * @param port
+```
+
+### JavadocDeclaration
+`@param address` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
+#### Snippet
+```java
+     * 
+     * @param con
+     * @param address
+     * @param port
+     * @param impersonatedUserCred
+```
+
+### JavadocDeclaration
+`@param port` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
+#### Snippet
+```java
+     * @param con
+     * @param address
+     * @param port
+     * @param impersonatedUserCred
+     */
+```
+
+### JavadocDeclaration
+`@param impersonatedUserCred` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
+#### Snippet
+```java
+     * @param address
+     * @param port
+     * @param impersonatedUserCred
+     */
+    KerbAuthentication(SQLServerConnection con, String address, int port, GSSCredential impersonatedUserCred,
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/KerbAuthentication.java`
+#### Snippet
+```java
+     * Initializes the Kerberos client security context
      * 
      * @throws SQLServerException
      */
-    private void getStringFromStream() throws SQLServerException {
+    @SuppressWarnings("deprecation")
 ```
 
 ### JavadocDeclaration
@@ -20820,6 +20820,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
      * @throws SQLException
      */
     void fillFromStream() throws SQLException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
+#### Snippet
+```java
+     * Converts the stream to String.
+     * 
+     * @throws SQLServerException
+     */
+    private void getStringFromStream() throws SQLServerException {
 ```
 
 ### JavadocDeclaration
@@ -20859,6 +20871,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerParameterMetaData.java`
 ```
 
 ### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
+#### Snippet
+```java
+     *        The character that marks the end of translation
+     * 
+     * @throws SQLServerException
+     * 
+     * @return the number of characters that have been translated
+```
+
+### JavadocDeclaration
 Wrong tag `link#removeRef`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SharedTimer.java`
 #### Snippet
@@ -20872,18 +20896,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SharedTimer.java`
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
-#### Snippet
-```java
-     *        The character that marks the end of translation
-     * 
-     * @throws SQLServerException
-     * 
-     * @return the number of characters that have been translated
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerLob.java`
 #### Snippet
 ```java
@@ -20892,90 +20904,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerLob.java`
      * @throws SQLException
      */
     abstract void fillFromStream() throws SQLException;
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-     *        to execute
-     * @return Resultset from the execution
-     * @throws SQLTimeoutException
-     */
-    private SQLServerResultSet getResultSetFromInternalQueries(String catalog, String query) throws SQLException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-     *        for the stored procedure
-     * @return Resultset from the execution
-     * @throws SQLTimeoutException
-     */
-    private SQLServerResultSet getResultSetFromStoredProc(String catalog, CallableHandles procedure,
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-     * @param catalog
-     *        the new catalog
-     * @throws SQLServerException
-     * @return the old catalog
-     */
-```
-
-### JavadocDeclaration
-Wrong tag `inID`
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
-#### Snippet
-```java
-     * incoming identifier is un-escaped.
-     * 
-     * @inID input identifier to escape.
-     * @return the escaped value.
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
-#### Snippet
-```java
-     * @return sql_variant value
-     * @since 6.3.0
-     * @throws SQLServerException
-     */
-    private Object readSqlVariant(int intbaseType, int cbPropsActual, int valueLength, TDSReader tdsReader,
-```
-
-### JavadocDeclaration
-`@param obj` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
-#### Snippet
-```java
-     * @param con
-     *        the connection
-     * @param obj
-     * @param errText
-     *        the exception message
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
-#### Snippet
-```java
-     * @param bStack
-     *        true to generate the stack trace
-     * @throws SQLServerException
-     */
-    static void makeFromDriverError(SQLServerConnection con, Object obj, String errText, String state,
 ```
 
 ### JavadocDeclaration
@@ -21015,15 +20943,75 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
+`@param obj` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
 #### Snippet
 ```java
-     *        - Plain text Column Encryption Key.
-     * @return Returns an encrypted blob or throws an exception if there are any errors.
+     * @param con
+     *        the connection
+     * @param obj
+     * @param errText
+     *        the exception message
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerException.java`
+#### Snippet
+```java
+     * @param bStack
+     *        true to generate the stack trace
      * @throws SQLServerException
      */
-    private byte[] azureKeyVaultWrap(String masterKeyPath, KeyWrapAlgorithm encryptionAlgorithm,
+    static void makeFromDriverError(SQLServerConnection con, Object obj, String errText, String state,
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+     * @param catalog
+     *        the new catalog
+     * @throws SQLServerException
+     * @return the old catalog
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+     *        for the stored procedure
+     * @return Resultset from the execution
+     * @throws SQLTimeoutException
+     */
+    private SQLServerResultSet getResultSetFromStoredProc(String catalog, CallableHandles procedure,
+```
+
+### JavadocDeclaration
+Wrong tag `inID`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+     * incoming identifier is un-escaped.
+     * 
+     * @inID input identifier to escape.
+     * @return the escaped value.
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
+#### Snippet
+```java
+     *        to execute
+     * @return Resultset from the execution
+     * @throws SQLTimeoutException
+     */
+    private SQLServerResultSet getResultSetFromInternalQueries(String catalog, String query) throws SQLException {
 ```
 
 ### JavadocDeclaration
@@ -21063,6 +21051,54 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKey
 ```
 
 ### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
+#### Snippet
+```java
+     *        - Encrypted Column Encryption Key.
+     * @return Returns the decrypted plaintext Column Encryption Key or throws an exception if there are any errors.
+     * @throws SQLServerException
+     */
+    private byte[] azureKeyVaultUnWrap(String masterKeyPath, KeyWrapAlgorithm encryptionAlgorithm,
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
+#### Snippet
+```java
+     *        - Azure Key Vault key url.
+     * @return Signature
+     * @throws SQLServerException
+     */
+    private byte[] azureKeyVaultSignHashedData(byte[] dataToSign, String masterKeyPath) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
+#### Snippet
+```java
+     *        - Plain text Column Encryption Key.
+     * @return Returns an encrypted blob or throws an exception if there are any errors.
+     * @throws SQLServerException
+     */
+    private byte[] azureKeyVaultWrap(String masterKeyPath, KeyWrapAlgorithm encryptionAlgorithm,
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
+#### Snippet
+```java
+     *        - Asymmetric key encryptio algorithm
+     * @return The encryption algorithm that is going to be used.
+     * @throws SQLServerException
+     */
+    private KeyWrapAlgorithm validateEncryptionAlgorithm(String encryptionAlgorithm) throws SQLServerException {
+```
+
+### JavadocDeclaration
 `@param masterKeyPath` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
 #### Snippet
@@ -21087,42 +21123,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKey
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
-#### Snippet
-```java
-     *        - Asymmetric key encryptio algorithm
-     * @return The encryption algorithm that is going to be used.
-     * @throws SQLServerException
-     */
-    private KeyWrapAlgorithm validateEncryptionAlgorithm(String encryptionAlgorithm) throws SQLServerException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
-#### Snippet
-```java
-     *        - Azure Key Vault key url.
-     * @return Signature
-     * @throws SQLServerException
-     */
-    private byte[] azureKeyVaultSignHashedData(byte[] dataToSign, String masterKeyPath) throws SQLServerException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
-#### Snippet
-```java
-     *        - Encrypted Column Encryption Key.
-     * @return Returns the decrypted plaintext Column Encryption Key or throws an exception if there are any errors.
-     * @throws SQLServerException
-     */
-    private byte[] azureKeyVaultUnWrap(String masterKeyPath, KeyWrapAlgorithm encryptionAlgorithm,
-```
-
-### JavadocDeclaration
 SQLServerException is not declared to be thrown by method releaseClientContext
 in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
 #### Snippet
@@ -21135,15 +21135,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
 ```
 
 ### JavadocDeclaration
-Duplicate @return tag
-in `src/main/java/com/microsoft/sqlserver/jdbc/ReaderInputStream.java`
+`@param logger` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
 ```java
-     *
-     * @return true when encoded characters are available
-     * @return false when no more encoded characters are available (i.e. end of stream)
-     * @exception IOException
-     *            if an I/O error occurs reading from the reader or encoding the characters
+     * @param name
+     *        name to normalize
+     * @param logger
+     * @return the normalized property name
+     */
 ```
 
 ### JavadocDeclaration
@@ -21164,18 +21164,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 #### Snippet
 ```java
      * @param name
-     *        name to normalize
-     * @param logger
-     * @return the normalized property name
-     */
-```
-
-### JavadocDeclaration
-`@param logger` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
-#### Snippet
-```java
-     * @param name
      *        to normalize
      * @param logger
      * @return the normalized property name
@@ -21183,39 +21171,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDriver.java`
 ```
 
 ### JavadocDeclaration
-`@param tdsReader` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
+Duplicate @return tag
+in `src/main/java/com/microsoft/sqlserver/jdbc/ReaderInputStream.java`
 #### Snippet
 ```java
-     * SQLWarnings received in TDS_MSG tokens.
-     * 
-     * @param tdsReader
-     * @param tdsTokenHandler
-     * @param readOnlyWarningsFlag
-```
-
-### JavadocDeclaration
-`@param tdsTokenHandler` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
-#### Snippet
-```java
-     * 
-     * @param tdsReader
-     * @param tdsTokenHandler
-     * @param readOnlyWarningsFlag
-     *        - true if only TDS_MSG tokens need to be parsed in TDS Stream. false - to parse all tokens in TDS Stream.
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
-#### Snippet
-```java
-     * @param readOnlyWarningsFlag
-     *        - true if only TDS_MSG tokens need to be parsed in TDS Stream. false - to parse all tokens in TDS Stream.
-     * @throws SQLServerException
-     */
-    static void parse(TDSReader tdsReader, TDSTokenHandler tdsTokenHandler,
+     *
+     * @return true when encoded characters are available
+     * @return false when no more encoded characters are available (i.e. end of stream)
+     * @exception IOException
+     *            if an I/O error occurs reading from the reader or encoding the characters
 ```
 
 ### JavadocDeclaration
@@ -21256,26 +21220,38 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
 
 ### JavadocDeclaration
 `@param tdsReader` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
 #### Snippet
 ```java
-     * Reads TDS collation from TDS buffer into SQLCollation class.
+     * SQLWarnings received in TDS_MSG tokens.
      * 
      * @param tdsReader
-     */
-    SQLCollation(TDSReader tdsReader) throws UnsupportedEncodingException, SQLServerException {
+     * @param tdsTokenHandler
+     * @param readOnlyWarningsFlag
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
+`@param tdsTokenHandler` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
 #### Snippet
 ```java
-     * return sort ID
      * 
-     * @return
+     * @param tdsReader
+     * @param tdsTokenHandler
+     * @param readOnlyWarningsFlag
+     *        - true if only TDS_MSG tokens need to be parsed in TDS Stream. false - to parse all tokens in TDS Stream.
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
+#### Snippet
+```java
+     * @param readOnlyWarningsFlag
+     *        - true if only TDS_MSG tokens need to be parsed in TDS Stream. false - to parse all tokens in TDS Stream.
+     * @throws SQLServerException
      */
-    int getCollationSortID() {
+    static void parse(TDSReader tdsReader, TDSTokenHandler tdsTokenHandler,
 ```
 
 ### JavadocDeclaration
@@ -21291,75 +21267,27 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
 ```
 
 ### JavadocDeclaration
-Tag `return` is not allowed here
-in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+`@return` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
 #### Snippet
 ```java
-     * timestamp.toString() does not result in an XML representation of a timestamp.
-     *
-     * @return true if the JDBC type is textual
-     */
-    private final static EnumSet<Category> textualCategories = EnumSet.of(Category.CHARACTER, Category.LONG_CHARACTER,
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
-#### Snippet
-```java
-     * Identifies binary JDBC data types.
+     * return sort ID
      * 
-     * @return true if the JDBC type is binary
+     * @return
      */
-    private final static EnumSet<JDBCType> binaryTypes = EnumSet.of(BINARY, VARBINARY, LONGVARBINARY, BLOB);
+    int getCollationSortID() {
 ```
 
 ### JavadocDeclaration
-Tag `return` is not allowed here
-in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+`@param tdsReader` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLCollation.java`
 #### Snippet
 ```java
-     * Identifies numerically signed data types.
+     * Reads TDS collation from TDS buffer into SQLCollation class.
      * 
-     * @return true if the type can be signed
+     * @param tdsReader
      */
-    private final static EnumSet<JDBCType> signedTypes = EnumSet.of(SMALLINT, INTEGER, BIGINT, REAL, FLOAT, DOUBLE,
-```
-
-### JavadocDeclaration
-`@param jdbcType` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-     * For the case when source database stores unicode data in CHAR/VARCHAR and destination column is NCHAR/NVARCHAR.
-     *
-     * @param jdbcType
-     * @param ssType
-     * @return whether conversion to unicode is required.
-```
-
-### JavadocDeclaration
-`@param ssType` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-     *
-     * @param jdbcType
-     * @param ssType
-     * @return whether conversion to unicode is required.
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
-#### Snippet
-```java
-     * Writes sql_variant data based on the baseType for bulkcopy
-     * 
-     * @throws SQLServerException
-     */
-    private void writeSqlVariant(TDSWriter tdsWriter, Object colValue, ResultSet sourceResultSet, int srcColOrdinal,
+    SQLCollation(TDSReader tdsReader) throws UnsupportedEncodingException, SQLServerException {
 ```
 
 ### JavadocDeclaration
@@ -21424,14 +21352,74 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBlob.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
 #### Snippet
 ```java
-     * Converts stream to byte[]
+     * Writes sql_variant data based on the baseType for bulkcopy
      * 
      * @throws SQLServerException
      */
-    private void getBytesFromStream() throws SQLServerException {
+    private void writeSqlVariant(TDSWriter tdsWriter, Object colValue, ResultSet sourceResultSet, int srcColOrdinal,
+```
+
+### JavadocDeclaration
+`@param jdbcType` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
+#### Snippet
+```java
+     * For the case when source database stores unicode data in CHAR/VARCHAR and destination column is NCHAR/NVARCHAR.
+     *
+     * @param jdbcType
+     * @param ssType
+     * @return whether conversion to unicode is required.
+```
+
+### JavadocDeclaration
+`@param ssType` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCopy.java`
+#### Snippet
+```java
+     *
+     * @param jdbcType
+     * @param ssType
+     * @return whether conversion to unicode is required.
+     */
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+#### Snippet
+```java
+     * timestamp.toString() does not result in an XML representation of a timestamp.
+     *
+     * @return true if the JDBC type is textual
+     */
+    private final static EnumSet<Category> textualCategories = EnumSet.of(Category.CHARACTER, Category.LONG_CHARACTER,
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+#### Snippet
+```java
+     * Identifies numerically signed data types.
+     * 
+     * @return true if the type can be signed
+     */
+    private final static EnumSet<JDBCType> signedTypes = EnumSet.of(SMALLINT, INTEGER, BIGINT, REAL, FLOAT, DOUBLE,
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `src/main/java/com/microsoft/sqlserver/jdbc/DataTypes.java`
+#### Snippet
+```java
+     * Identifies binary JDBC data types.
+     * 
+     * @return true if the JDBC type is binary
+     */
+    private final static EnumSet<JDBCType> binaryTypes = EnumSet.of(BINARY, VARBINARY, LONGVARBINARY, BLOB);
 ```
 
 ### JavadocDeclaration
@@ -21444,6 +21432,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
      * @exception UnknownHostException
      *            if local hostname is not found.
      * @return hostname string or ip of host if hostname cannot be resolved. If neither hostname or ip found returns ""
+```
+
+### JavadocDeclaration
+Wrong tag `inID`
+in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+#### Snippet
+```java
+     * bracket escaping rules. Assumes that the incoming identifier is unescaped.
+     * 
+     * @inID input identifier to escape.
+     * @return the escaped value.
+     */
 ```
 
 ### JavadocDeclaration
@@ -21471,15 +21471,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
 ```
 
 ### JavadocDeclaration
-Wrong tag `inID`
-in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBlob.java`
 #### Snippet
 ```java
-     * bracket escaping rules. Assumes that the incoming identifier is unescaped.
+     * Converts stream to byte[]
      * 
-     * @inID input identifier to escape.
-     * @return the escaped value.
+     * @throws SQLServerException
      */
+    private void getBytesFromStream() throws SQLServerException {
 ```
 
 ### JavadocDeclaration
@@ -21496,26 +21496,14 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/KeyVaultHttpPipelineBuilder.java`
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/KeyVaultTokenCredential.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/dtv.java`
 #### Snippet
 ```java
-     * @param clientSecret
-     *        the secret value of the AAD application
+     * @return sql_variant value
+     * @since 6.3.0
      * @throws SQLServerException
      */
-    KeyVaultTokenCredential(String clientId, String clientSecret) throws SQLServerException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
-#### Snippet
-```java
-     * @throws SQLException
-     *         if the result set is forward only.
-     * @throws SQLFeatureNotSupportedException
-     */
-    private void throwNotScrollable() throws SQLException {
+    private Object readSqlVariant(int intbaseType, int cbPropsActual, int valueLength, TDSReader tdsReader,
 ```
 
 ### JavadocDeclaration
@@ -21556,26 +21544,38 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
 ```java
-     * Parse a result set column meta data TDS stream for crypto metadata for AE.
-     *
-     * @throws SQLServerException
+     * @throws SQLException
+     *         if the result set is forward only.
+     * @throws SQLFeatureNotSupportedException
      */
-    CryptoMetadata readCryptoMetadata(TDSReader tdsReader) throws SQLServerException {
+    private void throwNotScrollable() throws SQLException {
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/KeyVaultTokenCredential.java`
 #### Snippet
 ```java
-     * Parse a result set column meta data TDS stream.
-     *
+     * @param clientSecret
+     *        the secret value of the AAD application
      * @throws SQLServerException
      */
-    void setFromTDS(TDSReader tdsReader) throws SQLServerException {
+    KeyVaultTokenCredential(String clientId, String clientSecret) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
+#### Snippet
+```java
+     * @param stmtColEncSetting
+     *        the statement column encryption setting
+     * @throws SQLServerException
+     */
+    SQLServerCallableStatement(SQLServerConnection connection, String sql, int nRSType, int nRSConcur,
 ```
 
 ### JavadocDeclaration
@@ -21595,6 +21595,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
 #### Snippet
 ```java
+     * Parse a result set column meta data TDS stream for crypto metadata for AE.
+     *
+     * @throws SQLServerException
+     */
+    CryptoMetadata readCryptoMetadata(TDSReader tdsReader) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
+#### Snippet
+```java
      * Parse a result set column meta data TDS stream for CEK table entry.
      *
      * @throws SQLServerException
@@ -21604,14 +21616,26 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/StreamColumns.java`
 #### Snippet
 ```java
-     * @param stmtColEncSetting
-     *        the statement column encryption setting
+     * Parse a result set column meta data TDS stream.
+     *
      * @throws SQLServerException
      */
-    SQLServerCallableStatement(SQLServerConnection connection, String sql, int nRSType, int nRSConcur,
+    void setFromTDS(TDSReader tdsReader) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@param accessTokenCallbackClass` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerDataSource.java`
+#### Snippet
+```java
+     * of the implementing class for {@link SQLServerAccessTokenCallback}.
+     *
+     * @param accessTokenCallbackClass
+     */
+    void setAccessTokenCallbackClass(String accessTokenCallbackClass);
 ```
 
 ### JavadocDeclaration
@@ -21667,30 +21691,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 #### Snippet
 ```java
-     * Sets an integer property value.
-     *
-     * @param props
-     * @param propKey
-     * @param propValue
-```
-
-### JavadocDeclaration
-`@param propKey` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
-#### Snippet
-```java
-     *
-     * @param props
-     * @param propKey
-     * @param propValue
-     *        Caller will always supply a non-null props and propKey.
-```
-
-### JavadocDeclaration
-`@param props` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
-#### Snippet
-```java
      * Sets a property string value.
      *
      * @param props
@@ -21711,51 +21711,27 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+`@param props` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 #### Snippet
 ```java
-     * Executes a query without cursoring for metadata.
+     * Sets an integer property value.
      *
-     * @throws SQLServerException
-     * @return ResultSet
-     * @throws SQLTimeoutException
+     * @param props
+     * @param propKey
+     * @param propValue
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+`@param propKey` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 #### Snippet
 ```java
-     * @throws SQLServerException
-     * @return ResultSet
-     * @throws SQLTimeoutException
-     */
-    final java.sql.ResultSet executeQueryInternal() throws SQLServerException, SQLTimeoutException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-     * @param tdsWriter
-     *        TDS writer to write sp_prepare params to
-     * @throws SQLServerException
-     */
-    private void doPrep(TDSWriter tdsWriter, TDSCommand command) throws SQLServerException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-     * data prior to executing the statement.
-     * 
-     * @throws SQLServerException
-     * @return the result set containing the meta data
-     */
+     *
+     * @param props
+     * @param propKey
+     * @param propValue
+     *        Caller will always supply a non-null props and propKey.
 ```
 
 ### JavadocDeclaration
@@ -21807,18 +21783,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerEncryptionAlgorithmFacto
 ```
 
 ### JavadocDeclaration
-`@param accessTokenCallbackClass` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerDataSource.java`
-#### Snippet
-```java
-     * of the implementing class for {@link SQLServerAccessTokenCallback}.
-     *
-     * @param accessTokenCallbackClass
-     */
-    void setAccessTokenCallbackClass(String accessTokenCallbackClass);
-```
-
-### JavadocDeclaration
 `@param connection` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSymmetricKeyCache.java`
 #### Snippet
@@ -21827,6 +21791,54 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSymmetricKeyCache.java`
      *        contains encryption meta data information
      * @param connection
      * @return plain text key
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+     * @param tdsWriter
+     *        TDS writer to write sp_prepare params to
+     * @throws SQLServerException
+     */
+    private void doPrep(TDSWriter tdsWriter, TDSCommand command) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+     * Executes a query without cursoring for metadata.
+     *
+     * @throws SQLServerException
+     * @return ResultSet
+     * @throws SQLTimeoutException
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+     * @throws SQLServerException
+     * @return ResultSet
+     * @throws SQLTimeoutException
+     */
+    final java.sql.ResultSet executeQueryInternal() throws SQLServerException, SQLTimeoutException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+     * data prior to executing the statement.
+     * 
+     * @throws SQLServerException
+     * @return the result set containing the meta data
      */
 ```
 
@@ -21855,63 +21867,207 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### JavadocDeclaration
-`@param addresses` tag description is missing
+`@throws` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-     * Finds a first resolved InetAddresses by IP version preference.
-     *
-     * @param addresses
-     *
-     * @param ipv6first
+     * @param collation
+     *        The SQL collation associated with the value. Null for non-textual SQL Server types.
+     * @throws SQLServerException
+     */
+    void writeRPCReaderUnicode(String sName, Reader re, long reLength, boolean bOut,
 ```
 
 ### JavadocDeclaration
-`@param ipv6first` tag description is missing
+`@throws` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-     * @param addresses
-     *
-     * @param ipv6first
-     *
-     * @param hostName
+     * @param clientKeyPassword
+     *        Private key file's password
+     * @throws SQLServerException
+     */
+    void enableSSL(String host, int port, String clientCertificate, String clientKey, String clientKeyPassword,
 ```
 
 ### JavadocDeclaration
-`@param hostName` tag description is missing
+`@throws` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-     * @param ipv6first
-     *
-     * @param hostName
+     * @param srcJdbcType
+     *        the source JDBCType
+     * @throws SQLServerException
+     */
+    void writeMoney(BigDecimal moneyVal, int srcJdbcType) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * @param scale
+     *        the scale of the column
+     * @throws SQLServerException
+     */
+    void writeBigDecimal(BigDecimal bigDecimalVal, int srcJdbcType, int precision,
+```
+
+### JavadocDeclaration
+`@param variantType` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * writing sqlCollation information for sqlVariant type when sending character types.
      * 
-     * @param portNumber
+     * @param variantType
+     * @throws SQLServerException
+     */
 ```
 
 ### JavadocDeclaration
-`@param tdsWriter` tag description is missing
+`@throws` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-     * Executes this command.
+     * 
+     * @param variantType
+     * @throws SQLServerException
+     */
+    void writeCollationForSqlVariant(SqlVariant variantType) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * Attempts to poll the input stream to see if the network socket is still connected.
      *
-     * @param tdsWriter
-     * @param tdsReader
+     * @return
+     */
+    final Boolean networkSocketStillConnected() {
+```
+
+### JavadocDeclaration
+`@param trustStoreType` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * <LI>if certificate is not installed TrustStoreType should be present.
+     * 
+     * @param trustStoreType
+     * @param trustStoreFileName
      * @throws SQLServerException
 ```
 
 ### JavadocDeclaration
-`@param tdsReader` tag description is missing
+`@param trustStoreFileName` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * 
+     * @param trustStoreType
+     * @param trustStoreFileName
+     * @throws SQLServerException
+     * @since 6.1.4
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * @param trustStoreType
+     * @param trustStoreFileName
+     * @throws SQLServerException
+     * @since 6.1.4
+     */
+```
+
+### JavadocDeclaration
+Duplicate @return tag
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
      *
-     * @param tdsWriter
-     * @param tdsReader
+     * @return an InputStream containing the contents of the loaded trust store
+     * @return null if the trust store cannot be loaded.
+     *
+     *         Note: It is by design that this function returns null when the trust store cannot be loaded rather than
+```
+
+### JavadocDeclaration
+`@param length` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * writes Header for sql_variant for TVP
+     * 
+     * @param length
+     * @param tdsType
+     * @param probBytes
+```
+
+### JavadocDeclaration
+`@param tdsType` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * 
+     * @param length
+     * @param tdsType
+     * @param probBytes
      * @throws SQLServerException
-     *         on any error executing the command, including cancel or timeout.
+```
+
+### JavadocDeclaration
+`@param probBytes` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * @param length
+     * @param tdsType
+     * @param probBytes
+     * @throws SQLServerException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * @param tdsType
+     * @param probBytes
+     * @throws SQLServerException
+     */
+    private void writeTVPSqlVariantHeader(int length, byte tdsType, byte probBytes) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@param valueLength` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * This function reads valueLength no. of bytes from input buffer without storing them in any array
+     *
+     * @param valueLength
+     * @throws SQLServerException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     *
+     * @param valueLength
+     * @throws SQLServerException
+     */
+    final void readSkipBytes(int valueLength) throws SQLServerException {
 ```
 
 ### JavadocDeclaration
@@ -21987,39 +22143,75 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### JavadocDeclaration
-Duplicate @return tag
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     *
-     * @return an InputStream containing the contents of the loaded trust store
-     * @return null if the trust store cannot be loaded.
-     *
-     *         Note: It is by design that this function returns null when the trust store cannot be loaded rather than
-```
-
-### JavadocDeclaration
-`@param valueLength` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * This function reads valueLength no. of bytes from input buffer without storing them in any array
-     *
-     * @param valueLength
-     * @throws SQLServerException
-     */
-```
-
-### JavadocDeclaration
 `@throws` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-     *
-     * @param valueLength
+     * @param collation
+     *        The SQL collation associated with the value. Null for non-textual SQL Server types.
      * @throws SQLServerException
      */
-    final void readSkipBytes(int valueLength) throws SQLServerException {
+    void writeRPCInputStream(String sName, InputStream stream, long streamLength, boolean bOut, JDBCType jdbcType,
+```
+
+### JavadocDeclaration
+`@param tdsWriter` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * Executes this command.
+     *
+     * @param tdsWriter
+     * @param tdsReader
+     * @throws SQLServerException
+```
+
+### JavadocDeclaration
+`@param tdsReader` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     *
+     * @param tdsWriter
+     * @param tdsReader
+     * @throws SQLServerException
+     *         on any error executing the command, including cancel or timeout.
+```
+
+### JavadocDeclaration
+`@param addresses` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * Finds a first resolved InetAddresses by IP version preference.
+     *
+     * @param addresses
+     *
+     * @param ipv6first
+```
+
+### JavadocDeclaration
+`@param ipv6first` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * @param addresses
+     *
+     * @param ipv6first
+     *
+     * @param hostName
+```
+
+### JavadocDeclaration
+`@param hostName` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+#### Snippet
+```java
+     * @param ipv6first
+     *
+     * @param hostName
+     * 
+     * @param portNumber
 ```
 
 ### JavadocDeclaration
@@ -22032,54 +22224,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
      * @throws SQLServerException
      */
     void writeRPCXML(String sName, InputStream stream, long streamLength, boolean bOut) throws SQLServerException {
-```
-
-### JavadocDeclaration
-`@param length` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * writes Header for sql_variant for TVP
-     * 
-     * @param length
-     * @param tdsType
-     * @param probBytes
-```
-
-### JavadocDeclaration
-`@param tdsType` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * 
-     * @param length
-     * @param tdsType
-     * @param probBytes
-     * @throws SQLServerException
-```
-
-### JavadocDeclaration
-`@param probBytes` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @param length
-     * @param tdsType
-     * @param probBytes
-     * @throws SQLServerException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @param tdsType
-     * @param probBytes
-     * @throws SQLServerException
-     */
-    private void writeTVPSqlVariantHeader(int length, byte tdsType, byte probBytes) throws SQLServerException {
 ```
 
 ### JavadocDeclaration
@@ -22107,102 +22251,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @param collation
-     *        The SQL collation associated with the value. Null for non-textual SQL Server types.
-     * @throws SQLServerException
-     */
-    void writeRPCReaderUnicode(String sName, Reader re, long reLength, boolean bOut,
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @param scale
-     *        the scale of the column
-     * @throws SQLServerException
-     */
-    void writeBigDecimal(BigDecimal bigDecimalVal, int srcJdbcType, int precision,
-```
-
-### JavadocDeclaration
-`@param trustStoreType` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * <LI>if certificate is not installed TrustStoreType should be present.
-     * 
-     * @param trustStoreType
-     * @param trustStoreFileName
-     * @throws SQLServerException
-```
-
-### JavadocDeclaration
-`@param trustStoreFileName` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * 
-     * @param trustStoreType
-     * @param trustStoreFileName
-     * @throws SQLServerException
-     * @since 6.1.4
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @param trustStoreType
-     * @param trustStoreFileName
-     * @throws SQLServerException
-     * @since 6.1.4
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @param collation
-     *        The SQL collation associated with the value. Null for non-textual SQL Server types.
-     * @throws SQLServerException
-     */
-    void writeRPCInputStream(String sName, InputStream stream, long streamLength, boolean bOut, JDBCType jdbcType,
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @param srcJdbcType
-     *        the source JDBCType
-     * @throws SQLServerException
-     */
-    void writeMoney(BigDecimal moneyVal, int srcJdbcType) throws SQLServerException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
-#### Snippet
-```java
-     * @param clientKeyPassword
-     *        Private key file's password
-     * @throws SQLServerException
-     */
-    void enableSSL(String host, int port, String clientCertificate, String clientKey, String clientKeyPassword,
-```
-
-### JavadocDeclaration
 IOException is not declared to be thrown by method poll
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
@@ -22215,63 +22263,123 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### JavadocDeclaration
-`@param variantType` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * writing sqlCollation information for sqlVariant type when sending character types.
+     * Delist the local transaction with DTC.
      * 
-     * @param variantType
      * @throws SQLServerException
      */
+    final void jtaUnenlistConnection() throws SQLServerException {
+```
+
+### JavadocDeclaration
+Duplicate @return tag
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+     *        the string property value.
+     * @return false if p == null (meaning take default).
+     * @return true if p == "true" (case-insensitive).
+     * @return false if p == "false" (case-insensitive).
+     * @exception SQLServerException
+```
+
+### JavadocDeclaration
+Duplicate @return tag
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+     * @return false if p == null (meaning take default).
+     * @return true if p == "true" (case-insensitive).
+     * @return false if p == "false" (case-insensitive).
+     * @exception SQLServerException
+     *            thrown if value is not recognized.
+```
+
+### JavadocDeclaration
+`@param accessTokenCallbackClass` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+     * of the implementing class for {@link SQLServerAccessTokenCallback}.
+     *
+     * @param accessTokenCallbackClass
+     */
+    public void setAccessTokenCallbackClass(String accessTokenCallbackClass) {
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * 
-     * @param variantType
+     * @param fedAuthFeatureExtensionData
+     *        fedauth feature extension data
      * @throws SQLServerException
      */
-    void writeCollationForSqlVariant(SqlVariant variantType) throws SQLServerException {
+    private void sendLogon(LogonCommand logonCommand, SSPIAuthentication authentication,
+```
+
+### JavadocDeclaration
+`@param serverName` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+     * Get the server name string including redirected server if applicable
+     * 
+     * @param serverName
+     * @return
+     */
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * Attempts to poll the input stream to see if the network socket is still connected.
-     *
+     * 
+     * @param serverName
      * @return
      */
-    final Boolean networkSocketStillConnected() {
+    String getServerNameString(String serverName) {
 ```
 
 ### JavadocDeclaration
-`@param offset` tag description is missing
+Tag `param` is not allowed here
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * @param name
-     *        the parameter name
-     * @param offset
-     * @return int
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     * @param propValue
-     *        the value of the property.
+     * Replaces JDBC syntax parameter markets '?' with SQL Server parameter markers @p1, @p2 etc...
+     * 
+     * @param sql
+     *        the user's SQL
      * @throws SQLServerException
+```
+
+### JavadocDeclaration
+Tag `throws` is not allowed here
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+     * @param sql
+     *        the user's SQL
+     * @throws SQLServerException
+     * @return the returned syntax
      */
-    void validateMaxSQLLoginName(String propName, String propValue) throws SQLServerException {
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+     *        the user's SQL
+     * @throws SQLServerException
+     * @return the returned syntax
+     */
+    static final char[] OUT = {' ', 'O', 'U', 'T'};
 ```
 
 ### JavadocDeclaration
@@ -22279,11 +22387,35 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * Checks if the connection is closed
+     * The SharedTimer will be released when the Connection is closed.
      * 
      * @throws SQLServerException
      */
-    void checkClosed() throws SQLServerException {
+    SharedTimer getSharedTimer() throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+     * @param cookie
+     *        the cookie identifying the transaction
+     * @throws SQLServerException
+     */
+    final void jtaEnlistConnection(byte[] cookie) throws SQLServerException {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+     * Returns the cancelTimeout in seconds.
+     * 
+     * @return
+     */
+    final int getCancelQueryTimeoutSeconds() {
 ```
 
 ### JavadocDeclaration
@@ -22339,35 +22471,23 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * @param pooledConnection
-     *        a parent pooled connection if this is a logical connection
+     * @param propValue
+     *        the value of the property.
      * @throws SQLServerException
-     * @return the database connection
      */
+    void validateMaxSQLLoginName(String propName, String propValue) throws SQLServerException {
 ```
 
 ### JavadocDeclaration
-`@param serverName` tag description is missing
+`@param offset` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * Get the server name string including redirected server if applicable
-     * 
-     * @param serverName
-     * @return
+     * @param name
+     *        the parameter name
+     * @param offset
+     * @return int
      */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     * 
-     * @param serverName
-     * @return
-     */
-    String getServerNameString(String serverName) {
 ```
 
 ### JavadocDeclaration
@@ -22375,59 +22495,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * @param fedAuthFeatureExtensionData
-     *        fedauth feature extension data
+     * Checks if the connection is closed
+     * 
      * @throws SQLServerException
      */
-    private void sendLogon(LogonCommand logonCommand, SSPIAuthentication authentication,
-```
-
-### JavadocDeclaration
-Duplicate @return tag
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     *        the string property value.
-     * @return false if p == null (meaning take default).
-     * @return true if p == "true" (case-insensitive).
-     * @return false if p == "false" (case-insensitive).
-     * @exception SQLServerException
-```
-
-### JavadocDeclaration
-Duplicate @return tag
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     * @return false if p == null (meaning take default).
-     * @return true if p == "true" (case-insensitive).
-     * @return false if p == "false" (case-insensitive).
-     * @exception SQLServerException
-     *            thrown if value is not recognized.
-```
-
-### JavadocDeclaration
-`@param timerExpire` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     * Get time remaining to timer expiry
-     * 
-     * @param timerExpire
-     * @return remaining time to expiry
-     */
-```
-
-### JavadocDeclaration
-`@param accessTokenCallbackClass` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     * of the implementing class for {@link SQLServerAccessTokenCallback}.
-     *
-     * @param accessTokenCallbackClass
-     */
-    public void setAccessTokenCallbackClass(String accessTokenCallbackClass) {
+    void checkClosed() throws SQLServerException {
 ```
 
 ### JavadocDeclaration
@@ -22491,15 +22563,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
+`@param timerExpire` tag description is missing
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * Returns the cancelTimeout in seconds.
+     * Get time remaining to timer expiry
      * 
-     * @return
+     * @param timerExpire
+     * @return remaining time to expiry
      */
-    final int getCancelQueryTimeoutSeconds() {
 ```
 
 ### JavadocDeclaration
@@ -22507,71 +22579,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
 ```java
-     * Delist the local transaction with DTC.
-     * 
+     * @param pooledConnection
+     *        a parent pooled connection if this is a logical connection
      * @throws SQLServerException
+     * @return the database connection
      */
-    final void jtaUnenlistConnection() throws SQLServerException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     * The SharedTimer will be released when the Connection is closed.
-     * 
-     * @throws SQLServerException
-     */
-    SharedTimer getSharedTimer() throws SQLServerException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     * @param cookie
-     *        the cookie identifying the transaction
-     * @throws SQLServerException
-     */
-    final void jtaEnlistConnection(byte[] cookie) throws SQLServerException {
-```
-
-### JavadocDeclaration
-Tag `param` is not allowed here
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     * Replaces JDBC syntax parameter markets '?' with SQL Server parameter markers @p1, @p2 etc...
-     * 
-     * @param sql
-     *        the user's SQL
-     * @throws SQLServerException
-```
-
-### JavadocDeclaration
-Tag `throws` is not allowed here
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     * @param sql
-     *        the user's SQL
-     * @throws SQLServerException
-     * @return the returned syntax
-     */
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-     *        the user's SQL
-     * @throws SQLServerException
-     * @return the returned syntax
-     */
-    static final char[] OUT = {' ', 'O', 'U', 'T'};
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -22588,87 +22600,15 @@ public class PersistentTokenCacheAccessAspect implements ITokenCacheAccessAspect
 ```
 
 ### FieldMayBeFinal
-Field `authLogger` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
-#### Snippet
-```java
-    private static final int MAXPOINTERSIZE = 128; // we keep the SNI_Sec pointer
-    private static boolean enabled = false;
-    private static java.util.logging.Logger authLogger = java.util.logging.Logger
-            .getLogger("com.microsoft.sqlserver.jdbc.internals.AuthenticationJNI");
-    private static int sspiBlobMaxlen = 0;
-```
-
-### FieldMayBeFinal
-Field `sniSecLen` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
-#### Snippet
-```java
-    private static int sspiBlobMaxlen = 0;
-    private byte[] sniSec = new byte[MAXPOINTERSIZE];
-    private int[] sniSecLen = {0};
-    private final String dnsName;
-    private final int port;
-```
-
-### FieldMayBeFinal
-Field `sniSec` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
-#### Snippet
-```java
-            .getLogger("com.microsoft.sqlserver.jdbc.internals.AuthenticationJNI");
-    private static int sspiBlobMaxlen = 0;
-    private byte[] sniSec = new byte[MAXPOINTERSIZE];
-    private int[] sniSecLen = {0};
-    private final String dnsName;
-```
-
-### FieldMayBeFinal
-Field `con` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
-#### Snippet
-```java
-    private final String dnsName;
-    private final int port;
-    private SQLServerConnection con;
-
-    private static final UnsatisfiedLinkError linkError;
-```
-
-### FieldMayBeFinal
-Field `ivKeySaltFormat` may be 'final'
+Field `encryptionKeySaltFormat` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256EncryptionKey.java`
 #### Snippet
 ```java
+    private final String algorithmName;
+    // Salt used to derive encryption key
+    private String encryptionKeySaltFormat;
+    // Salt used to derive mac key
     private String macKeySaltFormat;
-    // Salt used to derive iv key
-    private String ivKeySaltFormat;
-    private SQLServerSymmetricKey encryptionKey;
-    private SQLServerSymmetricKey macKey;
-```
-
-### FieldMayBeFinal
-Field `encryptionKey` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256EncryptionKey.java`
-#### Snippet
-```java
-    // Salt used to derive iv key
-    private String ivKeySaltFormat;
-    private SQLServerSymmetricKey encryptionKey;
-    private SQLServerSymmetricKey macKey;
-    private SQLServerSymmetricKey ivKey;
-```
-
-### FieldMayBeFinal
-Field `macKey` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256EncryptionKey.java`
-#### Snippet
-```java
-    private String ivKeySaltFormat;
-    private SQLServerSymmetricKey encryptionKey;
-    private SQLServerSymmetricKey macKey;
-    private SQLServerSymmetricKey ivKey;
-
 ```
 
 ### FieldMayBeFinal
@@ -22696,27 +22636,87 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Encr
 ```
 
 ### FieldMayBeFinal
-Field `encryptionKeySaltFormat` may be 'final'
+Field `macKey` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256EncryptionKey.java`
 #### Snippet
 ```java
-    private final String algorithmName;
-    // Salt used to derive encryption key
-    private String encryptionKeySaltFormat;
-    // Salt used to derive mac key
-    private String macKeySaltFormat;
+    private String ivKeySaltFormat;
+    private SQLServerSymmetricKey encryptionKey;
+    private SQLServerSymmetricKey macKey;
+    private SQLServerSymmetricKey ivKey;
+
 ```
 
 ### FieldMayBeFinal
-Field `keylookupValue` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleTtlCache.java`
+Field `encryptionKey` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256EncryptionKey.java`
 #### Snippet
 ```java
-    class CacheClear implements Runnable {
+    // Salt used to derive iv key
+    private String ivKeySaltFormat;
+    private SQLServerSymmetricKey encryptionKey;
+    private SQLServerSymmetricKey macKey;
+    private SQLServerSymmetricKey ivKey;
+```
 
-        private K keylookupValue;
-        final private java.util.logging.Logger logger = java.util.logging.Logger
-                .getLogger("com.microsoft.sqlserver.jdbc.SimpleTtlCache.CacheClear");
+### FieldMayBeFinal
+Field `ivKeySaltFormat` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256EncryptionKey.java`
+#### Snippet
+```java
+    private String macKeySaltFormat;
+    // Salt used to derive iv key
+    private String ivKeySaltFormat;
+    private SQLServerSymmetricKey encryptionKey;
+    private SQLServerSymmetricKey macKey;
+```
+
+### FieldMayBeFinal
+Field `sniSecLen` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
+#### Snippet
+```java
+    private static int sspiBlobMaxlen = 0;
+    private byte[] sniSec = new byte[MAXPOINTERSIZE];
+    private int[] sniSecLen = {0};
+    private final String dnsName;
+    private final int port;
+```
+
+### FieldMayBeFinal
+Field `authLogger` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
+#### Snippet
+```java
+    private static final int MAXPOINTERSIZE = 128; // we keep the SNI_Sec pointer
+    private static boolean enabled = false;
+    private static java.util.logging.Logger authLogger = java.util.logging.Logger
+            .getLogger("com.microsoft.sqlserver.jdbc.internals.AuthenticationJNI");
+    private static int sspiBlobMaxlen = 0;
+```
+
+### FieldMayBeFinal
+Field `sniSec` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
+#### Snippet
+```java
+            .getLogger("com.microsoft.sqlserver.jdbc.internals.AuthenticationJNI");
+    private static int sspiBlobMaxlen = 0;
+    private byte[] sniSec = new byte[MAXPOINTERSIZE];
+    private int[] sniSecLen = {0};
+    private final String dnsName;
+```
+
+### FieldMayBeFinal
+Field `con` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/AuthenticationJNI.java`
+#### Snippet
+```java
+    private final String dnsName;
+    private final int port;
+    private SQLServerConnection con;
+
+    private static final UnsatisfiedLinkError linkError;
 ```
 
 ### FieldMayBeFinal
@@ -22732,7 +22732,19 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleTtlCache.java`
 ```
 
 ### FieldMayBeFinal
-Field `factoryUser` may be 'final'
+Field `keylookupValue` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SimpleTtlCache.java`
+#### Snippet
+```java
+    class CacheClear implements Runnable {
+
+        private K keylookupValue;
+        final private java.util.logging.Logger logger = java.util.logging.Logger
+                .getLogger("com.microsoft.sqlserver.jdbc.SimpleTtlCache.CacheClear");
+```
+
+### FieldMayBeFinal
+Field `factoryPassword` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
 #### Snippet
 ```java
@@ -22756,7 +22768,7 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
 ```
 
 ### FieldMayBeFinal
-Field `factoryPassword` may be 'final'
+Field `factoryUser` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPooledConnection.java`
 #### Snippet
 ```java
@@ -22804,15 +22816,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SecureStringUtil.java`
 ```
 
 ### FieldMayBeFinal
-Field `pid` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc42.java`
+Field `metadataCacheLogger` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/ParameterMetaDataCache.java`
 #### Snippet
 ```java
+    static final int MAX_WEIGHTED_CAPACITY = 2300; // Size of cache + threshold, above which we trim.
+    static CryptoCache cache = new CryptoCache();
+    static private java.util.logging.Logger metadataCacheLogger = java.util.logging.Logger
+            .getLogger("com.microsoft.sqlserver.jdbc.ParameterMetaDataCache");
 
-    /** Client process ID sent during login */
-    private static int pid = 0;
-
-    static int getProcessId() {
 ```
 
 ### FieldMayBeFinal
@@ -22828,15 +22840,51 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ParameterMetaDataCache.java`
 ```
 
 ### FieldMayBeFinal
-Field `metadataCacheLogger` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/ParameterMetaDataCache.java`
+Field `pid` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc42.java`
 #### Snippet
 ```java
-    static final int MAX_WEIGHTED_CAPACITY = 2300; // Size of cache + threshold, above which we trim.
-    static CryptoCache cache = new CryptoCache();
-    static private java.util.logging.Logger metadataCacheLogger = java.util.logging.Logger
-            .getLogger("com.microsoft.sqlserver.jdbc.ParameterMetaDataCache");
 
+    /** Client process ID sent during login */
+    private static int pid = 0;
+
+    static int getProcessId() {
+```
+
+### FieldMayBeFinal
+Field `certificates` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAASEnclaveProvider.java`
+#### Snippet
+```java
+    private static final long TWENTY_FOUR_HOUR_IN_SECONDS = 86400;
+
+    private JsonArray certificates;
+    private long timeCreatedInSeconds;
+
+```
+
+### FieldMayBeFinal
+Field `enclaveCache` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAASEnclaveProvider.java`
+#### Snippet
+```java
+public class SQLServerAASEnclaveProvider implements ISQLServerEnclaveProvider {
+
+    private static EnclaveSessionCache enclaveCache = new EnclaveSessionCache();
+
+    private AASAttestationParameters aasParams = null;
+```
+
+### FieldMayBeFinal
+Field `certificateCache` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAASEnclaveProvider.java`
+#### Snippet
+```java
+
+    private byte[] attestationToken;
+    private static ConcurrentHashMap<String, JWTCertificateEntry> certificateCache = new ConcurrentHashMap<>();
+
+    AASAttestationResponse(byte[] b) throws SQLServerException {
 ```
 
 ### FieldMayBeFinal
@@ -22864,30 +22912,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAASEnclaveProvider.java`
 ```
 
 ### FieldMayBeFinal
-Field `certificateCache` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAASEnclaveProvider.java`
-#### Snippet
-```java
-
-    private byte[] attestationToken;
-    private static ConcurrentHashMap<String, JWTCertificateEntry> certificateCache = new ConcurrentHashMap<>();
-
-    AASAttestationResponse(byte[] b) throws SQLServerException {
-```
-
-### FieldMayBeFinal
-Field `enclaveCache` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAASEnclaveProvider.java`
-#### Snippet
-```java
-public class SQLServerAASEnclaveProvider implements ISQLServerEnclaveProvider {
-
-    private static EnclaveSessionCache enclaveCache = new EnclaveSessionCache();
-
-    private AASAttestationParameters aasParams = null;
-```
-
-### FieldMayBeFinal
 Field `attestationToken` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAASEnclaveProvider.java`
 #### Snippet
@@ -22896,42 +22920,6 @@ class AASAttestationResponse extends BaseAttestationResponse {
 
     private byte[] attestationToken;
     private static ConcurrentHashMap<String, JWTCertificateEntry> certificateCache = new ConcurrentHashMap<>();
-
-```
-
-### FieldMayBeFinal
-Field `certificates` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAASEnclaveProvider.java`
-#### Snippet
-```java
-    private static final long TWENTY_FOUR_HOUR_IN_SECONDS = 86400;
-
-    private JsonArray certificates;
-    private long timeCreatedInSeconds;
-
-```
-
-### FieldMayBeFinal
-Field `hostName` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerTrustManager.java`
-#### Snippet
-```java
-    private final String logContext;
-    private final X509TrustManager defaultTrustManager;
-    private String hostName;
-
-    HostNameOverrideX509TrustManager(TDSChannel tdsChannel, X509TrustManager tm, String hostName) {
-```
-
-### FieldMayBeFinal
-Field `hostName` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerTrustManager.java`
-#### Snippet
-```java
-    private final Logger logger;
-    private final String logContext;
-    private String hostName;
-    private String serverCert;
 
 ```
 
@@ -22948,51 +22936,27 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerTrustManager.java`
 ```
 
 ### FieldMayBeFinal
-Field `version` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
+Field `hostName` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerTrustManager.java`
 #### Snippet
 ```java
-    // Each block in the AES is 128 bits
-    private int blockSizeInBytes = 16;
-    private byte[] version = new byte[] {0x01};
-    // Added so that java hashing algorithm is similar to c#
-    private byte[] versionSize = new byte[] {1};
+    private final Logger logger;
+    private final String logContext;
+    private String hostName;
+    private String serverCert;
+
 ```
 
 ### FieldMayBeFinal
-Field `versionSize` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
+Field `hostName` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerTrustManager.java`
 #### Snippet
 ```java
-    private byte[] version = new byte[] {0x01};
-    // Added so that java hashing algorithm is similar to c#
-    private byte[] versionSize = new byte[] {1};
+    private final String logContext;
+    private final X509TrustManager defaultTrustManager;
+    private String hostName;
 
-    /*
-```
-
-### FieldMayBeFinal
-Field `minimumCipherTextLengthInBytesNoAuthenticationTag` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
-#### Snippet
-```java
-     * of 1 block of cipher Text)
-     */
-    private int minimumCipherTextLengthInBytesNoAuthenticationTag = 1 + blockSizeInBytes + blockSizeInBytes;
-
-    /*
-```
-
-### FieldMayBeFinal
-Field `minimumCipherTextLengthInBytesWithAuthenticationTag` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
-#### Snippet
-```java
-     * 1 block of cipher Text)
-     */
-    private int minimumCipherTextLengthInBytesWithAuthenticationTag = minimumCipherTextLengthInBytesNoAuthenticationTag
-            + SQLServerAeadAes256CbcHmac256EncryptionKey.KEYSIZE_IN_BYTES;
-
+    HostNameOverrideX509TrustManager(TDSChannel tdsChannel, X509TrustManager tm, String hostName) {
 ```
 
 ### FieldMayBeFinal
@@ -23008,15 +22972,39 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algo
 ```
 
 ### FieldMayBeFinal
-Field `algorithmVersion` may be 'final'
+Field `minimumCipherTextLengthInBytesWithAuthenticationTag` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
 #### Snippet
 ```java
-    // Stores column encryption key which includes root key and derived keys
-    private SQLServerAeadAes256CbcHmac256EncryptionKey columnEncryptionkey;
-    private byte algorithmVersion;
-    // This variable indicate whether encryption type is deterministic (if true)
-    // or random (if false)
+     * 1 block of cipher Text)
+     */
+    private int minimumCipherTextLengthInBytesWithAuthenticationTag = minimumCipherTextLengthInBytesNoAuthenticationTag
+            + SQLServerAeadAes256CbcHmac256EncryptionKey.KEYSIZE_IN_BYTES;
+
+```
+
+### FieldMayBeFinal
+Field `minimumCipherTextLengthInBytesNoAuthenticationTag` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
+#### Snippet
+```java
+     * of 1 block of cipher Text)
+     */
+    private int minimumCipherTextLengthInBytesNoAuthenticationTag = 1 + blockSizeInBytes + blockSizeInBytes;
+
+    /*
+```
+
+### FieldMayBeFinal
+Field `versionSize` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
+#### Snippet
+```java
+    private byte[] version = new byte[] {0x01};
+    // Added so that java hashing algorithm is similar to c#
+    private byte[] versionSize = new byte[] {1};
+
+    /*
 ```
 
 ### FieldMayBeFinal
@@ -23032,15 +23020,27 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algo
 ```
 
 ### FieldMayBeFinal
-Field `rootKey` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSymmetricKey.java`
+Field `version` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
 #### Snippet
 ```java
- */
-class SQLServerSymmetricKey {
-    private byte[] rootKey;
+    // Each block in the AES is 128 bits
+    private int blockSizeInBytes = 16;
+    private byte[] version = new byte[] {0x01};
+    // Added so that java hashing algorithm is similar to c#
+    private byte[] versionSize = new byte[] {1};
+```
 
-    SQLServerSymmetricKey(byte[] rootKey) throws SQLServerException {
+### FieldMayBeFinal
+Field `algorithmVersion` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Algorithm.java`
+#### Snippet
+```java
+    // Stores column encryption key which includes root key and derived keys
+    private SQLServerAeadAes256CbcHmac256EncryptionKey columnEncryptionkey;
+    private byte algorithmVersion;
+    // This variable indicate whether encryption type is deterministic (if true)
+    // or random (if false)
 ```
 
 ### FieldMayBeFinal
@@ -23053,6 +23053,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerClob.java`
     private byte[] bSingleByte = new byte[1];
 
     public void write(int b) throws java.io.IOException {
+```
+
+### FieldMayBeFinal
+Field `rootKey` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSymmetricKey.java`
+#### Snippet
+```java
+ */
+class SQLServerSymmetricKey {
+    private byte[] rootKey;
+
+    SQLServerSymmetricKey(byte[] rootKey) throws SQLServerException {
 ```
 
 ### FieldMayBeFinal
@@ -23080,15 +23092,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerParameterMetaData.java`
 ```
 
 ### FieldMayBeFinal
-Field `certificateCache` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerVSMEnclaveProvider.java`
+Field `pointOffset` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/spatialdatatypes/Figure.java`
 #### Snippet
 ```java
-    }
+public class Figure {
+    private byte figuresAttribute;
+    private int pointOffset;
 
-    private static ConcurrentHashMap<String, X509CertificateEntry> certificateCache = new ConcurrentHashMap<>();
-
-    private byte[] getAttestationCertificates() throws IOException {
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -23104,15 +23116,15 @@ public class SQLServerVSMEnclaveProvider implements ISQLServerEnclaveProvider {
 ```
 
 ### FieldMayBeFinal
-Field `timeCreatedInSeconds` may be 'final'
+Field `certificateCache` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerVSMEnclaveProvider.java`
 #### Snippet
 ```java
+    }
 
-    private byte[] certificates;
-    private long timeCreatedInSeconds;
+    private static ConcurrentHashMap<String, X509CertificateEntry> certificateCache = new ConcurrentHashMap<>();
 
-    X509CertificateEntry(byte[] b) {
+    private byte[] getAttestationCertificates() throws IOException {
 ```
 
 ### FieldMayBeFinal
@@ -23128,39 +23140,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerVSMEnclaveProvider.java`
 ```
 
 ### FieldMayBeFinal
-Field `pointOffset` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/spatialdatatypes/Figure.java`
+Field `timeCreatedInSeconds` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerVSMEnclaveProvider.java`
 #### Snippet
 ```java
-public class Figure {
-    private byte figuresAttribute;
-    private int pointOffset;
 
-    /**
-```
+    private byte[] certificates;
+    private long timeCreatedInSeconds;
 
-### FieldMayBeFinal
-Field `encryptionAlgorithms` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Factory.java`
-#### Snippet
-```java
-    // In future we can have more
-    private byte algorithmVersion = 0x1;
-    private ConcurrentHashMap<String, SQLServerAeadAes256CbcHmac256Algorithm> encryptionAlgorithms = new ConcurrentHashMap<>();
-
-    @Override
-```
-
-### FieldMayBeFinal
-Field `algorithmVersion` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Factory.java`
-#### Snippet
-```java
-class SQLServerAeadAes256CbcHmac256Factory extends SQLServerEncryptionAlgorithmFactory {
-    // In future we can have more
-    private byte algorithmVersion = 0x1;
-    private ConcurrentHashMap<String, SQLServerAeadAes256CbcHmac256Algorithm> encryptionAlgorithms = new ConcurrentHashMap<>();
-
+    X509CertificateEntry(byte[] b) {
 ```
 
 ### FieldMayBeFinal
@@ -23176,6 +23164,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IdleConnectionResiliency.java`
 ```
 
 ### FieldMayBeFinal
+Field `algorithmVersion` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Factory.java`
+#### Snippet
+```java
+class SQLServerAeadAes256CbcHmac256Factory extends SQLServerEncryptionAlgorithmFactory {
+    // In future we can have more
+    private byte algorithmVersion = 0x1;
+    private ConcurrentHashMap<String, SQLServerAeadAes256CbcHmac256Algorithm> encryptionAlgorithms = new ConcurrentHashMap<>();
+
+```
+
+### FieldMayBeFinal
+Field `encryptionAlgorithms` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerAeadAes256CbcHmac256Factory.java`
+#### Snippet
+```java
+    // In future we can have more
+    private byte algorithmVersion = 0x1;
+    private ConcurrentHashMap<String, SQLServerAeadAes256CbcHmac256Algorithm> encryptionAlgorithms = new ConcurrentHashMap<>();
+
+    @Override
+```
+
+### FieldMayBeFinal
 Field `con` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.java`
 #### Snippet
@@ -23188,18 +23200,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSetMetaData.java`
 ```
 
 ### FieldMayBeFinal
-Field `initialHashmapSize` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/FailOverMapSingleton.java`
-#### Snippet
-```java
-
-final class FailoverMapSingleton {
-    private static int initialHashmapSize = 5;
-    private static HashMap<String, FailoverInfo> failoverMap = new HashMap<>(initialHashmapSize);
-    private static final Lock LOCK = new ReentrantLock();
-```
-
-### FieldMayBeFinal
 Field `failoverMap` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/FailOverMapSingleton.java`
 #### Snippet
@@ -23209,6 +23209,18 @@ final class FailoverMapSingleton {
     private static HashMap<String, FailoverInfo> failoverMap = new HashMap<>(initialHashmapSize);
     private static final Lock LOCK = new ReentrantLock();
 
+```
+
+### FieldMayBeFinal
+Field `initialHashmapSize` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/FailOverMapSingleton.java`
+#### Snippet
+```java
+
+final class FailoverMapSingleton {
+    private static int initialHashmapSize = 5;
+    private static HashMap<String, FailoverInfo> failoverMap = new HashMap<>(initialHashmapSize);
+    private static final Lock LOCK = new ReentrantLock();
 ```
 
 ### FieldMayBeFinal
@@ -23233,6 +23245,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDatabaseMetaData.java`
     private SQLServerConnection connection;
 
     static final String URL_PREFIX = "jdbc:sqlserver://";
+```
+
+### FieldMayBeFinal
+Field `cachedKeyClients` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
+#### Snippet
+```java
+    private static final byte[] firstVersion = new byte[] {0x01};
+
+    private Map<String, KeyClient> cachedKeyClients = new ConcurrentHashMap<>();
+    private Map<String, CryptographyClient> cachedCryptographyClients = new ConcurrentHashMap<>();
+    private TokenCredential credential;
+```
+
+### FieldMayBeFinal
+Field `cachedCryptographyClients` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
+#### Snippet
+```java
+
+    private Map<String, KeyClient> cachedKeyClients = new ConcurrentHashMap<>();
+    private Map<String, CryptographyClient> cachedCryptographyClients = new ConcurrentHashMap<>();
+    private TokenCredential credential;
+
 ```
 
 ### FieldMayBeFinal
@@ -23272,30 +23308,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/AE.java`
 ```
 
 ### FieldMayBeFinal
-Field `cachedCryptographyClients` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
-#### Snippet
-```java
-
-    private Map<String, KeyClient> cachedKeyClients = new ConcurrentHashMap<>();
-    private Map<String, CryptographyClient> cachedCryptographyClients = new ConcurrentHashMap<>();
-    private TokenCredential credential;
-
-```
-
-### FieldMayBeFinal
-Field `cachedKeyClients` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerColumnEncryptionAzureKeyVaultProvider.java`
-#### Snippet
-```java
-    private static final byte[] firstVersion = new byte[] {0x01};
-
-    private Map<String, KeyClient> cachedKeyClients = new ConcurrentHashMap<>();
-    private Map<String, CryptographyClient> cachedCryptographyClients = new ConcurrentHashMap<>();
-    private TokenCredential credential;
-```
-
-### FieldMayBeFinal
 Field `workstation` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/NTLMAuthentication.java`
 #### Snippet
@@ -23328,7 +23340,7 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
     /** TDS protocol diagnostics logger */
     private static Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.internals.TDS.TOKEN");
 
-    /*
+    final SQLServerError getDatabaseError() {
 ```
 
 ### FieldMayBeFinal
@@ -23340,19 +23352,7 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/tdsparser.java`
     /** TDS protocol diagnostics logger */
     private static Logger logger = Logger.getLogger("com.microsoft.sqlserver.jdbc.internals.TDS.TOKEN");
 
-    final SQLServerError getDatabaseError() {
-```
-
-### FieldMayBeFinal
-Field `informationType` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/SensitivityProperty.java`
-#### Snippet
-```java
-public class SensitivityProperty {
-    private Label label;
-    private InformationType informationType;
-    private int sensitivityRank;
-
+    /*
 ```
 
 ### FieldMayBeFinal
@@ -23368,13 +23368,13 @@ public class SensitivityProperty {
 ```
 
 ### FieldMayBeFinal
-Field `columnSensitivities` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/SensitivityClassification.java`
+Field `informationType` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/SensitivityProperty.java`
 #### Snippet
 ```java
-    private List<Label> labels;
-    private List<InformationType> informationTypes;
-    private List<ColumnSensitivity> columnSensitivities;
+public class SensitivityProperty {
+    private Label label;
+    private InformationType informationType;
     private int sensitivityRank;
 
 ```
@@ -23392,18 +23392,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/SensitivityCla
 ```
 
 ### FieldMayBeFinal
-Field `labels` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/SensitivityClassification.java`
-#### Snippet
-```java
-    }
-
-    private List<Label> labels;
-    private List<InformationType> informationTypes;
-    private List<ColumnSensitivity> columnSensitivities;
-```
-
-### FieldMayBeFinal
 Field `rank` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/SensitivityClassification.java`
 #### Snippet
@@ -23416,26 +23404,50 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/SensitivityCla
 ```
 
 ### FieldMayBeFinal
-Field `con` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
+Field `columnSensitivities` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/SensitivityClassification.java`
 #### Snippet
 ```java
+    private List<Label> labels;
+    private List<InformationType> informationTypes;
+    private List<ColumnSensitivity> columnSensitivities;
+    private int sensitivityRank;
 
-    private SQLServerConnection controlConnection;
-    private SQLServerConnection con; // original connection
-
-    private boolean serverInfoRetrieved;
 ```
 
 ### FieldMayBeFinal
-Field `controlConnection` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
+Field `labels` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/SensitivityClassification.java`
 #### Snippet
 ```java
-    final static int XA_INIT = 10;
+    }
 
-    private SQLServerConnection controlConnection;
-    private SQLServerConnection con; // original connection
+    private List<Label> labels;
+    private List<InformationType> informationTypes;
+    private List<ColumnSensitivity> columnSensitivities;
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/Label.java`
+#### Snippet
+```java
+public class Label {
+    private String name;
+    private String id;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/Label.java`
+#### Snippet
+```java
+ */
+public class Label {
+    private String name;
+    private String id;
 
 ```
 
@@ -23464,26 +23476,26 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
 ```
 
 ### FieldMayBeFinal
-Field `id` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/Label.java`
+Field `con` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
 #### Snippet
 ```java
-public class Label {
-    private String name;
-    private String id;
 
-    /**
+    private SQLServerConnection controlConnection;
+    private SQLServerConnection con; // original connection
+
+    private boolean serverInfoRetrieved;
 ```
 
 ### FieldMayBeFinal
-Field `name` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/Label.java`
+Field `controlConnection` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerXAResource.java`
 #### Snippet
 ```java
- */
-public class Label {
-    private String name;
-    private String id;
+    final static int XA_INIT = 10;
+
+    private SQLServerConnection controlConnection;
+    private SQLServerConnection con; // original connection
 
 ```
 
@@ -23560,6 +23572,18 @@ public class SQLServerDataSourceFactory implements DataSourceFactory {
 ```
 
 ### FieldMayBeFinal
+Field `fetchType` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+#### Snippet
+```java
+        private static final long serialVersionUID = 1L;
+        private final int serverCursorId;
+        private int fetchType;
+        private int startRow;
+        private int numRows;
+```
+
+### FieldMayBeFinal
 Field `numRows` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 #### Snippet
@@ -23584,15 +23608,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
 ```
 
 ### FieldMayBeFinal
-Field `fetchType` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerResultSet.java`
+Field `timeCreatedInSeconds` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
 #### Snippet
 ```java
-        private static final long serialVersionUID = 1L;
-        private final int serverCursorId;
-        private int fetchType;
-        private int startRow;
-        private int numRows;
+    private BaseAttestationRequest bar;
+    private EnclaveSession es;
+    private long timeCreatedInSeconds;
+
+    EnclaveCacheEntry(BaseAttestationRequest b, EnclaveSession e) {
 ```
 
 ### FieldMayBeFinal
@@ -23608,51 +23632,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
 ```
 
 ### FieldMayBeFinal
-Field `sessionCache` may be 'final'
+Field `sessionID` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
 #### Snippet
 ```java
 
-final class EnclaveSessionCache {
-    private ConcurrentHashMap<String, EnclaveCacheEntry> sessionCache;
-
-    EnclaveSessionCache() {
-```
-
-### FieldMayBeFinal
-Field `counter` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
-#### Snippet
-```java
 class EnclaveSession {
     private byte[] sessionID;
     private AtomicLong counter;
     private byte[] sessionSecret;
-
-```
-
-### FieldMayBeFinal
-Field `timeCreatedInSeconds` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
-#### Snippet
-```java
-    private BaseAttestationRequest bar;
-    private EnclaveSession es;
-    private long timeCreatedInSeconds;
-
-    EnclaveCacheEntry(BaseAttestationRequest b, EnclaveSession e) {
-```
-
-### FieldMayBeFinal
-Field `es` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
-#### Snippet
-```java
-
-    private BaseAttestationRequest bar;
-    private EnclaveSession es;
-    private long timeCreatedInSeconds;
-
 ```
 
 ### FieldMayBeFinal
@@ -23668,15 +23656,51 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
 ```
 
 ### FieldMayBeFinal
-Field `sessionID` may be 'final'
+Field `sessionCache` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
 #### Snippet
 ```java
 
+final class EnclaveSessionCache {
+    private ConcurrentHashMap<String, EnclaveCacheEntry> sessionCache;
+
+    EnclaveSessionCache() {
+```
+
+### FieldMayBeFinal
+Field `es` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
+#### Snippet
+```java
+
+    private BaseAttestationRequest bar;
+    private EnclaveSession es;
+    private long timeCreatedInSeconds;
+
+```
+
+### FieldMayBeFinal
+Field `counter` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/ISQLServerEnclaveProvider.java`
+#### Snippet
+```java
 class EnclaveSession {
     private byte[] sessionID;
     private AtomicLong counter;
     private byte[] sessionSecret;
+
+```
+
+### FieldMayBeFinal
+Field `map` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
+#### Snippet
+```java
+
+    /** map */
+    private Map<String, Integer> map = new ConcurrentHashMap<>();
+
+    /** atomic integer */
 ```
 
 ### FieldMayBeFinal
@@ -23704,18 +23728,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerFMTQuery.java`
 ```
 
 ### FieldMayBeFinal
-Field `tableTarget` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerFMTQuery.java`
-#### Snippet
-```java
-    private ArrayList<? extends Token> tokenList = null;
-    private List<String> userColumns = new ArrayList<>();
-    private List<String> tableTarget = new ArrayList<>();
-    private List<String> possibleAliases = new ArrayList<>();
-    private List<List<String>> valuesList = new ArrayList<>();
-```
-
-### FieldMayBeFinal
 Field `possibleAliases` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerFMTQuery.java`
 #### Snippet
@@ -23728,15 +23740,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerFMTQuery.java`
 ```
 
 ### FieldMayBeFinal
-Field `typeName` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
+Field `tableTarget` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerFMTQuery.java`
 #### Snippet
 ```java
-
-        private byte typeCode;
-        private String typeName;
-        private static final InternalSpatialDatatype[] VALUES = values();
-
+    private ArrayList<? extends Token> tokenList = null;
+    private List<String> userColumns = new ArrayList<>();
+    private List<String> tableTarget = new ArrayList<>();
+    private List<String> possibleAliases = new ArrayList<>();
+    private List<List<String>> valuesList = new ArrayList<>();
 ```
 
 ### FieldMayBeFinal
@@ -23752,6 +23764,18 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
 ```
 
 ### FieldMayBeFinal
+Field `typeName` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
+#### Snippet
+```java
+
+        private byte typeCode;
+        private String typeName;
+        private static final InternalSpatialDatatype[] VALUES = values();
+
+```
+
+### FieldMayBeFinal
 Field `typeCode` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
 #### Snippet
@@ -23761,66 +23785,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
         private byte typeCode;
         private String typeName;
         private static final InternalSpatialDatatype[] VALUES = values();
-```
-
-### FieldMayBeFinal
-Field `valueList` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkBatchInsertRecord.java`
-#### Snippet
-```java
-    private int batchParamIndex = -1;
-    private List<String> columnList;
-    private List<String> valueList;
-
-    /*
-```
-
-### FieldMayBeFinal
-Field `columnList` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkBatchInsertRecord.java`
-#### Snippet
-```java
-    private transient List<Parameter[]> batchParam;
-    private int batchParamIndex = -1;
-    private List<String> columnList;
-    private List<String> valueList;
-
-```
-
-### FieldMayBeFinal
-Field `batchParam` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkBatchInsertRecord.java`
-#### Snippet
-```java
-    private static final long serialVersionUID = -955998113956445541L;
-
-    private transient List<Parameter[]> batchParam;
-    private int batchParamIndex = -1;
-    private List<String> columnList;
-```
-
-### FieldMayBeFinal
-Field `map` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerCallableStatement.java`
-#### Snippet
-```java
-
-    /** map */
-    private Map<String, Integer> map = new ConcurrentHashMap<>();
-
-    /** atomic integer */
-```
-
-### FieldMayBeFinal
-Field `id` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/InformationType.java`
-#### Snippet
-```java
-public class InformationType {
-    private String name;
-    private String id;
-
-    /**
 ```
 
 ### FieldMayBeFinal
@@ -23836,6 +23800,18 @@ public class InformationType {
 ```
 
 ### FieldMayBeFinal
+Field `id` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/InformationType.java`
+#### Snippet
+```java
+public class InformationType {
+    private String name;
+    private String id;
+
+    /**
+```
+
+### FieldMayBeFinal
 Field `sensitivityProperties` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/dataclassification/ColumnSensitivity.java`
 #### Snippet
@@ -23848,15 +23824,39 @@ public class ColumnSensitivity {
 ```
 
 ### FieldMayBeFinal
-Field `connectionProps` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
+Field `valueList` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkBatchInsertRecord.java`
 #### Snippet
 ```java
-     * Properties passed to SQLServerConnection class
-     */
-    private Properties connectionProps;
+    private int batchParamIndex = -1;
+    private List<String> columnList;
+    private List<String> valueList;
 
-    /**
+    /*
+```
+
+### FieldMayBeFinal
+Field `batchParam` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkBatchInsertRecord.java`
+#### Snippet
+```java
+    private static final long serialVersionUID = -955998113956445541L;
+
+    private transient List<Parameter[]> batchParam;
+    private int batchParamIndex = -1;
+    private List<String> columnList;
+```
+
+### FieldMayBeFinal
+Field `columnList` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkBatchInsertRecord.java`
+#### Snippet
+```java
+    private transient List<Parameter[]> batchParam;
+    private int batchParamIndex = -1;
+    private List<String> columnList;
+    private List<String> valueList;
+
 ```
 
 ### FieldMayBeFinal
@@ -23872,30 +23872,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerJdbc43.java`
 ```
 
 ### FieldMayBeFinal
-Field `sqlTextCacheKey` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-
-    /** Hash of user supplied SQL statement used for various cache lookups */
-    private CityHash128Key sqlTextCacheKey;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `cryptoMetaBatch` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
-#### Snippet
-```java
-     * crypto meta batch
-     */
-    private Vector<CryptoMetadata> cryptoMetaBatch = new Vector<>();
-
-    /**
-```
-
-### FieldMayBeFinal
 Field `activityIdTlsMap` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/ActivityCorrelator.java`
 #### Snippet
@@ -23908,27 +23884,15 @@ final class ActivityCorrelator {
 ```
 
 ### FieldMayBeFinal
-Field `encryptionAlgoFactoryMap` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerEncryptionAlgorithmFactoryList.java`
+Field `connectionProps` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerDataSource.java`
 #### Snippet
 ```java
-final class SQLServerEncryptionAlgorithmFactoryList {
+     * Properties passed to SQLServerConnection class
+     */
+    private Properties connectionProps;
 
-    private ConcurrentHashMap<String, SQLServerEncryptionAlgorithmFactory> encryptionAlgoFactoryMap;
-
-    private static final SQLServerEncryptionAlgorithmFactoryList instance = new SQLServerEncryptionAlgorithmFactoryList();
-```
-
-### FieldMayBeFinal
-Field `typeInfo` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
-#### Snippet
-```java
-
-final class Column {
-    private TypeInfo typeInfo;
-    private CryptoMetadata cryptoMetadata;
-    private SqlVariant internalVariant;
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -23944,6 +23908,54 @@ final class Column {
 ```
 
 ### FieldMayBeFinal
+Field `typeInfo` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/Column.java`
+#### Snippet
+```java
+
+final class Column {
+    private TypeInfo typeInfo;
+    private CryptoMetadata cryptoMetadata;
+    private SqlVariant internalVariant;
+```
+
+### FieldMayBeFinal
+Field `encryptionAlgoFactoryMap` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerEncryptionAlgorithmFactoryList.java`
+#### Snippet
+```java
+final class SQLServerEncryptionAlgorithmFactoryList {
+
+    private ConcurrentHashMap<String, SQLServerEncryptionAlgorithmFactory> encryptionAlgoFactoryMap;
+
+    private static final SQLServerEncryptionAlgorithmFactoryList instance = new SQLServerEncryptionAlgorithmFactoryList();
+```
+
+### FieldMayBeFinal
+Field `cryptoMetaBatch` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+     * crypto meta batch
+     */
+    private Vector<CryptoMetadata> cryptoMetaBatch = new Vector<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `sqlTextCacheKey` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerPreparedStatement.java`
+#### Snippet
+```java
+
+    /** Hash of user supplied SQL statement used for various cache lookups */
+    private CityHash128Key sqlTextCacheKey;
+
+    /**
+```
+
+### FieldMayBeFinal
 Field `sr` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCSVFileRecord.java`
 #### Snippet
@@ -23956,15 +23968,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerBulkCSVFileRecord.java`
 ```
 
 ### FieldMayBeFinal
-Field `packetLogger` may be 'final'
+Field `valueBytes` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
+    // (byte, int, long, etc.) and Strings from their native form to bytes for sending to
+    // the channel buffers.
+    private byte[] valueBytes = new byte[256];
 
-    /** TDS packet payload logger */
-    private static Logger packetLogger = Logger.getLogger("com.microsoft.sqlserver.jdbc.internals.TDS.DATA");
-    private final boolean isLoggingPackets = packetLogger.isLoggable(Level.FINEST);
-
+    // Monotonically increasing packet number associated with the current message
 ```
 
 ### FieldMayBeFinal
@@ -23992,15 +24004,15 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 ```
 
 ### FieldMayBeFinal
-Field `valueBytes` may be 'final'
+Field `packetLogger` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/IOBuffer.java`
 #### Snippet
 ```java
-    // (byte, int, long, etc.) and Strings from their native form to bytes for sending to
-    // the channel buffers.
-    private byte[] valueBytes = new byte[256];
 
-    // Monotonically increasing packet number associated with the current message
+    /** TDS packet payload logger */
+    private static Logger packetLogger = Logger.getLogger("com.microsoft.sqlserver.jdbc.internals.TDS.DATA");
+    private final boolean isLoggingPackets = packetLogger.isLoggable(Level.FINEST);
+
 ```
 
 ### FieldMayBeFinal
@@ -24016,30 +24028,6 @@ final class TDSWriter {
 ```
 
 ### FieldMayBeFinal
-Field `sessionRecovery` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-    /** Session Recovery Object */
-    private transient IdleConnectionResiliency sessionRecovery = new IdleConnectionResiliency(this);
-
-    IdleConnectionResiliency getSessionRecovery() {
-```
-
-### FieldMayBeFinal
-Field `key` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        private volatile boolean evictedFromCache;
-        private volatile boolean explicitlyDiscarded;
-        private CityHash128Key key;
-
-        PreparedStatementHandle(CityHash128Key key, int handle, boolean isDirectSql, boolean isEvictedFromCache) {
-```
-
-### FieldMayBeFinal
 Field `segments` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
@@ -24049,66 +24037,6 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
         private long[] segments;
         private int hashCode;
 
-```
-
-### FieldMayBeFinal
-Field `loggingClassNameBase` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-            .getLogger("com.microsoft.sqlserver.jdbc.Connection");
-
-    private static String loggingClassNameBase = "com.microsoft.sqlserver.jdbc.SQLServerConnection";
-
-    /** Instance-specific loggingClassName to identity the connection in logs */
-```
-
-### FieldMayBeFinal
-Field `columnEncryptionTrustedMasterKeyPaths` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-    /** trusted servername AE */
-    private String trustedServerNameAE = null;
-    private static Map<String, List<String>> columnEncryptionTrustedMasterKeyPaths = new HashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `discardedPreparedStatementHandleCount` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-    /** discardedPreparedStatementHandle count */
-    private AtomicInteger discardedPreparedStatementHandleCount = new AtomicInteger(0);
-
-    /** fedAuth required by user flag */
-```
-
-### FieldMayBeFinal
-Field `parsedSQLCache` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-    /** Cache of parsed SQL meta data */
-    static private ConcurrentLinkedHashMap<CityHash128Key, ParsedSQLCacheItem> parsedSQLCache;
-
-    static {
-```
-
-### FieldMayBeFinal
-Field `isDirectSql` may be 'final'
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-        private int handle = 0;
-        private final AtomicInteger handleRefCount = new AtomicInteger();
-        private boolean isDirectSql;
-        private volatile boolean evictedFromCache;
-        private volatile boolean explicitlyDiscarded;
 ```
 
 ### FieldMayBeFinal
@@ -24124,6 +24052,30 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 ```
 
 ### FieldMayBeFinal
+Field `parsedSQLCache` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+
+    /** Cache of parsed SQL meta data */
+    static private ConcurrentLinkedHashMap<CityHash128Key, ParsedSQLCacheItem> parsedSQLCache;
+
+    static {
+```
+
+### FieldMayBeFinal
+Field `discardedPreparedStatementHandleCount` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+
+    /** discardedPreparedStatementHandle count */
+    private AtomicInteger discardedPreparedStatementHandleCount = new AtomicInteger(0);
+
+    /** fedAuth required by user flag */
+```
+
+### FieldMayBeFinal
 Field `transactionDescriptor` may be 'final'
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 #### Snippet
@@ -24133,6 +24085,66 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
     private byte[] transactionDescriptor = new byte[8];
 
     /**
+```
+
+### FieldMayBeFinal
+Field `key` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        private volatile boolean evictedFromCache;
+        private volatile boolean explicitlyDiscarded;
+        private CityHash128Key key;
+
+        PreparedStatementHandle(CityHash128Key key, int handle, boolean isDirectSql, boolean isEvictedFromCache) {
+```
+
+### FieldMayBeFinal
+Field `loggingClassNameBase` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+            .getLogger("com.microsoft.sqlserver.jdbc.Connection");
+
+    private static String loggingClassNameBase = "com.microsoft.sqlserver.jdbc.SQLServerConnection";
+
+    /** Instance-specific loggingClassName to identity the connection in logs */
+```
+
+### FieldMayBeFinal
+Field `sessionRecovery` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+
+    /** Session Recovery Object */
+    private transient IdleConnectionResiliency sessionRecovery = new IdleConnectionResiliency(this);
+
+    IdleConnectionResiliency getSessionRecovery() {
+```
+
+### FieldMayBeFinal
+Field `columnEncryptionTrustedMasterKeyPaths` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+    /** trusted servername AE */
+    private String trustedServerNameAE = null;
+    private static Map<String, List<String>> columnEncryptionTrustedMasterKeyPaths = new HashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `isDirectSql` may be 'final'
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+        private int handle = 0;
+        private final AtomicInteger handleRefCount = new AtomicInteger();
+        private boolean isDirectSql;
+        private volatile boolean evictedFromCache;
+        private volatile boolean explicitlyDiscarded;
 ```
 
 ## RuleId[id=UnnecessaryContinue]
@@ -24165,59 +24177,59 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerStatement.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
 #### Snippet
 ```java
+                readComma();
+            } else if (wkt.charAt(currentWktPos) == ')') { // about to exit while loop
+                continue;
+            } else { // unexpected input
+                throwIllegalWKTPosition();
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
+#### Snippet
+```java
+                readComma();
+            } else if (wkt.charAt(currentWktPos) == ')') { // about to exit while loop
+                continue;
+            } else { // unexpected input
+                throwIllegalWKTPosition();
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
+#### Snippet
+```java
+                readComma();
+            } else if (wkt.charAt(currentWktPos) == ')') { // about to exit while loop
+                continue;
+            } else { // unexpected input
+                throwIllegalWKTPosition();
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
+#### Snippet
+```java
+                readComma();
+            } else if (wkt.charAt(currentWktPos) == ')') { // about to exit while loop
+                continue;
+            } else { // unexpected input
+                throwIllegalWKTPosition();
+```
+
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
+#### Snippet
+```java
                     if (shapes[tempCurrentShapeIndex].getFigureOffset() == -1) {
                         tempCurrentShapeIndex++;
                         continue;
                     } else {
                         figureEndIndex = shapes[tempCurrentShapeIndex].getFigureOffset();
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
-#### Snippet
-```java
-                readComma();
-            } else if (wkt.charAt(currentWktPos) == ')') { // about to exit while loop
-                continue;
-            } else { // unexpected input
-                throwIllegalWKTPosition();
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
-#### Snippet
-```java
-                readComma();
-            } else if (wkt.charAt(currentWktPos) == ')') { // about to exit while loop
-                continue;
-            } else { // unexpected input
-                throwIllegalWKTPosition();
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
-#### Snippet
-```java
-                readComma();
-            } else if (wkt.charAt(currentWktPos) == ')') { // about to exit while loop
-                continue;
-            } else { // unexpected input
-                throwIllegalWKTPosition();
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerSpatialDatatype.java`
-#### Snippet
-```java
-                readComma();
-            } else if (wkt.charAt(currentWktPos) == ')') { // about to exit while loop
-                continue;
-            } else { // unexpected input
-                throwIllegalWKTPosition();
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
@@ -24243,6 +24255,55 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/Util.java`
         byte[] guid = inputGUID;
 
         StringBuilder sb = new StringBuilder(guidTemplate.length());
+```
+
+## RuleId[id=BusyWait]
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `src/main/java/com/microsoft/sqlserver/jdbc/IdleConnectionResiliency.java`
+#### Snippet
+```java
+                        try {
+                            if (connectRetryCount > 1) {
+                                Thread.sleep((long) (con.getRetryInterval()) * 1000);
+                            }
+                        } catch (InterruptedException ie) {
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                }
+                try {
+                    Thread.sleep(sleepInterval);
+                } catch (InterruptedException e) {
+                    // re-interrupt the current thread, in order to restore the thread's interrupt status.
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+                        }
+                        try {
+                            Thread.sleep(TimeUnit.SECONDS.toMillis(connectRetryInterval));
+                        } catch (InterruptedException ex) {
+                            // re-interrupt the current thread, in order to restore the thread's interrupt status.
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
+#### Snippet
+```java
+
+                        try {
+                            Thread.sleep(sleepInterval);
+                        } catch (InterruptedException e1) {
+                            // re-interrupt the current thread, in order to restore the thread's interrupt status.
 ```
 
 ## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
@@ -24655,55 +24716,6 @@ in `src/main/java/mssql/security/provider/MD4.java`
 
 ```
 
-## RuleId[id=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `src/main/java/com/microsoft/sqlserver/jdbc/IdleConnectionResiliency.java`
-#### Snippet
-```java
-                        try {
-                            if (connectRetryCount > 1) {
-                                Thread.sleep((long) (con.getRetryInterval()) * 1000);
-                            }
-                        } catch (InterruptedException ie) {
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                        }
-                        try {
-                            Thread.sleep(TimeUnit.SECONDS.toMillis(connectRetryInterval));
-                        } catch (InterruptedException ex) {
-                            // re-interrupt the current thread, in order to restore the thread's interrupt status.
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-
-                        try {
-                            Thread.sleep(sleepInterval);
-                        } catch (InterruptedException e1) {
-                            // re-interrupt the current thread, in order to restore the thread's interrupt status.
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
-#### Snippet
-```java
-                }
-                try {
-                    Thread.sleep(sleepInterval);
-                } catch (InterruptedException e) {
-                    // re-interrupt the current thread, in order to restore the thread's interrupt status.
-```
-
 ## RuleId[id=ArraysAsListWithZeroOrOneArgument]
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
@@ -24760,11 +24772,23 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/SQLServerConnection.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
 #### Snippet
 ```java
-            return "";
+        // Convert to unscaled integer value, then compare with maxRPCDecimalValue.
+        // NOTE: Handle negative scale as a special case for JDK 1.5 and later VMs.
+        BigInteger bi = (bigDecimalValue.scale() < 0) ? bigDecimalValue.setScale(0).unscaledValue()
+                                                      : bigDecimalValue.unscaledValue();
+        if (bigDecimalValue.signum() < 0)
+```
 
-        return java.math.BigDecimal.valueOf(subSecondNanos % Nanos.PER_SECOND, 9).setScale(scale).toPlainString()
-                .substring(1);
-    }
+### BigDecimalMethodWithoutRoundingCalled
+'BigDecimal.setScale()' called without a rounding mode argument
+in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
+#### Snippet
+```java
+        boolean isNeg = value.signum() < 0;
+
+        value = value.setScale(scale);
+
+        BigInteger bigInt = value.unscaledValue();
 ```
 
 ### BigDecimalMethodWithoutRoundingCalled
@@ -24784,23 +24808,11 @@ in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
 in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
 #### Snippet
 ```java
-        // Convert to unscaled integer value, then compare with maxRPCDecimalValue.
-        // NOTE: Handle negative scale as a special case for JDK 1.5 and later VMs.
-        BigInteger bi = (bigDecimalValue.scale() < 0) ? bigDecimalValue.setScale(0).unscaledValue()
-                                                      : bigDecimalValue.unscaledValue();
-        if (bigDecimalValue.signum() < 0)
-```
+            return "";
 
-### BigDecimalMethodWithoutRoundingCalled
-'BigDecimal.setScale()' called without a rounding mode argument
-in `src/main/java/com/microsoft/sqlserver/jdbc/DDC.java`
-#### Snippet
-```java
-        boolean isNeg = value.signum() < 0;
-
-        value = value.setScale(scale);
-
-        BigInteger bigInt = value.unscaledValue();
+        return java.math.BigDecimal.valueOf(subSecondNanos % Nanos.PER_SECOND, 9).setScale(scale).toPlainString()
+                .substring(1);
+    }
 ```
 
 ### BigDecimalMethodWithoutRoundingCalled
