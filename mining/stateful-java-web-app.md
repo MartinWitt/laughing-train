@@ -47,6 +47,31 @@ in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
         buffer = new StringBuffer();
 ```
 
+## RuleId[id=WrongPackageStatement]
+### WrongPackageStatement
+Package name 'com.microsoft.webapp.samples' does not correspond to the file path 'main.java.com.microsoft.webapp.samples'
+in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
+#### Snippet
+```java
+ */
+
+package com.microsoft.webapp.samples;
+
+import java.io.IOException;
+```
+
+### WrongPackageStatement
+Package name 'com.microsoft.webapp.samples' does not correspond to the file path 'main.java.com.microsoft.webapp.samples'
+in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
+#### Snippet
+```java
+ */
+
+package com.microsoft.webapp.samples;
+
+import java.io.IOException;
+```
+
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
 `@throws` tag description is missing
@@ -82,31 +107,6 @@ in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
      * @throws ServletException
      */
     public void init(ServletConfig config) throws ServletException {
-```
-
-## RuleId[id=WrongPackageStatement]
-### WrongPackageStatement
-Package name 'com.microsoft.webapp.samples' does not correspond to the file path 'main.java.com.microsoft.webapp.samples'
-in `src/main/java/com/microsoft/webapp/samples/PageVisits.java`
-#### Snippet
-```java
- */
-
-package com.microsoft.webapp.samples;
-
-import java.io.IOException;
-```
-
-### WrongPackageStatement
-Package name 'com.microsoft.webapp.samples' does not correspond to the file path 'main.java.com.microsoft.webapp.samples'
-in `src/main/java/com/microsoft/webapp/samples/TrackerServlet.java`
-#### Snippet
-```java
- */
-
-package com.microsoft.webapp.samples;
-
-import java.io.IOException;
 ```
 
 ## RuleId[id=WebProperties]
