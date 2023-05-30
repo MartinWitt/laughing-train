@@ -77,11 +77,11 @@ Javadoc pointing to itself
 in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
-     * number of idle instances in the pool. When negative, the number of tests
-     * performed will be <code>ceil({@link #getNumIdle}/
-     * abs({@link #getNumTestsPerEvictionRun}))</code> which means that when the
-     * value is {@code -n} roughly one nth of the idle objects will be
-     * tested per run.
+     * {@link #getMinEvictableIdleTimeMillis} (that is, if
+     * {@link #getMinEvictableIdleTimeMillis} is positive, then
+     * {@link #getSoftMinEvictableIdleTimeMillis} is ignored).
+     *
+     * @return minimum amount of time an object may sit idle in the pool before
 ```
 
 ### JavadocDeclaration
@@ -101,23 +101,11 @@ Javadoc pointing to itself
 in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
-     * {@link #getMinEvictableIdleTimeMillis} (that is, if
-     * {@link #getMinEvictableIdleTimeMillis} is positive, then
-     * {@link #getSoftMinEvictableIdleTimeMillis} is ignored).
-     *
-     * @return minimum amount of time an object may sit idle in the pool before
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
-#### Snippet
-```java
-     * De-register the use of a key by an object.
-     * <p>
-     * {@link #register(Object)} and {@link #deregister(Object)} must always be used as a pair.
-     * </p>
-     *
+     * number of idle instances in the pool. When negative, the number of tests
+     * performed will be <code>ceil({@link #getNumIdle}/
+     * abs({@link #getNumTestsPerEvictionRun}))</code> which means that when the
+     * value is {@code -n} roughly one nth of the idle objects will be
+     * tested per run.
 ```
 
 ### JavadocDeclaration
@@ -132,7 +120,43 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
      *
 ```
 
+### JavadocDeclaration
+Javadoc pointing to itself
+in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
+#### Snippet
+```java
+     * De-register the use of a key by an object.
+     * <p>
+     * {@link #register(Object)} and {@link #deregister(Object)} must always be used as a pair.
+     * </p>
+     *
+```
+
 ## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'getLastUsed' is still used
+in `src/main/java/org/apache/commons/pool2/TrackedUse.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    long getLastUsed();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getIdleEvictTime' is still used
+in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public long getIdleEvictTime() {
+        return idleEvictDuration.toMillis();
+    }
+```
+
 ### DeprecatedIsStillUsed
 Deprecated member 'getIdleSoftEvictTimeDuration' is still used
 in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
@@ -170,25 +194,97 @@ in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getIdleEvictTime' is still used
-in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
+Deprecated member 'setRemoveAbandonedTimeout' is still used
+in `src/main/java/org/apache/commons/pool2/impl/AbandonedConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public long getIdleEvictTime() {
-        return idleEvictDuration.toMillis();
+    public void setRemoveAbandonedTimeout(final int removeAbandonedTimeoutSeconds) {
+        setRemoveAbandonedTimeout(Duration.ofSeconds(removeAbandonedTimeoutSeconds));
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getLastUsed' is still used
-in `src/main/java/org/apache/commons/pool2/TrackedUse.java`
+Deprecated member 'getCreateTime' is still used
+in `src/main/java/org/apache/commons/pool2/PooledObject.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    long getLastUsed();
+    long getCreateTime();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/pool2/PooledObject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    long getIdleTimeMillis();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getLastBorrowTime' is still used
+in `src/main/java/org/apache/commons/pool2/PooledObject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    long getLastBorrowTime();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getLastUsedTime' is still used
+in `src/main/java/org/apache/commons/pool2/PooledObject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    long getLastUsedTime();
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getIdleTime' is still used
+in `src/main/java/org/apache/commons/pool2/PooledObject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    default Duration getIdleTime() {
+        return Duration.ofMillis(getIdleTimeMillis());
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getRemoveAbandonedTimeout' is still used
+in `src/main/java/org/apache/commons/pool2/impl/AbandonedConfig.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public int getRemoveAbandonedTimeout() {
+        return (int) this.removeAbandonedTimeoutDuration.getSeconds();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getLastReturnTime' is still used
+in `src/main/java/org/apache/commons/pool2/PooledObject.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    long getLastReturnTime();
 
     /**
 ```
@@ -218,75 +314,15 @@ in `src/main/java/org/apache/commons/pool2/PooledObject.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getIdleTime' is still used
-in `src/main/java/org/apache/commons/pool2/PooledObject.java`
+Deprecated member 'prefill' is still used
+in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    default Duration getIdleTime() {
-        return Duration.ofMillis(getIdleTimeMillis());
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getLastReturnTime' is still used
-in `src/main/java/org/apache/commons/pool2/PooledObject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    long getLastReturnTime();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getLastUsedTime' is still used
-in `src/main/java/org/apache/commons/pool2/PooledObject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    long getLastUsedTime();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/pool2/PooledObject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    long getIdleTimeMillis();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getCreateTime' is still used
-in `src/main/java/org/apache/commons/pool2/PooledObject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    long getCreateTime();
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getLastBorrowTime' is still used
-in `src/main/java/org/apache/commons/pool2/PooledObject.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    long getLastBorrowTime();
-
-    /**
+    public static <T, E extends Exception> void prefill(final ObjectPool<T, E> pool, final int count)
+            throws E, IllegalArgumentException {
+        if (pool == null) {
 ```
 
 ### DeprecatedIsStillUsed
@@ -308,45 +344,21 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
 ```java
      */
     @Deprecated
-    public static <T, E extends Exception> void prefill(final ObjectPool<T, E> pool, final int count)
-            throws E, IllegalArgumentException {
-        if (pool == null) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'prefill' is still used
-in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
-#### Snippet
-```java
-     */
-    @Deprecated
     public static <K, V, E extends Exception> void prefill(final KeyedObjectPool<K, V, E> keyedPool,
             final Collection<K> keys, final int count) throws E,
             IllegalArgumentException {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setRemoveAbandonedTimeout' is still used
-in `src/main/java/org/apache/commons/pool2/impl/AbandonedConfig.java`
+Deprecated member 'DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public void setRemoveAbandonedTimeout(final int removeAbandonedTimeoutSeconds) {
-        setRemoveAbandonedTimeout(Duration.ofSeconds(removeAbandonedTimeoutSeconds));
-    }
-```
+    public static final Duration DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME =
+            Duration.ofMillis(DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS);
 
-### DeprecatedIsStillUsed
-Deprecated member 'getRemoveAbandonedTimeout' is still used
-in `src/main/java/org/apache/commons/pool2/impl/AbandonedConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public int getRemoveAbandonedTimeout() {
-        return (int) this.removeAbandonedTimeoutDuration.getSeconds();
-    }
 ```
 
 ### DeprecatedIsStillUsed
@@ -362,37 +374,13 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setMinEvictableIdleTimeMillis' is still used
+Deprecated member 'DEFAULT_MAX_WAIT_MILLIS' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public void setMinEvictableIdleTimeMillis(final long minEvictableIdleTimeMillis) {
-        this.minEvictableIdleDuration = Duration.ofMillis(minEvictableIdleTimeMillis);
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getMinEvictableIdleTime' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Duration getMinEvictableIdleTime() {
-        return minEvictableIdleDuration;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final long DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS = -1;
+    public static final long DEFAULT_MAX_WAIT_MILLIS = -1L;
 
     /**
 ```
@@ -410,63 +398,15 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DEFAULT_MIN_EVICTABLE_IDLE_TIME' is still used
+Deprecated member 'DEFAULT_TIME_BETWEEN_EVICTION_RUNS_MILLIS' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final Duration DEFAULT_MIN_EVICTABLE_IDLE_TIME =
-            Duration.ofMillis(DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS);
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getEvictorShutdownTimeout' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public Duration getEvictorShutdownTimeout() {
-        return evictorShutdownTimeoutDuration;
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getMaxWaitMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public long getMaxWaitMillis() {
-        return maxWaitDuration.toMillis();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEFAULT_EVICTOR_SHUTDOWN_TIMEOUT_MILLIS' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final long DEFAULT_EVICTOR_SHUTDOWN_TIMEOUT_MILLIS = 10L * 1000L;
+    public static final long DEFAULT_TIME_BETWEEN_EVICTION_RUNS_MILLIS = -1L;
 
     /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public static final Duration DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME =
-            Duration.ofMillis(DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS);
-
 ```
 
 ### DeprecatedIsStillUsed
@@ -482,38 +422,50 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DEFAULT_MAX_WAIT_MILLIS' is still used
+Deprecated member 'DEFAULT_MIN_EVICTABLE_IDLE_TIME' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final long DEFAULT_MAX_WAIT_MILLIS = -1L;
+    public static final Duration DEFAULT_MIN_EVICTABLE_IDLE_TIME =
+            Duration.ofMillis(DEFAULT_MIN_EVICTABLE_IDLE_TIME_MILLIS);
 
-    /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getTimeBetweenEvictionRunsMillis' is still used
+Deprecated member 'getMaxWaitMillis' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public long getTimeBetweenEvictionRunsMillis() {
-        return durationBetweenEvictionRuns.toMillis();
+    public long getMaxWaitMillis() {
+        return maxWaitDuration.toMillis();
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getEvictorShutdownTimeoutMillis' is still used
+Deprecated member 'getMinEvictableIdleTime' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public long getEvictorShutdownTimeoutMillis() {
-        return evictorShutdownTimeoutDuration.toMillis();
+    public Duration getMinEvictableIdleTime() {
+        return minEvictableIdleDuration;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final void setMinEvictableIdleTimeMillis(final long minEvictableIdleTimeMillis) {
+        setMinEvictableIdleTime(Duration.ofMillis(minEvictableIdleTimeMillis));
     }
 ```
 
@@ -530,37 +482,25 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setTimeBetweenEvictionRunsMillis' is still used
+Deprecated member 'getTimeBetweenEvictionRunsMillis' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
-        setTimeBetweenEvictionRuns(Duration.ofMillis(timeBetweenEvictionRunsMillis));
+    public final long getTimeBetweenEvictionRunsMillis() {
+        return durationBetweenEvictionRuns.toMillis();
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'DEFAULT_TIME_BETWEEN_EVICTION_RUNS_MILLIS' is still used
+Deprecated member 'getEvictorShutdownTimeout' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public static final long DEFAULT_TIME_BETWEEN_EVICTION_RUNS_MILLIS = -1L;
-
-    /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getEvictorShutdownTimeout' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final Duration getEvictorShutdownTimeout() {
+    public Duration getEvictorShutdownTimeout() {
         return evictorShutdownTimeoutDuration;
     }
 ```
@@ -578,74 +518,62 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getTimeBetweenEvictionRunsMillis' is still used
+Deprecated member 'DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public static final long DEFAULT_SOFT_MIN_EVICTABLE_IDLE_TIME_MILLIS = -1;
+
+    /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getEvictorShutdownTimeout' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final long getTimeBetweenEvictionRunsMillis() {
-        return durationBetweenEvictionRuns.toMillis();
+    public final Duration getEvictorShutdownTimeout() {
+        return evictorShutdownTimeoutDuration;
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setMinEvictableIdleTime' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+Deprecated member 'getEvictorShutdownTimeoutMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final void setMinEvictableIdleTime(final Duration minEvictableIdleTime) {
-        this.minEvictableIdleDuration = PoolImplUtils.nonNull(minEvictableIdleTime, BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION);
+    public long getEvictorShutdownTimeoutMillis() {
+        return evictorShutdownTimeoutDuration.toMillis();
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setSoftMinEvictableIdleTimeMillis' is still used
+Deprecated member 'getEvictorShutdownTimeoutMillis' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final void setSoftMinEvictableIdleTimeMillis(final long softMinEvictableIdleTimeMillis) {
-        setSoftMinEvictableIdleTime(Duration.ofMillis(softMinEvictableIdleTimeMillis));
+    public final long getEvictorShutdownTimeoutMillis() {
+        return evictorShutdownTimeoutDuration.toMillis();
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+Deprecated member 'setMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final long getMinEvictableIdleTimeMillis() {
-        return minEvictableIdleDuration.toMillis();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getRemoveAbandonedTimeout' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public int getRemoveAbandonedTimeout() {
-        return (int) getRemoveAbandonedTimeoutDuration().getSeconds();
-    }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'getSoftMinEvictableIdleTime' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-     */
-    @Deprecated
-    public final Duration getSoftMinEvictableIdleTime() {
-        return softMinEvictableIdleDuration;
+    public void setMinEvictableIdleTimeMillis(final long minEvictableIdleTimeMillis) {
+        this.minEvictableIdleDuration = Duration.ofMillis(minEvictableIdleTimeMillis);
     }
 ```
 
@@ -662,50 +590,50 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'setMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+Deprecated member 'getTimeBetweenEvictionRunsMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final void setMinEvictableIdleTimeMillis(final long minEvictableIdleTimeMillis) {
-        setMinEvictableIdleTime(Duration.ofMillis(minEvictableIdleTimeMillis));
+    public long getTimeBetweenEvictionRunsMillis() {
+        return durationBetweenEvictionRuns.toMillis();
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getMinEvictableIdleTime' is still used
+Deprecated member 'getMinEvictableIdleTimeMillis' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final Duration getMinEvictableIdleTime() {
-        return minEvictableIdleDuration;
+    public final long getMinEvictableIdleTimeMillis() {
+        return minEvictableIdleDuration.toMillis();
     }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getSoftMinEvictableIdleTimeMillis' is still used
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+Deprecated member 'DEFAULT_EVICTOR_SHUTDOWN_TIMEOUT_MILLIS' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseObjectPoolConfig.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final long getSoftMinEvictableIdleTimeMillis() {
-        return softMinEvictableIdleDuration.toMillis();
-    }
+    public static final long DEFAULT_EVICTOR_SHUTDOWN_TIMEOUT_MILLIS = 10L * 1000L;
+
+    /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getEvictorShutdownTimeoutMillis' is still used
+Deprecated member 'setSoftMinEvictableIdleTimeMillis' is still used
 in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
      */
     @Deprecated
-    public final long getEvictorShutdownTimeoutMillis() {
-        return evictorShutdownTimeoutDuration.toMillis();
+    public final void setSoftMinEvictableIdleTimeMillis(final long softMinEvictableIdleTimeMillis) {
+        setSoftMinEvictableIdleTime(Duration.ofMillis(softMinEvictableIdleTimeMillis));
     }
 ```
 
@@ -730,6 +658,78 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
     @Deprecated
     public final long getMaxWaitMillis() {
         return maxWaitDuration.toMillis();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getSoftMinEvictableIdleTimeMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final long getSoftMinEvictableIdleTimeMillis() {
+        return softMinEvictableIdleDuration.toMillis();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setMinEvictableIdleTime' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final void setMinEvictableIdleTime(final Duration minEvictableIdleTime) {
+        this.minEvictableIdleDuration = PoolImplUtils.nonNull(minEvictableIdleTime, BaseObjectPoolConfig.DEFAULT_MIN_EVICTABLE_IDLE_DURATION);
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getSoftMinEvictableIdleTime' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final Duration getSoftMinEvictableIdleTime() {
+        return softMinEvictableIdleDuration;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getMinEvictableIdleTime' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final Duration getMinEvictableIdleTime() {
+        return minEvictableIdleDuration;
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getRemoveAbandonedTimeout' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public int getRemoveAbandonedTimeout() {
+        return (int) getRemoveAbandonedTimeoutDuration().getSeconds();
+    }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setTimeBetweenEvictionRunsMillis' is still used
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
+#### Snippet
+```java
+     */
+    @Deprecated
+    public final void setTimeBetweenEvictionRunsMillis(final long timeBetweenEvictionRunsMillis) {
+        setTimeBetweenEvictionRuns(Duration.ofMillis(timeBetweenEvictionRunsMillis));
     }
 ```
 
@@ -785,18 +785,6 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `pooledObject`
-in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
-#### Snippet
-```java
-        final ArrayList<PooledObject<T>> remove = new ArrayList<>();
-        allObjects.values().forEach(pooledObject -> {
-            synchronized (pooledObject) {
-                if (pooledObject.getState() == PooledObjectState.ALLOCATED &&
-                        pooledObject.getLastUsedInstant().compareTo(timeout) <= 0) {
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on method parameter `pooledObject`
 in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
@@ -809,15 +797,15 @@ in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `p`
-in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
+Synchronization on local variable `pooledObject`
+in `src/main/java/org/apache/commons/pool2/impl/BaseGenericObjectPool.java`
 #### Snippet
 ```java
-            throw new IllegalStateException(appendStats("Object not currently part of this pool"));
-        }
-        synchronized (p) {
-            if (p.getState() != PooledObjectState.INVALID) {
-                destroy(key, p, true, destroyMode);
+        final ArrayList<PooledObject<T>> remove = new ArrayList<>();
+        allObjects.values().forEach(pooledObject -> {
+            synchronized (pooledObject) {
+                if (pooledObject.getState() == PooledObjectState.ALLOCATED &&
+                        pooledObject.getLastUsedInstant().compareTo(timeout) <= 0) {
 ```
 
 ### SynchronizationOnLocalVariableOrMethodParameter
@@ -830,6 +818,18 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
             synchronized (toDestroy) {
                 // Check idle state directly
                 isIdle = toDestroy.getState().equals(PooledObjectState.IDLE);
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `p`
+in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
+#### Snippet
+```java
+            throw new IllegalStateException(appendStats("Object not currently part of this pool"));
+        }
+        synchronized (p) {
+            if (p.getState() != PooledObjectState.INVALID) {
+                destroy(key, p, true, destroyMode);
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -945,11 +945,11 @@ in `src/main/java/org/apache/commons/pool2/impl/SoftReferenceObjectPool.java`
 in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
 #### Snippet
 ```java
-                // Significant API changes would be required to propagate this
-            }
-            executor.setCorePoolSize(0);
-            executor = null;
-        }
+                if (TASK_MAP.isEmpty() && executor != null) {
+                    executor.shutdown();
+                    executor.setCorePoolSize(0);
+                    executor = null;
+                }
 ```
 
 ### ScheduledThreadPoolExecutorWithZeroCoreThreads
@@ -957,11 +957,11 @@ in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
 in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
 #### Snippet
 ```java
-                if (TASK_MAP.isEmpty() && executor != null) {
-                    executor.shutdown();
-                    executor.setCorePoolSize(0);
-                    executor = null;
-                }
+                // Significant API changes would be required to propagate this
+            }
+            executor.setCorePoolSize(0);
+            executor = null;
+        }
 ```
 
 ## RuleId[id=Deprecation]
@@ -992,18 +992,6 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/proxy/BaseProxyHandler.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getClass().getName());
-        builder.append(" [pooledObject=");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder builder` can be replaced with 'String'
 in `src/main/java/org/apache/commons/pool2/proxy/ProxiedObjectPool.java`
 #### Snippet
 ```java
@@ -1011,30 +999,6 @@ in `src/main/java/org/apache/commons/pool2/proxy/ProxiedObjectPool.java`
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append("ProxiedObjectPool [pool=");
-        builder.append(pool);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/proxy/CglibProxySource.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("CglibProxySource [superclass=");
-        builder.append(superclass);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/proxy/ProxiedKeyedObjectPool.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("ProxiedKeyedObjectPool [pool=");
         builder.append(pool);
 ```
 
@@ -1052,14 +1016,26 @@ in `src/main/java/org/apache/commons/pool2/proxy/JdkProxySource.java`
 
 ### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
+in `src/main/java/org/apache/commons/pool2/proxy/CglibProxySource.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("EvictionConfig [idleEvictDuration=");
-        builder.append(idleEvictDuration);
+        builder.append("CglibProxySource [superclass=");
+        builder.append(superclass);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder builder` can be replaced with 'String'
+in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("EvictionTimer []");
+        return builder.toString();
 ```
 
 ### StringBufferReplaceableByString
@@ -1076,26 +1052,50 @@ in `src/main/java/org/apache/commons/pool2/impl/DefaultPooledObjectInfo.java`
 
 ### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/impl/EvictionTimer.java`
+in `src/main/java/org/apache/commons/pool2/proxy/BaseProxyHandler.java`
 #### Snippet
 ```java
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("EvictionTimer []");
-        return builder.toString();
+        builder.append(getClass().getName());
+        builder.append(" [pooledObject=");
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
+`StringBuilder builder` can be replaced with 'String'
+in `src/main/java/org/apache/commons/pool2/impl/EvictionConfig.java`
 #### Snippet
 ```java
-        @Override
-        public String toString() {
-            final StringBuilder sb = new StringBuilder();
-            sb.append("SynchronizedObjectPool");
-            sb.append("{pool=").append(pool);
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("EvictionConfig [idleEvictDuration=");
+        builder.append(idleEvictDuration);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder builder` can be replaced with 'String'
+in `src/main/java/org/apache/commons/pool2/proxy/ProxiedKeyedObjectPool.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("ProxiedKeyedObjectPool [pool=");
+        builder.append(pool);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder builder` can be replaced with 'String'
+in `src/main/java/org/apache/commons/pool2/impl/AbandonedConfig.java`
+#### Snippet
+```java
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("AbandonedConfig [removeAbandonedOnBorrow=");
+        builder.append(removeAbandonedOnBorrow);
 ```
 
 ### StringBufferReplaceableByString
@@ -1118,8 +1118,8 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder();
-            sb.append("KeyedObjectPoolMinIdleTimerTask");
-            sb.append("{minIdle=").append(minIdle);
+            sb.append("SynchronizedObjectPool");
+            sb.append("{pool=").append(pool);
 ```
 
 ### StringBufferReplaceableByString
@@ -1154,20 +1154,20 @@ in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
         @Override
         public String toString() {
             final StringBuilder sb = new StringBuilder();
-            sb.append("SynchronizedKeyedPooledObjectFactory");
-            sb.append("{keyedFactory=").append(keyedFactory);
+            sb.append("KeyedObjectPoolMinIdleTimerTask");
+            sb.append("{minIdle=").append(minIdle);
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder builder` can be replaced with 'String'
-in `src/main/java/org/apache/commons/pool2/impl/AbandonedConfig.java`
+`StringBuilder sb` can be replaced with 'String'
+in `src/main/java/org/apache/commons/pool2/PoolUtils.java`
 #### Snippet
 ```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("AbandonedConfig [removeAbandonedOnBorrow=");
-        builder.append(removeAbandonedOnBorrow);
+        @Override
+        public String toString() {
+            final StringBuilder sb = new StringBuilder();
+            sb.append("SynchronizedKeyedPooledObjectFactory");
+            sb.append("{keyedFactory=").append(keyedFactory);
 ```
 
 ### StringBufferReplaceableByString
@@ -1220,15 +1220,15 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericObjectPool.java`
 ```
 
 ### UnusedAssignment
-Variable `p` initializer `null` is redundant
+Variable `objectDeque` initializer `null` is redundant
 in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
 #### Snippet
 ```java
-        }
-
-        PooledObject<T> p = null;
+    private ObjectDeque<T> register(final K k) {
+        Lock lock = keyLock.readLock();
+        ObjectDeque<T> objectDeque = null;
         try {
-            p = factory.makeObject(key);
+            lock.lock();
 ```
 
 ### UnusedAssignment
@@ -1244,15 +1244,15 @@ in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
 ```
 
 ### UnusedAssignment
-Variable `objectDeque` initializer `null` is redundant
+Variable `p` initializer `null` is redundant
 in `src/main/java/org/apache/commons/pool2/impl/GenericKeyedObjectPool.java`
 #### Snippet
 ```java
-    private ObjectDeque<T> register(final K k) {
-        Lock lock = keyLock.readLock();
-        ObjectDeque<T> objectDeque = null;
+        }
+
+        PooledObject<T> p = null;
         try {
-            lock.lock();
+            p = factory.makeObject(key);
 ```
 
 ## RuleId[id=NonAtomicOperationOnVolatileField]
