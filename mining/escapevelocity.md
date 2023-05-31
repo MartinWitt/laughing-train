@@ -14,6 +14,18 @@ I found 16 bad smells with 0 repairable:
 | JavaReflectionMemberAccess | 1 | false |
 ## RuleId[id=JavadocReference]
 ### JavadocReference
+Cannot resolve symbol `Reader`
+in `src/main/java/com/google/escapevelocity/ParseNode.java`
+#### Snippet
+```java
+ * Template}. If the string was seen before (in this evaluation, or an earlier evaluation) then the
+ * {@code Template} will be retrieved from the {@code parseCache}. Otherwise we will get a {@link
+ * Reader} from the {@link ResourceOpener} and parse its contents to produce a new {@code Template},
+ * which we will record in the {@code parseCache}. Either way, we will execute the nested {@code
+ * Template}, which means adding its macros to the {@link EvaluationContext} and evaluating it to
+```
+
+### JavadocReference
 Cannot resolve symbol `Method`
 in `src/main/java/com/google/escapevelocity/Template.java`
 #### Snippet
@@ -59,18 +71,6 @@ in `src/main/java/com/google/escapevelocity/Template.java`
    * so caching is useful. The main downside is that we may potentially hold on to {@link Method}
    * objects that will never be used with this {@link Template} again. But in practice templates
    * tend to be used repeatedly with the same classes.
-```
-
-### JavadocReference
-Cannot resolve symbol `Reader`
-in `src/main/java/com/google/escapevelocity/ParseNode.java`
-#### Snippet
-```java
- * Template}. If the string was seen before (in this evaluation, or an earlier evaluation) then the
- * {@code Template} will be retrieved from the {@code parseCache}. Otherwise we will get a {@link
- * Reader} from the {@link ResourceOpener} and parse its contents to produce a new {@code Template},
- * which we will record in the {@code parseCache}. Either way, we will execute the nested {@code
- * Template}, which means adding its macros to the {@link EvaluationContext} and evaluating it to
 ```
 
 ### JavadocReference
@@ -130,11 +130,11 @@ Not annotated method overrides method annotated with @ElementTypesAreNonnullByDe
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-
+      return new ForwardingSortedSet<Integer>() {
         @Override
-        public String toString() {
-          // ContiguousSet returns [1..3] whereas Velocity uses [1, 2, 3].
-          return set.asList().toString();
+        protected ImmutableSortedSet<Integer> delegate() {
+          return set;
+        }
 ```
 
 ### NullableProblems
@@ -142,11 +142,11 @@ Not annotated method overrides method annotated with @ElementTypesAreNonnullByDe
 in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-      return new ForwardingSortedSet<Integer>() {
+
         @Override
-        protected ImmutableSortedSet<Integer> delegate() {
-          return set;
-        }
+        public String toString() {
+          // ContiguousSet returns [1..3] whereas Velocity uses [1, 2, 3].
+          return set.asList().toString();
 ```
 
 ## RuleId[id=ConstantValue]
@@ -162,20 +162,19 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
     return new MethodReferenceNode(lhs, id, args.build(), silent);
 ```
 
-## RuleId[id=JavaReflectionMemberAccess]
-### JavaReflectionMemberAccess
-Cannot resolve method 'getModule'
-in `src/main/java/com/google/escapevelocity/MethodFinder.java`
+## RuleId[id=UnstableApiUsage]
+### UnstableApiUsage
+'tryParse(java.lang.String)' is marked unstable with @Beta
+in `src/main/java/com/google/escapevelocity/Parser.java`
 #### Snippet
 ```java
-    Method moduleIsExportedMethod;
-    try {
-      classGetModuleMethod = Class.class.getMethod("getModule");
-      Class<?> moduleClass = classGetModuleMethod.getReturnType();
-      moduleIsExportedMethod = moduleClass.getMethod("isExported", String.class);
+      next();
+    }
+    Integer value = Ints.tryParse(sb.toString());
+    if (value == null) {
+      throw parseException("Invalid integer: " + sb);
 ```
 
-## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
 'closed(int, int)' is marked unstable with @Beta
 in `src/main/java/com/google/escapevelocity/Parser.java`
@@ -200,15 +199,16 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
         @Override
 ```
 
-### UnstableApiUsage
-'tryParse(java.lang.String)' is marked unstable with @Beta
-in `src/main/java/com/google/escapevelocity/Parser.java`
+## RuleId[id=JavaReflectionMemberAccess]
+### JavaReflectionMemberAccess
+Cannot resolve method 'getModule'
+in `src/main/java/com/google/escapevelocity/MethodFinder.java`
 #### Snippet
 ```java
-      next();
-    }
-    Integer value = Ints.tryParse(sb.toString());
-    if (value == null) {
-      throw parseException("Invalid integer: " + sb);
+    Method moduleIsExportedMethod;
+    try {
+      classGetModuleMethod = Class.class.getMethod("getModule");
+      Class<?> moduleClass = classGetModuleMethod.getReturnType();
+      moduleIsExportedMethod = moduleClass.getMethod("isExported", String.class);
 ```
 
