@@ -410,6 +410,18 @@ in `src/main/java/org/apache/datasketches/hive/cpc/DataToSketchUDAF.java`
 ```
 
 ### JavadocReference
+Cannot resolve symbol `SemanticException`
+in `src/main/java/org/apache/datasketches/hive/tuple/UnionSketchUDAF.java`
+#### Snippet
+```java
+   * Override this if your UDF has more arguments
+   * @param inspectors array of inspectors
+   * @throws SemanticException if anything is wrong
+   */
+  protected void checkExtraArguments(final ObjectInspector[] inspectors) throws SemanticException {
+```
+
+### JavadocReference
 Cannot resolve symbol `HiveException`
 in `src/main/java/org/apache/datasketches/hive/tuple/DataToSketchUDAF.java`
 #### Snippet
@@ -424,18 +436,6 @@ in `src/main/java/org/apache/datasketches/hive/tuple/DataToSketchUDAF.java`
 ### JavadocReference
 Cannot resolve symbol `SemanticException`
 in `src/main/java/org/apache/datasketches/hive/tuple/DataToSketchUDAF.java`
-#### Snippet
-```java
-   * Override this if your UDF has more arguments
-   * @param inspectors array of inspectors
-   * @throws SemanticException if anything is wrong
-   */
-  protected void checkExtraArguments(final ObjectInspector[] inspectors) throws SemanticException {
-```
-
-### JavadocReference
-Cannot resolve symbol `SemanticException`
-in `src/main/java/org/apache/datasketches/hive/tuple/UnionSketchUDAF.java`
 #### Snippet
 ```java
    * Override this if your UDF has more arguments
@@ -471,10 +471,10 @@ in `src/main/java/org/apache/datasketches/hive/hll/UnionSketchUDAF.java`
 
 ### JavadocReference
 Cannot resolve symbol `org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver`
-in `src/main/java/org/apache/datasketches/hive/theta/UnionSketchUDAF.java`
+in `src/main/java/org/apache/datasketches/hive/hll/DataToSketchUDAF.java`
 #### Snippet
 ```java
-   * be BINARY sketch). Also check sketch size and seed params if they are passed in.
+   * </ul>
    *
    * @see org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver
    * #getEvaluator(org.apache.hadoop.hive.ql.udf.generic.GenericUDAFParameterInfo)
@@ -483,10 +483,10 @@ in `src/main/java/org/apache/datasketches/hive/theta/UnionSketchUDAF.java`
 
 ### JavadocReference
 Cannot resolve symbol `org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver`
-in `src/main/java/org/apache/datasketches/hive/hll/DataToSketchUDAF.java`
+in `src/main/java/org/apache/datasketches/hive/theta/UnionSketchUDAF.java`
 #### Snippet
 ```java
-   * </ul>
+   * be BINARY sketch). Also check sketch size and seed params if they are passed in.
    *
    * @see org.apache.hadoop.hive.ql.udf.generic.AbstractGenericUDAFResolver
    * #getEvaluator(org.apache.hadoop.hive.ql.udf.generic.GenericUDAFParameterInfo)
