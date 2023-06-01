@@ -32,6 +32,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IntegerExtension
 ```java
 	 */
 	@Pure
+	@Inline(value="new $3($1, $2, false)", imported=ExclusiveRange.class, statementExpression=false)
+	public static ExclusiveRange operator_greaterThanDoubleDot(final int a, final int b) {
+		return new ExclusiveRange(a, b, false);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IntegerExtensions.java`
+#### Snippet
+```java
+	 */
+	@Pure
 	@Inline(value="new $3($1, $2, true)", imported=ExclusiveRange.class, statementExpression=false)
 	public static ExclusiveRange operator_doubleDotLessThan(final int a, final int b) {
 		return new ExclusiveRange(a, b, true);
@@ -47,18 +59,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IntegerExtension
 	@Inline(value="new $3($1, $2)", imported=IntegerRange.class, statementExpression=false)
 	public static IntegerRange operator_upTo(final int a, final int b) {
 		return new IntegerRange(a, b);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IntegerExtensions.java`
-#### Snippet
-```java
-	 */
-	@Pure
-	@Inline(value="new $3($1, $2, false)", imported=ExclusiveRange.class, statementExpression=false)
-	public static ExclusiveRange operator_greaterThanDoubleDot(final int a, final int b) {
-		return new ExclusiveRange(a, b, false);
 ```
 
 ## RuleId[id=UnnecessaryModifier]
@@ -91,9 +91,9 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableMemberDeclaration.java`
 #### Snippet
 ```java
-	 * @param docComment
+	 * @param visibility
 	 */
-	public void setDocComment(String docComment);
+	public void setVisibility(Visibility visibility);
 	
 	/**
 ```
@@ -115,9 +115,9 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableMemberDeclaration.java`
 #### Snippet
 ```java
-	 * @param visibility
+	 * @param docComment
 	 */
-	public void setVisibility(Visibility visibility);
+	public void setDocComment(String docComment);
 	
 	/**
 ```
@@ -175,9 +175,9 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclaration.java`
 #### Snippet
 ```java
-	 * @exception IllegalArgumentException if <code>upperBounds</code> is <code>null</code> or contains <code>null</code>
+	 * @exception UnsupportedOperationException always 
 	 */
-	public void setUpperBounds(Iterable<? extends TypeReference> upperBounds);
+	public AnnotationReference addAnnotation(AnnotationReference annotationReference);
 	
 	/**
 ```
@@ -187,9 +187,9 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclaration.java`
 #### Snippet
 ```java
-	 * @exception UnsupportedOperationException always 
+	 * @exception IllegalArgumentException if <code>upperBounds</code> is <code>null</code> or contains <code>null</code>
 	 */
-	public AnnotationReference addAnnotation(AnnotationReference annotationReference);
+	public void setUpperBounds(Iterable<? extends TypeReference> upperBounds);
 	
 	/**
 ```
@@ -247,6 +247,18 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/TypeReference.java`
 #### Snippet
 ```java
+	 * @since 2.7
+	 */
+	public boolean equals(Object obj);
+	
+	/**
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/TypeReference.java`
+#### Snippet
+```java
 	 */
 	@Override
 	public String toString();
@@ -268,18 +280,6 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Type
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/TypeReference.java`
-#### Snippet
-```java
-	 * @since 2.7
-	 */
-	public boolean equals(Object obj);
-	
-	/**
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableAnnotationTypeDeclaration.java`
 #### Snippet
 ```java
@@ -295,11 +295,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableEnumerationValueDeclaration.java`
 #### Snippet
 ```java
-	 * @exception UnsupportedOperationException always
-	 */
 	public void setVisibility(Visibility visibility);
 	
 	public MutableEnumerationTypeDeclaration getDeclaringType();
+
+}
 ```
 
 ### UnnecessaryModifier
@@ -307,11 +307,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableEnumerationValueDeclaration.java`
 #### Snippet
 ```java
+	 * @exception UnsupportedOperationException always
+	 */
 	public void setVisibility(Visibility visibility);
 	
 	public MutableEnumerationTypeDeclaration getDeclaringType();
-
-}
 ```
 
 ### UnnecessaryModifier
@@ -369,10 +369,10 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ToStringBui
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/Path.java`
 #### Snippet
 ```java
+				// go up
 				result.remove(result.size()-1);
-				canRemoveSegment = !result.isEmpty() && !result.get(0).equals("..");
-			} else if (string.equals(".")) {
-				// do nothing
+			} else if (segment.equals(".")) {
+				// stay in current directory
 			} else {
 ```
 
@@ -381,10 +381,10 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/Path.java`
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/Path.java`
 #### Snippet
 ```java
-				// go up
 				result.remove(result.size()-1);
-			} else if (segment.equals(".")) {
-				// stay in current directory
+				canRemoveSegment = !result.isEmpty() && !result.get(0).equals("..");
+			} else if (string.equals(".")) {
+				// do nothing
 			} else {
 ```
 
@@ -396,6 +396,30 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Void
 ```java
 /**
  * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/TypeParameterDeclaration.java`
+#### Snippet
+```java
+/**
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableElement.java`
+#### Snippet
+```java
+ * 
+ * @author Anton Kosyakov
  * @noimplement This interface is not intended to be implemented by clients.
  */
 @Beta
@@ -427,18 +451,6 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Decl
 
 ### JavadocDeclaration
 Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/CompilationUnit.java`
-#### Snippet
-```java
- * 
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableTypeParameterDeclarator.java`
 #### Snippet
 ```java
@@ -451,22 +463,10 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Muta
 
 ### JavadocDeclaration
 Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableElement.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/CompilationUnit.java`
 #### Snippet
 ```java
  * 
- * @author Anton Kosyakov
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableExecutableDeclaration.java`
-#### Snippet
-```java
-/**
  * @author Sven Efftinge
  * @noimplement This interface is not intended to be implemented by clients.
  */
@@ -475,7 +475,7 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Muta
 
 ### JavadocDeclaration
 Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/TypeParameterDeclaration.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableExecutableDeclaration.java`
 #### Snippet
 ```java
 /**
@@ -535,14 +535,14 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Memb
 
 ### JavadocDeclaration
 Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableInterfaceDeclaration.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableDeclaration.java`
 #### Snippet
 ```java
- * 
  * @author Sven Efftinge
+ * 
  * @noimplement This interface is not intended to be implemented by clients.
  */
-public interface MutableInterfaceDeclaration extends MutableTypeParameterDeclarator, MutableTypeDeclaration, InterfaceDeclaration {
+@Beta
 ```
 
 ### JavadocDeclaration
@@ -559,26 +559,26 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Muta
 
 ### JavadocDeclaration
 Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableDeclaration.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableInterfaceDeclaration.java`
 #### Snippet
 ```java
- * @author Sven Efftinge
  * 
+ * @author Sven Efftinge
  * @noimplement This interface is not intended to be implemented by clients.
  */
-@Beta
+public interface MutableInterfaceDeclaration extends MutableTypeParameterDeclarator, MutableTypeDeclaration, InterfaceDeclaration {
 ```
 
 ### JavadocDeclaration
-`@param docComment` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableMemberDeclaration.java`
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationTypeDeclaration.java`
 #### Snippet
 ```java
-	/**
-	 * Sets the JavaDoc comment for this member
-	 * @param docComment
-	 */
-	public void setDocComment(String docComment);
+/**
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
 ```
 
 ### JavadocDeclaration
@@ -606,15 +606,15 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Muta
 ```
 
 ### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationTypeDeclaration.java`
+`@param docComment` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableMemberDeclaration.java`
 #### Snippet
 ```java
-/**
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
+	/**
+	 * Sets the JavaDoc comment for this member
+	 * @param docComment
+	 */
+	public void setDocComment(String docComment);
 ```
 
 ### JavadocDeclaration
@@ -631,7 +631,7 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Type
 
 ### JavadocDeclaration
 Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/TypeParameterDeclarator.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MethodDeclaration.java`
 #### Snippet
 ```java
 /**
@@ -643,7 +643,7 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Type
 
 ### JavadocDeclaration
 Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MethodDeclaration.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/TypeParameterDeclarator.java`
 #### Snippet
 ```java
 /**
@@ -738,123 +738,15 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Anno
 ```
 
 ### JavadocDeclaration
-`@param name` tag description is missing
+Wrong tag `noimplement`
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
 #### Snippet
 ```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
+ * 
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
 ```
 
 ### JavadocDeclaration
@@ -990,8 +882,164 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Anno
 ```
 
 ### JavadocDeclaration
-Wrong tag `noimplement`
+`@param name` tag description is missing
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+`@param name` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+#### Snippet
+```java
+	 * will be returned.
+	 * 
+	 * @param name
+	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	 */
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/CompilationStrategy.java`
 #### Snippet
 ```java
  * 
@@ -1002,39 +1050,15 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Anno
 ```
 
 ### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
+`@param context` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractMethodProcessor.java`
 #### Snippet
 ```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
+	/**
+	 * @param annotatedMethod a source method annotated with the annotation this processor is responsible for.
+	 * @param context
 	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
-```
-
-### JavadocDeclaration
-`@param name` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationReference.java`
-#### Snippet
-```java
-	 * will be returned.
-	 * 
-	 * @param name
-	 * @return the value set on this annotation reference or the default value of the annotation type element.
-	 */
+	public void doGenerateCode(MethodDeclaration annotatedMethod, @Extension CodeGenerationContext context) {}
 ```
 
 ### JavadocDeclaration
@@ -1074,20 +1098,44 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractMethodPr
 ```
 
 ### JavadocDeclaration
-`@param context` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractMethodProcessor.java`
+`@param isStrictFloatingPoint` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableClassDeclaration.java`
 #### Snippet
 ```java
+	
 	/**
-	 * @param annotatedMethod a source method annotated with the annotation this processor is responsible for.
-	 * @param context
+	 * @param isStrictFloatingPoint
 	 */
-	public void doGenerateCode(MethodDeclaration annotatedMethod, @Extension CodeGenerationContext context) {}
+	void setStrictFloatingPoint(boolean isStrictFloatingPoint);
+```
+
+### JavadocDeclaration
+`@param isAbstract` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableClassDeclaration.java`
+#### Snippet
+```java
+	 * Sets the <code>abstract</code> property
+	 * 
+	 * @param isAbstract 
+	 */
+	void setAbstract(boolean isAbstract);
+```
+
+### JavadocDeclaration
+`@param isFinal` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableClassDeclaration.java`
+#### Snippet
+```java
+	
+	/**
+	 * @param isFinal 
+	 */
+	void setFinal(boolean isFinal);
 ```
 
 ### JavadocDeclaration
 Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/CompilationStrategy.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableClassDeclaration.java`
 #### Snippet
 ```java
  * 
@@ -1110,72 +1158,12 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Muta
 ```
 
 ### JavadocDeclaration
-`@param isStrictFloatingPoint` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableClassDeclaration.java`
-#### Snippet
-```java
-	
-	/**
-	 * @param isStrictFloatingPoint
-	 */
-	void setStrictFloatingPoint(boolean isStrictFloatingPoint);
-```
-
-### JavadocDeclaration
-`@param isFinal` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableClassDeclaration.java`
-#### Snippet
-```java
-	
-	/**
-	 * @param isFinal 
-	 */
-	void setFinal(boolean isFinal);
-```
-
-### JavadocDeclaration
-`@param isAbstract` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableClassDeclaration.java`
-#### Snippet
-```java
-	 * Sets the <code>abstract</code> property
-	 * 
-	 * @param isAbstract 
-	 */
-	void setAbstract(boolean isAbstract);
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableClassDeclaration.java`
-#### Snippet
-```java
- * 
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
 Wrong tag `noimplement`
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/EnumerationValueDeclaration.java`
 #### Snippet
 ```java
 /**
  * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/SourceTypeLookup.java`
-#### Snippet
-```java
- * processed {@link CompilationUnit}.
- * 
  * @noimplement This interface is not intended to be implemented by clients.
  */
 @Beta
@@ -1230,6 +1218,30 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractEnumerat
 ```
 
 ### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/SourceTypeLookup.java`
+#### Snippet
+```java
+ * processed {@link CompilationUnit}.
+ * 
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractConstructorProcessor.java`
+#### Snippet
+```java
+	/**
+	 * @param annotatedConstructor a source method annotated with the annotation this processor is responsible for.
+	 * @param context
+	 */
+	public void doRegisterGlobals(ConstructorDeclaration annotatedConstructor, RegisterGlobalsContext context) {}
+```
+
+### JavadocDeclaration
 `@param context` tag description is missing
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractConstructorProcessor.java`
 #### Snippet
@@ -1263,18 +1275,6 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractConstruc
 	 * @param context
 	 */
 	public void doTransform(MutableConstructorDeclaration annotatedConstructor, @Extension TransformationContext context) {}
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractConstructorProcessor.java`
-#### Snippet
-```java
-	/**
-	 * @param annotatedConstructor a source method annotated with the annotation this processor is responsible for.
-	 * @param context
-	 */
-	public void doRegisterGlobals(ConstructorDeclaration annotatedConstructor, RegisterGlobalsContext context) {}
 ```
 
 ### JavadocDeclaration
@@ -1362,30 +1362,6 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Problem
 ```
 
 ### JavadocDeclaration
-Javadoc pointing to itself
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
-#### Snippet
-```java
-	 * <p>
-	 * One of the function parameters is an element of the iterator, and the other is the result of previous application
-	 * of the function. The seed of the operation is explicitly passed to {@link #fold(Iterator, Object, org.eclipse.xtext.xbase.lib.Functions.Function2)
-	 * fold}. The first computed value is the result of the applied function for {@code seed} and the first element of
-	 * the iterator. This intermediate result together with the second element of the iterator produced the next result
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
-#### Snippet
-```java
-	 * </p>
-	 * <p>
-	 * {@link #fold(Iterator, Object, org.eclipse.xtext.xbase.lib.Functions.Function2) fold} is similar to {@link #reduce(Iterator, org.eclipse.xtext.xbase.lib.Functions.Function2) reduce} but
-	 * allows a {@code seed} value and the combinator {@code function} may be asymmetric. It takes {@code T and R} and
-	 * returns {@code R}.
-```
-
-### JavadocDeclaration
 Wrong tag `noimplement`
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Problem.java`
 #### Snippet
@@ -1410,39 +1386,27 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Associa
 ```
 
 ### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/UpstreamTypeLookup.java`
-#### Snippet
-```java
- * This means that types defined in the same project will not be found.
- * 
- * @noimplement This interface is not intended to be implemented by clients.
- * @since 2.7
- */
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/AnnotationReferenceProvider.java`
-#### Snippet
-```java
- * @author Anton Kosyakov
- * @since 2.6
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
+`@param target` tag description is missing
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Tracability.java`
 #### Snippet
 ```java
- * 
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- * @see Associator
- */
+	
+	/**
+	 * @param target
+	 * @return the source element (Xtend) the given target (Java) element is derived from
+	 * @since 2.7
+```
+
+### JavadocDeclaration
+`@param element` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Tracability.java`
+#### Snippet
+```java
+public interface Tracability {
+	/**
+	 * @param element
+	 * @return whether the given element is a source (i.e Xtend) element.
+	 * @since 2.7
 ```
 
 ### JavadocDeclaration
@@ -1455,6 +1419,30 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Tracabi
 	 * @param target
 	 * @return whether this element was already present in the Xtend source AST.
 	 */
+```
+
+### JavadocDeclaration
+`@param element` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Tracability.java`
+#### Snippet
+```java
+	
+	/**
+	 * @param element
+	 * @return whether the given element is a Java element derived from the currently processed {@link CompilationUnit}
+	 * @since 2.7
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Tracability.java`
+#### Snippet
+```java
+ * 
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ * @see Associator
+ */
 ```
 
 ### JavadocDeclaration
@@ -1482,39 +1470,51 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Tracabi
 ```
 
 ### JavadocDeclaration
-`@param element` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Tracability.java`
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/AnnotationReferenceProvider.java`
 #### Snippet
 ```java
-	
-	/**
-	 * @param element
-	 * @return whether the given element is a Java element derived from the currently processed {@link CompilationUnit}
-	 * @since 2.7
+ * @author Anton Kosyakov
+ * @since 2.6
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
 ```
 
 ### JavadocDeclaration
-`@param target` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Tracability.java`
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/UpstreamTypeLookup.java`
 #### Snippet
 ```java
-	
-	/**
-	 * @param target
-	 * @return the source element (Xtend) the given target (Java) element is derived from
-	 * @since 2.7
+ * This means that types defined in the same project will not be found.
+ * 
+ * @noimplement This interface is not intended to be implemented by clients.
+ * @since 2.7
+ */
 ```
 
 ### JavadocDeclaration
-`@param element` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/Tracability.java`
+Javadoc pointing to itself
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
 #### Snippet
 ```java
-public interface Tracability {
-	/**
-	 * @param element
-	 * @return whether the given element is a source (i.e Xtend) element.
-	 * @since 2.7
+	 * <p>
+	 * One of the function parameters is an element of the iterator, and the other is the result of previous application
+	 * of the function. The seed of the operation is explicitly passed to {@link #fold(Iterator, Object, org.eclipse.xtext.xbase.lib.Functions.Function2)
+	 * fold}. The first computed value is the result of the applied function for {@code seed} and the first element of
+	 * the iterator. This intermediate result together with the second element of the iterator produced the next result
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IteratorExtensions.java`
+#### Snippet
+```java
+	 * </p>
+	 * <p>
+	 * {@link #fold(Iterator, Object, org.eclipse.xtext.xbase.lib.Functions.Function2) fold} is similar to {@link #reduce(Iterator, org.eclipse.xtext.xbase.lib.Functions.Function2) reduce} but
+	 * allows a {@code seed} value and the combinator {@code function} may be asymmetric. It takes {@code T and R} and
+	 * returns {@code R}.
 ```
 
 ### JavadocDeclaration
@@ -1554,66 +1554,6 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Muta
 ```
 
 ### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/InterfaceDeclaration.java`
-#### Snippet
-```java
-/**
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/expression/Expression.java`
-#### Snippet
-```java
-/**
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationTarget.java`
-#### Snippet
-```java
- * 
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-`@param annotationType` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationTarget.java`
-#### Snippet
-```java
-
-	/**
-	 * @param annotationType
-	 * @return the annotation reference for the given type, or <code>null</code>
-	 *         if this element is not annotated with the given annotation type
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableAnnotationTypeElementDeclaration.java`
-#### Snippet
-```java
- * 
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
 Javadoc pointing to itself
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensions.java`
 #### Snippet
@@ -1639,6 +1579,66 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/IterableExtensio
 
 ### JavadocDeclaration
 Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/InterfaceDeclaration.java`
+#### Snippet
+```java
+/**
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/expression/Expression.java`
+#### Snippet
+```java
+/**
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+`@param annotationType` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationTarget.java`
+#### Snippet
+```java
+
+	/**
+	 * @param annotationType
+	 * @return the annotation reference for the given type, or <code>null</code>
+	 *         if this element is not annotated with the given annotation type
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationTarget.java`
+#### Snippet
+```java
+ * 
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableAnnotationTypeElementDeclaration.java`
+#### Snippet
+```java
+ * 
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/CodeGenerationContext.java`
 #### Snippet
 ```java
@@ -1647,6 +1647,42 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/CodeGenerationCo
  * @noimplement This interface is not intended to be implemented by clients.
  */
 @Beta
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/FileSystemSupport.java`
+#### Snippet
+```java
+ * @author Anton Kosyakov
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+`@param path` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/FileSystemSupport.java`
+#### Snippet
+```java
+	
+	/**
+	 * @param path
+	 * @return  A <code>long</code> value representing the time the file was
+     *          last modified, measured in milliseconds since the epoch
+```
+
+### JavadocDeclaration
+`@param path` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/FileSystemSupport.java`
+#### Snippet
+```java
+
+	/**
+	 * @param path
+	 * @return the children of the folder the given path points to; 
+	 * 		   empty iterable if the path points to a non existent file or folder
 ```
 
 ### JavadocDeclaration
@@ -1669,40 +1705,16 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/FileSystemS
 	
 	/**
 	 * @param path
-	 * @return  A <code>long</code> value representing the time the file was
-     *          last modified, measured in milliseconds since the epoch
-```
-
-### JavadocDeclaration
-`@param path` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/FileSystemSupport.java`
-#### Snippet
-```java
-	
-	/**
-	 * @param path
 	 * @return whether the given path points to an existent folder
 	 */
 ```
 
 ### JavadocDeclaration
-`@param path` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/FileSystemSupport.java`
-#### Snippet
-```java
-
-	/**
-	 * @param path
-	 * @return the children of the folder the given path points to; 
-	 * 		   empty iterable if the path points to a non existent file or folder
-```
-
-### JavadocDeclaration
 Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/FileSystemSupport.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/TypeLookup.java`
 #### Snippet
 ```java
- * @author Anton Kosyakov
+ * 
  * @author Sven Efftinge
  * @noimplement This interface is not intended to be implemented by clients.
  */
@@ -1746,51 +1758,39 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Type
 ```
 
 ### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/services/TypeLookup.java`
+`@param relativePath` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/Path.java`
 #### Snippet
 ```java
- * 
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
+
+	/**
+	 * @param relativePath
+	 * @return the absolute path
+	 */
 ```
 
 ### JavadocDeclaration
-`@param qualifiedName` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/RegisterGlobalsContext.java`
+`@param relativePath` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/Path.java`
 #### Snippet
 ```java
-	 * </pre>
-	 * 
-	 * @param qualifiedName
-	 * @throws IllegalArgumentException if the qualifiedName conflicts with any existing types.
-	 * @exception IllegalArgumentException if the <code>qualifiedName</code> is not a valid qualified name
+	
+	/**
+	 * @param relativePath
+	 * @return the absolute path
+	 */
 ```
 
 ### JavadocDeclaration
-`@param qualifiedName` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/RegisterGlobalsContext.java`
+`@param pathAsString` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/Path.java`
 #### Snippet
 ```java
-	 * </pre>
+	 * the used file separator is '/' and a leading one indicates an absolute path.
 	 * 
-	 * @param qualifiedName
-	 * @throws IllegalArgumentException if the qualifiedName conflicts with any existing types.
-	 * @exception IllegalArgumentException if the <code>qualifiedName</code> is not a valid qualified name
-```
-
-### JavadocDeclaration
-`@param qualifiedName` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/RegisterGlobalsContext.java`
-#### Snippet
-```java
-	 * </pre>
-	 * 
-	 * @param qualifiedName
-	 * @throws IllegalArgumentException if the qualifiedName conflicts with any existing types.
-	 * @exception IllegalArgumentException if the <code>qualifiedName</code> is not a valid qualified name
+	 * @param pathAsString
+	 */
+	public Path(String pathAsString) {
 ```
 
 ### JavadocDeclaration
@@ -1818,39 +1818,39 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/RegisterGlobalsC
 ```
 
 ### JavadocDeclaration
-`@param pathAsString` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/Path.java`
+`@param qualifiedName` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/RegisterGlobalsContext.java`
 #### Snippet
 ```java
-	 * the used file separator is '/' and a leading one indicates an absolute path.
+	 * </pre>
 	 * 
-	 * @param pathAsString
-	 */
-	public Path(String pathAsString) {
+	 * @param qualifiedName
+	 * @throws IllegalArgumentException if the qualifiedName conflicts with any existing types.
+	 * @exception IllegalArgumentException if the <code>qualifiedName</code> is not a valid qualified name
 ```
 
 ### JavadocDeclaration
-`@param relativePath` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/Path.java`
+`@param qualifiedName` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/RegisterGlobalsContext.java`
 #### Snippet
 ```java
-
-	/**
-	 * @param relativePath
-	 * @return the absolute path
-	 */
+	 * </pre>
+	 * 
+	 * @param qualifiedName
+	 * @throws IllegalArgumentException if the qualifiedName conflicts with any existing types.
+	 * @exception IllegalArgumentException if the <code>qualifiedName</code> is not a valid qualified name
 ```
 
 ### JavadocDeclaration
-`@param relativePath` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/Path.java`
+`@param qualifiedName` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/RegisterGlobalsContext.java`
 #### Snippet
 ```java
-	
-	/**
-	 * @param relativePath
-	 * @return the absolute path
-	 */
+	 * </pre>
+	 * 
+	 * @param qualifiedName
+	 * @throws IllegalArgumentException if the qualifiedName conflicts with any existing types.
+	 * @exception IllegalArgumentException if the <code>qualifiedName</code> is not a valid qualified name
 ```
 
 ### JavadocDeclaration
@@ -1894,11 +1894,11 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/TransformationCo
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractAnnotationTypeProcessor.java`
 #### Snippet
 ```java
-	/**
-	 * @param annotatedAnnotationType a mutable annotation type representation annotated with the annotation this processor is responsible for.
-	 * @param context
-	 */
-	public void doTransform(MutableAnnotationTypeDeclaration annotatedAnnotationType, @Extension TransformationContext context) {}
+	 * Invoked by the validator
+	 * @param annotatedAnnotationType the generated annotation type that should be validated 
+	 * @param context 
+	 * @see #doValidate(List, ValidationContext)
+	 * @since 2.7
 ```
 
 ### JavadocDeclaration
@@ -1930,23 +1930,83 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractAnnotati
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractAnnotationTypeProcessor.java`
 #### Snippet
 ```java
-	 * Invoked by the validator
-	 * @param annotatedAnnotationType the generated annotation type that should be validated 
-	 * @param context 
-	 * @see #doValidate(List, ValidationContext)
-	 * @since 2.7
+	/**
+	 * @param annotatedAnnotationType a mutable annotation type representation annotated with the annotation this processor is responsible for.
+	 * @param context
+	 */
+	public void doTransform(MutableAnnotationTypeDeclaration annotatedAnnotationType, @Extension TransformationContext context) {}
 ```
 
 ### JavadocDeclaration
-`@param context` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractFieldProcessor.java`
+`@param isFinal` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
 #### Snippet
 ```java
+	 * sets the 'final' property
 	 * 
-	 * @param annotatedField a source element annotated with the annotation this processor is responsible for.
-	 * @param context
-	 * @see CodeGenerationParticipant#doGenerateCode(List, CodeGenerationContext)
+	 * @param isFinal
 	 */
+	void setFinal(boolean isFinal);
+```
+
+### JavadocDeclaration
+`@param isStatic` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
+#### Snippet
+```java
+	 * sets the 'static' property
+	 * 
+	 * @param isStatic
+	 */
+	void setStatic(boolean isStatic);
+```
+
+### JavadocDeclaration
+`@param initializer` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
+#### Snippet
+```java
+	 *  will be detached from there as well.
+	 * 
+	 * @param initializer
+	 */
+	void setInitializer(Expression initializer);
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
+#### Snippet
+```java
+ * @author Sven Efftinge
+ * 
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+`@param isVolatile` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
+#### Snippet
+```java
+	 * sets the 'volatile' property
+	 * 
+	 * @param isVolatile
+	 */
+	void setVolatile(boolean isVolatile);
+```
+
+### JavadocDeclaration
+`@param isTransient` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
+#### Snippet
+```java
+	 * sets the 'transient' property
+	 * 
+	 * @param isTransient
+	 */
+	void setTransient(boolean isTransient);
 ```
 
 ### JavadocDeclaration
@@ -1966,6 +2026,18 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractFieldPro
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractFieldProcessor.java`
 #### Snippet
 ```java
+	/**
+	 * @param annotatedField a source field annotated with the annotation this processor is responsible for.
+	 * @param context
+	 */
+	public void doRegisterGlobals(FieldDeclaration annotatedField, @Extension RegisterGlobalsContext context) {}
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractFieldProcessor.java`
+#### Snippet
+```java
 	 * Invoked by the validator
 	 * @param annotatedField the generated field that should be validated 
 	 * @param context 
@@ -1978,83 +2050,11 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractFieldPro
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractFieldProcessor.java`
 #### Snippet
 ```java
-	/**
-	 * @param annotatedField a source field annotated with the annotation this processor is responsible for.
+	 * 
+	 * @param annotatedField a source element annotated with the annotation this processor is responsible for.
 	 * @param context
+	 * @see CodeGenerationParticipant#doGenerateCode(List, CodeGenerationContext)
 	 */
-	public void doRegisterGlobals(FieldDeclaration annotatedField, @Extension RegisterGlobalsContext context) {}
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
-#### Snippet
-```java
- * @author Sven Efftinge
- * 
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-`@param isStatic` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
-#### Snippet
-```java
-	 * sets the 'static' property
-	 * 
-	 * @param isStatic
-	 */
-	void setStatic(boolean isStatic);
-```
-
-### JavadocDeclaration
-`@param isFinal` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
-#### Snippet
-```java
-	 * sets the 'final' property
-	 * 
-	 * @param isFinal
-	 */
-	void setFinal(boolean isFinal);
-```
-
-### JavadocDeclaration
-`@param initializer` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
-#### Snippet
-```java
-	 *  will be detached from there as well.
-	 * 
-	 * @param initializer
-	 */
-	void setInitializer(Expression initializer);
-```
-
-### JavadocDeclaration
-`@param isTransient` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
-#### Snippet
-```java
-	 * sets the 'transient' property
-	 * 
-	 * @param isTransient
-	 */
-	void setTransient(boolean isTransient);
-```
-
-### JavadocDeclaration
-`@param isVolatile` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MutableFieldDeclaration.java`
-#### Snippet
-```java
-	 * sets the 'volatile' property
-	 * 
-	 * @param isVolatile
-	 */
-	void setVolatile(boolean isVolatile);
 ```
 
 ### JavadocDeclaration
@@ -2079,66 +2079,6 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Muta
  * @noimplement This interface is not intended to be implemented by clients.
  */
 @Beta
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/ParameterDeclaration.java`
-#### Snippet
-```java
-/**
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationTypeElementDeclaration.java`
-#### Snippet
-```java
- * 
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/EnumerationTypeDeclaration.java`
-#### Snippet
-```java
-/**
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-Wrong tag `noimplement`
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/MutableFileSystemSupport.java`
-#### Snippet
-```java
- * 
- * @author Sven Efftinge
- * @noimplement This interface is not intended to be implemented by clients.
- */
-@Beta
-```
-
-### JavadocDeclaration
-`@param path` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/MutableFileSystemSupport.java`
-#### Snippet
-```java
-	 * Implementors may decide to perform this method asynchronously. Clients should not rely on invocation timing.
-	 * 
-	 * @param path
-	 * @since 2.7
-	 */
 ```
 
 ### JavadocDeclaration
@@ -2187,6 +2127,66 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtend2/lib/StringConcatenation.j
 	 * @noinstantiate This class is not intended to be instantiated by clients.
 	 */
 	private static class SimpleTarget implements StringConcatenationClient.TargetStringConcatenation {
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/ParameterDeclaration.java`
+#### Snippet
+```java
+/**
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/AnnotationTypeElementDeclaration.java`
+#### Snippet
+```java
+ * 
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/EnumerationTypeDeclaration.java`
+#### Snippet
+```java
+/**
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
+```
+
+### JavadocDeclaration
+`@param path` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/MutableFileSystemSupport.java`
+#### Snippet
+```java
+	 * Implementors may decide to perform this method asynchronously. Clients should not rely on invocation timing.
+	 * 
+	 * @param path
+	 * @since 2.7
+	 */
+```
+
+### JavadocDeclaration
+Wrong tag `noimplement`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/file/MutableFileSystemSupport.java`
+#### Snippet
+```java
+ * 
+ * @author Sven Efftinge
+ * @noimplement This interface is not intended to be implemented by clients.
+ */
+@Beta
 ```
 
 ### JavadocDeclaration
@@ -2254,30 +2254,6 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Muta
 in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractInterfaceProcessor.java`
 #### Snippet
 ```java
-	/**
-	 * @param annotatedInterface a mutable interface representation annotated with the annotation this processor is responsible for.
-	 * @param context
-	 */
-	public void doTransform(MutableInterfaceDeclaration annotatedInterface, @Extension TransformationContext context) {}
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractInterfaceProcessor.java`
-#### Snippet
-```java
-	 * 
-	 * @param annotatedInterface a source element annotated with the annotation this processor is responsible for.
-	 * @param context
-	 * @see CodeGenerationParticipant#doGenerateCode(List, CodeGenerationContext)
-	 */
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractInterfaceProcessor.java`
-#### Snippet
-```java
 	 * 
 	 * @param annotatedInterface a source element annotated with the annotation this processor is responsible for.
 	 * @param context
@@ -2297,19 +2273,31 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractInterfac
 	 * @since 2.7
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `toStringContext` may be 'final'
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ToStringBuilder.java`
+### JavadocDeclaration
+`@param context` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractInterfaceProcessor.java`
 #### Snippet
 ```java
-public final class ToStringBuilder {
-	
-	private static ToStringContext toStringContext = ToStringContext.INSTANCE;
-	
-	private final Object instance;
+	 * 
+	 * @param annotatedInterface a source element annotated with the annotation this processor is responsible for.
+	 * @param context
+	 * @see CodeGenerationParticipant#doGenerateCode(List, CodeGenerationContext)
+	 */
 ```
 
+### JavadocDeclaration
+`@param context` tag description is missing
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/AbstractInterfaceProcessor.java`
+#### Snippet
+```java
+	/**
+	 * @param annotatedInterface a mutable interface representation annotated with the annotation this processor is responsible for.
+	 * @param context
+	 */
+	public void doTransform(MutableInterfaceDeclaration annotatedInterface, @Extension TransformationContext context) {}
+```
+
+## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `array` may be 'final'
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
@@ -2320,6 +2308,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 		private T[] array;
 
 		/**
+```
+
+### FieldMayBeFinal
+Field `toStringContext` may be 'final'
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ToStringBuilder.java`
+#### Snippet
+```java
+public final class ToStringBuilder {
+	
+	private static ToStringContext toStringContext = ToStringContext.INSTANCE;
+	
+	private final Object instance;
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -2382,7 +2382,7 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 ```java
 		 *            object to fail with a {@link NullPointerException}.
 		 */
-		protected WrappedLongArray(long[] array) {
+		protected WrappedShortArray(short[] array) {
 			this.array = array;
 		}
 ```
@@ -2406,6 +2406,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 ```java
 		 *            object to fail with a {@link NullPointerException}.
 		 */
+		protected WrappedCharacterArray(char[] array) {
+			this.array = array;
+		}
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
+#### Snippet
+```java
+		 *            object to fail with a {@link NullPointerException}.
+		 */
 		protected WrappedByteArray(byte[] array) {
 			this.array = array;
 		}
@@ -2418,7 +2430,7 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 ```java
 		 *            object to fail with a {@link NullPointerException}.
 		 */
-		protected WrappedShortArray(short[] array) {
+		protected WrappedBooleanArray(boolean[] array) {
 			this.array = array;
 		}
 ```
@@ -2430,7 +2442,7 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 ```java
 		 *            object to fail with a {@link NullPointerException}.
 		 */
-		protected WrappedFloatArray(float[] array) {
+		protected WrappedLongArray(long[] array) {
 			this.array = array;
 		}
 ```
@@ -2454,19 +2466,7 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java
 ```java
 		 *            object to fail with a {@link NullPointerException}.
 		 */
-		protected WrappedCharacterArray(char[] array) {
-			this.array = array;
-		}
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/Conversions.java`
-#### Snippet
-```java
-		 *            object to fail with a {@link NullPointerException}.
-		 */
-		protected WrappedBooleanArray(boolean[] array) {
+		protected WrappedFloatArray(float[] array) {
 			this.array = array;
 		}
 ```
@@ -2564,18 +2564,6 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.
 #### Snippet
 ```java
 	@Inline("$1.hashCode()")
-	public static int hashCode(char[] array) {
-		return array.hashCode();
-	}
-	
-```
-
-### ArrayHashCode
-`hashCode()` called on array should probably be 'Arrays.hashCode()'
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
-#### Snippet
-```java
-	@Inline("$1.hashCode()")
 	public static int hashCode(byte[] array) {
 		return array.hashCode();
 	}
@@ -2588,31 +2576,7 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.
 #### Snippet
 ```java
 	@Inline("$1.hashCode()")
-	public static int hashCode(short[] array) {
-		return array.hashCode();
-	}
-	
-```
-
-### ArrayHashCode
-`hashCode()` called on array should probably be 'Arrays.hashCode()'
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
-#### Snippet
-```java
-	@Inline("$1.hashCode()")
-	public static int hashCode(float[] array) {
-		return array.hashCode();
-	}
-	
-```
-
-### ArrayHashCode
-`hashCode()` called on array should probably be 'Arrays.hashCode()'
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
-#### Snippet
-```java
-	@Inline("$1.hashCode()")
-	public static int hashCode(double[] array) {
+	public static int hashCode(boolean[] array) {
 		return array.hashCode();
 	}
 	
@@ -2636,6 +2600,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.
 #### Snippet
 ```java
 	@Inline("$1.hashCode()")
+	public static int hashCode(char[] array) {
+		return array.hashCode();
+	}
+	
+```
+
+### ArrayHashCode
+`hashCode()` called on array should probably be 'Arrays.hashCode()'
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
+#### Snippet
+```java
+	@Inline("$1.hashCode()")
 	public static int hashCode(long[] array) {
 		return array.hashCode();
 	}
@@ -2648,7 +2624,7 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.
 #### Snippet
 ```java
 	@Inline("$1.hashCode()")
-	public static int hashCode(Object[] array) {
+	public static int hashCode(double[] array) {
 		return array.hashCode();
 	}
 	
@@ -2660,7 +2636,31 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.
 #### Snippet
 ```java
 	@Inline("$1.hashCode()")
-	public static int hashCode(boolean[] array) {
+	public static int hashCode(float[] array) {
+		return array.hashCode();
+	}
+	
+```
+
+### ArrayHashCode
+`hashCode()` called on array should probably be 'Arrays.hashCode()'
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
+#### Snippet
+```java
+	@Inline("$1.hashCode()")
+	public static int hashCode(short[] array) {
+		return array.hashCode();
+	}
+	
+```
+
+### ArrayHashCode
+`hashCode()` called on array should probably be 'Arrays.hashCode()'
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/ArrayExtensions.java`
+#### Snippet
+```java
+	@Inline("$1.hashCode()")
+	public static int hashCode(Object[] array) {
 		return array.hashCode();
 	}
 	
@@ -2731,7 +2731,7 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Type
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/TypeParameterDeclarator.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MethodDeclaration.java`
 #### Snippet
 ```java
  * SPDX-License-Identifier: EPL-2.0
@@ -2743,7 +2743,7 @@ in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/Type
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/MethodDeclaration.java`
+in `org.eclipse.xtend.lib.macro/src/org/eclipse/xtend/lib/macro/declaration/TypeParameterDeclarator.java`
 #### Snippet
 ```java
  * SPDX-License-Identifier: EPL-2.0
@@ -2807,6 +2807,18 @@ Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ReflectExtensions.java`
 #### Snippet
 ```java
+		Preconditions.checkNotNull(receiver,"receiver");
+		Preconditions.checkNotNull(fieldName,"fieldName");
+		Class<? extends Object> clazz = receiver.getClass();
+		Field f = getDeclaredField(clazz, fieldName);
+		if (!f.canAccess(receiver))
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ReflectExtensions.java`
+#### Snippet
+```java
 		Preconditions.checkNotNull(fieldName,"fieldName");
 		
 		Class<? extends Object> clazz = receiver.getClass();
@@ -2826,31 +2838,7 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ReflectExte
 		do {
 ```
 
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/util/ReflectExtensions.java`
-#### Snippet
-```java
-		Preconditions.checkNotNull(receiver,"receiver");
-		Preconditions.checkNotNull(fieldName,"fieldName");
-		Class<? extends Object> clazz = receiver.getClass();
-		Field f = getDeclaredField(clazz, fieldName);
-		if (!f.canAccess(receiver))
-```
-
 ## RuleId[id=NullableProblems]
-### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/internal/UnmodifiableMergingMapView.java`
-#### Snippet
-```java
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			@Override
-			public Iterator<Entry<K, V>> iterator() {
-				return Iterators.unmodifiableIterator((Iterator) Iterators.filter(left.entrySet().iterator(), notInSet));
-			}
-```
-
 ### NullableProblems
 Not annotated method overrides method annotated with @NotNull
 in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/internal/UnmodifiableMergingMapView.java`
@@ -2861,6 +2849,18 @@ in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/internal/Unmodif
 			public Iterator<Entry<K, V>> iterator() {
 				return Iterators.unmodifiableIterator((Iterator) Iterators.concat(
 						UnmodifiableMergingMapView.this.right.entrySet().iterator(), diff.iterator()));
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `org.eclipse.xtext.xbase.lib/src/org/eclipse/xtext/xbase/lib/internal/UnmodifiableMergingMapView.java`
+#### Snippet
+```java
+			@SuppressWarnings({ "unchecked", "rawtypes" })
+			@Override
+			public Iterator<Entry<K, V>> iterator() {
+				return Iterators.unmodifiableIterator((Iterator) Iterators.filter(left.entrySet().iterator(), notInSet));
+			}
 ```
 
 ### NullableProblems
