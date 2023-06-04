@@ -32,18 +32,6 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
 ## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on method parameter `classData`
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/testTracking/TestTrackingClassDataMode.java`
-#### Snippet
-```java
-        boolean[] result = null;
-        if (linesTrace == null) {
-          synchronized (classData) {
-            linesTrace = classData.getTraceMask();
-            if (linesTrace == null) {
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `classData`
 in `src/com/intellij/rt/coverage/data/ProjectData.java`
 #### Snippet
 ```java
@@ -52,6 +40,18 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
         synchronized (classData) {
           final boolean[] trace = ((ClassData) classData).getTraceMask();
           if (traces.put(classData, trace) == null) {
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `classData`
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/testTracking/TestTrackingClassDataMode.java`
+#### Snippet
+```java
+        boolean[] result = null;
+        if (linesTrace == null) {
+          synchronized (classData) {
+            linesTrace = classData.getTraceMask();
+            if (linesTrace == null) {
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -101,18 +101,6 @@ in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
 
 ## RuleId[id=Deprecation]
 ### Deprecation
-'newInstance()' is deprecated
-in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.java`
-#### Snippet
-```java
-        throw new RuntimeException("Property \"" + TEST_DISCOVERY_DATA_LISTENER_PROP + "\" should be specified");
-      }
-      myDataListener = (TestDiscoveryDataListener) Class.forName(testDiscoveryDataListener).newInstance();
-      myNameEnumerator = myDataListener.getNameEnumerator();
-    } catch (InstantiationException e) {
-```
-
-### Deprecation
 Overrides deprecated method in 'org.junit.internal.RealSystem'
 in `junit4-test-discovery-launcher/src/org/junit/runner/JUnitLauncher.java`
 #### Snippet
@@ -122,6 +110,18 @@ in `junit4-test-discovery-launcher/src/org/junit/runner/JUnitLauncher.java`
         public void exit(int code) {
           retCode[0] = code;
         }
+```
+
+### Deprecation
+'newInstance()' is deprecated
+in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.java`
+#### Snippet
+```java
+        throw new RuntimeException("Property \"" + TEST_DISCOVERY_DATA_LISTENER_PROP + "\" should be specified");
+      }
+      myDataListener = (TestDiscoveryDataListener) Class.forName(testDiscoveryDataListener).newInstance();
+      myNameEnumerator = myDataListener.getNameEnumerator();
+    } catch (InstantiationException e) {
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -148,6 +148,19 @@ import com.intellij.rt.coverage.instrumentation.Instrumenter;
 import com.intellij.rt.coverage.instrumentation.filters.KotlinUtils;
 import org.jetbrains.coverage.org.objectweb.asm.Label;
 import org.jetbrains.coverage.org.objectweb.asm.Opcodes;
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `reportFileExists` may be 'final'
+in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
+#### Snippet
+```java
+  private static final int MAGIC = 284996684;
+
+  private static boolean reportFileExists = "true".equals(System.getProperty("kover.offline.report.exists", "false"));
+
+  public static void dump(File file, RawProjectData data) {
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -187,19 +200,6 @@ in `util/src/com/intellij/rt/coverage/instrumentation/ExtraFieldInstrumenter.jav
         //}
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `reportFileExists` may be 'final'
-in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
-#### Snippet
-```java
-  private static final int MAGIC = 284996684;
-
-  private static boolean reportFileExists = "true".equals(System.getProperty("kover.offline.report.exists", "false"));
-
-  public static void dump(File file, RawProjectData data) {
-```
-
 ## RuleId[id=ConstantValue]
 ### ConstantValue
 Condition `defineClassMethodRef != null` is always `true`
@@ -227,30 +227,6 @@ in `test-discovery/src/com/intellij/rt/coverage/data/SocketTestDiscoveryProtocol
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
-#### Snippet
-```java
-    try {
-      if (!reportFileExists && !file.exists()) {
-        file.getParentFile().mkdirs();
-        file.createNewFile();
-      }
-```
-
-### IgnoreResultOfCall
-Result of `File.createNewFile()` is ignored
-in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
-#### Snippet
-```java
-      if (!reportFileExists && !file.exists()) {
-        file.getParentFile().mkdirs();
-        file.createNewFile();
-      }
-
-```
-
 ### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
 in `src/com/intellij/rt/coverage/util/TestTrackingIOUtil.java`
@@ -280,6 +256,18 @@ Result of `File.mkdirs()` is ignored
 in `src/com/intellij/rt/coverage/data/ProjectData.java`
 #### Snippet
 ```java
+    final File result = new File(dataFile.getParent(), dirName);
+    if (!result.exists()) {
+      result.mkdirs();
+    }
+    return result;
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `src/com/intellij/rt/coverage/data/ProjectData.java`
+#### Snippet
+```java
     if (dataFile != null && !dataFile.exists()) {
       final File parentDir = dataFile.getParentFile();
       if (parentDir != null && !parentDir.exists()) parentDir.mkdirs();
@@ -297,18 +285,6 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
       dataFile.createNewFile();
     }
     ourProjectData.myStopped = false;
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `src/com/intellij/rt/coverage/data/ProjectData.java`
-#### Snippet
-```java
-    final File result = new File(dataFile.getParent(), dirName);
-    if (!result.exists()) {
-      result.mkdirs();
-    }
-    return result;
 ```
 
 ### IgnoreResultOfCall
@@ -333,5 +309,29 @@ in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
     htmlDir.mkdirs();
     final HTMLReportBuilder builder = ReportBuilderFactory.createHTMLReportBuilderForKover();
     builder.setReportDir(htmlDir);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
+#### Snippet
+```java
+    try {
+      if (!reportFileExists && !file.exists()) {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+      }
+```
+
+### IgnoreResultOfCall
+Result of `File.createNewFile()` is ignored
+in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
+#### Snippet
+```java
+      if (!reportFileExists && !file.exists()) {
+        file.getParentFile().mkdirs();
+        file.createNewFile();
+      }
+
 ```
 
