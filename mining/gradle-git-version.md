@@ -1,140 +1,15 @@
 # gradle-git-version 
  
 # Bad smells
-I found 20 bad smells with 4 repairable:
+I found 10 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 9 | false |
 | UnnecessaryLocalVariable | 3 | true |
 | DataFlowIssue | 2 | false |
-| SystemOutErr | 1 | false |
-| DynamicRegexReplaceableByCompiledPattern | 1 | false |
-| NestedAssignment | 1 | false |
-| AbstractClassNeverImplemented | 1 | false |
+| TrivialIf | 2 | false |
 | UnusedAssignment | 1 | false |
-| CodeBlock2Expr | 1 | true |
-## RuleId[id=SystemOutErr]
-### SystemOutErr
-Uses of `System.out` should probably be replaced with more robust logging
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionPlugin.java`
-#### Snippet
-```java
-            @SuppressWarnings("BanSystemOut")
-            public void execute(Task _task) {
-                System.out.println(project.getVersion());
-            }
-        });
-```
-
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-        String gitHashFull = getGitHashFull();
-        if (gitHashFull == null) {
-            return null;
-        }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-
-        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        return match.matches() ? match.group(1) : null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
-                    "HEAD");
-            if (result.isEmpty()) {
-                return null;
-            }
-            return result;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
-        } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git describe failed", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
-            String branch = runGitCmd("branch", "--show-current");
-            if (branch.isEmpty()) {
-                return null;
-            }
-            return branch;
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
-        } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git branch --show-current failed", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
-        } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git status --porcelain failed", e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
-        } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git command {} failed.\n", command, e);
-            return null;
-        }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
-        } catch (IOException | InterruptedException | RuntimeException e) {
-            log.debug("Native git rev-parse HEAD failed", e);
-            return null;
-        }
-    }
-```
-
+| FieldMayBeFinal | 1 | false |
+| NullableProblems | 1 | false |
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `processedDescription` is redundant
@@ -172,19 +47,6 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
                 .getVersion();
 ```
 
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionArgs.java`
-#### Snippet
-```java
-
-        Preconditions.checkState(
-                prefix.matches(PREFIX_REGEX),
-                "Specified prefix `%s` does not match the allowed format regex `%s`.",
-                prefix,
-```
-
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `description()` might be null
@@ -210,32 +72,6 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
         return Integer.parseInt(match.group(2));
 ```
 
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
-#### Snippet
-```java
-        StringBuilder builder = new StringBuilder();
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-            builder.append(line);
-            builder.append(System.getProperty("line.separator"));
-```
-
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `GitVersionCacheService` has no concrete subclass
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public abstract class GitVersionCacheService implements BuildService<BuildServiceParameters.None> {
-
-    private static final Logger log = LoggerFactory.getLogger(GitVersionCacheService.class);
-```
-
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `line` initializer `null` is redundant
@@ -249,16 +85,54 @@ in `src/main/java/com/palantir/gradle/gitversion/Git.java`
             builder.append(line);
 ```
 
-## RuleId[id=CodeBlock2Expr]
-### CodeBlock2Expr
-Statement lambda can be replaced with expression lambda
-in `src/main/java/com/palantir/gradle/gitversion/TimingVersionDetails.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `nativeGitInvoker` may be 'final'
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        return (VersionDetails) Proxy.newProxyInstance(
-                VersionDetails.class.getClassLoader(), new Class[] {VersionDetails.class}, (_proxy, method, args) -> {
-                    return timer.record(method.getName(), () -> {
-                        try {
-                            return method.invoke(versionDetails, args);
+    private final GitVersionArgs args;
+
+    private Git nativeGitInvoker;
+
+    VersionDetailsImpl(File gitDir, GitVersionArgs args) {
+```
+
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionPlugin.java`
+#### Snippet
+```java
+            @Override
+            @SuppressWarnings("BanSystemOut")
+            public void execute(Task _task) {
+                System.out.println(project.getVersion());
+            }
+```
+
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
+        try {
+            String userEmail = runGitCmd("config", "user.email");
+            if (userEmail.isEmpty()) {
+                return false;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
+        try {
+            String result = runGitCmd("status", "--porcelain");
+            if (result.isEmpty()) {
+                return true;
+            }
 ```
 
