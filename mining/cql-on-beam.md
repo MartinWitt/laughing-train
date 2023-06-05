@@ -27,6 +27,18 @@ in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
 ## RuleId[id=JavadocReference]
 ### JavadocReference
 Cannot resolve symbol `https`
+in `src/main/java/com/google/fhir/cql/beam/KeyForContextFn.java`
+#### Snippet
+```java
+ * <p>All references within the resources being processed must be relative (i.e., "Patient/123").
+ *
+ * @see https://cql.hl7.org/02-authorsguide.html#context
+ */
+public final class KeyForContextFn extends DoFn<String, KV<ResourceTypeAndId, String>> {
+```
+
+### JavadocReference
+Cannot resolve symbol `https`
 in `src/main/java/com/google/fhir/cql/beam/types/ResourceTypeAndId.java`
 #### Snippet
 ```java
@@ -59,18 +71,6 @@ in `src/main/java/com/google/fhir/cql/beam/types/CqlLibraryId.java`
    * @see https://cql.hl7.org/02-authorsguide.html#library
    */
   @JsonProperty("name")
-```
-
-### JavadocReference
-Cannot resolve symbol `https`
-in `src/main/java/com/google/fhir/cql/beam/KeyForContextFn.java`
-#### Snippet
-```java
- * <p>All references within the resources being processed must be relative (i.e., "Patient/123").
- *
- * @see https://cql.hl7.org/02-authorsguide.html#context
- */
-public final class KeyForContextFn extends DoFn<String, KV<ResourceTypeAndId, String>> {
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -110,6 +110,19 @@ in `src/main/java/com/google/fhir/cql/beam/EvaluateCql.java`
         .apply("GroupByContext", GroupByKey.<ResourceTypeAndId, String>create())
         .apply(
             "EvaluateCql",
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `jsonMapper` may be 'final'
+in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
+#### Snippet
+```java
+  /** A wrapper around {@link Library} that supports Java serialization. */
+  private static class SerializableLibraryWrapper implements Serializable {
+    private static JsonMapper jsonMapper =
+        JsonCqlMapper.getMapper()
+            .rebuild()
 ```
 
 ## RuleId[id=NullableProblems]
@@ -159,18 +172,5 @@ in `src/main/java/com/google/fhir/cql/beam/types/CqlEvaluationResult.java`
             TypeDescriptor<T> typeDescriptor, List<? extends Coder<?>> componentCoders)
             throws CannotProvideCoderException {
           if (typeDescriptor.getRawType() != CqlEvaluationResult.class) {
-```
-
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `jsonMapper` may be 'final'
-in `src/main/java/com/google/fhir/cql/beam/EvaluateCqlForContextFn.java`
-#### Snippet
-```java
-  /** A wrapper around {@link Library} that supports Java serialization. */
-  private static class SerializableLibraryWrapper implements Serializable {
-    private static JsonMapper jsonMapper =
-        JsonCqlMapper.getMapper()
-            .rebuild()
 ```
 
