@@ -51,11 +51,11 @@ Modifier `public` is redundant for interface members
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
 #### Snippet
 ```java
-public interface DefaultStatusMessages {
-  public final String BUILD_QUEUED = "TeamCity build queued";
-  public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
-  public final String BUILD_STARTED = "TeamCity build started";
   public final String BUILD_FINISHED = "TeamCity build finished";
+  public final String BUILD_FAILED = "TeamCity build failed";
+  public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
+}
+
 ```
 
 ### UnnecessaryModifier
@@ -63,11 +63,11 @@ Modifier `final` is redundant for interface fields
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
 #### Snippet
 ```java
-public interface DefaultStatusMessages {
-  public final String BUILD_QUEUED = "TeamCity build queued";
-  public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
-  public final String BUILD_STARTED = "TeamCity build started";
   public final String BUILD_FINISHED = "TeamCity build finished";
+  public final String BUILD_FAILED = "TeamCity build failed";
+  public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
+}
+
 ```
 
 ### UnnecessaryModifier
@@ -75,11 +75,11 @@ Modifier `public` is redundant for interface members
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
 #### Snippet
 ```java
+public interface DefaultStatusMessages {
   public final String BUILD_QUEUED = "TeamCity build queued";
   public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
   public final String BUILD_STARTED = "TeamCity build started";
   public final String BUILD_FINISHED = "TeamCity build finished";
-  public final String BUILD_FAILED = "TeamCity build failed";
 ```
 
 ### UnnecessaryModifier
@@ -87,11 +87,11 @@ Modifier `final` is redundant for interface fields
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
 #### Snippet
 ```java
+public interface DefaultStatusMessages {
   public final String BUILD_QUEUED = "TeamCity build queued";
   public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
   public final String BUILD_STARTED = "TeamCity build started";
   public final String BUILD_FINISHED = "TeamCity build finished";
-  public final String BUILD_FAILED = "TeamCity build failed";
 ```
 
 ### UnnecessaryModifier
@@ -123,6 +123,30 @@ Modifier `public` is redundant for interface members
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
 #### Snippet
 ```java
+  public final String BUILD_QUEUED = "TeamCity build queued";
+  public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
+  public final String BUILD_STARTED = "TeamCity build started";
+  public final String BUILD_FINISHED = "TeamCity build finished";
+  public final String BUILD_FAILED = "TeamCity build failed";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
+#### Snippet
+```java
+  public final String BUILD_QUEUED = "TeamCity build queued";
+  public final String BUILD_REMOVED_FROM_QUEUE = "TeamCity build removed from queue";
+  public final String BUILD_STARTED = "TeamCity build started";
+  public final String BUILD_FINISHED = "TeamCity build finished";
+  public final String BUILD_FAILED = "TeamCity build failed";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
+#### Snippet
+```java
 
 public interface DefaultStatusMessages {
   public final String BUILD_QUEUED = "TeamCity build queued";
@@ -164,30 +188,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
   public final String BUILD_FINISHED = "TeamCity build finished";
   public final String BUILD_FAILED = "TeamCity build failed";
   public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
-#### Snippet
-```java
-  public final String BUILD_FINISHED = "TeamCity build finished";
-  public final String BUILD_FAILED = "TeamCity build failed";
-  public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
-}
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/DefaultStatusMessages.java`
-#### Snippet
-```java
-  public final String BUILD_FINISHED = "TeamCity build finished";
-  public final String BUILD_FAILED = "TeamCity build failed";
-  public final String BUILD_MARKED_SUCCESSFULL = "TeamCity build marked as successful";
-}
-
 ```
 
 ### UnnecessaryModifier
@@ -393,6 +393,54 @@ Redundant character escape `\\/` in RegExp
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
 #### Snippet
 ```java
+  // Captures the following groups: (project path) (repository name)
+  // Example: (/tfs/collection) /_git/ (git_project)
+  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
+
+  // Captures the following groups: (organization) (project) (repository)
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
+#### Snippet
+```java
+  // Captures the following groups: (project path) (repository name)
+  // Example: (/tfs/collection) /_git/ (git_project)
+  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
+
+  // Captures the following groups: (organization) (project) (repository)
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
+#### Snippet
+```java
+  // Captures the following groups: (project path) (repository name)
+  // Example: (/tfs/collection) /_git/ (git_project)
+  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
+
+  // Captures the following groups: (organization) (project) (repository)
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
+#### Snippet
+```java
+  // Captures the following groups: (project path) (repository name)
+  // Example: (/tfs/collection) /_git/ (git_project)
+  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
+
+  // Captures the following groups: (organization) (project) (repository)
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
+#### Snippet
+```java
   // Captures the following groups: (organization) (project) (repository)
   // Example: / (organization) / (project) / (repository)
   private static final Pattern TFS_DEVOPS_PATH_PATTERN = Pattern.compile("\\/([^\\/]+)\\/([^\\/]+)\\/([^\\/]+)");
@@ -554,54 +602,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
     "(?:(https?|ssh)\\:\\/\\/)?(?:([^@]+)@)?([^\\/\\:]+(?:\\:\\d+)?)(?:\\:v?\\d+)?(\\/.+)?"
   );
 
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
-#### Snippet
-```java
-  // Captures the following groups: (project path) (repository name)
-  // Example: (/tfs/collection) /_git/ (git_project)
-  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
-
-  // Captures the following groups: (organization) (project) (repository)
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
-#### Snippet
-```java
-  // Captures the following groups: (project path) (repository name)
-  // Example: (/tfs/collection) /_git/ (git_project)
-  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
-
-  // Captures the following groups: (organization) (project) (repository)
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
-#### Snippet
-```java
-  // Captures the following groups: (project path) (repository name)
-  // Example: (/tfs/collection) /_git/ (git_project)
-  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
-
-  // Captures the following groups: (organization) (project) (repository)
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/tfs/TfsRepositoryInfo.java`
-#### Snippet
-```java
-  // Captures the following groups: (project path) (repository name)
-  // Example: (/tfs/collection) /_git/ (git_project)
-  private static final Pattern TFS_GIT_PROJECT_PATH_PATTERN = Pattern.compile("(\\/.+)?\\/_(?:git|ssh)\\/([^\\/]+)");
-
-  // Captures the following groups: (organization) (project) (repository)
 ```
 
 ### RegExpRedundantEscape
@@ -935,10 +935,12 @@ No matching constructor found in class 'GitHubApiFactoryImpl'#treeend
 
 *** ** * ** ***
 
-|---------------------------------------|---|----------------------------------------|
-| **GitHubApiFactoryImpl(...):**        |   | **Bean:**                              |
-| HttpClientWrapper wrapper             |   | Autowired: null(HttpClientWrapperImpl) |
-| OAuthTokensStorage oAuthTokensStorage |   | **???**                                |
+|--------------------------------------------|---|----------------------------------------|
+| **GitHubApiFactoryImpl(...):**             |   | **Bean:**                              |
+| HttpClientWrapper wrapper                  |   | Autowired: null(HttpClientWrapperImpl) |
+| OAuthTokensStorage oAuthTokensStorage      |   | **???**                                |
+| OAuthConnectionsManager connectionsManager |   | **???**                                |
+| ProjectManager projectManager              |   | **???**                                |
 in `commit-status-publisher-server/src/main/resources/META-INF/build-server-plugin-voter.xml`
 #### Snippet
 ```java
@@ -1399,18 +1401,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashSettings.java`
-#### Snippet
-```java
-          if (repoInfo.errors.size() > 1)
-            pluralS = "s";
-          throw new HttpPublisherException(String.format("Bitbucket Server publisher error%s:%s", pluralS, sb.toString()));
-        }
-      }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/gerrit/GerritClientImpl.java`
 #### Snippet
 ```java
@@ -1435,6 +1425,18 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashSettings.java`
+#### Snippet
+```java
+          if (repoInfo.errors.size() > 1)
+            pluralS = "s";
+          throw new HttpPublisherException(String.format("Bitbucket Server publisher error%s:%s", pluralS, sb.toString()));
+        }
+      }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusPublisherProblems.java`
 #### Snippet
 ```java
@@ -1447,18 +1449,6 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
 
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `BaseBuildData` may be 'static'
-in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
-#### Snippet
-```java
-  }
-
-  private abstract class BaseBuildData implements StatusData {
-    private final BuildRevision myRevision;
-    private final StashBuildStatus myStatus;
-```
-
-### InnerClassMayBeStatic
 Inner class `SBuildPromotionRequestData` may be 'static'
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
 #### Snippet
@@ -1468,6 +1458,18 @@ in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPub
   private class SBuildPromotionRequestData implements StatusRequestData {
     private final BuildPromotion myBuildPromotion;
     private final BuildRevision myRevision;
+```
+
+### InnerClassMayBeStatic
+Inner class `BaseBuildData` may be 'static'
+in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/stash/StashPublisher.java`
+#### Snippet
+```java
+  }
+
+  private abstract class BaseBuildData implements StatusData {
+    private final BuildRevision myRevision;
+    private final StashBuildStatus myStatus;
 ```
 
 ## RuleId[id=DanglingJavadoc]
@@ -1613,11 +1615,11 @@ Tag `return` is not allowed here
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusesCache.java`
 #### Snippet
 ```java
-   * @param revision key for the cache
-   * @param prefix business logic related key prefix for the cache
-   * @return removed from the cache value
+   * @param status   new value to be added to the cache
+   * @param isMock   is it a mock for the missing value?
+   * @return previous value in cache or null
    */
-  public void removeStatusFromCache(@NotNull BuildRevision revision, @Nullable String prefix) {
+  private void putStatusToCache(@NotNull BuildRevision revision, @Nullable String prefix, @Nullable T status) {
 ```
 
 ### JavadocDeclaration
@@ -1625,11 +1627,11 @@ Tag `return` is not allowed here
 in `commit-status-publisher-server/src/main/java/jetbrains/buildServer/commitPublisher/CommitStatusesCache.java`
 #### Snippet
 ```java
-   * @param status   new value to be added to the cache
-   * @param isMock   is it a mock for the missing value?
-   * @return previous value in cache or null
+   * @param revision key for the cache
+   * @param prefix business logic related key prefix for the cache
+   * @return removed from the cache value
    */
-  private void putStatusToCache(@NotNull BuildRevision revision, @Nullable String prefix, @Nullable T status) {
+  public void removeStatusFromCache(@NotNull BuildRevision revision, @Nullable String prefix) {
 ```
 
 ## RuleId[id=FieldMayBeFinal]
