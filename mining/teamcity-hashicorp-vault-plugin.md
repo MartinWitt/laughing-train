@@ -60,18 +60,6 @@ public class Jackson2ObjectMapperBuilder {
 ## RuleId[id=KotlinDeprecation]
 ### KotlinDeprecation
 Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
-in `common/src/main/kotlin/org/jetbrains/teamcity/vault/util.kt`
-#### Snippet
-```java
-
-fun createRestTemplate(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): RestTemplate {
-    val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
-    val factory = createClientHttpRequestFactory(trustStoreProvider)
-    // HttpComponents.usingHttpComponents(options, sslConfiguration)
-```
-
-### KotlinDeprecation
-Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
 in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt`
 #### Snippet
 ```java
@@ -92,6 +80,18 @@ in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultConnector.kt
             val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
             val factory = createClientHttpRequestFactory(trustStoreProvider)
 
+```
+
+### KotlinDeprecation
+Unnecessary non-null assertion (!!) on a non-null receiver of type VaultEndpoint!
+in `common/src/main/kotlin/org/jetbrains/teamcity/vault/util.kt`
+#### Snippet
+```java
+
+fun createRestTemplate(settings: VaultFeatureSettings, trustStoreProvider: SSLTrustStoreProvider): RestTemplate {
+    val endpoint = VaultEndpoint.from(URI.create(settings.url))!!
+    val factory = createClientHttpRequestFactory(trustStoreProvider)
+    // HttpComponents.usingHttpComponents(options, sslConfiguration)
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -201,11 +201,11 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/VaultTemplate.java
 in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
 #### Snippet
 ```java
-        private String username;
-
         private CharSequence password;
 
         private String path;
+
+        LdapAuthenticationOptionsBuilder() {
 ```
 
 ### NotNullFieldNotInitialized
@@ -213,11 +213,11 @@ in `common/src/main/java/org/springframework/vault/authentication/LdapAuthentica
 in `common/src/main/java/org/springframework/vault/authentication/LdapAuthenticationOptions.java`
 #### Snippet
 ```java
+        private String username;
+
         private CharSequence password;
 
         private String path;
-
-        LdapAuthenticationOptionsBuilder() {
 ```
 
 ### NotNullFieldNotInitialized
@@ -268,6 +268,18 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/ClientHttpRequestF
  * Simplified copy of {@link org.springframework.vault.config.ClientHttpRequestFactoryFactory}
  * With proper redirect handling for POST requests
  * <p>
+```
+
+### Deprecation
+'APPLICATION_JSON_UTF8' is deprecated
+in `common/src/main/java/org/jetbrains/teamcity/vault/support/MappingJackson2HttpMessageConverter.java`
+#### Snippet
+```java
+	 */
+	public MappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
+		super(objectMapper, MediaType.APPLICATION_JSON_UTF8,
+				new MediaType("application", "*+json", DEFAULT_CHARSET));
+	}
 ```
 
 ### Deprecation
@@ -328,18 +340,6 @@ in `common/src/main/java/org/jetbrains/teamcity/vault/support/Jackson2ObjectMapp
 				objectMapper.registerModule(BeanUtils.instantiate(jodaModule));
 			}
 			catch (ClassNotFoundException ignored) {
-```
-
-### Deprecation
-'APPLICATION_JSON_UTF8' is deprecated
-in `common/src/main/java/org/jetbrains/teamcity/vault/support/MappingJackson2HttpMessageConverter.java`
-#### Snippet
-```java
-	 */
-	public MappingJackson2HttpMessageConverter(ObjectMapper objectMapper) {
-		super(objectMapper, MediaType.APPLICATION_JSON_UTF8,
-				new MediaType("application", "*+json", DEFAULT_CHARSET));
-	}
 ```
 
 ### Deprecation
@@ -431,18 +431,6 @@ public abstract class AbstractJackson2HttpMessageConverter extends AbstractGener
 
 ## RuleId[id=RedundantNullableReturnType]
 ### RedundantNullableReturnType
-'getPropertiesProcessor' always returns non-null type
-in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
-#### Snippet
-```java
-    }
-
-    override fun getPropertiesProcessor(): PropertiesProcessor? {
-        return getParametersProcessor()
-    }
-```
-
-### RedundantNullableReturnType
 'getEditParametersUrl' always returns non-null type
 in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
 #### Snippet
@@ -451,6 +439,18 @@ in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConne
 
     override fun getEditParametersUrl(): String? {
         return descriptor.getPluginResourcesPath("editProjectConnectionVault.jsp")
+    }
+```
+
+### RedundantNullableReturnType
+'getPropertiesProcessor' always returns non-null type
+in `server/src/main/kotlin/org/jetbrains/teamcity/vault/server/VaultProjectConnectionProvider.kt`
+#### Snippet
+```java
+    }
+
+    override fun getPropertiesProcessor(): PropertiesProcessor? {
+        return getParametersProcessor()
     }
 ```
 
