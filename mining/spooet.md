@@ -48,6 +48,18 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
+Unchecked cast: 'spoon.reflect.visitor.internal.Context' to 'T'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+
+	private <T extends Context> T exit() {
+		return (T) contexts.pop();
+	}
+
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'com.squareup.javapoet.TypeName' to 'T'
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
@@ -227,18 +239,6 @@ in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 		throw new UnsupportedOperationException();
 ```
 
-### UNCHECKED_WARNING
-Unchecked cast: 'spoon.reflect.visitor.internal.Context' to 'T'
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-
-	private <T extends Context> T exit() {
-		return (T) contexts.pop();
-	}
-
-```
-
 ## RuleId[id=UNUSED_IMPORT]
 ### UNUSED_IMPORT
 Unused import `import spoon.reflect.visitor.DefaultJavaPrettyPrinter;`
@@ -254,18 +254,6 @@ import spoon.reflect.visitor.PrettyPrinter;
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `builder` may be 'final'
-in `src/main/java/spoon/reflect/visitor/internal/TypeContext.java`
-#### Snippet
-```java
- */
-public class TypeContext extends AbstractContext {
-	private TypeSpec.Builder builder;
-
-	public TypeContext(TypeSpec.Builder builder) {
-```
-
-### FieldMayBeFinal
 Field `contexts` may be 'final'
 in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
 #### Snippet
@@ -275,6 +263,18 @@ public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, Prett
 	private Stack<Context> contexts = new Stack<>();
 
 	Environment env;
+```
+
+### FieldMayBeFinal
+Field `builder` may be 'final'
+in `src/main/java/spoon/reflect/visitor/internal/TypeContext.java`
+#### Snippet
+```java
+ */
+public class TypeContext extends AbstractContext {
+	private TypeSpec.Builder builder;
+
+	public TypeContext(TypeSpec.Builder builder) {
 ```
 
 ## RuleId[id=ConstantValue]
