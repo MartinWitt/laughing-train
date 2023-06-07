@@ -32,8 +32,8 @@ I found 183 bad smells with 21 repairable:
 | JavadocLinkAsPlainText | 2 | false |
 | SynchronizationOnLocalVariableOrMethodParameter | 2 | false |
 | DoubleNegation | 1 | false |
-| UnaryPlus | 1 | false |
 | UnnecessarySemicolon | 1 | false |
+| UnaryPlus | 1 | false |
 | CStyleArrayDeclaration | 1 | false |
 | RedundantCollectionOperation | 1 | false |
 | ContinueOrBreakFromFinallyBlock | 1 | false |
@@ -43,31 +43,6 @@ I found 183 bad smells with 21 repairable:
 | UNUSED_IMPORT | 1 | false |
 | FieldMayBeFinal | 1 | false |
 | CdiInjectInspection | 1 | false |
-## RuleId[id=JUnitMixedFramework]
-### JUnitMixedFramework
-Method `setUp()` annotated with '@Before' inside class extending JUnit 5 TestCase
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/InjectedTest.java`
-#### Snippet
-```java
-    @BeforeMethod
-    @BeforeEach
-    public void setUp()
-        throws Exception
-    {
-```
-
-### JUnitMixedFramework
-Method `tearDown()` annotated with '@After' inside class extending JUnit 5 TestCase
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/InjectedTest.java`
-#### Snippet
-```java
-    @AfterMethod
-    @AfterEach
-    public void tearDown()
-        throws Exception
-    {
-```
-
 ## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
 ### ToArrayCallWithZeroLengthArrayArgument
 Call to `toArray()` with pre-sized array argument 'new String\[arguments.size()\]'
@@ -77,78 +52,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/ElementAnalyzer.
             else if ( String[].class == clazz )
             {
                 binder.bind( key ).toInstance( arguments.toArray( new String[arguments.size()] ) );
-            }
-        }
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Method\[methods.size()\]'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanLifecycle.java`
-#### Snippet
-```java
-    private static Method[] toArray( final List<Method> methods )
-    {
-        return null != methods && !methods.isEmpty() ? methods.toArray( new Method[methods.size()] ) : NO_METHODS;
-    }
-}
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Map\[properties.size()\]'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/MergedProperties.java`
-#### Snippet
-```java
-    MergedProperties( final List<Map<?, ?>> properties )
-    {
-        this.properties = properties.toArray( new Map[properties.size()] );
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new URL\[expandedPath.size()\]'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/URLClassSpace.java`
-#### Snippet
-```java
-        }
-
-        return expandedPath.toArray( new URL[expandedPath.size()] );
-    }
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new URL\[indexPath.size()\]'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
-#### Snippet
-```java
-
-        final ClassLoader parent = SisuIndex.class.getClassLoader();
-        final URL[] urls = indexPath.toArray( new URL[indexPath.size()] );
-        final ClassLoader loader = urls.length > 0 ? URLClassLoader.newInstance( urls, parent ) : parent;
-
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Binding\[visible.size()\]'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
-#### Snippet
-```java
-                        }
-                    }
-                    wildcards = visible.isEmpty() ? NO_BINDINGS : visible.toArray( new Binding[visible.size()] );
-                }
-            }
-```
-
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new URL\[classPath.size()\]'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/BundleClassSpace.java`
-#### Snippet
-```java
-                }
-
-                bundleClassPath = classPath.isEmpty() ? NO_URLS : classPath.toArray( new URL[classPath.size()] );
             }
         }
 ```
@@ -177,19 +80,104 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/ZipEntryIterato
         finally
 ```
 
-## RuleId[id=UnnecessaryModifier]
-### UnnecessaryModifier
-Modifier `static` is redundant for inner interfaces
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/TypeArguments.java`
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Binding\[visible.size()\]'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
 #### Snippet
 ```java
-    @Qualifier
-    @Retention( RetentionPolicy.RUNTIME )
-    private static @interface Implicit
-    {
-    }
+                        }
+                    }
+                    wildcards = visible.isEmpty() ? NO_BINDINGS : visible.toArray( new Binding[visible.size()] );
+                }
+            }
 ```
 
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new URL\[classPath.size()\]'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/BundleClassSpace.java`
+#### Snippet
+```java
+                }
+
+                bundleClassPath = classPath.isEmpty() ? NO_URLS : classPath.toArray( new URL[classPath.size()] );
+            }
+        }
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new URL\[indexPath.size()\]'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
+#### Snippet
+```java
+
+        final ClassLoader parent = SisuIndex.class.getClassLoader();
+        final URL[] urls = indexPath.toArray( new URL[indexPath.size()] );
+        final ClassLoader loader = urls.length > 0 ? URLClassLoader.newInstance( urls, parent ) : parent;
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new URL\[expandedPath.size()\]'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/URLClassSpace.java`
+#### Snippet
+```java
+        }
+
+        return expandedPath.toArray( new URL[expandedPath.size()] );
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Map\[properties.size()\]'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/MergedProperties.java`
+#### Snippet
+```java
+    MergedProperties( final List<Map<?, ?>> properties )
+    {
+        this.properties = properties.toArray( new Map[properties.size()] );
+    }
+
+```
+
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Method\[methods.size()\]'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanLifecycle.java`
+#### Snippet
+```java
+    private static Method[] toArray( final List<Method> methods )
+    {
+        return null != methods && !methods.isEmpty() ? methods.toArray( new Method[methods.size()] ) : NO_METHODS;
+    }
+}
+```
+
+## RuleId[id=JUnitMixedFramework]
+### JUnitMixedFramework
+Method `tearDown()` annotated with '@After' inside class extending JUnit 5 TestCase
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/InjectedTest.java`
+#### Snippet
+```java
+    @AfterMethod
+    @AfterEach
+    public void tearDown()
+        throws Exception
+    {
+```
+
+### JUnitMixedFramework
+Method `setUp()` annotated with '@Before' inside class extending JUnit 5 TestCase
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/InjectedTest.java`
+#### Snippet
+```java
+    @BeforeMethod
+    @BeforeEach
+    public void setUp()
+        throws Exception
+    {
+```
+
+## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner interfaces
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/WildcardKey.java`
@@ -200,6 +188,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/WildcardKey.jav
     private static @interface Qualified
     {
         Class<?> value();
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner interfaces
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/TypeArguments.java`
+#### Snippet
+```java
+    @Qualifier
+    @Retention( RetentionPolicy.RUNTIME )
+    private static @interface Implicit
+    {
+    }
 ```
 
 ### UnnecessaryModifier
@@ -254,6 +254,30 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWrite
 
 ## RuleId[id=JavadocReference]
 ### JavadocReference
+Symbol `computeAllFrames` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Frame.java`
+#### Snippet
+```java
+ *   <li>After all instructions have been visited, a fix point algorithm is used in MethodWriter to
+ *       compute the "input frame" of each basic block (i.e. the stack map frame at the beginning of
+ *       the basic block). See {@link MethodWriter#computeAllFrames}.
+ * </ul>
+ *
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible annotation of this field. The previous ones can be accessed with the
+   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleAnnotation;
+```
+
+### JavadocReference
 Symbol `previousAnnotation` is inaccessible from here
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
 #### Snippet
@@ -291,74 +315,14 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter
 
 ### JavadocReference
 Symbol `previousAnnotation` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible annotation of this field. The previous ones can be accessed with the
-   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeInvisibleAnnotation;
-```
-
-### JavadocReference
-Symbol `computeAllFrames` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Frame.java`
-#### Snippet
-```java
- *   <li>After all instructions have been visited, a fix point algorithm is used in MethodWriter to
- *       compute the "input frame" of each basic block (i.e. the stack map frame at the beginning of
- *       the basic block). See {@link MethodWriter#computeAllFrames}.
- * </ul>
- *
-```
-
-### JavadocReference
-Cannot resolve symbol `path`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/URLClassSpace.java`
-#### Snippet
-```java
-     * Normalizes the given class path entry by removing any extraneous "jar:"..."!/" padding.
-     * 
-     * @param path The URL to normalize
-     * @return Normalized class path entry
-     */
-```
-
-### JavadocReference
-Cannot resolve symbol `toString()`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeVisitor.java`
-#### Snippet
-```java
-
-    /**
-     * Finds source of current class; detailed location or {@link ClassSpace#toString()}.
-     */
-    private String findSource()
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
 #### Snippet
 ```java
   /**
-   * The last runtime invisible annotation of this record component. The previous ones can be
+   * The last runtime visible type annotation of this record component. The previous ones can be
    * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
-  private AnnotationWriter lastRuntimeInvisibleAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible type annotation of this record component. The previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
+  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
 ```
 
 ### JavadocReference
@@ -379,22 +343,142 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordCompo
 #### Snippet
 ```java
   /**
-   * The last runtime visible type annotation of this record component. The previous ones can be
+   * The last runtime invisible type annotation of this record component. The previous ones can be
    * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible annotation of this record component. The previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleAnnotation;
+```
+
+### JavadocReference
+Cannot resolve symbol `toString()`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeVisitor.java`
+#### Snippet
+```java
+
+    /**
+     * Finds source of current class; detailed location or {@link ClassSpace#toString()}.
+     */
+    private String findSource()
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible type annotation of this class. The previous ones can be accessed
+   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime visible annotation of this class. The previous ones can be accessed with the
+   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeVisibleAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible annotation of this class. The previous ones can be accessed with the
+   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime visible type annotation of this class. The previous ones can be accessed with
+   * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
   private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
 ```
 
 ### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+Symbol `computeMaxStackAndLocal` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Label.java`
 #### Snippet
 ```java
-   * The runtime invisible parameter annotations of this method. Each array element contains the
-   * last annotation of a parameter (which can be {@literal null} - the previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field). May be {@literal null}.
+   * several subroutines, this is the id of the "oldest" subroutine that contains it (with the
+   * convention that a subroutine calling another one is "older" than the callee). This field is
+   * computed in {@link MethodWriter#computeMaxStackAndLocal}, if the method contains JSR
+   * instructions.
    */
-  private AnnotationWriter[] lastRuntimeInvisibleParameterAnnotations;
+```
+
+### JavadocReference
+Symbol `computeAllFrames` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Label.java`
+#### Snippet
+```java
+   * this is not used in practice).
+   *
+   * <p>List of labels are used in {@link MethodWriter#computeAllFrames} and {@link
+   * MethodWriter#computeMaxStackAndLocal} to compute stack map frames and the maximum stack size,
+   * respectively, as well as in {@link #markSubroutine} and {@link #addSubroutineRetSuccessors} to
+```
+
+### JavadocReference
+Symbol `computeMaxStackAndLocal` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Label.java`
+#### Snippet
+```java
+   *
+   * <p>List of labels are used in {@link MethodWriter#computeAllFrames} and {@link
+   * MethodWriter#computeMaxStackAndLocal} to compute stack map frames and the maximum stack size,
+   * respectively, as well as in {@link #markSubroutine} and {@link #addSubroutineRetSuccessors} to
+   * compute the basic blocks belonging to subroutines and their outgoing edges. Outside of these
+```
+
+### JavadocReference
+Symbol `computeMaxStackAndLocal` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Label.java`
+#### Snippet
+```java
+  /**
+   * The number of elements in the input stack of the basic block corresponding to this label. This
+   * field is computed in {@link MethodWriter#computeMaxStackAndLocal}.
+   */
+  short inputStackSize;
+```
+
+### JavadocReference
+Cannot resolve symbol `path`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/URLClassSpace.java`
+#### Snippet
+```java
+     * Normalizes the given class path entry by removing any extraneous "jar:"..."!/" padding.
+     * 
+     * @param path The URL to normalize
+     * @return Normalized class path entry
+     */
 ```
 
 ### JavadocReference
@@ -403,10 +487,22 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWrite
 #### Snippet
 ```java
   /**
-   * The last runtime invisible annotation of this method. The previous ones can be accessed with
+   * The last runtime visible type annotation of the Code attribute. The previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastCodeRuntimeVisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime visible type annotation of this method. The previous ones can be accessed with
    * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
-  private AnnotationWriter lastRuntimeInvisibleAnnotation;
+  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
 ```
 
 ### JavadocReference
@@ -446,6 +542,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWrite
 ```
 
 ### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
+  /**
+   * The last runtime invisible type annotation of this method. The previous ones can be accessed
+   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
+```
+
+### JavadocReference
 Cannot resolve symbol `COMPUTE_MAX_STACK_AND_LOCAL_FROM_FRAMES`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
 #### Snippet
@@ -475,6 +583,30 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWrite
 #### Snippet
 ```java
   /**
+   * The last runtime invisible type annotation of the Code attribute. The previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
+   */
+  private AnnotationWriter lastCodeRuntimeInvisibleTypeAnnotation;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
+   * The runtime invisible parameter annotations of this method. Each array element contains the
+   * last annotation of a parameter (which can be {@literal null} - the previous ones can be
+   * accessed with the {@link AnnotationWriter#previousAnnotation} field). May be {@literal null}.
+   */
+  private AnnotationWriter[] lastRuntimeInvisibleParameterAnnotations;
+```
+
+### JavadocReference
+Symbol `previousAnnotation` is inaccessible from here
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
+#### Snippet
+```java
+  /**
    * The last runtime visible annotation of this method. The previous ones can be accessed with the
    * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
@@ -487,145 +619,25 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWrite
 #### Snippet
 ```java
   /**
-   * The last runtime invisible type annotation of the Code attribute. The previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastCodeRuntimeInvisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime visible type annotation of the Code attribute. The previous ones can be
-   * accessed with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastCodeRuntimeVisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible type annotation of this method. The previous ones can be accessed
-   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime visible type annotation of this method. The previous ones can be accessed with
+   * The last runtime invisible annotation of this method. The previous ones can be accessed with
    * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `computeAllFrames` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Label.java`
-#### Snippet
-```java
-   * this is not used in practice).
-   *
-   * <p>List of labels are used in {@link MethodWriter#computeAllFrames} and {@link
-   * MethodWriter#computeMaxStackAndLocal} to compute stack map frames and the maximum stack size,
-   * respectively, as well as in {@link #markSubroutine} and {@link #addSubroutineRetSuccessors} to
-```
-
-### JavadocReference
-Symbol `computeMaxStackAndLocal` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Label.java`
-#### Snippet
-```java
-   *
-   * <p>List of labels are used in {@link MethodWriter#computeAllFrames} and {@link
-   * MethodWriter#computeMaxStackAndLocal} to compute stack map frames and the maximum stack size,
-   * respectively, as well as in {@link #markSubroutine} and {@link #addSubroutineRetSuccessors} to
-   * compute the basic blocks belonging to subroutines and their outgoing edges. Outside of these
-```
-
-### JavadocReference
-Symbol `computeMaxStackAndLocal` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Label.java`
-#### Snippet
-```java
-   * several subroutines, this is the id of the "oldest" subroutine that contains it (with the
-   * convention that a subroutine calling another one is "older" than the callee). This field is
-   * computed in {@link MethodWriter#computeMaxStackAndLocal}, if the method contains JSR
-   * instructions.
-   */
-```
-
-### JavadocReference
-Symbol `computeMaxStackAndLocal` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Label.java`
-#### Snippet
-```java
-  /**
-   * The number of elements in the input stack of the basic block corresponding to this label. This
-   * field is computed in {@link MethodWriter#computeMaxStackAndLocal}.
-   */
-  short inputStackSize;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime visible type annotation of this class. The previous ones can be accessed with
-   * the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeVisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime visible annotation of this class. The previous ones can be accessed with the
-   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeVisibleAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible type annotation of this class. The previous ones can be accessed
-   * with the {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
-   */
-  private AnnotationWriter lastRuntimeInvisibleTypeAnnotation;
-```
-
-### JavadocReference
-Symbol `previousAnnotation` is inaccessible from here
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-  /**
-   * The last runtime invisible annotation of this class. The previous ones can be accessed with the
-   * {@link AnnotationWriter#previousAnnotation} field. May be {@literal null}.
    */
   private AnnotationWriter lastRuntimeInvisibleAnnotation;
 ```
 
 ## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Method `readCode` is too complex to analyze by data flow algorithm
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
+#### Snippet
+```java
+   *     its attribute_name_index and attribute_length fields.
+   */
+  private void readCode(
+      final MethodVisitor methodVisitor, final Context context, final int codeOffset) {
+    int currentOffset = codeOffset;
+```
+
 ### DataFlowIssue
 Dereference of `listOfBlocksToProcess` may produce `NullPointerException`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWriter.java`
@@ -638,16 +650,17 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWrite
     while (listOfBlocksToProcess != Label.EMPTY_LIST) {
 ```
 
-### DataFlowIssue
-Method `readCode` is too complex to analyze by data flow algorithm
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassReader.java`
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Constants.java`
 #### Snippet
 ```java
-   *     its attribute_name_index and attribute_length fields.
-   */
-  private void readCode(
-      final MethodVisitor methodVisitor, final Context context, final int codeOffset) {
-    int currentOffset = codeOffset;
+    }
+    int minorVersion;
+    try (DataInputStream callerClassStream = new DataInputStream(classInputStream); ) {
+      callerClassStream.readInt();
+      minorVersion = callerClassStream.readUnsignedShort();
 ```
 
 ## RuleId[id=RedundantClassCall]
@@ -686,19 +699,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Frame.java`
   private static final int ARRAY_OF = +1 << DIM_SHIFT;
 
   /** The constant to be added to an abstract type to get one with one less array dimension. */
-```
-
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Constants.java`
-#### Snippet
-```java
-    }
-    int minorVersion;
-    try (DataInputStream callerClassStream = new DataInputStream(classInputStream); ) {
-      callerClassStream.readInt();
-      minorVersion = callerClassStream.readUnsignedShort();
 ```
 
 ## RuleId[id=StringOperationCanBeSimplified]
@@ -741,18 +741,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/ZipEntryIterato
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'EagerSingleton' is still used
-in `org.eclipse.sisu.inject/src/main/java/org/sonatype/inject/EagerSingleton.java`
-#### Snippet
-```java
-@Target( value = { ElementType.TYPE } )
-@Retention( RetentionPolicy.RUNTIME )
-public @interface EagerSingleton
-{
-}
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'visitMethodInsn' is still used
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
 #### Snippet
@@ -777,6 +765,18 @@ public @interface Description
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'ASM10_EXPERIMENTAL' is still used
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+   * @deprecated This API is experimental.
+   */
+  @Deprecated int ASM10_EXPERIMENTAL = 1 << 24 | 10 << 16 | 0 << 8;
+
+  /*
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'Legacy' is still used
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Legacy.java`
 #### Snippet
@@ -789,15 +789,15 @@ public final class Legacy<S>
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'ASM10_EXPERIMENTAL' is still used
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+Deprecated member 'EagerSingleton' is still used
+in `org.eclipse.sisu.inject/src/main/java/org/sonatype/inject/EagerSingleton.java`
 #### Snippet
 ```java
-   * @deprecated This API is experimental.
-   */
-  @Deprecated int ASM10_EXPERIMENTAL = 1 << 24 | 10 << 16 | 0 << 8;
-
-  /*
+@Target( value = { ElementType.TYPE } )
+@Retention( RetentionPolicy.RUNTIME )
+public @interface EagerSingleton
+{
+}
 ```
 
 ## RuleId[id=FinalMethodInFinalClass]
@@ -1035,6 +1035,19 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/SymbolTable
     }
 ```
 
+## RuleId[id=ContinueOrBreakFromFinallyBlock]
+### ContinueOrBreakFromFinallyBlock
+`continue` inside 'finally' block
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanLifecycle.java`
+#### Snippet
+```java
+                finally
+                {
+                    continue; // ignore any logging exceptions and continue stopping
+                }
+            }
+```
+
 ## RuleId[id=IOStreamConstructor]
 ### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
@@ -1060,22 +1073,33 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
         throw new IOException( "Error creating: " + parent );
 ```
 
-## RuleId[id=ContinueOrBreakFromFinallyBlock]
-### ContinueOrBreakFromFinallyBlock
-`continue` inside 'finally' block
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/BeanLifecycle.java`
-#### Snippet
-```java
-                finally
-                {
-                    continue; // ignore any logging exceptions and continue stopping
-                }
-            }
-```
-
 ## RuleId[id=Deprecation]
 ### Deprecation
 'ASM10_EXPERIMENTAL' is deprecated
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
+#### Snippet
+```java
+        && api != Opcodes.ASM5
+        && api != Opcodes.ASM4
+        && api != Opcodes.ASM10_EXPERIMENTAL) {
+      throw new IllegalArgumentException("Unsupported api " + api);
+    }
+```
+
+### Deprecation
+'ASM10_EXPERIMENTAL' is deprecated
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
+#### Snippet
+```java
+      throw new IllegalArgumentException("Unsupported api " + api);
+    }
+    if (api == Opcodes.ASM10_EXPERIMENTAL) {
+      Constants.checkAsmExperimental(this);
+    }
+```
+
+### Deprecation
+'ASM10_EXPERIMENTAL' is deprecated
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentVisitor.java`
 #### Snippet
 ```java
@@ -1089,6 +1113,30 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordCompo
 ### Deprecation
 'ASM10_EXPERIMENTAL' is deprecated
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/RecordComponentVisitor.java`
+#### Snippet
+```java
+      throw new IllegalArgumentException("Unsupported api " + api);
+    }
+    if (api == Opcodes.ASM10_EXPERIMENTAL) {
+      Constants.checkAsmExperimental(this);
+    }
+```
+
+### Deprecation
+'ASM10_EXPERIMENTAL' is deprecated
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ModuleVisitor.java`
+#### Snippet
+```java
+        && api != Opcodes.ASM5
+        && api != Opcodes.ASM4
+        && api != Opcodes.ASM10_EXPERIMENTAL) {
+      throw new IllegalArgumentException("Unsupported api " + api);
+    }
+```
+
+### Deprecation
+'ASM10_EXPERIMENTAL' is deprecated
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ModuleVisitor.java`
 #### Snippet
 ```java
       throw new IllegalArgumentException("Unsupported api " + api);
@@ -1124,54 +1172,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/FieldVisito
 
 ### Deprecation
 'ASM10_EXPERIMENTAL' is deprecated
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
-#### Snippet
-```java
-        && api != Opcodes.ASM5
-        && api != Opcodes.ASM4
-        && api != Opcodes.ASM10_EXPERIMENTAL) {
-      throw new IllegalArgumentException("Unsupported api " + api);
-    }
-```
-
-### Deprecation
-'ASM10_EXPERIMENTAL' is deprecated
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
-#### Snippet
-```java
-      throw new IllegalArgumentException("Unsupported api " + api);
-    }
-    if (api == Opcodes.ASM10_EXPERIMENTAL) {
-      Constants.checkAsmExperimental(this);
-    }
-```
-
-### Deprecation
-'ASM10_EXPERIMENTAL' is deprecated
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisitor.java`
-#### Snippet
-```java
-        && api != Opcodes.ASM5
-        && api != Opcodes.ASM4
-        && api != Opcodes.ASM10_EXPERIMENTAL) {
-      throw new IllegalArgumentException("Unsupported api " + api);
-    }
-```
-
-### Deprecation
-'ASM10_EXPERIMENTAL' is deprecated
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisitor.java`
-#### Snippet
-```java
-      throw new IllegalArgumentException("Unsupported api " + api);
-    }
-    if (api == Opcodes.ASM10_EXPERIMENTAL) {
-      Constants.checkAsmExperimental(this);
-    }
-```
-
-### Deprecation
-'ASM10_EXPERIMENTAL' is deprecated
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/AnnotationVisitor.java`
 #### Snippet
 ```java
@@ -1196,7 +1196,7 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/AnnotationV
 
 ### Deprecation
 'ASM10_EXPERIMENTAL' is deprecated
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ModuleVisitor.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisitor.java`
 #### Snippet
 ```java
         && api != Opcodes.ASM5
@@ -1208,7 +1208,7 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ModuleVisit
 
 ### Deprecation
 'ASM10_EXPERIMENTAL' is deprecated
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ModuleVisitor.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassVisitor.java`
 #### Snippet
 ```java
       throw new IllegalArgumentException("Unsupported api " + api);
@@ -1234,30 +1234,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/QualifiedTypeBi
 ## RuleId[id=CdiInjectionPointsInspection]
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
-#### Snippet
-```java
-    @Parameters
-    @SuppressWarnings( "rawtypes" )
-    private Map properties;
-
-    @Inject
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/StringProperties.java`
-#### Snippet
-```java
-    @Inject
-    @SuppressWarnings( "rawtypes" )
-    StringProperties( @Parameters final Map delegate )
-    {
-        this.delegate = delegate;
-```
-
-### CdiInjectionPointsInspection
-Unsatisfied dependency: no bean matches the injection point
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/TypeConverterCache.java`
 #### Snippet
 ```java
@@ -1270,26 +1246,26 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/TypeConverterCac
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/AbstractDeferredClass.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/PlaceholderBeanProvider.java`
 #### Snippet
 ```java
+    @Parameters
+    @SuppressWarnings( "rawtypes" )
+    private Map properties;
 
     @Inject
-    private Injector injector;
-
-    // ----------------------------------------------------------------------
 ```
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DefaultBeanLocator.java`
 #### Snippet
 ```java
-
+     */
     @Inject
-    public InjectorBindings( final Injector injector )
+    void autoPublish( final Injector injector )
     {
-        this( injector, findRankingFunction( injector ) );
+        add( InjectorBindings.findBindingPublisher( injector ) );
 ```
 
 ### CdiInjectionPointsInspection
@@ -1306,53 +1282,41 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DefaultBeanLoc
 
 ### CdiInjectionPointsInspection
 Unsatisfied dependency: no bean matches the injection point
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DefaultBeanLocator.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/InjectorBindings.java`
 #### Snippet
 ```java
-     */
+
     @Inject
-    void autoPublish( final Injector injector )
+    public InjectorBindings( final Injector injector )
     {
-        add( InjectorBindings.findBindingPublisher( injector ) );
+        this( injector, findRankingFunction( injector ) );
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/AbstractDeferredClass.java`
+#### Snippet
+```java
+
+    @Inject
+    private Injector injector;
+
+    // ----------------------------------------------------------------------
+```
+
+### CdiInjectionPointsInspection
+Unsatisfied dependency: no bean matches the injection point
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/StringProperties.java`
+#### Snippet
+```java
+    @Inject
+    @SuppressWarnings( "rawtypes" )
+    StringProperties( @Parameters final Map delegate )
+    {
+        this.delegate = delegate;
 ```
 
 ## RuleId[id=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/GlobberStrategy.java`
-#### Snippet
-```java
-     * @return Optimal globber strategy
-     */
-    public static final GlobberStrategy selectFor( final String glob )
-    {
-        if ( null == glob || "*".equals( glob ) )
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
-#### Snippet
-```java
-     * @return Temporary {@link Reference} for the given value; used in queries.
-     */
-    static final <V> Reference<V> tempValue( final V value )
-    {
-        return new Weak<V, V>( null, value, null );
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildKeys.java`
-#### Snippet
-```java
-     * @return Temporary {@link Reference} for the given key; used in queries.
-     */
-    static final <K> Reference<K> tempKey( final K key )
-    {
-        return new Weak<K>( key, null );
-```
-
 ### FinalStaticMethod
 'static' method declared `final`
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStrategy.java`
@@ -1375,6 +1339,42 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/QualifyingStra
     static final QualifyingStrategy selectFor( final Key<?> key )
     {
         final Class<?> qualifierType = key.getAnnotationType();
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
+#### Snippet
+```java
+     * @return Temporary {@link Reference} for the given value; used in queries.
+     */
+    static final <V> Reference<V> tempValue( final V value )
+    {
+        return new Weak<V, V>( null, value, null );
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/GlobberStrategy.java`
+#### Snippet
+```java
+     * @return Optimal globber strategy
+     */
+    public static final GlobberStrategy selectFor( final String glob )
+    {
+        if ( null == glob || "*".equals( glob ) )
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildKeys.java`
+#### Snippet
+```java
+     * @return Temporary {@link Reference} for the given key; used in queries.
+     */
+    static final <K> Reference<K> tempKey( final K key )
+    {
+        return new Weak<K>( key, null );
 ```
 
 ## RuleId[id=ManualMinMaxCalculation]
@@ -1404,6 +1404,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/osgi/ServiceBinding.j
 
 ## RuleId[id=SuspiciousMethodCalls]
 ### SuspiciousMethodCalls
+Suspicious call to 'ConcurrentMap.remove()'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildConcurrentValues.java`
+#### Snippet
+```java
+        {
+            // only remove this specific key-value mapping; thread-safe
+            concurrentMap.remove( ( (InverseMapping) ref ).key(), ref );
+        }
+    }
+```
+
+### SuspiciousMethodCalls
 Suspicious call to 'Map.get()'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.java`
 #### Snippet
@@ -1427,31 +1439,7 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildValues.jav
         }
 ```
 
-### SuspiciousMethodCalls
-Suspicious call to 'ConcurrentMap.remove()'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/MildConcurrentValues.java`
-#### Snippet
-```java
-        {
-            // only remove this specific key-value mapping; thread-safe
-            concurrentMap.remove( ( (InverseMapping) ref ).key(), ref );
-        }
-    }
-```
-
 ## RuleId[id=RedundantTypeArguments]
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuTracker.java`
-#### Snippet
-```java
-    // attempt to track publishers across extender restarts
-    private static final Map<Long, Object> bundlePublishers =
-        Collections.synchronizedMap( Weak.<Long, Object> values() );
-
-    /**
-```
-
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuExtender.java`
@@ -1466,14 +1454,26 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuExtender.j
 
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/URLClassSpace.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DependencyAnalyzer.java`
 #### Snippet
 ```java
-    private static final URL[] NO_URLS = {};
+    {
+        RESTRICTED_CLASSES =
+            new HashSet<Class<?>>( Arrays.<Class<?>> asList( AbstractModule.class, Binder.class, Binding.class,
+                                                             Injector.class, Key.class, Logger.class,
+                                                             MembersInjector.class, Module.class, Provider.class,
+```
 
-    private static final Enumeration<URL> NO_ENTRIES = Collections.enumeration( Collections.<URL> emptySet() );
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/launch/SisuTracker.java`
+#### Snippet
+```java
+    // attempt to track publishers across extender restarts
+    private static final Map<Long, Object> bundlePublishers =
+        Collections.synchronizedMap( Weak.<Long, Object> values() );
 
-    private static final String[] EMPTY_CLASSPATH = {};
+    /**
 ```
 
 ### RedundantTypeArguments
@@ -1490,14 +1490,14 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/BundleClassSpac
 
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/DependencyAnalyzer.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/URLClassSpace.java`
 #### Snippet
 ```java
-    {
-        RESTRICTED_CLASSES =
-            new HashSet<Class<?>>( Arrays.<Class<?>> asList( AbstractModule.class, Binder.class, Binding.class,
-                                                             Injector.class, Key.class, Logger.class,
-                                                             MembersInjector.class, Module.class, Provider.class,
+    private static final URL[] NO_URLS = {};
+
+    private static final Enumeration<URL> NO_ENTRIES = Collections.enumeration( Collections.<URL> emptySet() );
+
+    private static final String[] EMPTY_CLASSPATH = {};
 ```
 
 ### RedundantTypeArguments
@@ -1518,11 +1518,11 @@ Link specified as plain text
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
 #### Snippet
 ```java
-   *     be strictly less when a method has synthetic parameters and when these parameters are
-   *     ignored when computing parameter indices for the purpose of parameter annotations (see
+   *     is not required to correspond to the i'th parameter descriptor in the method
+   *     descriptor</i>, in particular in case of synthetic parameters (see
    *     https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
-   * @param visible {@literal true} to define the number of method parameters that can have
-   *     annotations visible at runtime, {@literal false} to define the number of method parameters
+   * @param descriptor the class descriptor of the annotation class.
+   * @param visible {@literal true} if the annotation is visible at runtime.
 ```
 
 ### JavadocLinkAsPlainText
@@ -1530,11 +1530,11 @@ Link specified as plain text
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodVisitor.java`
 #### Snippet
 ```java
-   *     is not required to correspond to the i'th parameter descriptor in the method
-   *     descriptor</i>, in particular in case of synthetic parameters (see
+   *     be strictly less when a method has synthetic parameters and when these parameters are
+   *     ignored when computing parameter indices for the purpose of parameter annotations (see
    *     https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-4.html#jvms-4.7.18).
-   * @param descriptor the class descriptor of the annotation class.
-   * @param visible {@literal true} if the annotation is visible at runtime.
+   * @param visible {@literal true} to define the number of method parameters that can have
+   *     annotations visible at runtime, {@literal false} to define the number of method parameters
 ```
 
 ## RuleId[id=TrivialIf]
@@ -1553,14 +1553,14 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWrite
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndexAPT6.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/IndexedClassFinder.java`
 #### Snippet
 ```java
-    {
-        final FileObject file = environment.getFiler().getResource( StandardLocation.CLASS_OUTPUT, "", path );
-        return new InputStreamReader( file.openInputStream(), "UTF-8" );
-    }
-
+            {
+                final BufferedReader reader =
+                    new BufferedReader( new InputStreamReader( Streams.open( url ), "UTF-8" ) );
+                try
+                {
 ```
 
 ### CharsetObjectCanBeUsed
@@ -1589,14 +1589,14 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndex.java`
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/IndexedClassFinder.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/SisuIndexAPT6.java`
 #### Snippet
 ```java
-            {
-                final BufferedReader reader =
-                    new BufferedReader( new InputStreamReader( Streams.open( url ), "UTF-8" ) );
-                try
-                {
+    {
+        final FileObject file = environment.getFiler().getResource( StandardLocation.CLASS_OUTPUT, "", path );
+        return new InputStreamReader( file.openInputStream(), "UTF-8" );
+    }
+
 ```
 
 ## RuleId[id=IfStatementWithIdenticalBranches]
@@ -1626,6 +1626,18 @@ import org.eclipse.sisu.space.Tokens;
 ```
 
 ## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+Javadoc pointing to itself
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
+#### Snippet
+```java
+   * map frames are recomputed from the methods bytecode. The arguments of the {@link
+   * MethodVisitor#visitMaxs} method are also ignored and recomputed from the bytecode. In other
+   * words, {@link #COMPUTE_FRAMES} implies {@link #COMPUTE_MAXS}.
+   *
+   * @see #ClassWriter(int)
+```
+
 ### JavadocDeclaration
 `@param clazz` tag description is missing
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/bean/LifecycleBuilder.java`
@@ -1662,18 +1674,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/MethodWrite
    * #COMPUTE_MAX_STACK_AND_LOCAL_FROM_FRAMES}, {@link #currentBasicBlock} is always the start of
 ```
 
-### JavadocDeclaration
-Javadoc pointing to itself
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/ClassWriter.java`
-#### Snippet
-```java
-   * map frames are recomputed from the methods bytecode. The arguments of the {@link
-   * MethodVisitor#visitMaxs} method are also ignored and recomputed from the bytecode. In other
-   * words, {@link #COMPUTE_FRAMES} implies {@link #COMPUTE_MAXS}.
-   *
-   * @see #ClassWriter(int)
-```
-
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `constantPool` may be 'final'
@@ -1689,15 +1689,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/SymbolTable
 
 ## RuleId[id=ExtendsAnnotation]
 ### ExtendsAnnotation
-Class 'DescriptionSource' implements annotation interface `Description`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DescriptionSource.java`
+Class 'QualifiedImpl' implements annotation interface `Qualified`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/WildcardKey.java`
 #### Snippet
 ```java
- */
-final class DescriptionSource
-    implements Description, AnnotatedSource
-{
-    // ----------------------------------------------------------------------
+     */
+    private static final class QualifiedImpl
+        implements Qualified, Provider<Annotation>
+    {
+        // ----------------------------------------------------------------------
 ```
 
 ### ExtendsAnnotation
@@ -1725,15 +1725,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/LazyBeanEntry.
 ```
 
 ### ExtendsAnnotation
-Class 'QualifiedImpl' implements annotation interface `Qualified`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/WildcardKey.java`
+Class 'HiddenSource' implements annotation interface `Hidden`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/HiddenSource.java`
 #### Snippet
 ```java
-     */
-    private static final class QualifiedImpl
-        implements Qualified, Provider<Annotation>
-    {
-        // ----------------------------------------------------------------------
+ */
+final class HiddenSource
+    implements Hidden, AnnotatedSource
+{
+    // ----------------------------------------------------------------------
 ```
 
 ### ExtendsAnnotation
@@ -1749,13 +1749,13 @@ final class PrioritySource
 ```
 
 ### ExtendsAnnotation
-Class 'HiddenSource' implements annotation interface `Hidden`
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/HiddenSource.java`
+Class 'DescriptionSource' implements annotation interface `Description`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DescriptionSource.java`
 #### Snippet
 ```java
  */
-final class HiddenSource
-    implements Hidden, AnnotatedSource
+final class DescriptionSource
+    implements Description, AnnotatedSource
 {
     // ----------------------------------------------------------------------
 ```
@@ -1766,23 +1766,11 @@ final class HiddenSource
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-```
 
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
+  int V1_1 = 3 << 16 | 45;
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
 ```
 
 ### PointlessBitwiseExpression
@@ -1790,11 +1778,23 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
+  int ASM6 = 6 << 16 | 0 << 8;
   int ASM7 = 7 << 16 | 0 << 8;
   int ASM8 = 8 << 16 | 0 << 8;
   int ASM9 = 9 << 16 | 0 << 8;
 
-  /**
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+  int V20 = 0 << 16 | 64;
+  int V21 = 0 << 16 | 65;
 ```
 
 ### PointlessBitwiseExpression
@@ -1810,27 +1810,27 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 ```
 
 ### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
+`0 << 16` can be replaced with '0'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int ASM5 = 5 << 16 | 0 << 8;
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
 ```
 
 ### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
+`0 << 16` can be replaced with '0'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
-  int ASM8 = 8 << 16 | 0 << 8;
-  int ASM9 = 9 << 16 | 0 << 8;
-
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+  int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
 ```
 
 ### PointlessBitwiseExpression
@@ -1843,66 +1843,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
   int V13 = 0 << 16 | 57;
   int V14 = 0 << 16 | 58;
   int V15 = 0 << 16 | 59;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-  int V20 = 0 << 16 | 64;
-  int V21 = 0 << 16 | 65;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-  int V1_7 = 0 << 16 | 51;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
 ```
 
 ### PointlessBitwiseExpression
@@ -1922,35 +1862,11 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_2 = 0 << 16 | 46;
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-  int V1_6 = 0 << 16 | 50;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V1_1 = 3 << 16 | 45;
-  int V1_2 = 0 << 16 | 46;
-  int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-  int V1_5 = 0 << 16 | 49;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-  int V9 = 0 << 16 | 53;
   int V10 = 0 << 16 | 54;
   int V11 = 0 << 16 | 55;
   int V12 = 0 << 16 | 56;
   int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
 ```
 
 ### PointlessBitwiseExpression
@@ -1958,11 +1874,11 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
   int V1_8 = 0 << 16 | 52;
   int V9 = 0 << 16 | 53;
   int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
-  int V12 = 0 << 16 | 56;
 ```
 
 ### PointlessBitwiseExpression
@@ -1970,35 +1886,11 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V14 = 0 << 16 | 58;
-  int V15 = 0 << 16 | 59;
-  int V16 = 0 << 16 | 60;
-  int V17 = 0 << 16 | 61;
-  int V18 = 0 << 16 | 62;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
-
-  int V1_1 = 3 << 16 | 45;
-  int V1_2 = 0 << 16 | 46;
   int V1_3 = 0 << 16 | 47;
-  int V1_4 = 0 << 16 | 48;
-```
-
-### PointlessBitwiseExpression
-`0 << 16` can be replaced with '0'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
-#### Snippet
-```java
   int V1_4 = 0 << 16 | 48;
   int V1_5 = 0 << 16 | 49;
   int V1_6 = 0 << 16 | 50;
   int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
 ```
 
 ### PointlessBitwiseExpression
@@ -2006,11 +1898,23 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V12 = 0 << 16 | 56;
-  int V13 = 0 << 16 | 57;
-  int V14 = 0 << 16 | 58;
   int V15 = 0 << 16 | 59;
   int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V18 = 0 << 16 | 62;
+  int V19 = 0 << 16 | 63;
+  int V20 = 0 << 16 | 64;
+  int V21 = 0 << 16 | 65;
+
 ```
 
 ### PointlessBitwiseExpression
@@ -2026,6 +1930,66 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 ```
 
 ### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
+
+  /**
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V12 = 0 << 16 | 56;
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V13 = 0 << 16 | 57;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+
+  int ASM4 = 4 << 16 | 0 << 8;
+  int ASM5 = 5 << 16 | 0 << 8;
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+  int V11 = 0 << 16 | 55;
+```
+
+### PointlessBitwiseExpression
 `0 << 16` can be replaced with '0'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
@@ -2042,11 +2006,23 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V1_7 = 0 << 16 | 51;
-  int V1_8 = 0 << 16 | 52;
-  int V9 = 0 << 16 | 53;
-  int V10 = 0 << 16 | 54;
-  int V11 = 0 << 16 | 55;
+  int V14 = 0 << 16 | 58;
+  int V15 = 0 << 16 | 59;
+  int V16 = 0 << 16 | 60;
+  int V17 = 0 << 16 | 61;
+  int V18 = 0 << 16 | 62;
+```
+
+### PointlessBitwiseExpression
+`0 << 8` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int ASM5 = 5 << 16 | 0 << 8;
+  int ASM6 = 6 << 16 | 0 << 8;
+  int ASM7 = 7 << 16 | 0 << 8;
+  int ASM8 = 8 << 16 | 0 << 8;
+  int ASM9 = 9 << 16 | 0 << 8;
 ```
 
 ### PointlessBitwiseExpression
@@ -2062,15 +2038,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 ```
 
 ### PointlessBitwiseExpression
-`0 << 8` can be replaced with '0'
+`0 << 16` can be replaced with '0'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-
-  int ASM4 = 4 << 16 | 0 << 8;
-  int ASM5 = 5 << 16 | 0 << 8;
-  int ASM6 = 6 << 16 | 0 << 8;
-  int ASM7 = 7 << 16 | 0 << 8;
+  int V1_1 = 3 << 16 | 45;
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
 ```
 
 ### PointlessBitwiseExpression
@@ -2078,11 +2054,35 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.jav
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
 #### Snippet
 ```java
-  int V18 = 0 << 16 | 62;
-  int V19 = 0 << 16 | 63;
-  int V20 = 0 << 16 | 64;
-  int V21 = 0 << 16 | 65;
+  int V1_2 = 0 << 16 | 46;
+  int V1_3 = 0 << 16 | 47;
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+```
 
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V9 = 0 << 16 | 53;
+  int V10 = 0 << 16 | 54;
+  int V11 = 0 << 16 | 55;
+  int V12 = 0 << 16 | 56;
+  int V13 = 0 << 16 | 57;
+```
+
+### PointlessBitwiseExpression
+`0 << 16` can be replaced with '0'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Opcodes.java`
+#### Snippet
+```java
+  int V1_4 = 0 << 16 | 48;
+  int V1_5 = 0 << 16 | 49;
+  int V1_6 = 0 << 16 | 50;
+  int V1_7 = 0 << 16 | 51;
+  int V1_8 = 0 << 16 | 52;
 ```
 
 ## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
@@ -2112,18 +2112,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/RankedBindings
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `otherEnd` is redundant
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Type.java`
-#### Snippet
-```java
-    int end = valueEnd;
-    int otherBegin = other.valueBegin;
-    int otherEnd = other.valueEnd;
-    // Compare the values.
-    if (end - begin != otherEnd - otherBegin) {
-```
-
-### UnnecessaryLocalVariable
 Local variable `end` is redundant
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Type.java`
 #### Snippet
@@ -2133,6 +2121,18 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Type.java`
       for (int i = valueBegin, end = valueEnd; i < end; i++) {
         hashCode = 17 * (hashCode + valueBuffer.charAt(i));
       }
+```
+
+### UnnecessaryLocalVariable
+Local variable `otherEnd` is redundant
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Type.java`
+#### Snippet
+```java
+    int end = valueEnd;
+    int otherBegin = other.valueBegin;
+    int otherEnd = other.valueEnd;
+    // Compare the values.
+    if (end - begin != otherEnd - otherBegin) {
 ```
 
 ### UnnecessaryLocalVariable
@@ -2163,13 +2163,13 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/DefaultBeanLoc
 ## RuleId[id=PointlessBooleanExpression]
 ### PointlessBooleanExpression
 `false == iterator().hasNext()` can be simplified to '!iterator().hasNext()'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/EntryMapAdapter.java`
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/EntryListAdapter.java`
 #### Snippet
 ```java
-        public boolean isEmpty()
-        {
-            return false == iterator().hasNext();
-        }
+    public boolean isEmpty()
+    {
+        return false == iterator().hasNext();
+    }
 
 ```
 
@@ -2198,18 +2198,6 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/EntrySetAdapter.
 ```
 
 ### PointlessBooleanExpression
-`false == iterator().hasNext()` can be simplified to '!iterator().hasNext()'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/EntryListAdapter.java`
-#### Snippet
-```java
-    public boolean isEmpty()
-    {
-        return false == iterator().hasNext();
-    }
-
-```
-
-### PointlessBooleanExpression
 `false == ( trimming && isWhitespace( c ) )` can be simplified to '!( trimming \&\& isWhitespace( c ) )'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/Tokens.java`
 #### Snippet
@@ -2221,19 +2209,19 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/Tokens.java`
                     return i;
 ```
 
-## RuleId[id=ConstantValue]
-### ConstantValue
-Value `code` is always 'null'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Attribute.java`
+### PointlessBooleanExpression
+`false == iterator().hasNext()` can be simplified to '!iterator().hasNext()'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/wire/EntryMapAdapter.java`
 #### Snippet
 ```java
-    final int maxStack = -1;
-    final int maxLocals = -1;
-    putAttributes(symbolTable, code, codeLength, maxStack, maxLocals, output);
-  }
+        public boolean isEmpty()
+        {
+            return false == iterator().hasNext();
+        }
 
 ```
 
+## RuleId[id=ConstantValue]
 ### ConstantValue
 Value `code` is always 'null'
 in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Attribute.java`
@@ -2247,39 +2235,15 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Attribute.j
 ```
 
 ### ConstantValue
-Value `n` is always 'null'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+Value `code` is always 'null'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/space/asm/Attribute.java`
 #### Snippet
 ```java
-            }
-        }
-        while ( !MAPPING_UPDATER.compareAndSet( this, o, n ) );
+    final int maxStack = -1;
+    final int maxLocals = -1;
+    putAttributes(symbolTable, code, codeLength, maxStack, maxLocals, output);
+  }
 
-        return oldBean;
-```
-
-### ConstantValue
-Result of `BindingTargetVisitor.class.isInstance( ServletFinder.THIS )` is always 'true'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
-#### Snippet
-```java
-        try
-        {
-            hasGuiceServlet = BindingTargetVisitor.class.isInstance( ServletFinder.THIS );
-        }
-        catch ( final LinkageError e )
-```
-
-### ConstantValue
-Value `hasGuiceServlet` is always 'true'
-in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
-#### Snippet
-```java
-            hasGuiceServlet = false;
-        }
-        HAS_GUICE_SERVLET = hasGuiceServlet;
-
-        boolean hasJsr250Priority;
 ```
 
 ### ConstantValue
@@ -2328,6 +2292,42 @@ in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Guice4.java`
         HAS_PROVIDES_METHOD_SPI = hasProvidesMethodSpi;
     }
 
+```
+
+### ConstantValue
+Result of `BindingTargetVisitor.class.isInstance( ServletFinder.THIS )` is always 'true'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+#### Snippet
+```java
+        try
+        {
+            hasGuiceServlet = BindingTargetVisitor.class.isInstance( ServletFinder.THIS );
+        }
+        catch ( final LinkageError e )
+```
+
+### ConstantValue
+Value `hasGuiceServlet` is always 'true'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/Implementations.java`
+#### Snippet
+```java
+            hasGuiceServlet = false;
+        }
+        HAS_GUICE_SERVLET = hasGuiceServlet;
+
+        boolean hasJsr250Priority;
+```
+
+### ConstantValue
+Value `n` is always 'null'
+in `org.eclipse.sisu.inject/src/main/java/org/eclipse/sisu/inject/BeanCache.java`
+#### Snippet
+```java
+            }
+        }
+        while ( !MAPPING_UPDATER.compareAndSet( this, o, n ) );
+
+        return oldBean;
 ```
 
 ### ConstantValue
