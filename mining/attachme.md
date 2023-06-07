@@ -52,18 +52,6 @@ in `agent/src/main/java/com/attachme/agent/Agent.java`
 ## RuleId[id=TrivialStringConcatenation]
 ### TrivialStringConcatenation
 Empty string used in concatenation
-in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
-#### Snippet
-```java
-      return;
-    }
-    RemoteConnection config = new RemoteConnection(true, debuggeeAddress, msg.getPorts().get(0) + "", false);
-    AttachmeDebugger.attach(project, config, msg.getPid());
-  }
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
 in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
 #### Snippet
 ```java
@@ -72,6 +60,18 @@ in `plugin/src/main/java/com/attachme/plugin/AttachmeSettingsEditor.java`
     portField.setText(s.getPort() + "");
   }
 
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `plugin/src/main/java/com/attachme/plugin/AttachmeRunner.java`
+#### Snippet
+```java
+      return;
+    }
+    RemoteConnection config = new RemoteConnection(true, debuggeeAddress, msg.getPorts().get(0) + "", false);
+    AttachmeDebugger.attach(project, config, msg.getPid());
+  }
 ```
 
 ## RuleId[id=DialogTitleCapitalization]
