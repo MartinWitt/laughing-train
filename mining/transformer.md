@@ -1,10 +1,10 @@
 # transformer 
  
 # Bad smells
-I found 97 bad smells with 26 repairable:
+I found 96 bad smells with 25 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryLocalVariable | 23 | true |
+| UnnecessaryLocalVariable | 22 | true |
 | EmptyStatementBody | 10 | false |
 | DefaultAnnotationParam | 9 | false |
 | JavadocDeclaration | 9 | false |
@@ -60,18 +60,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Si
 ```
 
 ### StringEquality
-String values are compared using `!=`, not 'equals()'
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-		}
-
-		if (finalValue != initialValue) {
-			return finalValue;
-		} else {
-```
-
-### StringEquality
 String values are compared using `==`, not 'equals()'
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
@@ -80,6 +68,18 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Si
 
 		if (initialText == text) {
 			return null;
+		} else {
+```
+
+### StringEquality
+String values are compared using `!=`, not 'equals()'
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
+#### Snippet
+```java
+		}
+
+		if (finalValue != initialValue) {
+			return finalValue;
 		} else {
 ```
 
@@ -101,34 +101,10 @@ Redundant default parameter value assignment
 in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
 #### Snippet
 ```java
-	private String rulesPerClassConstantUri;
+	private String				rulesBundlesUri;
 
-	@Parameter(property = "transformer-plugin.xml", defaultValue = "")
-	private String				rulesXmlsUri;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
-#### Snippet
-```java
-	private String				rulesRenamesUri;
-
-	@Parameter(property = "transformer-plugin.versions", defaultValue = "")
-	private String				rulesVersionUri;
-
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
-#### Snippet
-```java
+	@Parameter(property = "transformer-plugin.direct", defaultValue = "")
 	private String				rulesDirectUri;
-
-	@Parameter(property = "transformer-plugin.per-class-constant", defaultValue = "")
-	private String rulesPerClassConstantUri;
 
 ```
 
@@ -149,10 +125,10 @@ Redundant default parameter value assignment
 in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
 #### Snippet
 ```java
-	private String				rulesBundlesUri;
+	private boolean				attach;
 
-	@Parameter(property = "transformer-plugin.direct", defaultValue = "")
-	private String				rulesDirectUri;
+	@Parameter(property = "transformer-plugin.renames", defaultValue = "")
+	private String				rulesRenamesUri;
 
 ```
 
@@ -161,10 +137,22 @@ Redundant default parameter value assignment
 in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
 #### Snippet
 ```java
-	private boolean				attach;
+	private String				rulesDirectUri;
 
-	@Parameter(property = "transformer-plugin.renames", defaultValue = "")
+	@Parameter(property = "transformer-plugin.per-class-constant", defaultValue = "")
+	private String rulesPerClassConstantUri;
+
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
+#### Snippet
+```java
 	private String				rulesRenamesUri;
+
+	@Parameter(property = "transformer-plugin.versions", defaultValue = "")
+	private String				rulesVersionUri;
 
 ```
 
@@ -178,6 +166,18 @@ in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer
 @Mojo(name = "run", defaultPhase = LifecyclePhase.PACKAGE, requiresDependencyResolution = ResolutionScope.RUNTIME_PLUS_SYSTEM, requiresProject = true, threadSafe = true)
 public class TransformerRunMojo extends AbstractMojo {
 	static final Logger			logger	= LoggerFactory.getLogger(TransformerRunMojo.class);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
+#### Snippet
+```java
+	private String rulesPerClassConstantUri;
+
+	@Parameter(property = "transformer-plugin.xml", defaultValue = "")
+	private String				rulesXmlsUri;
+
 ```
 
 ### DefaultAnnotationParam
@@ -406,11 +406,11 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/ByteDat
 in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
 #### Snippet
 ```java
-	 * @param sourceArtifact The Artifact to transform
-	 * @throws MojoFailureException if plugin execution fails
+	 * @throws MojoFailureException Thrown if there is an error during plugin
+	 *             execution
 	 * @throws MojoExecutionException
 	 */
-	public void transform(final Artifact sourceArtifact) throws MojoFailureException, MojoExecutionException {
+	@Override
 ```
 
 ### JavadocDeclaration
@@ -418,11 +418,11 @@ in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer
 in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerRunMojo.java`
 #### Snippet
 ```java
-	 * @throws MojoFailureException Thrown if there is an error during plugin
-	 *             execution
+	 * @param sourceArtifact The Artifact to transform
+	 * @throws MojoFailureException if plugin execution fails
 	 * @throws MojoExecutionException
 	 */
-	@Override
+	public void transform(final Artifact sourceArtifact) throws MojoFailureException, MojoExecutionException {
 ```
 
 ### JavadocDeclaration
@@ -560,18 +560,6 @@ in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/Transf
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `rules` may be 'final'
-in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/AbstractTransformerMojo.java`
-#### Snippet
-```java
-	 */
-	@Parameter
-	private TransformerRules		rules	= new TransformerRules();
-
-	/**
-```
-
-### FieldMayBeFinal
 Field `artifact` may be 'final'
 in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/TransformerJarMojo.java`
 #### Snippet
@@ -584,15 +572,15 @@ in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer
 ```
 
 ### FieldMayBeFinal
-Field `removed` may be 'final'
-in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/action/TransformerJarChanges.java`
+Field `rules` may be 'final'
+in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/AbstractTransformerMojo.java`
 #### Snippet
 ```java
-public class TransformerJarChanges extends ContainerChangesImpl {
-	private Set<String>	changed	= new HashSet<>();
-	private Set<String>	removed	= new HashSet<>();
+	 */
+	@Parameter
+	private TransformerRules		rules	= new TransformerRules();
 
-	public TransformerJarChanges() {
+	/**
 ```
 
 ### FieldMayBeFinal
@@ -605,6 +593,18 @@ public class TransformerJarChanges extends ContainerChangesImpl {
 	private Set<String>	changed	= new HashSet<>();
 	private Set<String>	removed	= new HashSet<>();
 
+```
+
+### FieldMayBeFinal
+Field `removed` may be 'final'
+in `maven-plugins/transformer-maven-plugin/src/main/java/org/eclipse/transformer/maven/action/TransformerJarChanges.java`
+#### Snippet
+```java
+public class TransformerJarChanges extends ContainerChangesImpl {
+	private Set<String>	changed	= new HashSet<>();
+	private Set<String>	removed	= new HashSet<>();
+
+	public TransformerJarChanges() {
 ```
 
 ## RuleId[id=UnnecessaryUnicodeEscape]
@@ -873,6 +873,18 @@ in `org.eclipse.transformer.cli/src/main/java/org/eclipse/transformer/cli/Transf
 ```
 
 ### UnnecessaryLocalVariable
+Local variable `values` is redundant
+in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/transformer/bnd/analyzer/TransformerPluginOptions.java`
+#### Snippet
+```java
+			return null;
+		}
+		List<String> values = keys.stream()
+			.map(parameters::get)
+			.flatMap(attrs -> attrs.values()
+```
+
+### UnnecessaryLocalVariable
 Local variable `value` is redundant
 in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/transformer/bnd/analyzer/TransformerPluginOptions.java`
 #### Snippet
@@ -897,15 +909,15 @@ in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/t
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `values` is redundant
-in `bnd-plugins/org.eclipse.transformer.bnd.analyzer/src/main/java/org/eclipse/transformer/bnd/analyzer/TransformerPluginOptions.java`
+Local variable `reader` is redundant
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
 #### Snippet
 ```java
-			return null;
-		}
-		List<String> values = keys.stream()
-			.map(parameters::get)
-			.flatMap(attrs -> attrs.values()
+
+	public static Reader reader(ByteBuffer buffer, Charset charset) {
+		Reader reader = new InputStreamReader(new ByteBufferInputStream(buffer), charset);
+		return reader;
+	}
 ```
 
 ### UnnecessaryLocalVariable
@@ -929,18 +941,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils
 		OutputStreamWriter outputWriter = new OutputStreamWriter(outputStream, charset);
 		BufferedWriter writer = new BufferedWriter(outputWriter);
 		return writer;
-	}
-```
-
-### UnnecessaryLocalVariable
-Local variable `reader` is redundant
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/util/FileUtils.java`
-#### Snippet
-```java
-
-	public static Reader reader(ByteBuffer buffer, Charset charset) {
-		Reader reader = new InputStreamReader(new ByteBufferInputStream(buffer), charset);
-		return reader;
 	}
 ```
 
@@ -1017,18 +1017,6 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Cl
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `finalName` is redundant
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
-#### Snippet
-```java
-
-	private String replacePackage(String initialName, String wildcard, Map<String, String> renames) {
-		String finalName = keyStream(initialName, wildcard).filter(renames::containsKey)
-			.findFirst()
-			.map(key -> {
-```
-
-### UnnecessaryLocalVariable
 Local variable `outputPath` is redundant
 in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
@@ -1041,27 +1029,15 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/Si
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `outputData` is redundant
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/ZipActionImpl.java`
+Local variable `finalName` is redundant
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/action/impl/SignatureRuleImpl.java`
 #### Snippet
 ```java
-				? outputStream.toByteBuffer()
-				: inputData.buffer();
-			ByteData outputData = new ByteDataImpl(outputPath, outputBuffer, inputData.charset());
-			return outputData;
-		} finally {
-```
 
-### UnnecessaryLocalVariable
-Local variable `substitutions` is redundant
-in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.java`
-#### Snippet
-```java
-		List<String> substitutionsRefs = Strings.split(substitutionsRef);
-
-		Map<String, String> substitutions = substitutionsRefs.stream()
-			.reduce(new HashMap<>(), asBiFunction((props, ref) -> {
-				String relativeSubstitutionsRef = (masterRef != null) ? relativize(ref, masterRef) : ref;
+	private String replacePackage(String initialName, String wildcard, Map<String, String> renames) {
+		String finalName = keyStream(initialName, wildcard).filter(renames::containsKey)
+			.findFirst()
+			.map(key -> {
 ```
 
 ### UnnecessaryLocalVariable
@@ -1074,6 +1050,18 @@ in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.ja
 		Map<String, String> mergedProperties = rulesReferences.stream()
 			.reduce(new HashMap<>(), asBiFunction((props, ref) -> {
 				Properties p = loadProperties0(referenceName, ref);
+```
+
+### UnnecessaryLocalVariable
+Local variable `substitutions` is redundant
+in `org.eclipse.transformer/src/main/java/org/eclipse/transformer/Transformer.java`
+#### Snippet
+```java
+		List<String> substitutionsRefs = Strings.split(substitutionsRef);
+
+		Map<String, String> substitutions = substitutionsRefs.stream()
+			.reduce(new HashMap<>(), asBiFunction((props, ref) -> {
+				String relativeSubstitutionsRef = (masterRef != null) ? relativize(ref, masterRef) : ref;
 ```
 
 ## RuleId[id=ManualMinMaxCalculation]
