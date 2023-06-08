@@ -164,31 +164,6 @@ in `secure-app-model/keyvault/partnerconsent/src/main/webapp/WEB-INF/mvc-dispatc
 		</property>
 ```
 
-## RuleId[id=SpringInjectionValueStyleInspection]
-### SpringInjectionValueStyleInspection
-Usage of explicit element
-in `secure-app-model/keyvault/partnerconsent/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml`
-#### Snippet
-```java
-	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix">
-			<value>/</value>
-		</property>
-		<property name="suffix">
-```
-
-### SpringInjectionValueStyleInspection
-Usage of explicit element
-in `secure-app-model/keyvault/partnerconsent/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml`
-#### Snippet
-```java
-		</property>
-		<property name="suffix">
-			<value>.jsp</value>
-		</property>
-	</bean>
-```
-
 ## RuleId[id=WebProperties]
 ### WebProperties
 Cannot resolve class or package 'com'
@@ -404,5 +379,30 @@ in `secure-app-model/keyvault/partnerconsent/src/main/webapp/WEB-INF/web.xml`
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 </web-app>
+```
+
+## RuleId[id=SpringInjectionValueStyleInspection]
+### SpringInjectionValueStyleInspection
+Usage of explicit element
+in `secure-app-model/keyvault/partnerconsent/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml`
+#### Snippet
+```java
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/</value>
+		</property>
+		<property name="suffix">
+```
+
+### SpringInjectionValueStyleInspection
+Usage of explicit element
+in `secure-app-model/keyvault/partnerconsent/src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml`
+#### Snippet
+```java
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
 ```
 
