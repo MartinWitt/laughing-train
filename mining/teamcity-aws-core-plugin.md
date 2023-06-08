@@ -1,59 +1,34 @@
 # teamcity-aws-core-plugin 
  
 # Bad smells
-I found 142 bad smells with 0 repairable:
+I found 137 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| Deprecation | 69 | false |
+| Deprecation | 70 | false |
 | SpringBeanConstructorArgInspection | 18 | false |
 | SpringXmlModelInspection | 10 | false |
-| UNUSED_IMPORT | 7 | false |
-| UNCHECKED_WARNING | 5 | false |
 | DeprecatedIsStillUsed | 5 | false |
+| UNCHECKED_WARNING | 4 | false |
+| JavadocDeclaration | 4 | false |
 | JavadocReference | 3 | false |
-| JavadocDeclaration | 3 | false |
 | SpringXmlAutowireExplicitlyInspection | 3 | false |
 | DuplicatedCode | 2 | false |
 | StringBufferReplaceableByString | 2 | false |
 | ArraysAsListWithZeroOrOneArgument | 2 | false |
+| ConstantValue | 2 | false |
+| RedundantCast | 1 | false |
 | UnnecessaryCallToStringValueOf | 1 | false |
 | RedundantCollectionOperation | 1 | false |
 | RedundantStringFormatCall | 1 | false |
 | PointlessNullCheck | 1 | false |
 | ManualMinMaxCalculation | 1 | false |
 | RedundantTypeArguments | 1 | false |
-| SuspiciousMethodCalls | 1 | false |
 | MismatchedStringBuilderQueryUpdate | 1 | false |
 | UnusedAssignment | 1 | false |
 | NullableProblems | 1 | false |
-| ConstantValue | 1 | false |
 | FieldCanBeLocal | 1 | false |
 | IgnoreResultOfCall | 1 | false |
 ## RuleId[id=UNCHECKED_WARNING]
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashMap' to 'java.util.Map'
-in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/connections/aws/AwsConnectionSettingsMapper.java`
-#### Snippet
-```java
-                .filter(feature -> sourceId.equals(feature.getParameters().get(AwsCloudConnectorConstants.CHOSEN_AWS_CONN_ID_PARAM)))
-                .forEach(feature -> {
-                  final Map<String, String> newParams = new HashMap<>(feature.getParameters());
-                  newParams.put(AwsCloudConnectorConstants.CHOSEN_AWS_CONN_ID_PARAM, copiedFeature.getId());
-                  newProject.updateFeature(feature.getId(), feature.getType(), newParams);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashMap' to 'java.util.Map'
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/AwsConnectorFactoryImpl.java`
-#### Snippet
-```java
-    AwsCredentialsBuilder credentialsBuilder = getAwsCredentialsBuilderOfType(credentialsType);
-
-    Map<String, String> paramsWithSessionDuration = new HashMap<>(featureDescriptor.getParameters());
-    paramsWithSessionDuration.put(AwsSessionCredentialsParams.SESSION_DURATION_PARAM, sessionDuration);
-    return credentialsBuilder.constructSpecificCredentialsProvider(
-```
-
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/iamRoleType/IamRoleCredentialsBuilder.java`
@@ -88,6 +63,18 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
     Map<String, String> newParameters = new HashMap<>(currentConnection.getParameters());
     newParameters.put(AwsAccessKeysParams.ACCESS_KEY_ID_PARAM, myNewCredentials.getCredentials().getAWSAccessKeyId());
     newParameters.put(AwsAccessKeysParams.SECURE_SECRET_ACCESS_KEY_PARAM, myNewCredentials.getCredentials().getAWSSecretKey());
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.HashMap' to 'java.util.Map'
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/AwsConnectorFactoryImpl.java`
+#### Snippet
+```java
+    AwsCredentialsBuilder credentialsBuilder = getAwsCredentialsBuilderOfType(credentialsType);
+
+    Map<String, String> paramsWithSessionDuration = new HashMap<>(featureDescriptor.getParameters());
+    paramsWithSessionDuration.put(AwsSessionCredentialsParams.SESSION_DURATION_PARAM, sessionDuration);
+    return credentialsBuilder.constructSpecificCredentialsProvider(
 ```
 
 ## RuleId[id=JavadocReference]
@@ -127,89 +114,17 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
   @NotNull
 ```
 
-## RuleId[id=UNUSED_IMPORT]
-### UNUSED_IMPORT
-Unused import `import jetbrains.buildServer.serverSide.*;`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/common/impl/AwsConnectionsHolderImpl.java`
-#### Snippet
-```java
-import jetbrains.buildServer.clouds.amazon.connector.errors.DuplicatedAwsConnectionIdException;
-import jetbrains.buildServer.clouds.amazon.connector.utils.parameters.AwsCloudConnectorConstants;
-import jetbrains.buildServer.serverSide.*;
-import jetbrains.buildServer.serverSide.oauth.OAuthConstants;
-import jetbrains.buildServer.serverSide.oauth.aws.AwsConnectionProvider;
-```
-
-### UNUSED_IMPORT
-Unused import `import jetbrains.buildServer.serverSide.*;`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/featureDevelopment/credsToAgent/AwsConnToAgentBuildFeature.java`
-#### Snippet
-```java
-import jetbrains.buildServer.clouds.amazon.connector.utils.parameters.ParamUtil;
-import jetbrains.buildServer.log.Loggers;
-import jetbrains.buildServer.serverSide.*;
-import jetbrains.buildServer.serverSide.oauth.OAuthConstants;
-import jetbrains.buildServer.web.openapi.PluginDescriptor;
-```
-
-### UNUSED_IMPORT
-Unused import `import jetbrains.buildServer.serverSide.*;`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/keyRotation/impl/AwsKeyRotatorImpl.java`
-#### Snippet
-```java
-import jetbrains.buildServer.clouds.amazon.connector.utils.parameters.ParamUtil;
-import jetbrains.buildServer.log.Loggers;
-import jetbrains.buildServer.serverSide.*;
-import jetbrains.buildServer.serverSide.oauth.OAuthConnectionDescriptor;
-import jetbrains.buildServer.serverSide.oauth.OAuthConnectionsManager;
-```
-
-### UNUSED_IMPORT
-Unused import `import jetbrains.buildServer.serverSide.*;`
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/keyRotation/impl/OldKeysCleaner.java`
-#### Snippet
-```java
-import jetbrains.buildServer.clouds.amazon.connector.utils.parameters.ParamUtil;
-import jetbrains.buildServer.log.Loggers;
-import jetbrains.buildServer.serverSide.*;
-import jetbrains.buildServer.serverSide.oauth.OAuthConnectionDescriptor;
-import jetbrains.buildServer.serverSide.oauth.OAuthConnectionsManager;
-```
-
-### UNUSED_IMPORT
-Unused import `import jetbrains.buildServer.serverSide.*;`
-in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/connections/aws/AwsConnectionSettingsMapper.java`
-#### Snippet
-```java
-import java.util.stream.Collectors;
-import jetbrains.buildServer.clouds.amazon.connector.utils.parameters.AwsCloudConnectorConstants;
-import jetbrains.buildServer.serverSide.*;
-import jetbrains.buildServer.serverSide.oauth.OAuthConstants;
-import org.jetbrains.annotations.NotNull;
-```
-
-### UNUSED_IMPORT
-Unused import `import jetbrains.buildServer.serverSide.*;`
-in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AwsRotateKeysController.java`
-#### Snippet
-```java
-import jetbrains.buildServer.controllers.*;
-import jetbrains.buildServer.log.Loggers;
-import jetbrains.buildServer.serverSide.*;
-import jetbrains.buildServer.web.openapi.WebControllerManager;
-import org.jetbrains.annotations.NotNull;
-```
-
-### UNUSED_IMPORT
-Unused import `import jetbrains.buildServer.serverSide.*;`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `createCallerIdentityElement(...)` to `Content` is redundant
 in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AwsTestConnectionController.java`
 #### Snippet
 ```java
-import jetbrains.buildServer.controllers.admin.projects.PluginPropertiesUtil;
-import jetbrains.buildServer.log.Loggers;
-import jetbrains.buildServer.serverSide.*;
-import jetbrains.buildServer.serverSide.connections.credentials.ConnectionCredentialsException;
-import jetbrains.buildServer.serverSide.impl.ProjectFeatureDescriptorImpl;
+        );
+        GetCallerIdentityResult getCallerIdentityResult = testConnectionResult.getGetCallerIdentityResult();
+        xmlResponse.addContent((Content)createCallerIdentityElement(getCallerIdentityResult));
+      } else {
+        for (InvalidProperty invalidProp : invalidProperties) {
 ```
 
 ## RuleId[id=JavadocDeclaration]
@@ -230,8 +145,8 @@ Class jetbrains.buildServer.clouds.amazon.connector.errors.features.LinkedAwsCon
 in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/featureDevelopment/AwsConnectionsManager.java`
 #### Snippet
 ```java
-   * @param project    project which will be searched for the AWS Connection.
-   * @return AwsConnectionBean data bean with all AWS Connection properties.
+   * @param properties properties Map where should be the chosen AWS Connection ID parameter.
+   * @return {@link AwsConnectionDescriptor} containing information about connection that can be used to construct specific AWS clients or throws exception if no such connection can be found
    * @throws LinkedAwsConnNotFoundException thrown when there is no corresponding {@link AwsCloudConnectorConstants#CHOSEN_AWS_CONN_ID_PARAM property} in the properties map,
    *                                        when there is no AWS Connection with specified ID or when the AWS Connection credentials creation failed.
    */
@@ -242,50 +157,26 @@ Class jetbrains.buildServer.clouds.amazon.connector.errors.features.LinkedAwsCon
 in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/featureDevelopment/AwsConnectionsManager.java`
 #### Snippet
 ```java
-   * @param properties properties Map where should be the chosen AWS Connection ID parameter.
-   * @return {@link AwsConnectionDescriptor} containing information about connection that can be used to construct specific AWS clients or throws exception if no such connection can be found
+   * @param project    project which will be searched for the AWS Connection.
+   * @return AwsConnectionBean data bean with all AWS Connection properties.
    * @throws LinkedAwsConnNotFoundException thrown when there is no corresponding {@link AwsCloudConnectorConstants#CHOSEN_AWS_CONN_ID_PARAM property} in the properties map,
    *                                        when there is no AWS Connection with specified ID or when the AWS Connection credentials creation failed.
    */
 ```
 
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'getLinkedAwsConnection' is still used
-in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/featureDevelopment/AwsConnectionsManager.java`
-#### Snippet
-```java
-  @NotNull
-  @Deprecated
-  AwsConnectionBean getLinkedAwsConnection(@NotNull final Map<String, String> properties, @NotNull final SProject project) throws LinkedAwsConnNotFoundException;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'AWSCommonParams' is still used
+### JavadocDeclaration
+`@param params` tag description is missing
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSCommonParams.java`
 #### Snippet
 ```java
- */
-@Deprecated
-public final class AWSCommonParams {
-
-  // "codedeploy_" prefix is for backward compatibility
+  /**
+   * Default region name will be returned if neither new nor old parameter is specified.
+   * @param params
+   * @return region name
+   */
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'AwsConnectionBean' is still used
-in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/dataBeans/AwsConnectionBean.java`
-#### Snippet
-```java
-
-@Deprecated
-public class AwsConnectionBean {
-  private final String myConnectionId;
-  private final String myDescription;
-```
-
+## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'AWSClients' is still used
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSClients.java`
@@ -308,6 +199,42 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSRegions.j
 public final class AWSRegions {
   private static final Map<String, String> REGION_NAMES_FOR_WEB;
 
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'AwsConnectionBean' is still used
+in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/impl/dataBeans/AwsConnectionBean.java`
+#### Snippet
+```java
+
+@Deprecated
+public class AwsConnectionBean {
+  private final String myConnectionId;
+  private final String myDescription;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'getLinkedAwsConnection' is still used
+in `aws-core-common/src/main/java/jetbrains/buildServer/clouds/amazon/connector/featureDevelopment/AwsConnectionsManager.java`
+#### Snippet
+```java
+  @NotNull
+  @Deprecated
+  AwsConnectionBean getLinkedAwsConnection(@NotNull final Map<String, String> properties, @NotNull final SProject project) throws LinkedAwsConnNotFoundException;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'AWSCommonParams' is still used
+in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSCommonParams.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public final class AWSCommonParams {
+
+  // "codedeploy_" prefix is for backward compatibility
 ```
 
 ## RuleId[id=SpringXmlModelInspection]
@@ -445,6 +372,24 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
 ```
 
 ## RuleId[id=SpringBeanConstructorArgInspection]
+### SpringBeanConstructorArgInspection
+No matching constructor found in class 'AwsCredentialsHandler'#treeend
+
+*** ** * ** ***
+
+|-----------------------------------------------------------|---|-----------|
+| **AwsCredentialsHandler(...):**                           |   | **Bean:** |
+| EventDispatcher\<AgentLifeCycleListener\> agentDispatcher |   | **???**   |
+in `aws-core-agent/src/main/resources/META-INF/build-agent-plugin-aws-core.xml`
+#### Snippet
+```java
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <bean class="jetbrains.buildServer.clouds.amazon.connector.AwsCredentialsHandler"/>
+</beans>
+
+```
+
 ### SpringBeanConstructorArgInspection
 No matching constructor found in class 'AwsConnectionIdGenerator'#treeend
 
@@ -786,37 +731,7 @@ in `aws-core-server/src/main/resources/META-INF/build-server-plugin-aws-core-plu
 </beans>
 ```
 
-### SpringBeanConstructorArgInspection
-No matching constructor found in class 'AwsCredentialsHandler'#treeend
-
-*** ** * ** ***
-
-|-----------------------------------------------------------|---|-----------|
-| **AwsCredentialsHandler(...):**                           |   | **Bean:** |
-| EventDispatcher\<AgentLifeCycleListener\> agentDispatcher |   | **???**   |
-in `aws-core-agent/src/main/resources/META-INF/build-agent-plugin-aws-core.xml`
-#### Snippet
-```java
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
-       default-autowire="constructor">
-  <bean class="jetbrains.buildServer.clouds.amazon.connector.AwsCredentialsHandler"/>
-</beans>
-
-```
-
 ## RuleId[id=SpringXmlAutowireExplicitlyInspection]
-### SpringXmlAutowireExplicitlyInspection
-Make autowired dependency explicit
-in `aws-core-server/src/main/resources/META-INF/build-server-plugin-aws-core-plugin.xml`
-#### Snippet
-```java
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
-       default-autowire="constructor">
-
-<!--    open-api beans-->
-```
-
 ### SpringXmlAutowireExplicitlyInspection
 Make autowired dependency explicit
 in `aws-core-agent/src/main/resources/META-INF/build-agent-plugin-aws-core.xml`
@@ -839,6 +754,18 @@ in `aws-core-server/teamcity-plugin.xml`
        default-autowire="constructor">
 
     <bean id="codeDeployRunnerRunType" class="jetbrains.buildServer.runner.codedeploy.CodeDeployRunType"/>
+```
+
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `aws-core-server/src/main/resources/META-INF/build-server-plugin-aws-core-plugin.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+
+<!--    open-api beans-->
 ```
 
 ## RuleId[id=RedundantCollectionOperation]
@@ -864,10 +791,18 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSClients.j
       builder.withCredentials(new AWSStaticCredentialsProvider(myCredentials));
     }
 
+    // null in myRegion will cause S3 client instantiation to fail
+    // we ensure, that we have at least default region
+    String region = myRegion;
+
+    if (myRegion == null) {
+      region = AwsCloudConnectorConstants.REGION_NAME_DEFAULT;
+    }
+
     if (StringUtil.isNotEmpty(myServiceEndpoint)) {
-      builder.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(myServiceEndpoint, myRegion));
+      builder.withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(myServiceEndpoint, region));
     } else {
-      builder.withRegion(myRegion);
+      builder.withRegion(region);
     }
 
     return builder.build();
@@ -918,27 +853,39 @@ in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/
 
 ## RuleId[id=Deprecation]
 ### Deprecation
-'jetbrains.buildServer.clouds.amazon.connector.impl.dataBeans.AwsConnectionBean' is deprecated
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/clients/EC2ClientCreator.java`
+Overrides deprecated method in 'jetbrains.buildServer.serverSide.BuildFeature'
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/featureDevelopment/credsToAgent/AwsConnToAgentBuildFeature.java`
 #### Snippet
 ```java
 
-  @NotNull
-  public AmazonEC2 createClient(@NotNull AwsConnectionBean connection) throws ConnectionCredentialsException {
-    final AwsCredentialsData credentialsData = connection.getAwsCredentialsHolder().getAwsCredentials();
-    final AmazonEC2ClientBuilder builder = AmazonEC2ClientBuilder.standard()
+  @Override
+  public PropertiesProcessor getParametersProcessor() {
+    return this;
+  }
 ```
 
 ### Deprecation
-'jetbrains.buildServer.util.amazon.AWSCommonParams' is deprecated
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/clients/EC2ClientCreator.java`
+'jetbrains.buildServer.clouds.amazon.connector.impl.dataBeans.AwsConnectionBean' is deprecated
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/ami/cleanup/EC2AmiCleanupExtension.java`
 #### Snippet
 ```java
-    final AwsCredentialsData credentialsData = connection.getAwsCredentialsHolder().getAwsCredentials();
-    final AmazonEC2ClientBuilder builder = AmazonEC2ClientBuilder.standard()
-                                                                 .withClientConfiguration(AWSCommonParams.createClientConfigurationEx("ec2Client_" + connection.getConnectionId()));
 
-    final String accessKeyId = credentialsData.getAccessKeyId();
+    return clientsCache.computeIfAbsent(connectionId, cid -> {
+      final AwsConnectionBean awsConnection = myConnectionsManager.getAwsConnection(project, cid, connectionAttributes);
+
+      if (awsConnection != null) {
+```
+
+### Deprecation
+'getAwsConnection(SProject, java.lang.String, java.util.Map)' is deprecated
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/ami/cleanup/EC2AmiCleanupExtension.java`
+#### Snippet
+```java
+
+    return clientsCache.computeIfAbsent(connectionId, cid -> {
+      final AwsConnectionBean awsConnection = myConnectionsManager.getAwsConnection(project, cid, connectionAttributes);
+
+      if (awsConnection != null) {
 ```
 
 ### Deprecation
@@ -1708,26 +1655,26 @@ in `aws-core-common/src/main/resources/buildServerResources/constantsAWSCommonPa
 
 ### Deprecation
 'jetbrains.buildServer.clouds.amazon.connector.impl.dataBeans.AwsConnectionBean' is deprecated
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/ami/cleanup/EC2AmiCleanupExtension.java`
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/clients/EC2ClientCreator.java`
 #### Snippet
 ```java
 
-    return clientsCache.computeIfAbsent(connectionId, cid -> {
-      final AwsConnectionBean awsConnection = myConnectionsManager.getAwsConnection(project, cid, connectionAttributes);
-
-      if (awsConnection != null) {
+  @NotNull
+  public AmazonEC2 createClient(@NotNull AwsConnectionBean connection) throws ConnectionCredentialsException {
+    final AwsCredentialsData credentialsData = connection.getAwsCredentialsHolder().getAwsCredentials();
+    final AmazonEC2ClientBuilder builder = AmazonEC2ClientBuilder.standard()
 ```
 
 ### Deprecation
-'getAwsConnection(SProject, java.lang.String, java.util.Map)' is deprecated
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/ami/cleanup/EC2AmiCleanupExtension.java`
+'jetbrains.buildServer.util.amazon.AWSCommonParams' is deprecated
+in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/utils/clients/EC2ClientCreator.java`
 #### Snippet
 ```java
+    final AwsCredentialsData credentialsData = connection.getAwsCredentialsHolder().getAwsCredentials();
+    final AmazonEC2ClientBuilder builder = AmazonEC2ClientBuilder.standard()
+                                                                 .withClientConfiguration(AWSCommonParams.createClientConfigurationEx("ec2Client_" + connection.getConnectionId()));
 
-    return clientsCache.computeIfAbsent(connectionId, cid -> {
-      final AwsConnectionBean awsConnection = myConnectionsManager.getAwsConnection(project, cid, connectionAttributes);
-
-      if (awsConnection != null) {
+    final String accessKeyId = credentialsData.getAccessKeyId();
 ```
 
 ### Deprecation
@@ -1819,22 +1766,6 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/PathMappings.java`
 
 ```
 
-## RuleId[id=SuspiciousMethodCalls]
-### SuspiciousMethodCalls
-'ArrayList' may not contain objects of type 'Object'
-in `aws-core-server/src/main/java/jetbrains/buildServer/clouds/amazon/connector/common/impl/AwsConnectionsHolderImpl.java`
-#### Snippet
-```java
-      previousOwnedByProjectAwsConnections
-        .removeAll(
-          updatedAwsConnections
-            .stream()
-            .map(SProjectFeatureDescriptor::getId)
-            .collect(Collectors.toList())
-        );
-      for (String removedAwsConnectionId: previousOwnedByProjectAwsConnections) {
-```
-
 ## RuleId[id=MismatchedStringBuilderQueryUpdate]
 ### MismatchedStringBuilderQueryUpdate
 Contents of `StringBuilder errorMessageBuilder` are updated, but never queried
@@ -1875,6 +1806,18 @@ in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/S3Util.java`
 ```
 
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `exception instanceof ConnectionCredentialsException` is always `true`
+in `aws-core-server/src/main/java/jetbrains/buildServer/serverSide/oauth/aws/controllers/AwsTestConnectionController.java`
+#### Snippet
+```java
+      errors.addError(new InvalidProperty(CREDENTIALS_TYPE_PARAM, actionDescription + AwsExceptionUtils.getAwsErrorMessage(exception)));
+      Loggers.CLOUD.debug(actionDescription, exception);
+    } else if(exception instanceof ConnectionCredentialsException) {
+      errors.addError(new InvalidProperty(CREDENTIALS_TYPE_PARAM, actionDescription + exception.getMessage()));
+      Loggers.CLOUD.debug(actionDescription, exception);
+```
+
 ### ConstantValue
 Condition `Boolean.parseBoolean(USE_DEFAULT_CREDENTIAL_PROVIDER_CHAIN_PARAM_OLD)` is always `false` when reached
 in `aws-core-common/src/main/java/jetbrains/buildServer/util/amazon/AWSCommonParams.java`
