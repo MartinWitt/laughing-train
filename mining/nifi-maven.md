@@ -29,6 +29,18 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
 
 ## RuleId[id=CollectionContainsUrl]
 ### CollectionContainsUrl
+Set `resourceUrls` may contain URL objects
+in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
+#### Snippet
+```java
+
+    private Set<String> discoverClassNames(final String extensionType) throws IOException {
+        final Set<URL> resourceUrls = new HashSet<>();
+
+        final Enumeration<URL> resources = extensionClassLoader.getResources(SERVICES_DIRECTORY + extensionType);
+```
+
+### CollectionContainsUrl
 Set `urls` may contain URL objects
 in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClassLoaderFactory.java`
 #### Snippet
@@ -62,18 +74,6 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClass
             final Set<URL> artifactUrls = toURLs(artifact);
             urls.addAll(artifactUrls);
         }
-```
-
-### CollectionContainsUrl
-Set `resourceUrls` may contain URL objects
-in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionDefinitionFactory.java`
-#### Snippet
-```java
-
-    private Set<String> discoverClassNames(final String extensionType) throws IOException {
-        final Set<URL> resourceUrls = new HashSet<>();
-
-        final Enumeration<URL> resources = extensionClassLoader.getResources(SERVICES_DIRECTORY + extensionType);
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
@@ -198,6 +198,18 @@ in `src/main/java/org/apache/nifi/extension/definition/extraction/ExtensionClass
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `src/main/java/org/apache/nifi/NarMojo.java`
+#### Snippet
+```java
+
+        final Method writeMethod = extensionClass.getMethod("getPropertyDescriptors");
+        final List<Object> propertyDescriptors = (List<Object>) writeMethod.invoke(extensionInstance);
+
+        if (propertyDescriptors == null) {
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.HashSet' to 'java.util.Set'
 in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
@@ -219,18 +231,6 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
         Set<Artifact> skippedArtifacts = new HashSet<>(artifacts);
         skippedArtifacts.removeAll(unMarkedArtifacts);
 
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.List'
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-
-        final Method writeMethod = extensionClass.getMethod("getPropertyDescriptors");
-        final List<Object> propertyDescriptors = (List<Object>) writeMethod.invoke(extensionInstance);
-
-        if (propertyDescriptors == null) {
 ```
 
 ## RuleId[id=IOStreamConstructor]
@@ -284,18 +284,6 @@ in `src/main/java/org/apache/nifi/NarProvidedDependenciesMojo.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `RepositorySystemSession`
-in `src/main/java/org/apache/nifi/NarProvidedDependenciesMojo.java`
-#### Snippet
-```java
-
-    /**
-     * The {@link RepositorySystemSession} used for obtaining the local and remote artifact repositories.
-     */
-    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true)
-```
-
-### JavadocReference
 Cannot resolve symbol `ProjectBuilder`
 in `src/main/java/org/apache/nifi/NarProvidedDependenciesMojo.java`
 #### Snippet
@@ -321,6 +309,18 @@ in `src/main/java/org/apache/nifi/NarProvidedDependenciesMojo.java`
 
 ### JavadocReference
 Cannot resolve symbol `RepositorySystemSession`
+in `src/main/java/org/apache/nifi/NarProvidedDependenciesMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link RepositorySystemSession} used for obtaining the local and remote artifact repositories.
+     */
+    @Parameter(defaultValue = "${repositorySystemSession}", readonly = true)
+```
+
+### JavadocReference
+Cannot resolve symbol `RepositorySystemSession`
 in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
 #### Snippet
 ```java
@@ -329,6 +329,30 @@ in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
      * The {@link RepositorySystemSession} used for obtaining the local and remote artifact repositories.
      */
     @Parameter(defaultValue = "${repositorySystemSession}", readonly = true)
+```
+
+### JavadocReference
+Cannot resolve symbol `ProjectBuilder`
+in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link ProjectBuilder} used to generate the {@link MavenProject} for the nar artifact the dependency tree is being generated for.
+     */
+    @Component
+```
+
+### JavadocReference
+Cannot resolve symbol `MavenProject`
+in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+#### Snippet
+```java
+
+    /**
+     * The {@link ProjectBuilder} used to generate the {@link MavenProject} for the nar artifact the dependency tree is being generated for.
+     */
+    @Component
 ```
 
 ### JavadocReference
@@ -357,7 +381,7 @@ in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
 
 ### JavadocReference
 Cannot resolve symbol `ProjectBuilder`
-in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
 
@@ -369,7 +393,7 @@ in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
 
 ### JavadocReference
 Cannot resolve symbol `MavenProject`
-in `src/main/java/org/apache/nifi/NarDuplicateDependenciesMojo.java`
+in `src/main/java/org/apache/nifi/NarMojo.java`
 #### Snippet
 ```java
 
@@ -389,30 +413,6 @@ in `src/main/java/org/apache/nifi/NarMojo.java`
      * The {@link RepositorySystemSession} used for obtaining the local and remote artifact repositories.
      */
     @Parameter(defaultValue = "${repositorySystemSession}", readonly = true)
-```
-
-### JavadocReference
-Cannot resolve symbol `ProjectBuilder`
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-
-    /**
-     * The {@link ProjectBuilder} used to generate the {@link MavenProject} for the nar artifact the dependency tree is being generated for.
-     */
-    @Component
-```
-
-### JavadocReference
-Cannot resolve symbol `MavenProject`
-in `src/main/java/org/apache/nifi/NarMojo.java`
-#### Snippet
-```java
-
-    /**
-     * The {@link ProjectBuilder} used to generate the {@link MavenProject} for the nar artifact the dependency tree is being generated for.
-     */
-    @Component
 ```
 
 ### JavadocReference
