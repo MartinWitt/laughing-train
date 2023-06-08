@@ -113,18 +113,6 @@ in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin
 ## RuleId[id=SpringXmlAutowireExplicitlyInspection]
 ### SpringXmlAutowireExplicitlyInspection
 Make autowired dependency explicit
-in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.GitHubIssues.xml`
-#### Snippet
-```java
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
-       default-autowire="constructor">
-  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderType"/>
-  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueFetcher"/>
-```
-
-### SpringXmlAutowireExplicitlyInspection
-Make autowired dependency explicit
 in `TeamCity.GitHubIssues-server/fake-teamcity-server-plugin-context.xml`
 #### Snippet
 ```java
@@ -133,6 +121,18 @@ in `TeamCity.GitHubIssues-server/fake-teamcity-server-plugin-context.xml`
        default-autowire="constructor">
   <!-- this is a fake spring context xml to make IntelliJ IDEA know all implicit beans that are available for plugin -->
   <bean class="jetbrains.buildServer.web.openapi.PluginDescriptor"/>
+```
+
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `TeamCity.GitHubIssues-server/src/main/resources/META-INF/build-server-plugin-TeamCity.GitHubIssues.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueProviderType"/>
+  <bean class="jetbrains.buildServer.issueTracker.github.GitHubIssueFetcher"/>
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -159,19 +159,6 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
     super(cacheUtil);
     mySslTrustStoreProvider = sslTrustStoreProvider;
   }
-```
-
-## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
-### RegExpUnnecessaryNonCapturingGroup
-Unnecessary non-capturing group `(?:\\.git)`
-in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
-#### Snippet
-```java
-
-  /* Matches github ssh urls of format git@github.com:owner/repo.git */
-  private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
-
-  /* Matches github http and https urls of format https://github.com/owner/repo.git */
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -221,5 +208,18 @@ in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracke
           LOG.debug("Connecting to " + myURL.toString() + "using username + [" + cr.getUserName() + "] and password");
         }
         client.setCredentials(cr.getUserName(), cr.getPassword());
+```
+
+## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
+### RegExpUnnecessaryNonCapturingGroup
+Unnecessary non-capturing group `(?:\\.git)`
+in `TeamCity.GitHubIssues-server/src/main/java/jetbrains/buildServer/issueTracker/github/health/IssueTrackerSuggestion.java`
+#### Snippet
+```java
+
+  /* Matches github ssh urls of format git@github.com:owner/repo.git */
+  private static final Pattern sshPattern = Pattern.compile("git@github\\.com:(.+)/(.+)(?:\\.git)");
+
+  /* Matches github http and https urls of format https://github.com/owner/repo.git */
 ```
 
