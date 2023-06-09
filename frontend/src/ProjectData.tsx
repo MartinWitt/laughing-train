@@ -18,7 +18,9 @@ export const fetchProjectQuery = gql`
 export const fetchAvailableRefactorings = gql`
   query getAvailableRefactorings {
    availableRefactorings {
-    ruleId
+    ruleId {
+      id
+    }
    }
 }
 `;

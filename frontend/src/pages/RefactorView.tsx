@@ -5,7 +5,6 @@ import Grid2 from '@mui/material/Unstable_Grid2'; // Grid version 2
 import React, { useMemo } from "react";
 import { useParams } from "react-router";
 import { BadSmellTreeView } from "../component/BadSmellTree";
-import Headline from "../component/Headline";
 import { BadSmell } from "../data/BadSmell";
 import { fetchBadSmellsforHashQuery, refactorQuery } from "../ProjectData";
 
@@ -70,7 +69,6 @@ export function RefactorView() {
   return (
 
     <div>
-      <Headline />
       <br />
       <Typography variant="h4" alignContent={"center"}>Refactor {name} at {hash}</Typography>
       <Grid2 container padding={5}>

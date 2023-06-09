@@ -1,39 +1,41 @@
-
 import { Button, Typography } from "@mui/material";
 import React from "react";
 import { useKeycloak } from "@react-keycloak/web";
 
 export function LoginButton() {
   const { keycloak } = useKeycloak();
-  return (
-    <Button
-      onClick={doAuth}
-    >
-      <Typography sx={{ fontSize: "30" }} fontWeight={"bold"}>{state()}</Typography>
-    </Button>
-  );
 
-  function state() {
+  const handleAuth = () => {
     if (keycloak.authenticated) {
-      return "Logout " + keycloak.tokenParsed?.name;
+      handleLogout();
     } else {
-      return "Login";
+      handleLogin();
     }
-  }
-  function login() {
+  };
 
+  const handleLogin = () => {
     keycloak.login({
       prompt: "login",
     });
-  }
-  function logout() {
+  };
+
+  const handleLogout = () => {
     keycloak.logout();
-  }
-  function doAuth() {
+  };
+
+  const getButtonText = () => {
     if (keycloak.authenticated) {
-      logout();
+      return `${keycloak.tokenParsed?.name}`;
     } else {
-      login();
+      return "Login";
     }
-  }
+  };
+
+  return (
+    <Button onClick={handleAuth}>
+      <Typography sx={{ color:"white" }}   >
+        {getButtonText()}
+      </Typography>
+    </Button>
+  );
 }
