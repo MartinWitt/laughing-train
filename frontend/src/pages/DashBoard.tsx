@@ -1,7 +1,6 @@
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router";
-import Headline from "../component/Headline";
 import { ProjectList } from "../component/ProjectList";
 
 export default function DashBoard() {

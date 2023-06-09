@@ -1,9 +1,8 @@
 import { Button, CircularProgress, Divider, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
-import Headline from "../component/Headline";
 import ProjectCard from "../component/ProjectCard";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchProjectQuery, filterDuplicates } from "../ProjectData";
+import { fetchProjectQuery } from "../ProjectData";
 import HashSelector from "../component/HashSelector";
 import { Project } from "../data/Project";
 import { useQuery } from "@apollo/client";

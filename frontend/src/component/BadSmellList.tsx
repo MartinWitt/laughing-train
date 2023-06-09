@@ -1,6 +1,6 @@
 
 import { useQuery } from '@apollo/client';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Card, Checkbox, CircularProgress, Divider, FormControlLabel, Link, Stack, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Card, CircularProgress, Divider, Link, Stack, Typography } from '@mui/material';
 import { BadSmell } from '../data/BadSmell';
 import { Project } from "../data/Project";
 import { fetchBadSmellsforHashQuery } from '../ProjectData';
@@ -11,7 +11,7 @@ import { StyledDivider } from './StyledDivider';
 
 
 export default function BadSmellList(project: Project) {
-  const [badSmellFilter, setBadSmellFilter] = useState([""]);
+  const [badSmellFilter] = useState([""]);
 
   const { data, error, loading } = useQuery(fetchBadSmellsforHashQuery, {
     variables: {
@@ -39,13 +39,6 @@ export default function BadSmellList(project: Project) {
     return <CircularProgress />
   }
 
-  function setBadSmellFilterForIdentifier(identifier: string) {
-    if (badSmellFilter.includes(identifier)) {
-      setBadSmellFilter(badSmellFilter.filter((id: string) => id !== identifier));
-    } else {
-      setBadSmellFilter([...badSmellFilter, identifier]);
-    }
-  }
   return (
     <div>
       <Typography variant='h2' align='center'>Bad Smells</Typography>
@@ -59,18 +52,7 @@ export default function BadSmellList(project: Project) {
   );
 }
 
-function SelectionBox({ label, addFunction }: { label: string; addFunction: (label: string) => void; }) {
-  return (<Box>
-    <FormControlLabel control={<Checkbox  />}
-      defaultChecked onClick={() => { addFunction(label); }} label={label}  />
-  </Box>)
-}
 
-function listOfUniqueRules(badSmells: BadSmell[]): BadSmell[] {
-  const ids = badSmells.map(o => o.ruleID)
-  const filtered = badSmells.filter(({ ruleID }, index) => !ids.includes(ruleID, index + 1));
-  return filtered;
-}
 function BadSmellBlocks({ badSmells, project }: { badSmells: BadSmell[]; project: Project }) {
   return <>
     {CodeBlocks(badSmells, project)}
