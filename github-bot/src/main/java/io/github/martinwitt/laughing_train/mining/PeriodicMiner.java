@@ -100,9 +100,14 @@ public class PeriodicMiner {
                         spoonPatternAnalyzer.analyze(new AnalyzerRequest.WithProject(success.project()));
 
                 if (spoonPatternAnalyzerResult instanceof SpoonPatternAnalyzerResult.Success spoonSuccess) {
-                    logger.atInfo().log("Successfully analyzed project %s", success.project());
+                    logger.atInfo().log("Successfully analyzed project with spoon %s", success.project());
                     saveSpoonResults(spoonSuccess);
                     addOrUpdateCommitHash(success);
+                }
+                if (spoonPatternAnalyzerResult instanceof SpoonPatternAnalyzerResult.Failure failure) {
+                    logger.atWarning().log("Failed to analyze project with spoon %s", success.project());
+                    registry.counter("mining.spoon.error").increment();
+                    tryDeleteProject(success);
                 }
                 if (qodanaResult instanceof QodanaResult.Failure) {
                     logger.atWarning().log("Failed to analyze project %s", success.project());
@@ -121,6 +126,8 @@ public class PeriodicMiner {
             logger.atWarning().withCause(e).log("Failed to mine random repo");
             registry.counter("mining.error").increment();
         } finally {
+            logger.atInfo().log("Queue size: %s", queue.size());
+            logger.atInfo().log("Mining next repo in 1 minute");
             vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepo()));
         }
     }
