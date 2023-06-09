@@ -37,7 +37,7 @@ public class SpoonPatternAnalyzer {
     }
 
     public SpoonPatternAnalyzerResult analyze(AnalyzerRequest request) {
-        logger.atInfo().log("Received request %s", request);
+        logger.atInfo().log("Received request %s for SpoonPatternAnalyzer", request);
         try {
             if (request instanceof AnalyzerRequest.WithProject project) {
                 SpoonAnalyzer analyzer = new SpoonAnalyzer();
