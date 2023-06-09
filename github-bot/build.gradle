@@ -1,20 +1,20 @@
 plugins {
 	id 'java'
-	id "io.quarkus" version "3.1.0.Final"
+	id "io.quarkus" version "3.1.1.Final"
 	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
 }
 
 dependencies {
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
 	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.314.1'
-	implementation 'io.quarkiverse.githubapp:quarkus-github-app:2.0.0'
-	implementation 'io.quarkiverse.githubapp:quarkus-github-app-command-airline:2.0.0'
+	implementation 'io.quarkiverse.githubapp:quarkus-github-app:2.0.1'
+	implementation 'io.quarkiverse.githubapp:quarkus-github-app-command-airline:2.0.1'
 	implementation 'io.quarkus:quarkus-arc'
 	implementation "io.quarkus:quarkus-scheduler"
 	implementation 'io.quarkus:quarkus-smallrye-health'
 	testImplementation 'io.quarkus:quarkus-junit5'
 	implementation project(":code-transformation")
-	implementation 'io.quarkus:quarkus-mongodb-panache:3.1.0.Final'
+	implementation 'io.quarkus:quarkus-mongodb-panache:3.1.1.Final'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-smallrye-graphql")
 	implementation("io.quarkus:quarkus-smallrye-graphql-client")
