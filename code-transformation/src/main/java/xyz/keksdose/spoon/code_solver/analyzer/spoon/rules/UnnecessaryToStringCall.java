@@ -2,6 +2,7 @@ package xyz.keksdose.spoon.code_solver.analyzer.spoon.rules;
 
 import static xyz.keksdose.spoon.code_solver.history.MarkdownString.fromMarkdown;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
@@ -21,6 +22,7 @@ import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class UnnecessaryToStringCall implements AbstractSpoonRuleAnalyzer {
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     private static final List<TemplateMatcher> templates = createPattern();
     private static final BadSmell UNNECESSARY_TO_STRING_CALL = new BadSmell() {
@@ -72,17 +74,22 @@ public class UnnecessaryToStringCall implements AbstractSpoonRuleAnalyzer {
     }
 
     private static List<TemplateMatcher> createPattern() {
-        List<TemplateMatcher> templates = new ArrayList<>();
-        var templateType = TemplateHelper.fromResource("patternDB/UnnecessaryToStringCall");
-        for (CtMethod<?> method : templateType.getMethods()) {
-            if (method.getSimpleName().startsWith("matcher")) {
-                var root = method.getElements(new TypeFilter<>(CtReturn.class))
-                        .get(0)
-                        .getReturnedExpression();
-                templates.add(new TemplateMatcher(root));
+        try {
+            List<TemplateMatcher> templates = new ArrayList<>();
+            var templateType = TemplateHelper.fromResource("patternDB/UnnecessaryToStringCall");
+            for (CtMethod<?> method : templateType.getMethods()) {
+                if (method.getSimpleName().startsWith("matcher")) {
+                    var root = method.getElements(new TypeFilter<>(CtReturn.class))
+                            .get(0)
+                            .getReturnedExpression();
+                    templates.add(new TemplateMatcher(root));
+                }
             }
+            return templates;
+        } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Could not load patternDB/UnnecessaryToStringCall");
         }
-        return templates;
+        return new ArrayList<>();
     }
 
     @Override

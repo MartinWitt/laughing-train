@@ -89,7 +89,6 @@ public class PeriodicMiner {
             var checkoutResult = checkoutProject(project);
             if (checkoutResult instanceof ProjectResult.Error) {
                 logger.atWarning().log("Failed to checkout project %s", project);
-                registry.counter("mining.checkout.error").increment();
                 mineRandomRepo();
                 return;
             }
