@@ -11,7 +11,6 @@ export default function DashBoard() {
 
   return (
     <div>
-      <Headline />
       <br />
       <Grid
         container

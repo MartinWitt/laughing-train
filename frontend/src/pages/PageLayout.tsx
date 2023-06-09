@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, AppBar, Toolbar, List, ListItem, ListItemText, Box } from "@mui/material";
+import { Grid, AppBar, Toolbar, List, ListItem, ListItemText, Box, Divider } from "@mui/material";
 import { LoginButton } from "../component/LoginButton";
 import { useNavigate } from "react-router";
 
@@ -26,10 +26,16 @@ function Navigation({ links }: NavigationProps) {
   return (
     <List>
       {links.map((link) => (
+        <>
         <ListItem key={link.href} onClick={() => navigate(link.href, { replace: true })}>
-          <ListItemText primary={link.name} />
+            <ListItemText primary={link.name} />
+            
         </ListItem>
+          <Divider sx={{ height: 1, backgroundColor: 'white' }} />
+
+        </>
       ))}
+      <LoginButton />
     </List>
   );
 }
@@ -59,17 +65,16 @@ export default function PageLayout({ children }: PageLayoutProps) {
         </Toolbar>
       </AppBar>
       <Grid container spacing={2} style={{ height: "calc(100%) ", flexWrap: "nowrap" }}>
-        <Grid item sx={{ width: "200px" }}>
-          <Box sx={{ height: "100%", width: "100%", bgcolor: "#f0f0f0", overflow: "hidden" }}>
+        <Grid item sx={{ width: "200px", backgroundColor:"#272727" }} color={"#272727"}>
+          <Box sx={{ height: "100%", width: "100%", bgcolor: "#272727", overflow: "hidden" }}>
             <AppBar position="static">
               <Toolbar>
                 <Navigation links={navigationItems} />
               </Toolbar>
             </AppBar>
-            <LoginButton />
           </Box>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={9} sx={{}}>
           {children}
         </Grid>
         <Grid item xs={1}></Grid>

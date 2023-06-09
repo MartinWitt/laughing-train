@@ -1,39 +1,47 @@
-import { Chip, Grid, Typography } from "@mui/material";
+import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { Project } from "../data/Project";
 
-function HashSelector(project : Project) {
+function HashSelector(project: Project) {
   const navigate = useNavigate();
-  const [selectedHash, setSelectedHash] = useState("")
+  const [selectedHash, setSelectedHash] = useState(project.commitHashes[0]);
   return (
     <div>
+      <Typography align="center" variant="h6">
+        Choose a hash to view the results
+      </Typography>
+      <br />
+      <FormControl sx={{ display: 'flex', justifyContent: 'center', minWidth: 200 }}>
+        <InputLabel id="hash-select-label">Commit Hash</InputLabel>
+        <Select
+          labelId="hash-select-label"
+          id="hash-select"
+          value={selectedHash}
+          onChange={(event) => handleHashChange(event.target.value as string)}
+        >
+          {project.commitHashes.map((hash: string) => (
+            <MenuItem key={hash} value={hash}>
+              {hash}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <br />
+      <br />
+      <Button variant="contained" onClick={() => navigate(toLink(project, selectedHash))}>
+        View Results
+      </Button>
+    </div>
+  );
 
-      <Typography align="center" alignContent={"center"}>Choose a hash to view the results</Typography> 
-      <div><br/>
-        <Grid direction="row" container spacing={1} alignItems="stretch" justifyContent="flex-start" >
-          {project.commitHashes.map((hash: string) => {
-            if (hash === selectedHash) {
-              return <Grid item key={hash}>  <Chip variant="outlined" label={hash} onClick={selectHashClick(hash)} sx={{justifyContent: "stretch", backgroundColor: "primary.main"}} /> </Grid>;
-            }
-            return <Grid item key={hash}>  <Chip label={hash} onClick={selectHashClick(hash)} sx={{justifyContent: "stretch", fontFamily: "monospace"}} /> </Grid>;
-        })}
-        </Grid>
-            </div>
-          </div>
-        );
-
-  function selectHashClick(hash: string): React.MouseEventHandler<HTMLDivElement> | undefined {
-    return () => {
-      setSelectedHash(hash);
-      navigate(toLink(project, hash));
-    };
+  function handleHashChange(hash: string) {
+    setSelectedHash(hash);
   }
-    }
-
+}
 
 export default HashSelector;
 
 function toLink(project: Project, hash: string): string {
-  return "/resultview/" + project.projectName+"/"+ hash;
+  return "/resultview/" + project.projectName + "/" + hash;
 }

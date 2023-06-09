@@ -8,6 +8,8 @@ import JavaCodeBlock from './JavaCodeBlock';
 import React, { useMemo, useState } from 'react';
 import { StyledDivider } from './StyledDivider';
 
+
+
 export default function BadSmellList(project: Project) {
   const [badSmellFilter, setBadSmellFilter] = useState([""]);
 
@@ -17,12 +19,17 @@ export default function BadSmellList(project: Project) {
     }
   });
   const filteredBadSmells = useMemo(() => {
-    console.log(badSmellFilter);
     if (!data) {
       return [];
     }
-    return data.byCommitHash.filter((badSmell: BadSmell) => {
-      return !badSmellFilter.includes(badSmell.ruleID);
+    const badSmellMap = new Map<string, BadSmell>();
+    data.byCommitHash.forEach((badSmell: BadSmell) => {
+      if (!badSmellMap.has(badSmell.identifier)) {
+        badSmellMap.set(badSmell.identifier, badSmell);
+      }
+    });
+    return Array.from(badSmellMap.values()).filter((badSmell: BadSmell) => {
+      return !badSmellFilter.includes(badSmell.identifier);
     });
   }, [data, badSmellFilter]);
   if (error) {
@@ -31,32 +38,20 @@ export default function BadSmellList(project: Project) {
   if (loading) {
     return <CircularProgress />
   }
-  function setBadSmellFilterForRuleID(ruleID2: string) {
-    if (badSmellFilter.includes(ruleID2)) {
-      setBadSmellFilter(badSmellFilter.filter((ruleID: string) => ruleID !== ruleID2));
+
+  function setBadSmellFilterForIdentifier(identifier: string) {
+    if (badSmellFilter.includes(identifier)) {
+      setBadSmellFilter(badSmellFilter.filter((id: string) => id !== identifier));
     } else {
-      setBadSmellFilter([...badSmellFilter, ruleID2]);
+      setBadSmellFilter([...badSmellFilter, identifier]);
     }
   }
   return (
     <div>
       <Typography variant='h2' align='center'>Bad Smells</Typography>
       <br />
-      <Typography align="center"> Bad Smells for hash {project.commitHashes[0]}</Typography>
       <Box display={"flex"} flexDirection={"row"} >
-        <Box display="inline-block" width={"20%"} border={2}>
-          <Typography variant='h4' align='center'>Filter</Typography>
-          <Divider />
-          <Stack>
-            {listOfUniqueRules(data.byCommitHash).map((badSmell) => {
-              return (<>
-                <SelectionBox label={badSmell.ruleID} addFunction={setBadSmellFilterForRuleID} />
-                <Divider />
-              </>)
-            })}
-          </Stack>
-        </Box>
-        <Box display="inline-block" width={"70%"}>
+        <Box display="inline-block" width={"100%"}>
           <BadSmellBlocks badSmells={filteredBadSmells} project={project} />
         </Box>
       </ Box>

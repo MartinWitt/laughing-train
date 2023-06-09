@@ -30,7 +30,9 @@ function ProjectListItem(project: Project) {
           <Stack alignSelf="center" direction="row" spacing={5} alignItems="normal" justifyContent="space-evenly">
             <Avatar githubHandle={urlToGitHubHandle(project.projectUrl)} size="100" />
             <Typography textAlign="center" fontSize={40} variant="h5" component="div">{urlToGitHubHandle(project.projectUrl)}<br />{project.projectName}</Typography>
-            <Button size="large" href={project.projectUrl} startIcon={<GitHubIcon />} >See on GitHub </Button>
+            <Button sx={{ background: "transparent" }} size="large" href={project.projectUrl} startIcon={<GitHubIcon />}  >
+              <Typography color={"white"} >See on GitHub</Typography>
+            </Button>
           </Stack>
         </CardContent>
       </CardActionArea>

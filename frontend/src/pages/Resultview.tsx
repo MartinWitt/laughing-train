@@ -1,8 +1,8 @@
-import { Button, CircularProgress, Divider, Grid, Typography } from "@mui/material";
+import { Button, CircularProgress, Divider, Grid, Stack, Typography } from "@mui/material";
 import React from "react";
 import Headline from "../component/Headline";
 import ProjectCard from "../component/ProjectCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchProjectQuery, filterDuplicates } from "../ProjectData";
 import HashSelector from "../component/HashSelector";
 import { Project } from "../data/Project";
@@ -10,7 +10,7 @@ import { useQuery } from "@apollo/client";
 import BadSmellList from "../component/BadSmellList";
 
 function Resultview() {
-
+    let navigate = useNavigate();
     let params = useParams();
     const { data, loading, error } = useQuery(fetchProjectQuery);
     if (error) {
@@ -20,7 +20,7 @@ function Resultview() {
     if (loading) {
         return <CircularProgress />;
     }
-    const project: Project | undefined = filterDuplicates(data.getProjects).find((project: Project) => {
+    const project: Project | undefined = data.getProjects.find((project: Project) => {
         return project.projectName === params.name;
     });
     if (!project) {
@@ -28,7 +28,6 @@ function Resultview() {
     }
     return (
         <div>
-            <Headline />
             <br />
             <ProjectCard {...project} />
             <br />
@@ -38,12 +37,22 @@ function Resultview() {
             <HashSelector {...project} />
             <br />
             <Divider />
-            <BadSmellList {...projectWithSingleHash(project, params.hash)} />
-            <Divider />
-            <br />
             <Grid container spacing={2}>
-                <Grid item> <Button variant="contained" href={"/mutation/refactor/" + project.projectName + "/" + params.hash}>Refactor</Button></Grid>
-                <Grid item><Button variant="contained" href={generateProjectConfigLink(project)}>Config</Button></Grid>
+                <Grid item xs={10}>
+                    <BadSmellList {...projectWithSingleHash(project, params.hash)} />
+                </Grid>
+                <Divider />
+                <br />
+                <Grid item xs={2}>
+                    <Stack direction="column" spacing={2}>
+                        <Button variant="contained" href={"/mutation/refactor/" + project.projectName + "/" + params.hash}>
+                            Refactor
+                        </Button>
+                        <Button variant="contained" onClick={() => navigate(generateProjectConfigLink(project))}>
+                            Config
+                        </Button>
+                    </Stack>
+                </Grid>
             </Grid>
         </div>
     );

@@ -70,7 +70,6 @@ export function RefactorView() {
   return (
 
     <div>
-      <Headline />
       <br />
       <Typography variant="h4" alignContent={"center"}>Refactor {name} at {hash}</Typography>
       <Grid2 container padding={5}>
