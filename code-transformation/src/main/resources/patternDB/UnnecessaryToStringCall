@@ -1,0 +1,26 @@
+package patternDB;
+
+import java.util.Collection;
+
+import spoon.template.Parameter;
+import spoon.template.TemplateParameter;
+
+public class UnnecessaryToStringCall {
+  // Step 1:
+  public TemplateParameter<Collection<?>> _col_;
+
+  public TemplateParameter<String> _str_;
+
+  @Parameter
+  String foo;
+
+  
+  public String matcher1() {
+    return _str_.S().toString();
+  }
+
+  public String matcher2() {
+    return _str_.S() + toString();
+  }
+}
+
