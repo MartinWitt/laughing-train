@@ -104,19 +104,18 @@ public class PeriodicMiner {
                     addOrUpdateCommitHash(success);
                 }
                 if (spoonPatternAnalyzerResult instanceof SpoonPatternAnalyzerResult.Failure failure) {
-                    logger.atWarning().log("Failed to analyze project with spoon %s", success.project());
+                    logger.atWarning().log("Failed to analyze project with spoon %s", failure.message());
                     registry.counter("mining.spoon.error").increment();
                     tryDeleteProject(success);
                 }
-                if (qodanaResult instanceof QodanaResult.Failure) {
-                    logger.atWarning().log("Failed to analyze project %s", success.project());
+                if (qodanaResult instanceof QodanaResult.Failure failure) {
+                    logger.atWarning().log("Failed to analyze project %s", failure.message());
                     registry.counter("mining.qodana.error").increment();
                     tryDeleteProject(success);
                     return;
                 }
                 if (qodanaResult instanceof QodanaResult.Success successResult) {
                     logger.atInfo().log("Successfully analyzed project %s", success.project());
-                    registry.counter("mining.qodana.success").increment();
                     saveQodanaResults(successResult);
                     addOrUpdateCommitHash(success);
                 }
