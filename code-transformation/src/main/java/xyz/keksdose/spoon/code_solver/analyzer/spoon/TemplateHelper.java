@@ -1,9 +1,7 @@
 package xyz.keksdose.spoon.code_solver.analyzer.spoon;
 
 import com.google.common.flogger.FluentLogger;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.InputStream;
 import spoon.Launcher;
 import spoon.reflect.declaration.CtType;
 import spoon.support.compiler.VirtualFile;
@@ -15,15 +13,11 @@ public class TemplateHelper {
 
     public static CtType<?> fromResource(String resource) {
         ClassLoader classLoader = TemplateHelper.class.getClassLoader();
-        URL resourceUrl = classLoader.getResource(resource);
-        if (resourceUrl == null) {
-            logger.atSevere().log("Resource not found: %s", resource);
-            throw new IllegalArgumentException("Resource not found: " + resource);
-        }
-        try {
-            String content = Files.readString(Path.of(resourceUrl.toURI()));
+        try (InputStream inputStream = classLoader.getResourceAsStream(resource); ) {
+            byte[] content = inputStream.readAllBytes();
+            String contentString = new String(content);
             Launcher launcher = new Launcher();
-            VirtualFile file = new VirtualFile(content, "Test");
+            VirtualFile file = new VirtualFile(contentString, "Test");
             launcher.addInputResource(file);
             var model = launcher.buildModel();
             return model.getAllTypes().iterator().next();
