@@ -158,11 +158,11 @@ Link specified as plain text
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
- * This class models the SMART-on-FHIR permission scopes that are meant ot be used for accessing
- * clinical data. The constraints in this class are according to the official guidelines here:
- * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
- */
-@Getter
+   * SMART Permission to specify the kind of permission that is allowed on a Resource. The order of
+   * the Permission is important to us in the way it has been listed here. Please see:
+   * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
+   * The given order of Permissions is how it is expected that permissions will be specified in the
+   * token claim
 ```
 
 ### JavadocLinkAsPlainText
@@ -170,11 +170,11 @@ Link specified as plain text
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
-   * SMART Permission to specify the kind of permission that is allowed on a Resource. The order of
-   * the Permission is important to us in the way it has been listed here. Please see:
-   * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
-   * The given order of Permissions is how it is expected that permissions will be specified in the
-   * token claim
+ * This class models the SMART-on-FHIR permission scopes that are meant ot be used for accessing
+ * clinical data. The constraints in this class are according to the official guidelines here:
+ * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
+ */
+@Getter
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -221,6 +221,18 @@ Field can be converted to a local variable
 in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
 ```java
+public class BundlePatients {
+
+  private final ImmutableList<ImmutableSet<String>> referencedPatients;
+  private final ImmutableSet<String> updatedPatients;
+  private final boolean patientsToCreate;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
+#### Snippet
+```java
   private final boolean patientsToCreate;
 
   private final ImmutableSet<String> deletedPatients;
@@ -238,30 +250,6 @@ in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
   private final ImmutableSet<String> updatedPatients;
   private final boolean patientsToCreate;
 
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
-#### Snippet
-```java
-public class BundlePatients {
-
-  private final ImmutableList<ImmutableSet<String>> referencedPatients;
-  private final ImmutableSet<String> updatedPatients;
-  private final boolean patientsToCreate;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
-#### Snippet
-```java
-  private final Principal principal;
-  private final String resourceType;
-  private final Set<Permission> permissions;
-
-  private SmartFhirScope(
 ```
 
 ### FieldCanBeLocal
@@ -286,6 +274,18 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
   private final Principal principal;
   private final String resourceType;
   private final Set<Permission> permissions;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+  private final Principal principal;
+  private final String resourceType;
+  private final Set<Permission> permissions;
+
+  private SmartFhirScope(
 ```
 
 ## RuleId[id=UnstableApiUsage]
