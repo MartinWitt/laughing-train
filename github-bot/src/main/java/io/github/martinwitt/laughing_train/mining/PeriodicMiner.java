@@ -81,37 +81,25 @@ public class PeriodicMiner {
     }
 
     void mine(@Observes StartupEvent event) {
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepo()));
+        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepoQodana()));
+        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepoSpoon()));
     }
 
-    private void mineRandomRepo() {
+    private void mineRandomRepoQodana() {
         try {
             var project = queue.isEmpty() ? getRandomProject() : queue.poll();
             var checkoutResult = checkoutProject(project);
             if (checkoutResult instanceof ProjectResult.Error) {
                 logger.atWarning().log("Failed to checkout project %s", project);
-                mineRandomRepo();
+                mineRandomRepoQodana();
                 return;
             }
             if (checkoutResult instanceof ProjectResult.Success success) {
                 logger.atInfo().log("Successfully checked out project %s", success.project());
                 var qodanaResult = analyzeProject(success);
-                var spoonPatternAnalyzerResult =
-                        spoonPatternAnalyzer.analyze(new AnalyzerRequest.WithProject(success.project()));
 
-                if (spoonPatternAnalyzerResult instanceof SpoonPatternAnalyzerResult.Success spoonSuccess) {
-                    logger.atInfo().log("Successfully analyzed project with spoon %s", success.project());
-                    saveSpoonResults(spoonSuccess);
-                    addOrUpdateCommitHash(success);
-                }
-                if (spoonPatternAnalyzerResult instanceof SpoonPatternAnalyzerResult.Failure failure) {
-                    logger.atWarning().log("Failed to analyze project with spoon %s", failure.message());
-                    registry.counter("mining.spoon.error").increment();
-                    tryDeleteProject(success);
-                }
                 if (qodanaResult instanceof QodanaResult.Failure failure) {
                     logger.atWarning().log("Failed to analyze project %s", failure.message());
-                    registry.counter("mining.qodana.error").increment();
                     tryDeleteProject(success);
                     return;
                 }
@@ -123,11 +111,44 @@ public class PeriodicMiner {
             }
         } catch (Exception e) {
             logger.atWarning().withCause(e).log("Failed to mine random repo");
+        } finally {
+            logger.atInfo().log("Queue size: %s", queue.size());
+            logger.atInfo().log("Mining next repo in 1 minute");
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepoQodana()));
+        }
+    }
+
+    private void mineRandomRepoSpoon() {
+        try {
+            var project = queue.isEmpty() ? getRandomProject() : queue.poll();
+            var checkoutResult = checkoutProject(project);
+            if (checkoutResult instanceof ProjectResult.Error) {
+                logger.atWarning().log("Failed to checkout project %s", project);
+                mineRandomRepoSpoon();
+                return;
+            }
+            if (checkoutResult instanceof ProjectResult.Success success) {
+                logger.atInfo().log("Successfully checked out project %s", success.project());
+                var spoonPatternAnalyzerResult =
+                        spoonPatternAnalyzer.analyze(new AnalyzerRequest.WithProject(success.project()));
+
+                if (spoonPatternAnalyzerResult instanceof SpoonPatternAnalyzerResult.Success spoonSuccess) {
+                    logger.atInfo().log("Successfully analyzed project with spoon %s", success.project());
+                    saveSpoonResults(spoonSuccess);
+                    addOrUpdateCommitHash(success);
+                }
+                if (spoonPatternAnalyzerResult instanceof SpoonPatternAnalyzerResult.Failure failure) {
+                    logger.atWarning().log("Failed to analyze project with spoon %s", failure.message());
+                    tryDeleteProject(success);
+                }
+            }
+        } catch (Exception e) {
+            logger.atWarning().withCause(e).log("Failed to mine random repo");
             registry.counter("mining.error").increment();
         } finally {
             logger.atInfo().log("Queue size: %s", queue.size());
             logger.atInfo().log("Mining next repo in 1 minute");
-            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepo()));
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepoSpoon()));
         }
     }
 
