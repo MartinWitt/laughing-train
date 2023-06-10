@@ -21,6 +21,7 @@ import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
 import jakarta.inject.Inject;
 import java.util.regex.Pattern;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
