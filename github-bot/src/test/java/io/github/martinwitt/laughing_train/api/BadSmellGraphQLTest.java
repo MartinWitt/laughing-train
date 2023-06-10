@@ -21,6 +21,8 @@ import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClient;
 import io.smallrye.graphql.client.dynamic.api.DynamicGraphQLClientBuilder;
 import jakarta.inject.Inject;
 import java.util.regex.Pattern;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -58,6 +60,7 @@ public class BadSmellGraphQLTest {
     }
 
     @Test
+    @Disabled
     void getBadSmellFromLive() throws Exception {
         client = DynamicGraphQLClientBuilder.newBuilder()
                 .url("https://laughing-train.keksdose.xyz/graphql")
