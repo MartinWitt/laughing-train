@@ -11,18 +11,6 @@ I found 18 bad smells with 0 repairable:
 | ReplaceCallWithBinaryOperator | 1 | false |
 ## RuleId[id=Deprecation]
 ### Deprecation
-'parse(java.lang.String)' is deprecated
-in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
-#### Snippet
-```java
-        ServerPushEventStrategyAdapter.Type type;
-        try {
-          body = jsonParser.parse(message.getBody()).getAsJsonObject();
-          type =
-              ServerPushEventStrategyAdapter.Type.valueOf(
-```
-
-### Deprecation
 'JsonParser()' is deprecated
 in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
 #### Snippet
@@ -32,6 +20,18 @@ in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
     this.jsonParser = new JsonParser();
     this.sessionManagers = new ConcurrentHashMap<String, SessionManager>();
     this.pluginManagers = new ConcurrentHashMap<String, ServerPushEventManager>();
+```
+
+### Deprecation
+'parse(java.lang.String)' is deprecated
+in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
+#### Snippet
+```java
+        ServerPushEventStrategyAdapter.Type type;
+        try {
+          body = jsonParser.parse(message.getBody()).getAsJsonObject();
+          type =
+              ServerPushEventStrategyAdapter.Type.valueOf(
 ```
 
 ## RuleId[id=BusyWait]
@@ -99,6 +99,30 @@ in `build.gradle.kts`
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
+#### Snippet
+```java
+  @Override
+  public void onError(String sessionId, Throwable error) {
+    Assert.getInstance().notEmpty(sessionId, SESSION_ID).notNull(error, "error");
+    SessionManager manager = sessionManagers.get(sessionId);
+    Assert.getInstance().notNull(manager, SESSION_ID);
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
+#### Snippet
+```java
+    Assert.getInstance().notEmpty(sessionId, SESSION_ID).notNull(error, "error");
+    SessionManager manager = sessionManagers.get(sessionId);
+    Assert.getInstance().notNull(manager, SESSION_ID);
+    manager.onError(error);
+  }
+```
+
+### IgnoreResultOfCall
 Result of `Assert.notEmpty()` is ignored
 in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
 #### Snippet
@@ -136,26 +160,14 @@ in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
 
 ### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
+in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
 #### Snippet
 ```java
   @Override
   public void onError(String sessionId, Throwable error) {
     Assert.getInstance().notEmpty(sessionId, SESSION_ID).notNull(error, "error");
-    SessionManager manager = sessionManagers.get(sessionId);
-    Assert.getInstance().notNull(manager, SESSION_ID);
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
-#### Snippet
-```java
-    Assert.getInstance().notEmpty(sessionId, SESSION_ID).notNull(error, "error");
-    SessionManager manager = sessionManagers.get(sessionId);
-    Assert.getInstance().notNull(manager, SESSION_ID);
-    manager.onError(error);
-  }
+    SessionManager manager = getManagerForEndpoint(sessionId);
+    if (manager != null) {
 ```
 
 ### IgnoreResultOfCall
@@ -175,30 +187,6 @@ Result of `Assert.notEmpty()` is ignored
 in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
 #### Snippet
 ```java
-  @Override
-  public void onClose(String sessionId) {
-    Assert.getInstance().notEmpty(sessionId, SESSION_ID);
-    SessionManager manager = getManagerForEndpoint(sessionId);
-    if (manager != null) {
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
-#### Snippet
-```java
-  @Override
-  public void onError(String sessionId, Throwable error) {
-    Assert.getInstance().notEmpty(sessionId, SESSION_ID).notNull(error, "error");
-    SessionManager manager = getManagerForEndpoint(sessionId);
-    if (manager != null) {
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
-#### Snippet
-```java
         .notEmpty(message.getAction(), "action")
         .notEmpty(message.getClientNodeId(), "clientNodeId")
         .notEmpty(message.getServerNodeId(), "serverNodeId");
@@ -208,14 +196,14 @@ in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
 
 ### IgnoreResultOfCall
 Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/SyncNodeClientAdapter.java`
+in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
 #### Snippet
 ```java
-          .notEmpty(response.getAction(), "action")
-          .notEmpty(response.getClientNodeId(), "clientNodeId")
-          .notEmpty(response.getServerNodeId(), "serverNodeId");
-      return response;
-    } else {
+  @Override
+  public void onClose(String sessionId) {
+    Assert.getInstance().notEmpty(sessionId, SESSION_ID);
+    SessionManager manager = getManagerForEndpoint(sessionId);
+    if (manager != null) {
 ```
 
 ### IgnoreResultOfCall
@@ -228,5 +216,17 @@ in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
         .notEmpty(message.getClientNodeId(), "clientNodeId");
 
     List<MessageDto> responses;
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/SyncNodeClientAdapter.java`
+#### Snippet
+```java
+          .notEmpty(response.getAction(), "action")
+          .notEmpty(response.getClientNodeId(), "clientNodeId")
+          .notEmpty(response.getServerNodeId(), "serverNodeId");
+      return response;
+    } else {
 ```
 
