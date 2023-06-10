@@ -11,18 +11,6 @@ I found 18 bad smells with 0 repairable:
 | ReplaceCallWithBinaryOperator | 1 | false |
 ## RuleId[id=Deprecation]
 ### Deprecation
-'JsonParser()' is deprecated
-in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
-#### Snippet
-```java
-  SyncNodeServerAdapter(AbstractMessageHandlerAdapter handler, int timeoutSeconds) {
-    super(handler, timeoutSeconds);
-    this.jsonParser = new JsonParser();
-    this.sessionManagers = new ConcurrentHashMap<String, SessionManager>();
-    this.pluginManagers = new ConcurrentHashMap<String, ServerPushEventManager>();
-```
-
-### Deprecation
 'parse(java.lang.String)' is deprecated
 in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
 #### Snippet
@@ -34,19 +22,19 @@ in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
               ServerPushEventStrategyAdapter.Type.valueOf(
 ```
 
-## RuleId[id=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `src/main/java/org/eclipse/keyple/distributed/SyncNodeClientAdapter.java`
+### Deprecation
+'JsonParser()' is deprecated
+in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
 #### Snippet
 ```java
-          checkForEvents();
-          try {
-            Thread.sleep(requestFrequencyMillis);
-          } catch (InterruptedException e) {
-            logger.error("Unexpected interruption of thread {}", getName(), e);
+  SyncNodeServerAdapter(AbstractMessageHandlerAdapter handler, int timeoutSeconds) {
+    super(handler, timeoutSeconds);
+    this.jsonParser = new JsonParser();
+    this.sessionManagers = new ConcurrentHashMap<String, SessionManager>();
+    this.pluginManagers = new ConcurrentHashMap<String, ServerPushEventManager>();
 ```
 
+## RuleId[id=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/org/eclipse/keyple/distributed/SyncNodeClientAdapter.java`
@@ -57,6 +45,18 @@ in `src/main/java/org/eclipse/keyple/distributed/SyncNodeClientAdapter.java`
           Thread.sleep(timer);
           logger.info("Retry to send request after {} seconds...", timer / 1000);
           responses = sendRequestSilently();
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `src/main/java/org/eclipse/keyple/distributed/SyncNodeClientAdapter.java`
+#### Snippet
+```java
+          checkForEvents();
+          try {
+            Thread.sleep(requestFrequencyMillis);
+          } catch (InterruptedException e) {
+            logger.error("Unexpected interruption of thread {}", getName(), e);
 ```
 
 ## RuleId[id=ReplaceCallWithBinaryOperator]
@@ -123,6 +123,18 @@ in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
+#### Snippet
+```java
+        .notEmpty(message.getSessionId(), SESSION_ID)
+        .notEmpty(message.getAction(), "action")
+        .notEmpty(message.getClientNodeId(), "clientNodeId");
+
+    // Get or create a new session manager
+```
+
+### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
 #### Snippet
@@ -148,35 +160,11 @@ in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
 
 ### IgnoreResultOfCall
 Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeServerAdapter.java`
-#### Snippet
-```java
-        .notEmpty(message.getSessionId(), SESSION_ID)
-        .notEmpty(message.getAction(), "action")
-        .notEmpty(message.getClientNodeId(), "clientNodeId");
-
-    // Get or create a new session manager
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
-#### Snippet
-```java
-        .notEmpty(message.getAction(), "action")
-        .notEmpty(message.getClientNodeId(), "clientNodeId")
-        .notEmpty(message.getServerNodeId(), "serverNodeId");
-
-    SessionManager manager = getManagerForEndpoint(message.getSessionId());
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
 in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
 #### Snippet
 ```java
   @Override
-  public void onClose(String sessionId) {
+  public void onOpen(String sessionId) {
     Assert.getInstance().notEmpty(sessionId, SESSION_ID);
     SessionManager manager = getManagerForEndpoint(sessionId);
     if (manager != null) {
@@ -188,7 +176,7 @@ in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
 #### Snippet
 ```java
   @Override
-  public void onOpen(String sessionId) {
+  public void onClose(String sessionId) {
     Assert.getInstance().notEmpty(sessionId, SESSION_ID);
     SessionManager manager = getManagerForEndpoint(sessionId);
     if (manager != null) {
@@ -208,14 +196,14 @@ in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
 
 ### IgnoreResultOfCall
 Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
+in `src/main/java/org/eclipse/keyple/distributed/AsyncNodeClientAdapter.java`
 #### Snippet
 ```java
-        .notEmpty(message.getSessionId(), "sessionId")
         .notEmpty(message.getAction(), "action")
-        .notEmpty(message.getClientNodeId(), "clientNodeId");
+        .notEmpty(message.getClientNodeId(), "clientNodeId")
+        .notEmpty(message.getServerNodeId(), "serverNodeId");
 
-    List<MessageDto> responses;
+    SessionManager manager = getManagerForEndpoint(message.getSessionId());
 ```
 
 ### IgnoreResultOfCall
@@ -228,5 +216,17 @@ in `src/main/java/org/eclipse/keyple/distributed/SyncNodeClientAdapter.java`
           .notEmpty(response.getServerNodeId(), "serverNodeId");
       return response;
     } else {
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/distributed/SyncNodeServerAdapter.java`
+#### Snippet
+```java
+        .notEmpty(message.getSessionId(), "sessionId")
+        .notEmpty(message.getAction(), "action")
+        .notEmpty(message.getClientNodeId(), "clientNodeId");
+
+    List<MessageDto> responses;
 ```
 
