@@ -35,14 +35,20 @@ public class SpoonPatternAnalyzer {
             if (request instanceof AnalyzerRequest.WithProject project) {
                 SpoonAnalyzer analyzer = new SpoonAnalyzer();
 
-                return new SpoonPatternAnalyzerResult.Success(
+                SpoonPatternAnalyzerResult.Success success = new SpoonPatternAnalyzerResult.Success(
                         analyzer.analyze(project.project().folder().toPath()), project.project());
+                persistResults(success);
+                return success;
             } else {
                 return new SpoonPatternAnalyzerResult.Failure("Unknown request type");
             }
         } catch (Exception e) {
             return new SpoonPatternAnalyzerResult.Failure(Strings.nullToEmpty(e.getMessage()));
         }
+    }
+
+    private void persistResults(SpoonPatternAnalyzerResult result) {
+        analyzerResultPersistenceService.persistResults(result);
     }
 
     @Readiness

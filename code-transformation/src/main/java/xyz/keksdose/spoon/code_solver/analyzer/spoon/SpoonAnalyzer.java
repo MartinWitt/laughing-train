@@ -1,7 +1,6 @@
 package xyz.keksdose.spoon.code_solver.analyzer.spoon;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
@@ -14,11 +13,11 @@ public class SpoonAnalyzer {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    public List<AnalyzerResult> analyze(Path path) {
+    public List<SpoonAnalyzerResult> analyze(Path path) {
 
         logger.atInfo().log("Received request for SpoonAnalyzer with path %s", path.toString());
         CtModel model = buildModel(path);
-        List<AnalyzerResult> list = model.getAllTypes().stream()
+        List<SpoonAnalyzerResult> list = model.getAllTypes().stream()
                 .flatMap(v -> analyzeType(v).stream())
                 .collect(Collectors.toList());
         logger.atInfo().log("SpoonAnalyzer finished with %d results", list.size());
