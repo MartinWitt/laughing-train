@@ -8,6 +8,7 @@ import org.eclipse.microprofile.graphql.Name;
 @Name("BadSmell")
 public class BadSmellGraphQLDto {
 
+    private String analyzer;
     private String identifier;
     private String name;
     private String messageMarkdown;
@@ -29,6 +30,7 @@ public class BadSmellGraphQLDto {
         this.commitHashes = List.of(badSmell.getCommitHash());
         this.filePath = badSmell.filePath();
         this.position = badSmell.position();
+        this.analyzer = badSmell.getAnalyzer();
     }
 
     /**
@@ -141,5 +143,18 @@ public class BadSmellGraphQLDto {
      */
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    /**
+     * @return the analyzer
+     */
+    public String getAnalyzer() {
+        return analyzer;
+    }
+    /**
+     * @param analyzer the analyzer to set
+     */
+    public void setAnalyzer(String analyzer) {
+        this.analyzer = analyzer;
     }
 }

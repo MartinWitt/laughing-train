@@ -25,6 +25,7 @@ import java.util.Optional;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
@@ -133,12 +134,13 @@ public class PeriodicMiner {
     private void saveSpoonResults(Success spoonSuccess) {
         spoonSuccess.project().runInContext(() -> {
             try {
-                List<AnalyzerResult> results = spoonSuccess.result();
+                List<? extends AnalyzerResult> results = spoonSuccess.result();
                 if (results.isEmpty()) {
                     logger.atInfo().log("No results for %s", spoonSuccess);
                     return Optional.empty();
                 }
-                String content = printFormattedResults(spoonSuccess, results);
+                var list = results.stream().map(v -> (AnalyzerResult) v).collect(Collectors.toList());
+                String content = printFormattedResults(spoonSuccess, list);
                 var laughingRepo = getLaughingRepo();
                 updateOrCreateContent(laughingRepo, spoonSuccess.project().name(), content);
             } catch (Exception e) {
