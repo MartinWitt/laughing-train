@@ -1,14 +1,14 @@
 # talkback 
  
 # Bad smells
-I found 33 bad smells with 33 repairable:
+I found 35 bad smells with 35 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryToStringCall | 33 | true |
+| UnnecessaryToStringCall | 35 | true |
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/BraillePreferenceUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/BraillePreferenceUtils.java`
 #### Snippet
 ```java
 newValue.toString()
@@ -16,7 +16,7 @@ newValue.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUeb2WithPartial.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUeb2WithPartial.java`
 #### Snippet
 ```java
 SpeechCleanupUtils.cleanUp(context, text).toString()
@@ -24,7 +24,7 @@ SpeechCleanupUtils.cleanUp(context, text).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUeb2WithPartial.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUeb2WithPartial.java`
 #### Snippet
 ```java
 SpeechCleanupUtils.cleanUp(context, text).toString()
@@ -32,7 +32,7 @@ SpeechCleanupUtils.cleanUp(context, text).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
 #### Snippet
 ```java
 extractedText.text.toString()
@@ -40,7 +40,7 @@ extractedText.text.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
 #### Snippet
 ```java
 extractedText.text.toString()
@@ -48,7 +48,7 @@ extractedText.text.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
 #### Snippet
 ```java
 extractedText.text.toString()
@@ -56,7 +56,7 @@ extractedText.text.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
 #### Snippet
 ```java
 extractedText.text.toString()
@@ -64,7 +64,7 @@ extractedText.text.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
 #### Snippet
 ```java
 extractedText.text.toString()
@@ -72,7 +72,7 @@ extractedText.text.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
 #### Snippet
 ```java
 extractedText.text.toString()
@@ -80,7 +80,7 @@ extractedText.text.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
 #### Snippet
 ```java
 extractedText.text.toString()
@@ -88,7 +88,7 @@ extractedText.text.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
 #### Snippet
 ```java
 SpeechCleanupUtils.cleanUp(context, text).toString()
@@ -96,7 +96,7 @@ SpeechCleanupUtils.cleanUp(context, text).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/common/src/phone/java/com/google/android/accessibility/braille/common/translate/EditBufferUtils.java`
 #### Snippet
 ```java
 SpeechCleanupUtils.cleanUp(context, text).toString()
@@ -104,7 +104,23 @@ SpeechCleanupUtils.cleanUp(context, text).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/brailleime/src/phone/java/com/google/android/accessibility/brailleime/Utils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/brailleime/src/phone/java/com/google/android/accessibility/brailleime/BrailleIme.java`
+#### Snippet
+```java
+Utils.getActionLabel(this, getCurrentInputEditorInfo()).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/brailleime/src/phone/java/com/google/android/accessibility/brailleime/BrailleIme.java`
+#### Snippet
+```java
+Utils.getHint(getImeConnection()).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/brailleime/src/phone/java/com/google/android/accessibility/brailleime/Utils.java`
 #### Snippet
 ```java
 BrailleUserPreferences.readCurrentActiveInputCodeAndCorrect(context).getUserFacingName(context.getResources()).toString()
@@ -112,7 +128,7 @@ BrailleUserPreferences.readCurrentActiveInputCodeAndCorrect(context).getUserFaci
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/braille/brailleime/src/phone/java/com/google/android/accessibility/brailleime/settings/BrailleImePreferencesActivity.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/braille/brailleime/src/phone/java/com/google/android/accessibility/brailleime/settings/BrailleImePreferencesActivity.java`
 #### Snippet
 ```java
 newValue.toString()
@@ -120,7 +136,7 @@ newValue.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/actor/search/SearchScreenOverlay.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/actor/search/SearchScreenOverlay.java`
 #### Snippet
 ```java
 keywordEditText.getText().toString()
@@ -128,7 +144,7 @@ keywordEditText.getText().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/actor/search/SearchScreenOverlay.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/actor/search/SearchScreenOverlay.java`
 #### Snippet
 ```java
 keywordEditText.getText().toString()
@@ -136,7 +152,7 @@ keywordEditText.getText().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/actor/search/SearchScreenOverlay.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/actor/search/SearchScreenOverlay.java`
 #### Snippet
 ```java
 keywordEditText.getText().toString()
@@ -144,7 +160,7 @@ keywordEditText.getText().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/actor/search/SearchScreenOverlay.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/actor/search/SearchScreenOverlay.java`
 #### Snippet
 ```java
 keywordEditText.getText().toString()
@@ -152,7 +168,7 @@ keywordEditText.getText().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/actor/search/SearchScreenOverlay.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/actor/search/SearchScreenOverlay.java`
 #### Snippet
 ```java
 keywordEditText.getText().toString()
@@ -160,7 +176,7 @@ keywordEditText.getText().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/eventprocessor/ProcessorPhoneticLetters.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/eventprocessor/ProcessorPhoneticLetters.java`
 #### Snippet
 ```java
 span.getLocale().toString()
@@ -168,7 +184,7 @@ span.getLocale().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/labeling/LabelDialogManager.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/labeling/LabelDialogManager.java`
 #### Snippet
 ```java
 editField.getText().toString()
@@ -176,7 +192,7 @@ editField.getText().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/labeling/LabelDialogManager.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/labeling/LabelDialogManager.java`
 #### Snippet
 ```java
 editField.getText().toString()
@@ -184,7 +200,7 @@ editField.getText().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/labeling/PackageRemovalReceiver.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/labeling/PackageRemovalReceiver.java`
 #### Snippet
 ```java
 intent.getData().toString()
@@ -192,7 +208,7 @@ intent.getData().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/menurules/NodeMenuRuleProcessor.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/menurules/NodeMenuRuleProcessor.java`
 #### Snippet
 ```java
 rule.getUserFriendlyMenuName(service).toString()
@@ -200,7 +216,7 @@ rule.getUserFriendlyMenuName(service).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/preference/base/FocusIndicatorPrefFragment.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/preference/base/FocusIndicatorPrefFragment.java`
 #### Snippet
 ```java
 preference.getTitle().toString()
@@ -208,7 +224,7 @@ preference.getTitle().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/preference/base/FocusIndicatorPrefFragment.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/preference/base/FocusIndicatorPrefFragment.java`
 #### Snippet
 ```java
 pref.getTitle().toString()
@@ -216,7 +232,7 @@ pref.getTitle().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/talkback/src/main/java/com/google/android/accessibility/talkback/preference/base/KeyboardShortcutPreferenceFragmentCompat.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/talkback/src/main/java/com/google/android/accessibility/talkback/preference/base/KeyboardShortcutPreferenceFragmentCompat.java`
 #### Snippet
 ```java
 instructionText.getText().toString()
@@ -224,7 +240,7 @@ instructionText.getText().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/utils/src/main/java/com/google/android/accessibility/utils/AccessibilityServiceCompatUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/utils/src/main/java/com/google/android/accessibility/utils/AccessibilityServiceCompatUtils.java`
 #### Snippet
 ```java
 rootNode.getPackageName().toString()
@@ -232,7 +248,7 @@ rootNode.getPackageName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/utils/src/main/java/com/google/android/accessibility/utils/TreeDebug.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/utils/src/main/java/com/google/android/accessibility/utils/TreeDebug.java`
 #### Snippet
 ```java
 node.getContentDescription().toString()
@@ -240,7 +256,7 @@ node.getContentDescription().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/utils/src/main/java/com/google/android/accessibility/utils/TreeDebug.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/utils/src/main/java/com/google/android/accessibility/utils/TreeDebug.java`
 #### Snippet
 ```java
 AccessibilityNodeInfoUtils.getState(node).toString()
@@ -248,7 +264,7 @@ AccessibilityNodeInfoUtils.getState(node).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/utils/src/main/java/com/google/android/accessibility/utils/WebInterfaceUtils.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/utils/src/main/java/com/google/android/accessibility/utils/WebInterfaceUtils.java`
 #### Snippet
 ```java
 node.getPackageName().toString()
@@ -256,7 +272,7 @@ node.getPackageName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/utils/src/main/java/com/google/android/accessibility/utils/input/SpeechStateMonitor.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/utils/src/main/java/com/google/android/accessibility/utils/input/SpeechStateMonitor.java`
 #### Snippet
 ```java
 event.getPackageName().toString()
@@ -264,7 +280,7 @@ event.getPackageName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-talkback101534783352609613810886659515204452032/utils/src/main/java/com/google/android/accessibility/utils/output/SpeechControllerImpl.java`
+in `/tmp/laughing-train-talkback-380277151156117351811703854216871145182/utils/src/main/java/com/google/android/accessibility/utils/output/SpeechControllerImpl.java`
 #### Snippet
 ```java
 clip.getItemAt(0).getText().toString()
