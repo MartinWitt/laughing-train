@@ -1,19 +1,19 @@
 # iceberg 
  
 # Bad smells
-I found 1718 bad smells with 22 repairable:
+I found 1738 bad smells with 23 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | Deprecation | 432 | false |
-| DataFlowIssue | 291 | false |
+| DataFlowIssue | 304 | false |
 | AutoCloseableResource | 249 | false |
-| DuplicatedCode | 110 | false |
+| DuplicatedCode | 113 | false |
 | FieldMayBeFinal | 91 | false |
-| DeprecatedIsStillUsed | 86 | false |
+| DeprecatedIsStillUsed | 88 | false |
 | JavadocLinkAsPlainText | 79 | false |
 | IgnoreResultOfCall | 49 | false |
 | NullableProblems | 43 | false |
-| UNCHECKED_WARNING | 37 | false |
+| UNCHECKED_WARNING | 38 | false |
 | JavadocReference | 19 | false |
 | ConstantValue | 18 | false |
 | FieldCanBeLocal | 17 | false |
@@ -27,9 +27,9 @@ I found 1718 bad smells with 22 repairable:
 | CommentedOutCode | 7 | false |
 | TypeParameterHidesVisibleType | 7 | false |
 | RedundantCast | 7 | false |
+| UnnecessaryLocalVariable | 7 | true |
 | RefusedBequest | 6 | false |
 | OptionalUsedAsFieldOrParameterType | 6 | false |
-| UnnecessaryLocalVariable | 6 | true |
 | ArraysAsListWithZeroOrOneArgument | 6 | false |
 | IOStreamConstructor | 5 | false |
 | BusyWait | 5 | false |
@@ -95,42 +95,6 @@ in `nessie/src/main/java/org/apache/iceberg/nessie/NessieIcebergClient.java`
 ```
 
 ## RuleId[id=MarkedForRemoval]
-### MarkedForRemoval
-'java.security.AccessController' is deprecated and marked for removal
-in `common/src/main/java/org/apache/iceberg/common/DynConstructors.java`
-#### Snippet
-```java
-      try {
-        Constructor<T> hidden = targetClass.getDeclaredConstructor(types);
-        AccessController.doPrivileged(new MakeAccessible(hidden));
-        ctor = new Ctor<T>(hidden, targetClass);
-      } catch (SecurityException e) {
-```
-
-### MarkedForRemoval
-'java.security.AccessController' is deprecated and marked for removal
-in `common/src/main/java/org/apache/iceberg/common/DynConstructors.java`
-#### Snippet
-```java
-      try {
-        Constructor<T> hidden = targetClass.getDeclaredConstructor(types);
-        AccessController.doPrivileged(new MakeAccessible(hidden));
-        ctor = new Ctor<T>(hidden, targetClass);
-      } catch (SecurityException e) {
-```
-
-### MarkedForRemoval
-'java.security.AccessController' is deprecated and marked for removal
-in `common/src/main/java/org/apache/iceberg/common/DynConstructors.java`
-#### Snippet
-```java
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.util.Arrays;
-```
-
 ### MarkedForRemoval
 'java.security.AccessController' is deprecated and marked for removal
 in `common/src/main/java/org/apache/iceberg/common/DynMethods.java`
@@ -203,6 +167,42 @@ import java.security.PrivilegedAction;
 import java.util.Set;
 ```
 
+### MarkedForRemoval
+'java.security.AccessController' is deprecated and marked for removal
+in `common/src/main/java/org/apache/iceberg/common/DynConstructors.java`
+#### Snippet
+```java
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.util.Arrays;
+```
+
+### MarkedForRemoval
+'java.security.AccessController' is deprecated and marked for removal
+in `common/src/main/java/org/apache/iceberg/common/DynConstructors.java`
+#### Snippet
+```java
+      try {
+        Constructor<T> hidden = targetClass.getDeclaredConstructor(types);
+        AccessController.doPrivileged(new MakeAccessible(hidden));
+        ctor = new Ctor<T>(hidden, targetClass);
+      } catch (SecurityException e) {
+```
+
+### MarkedForRemoval
+'java.security.AccessController' is deprecated and marked for removal
+in `common/src/main/java/org/apache/iceberg/common/DynConstructors.java`
+#### Snippet
+```java
+      try {
+        Constructor<T> hidden = targetClass.getDeclaredConstructor(types);
+        AccessController.doPrivileged(new MakeAccessible(hidden));
+        ctor = new Ctor<T>(hidden, targetClass);
+      } catch (SecurityException e) {
+```
+
 ## RuleId[id=SuspiciousSystemArraycopy]
 ### SuspiciousSystemArraycopy
 `array` is not of an array type
@@ -267,12 +267,12 @@ in `api/src/main/java/org/apache/iceberg/transforms/ProjectionUtil.java`
 ```
 
 ### CommentedOutCode
-Commented out code (4 lines)
+Commented out code (3 lines)
 in `core/src/main/java/org/apache/iceberg/avro/ValueReaders.java`
 #### Snippet
 ```java
-      // just allocate every time.
-      return decoder.readBytes(null).array();
+      this.reusedTempUtf8.set(decoder.readString(reusedTempUtf8.get()));
+      return reusedTempUtf8.get().toString();
       //      int length = decoder.readInt();
       //      byte[] bytes = new byte[length];
       //      decoder.readFixed(bytes, 0, length);
@@ -291,12 +291,12 @@ in `core/src/main/java/org/apache/iceberg/avro/ValueReaders.java`
 ```
 
 ### CommentedOutCode
-Commented out code (3 lines)
+Commented out code (4 lines)
 in `core/src/main/java/org/apache/iceberg/avro/ValueReaders.java`
 #### Snippet
 ```java
-      this.reusedTempUtf8.set(decoder.readString(reusedTempUtf8.get()));
-      return reusedTempUtf8.get().toString();
+        return decoder.readBytes(null);
+      }
       //      int length = decoder.readInt();
       //      byte[] bytes = new byte[length];
       //      decoder.readFixed(bytes, 0, length);
@@ -307,8 +307,8 @@ Commented out code (4 lines)
 in `core/src/main/java/org/apache/iceberg/avro/ValueReaders.java`
 #### Snippet
 ```java
-        return decoder.readBytes(null);
-      }
+      // just allocate every time.
+      return decoder.readBytes(null).array();
       //      int length = decoder.readInt();
       //      byte[] bytes = new byte[length];
       //      decoder.readFixed(bytes, 0, length);
@@ -408,7 +408,7 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/CatalogLoader.java`
     @Override
     @SuppressWarnings({"checkstyle:NoClone", "checkstyle:SuperClone"})
     public CatalogLoader clone() {
-      return new CustomCatalogLoader(name, properties, new Configuration(hadoopConf.get()), impl);
+      return new HiveCatalogLoader(catalogName, new Configuration(hadoopConf.get()), properties);
     }
 ```
 
@@ -444,7 +444,7 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/CatalogLoader.java`
     @Override
     @SuppressWarnings({"checkstyle:NoClone", "checkstyle:SuperClone"})
     public CatalogLoader clone() {
-      return new HiveCatalogLoader(catalogName, new Configuration(hadoopConf.get()), properties);
+      return new CustomCatalogLoader(name, properties, new Configuration(hadoopConf.get()), impl);
     }
 ```
 
@@ -650,18 +650,6 @@ in `api/src/main/java/org/apache/iceberg/SortOrder.java`
 in `api/src/main/java/org/apache/iceberg/Files.java`
 #### Snippet
 ```java
-
-      if (!file.getParentFile().isDirectory() && !file.getParentFile().mkdirs()) {
-        throw new RuntimeIOException(
-            "Failed to create the file's directory at %s.", file.getParentFile().getAbsolutePath());
-      }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `api/src/main/java/org/apache/iceberg/Files.java`
-#### Snippet
-```java
       if (file.exists()) {
         if (!file.delete()) {
           throw new RuntimeIOException("Failed to delete: %s", file);
@@ -671,14 +659,14 @@ in `api/src/main/java/org/apache/iceberg/Files.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `api/src/main/java/org/apache/iceberg/io/OutputFile.java`
+in `api/src/main/java/org/apache/iceberg/Files.java`
 #### Snippet
 ```java
-   * @return an output stream that can report its position
-   * @throws AlreadyExistsException If the path already exists
-   * @throws RuntimeIOException If the implementation throws an {@link IOException}
-   */
-  PositionOutputStream create();
+
+      if (!file.getParentFile().isDirectory() && !file.getParentFile().mkdirs()) {
+        throw new RuntimeIOException(
+            "Failed to create the file's directory at %s.", file.getParentFile().getAbsolutePath());
+      }
 ```
 
 ### Deprecation
@@ -695,14 +683,14 @@ in `api/src/main/java/org/apache/iceberg/io/OutputFile.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `api/src/main/java/org/apache/iceberg/io/InputFile.java`
+in `api/src/main/java/org/apache/iceberg/io/OutputFile.java`
 #### Snippet
 ```java
-   * @return a seekable stream for reading the file
-   * @throws NotFoundException If the file does not exist
+   * @return an output stream that can report its position
+   * @throws AlreadyExistsException If the path already exists
    * @throws RuntimeIOException If the implementation throws an {@link IOException}
    */
-  SeekableInputStream newStream();
+  PositionOutputStream create();
 ```
 
 ### Deprecation
@@ -718,6 +706,42 @@ in `api/src/main/java/org/apache/iceberg/io/InputFile.java`
 ```
 
 ### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `api/src/main/java/org/apache/iceberg/io/InputFile.java`
+#### Snippet
+```java
+   * @return a seekable stream for reading the file
+   * @throws NotFoundException If the file does not exist
+   * @throws RuntimeIOException If the implementation throws an {@link IOException}
+   */
+  SeekableInputStream newStream();
+```
+
+### Deprecation
+'truncate(org.apache.iceberg.types.Type, int)' is deprecated
+in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
+#### Snippet
+```java
+              nextFieldId(),
+              targetName,
+              Transforms.truncate(sourceColumn.type(), width)));
+      return this;
+    }
+```
+
+### Deprecation
+'month(org.apache.iceberg.types.Type)' is deprecated
+in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
+#### Snippet
+```java
+              nextFieldId(),
+              targetName,
+              Transforms.month(sourceColumn.type()));
+      checkForRedundantPartitions(field);
+      fields.add(field);
+```
+
+### Deprecation
 'day(org.apache.iceberg.types.Type)' is deprecated
 in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
 #### Snippet
@@ -730,13 +754,25 @@ in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
 ```
 
 ### Deprecation
-'year(org.apache.iceberg.types.Type)' is deprecated
+'identity(org.apache.iceberg.types.Type)' is deprecated
 in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
 #### Snippet
 ```java
               nextFieldId(),
               targetName,
-              Transforms.year(sourceColumn.type()));
+              Transforms.identity(sourceColumn.type()));
+      checkForRedundantPartitions(field);
+      fields.add(field);
+```
+
+### Deprecation
+'hour(org.apache.iceberg.types.Type)' is deprecated
+in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
+#### Snippet
+```java
+              nextFieldId(),
+              targetName,
+              Transforms.hour(sourceColumn.type()));
       checkForRedundantPartitions(field);
       fields.add(field);
 ```
@@ -754,63 +790,15 @@ in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
 ```
 
 ### Deprecation
-'identity(org.apache.iceberg.types.Type)' is deprecated
+'year(org.apache.iceberg.types.Type)' is deprecated
 in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
 #### Snippet
 ```java
               nextFieldId(),
               targetName,
-              Transforms.identity(sourceColumn.type()));
+              Transforms.year(sourceColumn.type()));
       checkForRedundantPartitions(field);
       fields.add(field);
-```
-
-### Deprecation
-'month(org.apache.iceberg.types.Type)' is deprecated
-in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
-#### Snippet
-```java
-              nextFieldId(),
-              targetName,
-              Transforms.month(sourceColumn.type()));
-      checkForRedundantPartitions(field);
-      fields.add(field);
-```
-
-### Deprecation
-'truncate(org.apache.iceberg.types.Type, int)' is deprecated
-in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
-#### Snippet
-```java
-              nextFieldId(),
-              targetName,
-              Transforms.truncate(sourceColumn.type(), width)));
-      return this;
-    }
-```
-
-### Deprecation
-'hour(org.apache.iceberg.types.Type)' is deprecated
-in `api/src/main/java/org/apache/iceberg/PartitionSpec.java`
-#### Snippet
-```java
-              nextFieldId(),
-              targetName,
-              Transforms.hour(sourceColumn.type()));
-      checkForRedundantPartitions(field);
-      fields.add(field);
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `api/src/main/java/org/apache/iceberg/types/Conversions.java`
-#### Snippet
-```java
-          return ENCODER.get().encode(buffer);
-        } catch (CharacterCodingException e) {
-          throw new RuntimeIOException(e, "Failed to encode value as UTF-8: %s", value);
-        }
-      case UUID:
 ```
 
 ### Deprecation
@@ -826,27 +814,15 @@ in `api/src/main/java/org/apache/iceberg/types/Conversions.java`
 ```
 
 ### Deprecation
-Overrides deprecated method in 'org.apache.iceberg.metrics.MetricsContext'
-in `api/src/main/java/org/apache/iceberg/metrics/MetricsContext.java`
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `api/src/main/java/org/apache/iceberg/types/Conversions.java`
 #### Snippet
 ```java
-      @Override
-      @SuppressWarnings("unchecked")
-      public <T extends Number> Counter<T> counter(String name, Class<T> type, Unit unit) {
-        if (Integer.class.equals(type)) {
-          return (Counter<T>)
-```
-
-### Deprecation
-Overrides deprecated method in 'org.apache.iceberg.metrics.MetricsContext'
-in `api/src/main/java/org/apache/iceberg/metrics/DefaultMetricsContext.java`
-#### Snippet
-```java
-  @Deprecated
-  @SuppressWarnings("unchecked")
-  public <T extends Number> Counter<T> counter(String name, Class<T> type, Unit unit) {
-    if (Integer.class.equals(type)) {
-      return (Counter<T>) new DefaultCounter(unit).asIntCounter();
+          return ENCODER.get().encode(buffer);
+        } catch (CharacterCodingException e) {
+          throw new RuntimeIOException(e, "Failed to encode value as UTF-8: %s", value);
+        }
+      case UUID:
 ```
 
 ### Deprecation
@@ -874,27 +850,27 @@ in `api/src/main/java/org/apache/iceberg/io/CloseableIterable.java`
 ```
 
 ### Deprecation
-'org.apache.iceberg.metrics.MetricsContext.Counter' is deprecated
-in `api/src/main/java/org/apache/iceberg/metrics/DefaultCounter.java`
+Overrides deprecated method in 'org.apache.iceberg.metrics.MetricsContext'
+in `api/src/main/java/org/apache/iceberg/metrics/DefaultMetricsContext.java`
 #### Snippet
 ```java
-  }
-
-  private class AsIntCounter implements MetricsContext.Counter<Integer> {
-
-    @Override
+  @Deprecated
+  @SuppressWarnings("unchecked")
+  public <T extends Number> Counter<T> counter(String name, Class<T> type, Unit unit) {
+    if (Integer.class.equals(type)) {
+      return (Counter<T>) new DefaultCounter(unit).asIntCounter();
 ```
 
 ### Deprecation
-'org.apache.iceberg.metrics.MetricsContext.Counter' is deprecated
-in `api/src/main/java/org/apache/iceberg/metrics/DefaultCounter.java`
+Overrides deprecated method in 'org.apache.iceberg.metrics.MetricsContext'
+in `api/src/main/java/org/apache/iceberg/metrics/MetricsContext.java`
 #### Snippet
 ```java
-  }
-
-  MetricsContext.Counter<Integer> asIntCounter() {
-    if (null == asIntCounter) {
-      this.asIntCounter = new AsIntCounter();
+      @Override
+      @SuppressWarnings("unchecked")
+      public <T extends Number> Counter<T> counter(String name, Class<T> type, Unit unit) {
+        if (Integer.class.equals(type)) {
+          return (Counter<T>)
 ```
 
 ### Deprecation
@@ -916,9 +892,33 @@ in `api/src/main/java/org/apache/iceberg/metrics/DefaultCounter.java`
 ```java
   }
 
-  private class AsLongCounter implements MetricsContext.Counter<Long> {
+  MetricsContext.Counter<Integer> asIntCounter() {
+    if (null == asIntCounter) {
+      this.asIntCounter = new AsIntCounter();
+```
+
+### Deprecation
+'org.apache.iceberg.metrics.MetricsContext.Counter' is deprecated
+in `api/src/main/java/org/apache/iceberg/metrics/DefaultCounter.java`
+#### Snippet
+```java
+  }
+
+  private class AsIntCounter implements MetricsContext.Counter<Integer> {
 
     @Override
+```
+
+### Deprecation
+'org.apache.iceberg.metrics.MetricsContext.Counter' is deprecated
+in `api/src/main/java/org/apache/iceberg/metrics/DefaultCounter.java`
+#### Snippet
+```java
+  }
+
+  MetricsContext.Counter<Long> asLongCounter() {
+    if (null == asLongCounter) {
+      this.asLongCounter = new AsLongCounter();
 ```
 
 ### Deprecation
@@ -940,9 +940,9 @@ in `api/src/main/java/org/apache/iceberg/metrics/DefaultCounter.java`
 ```java
   }
 
-  MetricsContext.Counter<Long> asLongCounter() {
-    if (null == asLongCounter) {
-      this.asLongCounter = new AsLongCounter();
+  private class AsLongCounter implements MetricsContext.Counter<Long> {
+
+    @Override
 ```
 
 ### Deprecation
@@ -955,6 +955,30 @@ in `api/src/main/java/org/apache/iceberg/transforms/UnknownTransform.java`
   public T apply(S value) {
     throw new UnsupportedOperationException(
         String.format("Cannot apply unsupported transform: %s", transform));
+```
+
+### Deprecation
+'get(org.apache.iceberg.types.Type, int)' is deprecated
+in `api/src/main/java/org/apache/iceberg/transforms/Transforms.java`
+#### Snippet
+```java
+      int parsedWidth = Integer.parseInt(widthMatcher.group(2));
+      if (name.equalsIgnoreCase("truncate")) {
+        return (Transform<?, ?>) Truncate.get(type, parsedWidth);
+      } else if (name.equalsIgnoreCase("bucket")) {
+        return (Transform<?, ?>) Bucket.get(type, parsedWidth);
+```
+
+### Deprecation
+'get(org.apache.iceberg.types.Type)' is deprecated
+in `api/src/main/java/org/apache/iceberg/transforms/Transforms.java`
+#### Snippet
+```java
+
+    if (transform.equalsIgnoreCase("identity")) {
+      return Identity.get(type);
+    }
+
 ```
 
 ### Deprecation
@@ -1006,30 +1030,6 @@ in `api/src/main/java/org/apache/iceberg/transforms/Dates.java`
 ```
 
 ### Deprecation
-'get(org.apache.iceberg.types.Type, int)' is deprecated
-in `api/src/main/java/org/apache/iceberg/transforms/Transforms.java`
-#### Snippet
-```java
-      int parsedWidth = Integer.parseInt(widthMatcher.group(2));
-      if (name.equalsIgnoreCase("truncate")) {
-        return (Transform<?, ?>) Truncate.get(type, parsedWidth);
-      } else if (name.equalsIgnoreCase("bucket")) {
-        return (Transform<?, ?>) Bucket.get(type, parsedWidth);
-```
-
-### Deprecation
-'get(org.apache.iceberg.types.Type)' is deprecated
-in `api/src/main/java/org/apache/iceberg/transforms/Transforms.java`
-#### Snippet
-```java
-
-    if (transform.equalsIgnoreCase("identity")) {
-      return Identity.get(type);
-    }
-
-```
-
-### Deprecation
 Overrides deprecated method in 'org.apache.iceberg.transforms.Transform'
 in `api/src/main/java/org/apache/iceberg/transforms/Identity.java`
 #### Snippet
@@ -1063,18 +1063,6 @@ in `api/src/main/java/org/apache/iceberg/transforms/Bucket.java`
   public Integer apply(T value) {
     if (value == null) {
       return null;
-```
-
-### Deprecation
-Overrides deprecated method in 'org.apache.iceberg.transforms.Transform'
-in `api/src/main/java/org/apache/iceberg/transforms/Truncate.java`
-#### Snippet
-```java
-
-    @Override
-    public CharSequence apply(CharSequence value) {
-      if (value == null) {
-        return null;
 ```
 
 ### Deprecation
@@ -1123,6 +1111,18 @@ in `api/src/main/java/org/apache/iceberg/transforms/Truncate.java`
   public T apply(T value) {
     throw new UnsupportedOperationException(
         "apply(value) is deprecated, use bind(Type).apply(value)");
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.iceberg.transforms.Transform'
+in `api/src/main/java/org/apache/iceberg/transforms/Truncate.java`
+#### Snippet
+```java
+
+    @Override
+    public CharSequence apply(CharSequence value) {
+      if (value == null) {
+        return null;
 ```
 
 ### Deprecation
@@ -1270,75 +1270,51 @@ in `aws/src/main/java/org/apache/iceberg/aws/ApacheHttpClientConfigurations.java
 ```
 
 ### Deprecation
-'applyHttpClientConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
+'applyClientRegionConfiguration(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
 #### Snippet
 ```java
-    return GlueClient.builder()
-        .applyMutation(this::applyAssumeRoleConfigurations)
-        .applyMutation(awsProperties::applyHttpClientConfigurations)
-        .build();
-  }
+    public GlueClient glue() {
+      return GlueClient.builder()
+          .applyMutation(awsProperties::applyClientRegionConfiguration)
+          .applyMutation(awsProperties::applyHttpClientConfigurations)
+          .applyMutation(awsProperties::applyGlueEndpointConfigurations)
 ```
 
 ### Deprecation
 'applyHttpClientConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
+in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
 #### Snippet
 ```java
+      return GlueClient.builder()
+          .applyMutation(awsProperties::applyClientRegionConfiguration)
+          .applyMutation(awsProperties::applyHttpClientConfigurations)
+          .applyMutation(awsProperties::applyGlueEndpointConfigurations)
+          .applyMutation(awsProperties::applyClientCredentialConfigurations)
+```
 
-  private StsClient sts() {
-    return StsClient.builder().applyMutation(awsProperties::applyHttpClientConfigurations).build();
-  }
-
+### Deprecation
+'applyClientRegionConfiguration(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
+#### Snippet
+```java
+    public KmsClient kms() {
+      return KmsClient.builder()
+          .applyMutation(awsProperties::applyClientRegionConfiguration)
+          .applyMutation(awsProperties::applyHttpClientConfigurations)
+          .applyMutation(awsProperties::applyClientCredentialConfigurations)
 ```
 
 ### Deprecation
 'applyHttpClientConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
+in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
 #### Snippet
 ```java
-    return DynamoDbClient.builder()
-        .applyMutation(this::applyAssumeRoleConfigurations)
-        .applyMutation(awsProperties::applyHttpClientConfigurations)
-        .applyMutation(awsProperties::applyDynamoDbEndpointConfigurations)
-        .build();
-```
-
-### Deprecation
-'applyHttpClientConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
-#### Snippet
-```java
-    return KmsClient.builder()
-        .applyMutation(this::applyAssumeRoleConfigurations)
-        .applyMutation(awsProperties::applyHttpClientConfigurations)
-        .build();
-  }
-```
-
-### Deprecation
-'applyHttpClientConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
-#### Snippet
-```java
-    return S3Client.builder()
-        .applyMutation(this::applyAssumeRoleConfigurations)
-        .applyMutation(awsProperties::applyHttpClientConfigurations)
-        .applyMutation(awsProperties::applyS3EndpointConfigurations)
-        .applyMutation(awsProperties::applyS3ServiceConfigurations)
-```
-
-### Deprecation
-'applyS3EndpointConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
-#### Snippet
-```java
-        .applyMutation(this::applyAssumeRoleConfigurations)
-        .applyMutation(awsProperties::applyHttpClientConfigurations)
-        .applyMutation(awsProperties::applyS3EndpointConfigurations)
-        .applyMutation(awsProperties::applyS3ServiceConfigurations)
-        .applyMutation(awsProperties::applyS3SignerConfiguration)
+      return KmsClient.builder()
+          .applyMutation(awsProperties::applyClientRegionConfiguration)
+          .applyMutation(awsProperties::applyHttpClientConfigurations)
+          .applyMutation(awsProperties::applyClientCredentialConfigurations)
+          .build();
 ```
 
 ### Deprecation
@@ -1354,18 +1330,6 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
 ```
 
 ### Deprecation
-'applyS3ServiceConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
-#### Snippet
-```java
-        .applyMutation(awsProperties::applyHttpClientConfigurations)
-        .applyMutation(awsProperties::applyS3EndpointConfigurations)
-        .applyMutation(awsProperties::applyS3ServiceConfigurations)
-        .applyMutation(awsProperties::applyS3SignerConfiguration)
-        .build();
-```
-
-### Deprecation
 'applyHttpClientConfigurations(T)' is deprecated
 in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
 #### Snippet
@@ -1375,18 +1339,6 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
           .applyMutation(awsProperties::applyHttpClientConfigurations)
           .applyMutation(awsProperties::applyS3EndpointConfigurations)
           .applyMutation(awsProperties::applyS3ServiceConfigurations)
-```
-
-### Deprecation
-'applyS3SignerConfiguration(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
-#### Snippet
-```java
-        .applyMutation(awsProperties::applyS3EndpointConfigurations)
-        .applyMutation(awsProperties::applyS3ServiceConfigurations)
-        .applyMutation(awsProperties::applyS3SignerConfiguration)
-        .build();
-  }
 ```
 
 ### Deprecation
@@ -1426,6 +1378,18 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
 ```
 
 ### Deprecation
+'applyHttpClientConfigurations(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
+#### Snippet
+```java
+
+  private StsClient sts() {
+    return StsClient.builder().applyMutation(awsProperties::applyHttpClientConfigurations).build();
+  }
+
+```
+
+### Deprecation
 'applyS3SignerConfiguration(T)' is deprecated
 in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
 #### Snippet
@@ -1435,6 +1399,66 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
           .applyMutation(awsProperties::applyS3SignerConfiguration)
           .build();
     }
+```
+
+### Deprecation
+'applyHttpClientConfigurations(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
+#### Snippet
+```java
+    return GlueClient.builder()
+        .applyMutation(this::applyAssumeRoleConfigurations)
+        .applyMutation(awsProperties::applyHttpClientConfigurations)
+        .build();
+  }
+```
+
+### Deprecation
+'applyHttpClientConfigurations(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
+#### Snippet
+```java
+    return KmsClient.builder()
+        .applyMutation(this::applyAssumeRoleConfigurations)
+        .applyMutation(awsProperties::applyHttpClientConfigurations)
+        .build();
+  }
+```
+
+### Deprecation
+'applyHttpClientConfigurations(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
+#### Snippet
+```java
+    return DynamoDbClient.builder()
+        .applyMutation(this::applyAssumeRoleConfigurations)
+        .applyMutation(awsProperties::applyHttpClientConfigurations)
+        .applyMutation(awsProperties::applyDynamoDbEndpointConfigurations)
+        .build();
+```
+
+### Deprecation
+'applyHttpClientConfigurations(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
+#### Snippet
+```java
+    return S3Client.builder()
+        .applyMutation(this::applyAssumeRoleConfigurations)
+        .applyMutation(awsProperties::applyHttpClientConfigurations)
+        .applyMutation(awsProperties::applyS3EndpointConfigurations)
+        .applyMutation(awsProperties::applyS3ServiceConfigurations)
+```
+
+### Deprecation
+'applyS3EndpointConfigurations(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
+#### Snippet
+```java
+        .applyMutation(this::applyAssumeRoleConfigurations)
+        .applyMutation(awsProperties::applyHttpClientConfigurations)
+        .applyMutation(awsProperties::applyS3EndpointConfigurations)
+        .applyMutation(awsProperties::applyS3ServiceConfigurations)
+        .applyMutation(awsProperties::applyS3SignerConfiguration)
 ```
 
 ### Deprecation
@@ -1462,51 +1486,27 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
 ```
 
 ### Deprecation
-'applyClientRegionConfiguration(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
+'applyS3ServiceConfigurations(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
 #### Snippet
 ```java
-    public KmsClient kms() {
-      return KmsClient.builder()
-          .applyMutation(awsProperties::applyClientRegionConfiguration)
-          .applyMutation(awsProperties::applyHttpClientConfigurations)
-          .applyMutation(awsProperties::applyClientCredentialConfigurations)
+        .applyMutation(awsProperties::applyHttpClientConfigurations)
+        .applyMutation(awsProperties::applyS3EndpointConfigurations)
+        .applyMutation(awsProperties::applyS3ServiceConfigurations)
+        .applyMutation(awsProperties::applyS3SignerConfiguration)
+        .build();
 ```
 
 ### Deprecation
-'applyHttpClientConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
+'applyS3SignerConfiguration(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/AssumeRoleAwsClientFactory.java`
 #### Snippet
 ```java
-      return KmsClient.builder()
-          .applyMutation(awsProperties::applyClientRegionConfiguration)
-          .applyMutation(awsProperties::applyHttpClientConfigurations)
-          .applyMutation(awsProperties::applyClientCredentialConfigurations)
-          .build();
-```
-
-### Deprecation
-'applyClientRegionConfiguration(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
-#### Snippet
-```java
-    public GlueClient glue() {
-      return GlueClient.builder()
-          .applyMutation(awsProperties::applyClientRegionConfiguration)
-          .applyMutation(awsProperties::applyHttpClientConfigurations)
-          .applyMutation(awsProperties::applyGlueEndpointConfigurations)
-```
-
-### Deprecation
-'applyHttpClientConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/AwsClientFactories.java`
-#### Snippet
-```java
-      return GlueClient.builder()
-          .applyMutation(awsProperties::applyClientRegionConfiguration)
-          .applyMutation(awsProperties::applyHttpClientConfigurations)
-          .applyMutation(awsProperties::applyGlueEndpointConfigurations)
-          .applyMutation(awsProperties::applyClientCredentialConfigurations)
+        .applyMutation(awsProperties::applyS3EndpointConfigurations)
+        .applyMutation(awsProperties::applyS3ServiceConfigurations)
+        .applyMutation(awsProperties::applyS3SignerConfiguration)
+        .build();
+  }
 ```
 
 ### Deprecation
@@ -1558,6 +1558,30 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIO.java`
 ```
 
 ### Deprecation
+'OBJECT_STORE_PATH' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/glue/IcebergToGlueConverter.java`
+#### Snippet
+```java
+          TableProperties.WRITE_DATA_LOCATION,
+          TableProperties.WRITE_METADATA_LOCATION,
+          TableProperties.OBJECT_STORE_PATH,
+          TableProperties.WRITE_FOLDER_STORAGE_LOCATION);
+
+```
+
+### Deprecation
+'WRITE_FOLDER_STORAGE_LOCATION' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/glue/IcebergToGlueConverter.java`
+#### Snippet
+```java
+          TableProperties.WRITE_METADATA_LOCATION,
+          TableProperties.OBJECT_STORE_PATH,
+          TableProperties.WRITE_FOLDER_STORAGE_LOCATION);
+
+  // Attempt to set additionalLocations if available on the given AWS SDK version
+```
+
+### Deprecation
 Overrides deprecated method in 'java.lang.Object'
 in `aws/src/main/java/org/apache/iceberg/aws/s3/S3OutputStream.java`
 #### Snippet
@@ -1582,39 +1606,27 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/S3OutputStream.java`
 ```
 
 ### Deprecation
-'com.fasterxml.jackson.databind.PropertyNamingStrategy.KebabCaseStrategy' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3ObjectMapper.java`
+'applyHttpClientConfigurations(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/lakeformation/LakeFormationAwsClientFactory.java`
 #### Snippet
 ```java
-          // and PropertyNamingStrategies.KebabCaseStrategy.INSTANCE (introduced in jackson 2.14) is
-          // recommended, we can't use it because Spark still relies on jackson 2.13.x stuff
-          MAPPER.setPropertyNamingStrategy(new PropertyNamingStrategy.KebabCaseStrategy());
-          MAPPER.registerModule(initModule());
-          isInitialized = true;
+    if (isTableRegisteredWithLakeFormation()) {
+      return KmsClient.builder()
+          .applyMutation(awsProperties()::applyHttpClientConfigurations)
+          .credentialsProvider(
+              new LakeFormationCredentialsProvider(lakeFormation(), buildTableArn()))
 ```
 
 ### Deprecation
-'OBJECT_STORE_PATH' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/glue/IcebergToGlueConverter.java`
+'applyHttpClientConfigurations(T)' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/lakeformation/LakeFormationAwsClientFactory.java`
 #### Snippet
 ```java
-          TableProperties.WRITE_DATA_LOCATION,
-          TableProperties.WRITE_METADATA_LOCATION,
-          TableProperties.OBJECT_STORE_PATH,
-          TableProperties.WRITE_FOLDER_STORAGE_LOCATION);
-
-```
-
-### Deprecation
-'WRITE_FOLDER_STORAGE_LOCATION' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/glue/IcebergToGlueConverter.java`
-#### Snippet
-```java
-          TableProperties.WRITE_METADATA_LOCATION,
-          TableProperties.OBJECT_STORE_PATH,
-          TableProperties.WRITE_FOLDER_STORAGE_LOCATION);
-
-  // Attempt to set additionalLocations if available on the given AWS SDK version
+    return LakeFormationClient.builder()
+        .applyMutation(this::applyAssumeRoleConfigurations)
+        .applyMutation(awsProperties()::applyHttpClientConfigurations)
+        .build();
+  }
 ```
 
 ### Deprecation
@@ -1651,30 +1663,6 @@ in `aws/src/main/java/org/apache/iceberg/aws/lakeformation/LakeFormationAwsClien
           .applyMutation(awsProperties()::applyS3ServiceConfigurations)
           .credentialsProvider(
               new LakeFormationCredentialsProvider(lakeFormation(), buildTableArn()))
-```
-
-### Deprecation
-'applyHttpClientConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/lakeformation/LakeFormationAwsClientFactory.java`
-#### Snippet
-```java
-    if (isTableRegisteredWithLakeFormation()) {
-      return KmsClient.builder()
-          .applyMutation(awsProperties()::applyHttpClientConfigurations)
-          .credentialsProvider(
-              new LakeFormationCredentialsProvider(lakeFormation(), buildTableArn()))
-```
-
-### Deprecation
-'applyHttpClientConfigurations(T)' is deprecated
-in `aws/src/main/java/org/apache/iceberg/aws/lakeformation/LakeFormationAwsClientFactory.java`
-#### Snippet
-```java
-    return LakeFormationClient.builder()
-        .applyMutation(this::applyAssumeRoleConfigurations)
-        .applyMutation(awsProperties()::applyHttpClientConfigurations)
-        .build();
-  }
 ```
 
 ### Deprecation
@@ -1762,63 +1750,15 @@ in `aws/src/main/java/org/apache/iceberg/aws/glue/GlueCatalog.java`
 ```
 
 ### Deprecation
-'S3FILEIO_ENDPOINT' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
+'com.fasterxml.jackson.databind.PropertyNamingStrategy.KebabCaseStrategy' is deprecated
+in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3ObjectMapper.java`
 #### Snippet
 ```java
-  public void testS3FileIoEndpointOverride() {
-    Map<String, String> properties = Maps.newHashMap();
-    properties.put(AwsProperties.S3FILEIO_ENDPOINT, "https://unknown:1234");
-    AwsClientFactory factory = AwsClientFactories.from(properties);
-    S3Client s3Client = factory.s3();
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
-#### Snippet
-```java
-    AwsClientFactory factory = AwsClientFactories.from(properties);
-    S3Client s3Client = factory.s3();
-    AssertHelpers.assertThrowsCause(
-        "Should refuse connection to unknown endpoint",
-        SdkClientException.class,
-```
-
-### Deprecation
-'assertThrowsCause(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
-#### Snippet
-```java
-    AwsClientFactory factory = AwsClientFactories.from(properties);
-    S3Client s3Client = factory.s3();
-    AssertHelpers.assertThrowsCause(
-        "Should refuse connection to unknown endpoint",
-        SdkClientException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
-#### Snippet
-```java
-    AwsClientFactory factory = AwsClientFactories.from(properties);
-    GlueClient glueClient = factory.glue();
-    AssertHelpers.assertThrowsCause(
-        "Should refuse connection to unknown endpoint",
-        SdkClientException.class,
-```
-
-### Deprecation
-'assertThrowsCause(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
-#### Snippet
-```java
-    AwsClientFactory factory = AwsClientFactories.from(properties);
-    GlueClient glueClient = factory.glue();
-    AssertHelpers.assertThrowsCause(
-        "Should refuse connection to unknown endpoint",
-        SdkClientException.class,
+          // and PropertyNamingStrategies.KebabCaseStrategy.INSTANCE (introduced in jackson 2.14) is
+          // recommended, we can't use it because Spark still relies on jackson 2.13.x stuff
+          MAPPER.setPropertyNamingStrategy(new PropertyNamingStrategy.KebabCaseStrategy());
+          MAPPER.registerModule(initModule());
+          isInitialized = true;
 ```
 
 ### Deprecation
@@ -1894,15 +1834,231 @@ in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.
 ```
 
 ### Deprecation
-'WRITE_FOLDER_STORAGE_LOCATION' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/GlueTestBase.java`
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
 #### Snippet
 ```java
-          TableProperties.WRITE_DATA_LOCATION, "s3://" + testBucketName + "/writeDataLoc",
-          TableProperties.WRITE_METADATA_LOCATION, "s3://" + testBucketName + "/writeMetaDataLoc",
-          TableProperties.WRITE_FOLDER_STORAGE_LOCATION,
-              "s3://" + testBucketName + "/writeFolderStorageLoc");
+    AwsClientFactory factory = AwsClientFactories.from(properties);
+    GlueClient glueClient = factory.glue();
+    AssertHelpers.assertThrowsCause(
+        "Should refuse connection to unknown endpoint",
+        SdkClientException.class,
+```
 
+### Deprecation
+'assertThrowsCause(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
+#### Snippet
+```java
+    AwsClientFactory factory = AwsClientFactories.from(properties);
+    GlueClient glueClient = factory.glue();
+    AssertHelpers.assertThrowsCause(
+        "Should refuse connection to unknown endpoint",
+        SdkClientException.class,
+```
+
+### Deprecation
+'S3FILEIO_ENDPOINT' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
+#### Snippet
+```java
+  public void testS3FileIoEndpointOverride() {
+    Map<String, String> properties = Maps.newHashMap();
+    properties.put(AwsProperties.S3FILEIO_ENDPOINT, "https://unknown:1234");
+    AwsClientFactory factory = AwsClientFactories.from(properties);
+    S3Client s3Client = factory.s3();
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
+#### Snippet
+```java
+    AwsClientFactory factory = AwsClientFactories.from(properties);
+    S3Client s3Client = factory.s3();
+    AssertHelpers.assertThrowsCause(
+        "Should refuse connection to unknown endpoint",
+        SdkClientException.class,
+```
+
+### Deprecation
+'assertThrowsCause(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
+#### Snippet
+```java
+    AwsClientFactory factory = AwsClientFactories.from(properties);
+    S3Client s3Client = factory.s3();
+    AssertHelpers.assertThrowsCause(
+        "Should refuse connection to unknown endpoint",
+        SdkClientException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+    String namespace = createNamespace();
+    glueCatalog.dropNamespace(Namespace.of(namespace));
+    AssertHelpers.assertThrows(
+        "namespace should not exist after deletion",
+        EntityNotFoundException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+    String namespace = createNamespace();
+    glueCatalog.dropNamespace(Namespace.of(namespace));
+    AssertHelpers.assertThrows(
+        "namespace should not exist after deletion",
+        EntityNotFoundException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+            .tableInput(TableInput.builder().name(UUID.randomUUID().toString()).build())
+            .build());
+    AssertHelpers.assertThrows(
+        "namespace should not be dropped when still has non-Iceberg table",
+        NamespaceNotEmptyException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+            .tableInput(TableInput.builder().name(UUID.randomUUID().toString()).build())
+            .build());
+    AssertHelpers.assertThrows(
+        "namespace should not be dropped when still has non-Iceberg table",
+        NamespaceNotEmptyException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+    String namespace = getRandomName();
+    namespaces.add(namespace);
+    AssertHelpers.assertThrows(
+        "namespace does not exist before create",
+        EntityNotFoundException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+    String namespace = getRandomName();
+    namespaces.add(namespace);
+    AssertHelpers.assertThrows(
+        "namespace does not exist before create",
+        EntityNotFoundException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+
+    for (Namespace namespace : invalidNamespaces) {
+      AssertHelpers.assertThrows(
+          "should not create namespace with invalid or nested names",
+          ValidationException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+
+    for (Namespace namespace : invalidNamespaces) {
+      AssertHelpers.assertThrows(
+          "should not create namespace with invalid or nested names",
+          ValidationException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+  public void testCreateDuplicate() {
+    String namespace = createNamespace();
+    AssertHelpers.assertThrows(
+        "should not create namespace with the same name",
+        AlreadyExistsException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+  public void testCreateDuplicate() {
+    String namespace = createNamespace();
+    AssertHelpers.assertThrows(
+        "should not create namespace with the same name",
+        AlreadyExistsException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+    String namespace = createNamespace();
+    createTable(namespace);
+    AssertHelpers.assertThrows(
+        "namespace should not be dropped when still has Iceberg table",
+        NamespaceNotEmptyException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+#### Snippet
+```java
+    String namespace = createNamespace();
+    createTable(namespace);
+    AssertHelpers.assertThrows(
+        "namespace should not be dropped when still has Iceberg table",
+        NamespaceNotEmptyException.class,
+```
+
+### Deprecation
+'HTTP_CLIENT_TYPE' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/TestAssumeRoleAwsClientFactory.java`
+#### Snippet
+```java
+    assumeRoleProperties.put(
+        AwsProperties.CLIENT_FACTORY, AssumeRoleAwsClientFactory.class.getName());
+    assumeRoleProperties.put(AwsProperties.HTTP_CLIENT_TYPE, AwsProperties.HTTP_CLIENT_TYPE_APACHE);
+    assumeRoleProperties.put(
+        AwsProperties.CLIENT_ASSUME_ROLE_REGION, AwsIntegTestUtil.testRegion());
+```
+
+### Deprecation
+'HTTP_CLIENT_TYPE_APACHE' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/TestAssumeRoleAwsClientFactory.java`
+#### Snippet
+```java
+    assumeRoleProperties.put(
+        AwsProperties.CLIENT_FACTORY, AssumeRoleAwsClientFactory.class.getName());
+    assumeRoleProperties.put(AwsProperties.HTTP_CLIENT_TYPE, AwsProperties.HTTP_CLIENT_TYPE_APACHE);
+    assumeRoleProperties.put(
+        AwsProperties.CLIENT_ASSUME_ROLE_REGION, AwsIntegTestUtil.testRegion());
 ```
 
 ### Deprecation
@@ -1918,171 +2074,15 @@ in `aws/src/integration/java/org/apache/iceberg/aws/glue/GlueTestBase.java`
 ```
 
 ### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
+'WRITE_FOLDER_STORAGE_LOCATION' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/GlueTestBase.java`
 #### Snippet
 ```java
-    String namespace = createNamespace();
-    createTable(namespace);
-    AssertHelpers.assertThrows(
-        "namespace should not be dropped when still has Iceberg table",
-        NamespaceNotEmptyException.class,
-```
+          TableProperties.WRITE_DATA_LOCATION, "s3://" + testBucketName + "/writeDataLoc",
+          TableProperties.WRITE_METADATA_LOCATION, "s3://" + testBucketName + "/writeMetaDataLoc",
+          TableProperties.WRITE_FOLDER_STORAGE_LOCATION,
+              "s3://" + testBucketName + "/writeFolderStorageLoc");
 
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-    String namespace = createNamespace();
-    createTable(namespace);
-    AssertHelpers.assertThrows(
-        "namespace should not be dropped when still has Iceberg table",
-        NamespaceNotEmptyException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-  public void testCreateDuplicate() {
-    String namespace = createNamespace();
-    AssertHelpers.assertThrows(
-        "should not create namespace with the same name",
-        AlreadyExistsException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-  public void testCreateDuplicate() {
-    String namespace = createNamespace();
-    AssertHelpers.assertThrows(
-        "should not create namespace with the same name",
-        AlreadyExistsException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-
-    for (Namespace namespace : invalidNamespaces) {
-      AssertHelpers.assertThrows(
-          "should not create namespace with invalid or nested names",
-          ValidationException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-
-    for (Namespace namespace : invalidNamespaces) {
-      AssertHelpers.assertThrows(
-          "should not create namespace with invalid or nested names",
-          ValidationException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-    String namespace = createNamespace();
-    glueCatalog.dropNamespace(Namespace.of(namespace));
-    AssertHelpers.assertThrows(
-        "namespace should not exist after deletion",
-        EntityNotFoundException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-    String namespace = createNamespace();
-    glueCatalog.dropNamespace(Namespace.of(namespace));
-    AssertHelpers.assertThrows(
-        "namespace should not exist after deletion",
-        EntityNotFoundException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-            .tableInput(TableInput.builder().name(UUID.randomUUID().toString()).build())
-            .build());
-    AssertHelpers.assertThrows(
-        "namespace should not be dropped when still has non-Iceberg table",
-        NamespaceNotEmptyException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-            .tableInput(TableInput.builder().name(UUID.randomUUID().toString()).build())
-            .build());
-    AssertHelpers.assertThrows(
-        "namespace should not be dropped when still has non-Iceberg table",
-        NamespaceNotEmptyException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-    String namespace = getRandomName();
-    namespaces.add(namespace);
-    AssertHelpers.assertThrows(
-        "namespace does not exist before create",
-        EntityNotFoundException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogNamespace.java`
-#### Snippet
-```java
-    String namespace = getRandomName();
-    namespaces.add(namespace);
-    AssertHelpers.assertThrows(
-        "namespace does not exist before create",
-        EntityNotFoundException.class,
-```
-
-### Deprecation
-'HTTP_CLIENT_TYPE' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/TestAssumeRoleAwsClientFactory.java`
-#### Snippet
-```java
-    assumeRoleProperties.put(
-        AwsProperties.CLIENT_FACTORY, AssumeRoleAwsClientFactory.class.getName());
-    assumeRoleProperties.put(AwsProperties.HTTP_CLIENT_TYPE, AwsProperties.HTTP_CLIENT_TYPE_APACHE);
-    assumeRoleProperties.put(
-        AwsProperties.CLIENT_ASSUME_ROLE_REGION, AwsIntegTestUtil.testRegion());
-```
-
-### Deprecation
-'HTTP_CLIENT_TYPE_APACHE' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/TestAssumeRoleAwsClientFactory.java`
-#### Snippet
-```java
-    assumeRoleProperties.put(
-        AwsProperties.CLIENT_FACTORY, AssumeRoleAwsClientFactory.class.getName());
-    assumeRoleProperties.put(AwsProperties.HTTP_CLIENT_TYPE, AwsProperties.HTTP_CLIENT_TYPE_APACHE);
-    assumeRoleProperties.put(
-        AwsProperties.CLIENT_ASSUME_ROLE_REGION, AwsIntegTestUtil.testRegion());
 ```
 
 ### Deprecation
@@ -2107,54 +2107,6 @@ in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormat
     assumeRoleProperties.put(AwsProperties.HTTP_CLIENT_TYPE, AwsProperties.HTTP_CLIENT_TYPE_APACHE);
     assumeRoleProperties.put(AwsProperties.CLIENT_ASSUME_ROLE_ARN, response.role().arn());
     assumeRoleProperties.put(
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbLockManager.java`
-#### Snippet
-```java
-        .when(dynamo2)
-        .describeTable(Mockito.any(DescribeTableRequest.class));
-    AssertHelpers.assertThrows(
-        "should fail to initialize the lock manager",
-        IllegalStateException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbLockManager.java`
-#### Snippet
-```java
-        .when(dynamo2)
-        .describeTable(Mockito.any(DescribeTableRequest.class));
-    AssertHelpers.assertThrows(
-        "should fail to initialize the lock manager",
-        IllegalStateException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
-#### Snippet
-```java
-    grantDataPathPrivileges(getTableLocation(testTableName));
-    try {
-      AssertHelpers.assertThrows(
-          "attempt to alter a table without ALTER permission should fail",
-          AccessDeniedException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
-#### Snippet
-```java
-    grantDataPathPrivileges(getTableLocation(testTableName));
-    try {
-      AssertHelpers.assertThrows(
-          "attempt to alter a table without ALTER permission should fail",
-          AccessDeniedException.class,
 ```
 
 ### Deprecation
@@ -2186,30 +2138,6 @@ in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormat
 in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
 #### Snippet
 ```java
-    grantDatabasePrivileges(testDbName, Permission.CREATE_TABLE);
-    try {
-      AssertHelpers.assertThrows(
-          "attempt to create a table without DATA_LOCATION_ACCESS permission should fail",
-          ForbiddenException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
-#### Snippet
-```java
-    grantDatabasePrivileges(testDbName, Permission.CREATE_TABLE);
-    try {
-      AssertHelpers.assertThrows(
-          "attempt to create a table without DATA_LOCATION_ACCESS permission should fail",
-          ForbiddenException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
-#### Snippet
-```java
     lfRegisterPathRoleCreateTable(testDbName, testTableName);
     try {
       AssertHelpers.assertThrows(
@@ -2227,30 +2155,6 @@ in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormat
       AssertHelpers.assertThrows(
           "attempt to show tables without any permissions should fail",
           AccessDeniedException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
-#### Snippet
-```java
-      UpdateProperties updateProperties = table.updateProperties();
-      properties.forEach(updateProperties::set);
-      AssertHelpers.assertThrows(
-          "attempt to alter a table without ALTER privileges should fail",
-          ForbiddenException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
-#### Snippet
-```java
-      UpdateProperties updateProperties = table.updateProperties();
-      properties.forEach(updateProperties::set);
-      AssertHelpers.assertThrows(
-          "attempt to alter a table without ALTER privileges should fail",
-          ForbiddenException.class,
 ```
 
 ### Deprecation
@@ -2282,11 +2186,131 @@ in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormat
 in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
 #### Snippet
 ```java
+      UpdateProperties updateProperties = table.updateProperties();
+      properties.forEach(updateProperties::set);
+      AssertHelpers.assertThrows(
+          "attempt to alter a table without ALTER privileges should fail",
+          ForbiddenException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
+#### Snippet
+```java
+  @Test
+  public void testLoadTableWithNoTableAccess() {
+    AssertHelpers.assertThrows(
+        "attempt to load a table without SELECT permission should fail",
+        AccessDeniedException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
+#### Snippet
+```java
+  @Test
+  public void testLoadTableWithNoTableAccess() {
+    AssertHelpers.assertThrows(
+        "attempt to load a table without SELECT permission should fail",
+        AccessDeniedException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
+#### Snippet
+```java
+            .withRecordCount(1)
+            .build();
+    AssertHelpers.assertThrows(
+        "attempt to insert to a table without INSERT permission should fail",
+        S3Exception.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
+#### Snippet
+```java
+      UpdateProperties updateProperties = table.updateProperties();
+      properties.forEach(updateProperties::set);
+      AssertHelpers.assertThrows(
+          "attempt to alter a table without ALTER privileges should fail",
+          ForbiddenException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
+#### Snippet
+```java
+            .withRecordCount(1)
+            .build();
+    AssertHelpers.assertThrows(
+        "attempt to insert to a table without INSERT permission should fail",
+        S3Exception.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
+#### Snippet
+```java
+    grantDatabasePrivileges(testDbName, Permission.CREATE_TABLE);
+    try {
+      AssertHelpers.assertThrows(
+          "attempt to create a table without DATA_LOCATION_ACCESS permission should fail",
+          ForbiddenException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
+#### Snippet
+```java
+    grantDatabasePrivileges(testDbName, Permission.CREATE_TABLE);
+    try {
+      AssertHelpers.assertThrows(
+          "attempt to create a table without DATA_LOCATION_ACCESS permission should fail",
+          ForbiddenException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
+#### Snippet
+```java
+            .withRecordCount(1)
+            .build();
+    AssertHelpers.assertThrows(
+        "attempt to delete without DATA_LOCATION_ACCESS permission should fail",
+        ForbiddenException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
+#### Snippet
+```java
   public void testCreateDatabaseNoPrivileges() {
     String testDbName = getRandomDbName();
     AssertHelpers.assertThrows(
         "attempt to create a database without CREATE_DATABASE permission should fail",
         AccessDeniedException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
+#### Snippet
+```java
+            .withRecordCount(1)
+            .build();
+    AssertHelpers.assertThrows(
+        "attempt to delete without DATA_LOCATION_ACCESS permission should fail",
+        ForbiddenException.class,
 ```
 
 ### Deprecation
@@ -2299,6 +2323,30 @@ in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormat
     AssertHelpers.assertThrows(
         "attempt to create a database without CREATE_DATABASE permission should fail",
         AccessDeniedException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
+#### Snippet
+```java
+    grantDataPathPrivileges(getTableLocation(testTableName));
+    try {
+      AssertHelpers.assertThrows(
+          "attempt to alter a table without ALTER permission should fail",
+          AccessDeniedException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationMetadataOperations.java`
+#### Snippet
+```java
+    grantDataPathPrivileges(getTableLocation(testTableName));
+    try {
+      AssertHelpers.assertThrows(
+          "attempt to alter a table without ALTER permission should fail",
+          AccessDeniedException.class,
 ```
 
 ### Deprecation
@@ -2362,315 +2410,51 @@ in `aws/src/integration/java/org/apache/iceberg/aws/s3/TestS3FileIOIntegration.j
 ```
 
 ### Deprecation
-'S3_WRITE_TABLE_TAG_ENABLED' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-    Map<String, String> properties =
-        ImmutableMap.of(
-            AwsProperties.S3_WRITE_TABLE_TAG_ENABLED,
-            "true",
-            AwsProperties.S3_WRITE_NAMESPACE_TAG_ENABLED,
-```
-
-### Deprecation
-'S3_WRITE_NAMESPACE_TAG_ENABLED' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-            AwsProperties.S3_WRITE_TABLE_TAG_ENABLED,
-            "true",
-            AwsProperties.S3_WRITE_NAMESPACE_TAG_ENABLED,
-            "true");
-    glueCatalog.initialize(
-```
-
-### Deprecation
-'S3_TAG_ICEBERG_TABLE' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-    Map<String, String> tagMap = tags.stream().collect(Collectors.toMap(Tag::key, Tag::value));
-
-    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_TABLE));
-    Assert.assertEquals(tableName, tagMap.get(AwsProperties.S3_TAG_ICEBERG_TABLE));
-    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
-```
-
-### Deprecation
-'S3_TAG_ICEBERG_TABLE' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-
-    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_TABLE));
-    Assert.assertEquals(tableName, tagMap.get(AwsProperties.S3_TAG_ICEBERG_TABLE));
-    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
-    Assert.assertEquals(namespace, tagMap.get(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
-```
-
-### Deprecation
-'S3_TAG_ICEBERG_NAMESPACE' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_TABLE));
-    Assert.assertEquals(tableName, tagMap.get(AwsProperties.S3_TAG_ICEBERG_TABLE));
-    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
-    Assert.assertEquals(namespace, tagMap.get(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
-  }
-```
-
-### Deprecation
-'S3_TAG_ICEBERG_NAMESPACE' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-    Assert.assertEquals(tableName, tagMap.get(AwsProperties.S3_TAG_ICEBERG_TABLE));
-    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
-    Assert.assertEquals(namespace, tagMap.get(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
-  }
-}
-```
-
-### Deprecation
 'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbLockManager.java`
 #### Snippet
 ```java
-            .tableInput(TableInput.builder().name(newTableName).build())
-            .build());
+        .when(dynamo2)
+        .describeTable(Mockito.any(DescribeTableRequest.class));
     AssertHelpers.assertThrows(
-        "should fail to rename to an existing table",
-        software.amazon.awssdk.services.glue.model.AlreadyExistsException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-            .tableInput(TableInput.builder().name(newTableName).build())
-            .build());
-    AssertHelpers.assertThrows(
-        "should fail to rename to an existing table",
-        software.amazon.awssdk.services.glue.model.AlreadyExistsException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-  public void testCreateTableBadName() {
-    String namespace = createNamespace();
-    AssertHelpers.assertThrows(
-        "should not create table with bad name",
-        IllegalArgumentException.class,
+        "should fail to initialize the lock manager",
+        IllegalStateException.class,
 ```
 
 ### Deprecation
 'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbLockManager.java`
 #### Snippet
 ```java
-  public void testCreateTableBadName() {
-    String namespace = createNamespace();
+        .when(dynamo2)
+        .describeTable(Mockito.any(DescribeTableRequest.class));
     AssertHelpers.assertThrows(
-        "should not create table with bad name",
-        IllegalArgumentException.class,
+        "should fail to initialize the lock manager",
+        IllegalStateException.class,
 ```
 
 ### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+Overrides deprecated method in 'java.lang.Object'
+in `gcp/src/main/java/org/apache/iceberg/gcp/gcs/GCSInputStream.java`
 #### Snippet
 ```java
-
-    glueCatalog.dropTable(TableIdentifier.of(namespace, tableName));
-    AssertHelpers.assertThrows(
-        "should not have table",
-        NoSuchTableException.class,
+  @SuppressWarnings("checkstyle:NoFinalizer")
+  @Override
+  protected void finalize() throws Throwable {
+    super.finalize();
+    if (!closed) {
 ```
 
 ### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+'finalize()' is deprecated
+in `gcp/src/main/java/org/apache/iceberg/gcp/gcs/GCSInputStream.java`
 #### Snippet
 ```java
-
-    glueCatalog.dropTable(TableIdentifier.of(namespace, tableName));
-    AssertHelpers.assertThrows(
-        "should not have table",
-        NoSuchTableException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-    String namespace = createNamespace();
-    String tableName = createTable(namespace);
-    AssertHelpers.assertThrows(
-        "should not create table with the same name",
-        AlreadyExistsException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-    String namespace = createNamespace();
-    String tableName = createTable(namespace);
-    AssertHelpers.assertThrows(
-        "should not create table with the same name",
-        AlreadyExistsException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-    String tableName = createTable(namespace);
-    glueCatalog.dropTable(TableIdentifier.of(namespace, tableName), false);
-    AssertHelpers.assertThrows(
-        "should not have table",
-        NoSuchTableException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-    String tableName = createTable(namespace);
-    glueCatalog.dropTable(TableIdentifier.of(namespace, tableName), false);
-    AssertHelpers.assertThrows(
-        "should not have table",
-        NoSuchTableException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-            .tableInput(TableInput.builder().name(tableName).parameters(Maps.newHashMap()).build())
-            .build());
-    AssertHelpers.assertThrows(
-        "should fail to rename",
-        ValidationException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-            .tableInput(TableInput.builder().name(tableName).parameters(Maps.newHashMap()).build())
-            .build());
-    AssertHelpers.assertThrows(
-        "should fail to rename",
-        ValidationException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-                TableIdentifier.of(namespace, tableName),
-                TableIdentifier.of(namespace, newTableName)));
-    AssertHelpers.assertThrows(
-        "renamed table should be deleted",
-        EntityNotFoundException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
-#### Snippet
-```java
-                TableIdentifier.of(namespace, tableName),
-                TableIdentifier.of(namespace, newTableName)));
-    AssertHelpers.assertThrows(
-        "renamed table should be deleted",
-        EntityNotFoundException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
-#### Snippet
-```java
-            .withRecordCount(1)
-            .build();
-    AssertHelpers.assertThrows(
-        "attempt to insert to a table without INSERT permission should fail",
-        S3Exception.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
-#### Snippet
-```java
-            .withRecordCount(1)
-            .build();
-    AssertHelpers.assertThrows(
-        "attempt to insert to a table without INSERT permission should fail",
-        S3Exception.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
-#### Snippet
-```java
-  @Test
-  public void testLoadTableWithNoTableAccess() {
-    AssertHelpers.assertThrows(
-        "attempt to load a table without SELECT permission should fail",
-        AccessDeniedException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
-#### Snippet
-```java
-  @Test
-  public void testLoadTableWithNoTableAccess() {
-    AssertHelpers.assertThrows(
-        "attempt to load a table without SELECT permission should fail",
-        AccessDeniedException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
-#### Snippet
-```java
-            .withRecordCount(1)
-            .build();
-    AssertHelpers.assertThrows(
-        "attempt to delete without DATA_LOCATION_ACCESS permission should fail",
-        ForbiddenException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormationDataOperations.java`
-#### Snippet
-```java
-            .withRecordCount(1)
-            .build();
-    AssertHelpers.assertThrows(
-        "attempt to delete without DATA_LOCATION_ACCESS permission should fail",
-        ForbiddenException.class,
+  @Override
+  protected void finalize() throws Throwable {
+    super.finalize();
+    if (!closed) {
+      close(); // releasing resources is more important than printing the warning
 ```
 
 ### Deprecation
@@ -2678,23 +2462,47 @@ in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/TestLakeFormat
 in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog.java`
 #### Snippet
 ```java
-        response.item().get("namespace").s());
-
+    Namespace namespace = Namespace.of(genRandomName());
+    catalog.createNamespace(namespace);
     AssertHelpers.assertThrows(
-        "should not create duplicated namespace",
-        AlreadyExistsException.class,
+        "should not create table name with empty namespace",
+        ValidationException.class,
 ```
 
 ### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
 in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog.java`
 #### Snippet
 ```java
-        response.item().get("namespace").s());
+    Namespace namespace = Namespace.of(genRandomName());
+    catalog.createNamespace(namespace);
+    AssertHelpers.assertThrows(
+        "should not create table name with empty namespace",
+        ValidationException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog.java`
+#### Snippet
+```java
+        () -> catalog.createTable(TableIdentifier.of(Namespace.empty(), "a"), SCHEMA));
 
     AssertHelpers.assertThrows(
-        "should not create duplicated namespace",
-        AlreadyExistsException.class,
+        "should not create table name with dot",
+        ValidationException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog.java`
+#### Snippet
+```java
+        () -> catalog.createTable(TableIdentifier.of(Namespace.empty(), "a"), SCHEMA));
+
+    AssertHelpers.assertThrows(
+        "should not create table name with dot",
+        ValidationException.class,
 ```
 
 ### Deprecation
@@ -2743,6 +2551,30 @@ in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog
     AssertHelpers.assertThrows(
         "should not create namespace with dot in level",
         ValidationException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog.java`
+#### Snippet
+```java
+        response.item().get("namespace").s());
+
+    AssertHelpers.assertThrows(
+        "should not create duplicated namespace",
+        AlreadyExistsException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog.java`
+#### Snippet
+```java
+        response.item().get("namespace").s());
+
+    AssertHelpers.assertThrows(
+        "should not create duplicated namespace",
+        AlreadyExistsException.class,
 ```
 
 ### Deprecation
@@ -2842,78 +2674,6 @@ in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog
 ```
 
 ### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog.java`
-#### Snippet
-```java
-    Namespace namespace = Namespace.of(genRandomName());
-    catalog.createNamespace(namespace);
-    AssertHelpers.assertThrows(
-        "should not create table name with empty namespace",
-        ValidationException.class,
-```
-
-### Deprecation
-Overrides deprecated method in 'java.lang.Object'
-in `gcp/src/main/java/org/apache/iceberg/gcp/gcs/GCSInputStream.java`
-#### Snippet
-```java
-  @SuppressWarnings("checkstyle:NoFinalizer")
-  @Override
-  protected void finalize() throws Throwable {
-    super.finalize();
-    if (!closed) {
-```
-
-### Deprecation
-'finalize()' is deprecated
-in `gcp/src/main/java/org/apache/iceberg/gcp/gcs/GCSInputStream.java`
-#### Snippet
-```java
-  @Override
-  protected void finalize() throws Throwable {
-    super.finalize();
-    if (!closed) {
-      close(); // releasing resources is more important than printing the warning
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog.java`
-#### Snippet
-```java
-    Namespace namespace = Namespace.of(genRandomName());
-    catalog.createNamespace(namespace);
-    AssertHelpers.assertThrows(
-        "should not create table name with empty namespace",
-        ValidationException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog.java`
-#### Snippet
-```java
-        () -> catalog.createTable(TableIdentifier.of(Namespace.empty(), "a"), SCHEMA));
-
-    AssertHelpers.assertThrows(
-        "should not create table name with dot",
-        ValidationException.class,
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/dynamodb/TestDynamoDbCatalog.java`
-#### Snippet
-```java
-        () -> catalog.createTable(TableIdentifier.of(Namespace.empty(), "a"), SCHEMA));
-
-    AssertHelpers.assertThrows(
-        "should not create table name with dot",
-        ValidationException.class,
-```
-
-### Deprecation
 Overrides deprecated method in 'java.lang.Object'
 in `gcp/src/main/java/org/apache/iceberg/gcp/gcs/GCSOutputStream.java`
 #### Snippet
@@ -2939,74 +2699,242 @@ in `gcp/src/main/java/org/apache/iceberg/gcp/gcs/GCSOutputStream.java`
 
 ### Deprecation
 'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
 #### Snippet
 ```java
-    breakFallbackCatalogCommitCheck(spyOps);
-
+            .tableInput(TableInput.builder().name(newTableName).build())
+            .build());
     AssertHelpers.assertThrows(
-        "Should throw CommitStateUnknownException since the catalog check was blocked",
-        CommitStateUnknownException.class,
+        "should fail to rename to an existing table",
+        software.amazon.awssdk.services.glue.model.AlreadyExistsException.class,
 ```
 
 ### Deprecation
 'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
 #### Snippet
 ```java
-    breakFallbackCatalogCommitCheck(spyOps);
-
+            .tableInput(TableInput.builder().name(newTableName).build())
+            .build());
     AssertHelpers.assertThrows(
-        "Should throw CommitStateUnknownException since the catalog check was blocked",
-        CommitStateUnknownException.class,
+        "should fail to rename to an existing table",
+        software.amazon.awssdk.services.glue.model.AlreadyExistsException.class,
 ```
 
 ### Deprecation
 'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
 #### Snippet
 ```java
-    failCommitAndThrowException(spyOps, new CommitFailedException("Datacenter on fire"));
-
+  public void testCreateTableBadName() {
+    String namespace = createNamespace();
     AssertHelpers.assertThrows(
-        "Commit failed exception should directly throw",
-        CommitFailedException.class,
+        "should not create table with bad name",
+        IllegalArgumentException.class,
 ```
 
 ### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
 #### Snippet
 ```java
-    failCommitAndThrowException(spyOps, new CommitFailedException("Datacenter on fire"));
-
+  public void testCreateTableBadName() {
+    String namespace = createNamespace();
     AssertHelpers.assertThrows(
-        "Commit failed exception should directly throw",
-        CommitFailedException.class,
+        "should not create table with bad name",
+        IllegalArgumentException.class,
+```
+
+### Deprecation
+'S3_WRITE_TABLE_TAG_ENABLED' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+    Map<String, String> properties =
+        ImmutableMap.of(
+            AwsProperties.S3_WRITE_TABLE_TAG_ENABLED,
+            "true",
+            AwsProperties.S3_WRITE_NAMESPACE_TAG_ENABLED,
+```
+
+### Deprecation
+'S3_WRITE_NAMESPACE_TAG_ENABLED' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+            AwsProperties.S3_WRITE_TABLE_TAG_ENABLED,
+            "true",
+            AwsProperties.S3_WRITE_NAMESPACE_TAG_ENABLED,
+            "true");
+    glueCatalog.initialize(
+```
+
+### Deprecation
+'S3_TAG_ICEBERG_TABLE' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+    Map<String, String> tagMap = tags.stream().collect(Collectors.toMap(Tag::key, Tag::value));
+
+    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_TABLE));
+    Assert.assertEquals(tableName, tagMap.get(AwsProperties.S3_TAG_ICEBERG_TABLE));
+    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
+```
+
+### Deprecation
+'S3_TAG_ICEBERG_TABLE' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+
+    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_TABLE));
+    Assert.assertEquals(tableName, tagMap.get(AwsProperties.S3_TAG_ICEBERG_TABLE));
+    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
+    Assert.assertEquals(namespace, tagMap.get(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
+```
+
+### Deprecation
+'S3_TAG_ICEBERG_NAMESPACE' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_TABLE));
+    Assert.assertEquals(tableName, tagMap.get(AwsProperties.S3_TAG_ICEBERG_TABLE));
+    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
+    Assert.assertEquals(namespace, tagMap.get(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
+  }
+```
+
+### Deprecation
+'S3_TAG_ICEBERG_NAMESPACE' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+    Assert.assertEquals(tableName, tagMap.get(AwsProperties.S3_TAG_ICEBERG_TABLE));
+    Assert.assertTrue(tagMap.containsKey(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
+    Assert.assertEquals(namespace, tagMap.get(AwsProperties.S3_TAG_ICEBERG_NAMESPACE));
+  }
+}
 ```
 
 ### Deprecation
 'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
 #### Snippet
 ```java
-    breakFallbackCatalogCommitCheck(spyOps);
-
+    String tableName = createTable(namespace);
+    glueCatalog.dropTable(TableIdentifier.of(namespace, tableName), false);
     AssertHelpers.assertThrows(
-        "Should throw CommitStateUnknownException since the catalog check was blocked",
-        CommitStateUnknownException.class,
+        "should not have table",
+        NoSuchTableException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+    String tableName = createTable(namespace);
+    glueCatalog.dropTable(TableIdentifier.of(namespace, tableName), false);
+    AssertHelpers.assertThrows(
+        "should not have table",
+        NoSuchTableException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+    String namespace = createNamespace();
+    String tableName = createTable(namespace);
+    AssertHelpers.assertThrows(
+        "should not create table with the same name",
+        AlreadyExistsException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+    String namespace = createNamespace();
+    String tableName = createTable(namespace);
+    AssertHelpers.assertThrows(
+        "should not create table with the same name",
+        AlreadyExistsException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+
+    glueCatalog.dropTable(TableIdentifier.of(namespace, tableName));
+    AssertHelpers.assertThrows(
+        "should not have table",
+        NoSuchTableException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+
+    glueCatalog.dropTable(TableIdentifier.of(namespace, tableName));
+    AssertHelpers.assertThrows(
+        "should not have table",
+        NoSuchTableException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+            .tableInput(TableInput.builder().name(tableName).parameters(Maps.newHashMap()).build())
+            .build());
+    AssertHelpers.assertThrows(
+        "should fail to rename",
+        ValidationException.class,
 ```
 
 ### Deprecation
 'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
 #### Snippet
 ```java
-    breakFallbackCatalogCommitCheck(spyOps);
-
+            .tableInput(TableInput.builder().name(tableName).parameters(Maps.newHashMap()).build())
+            .build());
     AssertHelpers.assertThrows(
-        "Should throw CommitStateUnknownException since the catalog check was blocked",
-        CommitStateUnknownException.class,
+        "should fail to rename",
+        ValidationException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+                TableIdentifier.of(namespace, tableName),
+                TableIdentifier.of(namespace, newTableName)));
+    AssertHelpers.assertThrows(
+        "renamed table should be deleted",
+        EntityNotFoundException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.util.concurrent.Callable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogTable.java`
+#### Snippet
+```java
+                TableIdentifier.of(namespace, tableName),
+                TableIdentifier.of(namespace, newTableName)));
+    AssertHelpers.assertThrows(
+        "renamed table should be deleted",
+        EntityNotFoundException.class,
 ```
 
 ### Deprecation
@@ -3038,11 +2966,35 @@ in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFa
 in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
 #### Snippet
 ```java
-    failCommitAndThrowException(spyOps, ValidationException.builder().build());
+    failCommitAndThrowException(spyOps, GlueException.builder().statusCode(500).build());
 
     AssertHelpers.assertThrows(
-        "Should throw validation exception",
-        org.apache.iceberg.exceptions.ValidationException.class,
+        null, CommitFailedException.class, () -> spyOps.commit(metadataV2, metadataV1));
+
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+#### Snippet
+```java
+    failCommitAndThrowException(spyOps, GlueException.builder().statusCode(500).build());
+
+    AssertHelpers.assertThrows(
+        null, CommitFailedException.class, () -> spyOps.commit(metadataV2, metadataV1));
+
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+#### Snippet
+```java
+    breakFallbackCatalogCommitCheck(spyOps);
+
+    AssertHelpers.assertThrows(
+        "Should throw CommitStateUnknownException since the catalog check was blocked",
+        CommitStateUnknownException.class,
 ```
 
 ### Deprecation
@@ -3050,11 +3002,59 @@ in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFa
 in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
 #### Snippet
 ```java
-    failCommitAndThrowException(spyOps, ValidationException.builder().build());
+    breakFallbackCatalogCommitCheck(spyOps);
 
     AssertHelpers.assertThrows(
-        "Should throw validation exception",
-        org.apache.iceberg.exceptions.ValidationException.class,
+        "Should throw CommitStateUnknownException since the catalog check was blocked",
+        CommitStateUnknownException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+#### Snippet
+```java
+    failCommitAndThrowException(spyOps, GlueException.builder().statusCode(300).build());
+
+    AssertHelpers.assertThrows(
+        null, GlueException.class, () -> spyOps.commit(metadataV2, metadataV1));
+
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+#### Snippet
+```java
+    failCommitAndThrowException(spyOps, GlueException.builder().statusCode(300).build());
+
+    AssertHelpers.assertThrows(
+        null, GlueException.class, () -> spyOps.commit(metadataV2, metadataV1));
+
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+#### Snippet
+```java
+    failCommitAndThrowException(spyOps, S3Exception.builder().statusCode(300).build());
+
+    AssertHelpers.assertThrows(
+        null, S3Exception.class, () -> spyOps.commit(metadataV2, metadataV1));
+
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+#### Snippet
+```java
+    failCommitAndThrowException(spyOps, S3Exception.builder().statusCode(300).build());
+
+    AssertHelpers.assertThrows(
+        null, S3Exception.class, () -> spyOps.commit(metadataV2, metadataV1));
+
 ```
 
 ### Deprecation
@@ -3110,23 +3110,71 @@ in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFa
 in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
 #### Snippet
 ```java
-    failCommitAndThrowException(spyOps, S3Exception.builder().statusCode(300).build());
+    breakFallbackCatalogCommitCheck(spyOps);
 
     AssertHelpers.assertThrows(
-        null, S3Exception.class, () -> spyOps.commit(metadataV2, metadataV1));
-
+        "Should throw CommitStateUnknownException since the catalog check was blocked",
+        CommitStateUnknownException.class,
 ```
 
 ### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.Runnable)' is deprecated
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
 in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
 #### Snippet
 ```java
-    failCommitAndThrowException(spyOps, S3Exception.builder().statusCode(300).build());
+    breakFallbackCatalogCommitCheck(spyOps);
 
     AssertHelpers.assertThrows(
-        null, S3Exception.class, () -> spyOps.commit(metadataV2, metadataV1));
+        "Should throw CommitStateUnknownException since the catalog check was blocked",
+        CommitStateUnknownException.class,
+```
 
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+#### Snippet
+```java
+    failCommitAndThrowException(spyOps, new CommitFailedException("Datacenter on fire"));
+
+    AssertHelpers.assertThrows(
+        "Commit failed exception should directly throw",
+        CommitFailedException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+#### Snippet
+```java
+    failCommitAndThrowException(spyOps, new CommitFailedException("Datacenter on fire"));
+
+    AssertHelpers.assertThrows(
+        "Commit failed exception should directly throw",
+        CommitFailedException.class,
+```
+
+### Deprecation
+'org.apache.iceberg.AssertHelpers' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+#### Snippet
+```java
+    failCommitAndThrowException(spyOps, ValidationException.builder().build());
+
+    AssertHelpers.assertThrows(
+        "Should throw validation exception",
+        org.apache.iceberg.exceptions.ValidationException.class,
+```
+
+### Deprecation
+'assertThrows(java.lang.String, java.lang.Class, java.lang.String, java.lang.Runnable)' is deprecated
+in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
+#### Snippet
+```java
+    failCommitAndThrowException(spyOps, ValidationException.builder().build());
+
+    AssertHelpers.assertThrows(
+        "Should throw validation exception",
+        org.apache.iceberg.exceptions.ValidationException.class,
 ```
 
 ### Deprecation
@@ -3151,114 +3199,6 @@ in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFa
     AssertHelpers.assertThrows(
         "Should throw CommitStateUnknownException since exception is unexpected",
         CommitStateUnknownException.class,
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
-#### Snippet
-```java
-    failCommitAndThrowException(spyOps, GlueException.builder().statusCode(500).build());
-
-    AssertHelpers.assertThrows(
-        null, CommitFailedException.class, () -> spyOps.commit(metadataV2, metadataV1));
-
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
-#### Snippet
-```java
-    failCommitAndThrowException(spyOps, GlueException.builder().statusCode(500).build());
-
-    AssertHelpers.assertThrows(
-        null, CommitFailedException.class, () -> spyOps.commit(metadataV2, metadataV1));
-
-```
-
-### Deprecation
-'org.apache.iceberg.AssertHelpers' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
-#### Snippet
-```java
-    failCommitAndThrowException(spyOps, GlueException.builder().statusCode(300).build());
-
-    AssertHelpers.assertThrows(
-        null, GlueException.class, () -> spyOps.commit(metadataV2, metadataV1));
-
-```
-
-### Deprecation
-'assertThrows(java.lang.String, java.lang.Class, java.lang.Runnable)' is deprecated
-in `aws/src/integration/java/org/apache/iceberg/aws/glue/TestGlueCatalogCommitFailure.java`
-#### Snippet
-```java
-    failCommitAndThrowException(spyOps, GlueException.builder().statusCode(300).build());
-
-    AssertHelpers.assertThrows(
-        null, GlueException.class, () -> spyOps.commit(metadataV2, metadataV1));
-
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `orc/src/main/java/org/apache/iceberg/orc/OrcIterable.java`
-#### Snippet
-```java
-          file.location(), readerSchema, orcFileReader.rows(options), recordsPerBatch);
-    } catch (IOException ioe) {
-      throw new RuntimeIOException(ioe, "Failed to get ORC rows for file: %s", file);
-    }
-  }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `orc/src/main/java/org/apache/iceberg/orc/OrcFileAppender.java`
-#### Snippet
-```java
-      return Collections.unmodifiableList(Lists.transform(stripes, StripeInformation::getOffset));
-    } catch (IOException e) {
-      throw new RuntimeIOException(
-          e, "Failed to get stripe information from writer for: %s", file.location());
-    }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `orc/src/main/java/org/apache/iceberg/orc/OrcMetrics.java`
-#### Snippet
-```java
-          mapping);
-    } catch (IOException ioe) {
-      throw new RuntimeIOException(ioe, "Failed to open file: %s", file.location());
-    }
-  }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `orc/src/main/java/org/apache/iceberg/orc/OrcMetrics.java`
-#### Snippet
-```java
-          null);
-    } catch (IOException ioe) {
-      throw new RuntimeIOException(ioe, "Failed to get statistics from writer");
-    }
-  }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `orc/src/main/java/org/apache/iceberg/orc/VectorizedRowBatchIterator.java`
-#### Snippet
-```java
-        rows.nextBatch(batch);
-      } catch (IOException ioe) {
-        throw new RuntimeIOException(ioe, "Problem reading ORC file %s", fileLocation);
-      }
-      advanced = true;
 ```
 
 ### Deprecation
@@ -3287,14 +3227,62 @@ in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/LakeFormationT
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `orc/src/main/java/org/apache/iceberg/orc/ORC.java`
+in `orc/src/main/java/org/apache/iceberg/orc/OrcIterable.java`
 #### Snippet
 ```java
-      writer = OrcFile.createWriter(locPath, options);
+          file.location(), readerSchema, orcFileReader.rows(options), recordsPerBatch);
     } catch (IOException ioe) {
-      throw new RuntimeIOException(ioe, "Can't create file %s", locPath);
+      throw new RuntimeIOException(ioe, "Failed to get ORC rows for file: %s", file);
     }
+  }
+```
 
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `orc/src/main/java/org/apache/iceberg/orc/OrcFileAppender.java`
+#### Snippet
+```java
+      return Collections.unmodifiableList(Lists.transform(stripes, StripeInformation::getOffset));
+    } catch (IOException e) {
+      throw new RuntimeIOException(
+          e, "Failed to get stripe information from writer for: %s", file.location());
+    }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `orc/src/main/java/org/apache/iceberg/orc/VectorizedRowBatchIterator.java`
+#### Snippet
+```java
+        rows.nextBatch(batch);
+      } catch (IOException ioe) {
+        throw new RuntimeIOException(ioe, "Problem reading ORC file %s", fileLocation);
+      }
+      advanced = true;
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `orc/src/main/java/org/apache/iceberg/orc/OrcMetrics.java`
+#### Snippet
+```java
+          mapping);
+    } catch (IOException ioe) {
+      throw new RuntimeIOException(ioe, "Failed to open file: %s", file.location());
+    }
+  }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `orc/src/main/java/org/apache/iceberg/orc/OrcMetrics.java`
+#### Snippet
+```java
+          null);
+    } catch (IOException ioe) {
+      throw new RuntimeIOException(ioe, "Failed to get statistics from writer");
+    }
+  }
 ```
 
 ### Deprecation
@@ -3311,14 +3299,14 @@ in `orc/src/main/java/org/apache/iceberg/orc/ORC.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/TableMetadataParser.java`
+in `orc/src/main/java/org/apache/iceberg/orc/ORC.java`
 #### Snippet
 ```java
-      return writer.toString();
-    } catch (IOException e) {
-      throw new RuntimeIOException(e, "Failed to write json for: %s", metadata);
+      writer = OrcFile.createWriter(locPath, options);
+    } catch (IOException ioe) {
+      throw new RuntimeIOException(ioe, "Can't create file %s", locPath);
     }
-  }
+
 ```
 
 ### Deprecation
@@ -3341,6 +3329,18 @@ in `core/src/main/java/org/apache/iceberg/TableMetadataParser.java`
       return fromJson(file, JsonUtil.mapper().readValue(is, JsonNode.class));
     } catch (IOException e) {
       throw new RuntimeIOException(e, "Failed to read file: %s", file);
+    }
+  }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/TableMetadataParser.java`
+#### Snippet
+```java
+      return writer.toString();
+    } catch (IOException e) {
+      throw new RuntimeIOException(e, "Failed to write json for: %s", metadata);
     }
   }
 ```
@@ -3386,18 +3386,6 @@ in `core/src/main/java/org/apache/iceberg/ManifestReader.java`
 in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
 #### Snippet
 ```java
-              cachedNewDeleteManifests.add(writer.toManifestFile());
-            } catch (IOException e) {
-              throw new RuntimeIOException(e, "Failed to close manifest writer");
-            }
-          });
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
-#### Snippet
-```java
         this.hasNewDataFiles = false;
       } catch (IOException e) {
         throw new RuntimeIOException(e, "Failed to close manifest writer");
@@ -3407,14 +3395,14 @@ in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/ManifestListWriter.java`
+in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
 #### Snippet
 ```java
-
-      } catch (IOException e) {
-        throw new RuntimeIOException(e, "Failed to create snapshot list writer for path: %s", file);
-      }
-    }
+              cachedNewDeleteManifests.add(writer.toManifestFile());
+            } catch (IOException e) {
+              throw new RuntimeIOException(e, "Failed to close manifest writer");
+            }
+          });
 ```
 
 ### Deprecation
@@ -3431,14 +3419,14 @@ in `core/src/main/java/org/apache/iceberg/ManifestListWriter.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/SnapshotProducer.java`
+in `core/src/main/java/org/apache/iceberg/ManifestListWriter.java`
 #### Snippet
 ```java
 
-    } catch (IOException e) {
-      throw new RuntimeIOException(e, "Failed to write manifest list file");
+      } catch (IOException e) {
+        throw new RuntimeIOException(e, "Failed to create snapshot list writer for path: %s", file);
+      }
     }
-
 ```
 
 ### Deprecation
@@ -3451,6 +3439,18 @@ in `core/src/main/java/org/apache/iceberg/SnapshotProducer.java`
       throw new RuntimeIOException(e, "Failed to read manifest: %s", manifest.path());
     }
   }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/SnapshotProducer.java`
+#### Snippet
+```java
+
+    } catch (IOException e) {
+      throw new RuntimeIOException(e, "Failed to write manifest list file");
+    }
+
 ```
 
 ### Deprecation
@@ -3487,54 +3487,6 @@ in `core/src/main/java/org/apache/iceberg/ScanSummary.java`
         throw new RuntimeIOException(e);
       }
 
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/DeleteFileIndex.java`
-#### Snippet
-```java
-                  }
-                } catch (IOException e) {
-                  throw new RuntimeIOException(e, "Failed to close");
-                }
-              });
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/ManifestFiles.java`
-#### Snippet
-```java
-          ManifestEntry.Status.EXISTING);
-    } catch (IOException e) {
-      throw new RuntimeIOException(e, "Failed to close manifest: %s", toCopy.location());
-    }
-  }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/ManifestFiles.java`
-#### Snippet
-```java
-          ManifestEntry.Status.ADDED);
-    } catch (IOException e) {
-      throw new RuntimeIOException(e, "Failed to close manifest: %s", toCopy.location());
-    }
-  }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/ManifestFiles.java`
-#### Snippet
-```java
-      } catch (IOException e) {
-        if (!threw) {
-          throw new RuntimeIOException(e, "Failed to close manifest: %s", outputFile);
-        }
-      }
 ```
 
 ### Deprecation
@@ -3587,14 +3539,50 @@ in `core/src/main/java/org/apache/iceberg/ReachableFileCleanup.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/CatalogUtil.java`
+in `core/src/main/java/org/apache/iceberg/DeleteFileIndex.java`
 #### Snippet
 ```java
-                deleteFiles(io, pathsToDelete, type, false);
-              } catch (IOException e) {
-                throw new RuntimeIOException(
-                    e, "Failed to read manifest file: %s", manifest.path());
-              }
+                  }
+                } catch (IOException e) {
+                  throw new RuntimeIOException(e, "Failed to close");
+                }
+              });
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/ManifestFiles.java`
+#### Snippet
+```java
+          ManifestEntry.Status.EXISTING);
+    } catch (IOException e) {
+      throw new RuntimeIOException(e, "Failed to close manifest: %s", toCopy.location());
+    }
+  }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/ManifestFiles.java`
+#### Snippet
+```java
+          ManifestEntry.Status.ADDED);
+    } catch (IOException e) {
+      throw new RuntimeIOException(e, "Failed to close manifest: %s", toCopy.location());
+    }
+  }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/ManifestFiles.java`
+#### Snippet
+```java
+      } catch (IOException e) {
+        if (!threw) {
+          throw new RuntimeIOException(e, "Failed to close manifest: %s", outputFile);
+        }
+      }
 ```
 
 ### Deprecation
@@ -3611,6 +3599,54 @@ in `core/src/main/java/org/apache/iceberg/ManifestMergeManager.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/CatalogUtil.java`
+#### Snippet
+```java
+                deleteFiles(io, pathsToDelete, type, false);
+              } catch (IOException e) {
+                throw new RuntimeIOException(
+                    e, "Failed to read manifest file: %s", manifest.path());
+              }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/ManifestWriter.java`
+#### Snippet
+```java
+            .build();
+      } catch (IOException e) {
+        throw new RuntimeIOException(e, "Failed to create manifest writer for path: %s", file);
+      }
+    }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/ManifestWriter.java`
+#### Snippet
+```java
+            .build();
+      } catch (IOException e) {
+        throw new RuntimeIOException(e, "Failed to create manifest writer for path: %s", file);
+      }
+    }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/ManifestWriter.java`
+#### Snippet
+```java
+            .build();
+      } catch (IOException e) {
+        throw new RuntimeIOException(e, "Failed to create manifest writer for path: %s", file);
+      }
+    }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
 in `core/src/main/java/org/apache/iceberg/AllManifestsTable.java`
 #### Snippet
 ```java
@@ -3623,48 +3659,12 @@ in `core/src/main/java/org/apache/iceberg/AllManifestsTable.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/ManifestWriter.java`
-#### Snippet
-```java
-            .build();
-      } catch (IOException e) {
-        throw new RuntimeIOException(e, "Failed to create manifest writer for path: %s", file);
-      }
-    }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/ManifestWriter.java`
-#### Snippet
-```java
-            .build();
-      } catch (IOException e) {
-        throw new RuntimeIOException(e, "Failed to create manifest writer for path: %s", file);
-      }
-    }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/ManifestWriter.java`
-#### Snippet
-```java
-            .build();
-      } catch (IOException e) {
-        throw new RuntimeIOException(e, "Failed to create manifest writer for path: %s", file);
-      }
-    }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
 in `core/src/main/java/org/apache/iceberg/ManifestFilterManager.java`
 #### Snippet
 ```java
 
     } catch (IOException e) {
-      throw new RuntimeIOException(e, "Failed to close manifest: %s", manifest);
+      throw new RuntimeIOException(e, "Failed to close manifest writer");
     }
   }
 ```
@@ -3676,7 +3676,7 @@ in `core/src/main/java/org/apache/iceberg/ManifestFilterManager.java`
 ```java
 
     } catch (IOException e) {
-      throw new RuntimeIOException(e, "Failed to close manifest writer");
+      throw new RuntimeIOException(e, "Failed to close manifest: %s", manifest);
     }
   }
 ```
@@ -3715,30 +3715,6 @@ in `core/src/main/java/org/apache/iceberg/LocationProviders.java`
         dataLocation = properties.get(TableProperties.WRITE_FOLDER_STORAGE_LOCATION);
         if (dataLocation == null) {
           dataLocation = String.format("%s/data", tableLocation);
-```
-
-### Deprecation
-Overrides deprecated method in 'org.apache.iceberg.TableScan'
-in `core/src/main/java/org/apache/iceberg/BaseTableScan.java`
-#### Snippet
-```java
-
-  @Override
-  public TableScan appendsBetween(long fromSnapshotId, long toSnapshotId) {
-    throw new UnsupportedOperationException("Incremental scan is not supported");
-  }
-```
-
-### Deprecation
-Overrides deprecated method in 'org.apache.iceberg.TableScan'
-in `core/src/main/java/org/apache/iceberg/BaseTableScan.java`
-#### Snippet
-```java
-
-  @Override
-  public TableScan appendsAfter(long fromSnapshotId) {
-    throw new UnsupportedOperationException("Incremental scan is not supported");
-  }
 ```
 
 ### Deprecation
@@ -3790,15 +3766,27 @@ in `core/src/main/java/org/apache/iceberg/IncrementalFileCleanup.java`
 ```
 
 ### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/FastAppend.java`
+Overrides deprecated method in 'org.apache.iceberg.TableScan'
+in `core/src/main/java/org/apache/iceberg/BaseTableScan.java`
 #### Snippet
 ```java
-      }
-    } catch (IOException e) {
-      throw new RuntimeIOException(e, "Failed to write manifest");
-    }
 
+  @Override
+  public TableScan appendsAfter(long fromSnapshotId) {
+    throw new UnsupportedOperationException("Incremental scan is not supported");
+  }
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.iceberg.TableScan'
+in `core/src/main/java/org/apache/iceberg/BaseTableScan.java`
+#### Snippet
+```java
+
+  @Override
+  public TableScan appendsBetween(long fromSnapshotId, long toSnapshotId) {
+    throw new UnsupportedOperationException("Incremental scan is not supported");
+  }
 ```
 
 ### Deprecation
@@ -3811,6 +3799,30 @@ in `core/src/main/java/org/apache/iceberg/BaseSnapshot.java`
       throw new RuntimeIOException(e, "Failed to close entries while caching changes");
     }
 
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/FastAppend.java`
+#### Snippet
+```java
+      }
+    } catch (IOException e) {
+      throw new RuntimeIOException(e, "Failed to write manifest");
+    }
+
+```
+
+### Deprecation
+'fromProperties(java.util.Map)' is deprecated
+in `core/src/main/java/org/apache/iceberg/TableMetadata.java`
+#### Snippet
+```java
+    // Validate the metrics configuration. Note: we only do this on new tables to we don't
+    // break existing tables.
+    MetricsConfig.fromProperties(properties).validateReferencedColumns(schema);
+
+    return new Builder()
 ```
 
 ### Deprecation
@@ -3835,18 +3847,6 @@ in `core/src/main/java/org/apache/iceberg/io/ResolvingFileIO.java`
     super.finalize();
     if (!isClosed.get()) {
       close();
-```
-
-### Deprecation
-'fromProperties(java.util.Map)' is deprecated
-in `core/src/main/java/org/apache/iceberg/TableMetadata.java`
-#### Snippet
-```java
-    // Validate the metrics configuration. Note: we only do this on new tables to we don't
-    // break existing tables.
-    MetricsConfig.fromProperties(properties).validateReferencedColumns(schema);
-
-    return new Builder()
 ```
 
 ### Deprecation
@@ -3878,18 +3878,6 @@ in `core/src/main/java/org/apache/iceberg/avro/AvroIO.java`
 in `core/src/main/java/org/apache/iceberg/avro/AvroIterable.java`
 #### Snippet
 ```java
-        return reader.next(reuse);
-      } catch (IOException e) {
-        throw new RuntimeIOException(e, "Failed to read next record");
-      }
-    }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/avro/AvroIterable.java`
-#### Snippet
-```java
         return reused;
       } catch (IOException e) {
         throw new RuntimeIOException(e, "Failed to read next record");
@@ -3914,9 +3902,9 @@ in `core/src/main/java/org/apache/iceberg/avro/AvroIterable.java`
 in `core/src/main/java/org/apache/iceberg/avro/AvroIterable.java`
 #### Snippet
 ```java
-        reader.sync(start);
+        initMetadata(reader);
       } catch (IOException e) {
-        throw new RuntimeIOException(e, "Failed to find sync past position %d", start);
+        throw new RuntimeIOException(e, "Failed to read metadata for file: %s", file);
       }
     }
 ```
@@ -3938,23 +3926,23 @@ in `core/src/main/java/org/apache/iceberg/avro/AvroIterable.java`
 in `core/src/main/java/org/apache/iceberg/avro/AvroIterable.java`
 #### Snippet
 ```java
-        initMetadata(reader);
+        return reader.next(reuse);
       } catch (IOException e) {
-        throw new RuntimeIOException(e, "Failed to read metadata for file: %s", file);
+        throw new RuntimeIOException(e, "Failed to read next record");
       }
     }
 ```
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
+in `core/src/main/java/org/apache/iceberg/avro/AvroIterable.java`
 #### Snippet
 ```java
-      writer.append(datum);
-    } catch (IOException e) {
-      throw new RuntimeIOException(e);
+        reader.sync(start);
+      } catch (IOException e) {
+        throw new RuntimeIOException(e, "Failed to find sync past position %d", start);
+      }
     }
-  }
 ```
 
 ### Deprecation
@@ -3983,6 +3971,18 @@ in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
+#### Snippet
+```java
+      writer.append(datum);
+    } catch (IOException e) {
+      throw new RuntimeIOException(e);
+    }
+  }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
 in `core/src/main/java/org/apache/iceberg/data/avro/DecoderResolver.java`
 #### Snippet
 ```java
@@ -4003,6 +4003,30 @@ in `core/src/main/java/org/apache/iceberg/rest/RESTObjectMapper.java`
           MAPPER.setPropertyNamingStrategy(new PropertyNamingStrategy.KebabCaseStrategy());
           RESTSerializers.registerAll(MAPPER);
           isInitialized = true;
+```
+
+### Deprecation
+'org.apache.iceberg.rest.requests.UpdateTableRequest.UpdateRequirement' is deprecated
+in `core/src/main/java/org/apache/iceberg/rest/RESTSerializers.java`
+#### Snippet
+```java
+        .addSerializer(TableMetadata.class, new TableMetadataSerializer())
+        .addDeserializer(TableMetadata.class, new TableMetadataDeserializer())
+        .addSerializer(UpdateRequirement.class, new UpdateRequirementSerializer())
+        .addDeserializer(UpdateRequirement.class, new UpdateRequirementDeserializer())
+        .addSerializer(org.apache.iceberg.UpdateRequirement.class, new UpdateReqSerializer())
+```
+
+### Deprecation
+'org.apache.iceberg.rest.requests.UpdateTableRequest.UpdateRequirement' is deprecated
+in `core/src/main/java/org/apache/iceberg/rest/RESTSerializers.java`
+#### Snippet
+```java
+        .addDeserializer(TableMetadata.class, new TableMetadataDeserializer())
+        .addSerializer(UpdateRequirement.class, new UpdateRequirementSerializer())
+        .addDeserializer(UpdateRequirement.class, new UpdateRequirementDeserializer())
+        .addSerializer(org.apache.iceberg.UpdateRequirement.class, new UpdateReqSerializer())
+        .addDeserializer(org.apache.iceberg.UpdateRequirement.class, new UpdateReqDeserializer())
 ```
 
 ### Deprecation
@@ -4039,6 +4063,42 @@ in `core/src/main/java/org/apache/iceberg/util/Exceptions.java`
         throw new RuntimeIOException(e, "Failed calling close");
       }
       // otherwise, ignore the exception
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/hadoop/HadoopInputFile.java`
+#### Snippet
+```java
+      throw new NotFoundException(e, "Failed to open input stream for file: %s", path);
+    } catch (IOException e) {
+      throw new RuntimeIOException(e, "Failed to open input stream for file: %s", path);
+    }
+  }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/hadoop/HadoopInputFile.java`
+#### Snippet
+```java
+
+    } catch (IOException e) {
+      throw new RuntimeIOException(e, "Failed to get block locations for path: %s", path);
+    }
+  }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/hadoop/HadoopInputFile.java`
+#### Snippet
+```java
+        throw new NotFoundException(e, "File does not exist: %s", path);
+      } catch (IOException e) {
+        throw new RuntimeIOException(e, "Failed to get status for file: %s", path);
+      }
+    }
 ```
 
 ### Deprecation
@@ -4082,30 +4142,6 @@ in `core/src/main/java/org/apache/iceberg/hadoop/HadoopMetricsContext.java`
 in `core/src/main/java/org/apache/iceberg/hadoop/HadoopMetricsContext.java`
 #### Snippet
 ```java
-  }
-
-  private Counter<Long> longCounter(Consumer<Long> consumer) {
-    return new Counter<Long>() {
-      @Override
-```
-
-### Deprecation
-'org.apache.iceberg.metrics.MetricsContext.Counter' is deprecated
-in `core/src/main/java/org/apache/iceberg/hadoop/HadoopMetricsContext.java`
-#### Snippet
-```java
-
-  private Counter<Long> longCounter(Consumer<Long> consumer) {
-    return new Counter<Long>() {
-      @Override
-      public void increment() {
-```
-
-### Deprecation
-'org.apache.iceberg.metrics.MetricsContext.Counter' is deprecated
-in `core/src/main/java/org/apache/iceberg/hadoop/HadoopMetricsContext.java`
-#### Snippet
-```java
 
   private Counter<Integer> integerCounter(Consumer<Integer> consumer) {
     return new Counter<Integer>() {
@@ -4123,6 +4159,18 @@ in `core/src/main/java/org/apache/iceberg/hadoop/HadoopMetricsContext.java`
   public <T extends Number> Counter<T> counter(String name, Class<T> type, Unit unit) {
     switch (name) {
       case READ_BYTES:
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/hadoop/HadoopFileIO.java`
+#### Snippet
+```java
+      fs.delete(toDelete, false /* not recursive */);
+    } catch (IOException e) {
+      throw new RuntimeIOException(e, "Failed to delete file: %s", path);
+    }
+  }
 ```
 
 ### Deprecation
@@ -4186,15 +4234,27 @@ in `core/src/main/java/org/apache/iceberg/hadoop/HadoopMetricsContext.java`
 ```
 
 ### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/hadoop/HadoopFileIO.java`
+'org.apache.iceberg.metrics.MetricsContext.Counter' is deprecated
+in `core/src/main/java/org/apache/iceberg/hadoop/HadoopMetricsContext.java`
 #### Snippet
 ```java
-      fs.delete(toDelete, false /* not recursive */);
-    } catch (IOException e) {
-      throw new RuntimeIOException(e, "Failed to delete file: %s", path);
-    }
+
+  private Counter<Long> longCounter(Consumer<Long> consumer) {
+    return new Counter<Long>() {
+      @Override
+      public void increment() {
+```
+
+### Deprecation
+'org.apache.iceberg.metrics.MetricsContext.Counter' is deprecated
+in `core/src/main/java/org/apache/iceberg/hadoop/HadoopMetricsContext.java`
+#### Snippet
+```java
   }
+
+  private Counter<Long> longCounter(Consumer<Long> consumer) {
+    return new Counter<Long>() {
+      @Override
 ```
 
 ### Deprecation
@@ -4205,42 +4265,6 @@ in `core/src/main/java/org/apache/iceberg/hadoop/Util.java`
       return path.getFileSystem(conf);
     } catch (IOException e) {
       throw new RuntimeIOException(e, "Failed to get file system for path: %s", path);
-    }
-  }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/hadoop/HadoopInputFile.java`
-#### Snippet
-```java
-        throw new NotFoundException(e, "File does not exist: %s", path);
-      } catch (IOException e) {
-        throw new RuntimeIOException(e, "Failed to get status for file: %s", path);
-      }
-    }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/hadoop/HadoopInputFile.java`
-#### Snippet
-```java
-      throw new NotFoundException(e, "Failed to open input stream for file: %s", path);
-    } catch (IOException e) {
-      throw new RuntimeIOException(e, "Failed to open input stream for file: %s", path);
-    }
-  }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/hadoop/HadoopInputFile.java`
-#### Snippet
-```java
-
-    } catch (IOException e) {
-      throw new RuntimeIOException(e, "Failed to get block locations for path: %s", path);
     }
   }
 ```
@@ -4310,6 +4334,30 @@ in `core/src/main/java/org/apache/iceberg/hadoop/HadoopStreams.java`
 in `core/src/main/java/org/apache/iceberg/hadoop/HadoopCatalog.java`
 #### Snippet
 ```java
+      return fs.delete(nsPath, false /* recursive */);
+    } catch (IOException e) {
+      throw new RuntimeIOException(e, "Namespace delete failed: %s", namespace);
+    }
+  }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/hadoop/HadoopCatalog.java`
+#### Snippet
+```java
+      return namespaces;
+    } catch (IOException ioe) {
+      throw new RuntimeIOException(ioe, "Failed to list namespace under: %s", namespace);
+    }
+  }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `core/src/main/java/org/apache/iceberg/hadoop/HadoopCatalog.java`
+#### Snippet
+```java
       }
     } catch (IOException e) {
       throw new RuntimeIOException(e, "Failed to delete file: %s", tablePath);
@@ -4334,35 +4382,11 @@ in `core/src/main/java/org/apache/iceberg/hadoop/HadoopCatalog.java`
 in `core/src/main/java/org/apache/iceberg/hadoop/HadoopCatalog.java`
 #### Snippet
 ```java
-      return namespaces;
-    } catch (IOException ioe) {
-      throw new RuntimeIOException(ioe, "Failed to list namespace under: %s", namespace);
-    }
-  }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/hadoop/HadoopCatalog.java`
-#### Snippet
-```java
       }
     } catch (IOException ioe) {
       throw new RuntimeIOException(ioe, "Failed to list tables under: %s", namespace);
     }
 
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `core/src/main/java/org/apache/iceberg/hadoop/HadoopCatalog.java`
-#### Snippet
-```java
-      return fs.delete(nsPath, false /* recursive */);
-    } catch (IOException e) {
-      throw new RuntimeIOException(e, "Namespace delete failed: %s", namespace);
-    }
-  }
 ```
 
 ### Deprecation
@@ -4402,18 +4426,6 @@ in `core/src/main/java/org/apache/iceberg/deletes/BitmapPositionDeleteIndex.java
 ```
 
 ### Deprecation
-'appendsAfter(long)' is deprecated
-in `file://$PROJECT_DIR$$PROJECT_DIR$/../src/main/java/org/apache/iceberg/data/IcebergGenerics.java`
-#### Snippet
-```java
-
-    public ScanBuilder appendsAfter(long fromSnapshotId) {
-      this.tableScan = tableScan.appendsAfter(fromSnapshotId);
-      return this;
-    }
-```
-
-### Deprecation
 'appendsBetween(long, long)' is deprecated
 in `file://$PROJECT_DIR$$PROJECT_DIR$/../src/main/java/org/apache/iceberg/data/IcebergGenerics.java`
 #### Snippet
@@ -4426,15 +4438,27 @@ in `file://$PROJECT_DIR$$PROJECT_DIR$/../src/main/java/org/apache/iceberg/data/I
 ```
 
 ### Deprecation
+'appendsAfter(long)' is deprecated
+in `file://$PROJECT_DIR$$PROJECT_DIR$/../src/main/java/org/apache/iceberg/data/IcebergGenerics.java`
+#### Snippet
+```java
+
+    public ScanBuilder appendsAfter(long fromSnapshotId) {
+      this.tableScan = tableScan.appendsAfter(fromSnapshotId);
+      return this;
+    }
+```
+
+### Deprecation
 'fromProperties(java.util.Map)' is deprecated
 in `file://$PROJECT_DIR$$PROJECT_DIR$/../src/main/java/org/apache/iceberg/data/GenericAppenderFactory.java`
 #### Snippet
 ```java
-        "Equality delete row schema shouldn't be null when creating equality-delete writer");
-
+  @Override
+  public FileAppender<Record> newAppender(OutputFile outputFile, FileFormat fileFormat) {
     MetricsConfig metricsConfig = MetricsConfig.fromProperties(config);
     try {
-      switch (format) {
+      switch (fileFormat) {
 ```
 
 ### Deprecation
@@ -4454,11 +4478,11 @@ in `file://$PROJECT_DIR$$PROJECT_DIR$/../src/main/java/org/apache/iceberg/data/G
 in `file://$PROJECT_DIR$$PROJECT_DIR$/../src/main/java/org/apache/iceberg/data/GenericAppenderFactory.java`
 #### Snippet
 ```java
-  @Override
-  public FileAppender<Record> newAppender(OutputFile outputFile, FileFormat fileFormat) {
+        "Equality delete row schema shouldn't be null when creating equality-delete writer");
+
     MetricsConfig metricsConfig = MetricsConfig.fromProperties(config);
     try {
-      switch (fileFormat) {
+      switch (format) {
 ```
 
 ### Deprecation
@@ -4486,15 +4510,15 @@ in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReade
 ```
 
 ### Deprecation
-'org.apache.parquet.schema.OriginalType' is deprecated
-in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/GenericArrowVectorAccessorFactory.java`
+'org.apache.flink.table.api.TableSchema' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/IcebergTableSink.java`
 #### Snippet
 ```java
-
-  private static boolean isDecimal(PrimitiveType primitive) {
-    return primitive != null && OriginalType.DECIMAL.equals(primitive.getOriginalType());
-  }
-
+  public IcebergTableSink(
+      TableLoader tableLoader,
+      TableSchema tableSchema,
+      ReadableConfig readableConfig,
+      Map<String, String> writeProps) {
 ```
 
 ### Deprecation
@@ -4514,18 +4538,6 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/IcebergTableSink.ja
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/IcebergTableSink.java`
 #### Snippet
 ```java
-  public IcebergTableSink(
-      TableLoader tableLoader,
-      TableSchema tableSchema,
-      ReadableConfig readableConfig,
-      Map<String, String> writeProps) {
-```
-
-### Deprecation
-'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/IcebergTableSink.java`
-#### Snippet
-```java
 public class IcebergTableSink implements DynamicTableSink, SupportsPartitioning, SupportsOverwrite {
   private final TableLoader tableLoader;
   private final TableSchema tableSchema;
@@ -4534,51 +4546,15 @@ public class IcebergTableSink implements DynamicTableSink, SupportsPartitioning,
 ```
 
 ### Deprecation
-'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.java`
+'org.apache.parquet.schema.OriginalType' is deprecated
+in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/GenericArrowVectorAccessorFactory.java`
 #### Snippet
 ```java
 
-  /**
-   * Convert a Flink {@link TableSchema} to a {@link Schema} based on the given schema.
-   *
-   * <p>This conversion does not assign new ids; it uses ids from the base schema.
-```
-
-### Deprecation
-'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if the type cannot be converted or there are missing ids
-   */
-  public static Schema convert(Schema baseSchema, TableSchema flinkSchema) {
-    // convert to a type with fresh ids
-    Types.StructType struct = convert(flinkSchema).asStruct();
-```
-
-### Deprecation
-'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.java`
-#### Snippet
-```java
+  private static boolean isDecimal(PrimitiveType primitive) {
+    return primitive != null && OriginalType.DECIMAL.equals(primitive.getOriginalType());
   }
 
-  private static Schema freshIdentifierFieldIds(Schema iSchema, TableSchema schema) {
-    // Locate the identifier field id list.
-    Set<Integer> identifierFieldIds = Sets.newHashSet();
-```
-
-### Deprecation
-'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.java`
-#### Snippet
-```java
-
-  /** Convert the flink table schema to apache iceberg schema. */
-  public static Schema convert(TableSchema schema) {
-    LogicalType schemaType = schema.toRowDataType().getLogicalType();
-    Preconditions.checkArgument(
 ```
 
 ### Deprecation
@@ -4636,6 +4612,42 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.jav
 ```java
 
   /**
+   * Convert a Flink {@link TableSchema} to a {@link Schema} based on the given schema.
+   *
+   * <p>This conversion does not assign new ids; it uses ids from the base schema.
+```
+
+### Deprecation
+'org.apache.flink.table.api.TableSchema' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if the type cannot be converted or there are missing ids
+   */
+  public static Schema convert(Schema baseSchema, TableSchema flinkSchema) {
+    // convert to a type with fresh ids
+    Types.StructType struct = convert(flinkSchema).asStruct();
+```
+
+### Deprecation
+'org.apache.flink.table.api.TableSchema' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.java`
+#### Snippet
+```java
+
+  /** Convert the flink table schema to apache iceberg schema. */
+  public static Schema convert(TableSchema schema) {
+    LogicalType schemaType = schema.toRowDataType().getLogicalType();
+    Preconditions.checkArgument(
+```
+
+### Deprecation
+'org.apache.flink.table.api.TableSchema' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.java`
+#### Snippet
+```java
+
+  /**
    * Convert a {@link RowType} to a {@link TableSchema}.
    *
    * @param rowType a RowType
@@ -4679,26 +4691,14 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.jav
 
 ### Deprecation
 'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkDynamicTableFactory.java`
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.java`
 #### Snippet
 ```java
-    CatalogTable catalogTable = context.getCatalogTable();
-    Map<String, String> tableProps = catalogTable.getOptions();
-    TableSchema tableSchema = TableSchemaUtils.getPhysicalSchema(catalogTable.getSchema());
+  }
 
-    TableLoader tableLoader;
-```
-
-### Deprecation
-'getSchema()' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkDynamicTableFactory.java`
-#### Snippet
-```java
-    CatalogTable catalogTable = context.getCatalogTable();
-    Map<String, String> tableProps = catalogTable.getOptions();
-    TableSchema tableSchema = TableSchemaUtils.getPhysicalSchema(catalogTable.getSchema());
-
-    TableLoader tableLoader;
+  private static Schema freshIdentifierFieldIds(Schema iSchema, TableSchema schema) {
+    // Locate the identifier field id list.
+    Set<Integer> identifierFieldIds = Sets.newHashSet();
 ```
 
 ### Deprecation
@@ -4723,6 +4723,42 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkDynamicTableFa
     TableSchema tableSchema = TableSchemaUtils.getPhysicalSchema(catalogTable.getSchema());
 
     TableLoader tableLoader;
+```
+
+### Deprecation
+'org.apache.flink.table.api.TableSchema' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkDynamicTableFactory.java`
+#### Snippet
+```java
+    CatalogTable catalogTable = context.getCatalogTable();
+    Map<String, String> tableProps = catalogTable.getOptions();
+    TableSchema tableSchema = TableSchemaUtils.getPhysicalSchema(catalogTable.getSchema());
+
+    TableLoader tableLoader;
+```
+
+### Deprecation
+'getSchema()' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkDynamicTableFactory.java`
+#### Snippet
+```java
+    CatalogTable catalogTable = context.getCatalogTable();
+    Map<String, String> tableProps = catalogTable.getOptions();
+    TableSchema tableSchema = TableSchemaUtils.getPhysicalSchema(catalogTable.getSchema());
+
+    TableLoader tableLoader;
+```
+
+### Deprecation
+Overrides deprecated method in 'org.apache.flink.table.factories.CatalogFactory'
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalogFactory.java`
+#### Snippet
+```java
+
+  @Override
+  public Catalog createCatalog(String name, Map<String, String> properties) {
+    return createCatalog(name, properties, clusterHadoopConf());
+  }
 ```
 
 ### Deprecation
@@ -4750,39 +4786,15 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalogFactory
 ```
 
 ### Deprecation
-Overrides deprecated method in 'org.apache.flink.table.factories.CatalogFactory'
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalogFactory.java`
+'org.apache.parquet.schema.OriginalType' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/data/ParquetWithFlinkSchemaVisitor.java`
 #### Snippet
 ```java
-
-  @Override
-  public Catalog createCatalog(String name, Map<String, String> properties) {
-    return createCatalog(name, properties, clusterHadoopConf());
-  }
-```
-
-### Deprecation
-'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalog.java`
-#### Snippet
-```java
-        table instanceof CatalogTable, "The Table should be a CatalogTable.");
-
-    TableSchema schema = table.getSchema();
-    schema
-        .getTableColumns()
-```
-
-### Deprecation
-'getSchema()' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalog.java`
-#### Snippet
-```java
-        table instanceof CatalogTable, "The Table should be a CatalogTable.");
-
-    TableSchema schema = table.getSchema();
-    schema
-        .getTableColumns()
+      // if not a primitive, the typeId must be a group
+      GroupType group = type.asGroupType();
+      OriginalType annotation = group.getOriginalType();
+      if (annotation != null) {
+        switch (annotation) {
 ```
 
 ### Deprecation
@@ -4814,6 +4826,42 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalog.java`
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalog.java`
 #### Snippet
 ```java
+        table instanceof CatalogTable, "The Table should be a CatalogTable.");
+
+    TableSchema schema = table.getSchema();
+    schema
+        .getTableColumns()
+```
+
+### Deprecation
+'getSchema()' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalog.java`
+#### Snippet
+```java
+        table instanceof CatalogTable, "The Table should be a CatalogTable.");
+
+    TableSchema schema = table.getSchema();
+    schema
+        .getTableColumns()
+```
+
+### Deprecation
+'getSchema()' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalog.java`
+#### Snippet
+```java
+    validateFlinkTable(table);
+
+    Schema icebergSchema = FlinkSchemaUtil.convert(table.getSchema());
+    PartitionSpec spec = toPartitionSpec(((CatalogTable) table).getPartitionKeys(), icebergSchema);
+
+```
+
+### Deprecation
+'org.apache.flink.table.api.TableSchema' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalog.java`
+#### Snippet
+```java
 
   private static void validateTableSchemaAndPartition(CatalogTable ct1, CatalogTable ct2) {
     TableSchema ts1 = ct1.getSchema();
@@ -4855,30 +4903,6 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalog.java`
     TableSchema ts2 = ct2.getSchema();
     boolean equalsPrimary = false;
 
-```
-
-### Deprecation
-'getSchema()' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkCatalog.java`
-#### Snippet
-```java
-    validateFlinkTable(table);
-
-    Schema icebergSchema = FlinkSchemaUtil.convert(table.getSchema());
-    PartitionSpec spec = toPartitionSpec(((CatalogTable) table).getPartitionKeys(), icebergSchema);
-
-```
-
-### Deprecation
-'org.apache.parquet.schema.OriginalType' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/data/ParquetWithFlinkSchemaVisitor.java`
-#### Snippet
-```java
-      // if not a primitive, the typeId must be a group
-      GroupType group = type.asGroupType();
-      OriginalType annotation = group.getOriginalType();
-      if (annotation != null) {
-        switch (annotation) {
 ```
 
 ### Deprecation
@@ -4895,30 +4919,6 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/util/FlinkCompatibi
 
 ### Deprecation
 'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/FlinkSource.java`
-#### Snippet
-```java
-    }
-
-    public Builder project(TableSchema schema) {
-      this.projectedSchema = schema;
-      return this;
-```
-
-### Deprecation
-'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/FlinkSource.java`
-#### Snippet
-```java
-    private Table table;
-    private TableLoader tableLoader;
-    private TableSchema projectedSchema;
-    private ReadableConfig readableConfig = new Configuration();
-    private final ScanContext.Builder contextBuilder = ScanContext.builder();
-```
-
-### Deprecation
-'org.apache.flink.table.api.TableSchema' is deprecated
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/sink/FlinkSink.java`
 #### Snippet
 ```java
@@ -4927,6 +4927,30 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/sink/FlinkSink.java
   static RowType toFlinkRowType(Schema schema, TableSchema requestedSchema) {
     if (requestedSchema != null) {
       // Convert the flink schema to iceberg schema firstly, then reassign ids to match the existing
+```
+
+### Deprecation
+'org.apache.flink.table.api.TableSchema' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/sink/FlinkSink.java`
+#### Snippet
+```java
+    }
+
+    public Builder tableSchema(TableSchema newTableSchema) {
+      this.tableSchema = newTableSchema;
+      return this;
+```
+
+### Deprecation
+'org.apache.flink.table.api.TableSchema' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/sink/FlinkSink.java`
+#### Snippet
+```java
+    private TableLoader tableLoader;
+    private Table table;
+    private TableSchema tableSchema;
+    private List<String> equalityFieldColumns = null;
+    private String uidPrefix = null;
 ```
 
 ### Deprecation
@@ -4955,38 +4979,38 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/sink/FlinkSink.java
 
 ### Deprecation
 'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/sink/FlinkSink.java`
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/FlinkSource.java`
 #### Snippet
 ```java
-    private TableLoader tableLoader;
     private Table table;
-    private TableSchema tableSchema;
-    private List<String> equalityFieldColumns = null;
-    private String uidPrefix = null;
+    private TableLoader tableLoader;
+    private TableSchema projectedSchema;
+    private ReadableConfig readableConfig = new Configuration();
+    private final ScanContext.Builder contextBuilder = ScanContext.builder();
 ```
 
 ### Deprecation
 'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/sink/FlinkSink.java`
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/FlinkSource.java`
 #### Snippet
 ```java
     }
 
-    public Builder tableSchema(TableSchema newTableSchema) {
-      this.tableSchema = newTableSchema;
+    public Builder project(TableSchema schema) {
+      this.projectedSchema = schema;
       return this;
 ```
 
 ### Deprecation
-'properties(java.util.Map)' is deprecated
+Overrides deprecated method in 'org.apache.flink.table.connector.source.abilities.SupportsProjectionPushDown'
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTableSource.java`
 #### Snippet
 ```java
-            .tableLoader(loader)
-            .assignerFactory(assignerType.factory())
-            .properties(properties)
-            .project(getProjectedSchema())
-            .limit(limit)
+
+  @Override
+  public void applyProjection(int[][] projectFields) {
+    this.projectedFields = new int[projectFields.length];
+    for (int i = 0; i < projectFields.length; i++) {
 ```
 
 ### Deprecation
@@ -5026,18 +5050,6 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTable
 ```
 
 ### Deprecation
-Overrides deprecated method in 'org.apache.flink.table.connector.source.abilities.SupportsProjectionPushDown'
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTableSource.java`
-#### Snippet
-```java
-
-  @Override
-  public void applyProjection(int[][] projectFields) {
-    this.projectedFields = new int[projectFields.length];
-    for (int i = 0; i < projectFields.length; i++) {
-```
-
-### Deprecation
 'properties(java.util.Map)' is deprecated
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTableSource.java`
 #### Snippet
@@ -5054,18 +5066,6 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTable
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTableSource.java`
 #### Snippet
 ```java
-
-  private final TableLoader loader;
-  private final TableSchema schema;
-  private final Map<String, String> properties;
-  private final boolean isLimitPushDown;
-```
-
-### Deprecation
-'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTableSource.java`
-#### Snippet
-```java
   private IcebergTableSource(
       TableLoader loader,
       TableSchema schema,
@@ -5075,14 +5075,26 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTable
 
 ### Deprecation
 'org.apache.flink.table.api.TableSchema' is deprecated
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergSource.java`
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTableSource.java`
 #### Snippet
 ```java
-    private ReadableConfig flinkConfig = new Configuration();
-    private final ScanContext.Builder contextBuilder = ScanContext.builder();
-    private TableSchema projectedFlinkSchema;
-    private Boolean exposeLocality;
 
+  private final TableLoader loader;
+  private final TableSchema schema;
+  private final Map<String, String> properties;
+  private final boolean isLimitPushDown;
+```
+
+### Deprecation
+'properties(java.util.Map)' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTableSource.java`
+#### Snippet
+```java
+            .tableLoader(loader)
+            .assignerFactory(assignerType.factory())
+            .properties(properties)
+            .project(getProjectedSchema())
+            .limit(limit)
 ```
 
 ### Deprecation
@@ -5098,6 +5110,18 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergSourc
 ```
 
 ### Deprecation
+'org.apache.flink.table.api.TableSchema' is deprecated
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergSource.java`
+#### Snippet
+```java
+    private ReadableConfig flinkConfig = new Configuration();
+    private final ScanContext.Builder contextBuilder = ScanContext.builder();
+    private TableSchema projectedFlinkSchema;
+    private Boolean exposeLocality;
+
+```
+
+### Deprecation
 'org.apache.iceberg.actions.BinPackStrategy' is deprecated
 in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
 #### Snippet
@@ -5105,8 +5129,8 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCom
     SparkActions.get()
         .rewriteDataFiles(table())
         .option(BinPackStrategy.REWRITE_ALL, "true")
-        .zOrder("intCol", "intCol2")
-        .execute();
+        .sort(
+            SortOrder.builderFor(table().schema())
 ```
 
 ### Deprecation
@@ -5118,6 +5142,42 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCom
         .rewriteDataFiles(table())
         .option(BinPackStrategy.REWRITE_ALL, "true")
         .zOrder("stringCol")
+        .execute();
+```
+
+### Deprecation
+'org.apache.iceberg.actions.BinPackStrategy' is deprecated
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
+#### Snippet
+```java
+    SparkActions.get()
+        .rewriteDataFiles(table())
+        .option(BinPackStrategy.REWRITE_ALL, "true")
+        .zOrder("intCol", "intCol2", "intCol3")
+        .execute();
+```
+
+### Deprecation
+'org.apache.iceberg.actions.BinPackStrategy' is deprecated
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
+#### Snippet
+```java
+    SparkActions.get()
+        .rewriteDataFiles(table())
+        .option(BinPackStrategy.REWRITE_ALL, "true")
+        .zOrder("stringCol", "intCol", "dateCol", "doubleCol")
+        .execute();
+```
+
+### Deprecation
+'org.apache.iceberg.actions.BinPackStrategy' is deprecated
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
+#### Snippet
+```java
+    SparkActions.get()
+        .rewriteDataFiles(table())
+        .option(BinPackStrategy.REWRITE_ALL, "true")
+        .zOrder("intCol", "intCol2", "intCol3", "intCol4")
         .execute();
 ```
 
@@ -5153,6 +5213,18 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCom
     SparkActions.get()
         .rewriteDataFiles(table())
         .option(BinPackStrategy.REWRITE_ALL, "true")
+        .sort(
+            SortOrder.builderFor(table().schema())
+```
+
+### Deprecation
+'org.apache.iceberg.actions.BinPackStrategy' is deprecated
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
+#### Snippet
+```java
+    SparkActions.get()
+        .rewriteDataFiles(table())
+        .option(BinPackStrategy.REWRITE_ALL, "true")
         .zOrder("intCol")
         .execute();
 ```
@@ -5177,7 +5249,7 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCom
     SparkActions.get()
         .rewriteDataFiles(table())
         .option(BinPackStrategy.REWRITE_ALL, "true")
-        .zOrder("stringCol", "intCol", "dateCol", "doubleCol")
+        .zOrder("intCol", "intCol2")
         .execute();
 ```
 
@@ -5191,54 +5263,6 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCom
         .option(BinPackStrategy.REWRITE_ALL, "true")
         .sort(
             SortOrder.builderFor(table().schema())
-```
-
-### Deprecation
-'org.apache.iceberg.actions.BinPackStrategy' is deprecated
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
-#### Snippet
-```java
-    SparkActions.get()
-        .rewriteDataFiles(table())
-        .option(BinPackStrategy.REWRITE_ALL, "true")
-        .zOrder("intCol", "intCol2", "intCol3")
-        .execute();
-```
-
-### Deprecation
-'org.apache.iceberg.actions.BinPackStrategy' is deprecated
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
-#### Snippet
-```java
-    SparkActions.get()
-        .rewriteDataFiles(table())
-        .option(BinPackStrategy.REWRITE_ALL, "true")
-        .sort(
-            SortOrder.builderFor(table().schema())
-```
-
-### Deprecation
-'org.apache.iceberg.actions.BinPackStrategy' is deprecated
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
-#### Snippet
-```java
-    SparkActions.get()
-        .rewriteDataFiles(table())
-        .option(BinPackStrategy.REWRITE_ALL, "true")
-        .sort(
-            SortOrder.builderFor(table().schema())
-```
-
-### Deprecation
-'org.apache.iceberg.actions.BinPackStrategy' is deprecated
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
-#### Snippet
-```java
-    SparkActions.get()
-        .rewriteDataFiles(table())
-        .option(BinPackStrategy.REWRITE_ALL, "true")
-        .zOrder("intCol", "intCol2", "intCol3", "intCol4")
-        .execute();
 ```
 
 ### Deprecation
@@ -5362,15 +5386,15 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkExceptionUtil.j
 ```
 
 ### Deprecation
-'org.apache.parquet.schema.OriginalType' is deprecated
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/ParquetWithSparkSchemaVisitor.java`
+'stageCreate(org.apache.spark.sql.connector.catalog.Identifier, org.apache.spark.sql.types.StructType, org.apache.spark.sql.connector.expressions.Transform\[\], java.util.Map)' is deprecated
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkSessionCatalog.java`
 #### Snippet
 ```java
-      // if not a primitive, the typeId must be a group
-      GroupType group = type.asGroupType();
-      OriginalType annotation = group.getOriginalType();
-      if (annotation != null) {
-        switch (annotation) {
+    if (useIceberg(provider)) {
+      if (asStagingCatalog != null) {
+        return asStagingCatalog.stageCreate(ident, schema, partitions, properties);
+      }
+      catalog = icebergCatalog;
 ```
 
 ### Deprecation
@@ -5378,11 +5402,11 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/ParquetWithSpar
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkSessionCatalog.java`
 #### Snippet
 ```java
-      // create the table with the session catalog, then wrap it in a staged table that will delete
-      // to roll back
-      Table table = catalog.createTable(ident, schema, partitions, properties);
-      return new RollbackStagedTable(catalog, ident, table);
-
+    // create the table with the session catalog, then wrap it in a staged table that will delete to
+    // roll back
+    Table table = catalog.createTable(ident, schema, partitions, properties);
+    return new RollbackStagedTable(catalog, ident, table);
+  }
 ```
 
 ### Deprecation
@@ -5394,6 +5418,18 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkSessionCatalog.
       // to roll back
       Table sessionCatalogTable = catalog.createTable(ident, schema, partitions, properties);
       return new RollbackStagedTable(catalog, ident, sessionCatalogTable);
+
+```
+
+### Deprecation
+'createTable(org.apache.spark.sql.connector.catalog.Identifier, org.apache.spark.sql.types.StructType, org.apache.spark.sql.connector.expressions.Transform\[\], java.util.Map)' is deprecated
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkSessionCatalog.java`
+#### Snippet
+```java
+      // create the table with the session catalog, then wrap it in a staged table that will delete
+      // to roll back
+      Table table = catalog.createTable(ident, schema, partitions, properties);
+      return new RollbackStagedTable(catalog, ident, table);
 
 ```
 
@@ -5422,27 +5458,15 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkSessionCatalog.
 ```
 
 ### Deprecation
-'stageCreate(org.apache.spark.sql.connector.catalog.Identifier, org.apache.spark.sql.types.StructType, org.apache.spark.sql.connector.expressions.Transform\[\], java.util.Map)' is deprecated
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkSessionCatalog.java`
+'org.apache.parquet.schema.OriginalType' is deprecated
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/ParquetWithSparkSchemaVisitor.java`
 #### Snippet
 ```java
-    if (useIceberg(provider)) {
-      if (asStagingCatalog != null) {
-        return asStagingCatalog.stageCreate(ident, schema, partitions, properties);
-      }
-      catalog = icebergCatalog;
-```
-
-### Deprecation
-'createTable(org.apache.spark.sql.connector.catalog.Identifier, org.apache.spark.sql.types.StructType, org.apache.spark.sql.connector.expressions.Transform\[\], java.util.Map)' is deprecated
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkSessionCatalog.java`
-#### Snippet
-```java
-    // create the table with the session catalog, then wrap it in a staged table that will delete to
-    // roll back
-    Table table = catalog.createTable(ident, schema, partitions, properties);
-    return new RollbackStagedTable(catalog, ident, table);
-  }
+      // if not a primitive, the typeId must be a group
+      GroupType group = type.asGroupType();
+      OriginalType annotation = group.getOriginalType();
+      if (annotation != null) {
+        switch (annotation) {
 ```
 
 ### Deprecation
@@ -5519,30 +5543,6 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/SnapshotTabl
 
 ### Deprecation
 Overrides deprecated method in 'java.lang.Object'
-in `aliyun/src/main/java/org/apache/iceberg/aliyun/oss/OSSOutputStream.java`
-#### Snippet
-```java
-  @SuppressWarnings("checkstyle:NoFinalizer")
-  @Override
-  protected void finalize() throws Throwable {
-    super.finalize();
-    if (!closed) {
-```
-
-### Deprecation
-'finalize()' is deprecated
-in `aliyun/src/main/java/org/apache/iceberg/aliyun/oss/OSSOutputStream.java`
-#### Snippet
-```java
-  @Override
-  protected void finalize() throws Throwable {
-    super.finalize();
-    if (!closed) {
-      close(); // releasing resources is more important than printing the warning.
-```
-
-### Deprecation
-Overrides deprecated method in 'java.lang.Object'
 in `aliyun/src/main/java/org/apache/iceberg/aliyun/oss/OSSInputStream.java`
 #### Snippet
 ```java
@@ -5566,27 +5566,27 @@ in `aliyun/src/main/java/org/apache/iceberg/aliyun/oss/OSSInputStream.java`
 ```
 
 ### Deprecation
-'org.apache.parquet.schema.OriginalType' is deprecated
-in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetTypeVisitor.java`
+Overrides deprecated method in 'java.lang.Object'
+in `aliyun/src/main/java/org/apache/iceberg/aliyun/oss/OSSOutputStream.java`
 #### Snippet
 ```java
-      // if not a primitive, the typeId must be a group
-      GroupType group = type.asGroupType();
-      OriginalType annotation = group.getOriginalType();
-      if (annotation != null) {
-        switch (annotation) {
+  @SuppressWarnings("checkstyle:NoFinalizer")
+  @Override
+  protected void finalize() throws Throwable {
+    super.finalize();
+    if (!closed) {
 ```
 
 ### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetIO.java`
+'finalize()' is deprecated
+in `aliyun/src/main/java/org/apache/iceberg/aliyun/oss/OSSOutputStream.java`
 #### Snippet
 ```java
-            hfile.getStat(), hfile.getConf());
-      } catch (IOException e) {
-        throw new RuntimeIOException(e, "Failed to create Parquet input file for %s", file);
-      }
-    }
+  @Override
+  protected void finalize() throws Throwable {
+    super.finalize();
+    if (!closed) {
+      close(); // releasing resources is more important than printing the warning.
 ```
 
 ### Deprecation
@@ -5615,14 +5615,26 @@ in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetIO.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetIterable.java`
+in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetIO.java`
 #### Snippet
 ```java
-        return nextRecord;
+            hfile.getStat(), hfile.getConf());
       } catch (IOException e) {
-        throw new RuntimeIOException(e);
+        throw new RuntimeIOException(e, "Failed to create Parquet input file for %s", file);
       }
     }
+```
+
+### Deprecation
+'org.apache.parquet.schema.OriginalType' is deprecated
+in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetTypeVisitor.java`
+#### Snippet
+```java
+      // if not a primitive, the typeId must be a group
+      GroupType group = type.asGroupType();
+      OriginalType annotation = group.getOriginalType();
+      if (annotation != null) {
+        switch (annotation) {
 ```
 
 ### Deprecation
@@ -5635,6 +5647,18 @@ in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetIterable.java`
       throw new RuntimeIOException(e, "Failed to create Parquet reader");
     }
   }
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetIterable.java`
+#### Snippet
+```java
+        return nextRecord;
+      } catch (IOException e) {
+        throw new RuntimeIOException(e);
+      }
+    }
 ```
 
 ### Deprecation
@@ -5686,30 +5710,6 @@ in `parquet/src/main/java/org/apache/iceberg/parquet/TypeWithSchemaVisitor.java`
 ```
 
 ### Deprecation
-'org.apache.parquet.hadoop.CodecFactory.BytesDecompressor' is deprecated
-in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetCodecFactory.java`
-#### Snippet
-```java
-
-  /** Copied and modified from CodecFactory.HeapBytesDecompressor */
-  class HeapBytesDecompressor extends BytesDecompressor {
-
-    private final CompressionCodec codec;
-```
-
-### Deprecation
-'org.apache.parquet.hadoop.CodecFactory.BytesDecompressor' is deprecated
-in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetCodecFactory.java`
-#### Snippet
-```java
-
-  @Override
-  protected BytesDecompressor createDecompressor(CompressionCodecName codecName) {
-    return new HeapBytesDecompressor(codecName);
-  }
-```
-
-### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
 in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetUtil.java`
 #### Snippet
@@ -5735,6 +5735,18 @@ in `parquet/src/main/java/org/apache/iceberg/parquet/ReadConf.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `parquet/src/main/java/org/apache/iceberg/parquet/VectorizedParquetReader.java`
+#### Snippet
+```java
+        pages = reader.readNextRowGroup();
+      } catch (IOException e) {
+        throw new RuntimeIOException(e);
+      }
+
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
 in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetReader.java`
 #### Snippet
 ```java
@@ -5747,14 +5759,26 @@ in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetReader.java`
 
 ### Deprecation
 'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `parquet/src/main/java/org/apache/iceberg/parquet/VectorizedParquetReader.java`
+in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetDictionaryRowGroupFilter.java`
 #### Snippet
 ```java
-        pages = reader.readNextRowGroup();
+        dict = page.getEncoding().initDictionary(col, page);
       } catch (IOException e) {
-        throw new RuntimeIOException(e);
+        throw new RuntimeIOException("Failed to create reader for dictionary page");
       }
 
+```
+
+### Deprecation
+'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
+in `parquet/src/main/java/org/apache/iceberg/parquet/Parquet.java`
+#### Snippet
+```java
+          type = schemaReader.getFileMetaData().getSchema();
+        } catch (IOException e) {
+          throw new RuntimeIOException(e);
+        }
+        Schema fileSchema = ParquetSchemaUtil.convert(type);
 ```
 
 ### Deprecation
@@ -5779,30 +5803,6 @@ in `parquet/src/main/java/org/apache/iceberg/parquet/Parquet.java`
         return new ParquetWriteAdapter<>(parquetWriteBuilder.build(), metricsConfig);
       }
     }
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `parquet/src/main/java/org/apache/iceberg/parquet/Parquet.java`
-#### Snippet
-```java
-          type = schemaReader.getFileMetaData().getSchema();
-        } catch (IOException e) {
-          throw new RuntimeIOException(e);
-        }
-        Schema fileSchema = ParquetSchemaUtil.convert(type);
-```
-
-### Deprecation
-'org.apache.iceberg.exceptions.RuntimeIOException' is deprecated
-in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetDictionaryRowGroupFilter.java`
-#### Snippet
-```java
-        dict = page.getEncoding().initDictionary(col, page);
-      } catch (IOException e) {
-        throw new RuntimeIOException("Failed to create reader for dictionary page");
-      }
-
 ```
 
 ### Deprecation
@@ -5899,8 +5899,8 @@ in `api/src/main/java/org/apache/iceberg/Files.java`
 ```java
 
     @Override
-    public void write(byte[] b, int off, int len) throws IOException {
-      stream.write(b, off, len);
+    public int read(byte[] b) throws IOException {
+      return stream.read(b);
     }
 ```
 
@@ -5911,8 +5911,8 @@ in `api/src/main/java/org/apache/iceberg/Files.java`
 ```java
 
     @Override
-    public int read(byte[] b) throws IOException {
-      return stream.read(b);
+    public void write(byte[] b) throws IOException {
+      stream.write(b);
     }
 ```
 
@@ -5935,9 +5935,21 @@ in `api/src/main/java/org/apache/iceberg/Files.java`
 ```java
 
     @Override
-    public void write(byte[] b) throws IOException {
-      stream.write(b);
+    public void write(byte[] b, int off, int len) throws IOException {
+      stream.write(b, off, len);
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `api/src/main/java/org/apache/iceberg/util/CharSequenceSet.java`
+#### Snippet
+```java
+
+  @Override
+  public boolean retainAll(Collection<?> objects) {
+    if (objects != null) {
+      Set<CharSequenceWrapper> toRetain =
 ```
 
 ### NullableProblems
@@ -5959,18 +5971,6 @@ in `api/src/main/java/org/apache/iceberg/util/CharSequenceSet.java`
 ```java
   @Override
   @SuppressWarnings("CollectionUndefinedEquality")
-  public boolean containsAll(Collection<?> objects) {
-    if (objects != null) {
-      return Iterables.all(objects, this::contains);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `api/src/main/java/org/apache/iceberg/util/CharSequenceSet.java`
-#### Snippet
-```java
-  @Override
-  @SuppressWarnings("CollectionUndefinedEquality")
   public boolean removeAll(Collection<?> objects) {
     if (objects != null) {
       return objects.stream().filter(this::remove).count() != 0;
@@ -5981,11 +5981,11 @@ Not annotated parameter overrides @NotNull parameter
 in `api/src/main/java/org/apache/iceberg/util/CharSequenceSet.java`
 #### Snippet
 ```java
-
   @Override
-  public boolean retainAll(Collection<?> objects) {
+  @SuppressWarnings("CollectionUndefinedEquality")
+  public boolean containsAll(Collection<?> objects) {
     if (objects != null) {
-      Set<CharSequenceWrapper> toRetain =
+      return Iterables.all(objects, this::contains);
 ```
 
 ### NullableProblems
@@ -6079,9 +6079,9 @@ in `core/src/main/java/org/apache/iceberg/io/MultiBufferInputStream.java`
 ```java
 
   @Override
-  public int read(byte[] bytes) {
-    return read(bytes, 0, bytes.length);
-  }
+  public int read(byte[] bytes, int off, int len) {
+    if (len <= 0) {
+      if (len < 0) {
 ```
 
 ### NullableProblems
@@ -6091,9 +6091,9 @@ in `core/src/main/java/org/apache/iceberg/io/MultiBufferInputStream.java`
 ```java
 
   @Override
-  public int read(byte[] bytes, int off, int len) {
-    if (len <= 0) {
-      if (len < 0) {
+  public int read(byte[] bytes) {
+    return read(bytes, 0, bytes.length);
+  }
 ```
 
 ### NullableProblems
@@ -6139,18 +6139,6 @@ in `core/src/main/java/org/apache/iceberg/util/PartitionSet.java`
 ```java
 
   @Override
-  public boolean removeAll(Collection<?> objects) {
-    boolean changed = false;
-    if (objects != null) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `core/src/main/java/org/apache/iceberg/util/PartitionSet.java`
-#### Snippet
-```java
-
-  @Override
   public boolean retainAll(Collection<?> c) {
     throw new UnsupportedOperationException("retainAll is not supported");
   }
@@ -6175,6 +6163,18 @@ in `core/src/main/java/org/apache/iceberg/util/PartitionSet.java`
 ```java
 
   @Override
+  public boolean removeAll(Collection<?> objects) {
+    boolean changed = false;
+    if (objects != null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `core/src/main/java/org/apache/iceberg/util/PartitionSet.java`
+#### Snippet
+```java
+
+  @Override
   public boolean addAll(Collection<? extends Pair<Integer, StructLike>> pairs) {
     boolean changed = false;
     if (pairs != null) {
@@ -6187,9 +6187,9 @@ in `core/src/main/java/org/apache/iceberg/util/StructLikeSet.java`
 ```java
 
   @Override
-  public boolean removeAll(Collection<?> objects) {
-    boolean changed = false;
-    if (objects != null) {
+  public boolean retainAll(Collection<?> objects) {
+    throw new UnsupportedOperationException("retailAll is not supported");
+  }
 ```
 
 ### NullableProblems
@@ -6223,21 +6223,9 @@ in `core/src/main/java/org/apache/iceberg/util/StructLikeSet.java`
 ```java
 
   @Override
-  public boolean retainAll(Collection<?> objects) {
-    throw new UnsupportedOperationException("retailAll is not supported");
-  }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `core/src/main/java/org/apache/iceberg/util/Pair.java`
-#### Snippet
-```java
-                @Override
-                @SuppressWarnings("deprecation")
-                public Schema load(Pair<Class<?>, Class<?>> key) {
-                  Schema xSchema = ReflectData.get().getSchema(key.first);
-                  Schema ySchema = ReflectData.get().getSchema(key.second);
+  public boolean removeAll(Collection<?> objects) {
+    boolean changed = false;
+    if (objects != null) {
 ```
 
 ### NullableProblems
@@ -6250,6 +6238,18 @@ in `core/src/main/java/org/apache/iceberg/util/Tasks.java`
     public Iterator<Integer> iterator() {
       return new Iterator<Integer>() {
         private int current = 0;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `core/src/main/java/org/apache/iceberg/util/Pair.java`
+#### Snippet
+```java
+                @Override
+                @SuppressWarnings("deprecation")
+                public Schema load(Pair<Class<?>, Class<?>> key) {
+                  Schema xSchema = ReflectData.get().getSchema(key.first);
+                  Schema ySchema = ReflectData.get().getSchema(key.second);
 ```
 
 ### NullableProblems
@@ -6271,8 +6271,8 @@ in `core/src/main/java/org/apache/iceberg/hadoop/HadoopStreams.java`
 ```java
 
     @Override
-    public void write(byte[] b, int off, int len) throws IOException {
-      stream.write(b, off, len);
+    public void write(byte[] b) throws IOException {
+      stream.write(b);
     }
 ```
 
@@ -6295,33 +6295,9 @@ in `core/src/main/java/org/apache/iceberg/hadoop/HadoopStreams.java`
 ```java
 
     @Override
-    public void write(byte[] b) throws IOException {
-      stream.write(b);
+    public void write(byte[] b, int off, int len) throws IOException {
+      stream.write(b, off, len);
     }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `core/src/main/java/org/apache/iceberg/inmemory/InMemoryInputFile.java`
-#### Snippet
-```java
-
-    @Override
-    public int read(byte[] b, int off, int len) {
-      checkOpen();
-      return delegate.read(b, off, len);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `core/src/main/java/org/apache/iceberg/inmemory/InMemoryInputFile.java`
-#### Snippet
-```java
-
-    @Override
-    public int read(byte[] b) throws IOException {
-      checkOpen();
-      return delegate.read(b);
 ```
 
 ### NullableProblems
@@ -6349,6 +6325,30 @@ in `core/src/main/java/org/apache/iceberg/inmemory/InMemoryOutputFile.java`
 ```
 
 ### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `core/src/main/java/org/apache/iceberg/inmemory/InMemoryInputFile.java`
+#### Snippet
+```java
+
+    @Override
+    public int read(byte[] b, int off, int len) {
+      checkOpen();
+      return delegate.read(b, off, len);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `core/src/main/java/org/apache/iceberg/inmemory/InMemoryInputFile.java`
+#### Snippet
+```java
+
+    @Override
+    public int read(byte[] b) throws IOException {
+      checkOpen();
+      return delegate.read(b);
+```
+
+### NullableProblems
 Not annotated method overrides method annotated with @NotNull
 in `file://$PROJECT_DIR$$PROJECT_DIR$/../src/main/java/org/apache/iceberg/data/GenericReader.java`
 #### Snippet
@@ -6358,18 +6358,6 @@ in `file://$PROJECT_DIR$$PROJECT_DIR$/../src/main/java/org/apache/iceberg/data/G
     public CloseableIterator<Record> iterator() {
       CloseableIterator<Record> iter =
           CloseableIterable.concat(Iterables.transform(task.files(), GenericReader.this::open))
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `dell/src/main/java/org/apache/iceberg/dell/ecs/EcsAppendOutputStream.java`
-#### Snippet
-```java
-   */
-  @Override
-  public void write(byte[] b, int off, int len) {
-    if (!checkBuffer(len)) {
-      flush();
 ```
 
 ### NullableProblems
@@ -6386,14 +6374,14 @@ in `dell/src/main/java/org/apache/iceberg/dell/ecs/EcsSeekableInputStream.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `aliyun/src/main/java/org/apache/iceberg/aliyun/oss/OSSOutputStream.java`
+in `dell/src/main/java/org/apache/iceberg/dell/ecs/EcsAppendOutputStream.java`
 #### Snippet
 ```java
-
+   */
   @Override
-  public void write(byte[] b, int off, int len) throws IOException {
-    Preconditions.checkState(!closed, "Already closed.");
-    stream.write(b, off, len);
+  public void write(byte[] b, int off, int len) {
+    if (!checkBuffer(len)) {
+      flush();
 ```
 
 ### NullableProblems
@@ -6406,6 +6394,18 @@ in `aliyun/src/main/java/org/apache/iceberg/aliyun/oss/OSSInputStream.java`
   public int read(byte[] b, int off, int len) throws IOException {
     Preconditions.checkState(!closed, "Cannot read: already closed");
     positionStream();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `aliyun/src/main/java/org/apache/iceberg/aliyun/oss/OSSOutputStream.java`
+#### Snippet
+```java
+
+  @Override
+  public void write(byte[] b, int off, int len) throws IOException {
+    Preconditions.checkState(!closed, "Already closed.");
+    stream.write(b, off, len);
 ```
 
 ## RuleId[id=ExplicitArrayFilling]
@@ -6443,6 +6443,54 @@ in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
    * <p>For more details, see
    * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
    */
+  public static final String APACHE_USE_IDLE_CONNECTION_REAPER_ENABLED =
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
+   */
+  public static final String APACHE_SOCKET_TIMEOUT_MS = "http-client.apache.socket-timeout-ms";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
+   */
+  public static final String APACHE_TCP_KEEP_ALIVE_ENABLED =
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/urlconnection/UrlConnectionHttpClient.Builder.html
+   */
+  public static final String URLCONNECTION_CONNECTION_TIMEOUT_MS =
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
+   */
   public static final String APACHE_MAX_CONNECTIONS = "http-client.apache.max-connections";
 ```
 
@@ -6455,7 +6503,7 @@ in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
    * <p>For more details, see
    * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
    */
-  public static final String APACHE_EXPECT_CONTINUE_ENABLED =
+  public static final String APACHE_CONNECTION_TIMEOUT_MS =
 ```
 
 ### JavadocLinkAsPlainText
@@ -6467,7 +6515,7 @@ in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
    * <p>For more details, see
    * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
    */
-  public static final String APACHE_CONNECTION_TIME_TO_LIVE_MS =
+  public static final String APACHE_CONNECTION_ACQUISITION_TIMEOUT_MS =
 ```
 
 ### JavadocLinkAsPlainText
@@ -6503,19 +6551,7 @@ in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
    * <p>For more details, see
    * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
    */
-  public static final String APACHE_CONNECTION_ACQUISITION_TIMEOUT_MS =
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/urlconnection/UrlConnectionHttpClient.Builder.html
-   */
-  public static final String URLCONNECTION_CONNECTION_TIMEOUT_MS =
+  public static final String APACHE_CONNECTION_TIME_TO_LIVE_MS =
 ```
 
 ### JavadocLinkAsPlainText
@@ -6527,187 +6563,7 @@ in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
    * <p>For more details, see
    * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
    */
-  public static final String APACHE_TCP_KEEP_ALIVE_ENABLED =
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
-   */
-  public static final String APACHE_CONNECTION_TIMEOUT_MS =
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
-   */
-  public static final String APACHE_SOCKET_TIMEOUT_MS = "http-client.apache.socket-timeout-ms";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
-   */
-  public static final String APACHE_USE_IDLE_CONNECTION_REAPER_ENABLED =
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
-   *
-   * <p>Example: s3.write.table-tag-enabled=true
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details see:
-   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Configuration.html#useArnRegionEnabled--
-   */
-  public static final String USE_ARN_REGION_ENABLED = "s3.use-arn-region-enabled";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   * S3 SSE-KMS encryption.
-   *
-   * <p>For more details: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html
-   */
-  public static final String SSE_TYPE_KMS = "kms";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
-   *
-   * <p>Example: s3.write.namespace-tag-enabled=true
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details:
-   * https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
-   */
-  public static final String SSE_TYPE_CUSTOM = "custom";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html
-   */
-  public static final String ACCELERATION_ENABLED = "s3.acceleration-enabled";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
-   *
-   * <p>Example: s3.write.tags.my_key=my_val
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   * Default batch size used when deleting files.
-   *
-   * <p>Refer to https://github.com/apache/hadoop/commit/56dee667707926f3796c7757be1a133a362f05c9
-   * for more details on why this value was chosen.
-   */
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/dual-stack-endpoints.html
-   */
-  public static final String DUALSTACK_ENABLED = "s3.dualstack-enabled";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   * <p>The input must be one of {@link software.amazon.awssdk.services.s3.model.ObjectCannedACL},
-   * such as 'public-read-write' For more details:
-   * https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
-   */
-  public static final String ACL = "s3.acl";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   * Type of S3 Server side encryption used, default to {@link S3FileIOProperties#SSE_TYPE_NONE}.
-   *
-   * <p>For more details: https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html
-   */
-  public static final String SSE_TYPE = "s3.sse.type";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-   * writer, the part size must be less than 2GB.
-   *
-   * <p>For more details, see https://docs.aws.amazon.com/AmazonS3/latest/dev/qfacts.html
-   */
-  public static final String MULTIPART_SIZE = "s3.multipart.part-size-bytes";
+  public static final String APACHE_EXPECT_CONTINUE_ENABLED =
 ```
 
 ### JavadocLinkAsPlainText
@@ -6740,6 +6596,18 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
 #### Snippet
 ```java
    *
+   * <p>For more details, see
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
+   *
+   * <p>Example: s3.write.tags.my_key=my_val
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+   *
    * <p>For more details:
    * https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingServerSideEncryption.html
    */
@@ -6751,11 +6619,35 @@ Link specified as plain text
 in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
 #### Snippet
 ```java
+   * S3 SSE-KMS encryption.
+   *
+   * <p>For more details: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html
+   */
+  public static final String SSE_TYPE_KMS = "kms";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
    *
    * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/dual-stack-endpoints.html
+   */
+  public static final String DUALSTACK_ENABLED = "s3.dualstack-enabled";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
    *
-   * <p>Example: s3.delete.tags.my_key=my_val
+   * <p>For more details, see
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
+   *
+   * <p>Example: s3.write.namespace-tag-enabled=true
 ```
 
 ### JavadocLinkAsPlainText
@@ -6768,6 +6660,114 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
    * batch. https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html
    */
   public static final int DELETE_BATCH_SIZE_MAX = 1000;
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details:
+   * https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerSideEncryptionCustomerKeys.html
+   */
+  public static final String SSE_TYPE_CUSTOM = "custom";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+   * <p>The input must be one of {@link software.amazon.awssdk.services.s3.model.ObjectCannedACL},
+   * such as 'public-read-write' For more details:
+   * https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html
+   */
+  public static final String ACL = "s3.acl";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
+   *
+   * <p>Example: s3.write.table-tag-enabled=true
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html
+   */
+  public static final String ACCELERATION_ENABLED = "s3.acceleration-enabled";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details see:
+   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Configuration.html#useArnRegionEnabled--
+   */
+  public static final String USE_ARN_REGION_ENABLED = "s3.use-arn-region-enabled";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+   * Type of S3 Server side encryption used, default to {@link S3FileIOProperties#SSE_TYPE_NONE}.
+   *
+   * <p>For more details: https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html
+   */
+  public static final String SSE_TYPE = "s3.sse.type";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+   * Default batch size used when deleting files.
+   *
+   * <p>Refer to https://github.com/apache/hadoop/commit/56dee667707926f3796c7757be1a133a362f05c9
+   * for more details on why this value was chosen.
+   */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+   * writer, the part size must be less than 2GB.
+   *
+   * <p>For more details, see https://docs.aws.amazon.com/AmazonS3/latest/dev/qfacts.html
+   */
+  public static final String MULTIPART_SIZE = "s3.multipart.part-size-bytes";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html
+   *
+   * <p>Example: s3.delete.tags.my_key=my_val
 ```
 
 ### JavadocLinkAsPlainText
@@ -6811,9 +6811,69 @@ Link specified as plain text
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
+   * S3 SSE-KMS encryption.
+   *
+   * <p>For more details: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html
+   *
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
    *
    * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html
+   *
+   * <p>Example: s3.delete.tags.my_key=my_val
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
+   *
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
+   *
+   * <p>Example: s3.write.tags.my_key=my_val
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-databases.html
+   */
+  public static final String GLUE_CATALOG_ID = "glue.id";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/dual-stack-endpoints.html
    *
    * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
 ```
@@ -6847,47 +6907,11 @@ Link specified as plain text
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
-  /**
-   * Max possible batch size for deletion. Currently, a max of 1000 keys can be deleted in one
-   * batch. https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html
-   *
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   * Default batch size used when deleting files.
-   *
-   * <p>Refer to https://github.com/apache/hadoop/commit/56dee667707926f3796c7757be1a133a362f05c9
-   * for more details on why this value was chosen.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
    *
    * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
+   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
    *
-   * <p>Example: s3.write.table-tag-enabled=true
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
-   *
-   * <p>Example: s3.write.namespace-tag-enabled=true
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
 ```
 
 ### JavadocLinkAsPlainText
@@ -6909,54 +6933,6 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 ```java
    *
    * <p>For more details, see
-   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/urlconnection/UrlConnectionHttpClient.Builder.html
-   *
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *
-   * <p>The value must be one of {@link software.amazon.awssdk.regions.Region}, such as 'us-east-1'.
-   * For more details, see https://docs.aws.amazon.com/general/latest/gr/rande.html
-   */
-  public static final String CLIENT_ASSUME_ROLE_REGION = "client.assume-role.region";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html
-   */
-  public static final String CLIENT_ASSUME_ROLE_EXTERNAL_ID = "client.assume-role.external-id";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   * writer, the part size must be less than 2GB.
-   *
-   * <p>For more details, see https://docs.aws.amazon.com/AmazonS3/latest/dev/qfacts.html
-   *
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
    * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
    *
    * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
@@ -6979,9 +6955,9 @@ Link specified as plain text
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
-   *
-   * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/dual-stack-endpoints.html
+  /**
+   * Max possible batch size for deletion. Currently, a max of 1000 keys can be deleted in one
+   * batch. https://docs.aws.amazon.com/AmazonS3/latest/API/API_DeleteObjects.html
    *
    * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
 ```
@@ -6996,78 +6972,6 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
    * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
    *
    * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-catalog-databases.html
-   */
-  public static final String GLUE_CATALOG_ID = "glue.id";
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
-   *
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
-   *
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  /**
-   * If Glue should skip name validations It is recommended to stick to Glue best practice in
-   * https://docs.aws.amazon.com/athena/latest/ug/glue-best-practices.html to make sure operations
-   * are Hive compatible. This is only added for users that have existing conventions using
-   * non-standard characters. When database name and table name validation are skipped, there is no
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  /**
-   * If set, GlueCatalog will use Lake Formation for access control. For more credential vending
-   * details, see: https://docs.aws.amazon.com/lake-formation/latest/dg/api-overview.html. If
-   * enabled, the {@link AwsClientFactory} implementation must be {@link
-   * LakeFormationAwsClientFactory} or any class that extends it.
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   * S3 SSE-KMS encryption.
-   *
-   * <p>For more details: https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingKMSEncryption.html
-   *
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
 ```
 
 ### JavadocLinkAsPlainText
@@ -7092,6 +6996,18 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
    * https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_iam-condition-keys.html#ck_rolesessionname
    */
   public static final String CLIENT_ASSUME_ROLE_SESSION_NAME = "client.assume-role.session-name";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   * pass a catalog property.
+   *
+   * <p>For more details, see https://aws.amazon.com/s3/features/access-points/
+   *
+   * <p>Example: s3.access-points.my-bucket=access-point
 ```
 
 ### JavadocLinkAsPlainText
@@ -7125,21 +7041,9 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 ```java
    *
    * <p>For more details, see
-   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
-   *
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   * pass a catalog property.
-   *
-   * <p>For more details, see https://aws.amazon.com/s3/features/access-points/
-   *
-   * <p>Example: s3.access-points.my-bucket=access-point
+   * https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-user_externalid.html
+   */
+  public static final String CLIENT_ASSUME_ROLE_EXTERNAL_ID = "client.assume-role.external-id";
 ```
 
 ### JavadocLinkAsPlainText
@@ -7149,21 +7053,9 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 ```java
    *
    * <p>For more details, see
-   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html
    *
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *
-   * <p>For more details, see
-   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html
-   *
-   * <p>Example: s3.delete.tags.my_key=my_val
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
 ```
 
 ### JavadocLinkAsPlainText
@@ -7175,7 +7067,91 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
    * <p>For more details, see
    * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
    *
-   * <p>Example: s3.write.tags.my_key=my_val
+   * <p>Example: s3.write.table-tag-enabled=true
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *
+   * <p>The value must be one of {@link software.amazon.awssdk.regions.Region}, such as 'us-east-1'.
+   * For more details, see https://docs.aws.amazon.com/general/latest/gr/rande.html
+   */
+  public static final String CLIENT_ASSUME_ROLE_REGION = "client.assume-role.region";
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   * writer, the part size must be less than 2GB.
+   *
+   * <p>For more details, see https://docs.aws.amazon.com/AmazonS3/latest/dev/qfacts.html
+   *
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/urlconnection/UrlConnectionHttpClient.Builder.html
+   *
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
+   *
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  /**
+   * If set, GlueCatalog will use Lake Formation for access control. For more credential vending
+   * details, see: https://docs.aws.amazon.com/lake-formation/latest/dg/api-overview.html. If
+   * enabled, the {@link AwsClientFactory} implementation must be {@link
+   * LakeFormationAwsClientFactory} or any class that extends it.
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  /**
+   * If Glue should skip name validations It is recommended to stick to Glue best practice in
+   * https://docs.aws.amazon.com/athena/latest/ug/glue-best-practices.html to make sure operations
+   * are Hive compatible. This is only added for users that have existing conventions using
+   * non-standard characters. When database name and table name validation are skipped, there is no
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   * Default batch size used when deleting files.
+   *
+   * <p>Refer to https://github.com/apache/hadoop/commit/56dee667707926f3796c7757be1a133a362f05c9
+   * for more details on why this value was chosen.
+   *
 ```
 
 ### JavadocLinkAsPlainText
@@ -7186,6 +7162,30 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
    *
    * <p>For more details see:
    * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/services/s3/S3Configuration.html#useArnRegionEnabled--
+   *
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *
+   * <p>For more details, see
+   * https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-tagging.html
+   *
+   * <p>Example: s3.write.namespace-tag-enabled=true
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   * AwsProperties#S3FILEIO_SSE_TYPE_NONE}.
+   *
+   * <p>For more details: https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html
    *
    * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
 ```
@@ -7207,11 +7207,11 @@ Link specified as plain text
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
-   * AwsProperties#S3FILEIO_SSE_TYPE_NONE}.
    *
-   * <p>For more details: https://docs.aws.amazon.com/AmazonS3/latest/dev/serv-side-encryption.html
+   * <p>For more details, see
+   * https://sdk.amazonaws.com/java/api/latest/software/amazon/awssdk/http/apache/ApacheHttpClient.Builder.html
    *
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.HttpClientProperties}
 ```
 
 ### JavadocLinkAsPlainText
@@ -7315,11 +7315,11 @@ Link specified as plain text
 in `aliyun/src/main/java/org/apache/iceberg/aliyun/AliyunProperties.java`
 #### Snippet
 ```java
-   *
-   * <p>For more information about how to obtain an AccessKey pair, see:
-   * https://www.alibabacloud.com/help/doc-detail/53045.htm
+   * regions are accessed by using different endpoints. For the same region, access over the
+   * internal network or over the Internet also uses different endpoints. For more information, see:
+   * https://www.alibabacloud.com/help/doc-detail/31837.htm
    */
-  public static final String CLIENT_ACCESS_KEY_ID = "client.access-key-id";
+  public static final String OSS_ENDPOINT = "oss.endpoint";
 ```
 
 ### JavadocLinkAsPlainText
@@ -7327,11 +7327,11 @@ Link specified as plain text
 in `aliyun/src/main/java/org/apache/iceberg/aliyun/AliyunProperties.java`
 #### Snippet
 ```java
-   * regions are accessed by using different endpoints. For the same region, access over the
-   * internal network or over the Internet also uses different endpoints. For more information, see:
-   * https://www.alibabacloud.com/help/doc-detail/31837.htm
+   *
+   * <p>For more information about how to obtain an AccessKey pair, see:
+   * https://www.alibabacloud.com/help/doc-detail/53045.htm
    */
-  public static final String OSS_ENDPOINT = "oss.endpoint";
+  public static final String CLIENT_ACCESS_KEY_ID = "client.access-key-id";
 ```
 
 ### JavadocLinkAsPlainText
@@ -7484,23 +7484,11 @@ Field can be converted to a local variable
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/RowDataRewriter.java`
 #### Snippet
 ```java
-    private final String nameMapping;
-    private final FileIO io;
-    private final boolean caseSensitive;
-    private final EncryptionManager encryptionManager;
-    private final TaskWriterFactory<RowData> taskWriterFactory;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/RowDataRewriter.java`
-#### Snippet
-```java
-    private int attemptId;
 
     private final Schema schema;
     private final String nameMapping;
     private final FileIO io;
+    private final boolean caseSensitive;
 ```
 
 ### FieldCanBeLocal
@@ -7520,11 +7508,23 @@ Field can be converted to a local variable
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/RowDataRewriter.java`
 #### Snippet
 ```java
+    private int attemptId;
 
     private final Schema schema;
     private final String nameMapping;
     private final FileIO io;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/RowDataRewriter.java`
+#### Snippet
+```java
+    private final String nameMapping;
+    private final FileIO io;
     private final boolean caseSensitive;
+    private final EncryptionManager encryptionManager;
+    private final TaskWriterFactory<RowData> taskWriterFactory;
 ```
 
 ### FieldCanBeLocal
@@ -7581,11 +7581,11 @@ Result of `Math.addExact()` is ignored
 in `api/src/main/java/org/apache/iceberg/metrics/DefaultCounter.java`
 #### Snippet
 ```java
-  @Override
-  public void increment(long amount) {
-    Math.addExact(counter.longValue(), amount);
-    counter.add(amount);
-  }
+    @Override
+    public void increment(Integer amount) {
+      Math.addExact(counter.intValue(), amount);
+      DefaultCounter.this.increment(amount);
+    }
 ```
 
 ### IgnoreResultOfCall
@@ -7593,11 +7593,11 @@ Result of `Math.addExact()` is ignored
 in `api/src/main/java/org/apache/iceberg/metrics/DefaultCounter.java`
 #### Snippet
 ```java
-    @Override
-    public void increment(Integer amount) {
-      Math.addExact(counter.intValue(), amount);
-      DefaultCounter.this.increment(amount);
-    }
+  @Override
+  public void increment(long amount) {
+    Math.addExact(counter.longValue(), amount);
+    counter.add(amount);
+  }
 ```
 
 ### IgnoreResultOfCall
@@ -7617,30 +7617,6 @@ Result of `File.delete()` is ignored
 in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetWritersFlatDataBenchmark.java`
 #### Snippet
 ```java
-    rows = RandomData.generateSpark(SCHEMA, NUM_RECORDS, 0L);
-    dataFile = File.createTempFile("parquet-flat-data-benchmark", ".parquet");
-    dataFile.delete();
-  }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetWritersNestedDataBenchmark.java`
-#### Snippet
-```java
-    rows = RandomData.generateSpark(SCHEMA, NUM_RECORDS, 0L);
-    dataFile = File.createTempFile("parquet-nested-data-benchmark", ".parquet");
-    dataFile.delete();
-  }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetWritersNestedDataBenchmark.java`
-#### Snippet
-```java
   public void tearDownBenchmark() {
     if (dataFile != null) {
       dataFile.delete();
@@ -7653,28 +7629,28 @@ Result of `File.delete()` is ignored
 in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetWritersFlatDataBenchmark.java`
 #### Snippet
 ```java
-  public void tearDownBenchmark() {
-    if (dataFile != null) {
-      dataFile.delete();
-    }
+    rows = RandomData.generateSpark(SCHEMA, NUM_RECORDS, 0L);
+    dataFile = File.createTempFile("parquet-flat-data-benchmark", ".parquet");
+    dataFile.delete();
   }
+
 ```
 
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetReadersNestedDataBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetWritersNestedDataBenchmark.java`
 #### Snippet
 ```java
-  public void tearDownBenchmark() {
-    if (dataFile != null) {
-      dataFile.delete();
-    }
+    rows = RandomData.generateSpark(SCHEMA, NUM_RECORDS, 0L);
+    dataFile = File.createTempFile("parquet-nested-data-benchmark", ".parquet");
+    dataFile.delete();
   }
+
 ```
 
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetReadersFlatDataBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetWritersNestedDataBenchmark.java`
 #### Snippet
 ```java
   public void tearDownBenchmark() {
@@ -7698,6 +7674,18 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkPar
 
 ### IgnoreResultOfCall
 Result of `File.delete()` is ignored
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetReadersFlatDataBenchmark.java`
+#### Snippet
+```java
+  public void tearDownBenchmark() {
+    if (dataFile != null) {
+      dataFile.delete();
+    }
+  }
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
 in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetReadersNestedDataBenchmark.java`
 #### Snippet
 ```java
@@ -7706,6 +7694,18 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkPar
     dataFile.delete();
     List<GenericData.Record> records = RandomData.generateList(SCHEMA, NUM_RECORDS, 0L);
     try (FileAppender<GenericData.Record> writer =
+```
+
+### IgnoreResultOfCall
+Result of `File.delete()` is ignored
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/data/parquet/SparkParquetReadersNestedDataBenchmark.java`
+#### Snippet
+```java
+  public void tearDownBenchmark() {
+    if (dataFile != null) {
+      dataFile.delete();
+    }
+  }
 ```
 
 ### IgnoreResultOfCall
@@ -8940,18 +8940,6 @@ in `aws/src/main/java/org/apache/iceberg/aws/HttpClientProperties.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'org.apache.iceberg.aws.s3.signer.S3SignResponse' to 'T'
-in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3ObjectMapper.java`
-#### Snippet
-```java
-    public T deserialize(JsonParser p, DeserializationContext context) throws IOException {
-      JsonNode jsonNode = p.getCodec().readTree(p);
-      return (T) S3SignResponseParser.fromJson(jsonNode);
-    }
-  }
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'org.apache.iceberg.aws.s3.signer.S3SignRequest' to 'T'
 in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3ObjectMapper.java`
 #### Snippet
@@ -8959,6 +8947,18 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3ObjectMapper.java`
     public T deserialize(JsonParser p, DeserializationContext context) throws IOException {
       JsonNode jsonNode = p.getCodec().readTree(p);
       return (T) S3SignRequestParser.fromJson(jsonNode);
+    }
+  }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.apache.iceberg.aws.s3.signer.S3SignResponse' to 'T'
+in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3ObjectMapper.java`
+#### Snippet
+```java
+    public T deserialize(JsonParser p, DeserializationContext context) throws IOException {
+      JsonNode jsonNode = p.getCodec().readTree(p);
+      return (T) S3SignResponseParser.fromJson(jsonNode);
     }
   }
 ```
@@ -9021,6 +9021,18 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
       return (T) httpClientConfigurations;
     } catch (NoSuchMethodException e) {
       throw new IllegalArgumentException(
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.iceberg.data.avro.RawDecoder' to 'org.apache.iceberg.data.avro.RawDecoder'
+in `core/src/main/java/org/apache/iceberg/data/avro/IcebergDecoder.java`
+#### Snippet
+```java
+        new RawDecoder<>(
+            readSchema, avroSchema -> DataReader.create(readSchema, avroSchema), writeSchema);
+    decoders.put(fp, decoder);
+  }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -9096,6 +9108,18 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/sink/shuffle/DataSt
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.flink.streaming.api.datastream.DataStreamSource' to 'org.apache.flink.streaming.api.datastream.DataStreamSource'
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTableSource.java`
+#### Snippet
+```java
+            source.name(),
+            TypeInformation.of(RowData.class));
+    return stream;
+  }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'org.apache.iceberg.flink.source.DataIterator' to 'org.apache.iceberg.flink.source.DataIterator'
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/FlinkInputFormat.java`
 #### Snippet
@@ -9115,18 +9139,6 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/FlinkInputFo
   @Override
   public void open(FlinkInputSplit split) {
     this.iterator = new DataIterator<>(rowDataReader, split.getTask(), io, encryption);
-  }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.flink.streaming.api.datastream.DataStreamSource' to 'org.apache.flink.streaming.api.datastream.DataStreamSource'
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/IcebergTableSource.java`
-#### Snippet
-```java
-            source.name(),
-            TypeInformation.of(RowData.class));
-    return stream;
   }
 
 ```
@@ -9457,30 +9469,6 @@ in `core/src/main/java/org/apache/iceberg/actions/BaseRewriteManifestsActionResu
 ```
 
 ### JavadocReference
-Cannot resolve symbol `ImmutableMigrateTable.Result`
-in `core/src/main/java/org/apache/iceberg/actions/BaseMigrateTableActionResult.java`
-#### Snippet
-```java
-
-/**
- * @deprecated will be removed in 1.4.0; use {@link ImmutableMigrateTable.Result#builder()} instead.
- */
-@Deprecated
-```
-
-### JavadocReference
-Cannot resolve symbol `builder()`
-in `core/src/main/java/org/apache/iceberg/actions/BaseMigrateTableActionResult.java`
-#### Snippet
-```java
-
-/**
- * @deprecated will be removed in 1.4.0; use {@link ImmutableMigrateTable.Result#builder()} instead.
- */
-@Deprecated
-```
-
-### JavadocReference
 Cannot resolve symbol `ImmutableRewriteDataFiles.Result`
 in `core/src/main/java/org/apache/iceberg/actions/BaseRewriteDataFilesResult.java`
 #### Snippet
@@ -9502,6 +9490,30 @@ in `core/src/main/java/org/apache/iceberg/actions/BaseRewriteDataFilesResult.jav
  * @deprecated will be removed in 1.4.0; use {@link ImmutableRewriteDataFiles.Result#builder()}
  *     instead.
  */
+```
+
+### JavadocReference
+Cannot resolve symbol `ImmutableMigrateTable.Result`
+in `core/src/main/java/org/apache/iceberg/actions/BaseMigrateTableActionResult.java`
+#### Snippet
+```java
+
+/**
+ * @deprecated will be removed in 1.4.0; use {@link ImmutableMigrateTable.Result#builder()} instead.
+ */
+@Deprecated
+```
+
+### JavadocReference
+Cannot resolve symbol `builder()`
+in `core/src/main/java/org/apache/iceberg/actions/BaseMigrateTableActionResult.java`
+#### Snippet
+```java
+
+/**
+ * @deprecated will be removed in 1.4.0; use {@link ImmutableMigrateTable.Result#builder()} instead.
+ */
+@Deprecated
 ```
 
 ### JavadocReference
@@ -9531,18 +9543,6 @@ in `api/src/main/java/org/apache/iceberg/SortOrderBuilder.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `newInstance` may produce `NullPointerException`
-in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergInputFormat.java`
-#### Snippet
-```java
-      // bogus cast for favouring code reuse over syntax
-      return (RecordReader)
-          HIVE_VECTORIZED_RECORDREADER_CTOR.newInstance(
-              new IcebergInputFormat<>(), icebergSplit, job, reporter);
-    } else {
-```
-
-### DataFlowIssue
 Method invocation `getBoolean` may produce `NullPointerException`
 in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergSerDe.java`
 #### Snippet
@@ -9564,6 +9564,18 @@ in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergSerDe.java`
       configuration.setBoolean(InputFormatConfig.CASE_SENSITIVE, false);
       String[] selectedColumns = ColumnProjectionUtils.getReadColumnNames(configuration);
       // When same table is joined multiple times, it is possible some selected columns are
+```
+
+### DataFlowIssue
+Method invocation `newInstance` may produce `NullPointerException`
+in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergInputFormat.java`
+#### Snippet
+```java
+      // bogus cast for favouring code reuse over syntax
+      return (RecordReader)
+          HIVE_VECTORIZED_RECORDREADER_CTOR.newInstance(
+              new IcebergInputFormat<>(), icebergSplit, job, reporter);
+    } else {
 ```
 
 ### DataFlowIssue
@@ -9735,30 +9747,6 @@ in `api/src/main/java/org/apache/iceberg/catalog/TableIdentifier.java`
 ```
 
 ### DataFlowIssue
-Method invocation `stop` may produce `NullPointerException`
-in `api/src/main/java/org/apache/iceberg/metrics/DefaultTimer.java`
-#### Snippet
-```java
-      Stopwatch stopwatch = stopwatchRef.getAndSet(null);
-      Preconditions.checkState(null != stopwatch, "stop() called multiple times");
-      timer.record(stopwatch.stop().elapsed(defaultTimeUnit), defaultTimeUnit);
-    }
-  }
-```
-
-### DataFlowIssue
-Method invocation `toUpperCase` may produce `NullPointerException`
-in `api/src/main/java/org/apache/iceberg/metrics/MetricsContext.java`
-#### Snippet
-```java
-      Preconditions.checkArgument(null != displayName, "Invalid unit: null");
-      try {
-        return Unit.valueOf(displayName.toUpperCase(Locale.ENGLISH));
-      } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException(String.format("Invalid unit: %s", displayName), e);
-```
-
-### DataFlowIssue
 Method invocation `iterator` may produce `NullPointerException`
 in `api/src/main/java/org/apache/iceberg/io/CloseableIterable.java`
 #### Snippet
@@ -9768,6 +9756,18 @@ in `api/src/main/java/org/apache/iceberg/io/CloseableIterable.java`
             new FilterIterator<E>(iterable.iterator()) {
               @Override
               protected boolean shouldKeep(E item) {
+```
+
+### DataFlowIssue
+Method invocation `close` may produce `NullPointerException`
+in `api/src/main/java/org/apache/iceberg/io/CloseableIterable.java`
+#### Snippet
+```java
+      @Override
+      public void close() throws IOException {
+        iterable.close();
+      }
+    };
 ```
 
 ### DataFlowIssue
@@ -9795,18 +9795,6 @@ in `api/src/main/java/org/apache/iceberg/io/CloseableIterable.java`
 ```
 
 ### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `api/src/main/java/org/apache/iceberg/io/CloseableIterable.java`
-#### Snippet
-```java
-      @Override
-      public void close() throws IOException {
-        iterable.close();
-      }
-    };
-```
-
-### DataFlowIssue
 Method invocation `iterator` may produce `NullPointerException`
 in `api/src/main/java/org/apache/iceberg/io/CloseableIterable.java`
 #### Snippet
@@ -9816,6 +9804,30 @@ in `api/src/main/java/org/apache/iceberg/io/CloseableIterable.java`
         return CloseableIterator.count(counter, iterable.iterator());
       }
 
+```
+
+### DataFlowIssue
+Method invocation `stop` may produce `NullPointerException`
+in `api/src/main/java/org/apache/iceberg/metrics/DefaultTimer.java`
+#### Snippet
+```java
+      Stopwatch stopwatch = stopwatchRef.getAndSet(null);
+      Preconditions.checkState(null != stopwatch, "stop() called multiple times");
+      timer.record(stopwatch.stop().elapsed(defaultTimeUnit), defaultTimeUnit);
+    }
+  }
+```
+
+### DataFlowIssue
+Method invocation `toUpperCase` may produce `NullPointerException`
+in `api/src/main/java/org/apache/iceberg/metrics/MetricsContext.java`
+#### Snippet
+```java
+      Preconditions.checkArgument(null != displayName, "Invalid unit: null");
+      try {
+        return Unit.valueOf(displayName.toUpperCase(Locale.ENGLISH));
+      } catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException(String.format("Invalid unit: %s", displayName), e);
 ```
 
 ### DataFlowIssue
@@ -9831,18 +9843,6 @@ in `api/src/main/java/org/apache/iceberg/expressions/Expression.java`
 ```
 
 ### DataFlowIssue
-Method invocation `isObject` may produce `NullPointerException`
-in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3SignResponseParser.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(null != json, "Cannot parse s3 sign response from null object");
-    Preconditions.checkArgument(
-        json.isObject(), "Cannot parse s3 sign response from non-object: %s", json);
-
-    java.net.URI uri = java.net.URI.create(JsonUtil.getString(URI, json));
-```
-
-### DataFlowIssue
 Method invocation `uri` may produce `NullPointerException`
 in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3SignResponseParser.java`
 #### Snippet
@@ -9855,15 +9855,15 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3SignResponseParser.java
 ```
 
 ### DataFlowIssue
-Method invocation `region` may produce `NullPointerException`
-in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3SignRequestParser.java`
+Method invocation `isObject` may produce `NullPointerException`
+in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3SignResponseParser.java`
 #### Snippet
 ```java
-    gen.writeStartObject();
+    Preconditions.checkArgument(null != json, "Cannot parse s3 sign response from null object");
+    Preconditions.checkArgument(
+        json.isObject(), "Cannot parse s3 sign response from non-object: %s", json);
 
-    gen.writeStringField(REGION, request.region());
-    gen.writeStringField(METHOD, request.method());
-    gen.writeStringField(URI, request.uri().toString());
+    java.net.URI uri = java.net.URI.create(JsonUtil.getString(URI, json));
 ```
 
 ### DataFlowIssue
@@ -9879,15 +9879,15 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3SignRequestParser.java`
 ```
 
 ### DataFlowIssue
-Argument `credential()` might be null
-in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3V4RestSignerClient.java`
+Method invocation `region` may produce `NullPointerException`
+in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3SignRequestParser.java`
 #### Snippet
 ```java
-      return authSessionCache()
-          .get(
-              credential(),
-              id -> {
-                AuthSession session =
+    gen.writeStartObject();
+
+    gen.writeStringField(REGION, request.region());
+    gen.writeStringField(METHOD, request.method());
+    gen.writeStringField(URI, request.uri().toString());
 ```
 
 ### DataFlowIssue
@@ -9900,6 +9900,18 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3V4RestSignerClient.java
     return null != credential() && !credential().isEmpty();
   }
 
+```
+
+### DataFlowIssue
+Argument `credential()` might be null
+in `aws/src/main/java/org/apache/iceberg/aws/s3/signer/S3V4RestSignerClient.java`
+#### Snippet
+```java
+      return authSessionCache()
+          .get(
+              credential(),
+              id -> {
+                AuthSession session =
 ```
 
 ### DataFlowIssue
@@ -9987,6 +9999,18 @@ in `core/src/main/java/org/apache/iceberg/DataTableScan.java`
 ```
 
 ### DataFlowIssue
+Method invocation `hasNonNull` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/UpdateRequirementParser.java`
+#### Snippet
+```java
+        jsonNode);
+    Preconditions.checkArgument(
+        jsonNode.hasNonNull(TYPE), "Cannot parse update requirement. Missing field: type");
+    String type = JsonUtil.getString(TYPE, jsonNode).toLowerCase(Locale.ROOT);
+
+```
+
+### DataFlowIssue
 Unboxing of `lastSnapshotId` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/FindFiles.java`
 #### Snippet
@@ -9999,54 +10023,6 @@ in `core/src/main/java/org/apache/iceberg/FindFiles.java`
 ```
 
 ### DataFlowIssue
-Method invocation `isTag` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
-#### Snippet
-```java
-    SnapshotRef ref = updatedRefs.get(name);
-    Preconditions.checkArgument(ref != null, "Tag does not exist: %s", name);
-    Preconditions.checkArgument(ref.isTag(), "Ref %s is a branch not a tag", name);
-    SnapshotRef updatedRef = SnapshotRef.builderFrom(ref, snapshotId).build();
-    updatedRefs.put(name, updatedRef);
-```
-
-### DataFlowIssue
-Method invocation `isTag` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
-#### Snippet
-```java
-    SnapshotRef ref = updatedRefs.remove(name);
-    Preconditions.checkArgument(ref != null, "Tag does not exist: %s", name);
-    Preconditions.checkArgument(ref.isTag(), "Ref %s is a branch not a tag", name);
-    return this;
-  }
-```
-
-### DataFlowIssue
-Method invocation `isBranch` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
-#### Snippet
-```java
-    SnapshotRef ref = updatedRefs.get(name);
-    Preconditions.checkArgument(ref != null, "Branch does not exist: %s", name);
-    Preconditions.checkArgument(ref.isBranch(), "Ref %s is a tag not a branch", name);
-    SnapshotRef existing = updatedRefs.put(newName, ref);
-    Preconditions.checkArgument(existing == null, "Ref %s already exists", newName);
-```
-
-### DataFlowIssue
-Argument `ref` might be null
-in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
-#### Snippet
-```java
-    SnapshotRef ref = updatedRefs.get(name);
-    Preconditions.checkArgument(ref != null, "Ref does not exist: %s", name);
-    SnapshotRef updatedRef = SnapshotRef.builderFrom(ref).maxRefAgeMs(maxRefAgeMs).build();
-    updatedRefs.put(name, updatedRef);
-    return this;
-```
-
-### DataFlowIssue
 Method invocation `isBranch` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
 #### Snippet
@@ -10056,18 +10032,6 @@ in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java
     Preconditions.checkArgument(ref.isBranch(), "Ref %s is a tag not a branch", name);
     return this;
   }
-```
-
-### DataFlowIssue
-Argument `ref` might be null
-in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(ref != null, "Branch does not exist: %s", name);
-    SnapshotRef updateBranch =
-        SnapshotRef.builderFrom(ref).maxSnapshotAgeMs(maxSnapshotAgeMs).build();
-    updatedRefs.put(name, updateBranch);
-    return this;
 ```
 
 ### DataFlowIssue
@@ -10095,6 +10059,54 @@ in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java
 ```
 
 ### DataFlowIssue
+Method invocation `isBranch` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
+#### Snippet
+```java
+    SnapshotRef ref = updatedRefs.get(name);
+    Preconditions.checkArgument(ref != null, "Branch does not exist: %s", name);
+    Preconditions.checkArgument(ref.isBranch(), "Ref %s is a tag not a branch", name);
+    SnapshotRef existing = updatedRefs.put(newName, ref);
+    Preconditions.checkArgument(existing == null, "Ref %s already exists", newName);
+```
+
+### DataFlowIssue
+Method invocation `isBranch` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
+#### Snippet
+```java
+    SnapshotRef ref = updatedRefs.get(name);
+    Preconditions.checkArgument(ref != null, "Branch does not exist: %s", name);
+    Preconditions.checkArgument(ref.isBranch(), "Ref %s is a tag not a branch", name);
+    SnapshotRef updatedRef = SnapshotRef.builderFrom(ref, snapshotId).build();
+    updatedRefs.put(name, updatedRef);
+```
+
+### DataFlowIssue
+Argument `ref` might be null
+in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
+#### Snippet
+```java
+    SnapshotRef ref = updatedRefs.get(name);
+    Preconditions.checkArgument(ref != null, "Ref does not exist: %s", name);
+    SnapshotRef updatedRef = SnapshotRef.builderFrom(ref).maxRefAgeMs(maxRefAgeMs).build();
+    updatedRefs.put(name, updatedRef);
+    return this;
+```
+
+### DataFlowIssue
+Argument `ref` might be null
+in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(ref != null, "Branch does not exist: %s", name);
+    SnapshotRef updateBranch =
+        SnapshotRef.builderFrom(ref).maxSnapshotAgeMs(maxSnapshotAgeMs).build();
+    updatedRefs.put(name, updateBranch);
+    return this;
+```
+
+### DataFlowIssue
 Argument `ref` might be null
 in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
 #### Snippet
@@ -10107,13 +10119,25 @@ in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java
 ```
 
 ### DataFlowIssue
-Method invocation `isBranch` may produce `NullPointerException`
+Method invocation `isTag` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
+#### Snippet
+```java
+    SnapshotRef ref = updatedRefs.remove(name);
+    Preconditions.checkArgument(ref != null, "Tag does not exist: %s", name);
+    Preconditions.checkArgument(ref.isTag(), "Ref %s is a branch not a tag", name);
+    return this;
+  }
+```
+
+### DataFlowIssue
+Method invocation `isTag` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/UpdateSnapshotReferencesOperation.java`
 #### Snippet
 ```java
     SnapshotRef ref = updatedRefs.get(name);
-    Preconditions.checkArgument(ref != null, "Branch does not exist: %s", name);
-    Preconditions.checkArgument(ref.isBranch(), "Ref %s is a tag not a branch", name);
+    Preconditions.checkArgument(ref != null, "Tag does not exist: %s", name);
+    Preconditions.checkArgument(ref.isTag(), "Ref %s is a branch not a tag", name);
     SnapshotRef updatedRef = SnapshotRef.builderFrom(ref, snapshotId).build();
     updatedRefs.put(name, updatedRef);
 ```
@@ -10191,50 +10215,14 @@ in `core/src/main/java/org/apache/iceberg/SortOrderParser.java`
 ```
 
 ### DataFlowIssue
-Method invocation `fieldId` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
+Method invocation `snapshotId` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/SnapshotScan.java`
 #### Snippet
 ```java
-    Preconditions.checkArgument(newName != null, "Cannot rename a column to null");
-    Preconditions.checkArgument(
-        !deletes.contains(field.fieldId()),
-        "Cannot rename a column that will be deleted: %s",
-        field.name());
-```
-
-### DataFlowIssue
-Method invocation `fieldId` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(field != null, "Cannot update missing column: %s", name);
-    Preconditions.checkArgument(
-        !deletes.contains(field.fieldId()),
-        "Cannot update a column that will be deleted: %s",
-        field.name());
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(
-        beforeId != null, "Cannot move %s before missing column: %s", name, beforeName);
-    Preconditions.checkArgument(!fieldId.equals(beforeId), "Cannot move %s before itself", name);
-    internalMove(name, Move.before(fieldId, beforeId));
-    return this;
-```
-
-### DataFlowIssue
-Unboxing of `beforeId` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
-#### Snippet
-```java
-        beforeId != null, "Cannot move %s before missing column: %s", name, beforeName);
-    Preconditions.checkArgument(!fieldId.equals(beforeId), "Cannot move %s before itself", name);
-    internalMove(name, Move.before(fieldId, beforeId));
-    return this;
+    Snapshot snapshot = table().snapshot(name);
+    Preconditions.checkArgument(snapshot != null, "Cannot find ref %s", name);
+    TableScanContext newContext = context().useSnapshotId(snapshot.snapshotId());
+    return newRefinedScan(table(), SnapshotUtil.schemaFor(table(), name), newContext);
   }
 ```
 
@@ -10275,6 +10263,42 @@ in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
 ```
 
 ### DataFlowIssue
+Unboxing of `fieldId` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
+#### Snippet
+```java
+    Integer fieldId = findForMove(name);
+    Preconditions.checkArgument(fieldId != null, "Cannot move missing column: %s", name);
+    internalMove(name, Move.first(fieldId));
+    return this;
+  }
+```
+
+### DataFlowIssue
+Method invocation `fieldId` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(field != null, "Cannot update missing column: %s", name);
+    Preconditions.checkArgument(
+        !deletes.contains(field.fieldId()),
+        "Cannot update a column that will be deleted: %s",
+        field.name());
+```
+
+### DataFlowIssue
+Method invocation `fieldId` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(newName != null, "Cannot rename a column to null");
+    Preconditions.checkArgument(
+        !deletes.contains(field.fieldId()),
+        "Cannot rename a column that will be deleted: %s",
+        field.name());
+```
+
+### DataFlowIssue
 Method invocation `isRequired` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
 #### Snippet
@@ -10296,18 +10320,6 @@ in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
     if ((!isOptional && field.isRequired()) || (isOptional && field.isOptional())) {
       // if the change is a noop, allow it even if allowIncompatibleChanges is false
       return;
-```
-
-### DataFlowIssue
-Unboxing of `fieldId` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
-#### Snippet
-```java
-    Integer fieldId = findForMove(name);
-    Preconditions.checkArgument(fieldId != null, "Cannot move missing column: %s", name);
-    internalMove(name, Move.first(fieldId));
-    return this;
-  }
 ```
 
 ### DataFlowIssue
@@ -10335,51 +10347,27 @@ in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
 ```
 
 ### DataFlowIssue
-Method invocation `snapshotId` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/SnapshotScan.java`
+Method invocation `equals` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
 #### Snippet
 ```java
-    Snapshot snapshot = table().snapshot(name);
-    Preconditions.checkArgument(snapshot != null, "Cannot find ref %s", name);
-    TableScanContext newContext = context().useSnapshotId(snapshot.snapshotId());
-    return newRefinedScan(table(), SnapshotUtil.schemaFor(table(), name), newContext);
+    Preconditions.checkArgument(
+        beforeId != null, "Cannot move %s before missing column: %s", name, beforeName);
+    Preconditions.checkArgument(!fieldId.equals(beforeId), "Cannot move %s before itself", name);
+    internalMove(name, Move.before(fieldId, beforeId));
+    return this;
+```
+
+### DataFlowIssue
+Unboxing of `beforeId` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/SchemaUpdate.java`
+#### Snippet
+```java
+        beforeId != null, "Cannot move %s before missing column: %s", name, beforeName);
+    Preconditions.checkArgument(!fieldId.equals(beforeId), "Cannot move %s before itself", name);
+    internalMove(name, Move.before(fieldId, beforeId));
+    return this;
   }
-```
-
-### DataFlowIssue
-Method invocation `snapshotId` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/IncrementalDataTableScan.java`
-#### Snippet
-```java
-        "Cannot scan appends after %s, there is no current snapshot",
-        newFromSnapshotId);
-    return appendsBetween(newFromSnapshotId, currentSnapshot.snapshotId());
-  }
-
-```
-
-### DataFlowIssue
-Unboxing of `fromSnapshotId` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/IncrementalDataTableScan.java`
-#### Snippet
-```java
-    Long toSnapshotId = context().toSnapshotId();
-
-    List<Snapshot> snapshots = snapshotsWithin(table(), fromSnapshotId, toSnapshotId);
-    Set<Long> snapshotIds = Sets.newHashSet(Iterables.transform(snapshots, Snapshot::snapshotId));
-    Set<ManifestFile> manifests =
-```
-
-### DataFlowIssue
-Unboxing of `toSnapshotId` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/IncrementalDataTableScan.java`
-#### Snippet
-```java
-    Long toSnapshotId = context().toSnapshotId();
-
-    List<Snapshot> snapshots = snapshotsWithin(table(), fromSnapshotId, toSnapshotId);
-    Set<Long> snapshotIds = Sets.newHashSet(Iterables.transform(snapshots, Snapshot::snapshotId));
-    Set<ManifestFile> manifests =
 ```
 
 ### DataFlowIssue
@@ -10407,6 +10395,18 @@ in `core/src/main/java/org/apache/iceberg/IncrementalDataTableScan.java`
 ```
 
 ### DataFlowIssue
+Method invocation `snapshotId` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/IncrementalDataTableScan.java`
+#### Snippet
+```java
+        "Cannot scan appends after %s, there is no current snapshot",
+        newFromSnapshotId);
+    return appendsBetween(newFromSnapshotId, currentSnapshot.snapshotId());
+  }
+
+```
+
+### DataFlowIssue
 Unboxing of `context().toSnapshotId()` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/IncrementalDataTableScan.java`
 #### Snippet
@@ -10419,15 +10419,39 @@ in `core/src/main/java/org/apache/iceberg/IncrementalDataTableScan.java`
 ```
 
 ### DataFlowIssue
-Dereference of `format` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/ManifestReader.java`
+Unboxing of `fromSnapshotId` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/IncrementalDataTableScan.java`
 #### Snippet
 ```java
-    fields.add(MetadataColumns.ROW_POSITION);
+    Long toSnapshotId = context().toSnapshotId();
 
-    switch (format) {
-      case AVRO:
-        AvroIterable<ManifestEntry<F>> reader =
+    List<Snapshot> snapshots = snapshotsWithin(table(), fromSnapshotId, toSnapshotId);
+    Set<Long> snapshotIds = Sets.newHashSet(Iterables.transform(snapshots, Snapshot::snapshotId));
+    Set<ManifestFile> manifests =
+```
+
+### DataFlowIssue
+Unboxing of `toSnapshotId` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/IncrementalDataTableScan.java`
+#### Snippet
+```java
+    Long toSnapshotId = context().toSnapshotId();
+
+    List<Snapshot> snapshots = snapshotsWithin(table(), fromSnapshotId, toSnapshotId);
+    Set<Long> snapshotIds = Sets.newHashSet(Iterables.transform(snapshots, Snapshot::snapshotId));
+    Set<ManifestFile> manifests =
+```
+
+### DataFlowIssue
+Dereference of `updateAction` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/MetadataUpdateParser.java`
+#### Snippet
+```java
+    generator.writeStringField(ACTION, updateAction);
+
+    switch (updateAction) {
+      case ASSIGN_UUID:
+        writeAssignUUID((MetadataUpdate.AssignUUID) metadataUpdate, generator);
 ```
 
 ### DataFlowIssue
@@ -10443,15 +10467,15 @@ in `core/src/main/java/org/apache/iceberg/MetadataUpdateParser.java`
 ```
 
 ### DataFlowIssue
-Dereference of `updateAction` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/MetadataUpdateParser.java`
+Dereference of `format` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/ManifestReader.java`
 #### Snippet
 ```java
-    generator.writeStringField(ACTION, updateAction);
+    fields.add(MetadataColumns.ROW_POSITION);
 
-    switch (updateAction) {
-      case ASSIGN_UUID:
-        writeAssignUUID((MetadataUpdate.AssignUUID) metadataUpdate, generator);
+    switch (format) {
+      case AVRO:
+        AvroIterable<ManifestEntry<F>> reader =
 ```
 
 ### DataFlowIssue
@@ -10488,6 +10512,66 @@ in `core/src/main/java/org/apache/iceberg/BaseEntriesTable.java`
             manifests, manifest -> evalCache.get(manifest.partitionSpecId()).eval(manifest));
 
     String schemaString = SchemaParser.toJson(projectedSchema);
+```
+
+### DataFlowIssue
+Method invocation `forEach` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/UpdateRequirements.java`
+#### Snippet
+```java
+    Builder builder = new Builder(null, false);
+    builder.require(new UpdateRequirement.AssertTableDoesNotExist());
+    metadataUpdates.forEach(builder::update);
+    return builder.build();
+  }
+```
+
+### DataFlowIssue
+Method invocation `uuid` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/UpdateRequirements.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(null != metadataUpdates, "Invalid metadata updates: null");
+    Builder builder = new Builder(base, false);
+    builder.require(new UpdateRequirement.AssertTableUUID(base.uuid()));
+    metadataUpdates.forEach(builder::update);
+    return builder.build();
+```
+
+### DataFlowIssue
+Method invocation `forEach` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/UpdateRequirements.java`
+#### Snippet
+```java
+    Builder builder = new Builder(base, false);
+    builder.require(new UpdateRequirement.AssertTableUUID(base.uuid()));
+    metadataUpdates.forEach(builder::update);
+    return builder.build();
+  }
+```
+
+### DataFlowIssue
+Method invocation `uuid` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/UpdateRequirements.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(null != metadataUpdates, "Invalid metadata updates: null");
+    Builder builder = new Builder(base, true);
+    builder.require(new UpdateRequirement.AssertTableUUID(base.uuid()));
+    metadataUpdates.forEach(builder::update);
+    return builder.build();
+```
+
+### DataFlowIssue
+Method invocation `forEach` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/UpdateRequirements.java`
+#### Snippet
+```java
+    Builder builder = new Builder(base, true);
+    builder.require(new UpdateRequirement.AssertTableUUID(base.uuid()));
+    metadataUpdates.forEach(builder::update);
+    return builder.build();
+  }
 ```
 
 ### DataFlowIssue
@@ -10743,6 +10827,18 @@ in `core/src/main/java/org/apache/iceberg/BaseUpdatePartitionSpec.java`
 ```
 
 ### DataFlowIssue
+Method invocation `name` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/BaseUpdatePartitionSpec.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(field != null, "Cannot find partition field to remove: %s", term);
+    Preconditions.checkArgument(
+        renames.get(field.name()) == null,
+        "Cannot rename and delete partition field: %s",
+        field.name());
+```
+
+### DataFlowIssue
 Casting `term` to `UnboundTerm` may produce `ClassCastException`
 in `core/src/main/java/org/apache/iceberg/BaseUpdatePartitionSpec.java`
 #### Snippet
@@ -10767,18 +10863,6 @@ in `core/src/main/java/org/apache/iceberg/BaseUpdatePartitionSpec.java`
 ```
 
 ### DataFlowIssue
-Method invocation `name` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/BaseUpdatePartitionSpec.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(field != null, "Cannot find partition field to remove: %s", term);
-    Preconditions.checkArgument(
-        renames.get(field.name()) == null,
-        "Cannot rename and delete partition field: %s",
-        field.name());
-```
-
-### DataFlowIssue
 Method invocation `toUpperCase` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/IsolationLevel.java`
 #### Snippet
@@ -10788,42 +10872,6 @@ in `core/src/main/java/org/apache/iceberg/IsolationLevel.java`
       return IsolationLevel.valueOf(levelName.toUpperCase(Locale.ENGLISH));
     } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException(
-```
-
-### DataFlowIssue
-Casting `table` to `BaseTable` may produce `ClassCastException`
-in `core/src/main/java/org/apache/iceberg/BaseMetadataTable.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(
-        table instanceof BaseTable, "Cannot create metadata table for non-data table: %s", table);
-    this.table = (BaseTable) table;
-    this.name = name;
-  }
-```
-
-### DataFlowIssue
-Argument `properties` might be null
-in `core/src/main/java/org/apache/iceberg/io/FileIOParser.java`
-#### Snippet
-```java
-
-    generator.writeStringField(FILE_IO_IMPL, impl);
-    JsonUtil.writeStringMap(PROPERTIES, properties, generator);
-
-    generator.writeEndObject();
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/TableMetadata.java`
-#### Snippet
-```java
-      Preconditions.checkArgument(newUuid != null, "Cannot set uuid to null");
-
-      if (!newUuid.equals(uuid)) {
-        this.uuid = newUuid;
-        changes.add(new MetadataUpdate.AssignUUID(uuid));
 ```
 
 ### DataFlowIssue
@@ -10851,6 +10899,42 @@ in `core/src/main/java/org/apache/iceberg/TableMetadata.java`
 ```
 
 ### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/TableMetadata.java`
+#### Snippet
+```java
+      Preconditions.checkArgument(newUuid != null, "Cannot set uuid to null");
+
+      if (!newUuid.equals(uuid)) {
+        this.uuid = newUuid;
+        changes.add(new MetadataUpdate.AssignUUID(uuid));
+```
+
+### DataFlowIssue
+Casting `table` to `BaseTable` may produce `ClassCastException`
+in `core/src/main/java/org/apache/iceberg/BaseMetadataTable.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(
+        table instanceof BaseTable, "Cannot create metadata table for non-data table: %s", table);
+    this.table = (BaseTable) table;
+    this.name = name;
+  }
+```
+
+### DataFlowIssue
+Argument `properties` might be null
+in `core/src/main/java/org/apache/iceberg/io/FileIOParser.java`
+#### Snippet
+```java
+
+    generator.writeStringField(FILE_IO_IMPL, impl);
+    JsonUtil.writeStringMap(PROPERTIES, properties, generator);
+
+    generator.writeEndObject();
+```
+
+### DataFlowIssue
 Unboxing of `pos` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/data/GenericRecord.java`
 #### Snippet
@@ -10875,15 +10959,15 @@ in `core/src/main/java/org/apache/iceberg/avro/AvroSchemaUtil.java`
 ```
 
 ### DataFlowIssue
-Method invocation `levels` may produce `NullPointerException`
+Argument `toEncode` might be null
 in `core/src/main/java/org/apache/iceberg/rest/RESTUtil.java`
 #### Snippet
 ```java
-  public static String encodeNamespace(Namespace ns) {
-    Preconditions.checkArgument(ns != null, "Invalid namespace: null");
-    String[] levels = ns.levels();
-    String[] encodedLevels = new String[levels.length];
-
+    Preconditions.checkArgument(toEncode != null, "Invalid string to encode: null");
+    try {
+      return URLEncoder.encode(toEncode, StandardCharsets.UTF_8.name());
+    } catch (UnsupportedEncodingException e) {
+      throw new UncheckedIOException(
 ```
 
 ### DataFlowIssue
@@ -10899,15 +10983,63 @@ in `core/src/main/java/org/apache/iceberg/rest/RESTUtil.java`
 ```
 
 ### DataFlowIssue
-Argument `toEncode` might be null
+Method invocation `levels` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/rest/RESTUtil.java`
 #### Snippet
 ```java
-    Preconditions.checkArgument(toEncode != null, "Invalid string to encode: null");
-    try {
-      return URLEncoder.encode(toEncode, StandardCharsets.UTF_8.name());
-    } catch (UnsupportedEncodingException e) {
-      throw new UncheckedIOException(
+  public static String encodeNamespace(Namespace ns) {
+    Preconditions.checkArgument(ns != null, "Invalid namespace: null");
+    String[] levels = ns.levels();
+    String[] encodedLevels = new String[levels.length];
+
+```
+
+### DataFlowIssue
+Method invocation `hasNonNull` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/rest/requests/UpdateTableRequestParser.java`
+#### Snippet
+```java
+    List<MetadataUpdate> updates = Lists.newArrayList();
+
+    if (json.hasNonNull(IDENTIFIER)) {
+      identifier = TableIdentifierParser.fromJson(JsonUtil.get(IDENTIFIER, json));
+    }
+```
+
+### DataFlowIssue
+Method invocation `identifier` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/rest/requests/UpdateTableRequestParser.java`
+#### Snippet
+```java
+    gen.writeStartObject();
+
+    if (null != request.identifier()) {
+      gen.writeFieldName(IDENTIFIER);
+      TableIdentifierParser.toJson(request.identifier(), gen);
+```
+
+### DataFlowIssue
+Method invocation `tableChanges` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/rest/requests/CommitTransactionRequestParser.java`
+#### Snippet
+```java
+    gen.writeStartArray();
+
+    for (UpdateTableRequest tableChange : request.tableChanges()) {
+      UpdateTableRequestParser.toJson(tableChange, gen);
+    }
+```
+
+### DataFlowIssue
+Argument `json` might be null
+in `core/src/main/java/org/apache/iceberg/rest/requests/CommitTransactionRequestParser.java`
+#### Snippet
+```java
+
+    List<UpdateTableRequest> tableChanges = Lists.newArrayList();
+    JsonNode changes = JsonUtil.get(TABLE_CHANGES, json);
+
+    Preconditions.checkArgument(
 ```
 
 ### DataFlowIssue
@@ -10920,6 +11052,42 @@ in `core/src/main/java/org/apache/iceberg/rest/requests/ReportMetricsRequest.jav
         return ReportType.valueOf(reportType.toUpperCase(Locale.ENGLISH));
       } catch (IllegalArgumentException e) {
         return UNKNOWN;
+```
+
+### DataFlowIssue
+Method invocation `isEmpty` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/rest/requests/CommitTransactionRequest.java`
+#### Snippet
+```java
+  public void validate() {
+    Preconditions.checkArgument(null != tableChanges, "Invalid table changes: null");
+    Preconditions.checkArgument(!tableChanges.isEmpty(), "Invalid table changes: empty");
+    for (UpdateTableRequest tableChange : tableChanges) {
+      Preconditions.checkArgument(
+```
+
+### DataFlowIssue
+Method invocation `reportType` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/rest/requests/ReportMetricsRequestParser.java`
+#### Snippet
+```java
+    gen.writeStartObject();
+
+    gen.writeStringField(REPORT_TYPE, fromReportType(request.reportType()));
+
+    if (ReportType.SCAN_REPORT == request.reportType()) {
+```
+
+### DataFlowIssue
+Method invocation `isObject` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/rest/requests/ReportMetricsRequestParser.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(null != json, "Cannot parse metrics request from null object");
+    Preconditions.checkArgument(
+        json.isObject(), "Cannot parse metrics request from non-object: %s", json);
+
+    ReportType type = toReportType(JsonUtil.getString(REPORT_TYPE, json));
 ```
 
 ### DataFlowIssue
@@ -10944,30 +11112,6 @@ in `core/src/main/java/org/apache/iceberg/rest/responses/ErrorResponseParser.jav
     Preconditions.checkArgument(jsonNode.has(ERROR), "Cannot parse missing field: error");
     JsonNode error = JsonUtil.get(ERROR, jsonNode);
     String message = JsonUtil.getStringOrNull(MESSAGE, error);
-```
-
-### DataFlowIssue
-Method invocation `isObject` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/rest/requests/ReportMetricsRequestParser.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(null != json, "Cannot parse metrics request from null object");
-    Preconditions.checkArgument(
-        json.isObject(), "Cannot parse metrics request from non-object: %s", json);
-
-    ReportType type = toReportType(JsonUtil.getString(REPORT_TYPE, json));
-```
-
-### DataFlowIssue
-Method invocation `reportType` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/rest/requests/ReportMetricsRequestParser.java`
-#### Snippet
-```java
-    gen.writeStartObject();
-
-    gen.writeStringField(REPORT_TYPE, fromReportType(request.reportType()));
-
-    if (ReportType.SCAN_REPORT == request.reportType()) {
 ```
 
 ### DataFlowIssue
@@ -11031,30 +11175,6 @@ in `core/src/main/java/org/apache/iceberg/rest/RESTSessionCatalog.java`
 ```
 
 ### DataFlowIssue
-Argument `prefix` might be null
-in `core/src/main/java/org/apache/iceberg/util/PropertyUtil.java`
-#### Snippet
-```java
-
-    return properties.entrySet().stream()
-        .filter(e -> e.getKey().startsWith(prefix))
-        .collect(Collectors.toMap(e -> e.getKey().replaceFirst(prefix, ""), Map.Entry::getValue));
-  }
-```
-
-### DataFlowIssue
-Method invocation `test` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/util/PropertyUtil.java`
-#### Snippet
-```java
-
-    return properties.entrySet().stream()
-        .filter(e -> keyPredicate.test(e.getKey()))
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-  }
-```
-
-### DataFlowIssue
 Unboxing of `snapshotId` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/util/SnapshotUtil.java`
 #### Snippet
@@ -11091,6 +11211,30 @@ in `core/src/main/java/org/apache/iceberg/util/SnapshotUtil.java`
 ```
 
 ### DataFlowIssue
+Argument `prefix` might be null
+in `core/src/main/java/org/apache/iceberg/util/PropertyUtil.java`
+#### Snippet
+```java
+
+    return properties.entrySet().stream()
+        .filter(e -> e.getKey().startsWith(prefix))
+        .collect(Collectors.toMap(e -> e.getKey().replaceFirst(prefix, ""), Map.Entry::getValue));
+  }
+```
+
+### DataFlowIssue
+Method invocation `test` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/util/PropertyUtil.java`
+#### Snippet
+```java
+
+    return properties.entrySet().stream()
+        .filter(e -> keyPredicate.test(e.getKey()))
+        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+  }
+```
+
+### DataFlowIssue
 Method invocation `isObject` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/view/ViewHistoryEntryParser.java`
 #### Snippet
@@ -11115,18 +11259,6 @@ in `core/src/main/java/org/apache/iceberg/view/ViewHistoryEntryParser.java`
 ```
 
 ### DataFlowIssue
-Method invocation `type` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/view/ViewRepresentationParser.java`
-#### Snippet
-```java
-      throws IOException {
-    Preconditions.checkArgument(representation != null, "Invalid view representation: null");
-    switch (representation.type().toLowerCase(Locale.ENGLISH)) {
-      case ViewRepresentation.Type.SQL:
-        SQLViewRepresentationParser.toJson((SQLViewRepresentation) representation, generator);
-```
-
-### DataFlowIssue
 Method invocation `isObject` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/view/ViewRepresentationParser.java`
 #### Snippet
@@ -11136,6 +11268,18 @@ in `core/src/main/java/org/apache/iceberg/view/ViewRepresentationParser.java`
         node.isObject(), "Cannot parse view representation from non-object: %s", node);
     String type = JsonUtil.getString(TYPE, node).toLowerCase(Locale.ENGLISH);
     switch (type) {
+```
+
+### DataFlowIssue
+Method invocation `type` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/view/ViewRepresentationParser.java`
+#### Snippet
+```java
+      throws IOException {
+    Preconditions.checkArgument(representation != null, "Invalid view representation: null");
+    switch (representation.type().toLowerCase(Locale.ENGLISH)) {
+      case ViewRepresentation.Type.SQL:
+        SQLViewRepresentationParser.toJson((SQLViewRepresentation) representation, generator);
 ```
 
 ### DataFlowIssue
@@ -11175,18 +11319,6 @@ in `core/src/main/java/org/apache/iceberg/view/SQLViewRepresentationParser.java`
 ```
 
 ### DataFlowIssue
-Method invocation `isObject` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/view/ViewVersionParser.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(node != null, "Cannot parse view version from null object");
-    Preconditions.checkArgument(
-        node.isObject(), "Cannot parse view version from a non-object: %s", node);
-
-    int versionId = JsonUtil.getInt(VERSION_ID, node);
-```
-
-### DataFlowIssue
 Method invocation `versionId` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/view/ViewVersionParser.java`
 #### Snippet
@@ -11199,39 +11331,39 @@ in `core/src/main/java/org/apache/iceberg/view/ViewVersionParser.java`
 ```
 
 ### DataFlowIssue
-Method invocation `asLong` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/util/JsonUtil.java`
+Method invocation `isObject` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/view/ViewVersionParser.java`
 #### Snippet
 ```java
-        property,
-        pNode);
-    return pNode.asLong();
-  }
+    Preconditions.checkArgument(node != null, "Cannot parse view version from null object");
+    Preconditions.checkArgument(
+        node.isObject(), "Cannot parse view version from a non-object: %s", node);
 
+    int versionId = JsonUtil.getInt(VERSION_ID, node);
 ```
 
 ### DataFlowIssue
-Method invocation `fieldNames` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/util/JsonUtil.java`
+Method invocation `isObject` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/view/ViewMetadataParser.java`
 #### Snippet
 ```java
+    Preconditions.checkArgument(json != null, "Cannot parse view metadata from null object");
+    Preconditions.checkArgument(
+        json.isObject(), "Cannot parse view metadata from non-object: %s", json);
 
-    ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
-    Iterator<String> fields = pNode.fieldNames();
-    while (fields.hasNext()) {
-      String field = fields.next();
+    int formatVersion = JsonUtil.getInt(FORMAT_VERSION, json);
 ```
 
 ### DataFlowIssue
-Method invocation `elements` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/util/JsonUtil.java`
+Method invocation `formatVersion` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/view/ViewMetadataParser.java`
 #### Snippet
 ```java
-          property,
-          pNode);
-      this.elements = pNode.elements();
-    }
+    gen.writeStartObject();
 
+    gen.writeNumberField(FORMAT_VERSION, metadata.formatVersion());
+    gen.writeStringField(LOCATION, metadata.location());
+    JsonUtil.writeStringMap(PROPERTIES, metadata.properties(), gen);
 ```
 
 ### DataFlowIssue
@@ -11266,6 +11398,42 @@ in `core/src/main/java/org/apache/iceberg/util/JsonUtil.java`
         property,
         pNode);
     return pNode.asInt();
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `elements` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/util/JsonUtil.java`
+#### Snippet
+```java
+          property,
+          pNode);
+      this.elements = pNode.elements();
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `fieldNames` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/util/JsonUtil.java`
+#### Snippet
+```java
+
+    ImmutableMap.Builder<String, String> builder = ImmutableMap.builder();
+    Iterator<String> fields = pNode.fieldNames();
+    while (fields.hasNext()) {
+      String field = fields.next();
+```
+
+### DataFlowIssue
+Method invocation `asLong` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/util/JsonUtil.java`
+#### Snippet
+```java
+        property,
+        pNode);
+    return pNode.asLong();
   }
 
 ```
@@ -11307,18 +11475,6 @@ in `core/src/main/java/org/apache/iceberg/actions/BaseRewriteDataFilesAction.jav
 ```
 
 ### DataFlowIssue
-Argument `node` might be null
-in `core/src/main/java/org/apache/iceberg/mapping/NameMappingParser.java`
-#### Snippet
-```java
-        node);
-
-    Integer id = JsonUtil.getIntOrNull(FIELD_ID, node);
-
-    Set<String> names;
-```
-
-### DataFlowIssue
 Method invocation `isNoop` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/metrics/TimerResult.java`
 #### Snippet
@@ -11331,39 +11487,15 @@ in `core/src/main/java/org/apache/iceberg/metrics/TimerResult.java`
 ```
 
 ### DataFlowIssue
-Method invocation `tableName` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/metrics/ScanReportParser.java`
+Argument `node` might be null
+in `core/src/main/java/org/apache/iceberg/mapping/NameMappingParser.java`
 #### Snippet
 ```java
-    Preconditions.checkArgument(null != scanReport, "Invalid scan report: null");
+        node);
 
-    gen.writeStringField(TABLE_NAME, scanReport.tableName());
-    gen.writeNumberField(SNAPSHOT_ID, scanReport.snapshotId());
+    Integer id = JsonUtil.getIntOrNull(FIELD_ID, node);
 
-```
-
-### DataFlowIssue
-Method invocation `isObject` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/metrics/ScanReportParser.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(null != json, "Cannot parse scan report from null object");
-    Preconditions.checkArgument(
-        json.isObject(), "Cannot parse scan report from non-object: %s", json);
-
-    String tableName = JsonUtil.getString(TABLE_NAME, json);
-```
-
-### DataFlowIssue
-Argument `scanReport` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanReportParser.java`
-#### Snippet
-```java
-
-    gen.writeStartObject();
-    toJsonWithoutStartEnd(scanReport, gen);
-    gen.writeEndObject();
-  }
+    Set<String> names;
 ```
 
 ### DataFlowIssue
@@ -11391,6 +11523,18 @@ in `core/src/main/java/org/apache/iceberg/metrics/CommitMetricsResult.java`
 ```
 
 ### DataFlowIssue
+Method invocation `isObject` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/metrics/CounterResultParser.java`
+#### Snippet
+```java
+  static CounterResult fromJson(JsonNode json) {
+    Preconditions.checkArgument(null != json, "Cannot parse counter from null object");
+    Preconditions.checkArgument(json.isObject(), "Cannot parse counter from non-object: %s", json);
+
+    String unit = JsonUtil.getString(UNIT, json);
+```
+
+### DataFlowIssue
 Method invocation `unit` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/metrics/CounterResultParser.java`
 #### Snippet
@@ -11407,23 +11551,23 @@ Method invocation `isObject` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/metrics/CounterResultParser.java`
 #### Snippet
 ```java
-  static CounterResult fromJson(JsonNode json) {
-    Preconditions.checkArgument(null != json, "Cannot parse counter from null object");
-    Preconditions.checkArgument(json.isObject(), "Cannot parse counter from non-object: %s", json);
-
-    String unit = JsonUtil.getString(UNIT, json);
-```
-
-### DataFlowIssue
-Method invocation `isObject` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/metrics/CounterResultParser.java`
-#### Snippet
-```java
   static CounterResult fromJson(String counterName, JsonNode json) {
     Preconditions.checkArgument(null != json, "Cannot parse counter from null object");
     Preconditions.checkArgument(json.isObject(), "Cannot parse counter from non-object: %s", json);
 
     if (!json.has(counterName)) {
+```
+
+### DataFlowIssue
+Method invocation `totalPlanningDuration` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResult.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(null != scanMetrics, "Invalid scan metrics: null");
+    return ImmutableScanMetricsResult.builder()
+        .totalPlanningDuration(TimerResult.fromTimer(scanMetrics.totalPlanningDuration()))
+        .resultDataFiles(CounterResult.fromCounter(scanMetrics.resultDataFiles()))
+        .resultDeleteFiles(CounterResult.fromCounter(scanMetrics.resultDeleteFiles()))
 ```
 
 ### DataFlowIssue
@@ -11439,15 +11583,87 @@ in `core/src/main/java/org/apache/iceberg/metrics/CounterResult.java`
 ```
 
 ### DataFlowIssue
-Method invocation `totalPlanningDuration` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResult.java`
+Method invocation `isObject` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/metrics/ScanReportParser.java`
 #### Snippet
 ```java
-    Preconditions.checkArgument(null != scanMetrics, "Invalid scan metrics: null");
-    return ImmutableScanMetricsResult.builder()
-        .totalPlanningDuration(TimerResult.fromTimer(scanMetrics.totalPlanningDuration()))
-        .resultDataFiles(CounterResult.fromCounter(scanMetrics.resultDataFiles()))
-        .resultDeleteFiles(CounterResult.fromCounter(scanMetrics.resultDeleteFiles()))
+    Preconditions.checkArgument(null != json, "Cannot parse scan report from null object");
+    Preconditions.checkArgument(
+        json.isObject(), "Cannot parse scan report from non-object: %s", json);
+
+    String tableName = JsonUtil.getString(TABLE_NAME, json);
+```
+
+### DataFlowIssue
+Argument `scanReport` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanReportParser.java`
+#### Snippet
+```java
+
+    gen.writeStartObject();
+    toJsonWithoutStartEnd(scanReport, gen);
+    gen.writeEndObject();
+  }
+```
+
+### DataFlowIssue
+Method invocation `tableName` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/metrics/ScanReportParser.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(null != scanReport, "Invalid scan report: null");
+
+    gen.writeStringField(TABLE_NAME, scanReport.tableName());
+    gen.writeNumberField(SNAPSHOT_ID, scanReport.snapshotId());
+
+```
+
+### DataFlowIssue
+Argument `commitReport` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/CommitReportParser.java`
+#### Snippet
+```java
+
+    gen.writeStartObject();
+    toJsonWithoutStartEnd(commitReport, gen);
+    gen.writeEndObject();
+  }
+```
+
+### DataFlowIssue
+Method invocation `tableName` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/metrics/CommitReportParser.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(null != commitReport, "Invalid commit report: null");
+
+    gen.writeStringField(TABLE_NAME, commitReport.tableName());
+    gen.writeNumberField(SNAPSHOT_ID, commitReport.snapshotId());
+    gen.writeNumberField(SEQUENCE_NUMBER, commitReport.sequenceNumber());
+```
+
+### DataFlowIssue
+Method invocation `isObject` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/metrics/CommitReportParser.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(null != json, "Cannot parse commit report from null object");
+    Preconditions.checkArgument(
+        json.isObject(), "Cannot parse commit report from non-object: %s", json);
+
+    ImmutableCommitReport.Builder builder =
+```
+
+### DataFlowIssue
+Method invocation `isObject` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/metrics/TimerResultParser.java`
+#### Snippet
+```java
+  static TimerResult fromJson(String timerName, JsonNode json) {
+    Preconditions.checkArgument(null != json, "Cannot parse timer from null object");
+    Preconditions.checkArgument(json.isObject(), "Cannot parse timer from non-object: %s", json);
+
+    if (!json.has(timerName)) {
 ```
 
 ### DataFlowIssue
@@ -11467,287 +11683,11 @@ Method invocation `isObject` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/metrics/TimerResultParser.java`
 #### Snippet
 ```java
-  static TimerResult fromJson(String timerName, JsonNode json) {
-    Preconditions.checkArgument(null != json, "Cannot parse timer from null object");
-    Preconditions.checkArgument(json.isObject(), "Cannot parse timer from non-object: %s", json);
-
-    if (!json.has(timerName)) {
-```
-
-### DataFlowIssue
-Method invocation `isObject` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/metrics/TimerResultParser.java`
-#### Snippet
-```java
   static TimerResult fromJson(JsonNode json) {
     Preconditions.checkArgument(null != json, "Cannot parse timer from null object");
     Preconditions.checkArgument(json.isObject(), "Cannot parse timer from non-object: %s", json);
 
     long count = JsonUtil.getLong(COUNT, json);
-```
-
-### DataFlowIssue
-Method invocation `tableName` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/metrics/CommitReportParser.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(null != commitReport, "Invalid commit report: null");
-
-    gen.writeStringField(TABLE_NAME, commitReport.tableName());
-    gen.writeNumberField(SNAPSHOT_ID, commitReport.snapshotId());
-    gen.writeNumberField(SEQUENCE_NUMBER, commitReport.sequenceNumber());
-```
-
-### DataFlowIssue
-Argument `commitReport` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/CommitReportParser.java`
-#### Snippet
-```java
-
-    gen.writeStartObject();
-    toJsonWithoutStartEnd(commitReport, gen);
-    gen.writeEndObject();
-  }
-```
-
-### DataFlowIssue
-Method invocation `isObject` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/metrics/CommitReportParser.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(null != json, "Cannot parse commit report from null object");
-    Preconditions.checkArgument(
-        json.isObject(), "Cannot parse commit report from non-object: %s", json);
-
-    ImmutableCommitReport.Builder builder =
-```
-
-### DataFlowIssue
-Method invocation `totalPlanningDuration` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    gen.writeStartObject();
-
-    if (null != metrics.totalPlanningDuration()) {
-      gen.writeFieldName(ScanMetrics.TOTAL_PLANNING_DURATION);
-      TimerResultParser.toJson(metrics.totalPlanningDuration(), gen);
-```
-
-### DataFlowIssue
-Argument `metrics.totalPlanningDuration()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.totalPlanningDuration()) {
-      gen.writeFieldName(ScanMetrics.TOTAL_PLANNING_DURATION);
-      TimerResultParser.toJson(metrics.totalPlanningDuration(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.resultDataFiles()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.resultDataFiles()) {
-      gen.writeFieldName(ScanMetrics.RESULT_DATA_FILES);
-      CounterResultParser.toJson(metrics.resultDataFiles(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.resultDeleteFiles()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.resultDeleteFiles()) {
-      gen.writeFieldName(ScanMetrics.RESULT_DELETE_FILES);
-      CounterResultParser.toJson(metrics.resultDeleteFiles(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.totalDataManifests()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.totalDataManifests()) {
-      gen.writeFieldName(ScanMetrics.TOTAL_DATA_MANIFESTS);
-      CounterResultParser.toJson(metrics.totalDataManifests(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.totalDeleteManifests()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.totalDeleteManifests()) {
-      gen.writeFieldName(ScanMetrics.TOTAL_DELETE_MANIFESTS);
-      CounterResultParser.toJson(metrics.totalDeleteManifests(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.scannedDataManifests()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.scannedDataManifests()) {
-      gen.writeFieldName(ScanMetrics.SCANNED_DATA_MANIFESTS);
-      CounterResultParser.toJson(metrics.scannedDataManifests(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.skippedDataManifests()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.skippedDataManifests()) {
-      gen.writeFieldName(ScanMetrics.SKIPPED_DATA_MANIFESTS);
-      CounterResultParser.toJson(metrics.skippedDataManifests(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.totalFileSizeInBytes()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.totalFileSizeInBytes()) {
-      gen.writeFieldName(ScanMetrics.TOTAL_FILE_SIZE_IN_BYTES);
-      CounterResultParser.toJson(metrics.totalFileSizeInBytes(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.totalDeleteFileSizeInBytes()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.totalDeleteFileSizeInBytes()) {
-      gen.writeFieldName(ScanMetrics.TOTAL_DELETE_FILE_SIZE_IN_BYTES);
-      CounterResultParser.toJson(metrics.totalDeleteFileSizeInBytes(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.skippedDataFiles()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.skippedDataFiles()) {
-      gen.writeFieldName(ScanMetrics.SKIPPED_DATA_FILES);
-      CounterResultParser.toJson(metrics.skippedDataFiles(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.skippedDeleteFiles()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.skippedDeleteFiles()) {
-      gen.writeFieldName(ScanMetrics.SKIPPED_DELETE_FILES);
-      CounterResultParser.toJson(metrics.skippedDeleteFiles(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.scannedDeleteManifests()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.scannedDeleteManifests()) {
-      gen.writeFieldName(ScanMetrics.SCANNED_DELETE_MANIFESTS);
-      CounterResultParser.toJson(metrics.scannedDeleteManifests(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.skippedDeleteManifests()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.skippedDeleteManifests()) {
-      gen.writeFieldName(ScanMetrics.SKIPPED_DELETE_MANIFESTS);
-      CounterResultParser.toJson(metrics.skippedDeleteManifests(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.indexedDeleteFiles()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.indexedDeleteFiles()) {
-      gen.writeFieldName(ScanMetrics.INDEXED_DELETE_FILES);
-      CounterResultParser.toJson(metrics.indexedDeleteFiles(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.equalityDeleteFiles()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.equalityDeleteFiles()) {
-      gen.writeFieldName(ScanMetrics.EQUALITY_DELETE_FILES);
-      CounterResultParser.toJson(metrics.equalityDeleteFiles(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Argument `metrics.positionalDeleteFiles()` might be null
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    if (null != metrics.positionalDeleteFiles()) {
-      gen.writeFieldName(ScanMetrics.POSITIONAL_DELETE_FILES);
-      CounterResultParser.toJson(metrics.positionalDeleteFiles(), gen);
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `isObject` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(null != json, "Cannot parse scan metrics from null object");
-    Preconditions.checkArgument(
-        json.isObject(), "Cannot parse scan metrics from non-object: %s", json);
-
-    return ImmutableScanMetricsResult.builder()
-```
-
-### DataFlowIssue
-Method invocation `isObject` may produce `NullPointerException`
-in `core/src/main/java/org/apache/iceberg/metrics/CommitMetricsResultParser.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(null != json, "Cannot parse commit metrics from null object");
-    Preconditions.checkArgument(
-        json.isObject(), "Cannot parse commit metrics from non-object: %s", json);
-
-    return ImmutableCommitMetricsResult.builder()
 ```
 
 ### DataFlowIssue
@@ -12051,11 +11991,239 @@ in `core/src/main/java/org/apache/iceberg/metrics/CommitMetricsResultParser.java
 ```
 
 ### DataFlowIssue
+Method invocation `isObject` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/metrics/CommitMetricsResultParser.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(null != json, "Cannot parse commit metrics from null object");
+    Preconditions.checkArgument(
+        json.isObject(), "Cannot parse commit metrics from non-object: %s", json);
+
+    return ImmutableCommitMetricsResult.builder()
+```
+
+### DataFlowIssue
+Method invocation `isObject` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(null != json, "Cannot parse scan metrics from null object");
+    Preconditions.checkArgument(
+        json.isObject(), "Cannot parse scan metrics from non-object: %s", json);
+
+    return ImmutableScanMetricsResult.builder()
+```
+
+### DataFlowIssue
+Method invocation `totalPlanningDuration` may produce `NullPointerException`
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    gen.writeStartObject();
+
+    if (null != metrics.totalPlanningDuration()) {
+      gen.writeFieldName(ScanMetrics.TOTAL_PLANNING_DURATION);
+      TimerResultParser.toJson(metrics.totalPlanningDuration(), gen);
+```
+
+### DataFlowIssue
+Argument `metrics.totalPlanningDuration()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.totalPlanningDuration()) {
+      gen.writeFieldName(ScanMetrics.TOTAL_PLANNING_DURATION);
+      TimerResultParser.toJson(metrics.totalPlanningDuration(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.resultDataFiles()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.resultDataFiles()) {
+      gen.writeFieldName(ScanMetrics.RESULT_DATA_FILES);
+      CounterResultParser.toJson(metrics.resultDataFiles(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.resultDeleteFiles()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.resultDeleteFiles()) {
+      gen.writeFieldName(ScanMetrics.RESULT_DELETE_FILES);
+      CounterResultParser.toJson(metrics.resultDeleteFiles(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.totalDataManifests()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.totalDataManifests()) {
+      gen.writeFieldName(ScanMetrics.TOTAL_DATA_MANIFESTS);
+      CounterResultParser.toJson(metrics.totalDataManifests(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.totalDeleteManifests()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.totalDeleteManifests()) {
+      gen.writeFieldName(ScanMetrics.TOTAL_DELETE_MANIFESTS);
+      CounterResultParser.toJson(metrics.totalDeleteManifests(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.scannedDataManifests()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.scannedDataManifests()) {
+      gen.writeFieldName(ScanMetrics.SCANNED_DATA_MANIFESTS);
+      CounterResultParser.toJson(metrics.scannedDataManifests(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.skippedDataManifests()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.skippedDataManifests()) {
+      gen.writeFieldName(ScanMetrics.SKIPPED_DATA_MANIFESTS);
+      CounterResultParser.toJson(metrics.skippedDataManifests(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.totalFileSizeInBytes()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.totalFileSizeInBytes()) {
+      gen.writeFieldName(ScanMetrics.TOTAL_FILE_SIZE_IN_BYTES);
+      CounterResultParser.toJson(metrics.totalFileSizeInBytes(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.totalDeleteFileSizeInBytes()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.totalDeleteFileSizeInBytes()) {
+      gen.writeFieldName(ScanMetrics.TOTAL_DELETE_FILE_SIZE_IN_BYTES);
+      CounterResultParser.toJson(metrics.totalDeleteFileSizeInBytes(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.skippedDataFiles()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.skippedDataFiles()) {
+      gen.writeFieldName(ScanMetrics.SKIPPED_DATA_FILES);
+      CounterResultParser.toJson(metrics.skippedDataFiles(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.skippedDeleteFiles()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.skippedDeleteFiles()) {
+      gen.writeFieldName(ScanMetrics.SKIPPED_DELETE_FILES);
+      CounterResultParser.toJson(metrics.skippedDeleteFiles(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.scannedDeleteManifests()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.scannedDeleteManifests()) {
+      gen.writeFieldName(ScanMetrics.SCANNED_DELETE_MANIFESTS);
+      CounterResultParser.toJson(metrics.scannedDeleteManifests(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.skippedDeleteManifests()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.skippedDeleteManifests()) {
+      gen.writeFieldName(ScanMetrics.SKIPPED_DELETE_MANIFESTS);
+      CounterResultParser.toJson(metrics.skippedDeleteManifests(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.indexedDeleteFiles()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.indexedDeleteFiles()) {
+      gen.writeFieldName(ScanMetrics.INDEXED_DELETE_FILES);
+      CounterResultParser.toJson(metrics.indexedDeleteFiles(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.equalityDeleteFiles()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.equalityDeleteFiles()) {
+      gen.writeFieldName(ScanMetrics.EQUALITY_DELETE_FILES);
+      CounterResultParser.toJson(metrics.equalityDeleteFiles(), gen);
+    }
+
+```
+
+### DataFlowIssue
+Argument `metrics.positionalDeleteFiles()` might be null
+in `core/src/main/java/org/apache/iceberg/metrics/ScanMetricsResultParser.java`
+#### Snippet
+```java
+    if (null != metrics.positionalDeleteFiles()) {
+      gen.writeFieldName(ScanMetrics.POSITIONAL_DELETE_FILES);
+      CounterResultParser.toJson(metrics.positionalDeleteFiles(), gen);
+    }
+
+```
+
+### DataFlowIssue
 Dereference of `keyBytes` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/encryption/Ciphers.java`
 #### Snippet
 ```java
-    public AesGcmDecryptor(byte[] keyBytes) {
+    public AesGcmEncryptor(byte[] keyBytes) {
       Preconditions.checkArgument(keyBytes != null, "Key can't be null");
       int keyLength = keyBytes.length;
       Preconditions.checkArgument(
@@ -12067,7 +12235,7 @@ Dereference of `keyBytes` may produce `NullPointerException`
 in `core/src/main/java/org/apache/iceberg/encryption/Ciphers.java`
 #### Snippet
 ```java
-    public AesGcmEncryptor(byte[] keyBytes) {
+    public AesGcmDecryptor(byte[] keyBytes) {
       Preconditions.checkArgument(keyBytes != null, "Key can't be null");
       int keyLength = keyBytes.length;
       Preconditions.checkArgument(
@@ -12087,87 +12255,15 @@ in `core/src/main/java/org/apache/iceberg/expressions/ExpressionParser.java`
 ```
 
 ### DataFlowIssue
-Method invocation `type` may produce `NullPointerException`
-in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
+Method invocation `isDictionaryEncoded` may produce `NullPointerException`
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
 #### Snippet
 ```java
-      case FIXED_LEN_BYTE_ARRAY:
-        int len;
-        if (icebergField.type() instanceof Types.UUIDType) {
-          len = 16;
-          this.readType = ReadType.UUID;
-```
+    Preconditions.checkArgument(null != accessor, "Invalid arrow vector accessor: null");
 
-### DataFlowIssue
-Method invocation `name` may produce `NullPointerException`
-in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
-#### Snippet
-```java
-        Field intField =
-            new Field(
-                icebergField.name(),
-                new FieldType(
-                    icebergField.isOptional(), new ArrowType.Int(Integer.SIZE, true), null, null),
-```
-
-### DataFlowIssue
-Method invocation `name` may produce `NullPointerException`
-in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
-#### Snippet
-```java
-        Field floatField =
-            new Field(
-                icebergField.name(),
-                new FieldType(
-                    icebergField.isOptional(),
-```
-
-### DataFlowIssue
-Argument `columnDescriptor` might be null
-in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
-#### Snippet
-```java
-      allocateDictEncodedVector();
-    } else {
-      Field arrowField = ArrowSchemaUtil.convert(getPhysicalType(columnDescriptor, icebergField));
-      if (columnDescriptor.getPrimitiveType().getOriginalType() != null) {
-        allocateVectorBasedOnOriginalType(columnDescriptor.getPrimitiveType(), arrowField);
-```
-
-### DataFlowIssue
-Method invocation `producesDictionaryEncodedVector` may produce `NullPointerException`
-in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
-#### Snippet
-```java
-  @Override
-  public VectorHolder read(VectorHolder reuse, int numValsToRead) {
-    boolean dictEncoded = vectorizedColumnIterator.producesDictionaryEncodedVector();
-    if (reuse == null
-        || (!dictEncoded && readType == ReadType.DICTIONARY)
-```
-
-### DataFlowIssue
-Method invocation `name` may produce `NullPointerException`
-in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
-#### Snippet
-```java
-    Field field =
-        new Field(
-            icebergField.name(),
-            new FieldType(
-                icebergField.isOptional(), new ArrowType.Int(Integer.SIZE, true), null, null),
-```
-
-### DataFlowIssue
-Method invocation `setBatchSize` may produce `NullPointerException`
-in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
-#### Snippet
-```java
-  public void setBatchSize(int batchSize) {
-    this.batchSize = (batchSize == 0) ? DEFAULT_BATCH_SIZE : batchSize;
-    this.vectorizedColumnIterator.setBatchSize(batchSize);
-  }
-
+    if (vectorHolder.isDictionaryEncoded()) {
+      if (Type.TypeID.DECIMAL.equals(vectorHolder.icebergType().typeId())) {
+        return toDecimalVector(vectorHolder, accessor);
 ```
 
 ### DataFlowIssue
@@ -12211,6 +12307,78 @@ Method invocation `type` may produce `NullPointerException`
 in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
 #### Snippet
 ```java
+      case FIXED_LEN_BYTE_ARRAY:
+        int len;
+        if (icebergField.type() instanceof Types.UUIDType) {
+          len = 16;
+          this.readType = ReadType.UUID;
+```
+
+### DataFlowIssue
+Method invocation `name` may produce `NullPointerException`
+in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
+#### Snippet
+```java
+        Field intField =
+            new Field(
+                icebergField.name(),
+                new FieldType(
+                    icebergField.isOptional(), new ArrowType.Int(Integer.SIZE, true), null, null),
+```
+
+### DataFlowIssue
+Method invocation `name` may produce `NullPointerException`
+in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
+#### Snippet
+```java
+        Field floatField =
+            new Field(
+                icebergField.name(),
+                new FieldType(
+                    icebergField.isOptional(),
+```
+
+### DataFlowIssue
+Method invocation `name` may produce `NullPointerException`
+in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
+#### Snippet
+```java
+    Field field =
+        new Field(
+            icebergField.name(),
+            new FieldType(
+                icebergField.isOptional(), new ArrowType.Int(Integer.SIZE, true), null, null),
+```
+
+### DataFlowIssue
+Method invocation `producesDictionaryEncodedVector` may produce `NullPointerException`
+in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
+#### Snippet
+```java
+  @Override
+  public VectorHolder read(VectorHolder reuse, int numValsToRead) {
+    boolean dictEncoded = vectorizedColumnIterator.producesDictionaryEncodedVector();
+    if (reuse == null
+        || (!dictEncoded && readType == ReadType.DICTIONARY)
+```
+
+### DataFlowIssue
+Argument `columnDescriptor` might be null
+in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
+#### Snippet
+```java
+      allocateDictEncodedVector();
+    } else {
+      Field arrowField = ArrowSchemaUtil.convert(getPhysicalType(columnDescriptor, icebergField));
+      if (columnDescriptor.getPrimitiveType().getOriginalType() != null) {
+        allocateVectorBasedOnOriginalType(columnDescriptor.getPrimitiveType(), arrowField);
+```
+
+### DataFlowIssue
+Method invocation `type` may produce `NullPointerException`
+in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
+#### Snippet
+```java
       case TIMESTAMP_MICROS:
         this.vec = arrowField.createVector(rootAlloc);
         if (((Types.TimestampType) icebergField.type()).shouldAdjustToUTC()) {
@@ -12219,15 +12387,27 @@ in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReade
 ```
 
 ### DataFlowIssue
-Method invocation `isDictionaryEncoded` may produce `NullPointerException`
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+Method invocation `setBatchSize` may produce `NullPointerException`
+in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/VectorizedArrowReader.java`
 #### Snippet
 ```java
-    Preconditions.checkArgument(null != accessor, "Invalid arrow vector accessor: null");
+  public void setBatchSize(int batchSize) {
+    this.batchSize = (batchSize == 0) ? DEFAULT_BATCH_SIZE : batchSize;
+    this.vectorizedColumnIterator.setBatchSize(batchSize);
+  }
 
-    if (vectorHolder.isDictionaryEncoded()) {
-      if (Type.TypeID.DECIMAL.equals(vectorHolder.icebergType().typeId())) {
-        return toDecimalVector(vectorHolder, accessor);
+```
+
+### DataFlowIssue
+Argument `primitive` might be null
+in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/GenericArrowVectorAccessorFactory.java`
+#### Snippet
+```java
+    PrimitiveType primitive = desc == null ? null : desc.getPrimitiveType();
+    if (isVectorDictEncoded) {
+      return getDictionaryVectorAccessor(dictionary, desc, vector, primitive);
+    } else {
+      return getPlainVectorAccessor(vector, primitive);
 ```
 
 ### DataFlowIssue
@@ -12351,18 +12531,6 @@ in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/GenericArrowVectorAc
 ```
 
 ### DataFlowIssue
-Argument `primitive` might be null
-in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/GenericArrowVectorAccessorFactory.java`
-#### Snippet
-```java
-    PrimitiveType primitive = desc == null ? null : desc.getPrimitiveType();
-    if (isVectorDictEncoded) {
-      return getDictionaryVectorAccessor(dictionary, desc, vector, primitive);
-    } else {
-      return getPlainVectorAccessor(vector, primitive);
-```
-
-### DataFlowIssue
 Casting `schemaType` to `RowType` may produce `ClassCastException`
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.java`
 #### Snippet
@@ -12384,6 +12552,30 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/FlinkSchemaUtil.jav
     Type converted = root.accept(new FlinkTypeToType(root));
 
     Schema iSchema = new Schema(converted.asStructType().fields());
+```
+
+### DataFlowIssue
+Casting `structType` to `RowType` may produce `ClassCastException`
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/data/AvroWithFlinkSchemaVisitor.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(
+        structType instanceof RowType, "Invalid struct: %s is not a struct", structType);
+    RowType.RowField field = ((RowType) structType).getFields().get(pos);
+    return Pair.of(field.getName(), field.getType());
+  }
+```
+
+### DataFlowIssue
+Casting `arrayType` to `ArrayType` may produce `ClassCastException`
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/data/AvroWithFlinkSchemaVisitor.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(
+        arrayType instanceof ArrayType, "Invalid array: %s is not an array", arrayType);
+    return ((ArrayType) arrayType).getElementType();
+  }
+
 ```
 
 ### DataFlowIssue
@@ -12504,30 +12696,6 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/data/ParquetWithFli
       return visitor.struct(struct, group, visitFields(struct, group, visitor));
     }
   }
-```
-
-### DataFlowIssue
-Casting `structType` to `RowType` may produce `ClassCastException`
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/data/AvroWithFlinkSchemaVisitor.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(
-        structType instanceof RowType, "Invalid struct: %s is not a struct", structType);
-    RowType.RowField field = ((RowType) structType).getFields().get(pos);
-    return Pair.of(field.getName(), field.getType());
-  }
-```
-
-### DataFlowIssue
-Casting `arrayType` to `ArrayType` may produce `ClassCastException`
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/data/AvroWithFlinkSchemaVisitor.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(
-        arrayType instanceof ArrayType, "Invalid array: %s is not an array", arrayType);
-    return ((ArrayType) arrayType).getElementType();
-  }
-
 ```
 
 ### DataFlowIssue
@@ -12723,30 +12891,6 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/ParquetWithSpar
 ```
 
 ### DataFlowIssue
-Casting `structType` to `StructType` may produce `ClassCastException`
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/AvroWithSparkSchemaVisitor.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(
-        structType instanceof StructType, "Invalid struct: %s is not a struct", structType);
-    StructField field = ((StructType) structType).apply(pos);
-    return Pair.of(field.name(), field.dataType());
-  }
-```
-
-### DataFlowIssue
-Casting `arrayType` to `ArrayType` may produce `ClassCastException`
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/AvroWithSparkSchemaVisitor.java`
-#### Snippet
-```java
-    Preconditions.checkArgument(
-        arrayType instanceof ArrayType, "Invalid array: %s is not an array", arrayType);
-    return ((ArrayType) arrayType).elementType();
-  }
-
-```
-
-### DataFlowIssue
 Casting `catalogPlugin` to `HasIcebergCatalog` may produce `ClassCastException`
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/Spark3Util.java`
 #### Snippet
@@ -12780,6 +12924,30 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/Spark3Util.java`
     return sparkTable.table();
   }
 
+```
+
+### DataFlowIssue
+Casting `arrayType` to `ArrayType` may produce `ClassCastException`
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/AvroWithSparkSchemaVisitor.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(
+        arrayType instanceof ArrayType, "Invalid array: %s is not an array", arrayType);
+    return ((ArrayType) arrayType).elementType();
+  }
+
+```
+
+### DataFlowIssue
+Casting `structType` to `StructType` may produce `ClassCastException`
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/AvroWithSparkSchemaVisitor.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(
+        structType instanceof StructType, "Invalid struct: %s is not a struct", structType);
+    StructField field = ((StructType) structType).apply(pos);
+    return Pair.of(field.name(), field.dataType());
+  }
 ```
 
 ### DataFlowIssue
@@ -12999,18 +13167,6 @@ in `hive-metastore/src/main/java/org/apache/iceberg/hive/CachedClientPool.java`
 ```
 
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `delta-lake/src/main/java/org/apache/iceberg/delta/BaseSnapshotDeltaLakeTableAction.java`
-#### Snippet
-```java
-        spec.fields().stream()
-            .map(PartitionField::name)
-            .map(name -> String.format("%s=%s", name, partitionValues.get(name)))
-            .collect(Collectors.joining("/"));
-
-```
-
-### DataFlowIssue
 Method invocation `lock` may produce `NullPointerException`
 in `hive-metastore/src/main/java/org/apache/iceberg/hive/MetastoreLock.java`
 #### Snippet
@@ -13019,6 +13175,18 @@ in `hive-metastore/src/main/java/org/apache/iceberg/hive/MetastoreLock.java`
     jvmLock = commitLockCache.get(fullName, t -> new ReentrantLock(true));
     jvmLock.lock();
   }
+
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `delta-lake/src/main/java/org/apache/iceberg/delta/BaseSnapshotDeltaLakeTableAction.java`
+#### Snippet
+```java
+        spec.fields().stream()
+            .map(PartitionField::name)
+            .map(name -> String.format("%s=%s", name, partitionValues.get(name)))
+            .collect(Collectors.joining("/"));
 
 ```
 
@@ -13182,349 +13350,13 @@ in `core/src/main/java/org/apache/iceberg/TableProperties.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'S3_ACCELERATION_ENABLED' is still used
+Deprecated member 'S3_WRITE_NAMESPACE_TAG_ENABLED_DEFAULT' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
    *     instead
    */
-  @Deprecated public static final String S3_ACCELERATION_ENABLED = "s3.acceleration-enabled";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_APACHE_CONNECTION_MAX_IDLE_TIME_MS' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String HTTP_CLIENT_APACHE_CONNECTION_MAX_IDLE_TIME_MS =
-      "http-client.apache.connection-max-idle-time-ms";
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_CHECKSUM_ENABLED' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_CHECKSUM_ENABLED = "s3.checksum-enabled";
-  /**
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_DELETE_BATCH_SIZE_DEFAULT' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final int S3FILEIO_DELETE_BATCH_SIZE_DEFAULT = 250;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_MULTIPART_THRESHOLD_FACTOR_DEFAULT' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final double S3FILEIO_MULTIPART_THRESHOLD_FACTOR_DEFAULT = 1.5;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_WRITE_NAMESPACE_TAG_ENABLED' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String S3_WRITE_NAMESPACE_TAG_ENABLED = "s3.write.namespace-tag-enabled";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_ACL' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_ACL = "s3.acl";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_SSE_TYPE_NONE' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_SSE_TYPE_NONE = "none";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_USE_ARN_REGION_ENABLED_DEFAULT' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final boolean S3_USE_ARN_REGION_ENABLED_DEFAULT = false;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'CLIENT_CREDENTIALS_PROVIDER' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String CLIENT_CREDENTIALS_PROVIDER = "client.credentials-provider";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_MULTIPART_SIZE' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_MULTIPART_SIZE = "s3.multipart.part-size-bytes";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_SECRET_ACCESS_KEY' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_SECRET_ACCESS_KEY = "s3.secret-access-key";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_ACCESS_KEY_ID' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_ACCESS_KEY_ID = "s3.access-key-id";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_APACHE_EXPECT_CONTINUE_ENABLED' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String HTTP_CLIENT_APACHE_EXPECT_CONTINUE_ENABLED =
-      "http-client.apache.expect-continue-enabled";
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_TYPE' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String HTTP_CLIENT_TYPE = "http-client.type";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_URLCONNECTION_SOCKET_TIMEOUT_MS' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String HTTP_CLIENT_URLCONNECTION_SOCKET_TIMEOUT_MS =
-      "http-client.urlconnection.socket-timeout-ms";
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_TAG_ICEBERG_NAMESPACE' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_TAG_ICEBERG_NAMESPACE = "iceberg.namespace";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_APACHE_CONNECTION_TIME_TO_LIVE_MS' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String HTTP_CLIENT_APACHE_CONNECTION_TIME_TO_LIVE_MS =
-      "http-client.apache.connection-time-to-live-ms";
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_SESSION_TOKEN' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_SESSION_TOKEN = "s3.session-token";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_DELETE_THREADS' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_DELETE_THREADS = "s3.delete.num-threads";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_APACHE_SOCKET_TIMEOUT_MS' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String HTTP_CLIENT_APACHE_SOCKET_TIMEOUT_MS =
-      "http-client.apache.socket-timeout-ms";
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 's3BucketToAccessPointMapping' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public Map<String, String> s3BucketToAccessPointMapping() {
-    return s3BucketToAccessPointMapping;
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'setS3FileIoDeleteBatchSize' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public void setS3FileIoDeleteBatchSize(int deleteBatchSize) {
-    this.s3FileIoDeleteBatchSize = deleteBatchSize;
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 's3WriteNamespaceTagEnabled' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public boolean s3WriteNamespaceTagEnabled() {
-    return s3WriteNamespaceTagEnabled;
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_PATH_STYLE_ACCESS_DEFAULT' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final boolean S3FILEIO_PATH_STYLE_ACCESS_DEFAULT = false;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_APACHE_CONNECTION_TIMEOUT_MS' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String HTTP_CLIENT_APACHE_CONNECTION_TIMEOUT_MS =
-      "http-client.apache.connection-timeout-ms";
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_SSE_KEY' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_SSE_KEY = "s3.sse.key";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_SSE_TYPE_CUSTOM' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_SSE_TYPE_CUSTOM = "custom";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_DELETE_ENABLED' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_DELETE_ENABLED = "s3.delete-enabled";
+  @Deprecated public static final boolean S3_WRITE_NAMESPACE_TAG_ENABLED_DEFAULT = false;
 
   /**
 ```
@@ -13542,42 +13374,6 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'S3_DUALSTACK_ENABLED_DEFAULT' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final boolean S3_DUALSTACK_ENABLED_DEFAULT = false;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_DELETE_BATCH_SIZE' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_DELETE_BATCH_SIZE = "s3.delete.batch-size";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_STAGING_DIRECTORY' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_STAGING_DIRECTORY = "s3.staging-dir";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'HTTP_CLIENT_TYPE_APACHE' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
@@ -13587,150 +13383,6 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
   @Deprecated public static final String HTTP_CLIENT_TYPE_APACHE = "apache";
 
   /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_REMOTE_SIGNING_ENABLED_DEFAULT' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final boolean S3_REMOTE_SIGNING_ENABLED_DEFAULT = false;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_TAG_ICEBERG_TABLE' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_TAG_ICEBERG_TABLE = "iceberg.table";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_PRELOAD_CLIENT_ENABLED_DEFAULT' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final boolean S3_PRELOAD_CLIENT_ENABLED_DEFAULT = false;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_DELETE_TAGS_PREFIX' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_DELETE_TAGS_PREFIX = "s3.delete.tags.";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_MULTIPART_UPLOAD_THREADS' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String S3FILEIO_MULTIPART_UPLOAD_THREADS = "s3.multipart.num-threads";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_USE_ARN_REGION_ENABLED' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_USE_ARN_REGION_ENABLED = "s3.use-arn-region-enabled";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_MULTIPART_THRESHOLD_FACTOR' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String S3FILEIO_MULTIPART_THRESHOLD_FACTOR = "s3.multipart.threshold";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'applyS3SignerConfiguration' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public <T extends S3ClientBuilder> void applyS3SignerConfiguration(T builder) {
-    if (s3RemoteSigningEnabled) {
-      builder.overrideConfiguration(
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 's3FileIoAcl' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public ObjectCannedACL s3FileIoAcl() {
-    return this.s3FileIoAcl;
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_SSE_TYPE' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_SSE_TYPE = "s3.sse.type";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_MULTIPART_SIZE_MIN' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final int S3FILEIO_MULTIPART_SIZE_MIN = 5 * 1024 * 1024;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'applyS3ServiceConfigurations' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public <T extends S3ClientBuilder> void applyS3ServiceConfigurations(T builder) {
-    builder
-        .dualstackEnabled(s3DualStackEnabled)
 ```
 
 ### DeprecatedIsStillUsed
@@ -13746,123 +13398,15 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_DELETE_BATCH_SIZE_MAX' is still used
+Deprecated member 'S3FILEIO_DELETE_BATCH_SIZE' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
    *     instead
    */
-  @Deprecated public static final int S3FILEIO_DELETE_BATCH_SIZE_MAX = 1000;
-
-  /** Configure an alternative endpoint of the DynamoDB service to access. */
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_DELETE_ENABLED_DEFAULT' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final boolean S3_DELETE_ENABLED_DEFAULT = true;
+  @Deprecated public static final String S3FILEIO_DELETE_BATCH_SIZE = "s3.delete.batch-size";
 
   /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_WRITE_TABLE_TAG_ENABLED' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_WRITE_TABLE_TAG_ENABLED = "s3.write.table-tag-enabled";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_URLCONNECTION_CONNECTION_TIMEOUT_MS' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public static final String HTTP_CLIENT_URLCONNECTION_CONNECTION_TIMEOUT_MS =
-      "http-client.urlconnection.connection-timeout-ms";
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'applyClientRegionConfiguration' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public <T extends AwsClientBuilder> void applyClientRegionConfiguration(T builder) {
-    if (clientRegion != null) {
-      builder.region(Region.of(clientRegion));
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'CLIENT_CREDENTIAL_PROVIDER_PREFIX' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  private static final String CLIENT_CREDENTIAL_PROVIDER_PREFIX = "client.credentials-provider.";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_WRITE_TABLE_TAG_ENABLED_DEFAULT' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final boolean S3_WRITE_TABLE_TAG_ENABLED_DEFAULT = false;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_REMOTE_SIGNING_ENABLED' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_REMOTE_SIGNING_ENABLED = "s3.remote-signing-enabled";
-  /**
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_DUALSTACK_ENABLED' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_DUALSTACK_ENABLED = "s3.dualstack-enabled";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'applyS3CredentialConfigurations' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public <T extends S3ClientBuilder> void applyS3CredentialConfigurations(T builder) {
-    builder.credentialsProvider(
-        s3RemoteSigningEnabled
 ```
 
 ### DeprecatedIsStillUsed
@@ -13878,15 +13422,51 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_APACHE_TCP_KEEP_ALIVE_ENABLED' is still used
+Deprecated member 'S3FILEIO_SECRET_ACCESS_KEY' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
+   *     instead
    */
-  @Deprecated
-  public static final String HTTP_CLIENT_APACHE_TCP_KEEP_ALIVE_ENABLED =
-      "http-client.apache.tcp-keep-alive-enabled";
+  @Deprecated public static final String S3FILEIO_SECRET_ACCESS_KEY = "s3.secret-access-key";
 
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_TYPE' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String HTTP_CLIENT_TYPE = "http-client.type";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_DUALSTACK_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_DUALSTACK_ENABLED = "s3.dualstack-enabled";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_TAG_ICEBERG_NAMESPACE' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_TAG_ICEBERG_NAMESPACE = "iceberg.namespace";
+
+  /**
 ```
 
 ### DeprecatedIsStillUsed
@@ -13902,109 +13482,61 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'S3_CHECKSUM_ENABLED_DEFAULT' is still used
+Deprecated member 'S3_USE_ARN_REGION_ENABLED_DEFAULT' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
    *     instead
    */
-  @Deprecated public static final boolean S3_CHECKSUM_ENABLED_DEFAULT = false;
-  /**
-   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3FILEIO_SSE_MD5' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3FILEIO_SSE_MD5 = "s3.sse.md5";
+  @Deprecated public static final boolean S3_USE_ARN_REGION_ENABLED_DEFAULT = false;
 
   /**
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_APACHE_CONNECTION_ACQUISITION_TIMEOUT_MS' is still used
+Deprecated member 's3BucketToAccessPointMapping' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  public static final String HTTP_CLIENT_APACHE_CONNECTION_ACQUISITION_TIMEOUT_MS =
-      "http-client.apache.connection-acquisition-timeout-ms";
-
+  public Map<String, String> s3BucketToAccessPointMapping() {
+    return s3BucketToAccessPointMapping;
+  }
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'S3_ACCESS_POINTS_PREFIX' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_ACCESS_POINTS_PREFIX = "s3.access-points.";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_APACHE_USE_IDLE_CONNECTION_REAPER_ENABLED' is still used
+Deprecated member 'HTTP_CLIENT_URLCONNECTION_SOCKET_TIMEOUT_MS' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
    */
   @Deprecated
-  public static final String HTTP_CLIENT_APACHE_USE_IDLE_CONNECTION_REAPER_ENABLED =
-      "http-client.apache.use-idle-connection-reaper-enabled";
-  /**
+  public static final String HTTP_CLIENT_URLCONNECTION_SOCKET_TIMEOUT_MS =
+      "http-client.urlconnection.socket-timeout-ms";
+
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'HTTP_CLIENT_TYPE_DEFAULT' is still used
+Deprecated member 'S3FILEIO_DELETE_BATCH_SIZE_MAX' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
    *     instead
    */
-  @Deprecated public static final String HTTP_CLIENT_TYPE_DEFAULT = HTTP_CLIENT_TYPE_APACHE;
+  @Deprecated public static final int S3FILEIO_DELETE_BATCH_SIZE_MAX = 1000;
 
-  /**
+  /** Configure an alternative endpoint of the DynamoDB service to access. */
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'S3_PRELOAD_CLIENT_ENABLED' is still used
+Deprecated member 'S3FILEIO_ACCESS_KEY_ID' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
    *     instead
    */
-  @Deprecated public static final String S3_PRELOAD_CLIENT_ENABLED = "s3.preload-client-enabled";
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_ACCELERATION_ENABLED_DEFAULT' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final boolean S3_ACCELERATION_ENABLED_DEFAULT = false;
-
-  /**
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'S3_WRITE_TAGS_PREFIX' is still used
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-   *     instead
-   */
-  @Deprecated public static final String S3_WRITE_TAGS_PREFIX = "s3.write.tags.";
+  @Deprecated public static final String S3FILEIO_ACCESS_KEY_ID = "s3.access-key-id";
 
   /**
 ```
@@ -14022,6 +13554,90 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_APACHE_SOCKET_TIMEOUT_MS' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String HTTP_CLIENT_APACHE_SOCKET_TIMEOUT_MS =
+      "http-client.apache.socket-timeout-ms";
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'applyS3SignerConfiguration' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public <T extends S3ClientBuilder> void applyS3SignerConfiguration(T builder) {
+    if (s3RemoteSigningEnabled) {
+      builder.overrideConfiguration(
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'applyS3CredentialConfigurations' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public <T extends S3ClientBuilder> void applyS3CredentialConfigurations(T builder) {
+    builder.credentialsProvider(
+        s3RemoteSigningEnabled
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_SSE_TYPE_CUSTOM' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3FILEIO_SSE_TYPE_CUSTOM = "custom";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_STAGING_DIRECTORY' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3FILEIO_STAGING_DIRECTORY = "s3.staging-dir";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_APACHE_CONNECTION_MAX_IDLE_TIME_MS' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String HTTP_CLIENT_APACHE_CONNECTION_MAX_IDLE_TIME_MS =
+      "http-client.apache.connection-max-idle-time-ms";
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_PRELOAD_CLIENT_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_PRELOAD_CLIENT_ENABLED = "s3.preload-client-enabled";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'applyHttpClientConfigurations' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
@@ -14034,13 +13650,109 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'S3_WRITE_NAMESPACE_TAG_ENABLED_DEFAULT' is still used
+Deprecated member 'S3_WRITE_TABLE_TAG_ENABLED_DEFAULT' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
    *     instead
    */
-  @Deprecated public static final boolean S3_WRITE_NAMESPACE_TAG_ENABLED_DEFAULT = false;
+  @Deprecated public static final boolean S3_WRITE_TABLE_TAG_ENABLED_DEFAULT = false;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_MULTIPART_SIZE_MIN' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final int S3FILEIO_MULTIPART_SIZE_MIN = 5 * 1024 * 1024;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_DELETE_THREADS' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3FILEIO_DELETE_THREADS = "s3.delete.num-threads";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_URLCONNECTION_CONNECTION_TIMEOUT_MS' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String HTTP_CLIENT_URLCONNECTION_CONNECTION_TIMEOUT_MS =
+      "http-client.urlconnection.connection-timeout-ms";
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_APACHE_CONNECTION_TIME_TO_LIVE_MS' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String HTTP_CLIENT_APACHE_CONNECTION_TIME_TO_LIVE_MS =
+      "http-client.apache.connection-time-to-live-ms";
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_DELETE_BATCH_SIZE_DEFAULT' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final int S3FILEIO_DELETE_BATCH_SIZE_DEFAULT = 250;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_USE_ARN_REGION_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_USE_ARN_REGION_ENABLED = "s3.use-arn-region-enabled";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_WRITE_NAMESPACE_TAG_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String S3_WRITE_NAMESPACE_TAG_ENABLED = "s3.write.namespace-tag-enabled";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_REMOTE_SIGNING_ENABLED_DEFAULT' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final boolean S3_REMOTE_SIGNING_ENABLED_DEFAULT = false;
 
   /**
 ```
@@ -14058,6 +13770,438 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_APACHE_CONNECTION_ACQUISITION_TIMEOUT_MS' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String HTTP_CLIENT_APACHE_CONNECTION_ACQUISITION_TIMEOUT_MS =
+      "http-client.apache.connection-acquisition-timeout-ms";
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_CHECKSUM_ENABLED_DEFAULT' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final boolean S3_CHECKSUM_ENABLED_DEFAULT = false;
+  /**
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_DELETE_TAGS_PREFIX' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_DELETE_TAGS_PREFIX = "s3.delete.tags.";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_SSE_KEY' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3FILEIO_SSE_KEY = "s3.sse.key";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_REMOTE_SIGNING_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_REMOTE_SIGNING_ENABLED = "s3.remote-signing-enabled";
+  /**
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'CLIENT_CREDENTIALS_PROVIDER' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String CLIENT_CREDENTIALS_PROVIDER = "client.credentials-provider";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_WRITE_TAGS_PREFIX' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_WRITE_TAGS_PREFIX = "s3.write.tags.";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_SESSION_TOKEN' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3FILEIO_SESSION_TOKEN = "s3.session-token";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'applyS3ServiceConfigurations' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public <T extends S3ClientBuilder> void applyS3ServiceConfigurations(T builder) {
+    builder
+        .dualstackEnabled(s3DualStackEnabled)
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_APACHE_EXPECT_CONTINUE_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String HTTP_CLIENT_APACHE_EXPECT_CONTINUE_ENABLED =
+      "http-client.apache.expect-continue-enabled";
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_APACHE_USE_IDLE_CONNECTION_REAPER_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String HTTP_CLIENT_APACHE_USE_IDLE_CONNECTION_REAPER_ENABLED =
+      "http-client.apache.use-idle-connection-reaper-enabled";
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_ACL' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3FILEIO_ACL = "s3.acl";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_ACCELERATION_ENABLED_DEFAULT' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final boolean S3_ACCELERATION_ENABLED_DEFAULT = false;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_APACHE_CONNECTION_TIMEOUT_MS' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String HTTP_CLIENT_APACHE_CONNECTION_TIMEOUT_MS =
+      "http-client.apache.connection-timeout-ms";
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_DELETE_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_DELETE_ENABLED = "s3.delete-enabled";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_SSE_TYPE_NONE' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3FILEIO_SSE_TYPE_NONE = "none";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_SSE_MD5' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3FILEIO_SSE_MD5 = "s3.sse.md5";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_DELETE_ENABLED_DEFAULT' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final boolean S3_DELETE_ENABLED_DEFAULT = true;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_TYPE_DEFAULT' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String HTTP_CLIENT_TYPE_DEFAULT = HTTP_CLIENT_TYPE_APACHE;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'HTTP_CLIENT_APACHE_TCP_KEEP_ALIVE_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String HTTP_CLIENT_APACHE_TCP_KEEP_ALIVE_ENABLED =
+      "http-client.apache.tcp-keep-alive-enabled";
+
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_ACCESS_POINTS_PREFIX' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_ACCESS_POINTS_PREFIX = "s3.access-points.";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_PATH_STYLE_ACCESS_DEFAULT' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final boolean S3FILEIO_PATH_STYLE_ACCESS_DEFAULT = false;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setS3FileIoDeleteBatchSize' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public void setS3FileIoDeleteBatchSize(int deleteBatchSize) {
+    this.s3FileIoDeleteBatchSize = deleteBatchSize;
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_ACCELERATION_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_ACCELERATION_ENABLED = "s3.acceleration-enabled";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 's3WriteNamespaceTagEnabled' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public boolean s3WriteNamespaceTagEnabled() {
+    return s3WriteNamespaceTagEnabled;
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'CLIENT_CREDENTIAL_PROVIDER_PREFIX' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  private static final String CLIENT_CREDENTIAL_PROVIDER_PREFIX = "client.credentials-provider.";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_DUALSTACK_ENABLED_DEFAULT' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final boolean S3_DUALSTACK_ENABLED_DEFAULT = false;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_MULTIPART_UPLOAD_THREADS' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String S3FILEIO_MULTIPART_UPLOAD_THREADS = "s3.multipart.num-threads";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_WRITE_TABLE_TAG_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_WRITE_TABLE_TAG_ENABLED = "s3.write.table-tag-enabled";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_PRELOAD_CLIENT_ENABLED_DEFAULT' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final boolean S3_PRELOAD_CLIENT_ENABLED_DEFAULT = false;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_MULTIPART_SIZE' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3FILEIO_MULTIPART_SIZE = "s3.multipart.part-size-bytes";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_MULTIPART_THRESHOLD_FACTOR_DEFAULT' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final double S3FILEIO_MULTIPART_THRESHOLD_FACTOR_DEFAULT = 1.5;
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 's3FileIoAcl' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public ObjectCannedACL s3FileIoAcl() {
+    return this.s3FileIoAcl;
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_CHECKSUM_ENABLED' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_CHECKSUM_ENABLED = "s3.checksum-enabled";
+  /**
+   * @deprecated will be removed in 1.4.0, use {@link org.apache.iceberg.aws.s3.S3FileIOProperties}
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_SSE_TYPE' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3FILEIO_SSE_TYPE = "s3.sse.type";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'applyClientRegionConfiguration' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public <T extends AwsClientBuilder> void applyClientRegionConfiguration(T builder) {
+    if (clientRegion != null) {
+      builder.region(Region.of(clientRegion));
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'S3FILEIO_PATH_STYLE_ACCESS' is still used
 in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
@@ -14067,6 +14211,54 @@ in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
   @Deprecated public static final String S3FILEIO_PATH_STYLE_ACCESS = "s3.path-style-access";
 
   /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3_TAG_ICEBERG_TABLE' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   *     instead
+   */
+  @Deprecated public static final String S3_TAG_ICEBERG_TABLE = "iceberg.table";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'S3FILEIO_MULTIPART_THRESHOLD_FACTOR' is still used
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public static final String S3FILEIO_MULTIPART_THRESHOLD_FACTOR = "s3.multipart.threshold";
+
+  /**
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'UpdateRequirementDeserializer' is still used
+in `core/src/main/java/org/apache/iceberg/rest/RESTSerializers.java`
+#### Snippet
+```java
+  /** @deprecated will be removed in 1.5.0, use {@link UpdateReqDeserializer} instead. */
+  @Deprecated
+  public static class UpdateRequirementDeserializer extends JsonDeserializer<UpdateRequirement> {
+    @Override
+    public UpdateRequirement deserialize(JsonParser p, DeserializationContext ctxt)
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'UpdateRequirementSerializer' is still used
+in `core/src/main/java/org/apache/iceberg/rest/RESTSerializers.java`
+#### Snippet
+```java
+  /** @deprecated will be removed in 1.5.0, use {@link UpdateReqSerializer} instead. */
+  @Deprecated
+  public static class UpdateRequirementSerializer extends JsonSerializer<UpdateRequirement> {
+    @Override
+    public void serialize(
 ```
 
 ### DeprecatedIsStillUsed
@@ -14245,11 +14437,11 @@ in `core/src/main/java/org/apache/iceberg/ManifestReader.java`
 in `core/src/main/java/org/apache/iceberg/view/ViewRepresentationParser.java`
 #### Snippet
 ```java
-      throws IOException {
-    Preconditions.checkArgument(representation != null, "Invalid view representation: null");
-    switch (representation.type().toLowerCase(Locale.ENGLISH)) {
+        node.isObject(), "Cannot parse view representation from non-object: %s", node);
+    String type = JsonUtil.getString(TYPE, node).toLowerCase(Locale.ENGLISH);
+    switch (type) {
       case ViewRepresentation.Type.SQL:
-        SQLViewRepresentationParser.toJson((SQLViewRepresentation) representation, generator);
+        return SQLViewRepresentationParser.fromJson(node);
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -14257,11 +14449,11 @@ in `core/src/main/java/org/apache/iceberg/view/ViewRepresentationParser.java`
 in `core/src/main/java/org/apache/iceberg/view/ViewRepresentationParser.java`
 #### Snippet
 ```java
-        node.isObject(), "Cannot parse view representation from non-object: %s", node);
-    String type = JsonUtil.getString(TYPE, node).toLowerCase(Locale.ENGLISH);
-    switch (type) {
+      throws IOException {
+    Preconditions.checkArgument(representation != null, "Invalid view representation: null");
+    switch (representation.type().toLowerCase(Locale.ENGLISH)) {
       case ViewRepresentation.Type.SQL:
-        return SQLViewRepresentationParser.fromJson(node);
+        SQLViewRepresentationParser.toJson((SQLViewRepresentation) representation, generator);
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -14992,6 +15184,138 @@ in `core/src/main/java/org/apache/iceberg/SnapshotSummary.java`
 
 ### DuplicatedCode
 Duplicated code
+in `core/src/main/java/org/apache/iceberg/UpdateRequirement.java`
+#### Snippet
+```java
+      SnapshotRef ref = base.ref(name);
+      if (ref != null) {
+        String type = ref.isBranch() ? "branch" : "tag";
+        if (snapshotId == null) {
+          // a null snapshot ID means the ref should not exist already
+          throw new CommitFailedException(
+              "Requirement failed: %s %s was created concurrently", type, name);
+        } else if (snapshotId != ref.snapshotId()) {
+          throw new CommitFailedException(
+              "Requirement failed: %s %s has changed: expected id %s != %s",
+              type, name, snapshotId, ref.snapshotId());
+        }
+      } else if (snapshotId != null) {
+        throw new CommitFailedException(
+            "Requirement failed: branch or tag %s is missing, expected %s", name, snapshotId);
+      }
+```
+
+### DuplicatedCode
+Duplicated code
+in `core/src/main/java/org/apache/iceberg/UpdateRequirementParser.java`
+#### Snippet
+```java
+    String requirementType = TYPES.get(updateRequirement.getClass());
+
+    generator.writeStartObject();
+    generator.writeStringField(TYPE, requirementType);
+
+    switch (requirementType) {
+      case ASSERT_TABLE_DOES_NOT_EXIST:
+        // No fields beyond the requirement itself
+        break;
+      case ASSERT_TABLE_UUID:
+        writeAssertTableUUID((UpdateRequirement.AssertTableUUID) updateRequirement, generator);
+        break;
+      case ASSERT_REF_SNAPSHOT_ID:
+        writeAssertRefSnapshotId(
+            (UpdateRequirement.AssertRefSnapshotID) updateRequirement, generator);
+        break;
+      case ASSERT_LAST_ASSIGNED_FIELD_ID:
+        writeAssertLastAssignedFieldId(
+            (UpdateRequirement.AssertLastAssignedFieldId) updateRequirement, generator);
+        break;
+      case ASSERT_LAST_ASSIGNED_PARTITION_ID:
+        writeAssertLastAssignedPartitionId(
+            (UpdateRequirement.AssertLastAssignedPartitionId) updateRequirement, generator);
+        break;
+      case ASSERT_CURRENT_SCHEMA_ID:
+        writeAssertCurrentSchemaId(
+            (UpdateRequirement.AssertCurrentSchemaID) updateRequirement, generator);
+        break;
+      case ASSERT_DEFAULT_SPEC_ID:
+        writeAssertDefaultSpecId(
+            (UpdateRequirement.AssertDefaultSpecID) updateRequirement, generator);
+        break;
+      case ASSERT_DEFAULT_SORT_ORDER_ID:
+        writeAssertDefaultSortOrderId(
+            (UpdateRequirement.AssertDefaultSortOrderID) updateRequirement, generator);
+        break;
+      default:
+        throw new IllegalArgumentException(
+            String.format(
+                "Cannot convert update requirement to json. Unrecognized type: %s",
+                requirementType));
+    }
+
+    generator.writeEndObject();
+```
+
+### DuplicatedCode
+Duplicated code
+in `core/src/main/java/org/apache/iceberg/UpdateRequirementParser.java`
+#### Snippet
+```java
+    Preconditions.checkArgument(
+        jsonNode != null && jsonNode.isObject(),
+        "Cannot parse update requirement from non-object value: %s",
+        jsonNode);
+    Preconditions.checkArgument(
+        jsonNode.hasNonNull(TYPE), "Cannot parse update requirement. Missing field: type");
+    String type = JsonUtil.getString(TYPE, jsonNode).toLowerCase(Locale.ROOT);
+
+    switch (type) {
+      case ASSERT_TABLE_DOES_NOT_EXIST:
+        return readAssertTableDoesNotExist(jsonNode);
+      case ASSERT_TABLE_UUID:
+        return readAssertTableUUID(jsonNode);
+      case ASSERT_REF_SNAPSHOT_ID:
+        return readAssertRefSnapshotId(jsonNode);
+      case ASSERT_LAST_ASSIGNED_FIELD_ID:
+        return readAssertLastAssignedFieldId(jsonNode);
+      case ASSERT_LAST_ASSIGNED_PARTITION_ID:
+        return readAssertLastAssignedPartitionId(jsonNode);
+      case ASSERT_CURRENT_SCHEMA_ID:
+        return readAssertCurrentSchemaId(jsonNode);
+      case ASSERT_DEFAULT_SPEC_ID:
+        return readAssertDefaultSpecId(jsonNode);
+      case ASSERT_DEFAULT_SORT_ORDER_ID:
+        return readAssertDefaultSortOrderId(jsonNode);
+      default:
+        throw new UnsupportedOperationException(
+            String.format("Unrecognized update requirement. Cannot convert to json: %s", type));
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `core/src/main/java/org/apache/iceberg/UpdateRequirements.java`
+#### Snippet
+```java
+      if (update instanceof MetadataUpdate.SetSnapshotRef) {
+        update((MetadataUpdate.SetSnapshotRef) update);
+      } else if (update instanceof MetadataUpdate.AddSchema) {
+        update((MetadataUpdate.AddSchema) update);
+      } else if (update instanceof MetadataUpdate.SetCurrentSchema) {
+        update((MetadataUpdate.SetCurrentSchema) update);
+      } else if (update instanceof MetadataUpdate.AddPartitionSpec) {
+        update((MetadataUpdate.AddPartitionSpec) update);
+      } else if (update instanceof MetadataUpdate.SetDefaultPartitionSpec) {
+        update((MetadataUpdate.SetDefaultPartitionSpec) update);
+      } else if (update instanceof MetadataUpdate.SetDefaultSortOrder) {
+        update((MetadataUpdate.SetDefaultSortOrder) update);
+      }
+
+      return this;
+```
+
+### DuplicatedCode
+Duplicated code
 in `core/src/main/java/org/apache/iceberg/actions/RewriteFileGroup.java`
 #### Snippet
 ```java
@@ -15635,42 +15959,6 @@ in `parquet/src/main/java/org/apache/iceberg/data/parquet/BaseParquetWriter.java
         default:
           throw new UnsupportedOperationException("Unsupported type: " + primitive);
       }
-```
-
-### DuplicatedCode
-Duplicated code
-in `parquet/src/main/java/org/apache/iceberg/parquet/Parquet.java`
-#### Snippet
-```java
-        Preconditions.checkArgument(
-            rowGroupCheckMaxRecordCount > 0, "Row group check maximum record count must be > 0");
-        Preconditions.checkArgument(
-            rowGroupCheckMaxRecordCount >= rowGroupCheckMinRecordCount,
-            "Row group check maximum record count must be >= minimal record count");
-
-        int bloomFilterMaxBytes =
-            PropertyUtil.propertyAsInt(
-                config, PARQUET_BLOOM_FILTER_MAX_BYTES, PARQUET_BLOOM_FILTER_MAX_BYTES_DEFAULT);
-        Preconditions.checkArgument(bloomFilterMaxBytes > 0, "bloom Filter Max Bytes must be > 0");
-
-        Map<String, String> columnBloomFilterEnabled =
-            PropertyUtil.propertiesWithPrefix(config, PARQUET_BLOOM_FILTER_COLUMN_ENABLED_PREFIX);
-
-        boolean dictionaryEnabled =
-            PropertyUtil.propertyAsBoolean(config, ParquetOutputFormat.ENABLE_DICTIONARY, true);
-
-        return new Context(
-            rowGroupSize,
-            pageSize,
-            pageRowLimit,
-            dictionaryPageSize,
-            codec,
-            compressionLevel,
-            rowGroupCheckMinRecordCount,
-            rowGroupCheckMaxRecordCount,
-            bloomFilterMaxBytes,
-            columnBloomFilterEnabled,
-            dictionaryEnabled);
 ```
 
 ### DuplicatedCode
@@ -16538,18 +16826,6 @@ in `core/src/main/java/org/apache/iceberg/util/SnapshotUtil.java`
 
 ## RuleId[id=IOStreamConstructor]
 ### IOStreamConstructor
-'InputStream' can be constructed using 'Files.newInputStream()'
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3OutputStream.java`
-#### Snippet
-```java
-  private static InputStream uncheckedInputStream(File file) {
-    try {
-      return new FileInputStream(file);
-    } catch (IOException e) {
-      throw new UncheckedIOException(e);
-```
-
-### IOStreamConstructor
 'OutputStream' can be constructed using 'Files.newOutputStream()'
 in `aws/src/main/java/org/apache/iceberg/aws/s3/S3OutputStream.java`
 #### Snippet
@@ -16587,6 +16863,18 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/S3OutputStream.java`
 
 ### IOStreamConstructor
 'InputStream' can be constructed using 'Files.newInputStream()'
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3OutputStream.java`
+#### Snippet
+```java
+  private static InputStream uncheckedInputStream(File file) {
+    try {
+      return new FileInputStream(file);
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+```
+
+### IOStreamConstructor
+'InputStream' can be constructed using 'Files.newInputStream()'
 in `aliyun/src/main/java/org/apache/iceberg/aliyun/oss/OSSOutputStream.java`
 #### Snippet
 ```java
@@ -16620,18 +16908,6 @@ in `aws/src/integration/java/org/apache/iceberg/aws/s3/TestS3FileIOIntegration.j
     objectKey = String.format("%s/%s", prefix, UUID.randomUUID().toString());
     objectUri = String.format("s3://%s/%s", bucketName, objectKey);
   }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `orc/src/main/java/org/apache/iceberg/orc/ORCSchemaUtil.java`
-#### Snippet
-```java
-                String.format(
-                    "Field %d of type %s is required and was not found.",
-                    fieldId, type.toString()));
-          }
-
 ```
 
 ### UnnecessaryToStringCall
@@ -16708,6 +16984,18 @@ in `aws/src/integration/java/org/apache/iceberg/aws/lakeformation/LakeFormationT
 
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
+in `orc/src/main/java/org/apache/iceberg/orc/ORCSchemaUtil.java`
+#### Snippet
+```java
+                String.format(
+                    "Field %d of type %s is required and was not found.",
+                    fieldId, type.toString()));
+          }
+
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
 in `core/src/main/java/org/apache/iceberg/avro/ValueWriters.java`
 #### Snippet
 ```java
@@ -16723,11 +17011,11 @@ Unnecessary `toString()` call
 in `core/src/main/java/org/apache/iceberg/hadoop/HadoopTableOperations.java`
 #### Snippet
 ```java
-    TableMetadataParser.Codec codec = TableMetadataParser.Codec.fromName(codecName);
-    String fileExtension = TableMetadataParser.getFileExtension(codec);
-    Path tempMetadataFile = metadataPath(UUID.randomUUID().toString() + fileExtension);
-    TableMetadataParser.write(metadata, io().newOutputFile(tempMetadataFile.toString()));
 
+    try {
+      Path tempVersionHintFile = metadataPath(UUID.randomUUID().toString() + "-version-hint.temp");
+      writeVersionToPath(fs, tempVersionHintFile, versionToWrite);
+      fs.delete(versionHintFile, false /* recursive delete */);
 ```
 
 ### UnnecessaryToStringCall
@@ -16735,11 +17023,11 @@ Unnecessary `toString()` call
 in `core/src/main/java/org/apache/iceberg/hadoop/HadoopTableOperations.java`
 #### Snippet
 ```java
+    TableMetadataParser.Codec codec = TableMetadataParser.Codec.fromName(codecName);
+    String fileExtension = TableMetadataParser.getFileExtension(codec);
+    Path tempMetadataFile = metadataPath(UUID.randomUUID().toString() + fileExtension);
+    TableMetadataParser.write(metadata, io().newOutputFile(tempMetadataFile.toString()));
 
-    try {
-      Path tempVersionHintFile = metadataPath(UUID.randomUUID().toString() + "-version-hint.temp");
-      writeVersionToPath(fs, tempVersionHintFile, versionToWrite);
-      fs.delete(versionHintFile, false /* recursive delete */);
 ```
 
 ### UnnecessaryToStringCall
@@ -16785,9 +17073,9 @@ Suspicious call to 'Set.contains()'
 in `core/src/main/java/org/apache/iceberg/AllManifestsTable.java`
 #### Snippet
 ```java
-      public <T> Boolean in(BoundReference<T> ref, Set<T> literalSet) {
+      public <T> Boolean notIn(BoundReference<T> ref, Set<T> literalSet) {
         if (isSnapshotRef(ref)) {
-          if (!literalSet.contains(snapshotId)) {
+          if (literalSet.contains(snapshotId)) {
             return ROWS_CANNOT_MATCH;
           }
 ```
@@ -16797,9 +17085,9 @@ Suspicious call to 'Set.contains()'
 in `core/src/main/java/org/apache/iceberg/AllManifestsTable.java`
 #### Snippet
 ```java
-      public <T> Boolean notIn(BoundReference<T> ref, Set<T> literalSet) {
+      public <T> Boolean in(BoundReference<T> ref, Set<T> literalSet) {
         if (isSnapshotRef(ref)) {
-          if (literalSet.contains(snapshotId)) {
+          if (!literalSet.contains(snapshotId)) {
             return ROWS_CANNOT_MATCH;
           }
 ```
@@ -16831,24 +17119,24 @@ in `api/src/main/java/org/apache/iceberg/types/PruneColumns.java`
 
 ### TrivialIf
 `if` statement can be simplified
-in `api/src/main/java/org/apache/iceberg/transforms/Years.java`
-#### Snippet
-```java
-    } else if (other instanceof Dates) {
-      return Dates.YEAR.satisfiesOrderOf(other);
-    } else if (other instanceof Years) {
-      return true;
-    }
-```
-
-### TrivialIf
-`if` statement can be simplified
 in `api/src/main/java/org/apache/iceberg/transforms/Months.java`
 #### Snippet
 ```java
     } else if (other instanceof Dates) {
       return Dates.MONTH.satisfiesOrderOf(other);
     } else if (other instanceof Months || other instanceof Years) {
+      return true;
+    }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `api/src/main/java/org/apache/iceberg/transforms/Years.java`
+#### Snippet
+```java
+    } else if (other instanceof Dates) {
+      return Dates.YEAR.satisfiesOrderOf(other);
+    } else if (other instanceof Years) {
       return true;
     }
 ```
@@ -16963,18 +17251,6 @@ in `parquet/src/main/java/org/apache/iceberg/parquet/ParquetAvro.java`
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'footerSize'
-in `core/src/main/java/org/apache/iceberg/puffin/PuffinWriter.java`
-#### Snippet
-```java
-  private boolean headerWritten;
-  private boolean finished;
-  private Optional<Integer> footerSize = Optional.empty();
-  private Optional<Long> fileSize = Optional.empty();
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'fileSize'
 in `core/src/main/java/org/apache/iceberg/puffin/PuffinWriter.java`
 #### Snippet
@@ -16984,6 +17260,18 @@ in `core/src/main/java/org/apache/iceberg/puffin/PuffinWriter.java`
   private Optional<Long> fileSize = Optional.empty();
 
   PuffinWriter(
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'footerSize'
+in `core/src/main/java/org/apache/iceberg/puffin/PuffinWriter.java`
+#### Snippet
+```java
+  private boolean headerWritten;
+  private boolean finished;
+  private Optional<Integer> footerSize = Optional.empty();
+  private Optional<Long> fileSize = Optional.empty();
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -17050,6 +17338,18 @@ in `core/src/main/java/org/apache/iceberg/BaseReplacePartitions.java`
 ## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
 'FileIO' used without 'try'-with-resources statement
+in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergOutputCommitter.java`
+#### Snippet
+```java
+                              LOG.warn(
+                                  "Failed to remove data file {} on abort job", file.path(), exc))
+                      .run(file -> table.io().deleteFile(file.path().toString()));
+                }
+              });
+```
+
+### AutoCloseableResource
+'FileIO' used without 'try'-with-resources statement
 in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergStorageHandler.java`
 #### Snippet
 ```java
@@ -17097,15 +17397,15 @@ in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergStorageHandler.java`
 ```
 
 ### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergOutputCommitter.java`
+'CloseableIterable' used without 'try'-with-resources statement
+in `mr/src/main/java/org/apache/iceberg/mr/mapreduce/IcebergInputFormat.java`
 #### Snippet
 ```java
-                              LOG.warn(
-                                  "Failed to remove data file {} on abort job", file.path(), exc))
-                      .run(file -> table.io().deleteFile(file.path().toString()));
-                }
-              });
+        } else if (tasks.hasNext()) {
+          currentIterator.close();
+          currentIterator = open(tasks.next(), expectedSchema).iterator();
+        } else {
+          currentIterator.close();
 ```
 
 ### AutoCloseableResource
@@ -17121,15 +17421,15 @@ in `mr/src/main/java/org/apache/iceberg/mr/mapreduce/IcebergInputFormat.java`
 ```
 
 ### AutoCloseableResource
-'CloseableIterable' used without 'try'-with-resources statement
-in `mr/src/main/java/org/apache/iceberg/mr/mapreduce/IcebergInputFormat.java`
+'Timed' used without 'try'-with-resources statement
+in `api/src/main/java/org/apache/iceberg/metrics/DefaultTimer.java`
 #### Snippet
 ```java
-        } else if (tasks.hasNext()) {
-          currentIterator.close();
-          currentIterator = open(tasks.next(), expectedSchema).iterator();
-        } else {
-          currentIterator.close();
+  @Override
+  public <T> T timeCallable(Callable<T> callable) throws Exception {
+    Timed timed = start();
+    try {
+      return callable.call();
 ```
 
 ### AutoCloseableResource
@@ -17157,18 +17457,6 @@ in `api/src/main/java/org/apache/iceberg/metrics/DefaultTimer.java`
 ```
 
 ### AutoCloseableResource
-'Timed' used without 'try'-with-resources statement
-in `api/src/main/java/org/apache/iceberg/metrics/DefaultTimer.java`
-#### Snippet
-```java
-  @Override
-  public <T> T timeCallable(Callable<T> callable) throws Exception {
-    Timed timed = start();
-    try {
-      return callable.call();
-```
-
-### AutoCloseableResource
 'S3Client' used without 'try'-with-resources statement
 in `aws/src/main/java/org/apache/iceberg/aws/s3/BaseS3File.java`
 #### Snippet
@@ -17185,35 +17473,23 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/BaseS3File.java`
 in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIO.java`
 #### Snippet
 ```java
+        DeleteObjectRequest.builder().bucket(location.bucket()).key(location.key()).build();
+
+    client().deleteObject(deleteRequest);
+  }
+
+```
+
+### AutoCloseableResource
+'S3Client' used without 'try'-with-resources statement
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIO.java`
+#### Snippet
+```java
       }
       if (s3FileIOProperties.isPreloadClientEnabled()) {
         client();
       }
     }
-```
-
-### AutoCloseableResource
-'S3Client' used without 'try'-with-resources statement
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIO.java`
-#### Snippet
-```java
-        GetObjectTaggingRequest.builder().bucket(bucket).key(objectKey).build();
-    GetObjectTaggingResponse getObjectTaggingResponse =
-        client().getObjectTagging(getObjectTaggingRequest);
-    // Get existing tags, if any and then add the delete tags
-    Set<Tag> tags = Sets.newHashSet();
-```
-
-### AutoCloseableResource
-'S3Client' used without 'try'-with-resources statement
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIO.java`
-#### Snippet
-```java
-            .tagging(Tagging.builder().tagSet(tags).build())
-            .build();
-    client().putObjectTagging(putObjectTaggingRequest);
-  }
-
 ```
 
 ### AutoCloseableResource
@@ -17245,9 +17521,21 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIO.java`
 in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIO.java`
 #### Snippet
 ```java
-        DeleteObjectRequest.builder().bucket(location.bucket()).key(location.key()).build();
+        GetObjectTaggingRequest.builder().bucket(bucket).key(objectKey).build();
+    GetObjectTaggingResponse getObjectTaggingResponse =
+        client().getObjectTagging(getObjectTaggingRequest);
+    // Get existing tags, if any and then add the delete tags
+    Set<Tag> tags = Sets.newHashSet();
+```
 
-    client().deleteObject(deleteRequest);
+### AutoCloseableResource
+'S3Client' used without 'try'-with-resources statement
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIO.java`
+#### Snippet
+```java
+            .tagging(Tagging.builder().tagSet(tags).build())
+            .build();
+    client().putObjectTagging(putObjectTaggingRequest);
   }
 
 ```
@@ -17305,9 +17593,21 @@ in `aws/src/main/java/org/apache/iceberg/aws/dynamodb/DynamoDbTableOperations.ja
 in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
 #### Snippet
 ```java
-    properties.put(AwsProperties.S3FILEIO_ENDPOINT, "https://unknown:1234");
+    properties.put(AwsProperties.S3FILEIO_SECRET_ACCESS_KEY, "unknown");
     AwsClientFactory factory = AwsClientFactories.from(properties);
     S3Client s3Client = factory.s3();
+    AssertHelpers.assertThrows(
+        "Should fail request because of bad access key",
+```
+
+### AutoCloseableResource
+'DynamoDbClient' used without 'try'-with-resources statement
+in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
+#### Snippet
+```java
+    properties.put(AwsProperties.DYNAMODB_ENDPOINT, "https://unknown:1234");
+    AwsClientFactory factory = AwsClientFactories.from(properties);
+    DynamoDbClient dynamoDbClient = factory.dynamo();
     AssertHelpers.assertThrowsCause(
         "Should refuse connection to unknown endpoint",
 ```
@@ -17329,35 +17629,11 @@ in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.
 in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
 #### Snippet
 ```java
-    properties.put(AwsProperties.S3FILEIO_SECRET_ACCESS_KEY, "unknown");
+    properties.put(AwsProperties.S3FILEIO_ENDPOINT, "https://unknown:1234");
     AwsClientFactory factory = AwsClientFactories.from(properties);
     S3Client s3Client = factory.s3();
-    AssertHelpers.assertThrows(
-        "Should fail request because of bad access key",
-```
-
-### AutoCloseableResource
-'DynamoDbClient' used without 'try'-with-resources statement
-in `aws/src/integration/java/org/apache/iceberg/aws/TestDefaultAwsClientFactory.java`
-#### Snippet
-```java
-    properties.put(AwsProperties.DYNAMODB_ENDPOINT, "https://unknown:1234");
-    AwsClientFactory factory = AwsClientFactories.from(properties);
-    DynamoDbClient dynamoDbClient = factory.dynamo();
     AssertHelpers.assertThrowsCause(
         "Should refuse connection to unknown endpoint",
-```
-
-### AutoCloseableResource
-'S3FileIO' used without 'try'-with-resources statement
-in `aws/src/integration/java/org/apache/iceberg/aws/TestAssumeRoleAwsClientFactory.java`
-#### Snippet
-```java
-    waitForIamConsistency();
-
-    S3FileIO s3FileIO = new S3FileIO();
-    s3FileIO.initialize(assumeRoleProperties);
-    Assertions.assertThatThrownBy(
 ```
 
 ### AutoCloseableResource
@@ -17374,14 +17650,14 @@ in `aws/src/integration/java/org/apache/iceberg/aws/TestAssumeRoleAwsClientFacto
 
 ### AutoCloseableResource
 'S3FileIO' used without 'try'-with-resources statement
-in `aws/src/integration/java/org/apache/iceberg/aws/s3/TestS3FileIOIntegration.java`
+in `aws/src/integration/java/org/apache/iceberg/aws/TestAssumeRoleAwsClientFactory.java`
 #### Snippet
 ```java
-    S3FileIOProperties properties = new S3FileIOProperties();
-    properties.setDeleteBatchSize(100);
-    S3FileIO s3FileIO = new S3FileIO(clientFactory::s3, properties);
-    String deletePrefix = String.format("s3://%s/%s/%s", bucketName, prefix, "prefix-delete-test");
+    waitForIamConsistency();
 
+    S3FileIO s3FileIO = new S3FileIO();
+    s3FileIO.initialize(assumeRoleProperties);
+    Assertions.assertThatThrownBy(
 ```
 
 ### AutoCloseableResource
@@ -17406,6 +17682,18 @@ in `aws/src/integration/java/org/apache/iceberg/aws/s3/TestS3FileIOIntegration.j
     S3FileIO s3FileIO = new S3FileIO(clientFactory::s3);
     List<Integer> scaleSizes = Lists.newArrayList(1, 1000, 2500);
     String listPrefix = String.format("s3://%s/%s/%s", bucketName, prefix, "prefix-list-test");
+```
+
+### AutoCloseableResource
+'S3FileIO' used without 'try'-with-resources statement
+in `aws/src/integration/java/org/apache/iceberg/aws/s3/TestS3FileIOIntegration.java`
+#### Snippet
+```java
+    S3FileIOProperties properties = new S3FileIOProperties();
+    properties.setDeleteBatchSize(100);
+    S3FileIO s3FileIO = new S3FileIO(clientFactory::s3, properties);
+    String deletePrefix = String.format("s3://%s/%s/%s", bucketName, prefix, "prefix-delete-test");
+
 ```
 
 ### AutoCloseableResource
@@ -17461,11 +17749,11 @@ in `core/src/main/java/org/apache/iceberg/MetadataLogEntriesTable.java`
 in `core/src/main/java/org/apache/iceberg/BaseMetastoreTableOperations.java`
 #### Snippet
 ```java
-  protected String writeNewMetadata(TableMetadata metadata, int newVersion) {
-    String newTableMetadataFilePath = newTableMetadataFilePath(metadata, newVersion);
-    OutputFile newMetadataLocation = io().newOutputFile(newTableMetadataFilePath);
-
-    // write the new metadata
+                  LOG.warn(
+                      "Delete failed for previous metadata file: {}", previousMetadataFile, exc))
+          .run(previousMetadataFile -> io().deleteFile(previousMetadataFile.file()));
+    }
+  }
 ```
 
 ### AutoCloseableResource
@@ -17473,11 +17761,11 @@ in `core/src/main/java/org/apache/iceberg/BaseMetastoreTableOperations.java`
 in `core/src/main/java/org/apache/iceberg/BaseMetastoreTableOperations.java`
 #### Snippet
 ```java
-                  LOG.warn(
-                      "Delete failed for previous metadata file: {}", previousMetadataFile, exc))
-          .run(previousMetadataFile -> io().deleteFile(previousMetadataFile.file()));
-    }
-  }
+  protected String writeNewMetadata(TableMetadata metadata, int newVersion) {
+    String newTableMetadataFilePath = newTableMetadataFilePath(metadata, newVersion);
+    OutputFile newMetadataLocation = io().newOutputFile(newTableMetadataFilePath);
+
+    // write the new metadata
 ```
 
 ### AutoCloseableResource
@@ -17509,9 +17797,9 @@ in `core/src/main/java/org/apache/iceberg/RefsTable.java`
 in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
 #### Snippet
 ```java
-      TableMetadata base, Long startingSnapshotId, Expression dataFilter, Snapshot parent) {
+      TableMetadata base, Long startingSnapshotId, PartitionSet partitionSet, Snapshot parent) {
     CloseableIterable<ManifestEntry<DataFile>> conflictEntries =
-        deletedDataFiles(base, startingSnapshotId, dataFilter, null, parent);
+        addedDataFiles(base, startingSnapshotId, null, partitionSet, parent);
 
     try (CloseableIterator<ManifestEntry<DataFile>> conflicts = conflictEntries.iterator()) {
 ```
@@ -17523,7 +17811,7 @@ in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
 ```java
       TableMetadata base, Long startingSnapshotId, PartitionSet partitionSet, Snapshot parent) {
     CloseableIterable<ManifestEntry<DataFile>> conflictEntries =
-        addedDataFiles(base, startingSnapshotId, null, partitionSet, parent);
+        deletedDataFiles(base, startingSnapshotId, null, partitionSet, parent);
 
     try (CloseableIterator<ManifestEntry<DataFile>> conflicts = conflictEntries.iterator()) {
 ```
@@ -17545,18 +17833,6 @@ in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
 in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
 #### Snippet
 ```java
-      TableMetadata base, Long startingSnapshotId, PartitionSet partitionSet, Snapshot parent) {
-    CloseableIterable<ManifestEntry<DataFile>> conflictEntries =
-        deletedDataFiles(base, startingSnapshotId, null, partitionSet, parent);
-
-    try (CloseableIterator<ManifestEntry<DataFile>> conflicts = conflictEntries.iterator()) {
-```
-
-### AutoCloseableResource
-'CloseableIterable\>' used without 'try'-with-resources statement
-in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
-#### Snippet
-```java
 
     try (CloseableIterator<ManifestEntry<DataFile>> deletes =
         matchingDeletesGroup.entries().iterator()) {
@@ -17569,35 +17845,23 @@ in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
 in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
 #### Snippet
 ```java
-      Snapshot parent) {
+      TableMetadata base, Long startingSnapshotId, Expression dataFilter, Snapshot parent) {
     CloseableIterable<ManifestEntry<DataFile>> conflictEntries =
-        addedDataFiles(base, startingSnapshotId, conflictDetectionFilter, null, parent);
+        deletedDataFiles(base, startingSnapshotId, dataFilter, null, parent);
 
     try (CloseableIterator<ManifestEntry<DataFile>> conflicts = conflictEntries.iterator()) {
 ```
 
 ### AutoCloseableResource
-'Timed' used without 'try'-with-resources statement
-in `core/src/main/java/org/apache/iceberg/SnapshotProducer.java`
+'CloseableIterable\>' used without 'try'-with-resources statement
+in `core/src/main/java/org/apache/iceberg/MergingSnapshotProducer.java`
 #### Snippet
 ```java
-    // this is always set to the latest commit attempt's snapshot id.
-    AtomicLong newSnapshotId = new AtomicLong(-1L);
-    Timed totalDuration = commitMetrics().totalDuration().start();
-    try {
-      Tasks.foreach(ops)
-```
+      Snapshot parent) {
+    CloseableIterable<ManifestEntry<DataFile>> conflictEntries =
+        addedDataFiles(base, startingSnapshotId, conflictDetectionFilter, null, parent);
 
-### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `core/src/main/java/org/apache/iceberg/SnapshotProducer.java`
-#### Snippet
-```java
-
-  protected OutputFile manifestListPath() {
-    return ops.io()
-        .newOutputFile(
-            ops.metadataFileLocation(
+    try (CloseableIterator<ManifestEntry<DataFile>> conflicts = conflictEntries.iterator()) {
 ```
 
 ### AutoCloseableResource
@@ -17622,6 +17886,30 @@ in `core/src/main/java/org/apache/iceberg/SnapshotProducer.java`
     return ops.io()
         .newOutputFile(
             ops.metadataFileLocation(
+```
+
+### AutoCloseableResource
+'FileIO' used without 'try'-with-resources statement
+in `core/src/main/java/org/apache/iceberg/SnapshotProducer.java`
+#### Snippet
+```java
+
+  protected OutputFile manifestListPath() {
+    return ops.io()
+        .newOutputFile(
+            ops.metadataFileLocation(
+```
+
+### AutoCloseableResource
+'Timed' used without 'try'-with-resources statement
+in `core/src/main/java/org/apache/iceberg/SnapshotProducer.java`
+#### Snippet
+```java
+    // this is always set to the latest commit attempt's snapshot id.
+    AtomicLong newSnapshotId = new AtomicLong(-1L);
+    Timed totalDuration = commitMetrics().totalDuration().start();
+    try {
+      Tasks.foreach(ops)
 ```
 
 ### AutoCloseableResource
@@ -17662,54 +17950,6 @@ in `core/src/main/java/org/apache/iceberg/BaseMetastoreCatalog.java`
 
 ### AutoCloseableResource
 'FileIO' used without 'try'-with-resources statement
-in `core/src/main/java/org/apache/iceberg/BaseTransaction.java`
-#### Snippet
-```java
-          .suppressFailureWhenFinished()
-          .onFailure((file, exc) -> LOG.warn("Failed to delete uncommitted file: {}", file, exc))
-          .run(ops.io()::deleteFile);
-    }
-  }
-```
-
-### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `core/src/main/java/org/apache/iceberg/BaseTransaction.java`
-#### Snippet
-```java
-        .suppressFailureWhenFinished()
-        .onFailure((file, exc) -> LOG.warn("Failed to delete uncommitted file: {}", file, exc))
-        .run(ops.io()::deleteFile);
-  }
-
-```
-
-### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `core/src/main/java/org/apache/iceberg/BaseTransaction.java`
-#### Snippet
-```java
-                path -> {
-                  if (!committedFiles.contains(path)) {
-                    ops.io().deleteFile(path);
-                  }
-                });
-```
-
-### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `core/src/main/java/org/apache/iceberg/BaseTransaction.java`
-#### Snippet
-```java
-          .suppressFailureWhenFinished()
-          .onFailure((file, exc) -> LOG.warn("Failed to delete uncommitted file: {}", file, exc))
-          .run(ops.io()::deleteFile);
-    }
-  }
-```
-
-### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
 in `core/src/main/java/org/apache/iceberg/PartitionsTable.java`
 #### Snippet
 ```java
@@ -17730,6 +17970,54 @@ in `core/src/main/java/org/apache/iceberg/PartitionsTable.java`
           io().newInputFile(table().operations().current().metadataFileLocation()),
           schema(),
           scan.schema(),
+```
+
+### AutoCloseableResource
+'FileIO' used without 'try'-with-resources statement
+in `core/src/main/java/org/apache/iceberg/BaseTransaction.java`
+#### Snippet
+```java
+        .suppressFailureWhenFinished()
+        .onFailure((file, exc) -> LOG.warn("Failed to delete uncommitted file: {}", file, exc))
+        .run(ops.io()::deleteFile);
+  }
+
+```
+
+### AutoCloseableResource
+'FileIO' used without 'try'-with-resources statement
+in `core/src/main/java/org/apache/iceberg/BaseTransaction.java`
+#### Snippet
+```java
+          .suppressFailureWhenFinished()
+          .onFailure((file, exc) -> LOG.warn("Failed to delete uncommitted file: {}", file, exc))
+          .run(ops.io()::deleteFile);
+    }
+  }
+```
+
+### AutoCloseableResource
+'FileIO' used without 'try'-with-resources statement
+in `core/src/main/java/org/apache/iceberg/BaseTransaction.java`
+#### Snippet
+```java
+          .suppressFailureWhenFinished()
+          .onFailure((file, exc) -> LOG.warn("Failed to delete uncommitted file: {}", file, exc))
+          .run(ops.io()::deleteFile);
+    }
+  }
+```
+
+### AutoCloseableResource
+'FileIO' used without 'try'-with-resources statement
+in `core/src/main/java/org/apache/iceberg/BaseTransaction.java`
+#### Snippet
+```java
+                path -> {
+                  if (!committedFiles.contains(path)) {
+                    ops.io().deleteFile(path);
+                  }
+                });
 ```
 
 ### AutoCloseableResource
@@ -17774,8 +18062,8 @@ in `core/src/main/java/org/apache/iceberg/io/ResolvingFileIO.java`
 #### Snippet
 ```java
   @Override
-  public InputFile newInputFile(String location, long length) {
-    return io(location).newInputFile(location, length);
+  public void deleteFile(String location) {
+    io(location).deleteFile(location);
   }
 
 ```
@@ -17810,8 +18098,8 @@ in `core/src/main/java/org/apache/iceberg/io/ResolvingFileIO.java`
 #### Snippet
 ```java
   @Override
-  public void deleteFile(String location) {
-    io(location).deleteFile(location);
+  public InputFile newInputFile(String location, long length) {
+    return io(location).newInputFile(location, length);
   }
 
 ```
@@ -17857,18 +18145,6 @@ in `core/src/main/java/org/apache/iceberg/rest/RESTSessionCatalog.java`
 in `core/src/main/java/org/apache/iceberg/hadoop/HadoopTableOperations.java`
 #### Snippet
 ```java
-                  LOG.warn(
-                      "Delete failed for previous metadata file: {}", previousMetadataFile, exc))
-          .run(previousMetadataFile -> io().deleteFile(previousMetadataFile.file()));
-    }
-  }
-```
-
-### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `core/src/main/java/org/apache/iceberg/hadoop/HadoopTableOperations.java`
-#### Snippet
-```java
   private RuntimeException tryDelete(Path path) {
     try {
       io().deleteFile(path.toString());
@@ -17886,6 +18162,18 @@ in `core/src/main/java/org/apache/iceberg/hadoop/HadoopTableOperations.java`
     TableMetadataParser.write(metadata, io().newOutputFile(tempMetadataFile.toString()));
 
     int nextVersion = (current.first() != null ? current.first() : 0) + 1;
+```
+
+### AutoCloseableResource
+'FileIO' used without 'try'-with-resources statement
+in `core/src/main/java/org/apache/iceberg/hadoop/HadoopTableOperations.java`
+#### Snippet
+```java
+                  LOG.warn(
+                      "Delete failed for previous metadata file: {}", previousMetadataFile, exc))
+          .run(previousMetadataFile -> io().deleteFile(previousMetadataFile.file()));
+    }
+  }
 ```
 
 ### AutoCloseableResource
@@ -17977,8 +18265,176 @@ in `arrow/src/main/java/org/apache/iceberg/arrow/vectorized/ArrowReader.java`
 in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
 #### Snippet
 ```java
-    VarCharVector vector =
-        new VarCharVector(
+  private static void initVector(
+      BaseFixedWidthVector vector, VectorHolder vectorHolder, IntConsumer consumer) {
+    vector.allocateNew(vectorHolder.vector().getValueCount());
+    init(vector, vectorHolder, consumer, vectorHolder.vector().getValueCount());
+  }
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+      BaseFixedWidthVector vector, VectorHolder vectorHolder, IntConsumer consumer) {
+    vector.allocateNew(vectorHolder.vector().getValueCount());
+    init(vector, vectorHolder, consumer, vectorHolder.vector().getValueCount());
+  }
+
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+    TimeMicroVector vector =
+        new TimeMicroVector(
+            vectorHolder.vector().getName(),
+            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
+            vectorHolder.vector().getAllocator());
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+            vectorHolder.vector().getName(),
+            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
+            vectorHolder.vector().getAllocator());
+
+    initVector(vector, vectorHolder, idx -> vector.set(idx, accessor.getLong(idx)));
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+      vector =
+          new TimeStampMicroTZVector(
+              vectorHolder.vector().getName(),
+              ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
+              vectorHolder.vector().getAllocator());
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+              vectorHolder.vector().getName(),
+              ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
+              vectorHolder.vector().getAllocator());
+    } else {
+      vector =
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+      vector =
+          new TimeStampMicroVector(
+              vectorHolder.vector().getName(),
+              ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
+              vectorHolder.vector().getAllocator());
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+              vectorHolder.vector().getName(),
+              ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
+              vectorHolder.vector().getAllocator());
+    }
+
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+    Float8Vector vector =
+        new Float8Vector(
+            vectorHolder.vector().getName(),
+            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
+            vectorHolder.vector().getAllocator());
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+            vectorHolder.vector().getName(),
+            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
+            vectorHolder.vector().getAllocator());
+
+    initVector(vector, vectorHolder, idx -> vector.set(idx, accessor.getDouble(idx)));
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+  private static void initVector(
+      BaseVariableWidthVector vector, VectorHolder vectorHolder, IntConsumer consumer) {
+    vector.allocateNew(vectorHolder.vector().getValueCount());
+    init(vector, vectorHolder, consumer, vectorHolder.vector().getValueCount());
+  }
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+      BaseVariableWidthVector vector, VectorHolder vectorHolder, IntConsumer consumer) {
+    vector.allocateNew(vectorHolder.vector().getValueCount());
+    init(vector, vectorHolder, consumer, vectorHolder.vector().getValueCount());
+  }
+
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+    Float4Vector vector =
+        new Float4Vector(
+            vectorHolder.vector().getName(),
+            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
+            vectorHolder.vector().getAllocator());
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+            vectorHolder.vector().getName(),
+            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
+            vectorHolder.vector().getAllocator());
+
+    initVector(vector, vectorHolder, idx -> vector.set(idx, accessor.getFloat(idx)));
+```
+
+### AutoCloseableResource
+'FieldVector' used without 'try'-with-resources statement
+in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
+#### Snippet
+```java
+    DecimalVector vector =
+        new DecimalVector(
             vectorHolder.vector().getName(),
             ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
             vectorHolder.vector().getAllocator());
@@ -18049,176 +18505,8 @@ in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
 in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
 #### Snippet
 ```java
-  private static void initVector(
-      BaseVariableWidthVector vector, VectorHolder vectorHolder, IntConsumer consumer) {
-    vector.allocateNew(vectorHolder.vector().getValueCount());
-    init(vector, vectorHolder, consumer, vectorHolder.vector().getValueCount());
-  }
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-      BaseVariableWidthVector vector, VectorHolder vectorHolder, IntConsumer consumer) {
-    vector.allocateNew(vectorHolder.vector().getValueCount());
-    init(vector, vectorHolder, consumer, vectorHolder.vector().getValueCount());
-  }
-
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-    Float4Vector vector =
-        new Float4Vector(
-            vectorHolder.vector().getName(),
-            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
-            vectorHolder.vector().getAllocator());
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-            vectorHolder.vector().getName(),
-            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
-            vectorHolder.vector().getAllocator());
-
-    initVector(vector, vectorHolder, idx -> vector.set(idx, accessor.getFloat(idx)));
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-      vector =
-          new TimeStampMicroTZVector(
-              vectorHolder.vector().getName(),
-              ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
-              vectorHolder.vector().getAllocator());
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-              vectorHolder.vector().getName(),
-              ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
-              vectorHolder.vector().getAllocator());
-    } else {
-      vector =
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-      vector =
-          new TimeStampMicroVector(
-              vectorHolder.vector().getName(),
-              ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
-              vectorHolder.vector().getAllocator());
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-              vectorHolder.vector().getName(),
-              ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
-              vectorHolder.vector().getAllocator());
-    }
-
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-    TimeMicroVector vector =
-        new TimeMicroVector(
-            vectorHolder.vector().getName(),
-            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
-            vectorHolder.vector().getAllocator());
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-            vectorHolder.vector().getName(),
-            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
-            vectorHolder.vector().getAllocator());
-
-    initVector(vector, vectorHolder, idx -> vector.set(idx, accessor.getLong(idx)));
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-    Float8Vector vector =
-        new Float8Vector(
-            vectorHolder.vector().getName(),
-            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
-            vectorHolder.vector().getAllocator());
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-            vectorHolder.vector().getName(),
-            ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
-            vectorHolder.vector().getAllocator());
-
-    initVector(vector, vectorHolder, idx -> vector.set(idx, accessor.getDouble(idx)));
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-  private static void initVector(
-      BaseFixedWidthVector vector, VectorHolder vectorHolder, IntConsumer consumer) {
-    vector.allocateNew(vectorHolder.vector().getValueCount());
-    init(vector, vectorHolder, consumer, vectorHolder.vector().getValueCount());
-  }
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-      BaseFixedWidthVector vector, VectorHolder vectorHolder, IntConsumer consumer) {
-    vector.allocateNew(vectorHolder.vector().getValueCount());
-    init(vector, vectorHolder, consumer, vectorHolder.vector().getValueCount());
-  }
-
-```
-
-### AutoCloseableResource
-'FieldVector' used without 'try'-with-resources statement
-in `arrow/src/main/java/org/apache/iceberg/arrow/DictEncodedArrowConverter.java`
-#### Snippet
-```java
-    DecimalVector vector =
-        new DecimalVector(
+    VarCharVector vector =
+        new VarCharVector(
             vectorHolder.vector().getName(),
             ArrowSchemaUtil.convert(vectorHolder.icebergField()).getFieldType(),
             vectorHolder.vector().getAllocator());
@@ -18279,31 +18567,7 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSo
 ```java
         conf,
         () -> {
-          Dataset<Row> df = spark().read().format("avro").load(dataLocation()).select("longCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceFlatAvroDataReadBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
           Dataset<Row> df = spark().read().format("avro").load(dataLocation());
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceFlatAvroDataReadBenchmark.java`
-#### Snippet
-```java
-        () -> {
-          String tableLocation = table().location();
-          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
           materialize(df);
         });
 ```
@@ -18327,6 +18591,18 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSo
 ```java
         () -> {
           String tableLocation = table().location();
+          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceFlatAvroDataReadBenchmark.java`
+#### Snippet
+```java
+        () -> {
+          String tableLocation = table().location();
           Dataset<Row> df = spark().read().format("iceberg").load(tableLocation).select("longCol");
           materialize(df);
         });
@@ -18334,48 +18610,12 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSo
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceNestedORCDataReadBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceFlatAvroDataReadBenchmark.java`
 #### Snippet
 ```java
         conf,
         () -> {
-          Dataset<Row> df = spark().read().orc(dataLocation()).selectExpr("nested.col3");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceNestedORCDataReadBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark()
-                  .read()
-                  .option(SparkReadOptions.VECTORIZATION_ENABLED, "true")
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceNestedORCDataReadBenchmark.java`
-#### Snippet
-```java
-          for (int fileNum = 0; fileNum < NUM_FILES; fileNum++) {
-            Dataset<Row> df =
-                spark()
-                    .range(NUM_ROWS)
-                    .withColumn(
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceNestedORCDataReadBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
-          Dataset<Row> df = spark().read().orc(dataLocation());
+          Dataset<Row> df = spark().read().format("avro").load(dataLocation()).select("longCol");
           materialize(df);
         });
 ```
@@ -18390,6 +18630,18 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSou
           Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
           materialize(df);
         });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceNestedORCDataReadBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark()
+                  .read()
+                  .option(SparkReadOptions.VECTORIZATION_ENABLED, "true")
 ```
 
 ### AutoCloseableResource
@@ -18418,24 +18670,96 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSou
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceFlatORCDataReadBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceNestedORCDataReadBenchmark.java`
 #### Snippet
 ```java
         conf,
         () -> {
-          Dataset<Row> df = spark().read().orc(dataLocation()).select("longCol");
+          Dataset<Row> df = spark().read().orc(dataLocation());
           materialize(df);
         });
 ```
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceFlatORCDataReadBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceNestedORCDataReadBenchmark.java`
 #### Snippet
 ```java
         conf,
         () -> {
-          Dataset<Row> df = spark().read().orc(dataLocation());
+          Dataset<Row> df = spark().read().orc(dataLocation()).selectExpr("nested.col3");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceNestedORCDataReadBenchmark.java`
+#### Snippet
+```java
+          for (int fileNum = 0; fileNum < NUM_FILES; fileNum++) {
+            Dataset<Row> df =
+                spark()
+                    .range(NUM_ROWS)
+                    .withColumn(
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceNestedAvroDataReadBenchmark.java`
+#### Snippet
+```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().format("avro").load(dataLocation());
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceNestedAvroDataReadBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).select("nested.col3");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceNestedAvroDataReadBenchmark.java`
+#### Snippet
+```java
+          for (int fileNum = 1; fileNum <= NUM_FILES; fileNum++) {
+            Dataset<Row> df =
+                spark()
+                    .range(NUM_ROWS)
+                    .withColumn(
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceNestedAvroDataReadBenchmark.java`
+#### Snippet
+```java
+        () -> {
+          Dataset<Row> df =
+              spark().read().format("avro").load(dataLocation()).select("nested.col3");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceNestedAvroDataReadBenchmark.java`
+#### Snippet
+```java
+        () -> {
+          String tableLocation = table().location();
+          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
           materialize(df);
         });
 ```
@@ -18469,11 +18793,11 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSou
 in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceFlatORCDataReadBenchmark.java`
 #### Snippet
 ```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark()
-                  .read()
-                  .option(SparkReadOptions.VECTORIZATION_ENABLED, "true")
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().orc(dataLocation()).select("longCol");
+          materialize(df);
+        });
 ```
 
 ### AutoCloseableResource
@@ -18495,7 +18819,7 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSou
 ```java
         conf,
         () -> {
-          Dataset<Row> df = spark().read().orc(dataLocation()).select("longCol");
+          Dataset<Row> df = spark().read().orc(dataLocation());
           materialize(df);
         });
 ```
@@ -18517,10 +18841,130 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSou
 in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceFlatORCDataReadBenchmark.java`
 #### Snippet
 ```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().orc(dataLocation()).select("longCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceFlatORCDataReadBenchmark.java`
+#### Snippet
+```java
         () -> {
           String tableLocation = table().location();
           Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
           materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/orc/IcebergSourceFlatORCDataReadBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark()
+                  .read()
+                  .option(SparkReadOptions.VECTORIZATION_ENABLED, "true")
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataWriteBenchmark.java`
+#### Snippet
+```java
+
+  private Dataset<Row> benchmarkData() {
+    return spark()
+        .range(NUM_ROWS)
+        .withColumn(
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).filter("_deleted = true");
+          materialize(df, blackhole);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
+#### Snippet
+```java
+        () -> {
+          String tableLocation = table().location();
+          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
+          materialize(df, blackhole);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).filter("_deleted = true");
+          materialize(df, blackhole);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).filter("_deleted = false");
+          materialize(df, blackhole);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
+#### Snippet
+```java
+  protected void writeData(int fileNum) {
+    Dataset<Row> df =
+        spark()
+            .range(NUM_ROWS)
+            .withColumnRenamed("id", "longCol")
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).filter("_deleted = false");
+          materialize(df, blackhole);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
+#### Snippet
+```java
+        () -> {
+          String tableLocation = table().location();
+          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
+          materialize(df, blackhole);
         });
 ```
 
@@ -18553,18 +18997,6 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/Iceber
 in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataFilterBenchmark.java`
 #### Snippet
 ```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).filter(FILTER_COND);
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataFilterBenchmark.java`
-#### Snippet
-```java
         conf,
         () -> {
           Dataset<Row> df = spark().read().parquet(dataLocation()).filter(FILTER_COND);
@@ -18574,242 +19006,26 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/Iceber
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceNestedAvroDataReadBenchmark.java`
-#### Snippet
-```java
-        () -> {
-          String tableLocation = table().location();
-          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceNestedAvroDataReadBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
-          Dataset<Row> df = spark().read().format("avro").load(dataLocation());
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceNestedAvroDataReadBenchmark.java`
-#### Snippet
-```java
-        () -> {
-          Dataset<Row> df =
-              spark().read().format("avro").load(dataLocation()).select("nested.col3");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceNestedAvroDataReadBenchmark.java`
-#### Snippet
-```java
-          for (int fileNum = 1; fileNum <= NUM_FILES; fileNum++) {
-            Dataset<Row> df =
-                spark()
-                    .range(NUM_ROWS)
-                    .withColumn(
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/avro/IcebergSourceNestedAvroDataReadBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataFilterBenchmark.java`
 #### Snippet
 ```java
           String tableLocation = table().location();
           Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).select("nested.col3");
+              spark().read().format("iceberg").load(tableLocation).filter(FILTER_COND);
           materialize(df);
         });
 ```
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
 #### Snippet
 ```java
-  protected void writeData(int fileNum) {
+  private void appendData() {
     Dataset<Row> df =
         spark()
-            .range(NUM_ROWS)
-            .withColumnRenamed("id", "longCol")
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).filter("_deleted = true");
-          materialize(df, blackhole);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
-#### Snippet
-```java
-        () -> {
-          String tableLocation = table().location();
-          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
-          materialize(df, blackhole);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
-#### Snippet
-```java
-        () -> {
-          String tableLocation = table().location();
-          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
-          materialize(df, blackhole);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).filter("_deleted = false");
-          materialize(df, blackhole);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).filter("_deleted = false");
-          materialize(df, blackhole);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/IcebergSourceDeleteBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).filter("_deleted = true");
-          materialize(df, blackhole);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataWriteBenchmark.java`
-#### Snippet
-```java
-
-  private Dataset<Row> benchmarkData() {
-    return spark()
-        .range(NUM_ROWS)
-        .withColumn(
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation());
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).selectExpr("nested.col3");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation());
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).selectExpr("nested.col3");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
-#### Snippet
-```java
-    for (int fileNum = 0; fileNum < NUM_FILES; fileNum++) {
-      Dataset<Row> df =
-          spark()
-              .range(NUM_ROWS)
-              .withColumn(
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
-#### Snippet
-```java
-        () -> {
-          String tableLocation = table().location();
-          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).selectExpr("nested.col3");
-          materialize(df);
-        });
+            .range(0, NUM_ROWS * NUM_FILES, 1, NUM_FILES)
+            .drop("id")
 ```
 
 ### AutoCloseableResource
@@ -18838,108 +19054,24 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/Iceber
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataFilterBenchmark.java`
-#### Snippet
-```java
-    for (int fileNum = 1; fileNum < NUM_FILES; fileNum++) {
-      Dataset<Row> df =
-          spark()
-              .range(NUM_ROWS)
-              .withColumnRenamed("id", "longCol")
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataFilterBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).filter(FILTER_COND);
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataFilterBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).filter(FILTER_COND);
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataFilterBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
 #### Snippet
 ```java
           String tableLocation = table().location();
           Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).filter(FILTER_COND);
+              spark().read().format("iceberg").load(tableLocation).selectExpr("nested.col3");
           materialize(df);
         });
 ```
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/action/IcebergSortCompactionBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
 #### Snippet
 ```java
-  private void appendData() {
-    Dataset<Row> df =
-        spark()
-            .range(0, NUM_ROWS * NUM_FILES, 1, NUM_FILES)
-            .drop("id")
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataReadBenchmark.java`
-#### Snippet
-```java
-    for (int fileNum = 1; fileNum <= NUM_FILES; fileNum++) {
-      Dataset<Row> df =
-          spark()
-              .range(NUM_ROWS)
-              .withColumnRenamed("id", "longCol")
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataReadBenchmark.java`
-#### Snippet
-```java
-        conf,
         () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation());
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataReadBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).select("longCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataReadBenchmark.java`
-#### Snippet
-```java
-        conf,
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).select("longCol");
+          String tableLocation = table().location();
+          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation);
           materialize(df);
         });
 ```
@@ -18958,7 +19090,79 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/Iceber
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
+#### Snippet
+```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation());
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
 in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataReadBenchmark.java`
+#### Snippet
+```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation());
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
+#### Snippet
+```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).selectExpr("nested.col3");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataReadBenchmark.java`
+#### Snippet
+```java
+    for (int fileNum = 1; fileNum <= NUM_FILES; fileNum++) {
+      Dataset<Row> df =
+          spark()
+              .range(NUM_ROWS)
+              .withColumnRenamed("id", "longCol")
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
+#### Snippet
+```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).selectExpr("nested.col3");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataReadBenchmark.java`
+#### Snippet
+```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation());
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
 #### Snippet
 ```java
         conf,
@@ -18982,6 +19186,90 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/Iceber
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceNestedParquetDataReadBenchmark.java`
+#### Snippet
+```java
+    for (int fileNum = 0; fileNum < NUM_FILES; fileNum++) {
+      Dataset<Row> df =
+          spark()
+              .range(NUM_ROWS)
+              .withColumn(
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataReadBenchmark.java`
+#### Snippet
+```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).select("longCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataReadBenchmark.java`
+#### Snippet
+```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).select("longCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataFilterBenchmark.java`
+#### Snippet
+```java
+    for (int fileNum = 1; fileNum < NUM_FILES; fileNum++) {
+      Dataset<Row> df =
+          spark()
+              .range(NUM_ROWS)
+              .withColumnRenamed("id", "longCol")
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataFilterBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).filter(FILTER_COND);
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataFilterBenchmark.java`
+#### Snippet
+```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).filter(FILTER_COND);
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/IcebergSourceFlatParquetDataFilterBenchmark.java`
+#### Snippet
+```java
+        conf,
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).filter(FILTER_COND);
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
 in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadDictionaryEncodedFlatParquetDataBenchmark.java`
 #### Snippet
 ```java
@@ -18999,57 +19287,9 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vector
 ```java
         sparkConfWithVectorizationEnabled(5000),
         () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).select("decimalCol1");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadParquetDecimalBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).select("decimalCol1");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadParquetDecimalBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).select("decimalCol2");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadParquetDecimalBenchmark.java`
-#### Snippet
-```java
-        sparkConfWithVectorizationEnabled(5000),
-        () -> {
           Dataset<Row> df = spark().read().parquet(dataLocation()).select("decimalCol2");
           materialize(df);
         });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadParquetDecimalBenchmark.java`
-#### Snippet
-```java
-    for (int fileNum = 1; fileNum <= NUM_FILES; fileNum++) {
-      Dataset<Row> df =
-          spark()
-              .range(NUM_ROWS_PER_FILE)
-              .withColumn(
 ```
 
 ### AutoCloseableResource
@@ -19078,36 +19318,48 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vector
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadParquetDecimalBenchmark.java`
 #### Snippet
 ```java
-        sparkConfWithVectorizationEnabled(5000),
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).select("decimalCol");
-          materialize(df);
-        });
+    for (int fileNum = 1; fileNum <= NUM_FILES; fileNum++) {
+      Dataset<Row> df =
+          spark()
+              .range(NUM_ROWS_PER_FILE)
+              .withColumn(
 ```
 
 ### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadParquetDecimalBenchmark.java`
 #### Snippet
 ```java
-        sparkConfWithVectorizationEnabled(5000),
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).select("bigDecimalCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-        () -> {
           String tableLocation = table().location();
-          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation).select("intCol");
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).select("decimalCol2");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadParquetDecimalBenchmark.java`
+#### Snippet
+```java
+        sparkConfWithVectorizationEnabled(5000),
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).select("decimalCol1");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadParquetDecimalBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).select("decimalCol1");
           materialize(df);
         });
 ```
@@ -19119,7 +19371,43 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vector
 ```java
           String tableLocation = table().location();
           Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).select("decimalCol");
+              spark().read().format("iceberg").load(tableLocation).select("timestampCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+        sparkConfWithVectorizationEnabled(5000),
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).select("dateCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+        () -> {
+          String tableLocation = table().location();
+          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation).select("longCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+        sparkConfWithVectorizationEnabled(5000),
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).select("stringCol");
           materialize(df);
         });
 ```
@@ -19143,139 +19431,19 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vector
 ```java
         sparkConfWithVectorizationEnabled(5000),
         () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).select("stringCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-        () -> {
-          String tableLocation = table().location();
-          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation).select("floatCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-    for (int fileNum = 1; fileNum <= NUM_FILES; fileNum++) {
-      Dataset<Row> df =
-          spark()
-              .range(NUM_ROWS_PER_FILE)
-              .withColumn(
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-        sparkConfWithVectorizationEnabled(5000),
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).select("dateCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-        sparkConfWithVectorizationEnabled(5000),
-        () -> {
-          Dataset<Row> df = spark().read().parquet(dataLocation()).select("floatCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).select("doubleCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-        () -> {
-          String tableLocation = table().location();
-          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation).select("longCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).select("stringCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).select("bigDecimalCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-          String tableLocation = table().location();
-          Dataset<Row> df =
-              spark().read().format("iceberg").load(tableLocation).select("timestampCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-        () -> {
-          String tableLocation = table().location();
-          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation).select("dateCol");
-          materialize(df);
-        });
-```
-
-### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
-#### Snippet
-```java
-        sparkConfWithVectorizationEnabled(5000),
-        () -> {
           Dataset<Row> df = spark().read().parquet(dataLocation()).select("doubleCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+        () -> {
+          String tableLocation = table().location();
+          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation).select("intCol");
           materialize(df);
         });
 ```
@@ -19299,21 +19467,141 @@ in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vector
 ```java
         sparkConfWithVectorizationEnabled(5000),
         () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).select("bigDecimalCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+        () -> {
+          String tableLocation = table().location();
+          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation).select("floatCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+        sparkConfWithVectorizationEnabled(5000),
+        () -> {
           Dataset<Row> df = spark().read().parquet(dataLocation()).select("longCol");
           materialize(df);
         });
 ```
 
 ### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).select("stringCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+        () -> {
+          String tableLocation = table().location();
+          Dataset<Row> df = spark().read().format("iceberg").load(tableLocation).select("dateCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+    for (int fileNum = 1; fileNum <= NUM_FILES; fileNum++) {
+      Dataset<Row> df =
+          spark()
+              .range(NUM_ROWS_PER_FILE)
+              .withColumn(
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).select("doubleCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).select("decimalCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+          String tableLocation = table().location();
+          Dataset<Row> df =
+              spark().read().format("iceberg").load(tableLocation).select("bigDecimalCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+        sparkConfWithVectorizationEnabled(5000),
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).select("decimalCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/jmh/java/org/apache/iceberg/spark/source/parquet/vectorized/VectorizedReadFlatParquetDataBenchmark.java`
+#### Snippet
+```java
+        sparkConfWithVectorizationEnabled(5000),
+        () -> {
+          Dataset<Row> df = spark().read().parquet(dataLocation()).select("floatCol");
+          materialize(df);
+        });
+```
+
+### AutoCloseableResource
+'SparkSession' used without 'try'-with-resources statement
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkCatalog.java`
 #### Snippet
 ```java
-        // check whether the metadata file exists because HadoopCatalog/HadoopTables
-        // will drop the warehouse directly and ignore the `purge` argument
-        boolean metadataFileExists = table.io().newInputFile(metadataFileLocation).exists();
 
-        if (metadataFileExists) {
+    this.catalogName = name;
+    SparkSession sparkSession = SparkSession.active();
+    this.tables =
+        new HadoopTables(SparkUtil.hadoopConfCatalogOverrides(SparkSession.active(), name));
 ```
 
 ### AutoCloseableResource
@@ -19341,15 +19629,15 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkCatalog.java`
 ```
 
 ### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
+'FileIO' used without 'try'-with-resources statement
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkCatalog.java`
 #### Snippet
 ```java
+        // check whether the metadata file exists because HadoopCatalog/HadoopTables
+        // will drop the warehouse directly and ignore the `purge` argument
+        boolean metadataFileExists = table.io().newInputFile(metadataFileLocation).exists();
 
-    this.catalogName = name;
-    SparkSession sparkSession = SparkSession.active();
-    this.tables =
-        new HadoopTables(SparkUtil.hadoopConfCatalogOverrides(SparkSession.active(), name));
+        if (metadataFileExists) {
 ```
 
 ### AutoCloseableResource
@@ -19365,15 +19653,27 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkSessionCatalog.
 ```
 
 ### AutoCloseableResource
-'ArrowVectorAccessor' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/ColumnVectorWithFilter.java`
+'JavaSparkContext' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkTableUtil.java`
 #### Snippet
 ```java
-  @Override
-  public boolean getBoolean(int rowId) {
-    return accessor().getBoolean(rowIdMapping[rowId]);
-  }
+        nameMappingString != null ? NameMappingParser.fromJson(nameMappingString) : null;
 
+    JavaSparkContext sparkContext = JavaSparkContext.fromSparkContext(spark.sparkContext());
+    JavaRDD<SparkPartition> partitionRDD = sparkContext.parallelize(partitions, parallelism);
+
+```
+
+### AutoCloseableResource
+'HadoopFileIO' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkTableUtil.java`
+#### Snippet
+```java
+      Iterator<Tuple2<String, DataFile>> fileTuples) {
+    if (fileTuples.hasNext()) {
+      FileIO io = new HadoopFileIO(conf.get());
+      TaskContext ctx = TaskContext.get();
+      String suffix =
 ```
 
 ### AutoCloseableResource
@@ -19393,9 +19693,9 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/Colu
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/ColumnVectorWithFilter.java`
 #### Snippet
 ```java
-      return null;
-    }
-    return accessor().getUTF8String(rowIdMapping[rowId]);
+  @Override
+  public double getDouble(int rowId) {
+    return accessor().getDouble(rowIdMapping[rowId]);
   }
 
 ```
@@ -19441,9 +19741,9 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/Colu
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/ColumnVectorWithFilter.java`
 #### Snippet
 ```java
-  @Override
-  public double getDouble(int rowId) {
-    return accessor().getDouble(rowIdMapping[rowId]);
+      return null;
+    }
+    return accessor().getUTF8String(rowIdMapping[rowId]);
   }
 
 ```
@@ -19465,35 +19765,23 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/Colu
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/ColumnVectorWithFilter.java`
 #### Snippet
 ```java
-      return null;
-    }
-    return accessor().getArray(rowIdMapping[rowId]);
+  @Override
+  public boolean getBoolean(int rowId) {
+    return accessor().getBoolean(rowIdMapping[rowId]);
   }
 
 ```
 
 ### AutoCloseableResource
-'JavaSparkContext' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkTableUtil.java`
+'ArrowVectorAccessor' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/ColumnVectorWithFilter.java`
 #### Snippet
 ```java
-        nameMappingString != null ? NameMappingParser.fromJson(nameMappingString) : null;
+      return null;
+    }
+    return accessor().getArray(rowIdMapping[rowId]);
+  }
 
-    JavaSparkContext sparkContext = JavaSparkContext.fromSparkContext(spark.sparkContext());
-    JavaRDD<SparkPartition> partitionRDD = sparkContext.parallelize(partitions, parallelism);
-
-```
-
-### AutoCloseableResource
-'HadoopFileIO' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/SparkTableUtil.java`
-#### Snippet
-```java
-      Iterator<Tuple2<String, DataFile>> fileTuples) {
-    if (fileTuples.hasNext()) {
-      FileIO io = new HadoopFileIO(conf.get());
-      TaskContext ctx = TaskContext.get();
-      String suffix =
 ```
 
 ### AutoCloseableResource
@@ -19506,6 +19794,18 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/Colu
                 .build(vectorHolders[i], numRowsInVector);
       }
       return arrowColumnVectors;
+```
+
+### AutoCloseableResource
+'ColumnVector' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/VectorizedSparkOrcReaders.java`
+#### Snippet
+```java
+        BaseOrcColumnVector cv =
+            (BaseOrcColumnVector)
+                converter.convert(
+                    new StructColumnVector(batch.size, batch.cols),
+                    batch.size,
 ```
 
 ### AutoCloseableResource
@@ -19545,18 +19845,6 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/Vect
 ```
 
 ### AutoCloseableResource
-'ColumnVector' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/vectorized/VectorizedSparkOrcReaders.java`
-#### Snippet
-```java
-        BaseOrcColumnVector cv =
-            (BaseOrcColumnVector)
-                converter.convert(
-                    new StructColumnVector(batch.size, batch.cols),
-                    batch.size,
-```
-
-### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/source/SparkTable.java`
 #### Snippet
@@ -19576,6 +19864,18 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/source/BatchDataRead
             : new SparkDeleteFilter(filePath, task.deletes(), counter());
 
     return newBatchIterable(
+            inputFile,
+            task.file().format(),
+```
+
+### AutoCloseableResource
+'CloseableIterable' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/source/PositionDeletesRowReader.java`
+#### Snippet
+```java
+            task.residual(), expectedSchema(), caseSensitive(), Ints.toArray(nonConstantFieldIds));
+
+    return newIterable(
             inputFile,
             task.file().format(),
 ```
@@ -19605,15 +19905,15 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/source/SparkPosition
 ```
 
 ### AutoCloseableResource
-'CloseableIterable' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/source/PositionDeletesRowReader.java`
+'FileIO' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/source/BaseReader.java`
 #### Snippet
 ```java
-            task.residual(), expectedSchema(), caseSensitive(), Ints.toArray(nonConstantFieldIds));
 
-    return newIterable(
-            inputFile,
-            task.file().format(),
+  private EncryptedInputFile toEncryptedInputFile(ContentFile<?> file) {
+    InputFile inputFile = table.io().newInputFile(file.path().toString());
+    return EncryptedFiles.encryptedInput(inputFile, file.keyMetadata());
+  }
 ```
 
 ### AutoCloseableResource
@@ -19626,18 +19926,6 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/SparkShuffli
         spark()
             .read()
             .format("iceberg")
-```
-
-### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/source/BaseReader.java`
-#### Snippet
-```java
-
-  private EncryptedInputFile toEncryptedInputFile(ContentFile<?> file) {
-    InputFile inputFile = table.io().newInputFile(file.path().toString());
-    return EncryptedFiles.encryptedInput(inputFile, file.keyMetadata());
-  }
 ```
 
 ### AutoCloseableResource
@@ -19725,6 +20013,18 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/RewriteDataF
 ```
 
 ### AutoCloseableResource
+'JavaSparkContext' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/RewriteManifestsSparkAction.java`
+#### Snippet
+```java
+      Dataset<Row> manifestEntryDF, int numManifests, int targetNumManifestEntries) {
+
+    Broadcast<Table> tableBroadcast = sparkContext().broadcast(SerializableTable.copyOf(table));
+    StructType sparkType = (StructType) manifestEntryDF.schema().apply("data_file").dataType();
+    Types.StructType combinedPartitionType = Partitioning.partitionType(table);
+```
+
+### AutoCloseableResource
 'FileIO' used without 'try'-with-resources statement
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/RewriteManifestsSparkAction.java`
 #### Snippet
@@ -19749,15 +20049,15 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/RewriteManif
 ```
 
 ### AutoCloseableResource
-'JavaSparkContext' used without 'try'-with-resources statement
+'FileIO' used without 'try'-with-resources statement
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/RewriteManifestsSparkAction.java`
 #### Snippet
 ```java
-      Dataset<Row> manifestEntryDF, int numManifests, int targetNumManifestEntries) {
+        tableBroadcast
+            .value()
+            .io()
+            .newOutputFile(FileFormat.AVRO.addExtension(manifestPath.toString()));
 
-    Broadcast<Table> tableBroadcast = sparkContext().broadcast(SerializableTable.copyOf(table));
-    StructType sparkType = (StructType) manifestEntryDF.schema().apply("data_file").dataType();
-    Types.StructType combinedPartitionType = Partitioning.partitionType(table);
 ```
 
 ### AutoCloseableResource
@@ -19773,18 +20073,6 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/RewriteManif
 ```
 
 ### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/RewriteManifestsSparkAction.java`
-#### Snippet
-```java
-        tableBroadcast
-            .value()
-            .io()
-            .newOutputFile(FileFormat.AVRO.addExtension(manifestPath.toString()));
-
-```
-
-### AutoCloseableResource
 'SparkSession' used without 'try'-with-resources statement
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/BaseSparkAction.java`
 #### Snippet
@@ -19797,27 +20085,39 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/BaseSparkAct
 ```
 
 ### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/procedures/AddFilesProcedure.java`
+'FileIO' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/DeleteOrphanFilesSparkAction.java`
 #### Snippet
 ```java
-    Identifier tableIdent = input.ident(TABLE_PARAM);
+        findOrphanFiles(spark(), actualFileIdentDS, validFileIdentDS, prefixMismatchMode);
 
-    CatalogPlugin sessionCat = spark().sessionState().catalogManager().v2SessionCatalog();
-    Identifier sourceIdent = input.ident(SOURCE_TABLE_PARAM, sessionCat);
-
+    if (deleteFunc == null && table.io() instanceof SupportsBulkOperations) {
+      deleteFiles((SupportsBulkOperations) table.io(), orphanFiles);
+    } else {
 ```
 
 ### AutoCloseableResource
-'SparkSession' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/procedures/BaseProcedure.java`
+'FileIO' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/DeleteOrphanFilesSparkAction.java`
 #### Snippet
 ```java
-  protected Dataset<Row> loadRows(Identifier tableIdent, Map<String, String> options) {
-    String tableName = Spark3Util.quotedFullIdentifier(tableCatalog().name(), tableIdent);
-    return spark().read().options(options).table(tableName);
-  }
+        LOG.info(
+            "Table IO {} does not support bulk operations. Using non-bulk deletes.",
+            table.io().getClass().getName());
+        deleteTasks.run(table.io()::deleteFile);
+      } else {
+```
 
+### AutoCloseableResource
+'FileIO' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/DeleteOrphanFilesSparkAction.java`
+#### Snippet
+```java
+            "Table IO {} does not support bulk operations. Using non-bulk deletes.",
+            table.io().getClass().getName());
+        deleteTasks.run(table.io()::deleteFile);
+      } else {
+        LOG.info("Custom delete function provided. Using non-bulk deletes");
 ```
 
 ### AutoCloseableResource
@@ -19881,39 +20181,27 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/DeleteOrphan
 ```
 
 ### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/DeleteOrphanFilesSparkAction.java`
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/procedures/BaseProcedure.java`
 #### Snippet
 ```java
-        findOrphanFiles(spark(), actualFileIdentDS, validFileIdentDS, prefixMismatchMode);
+  protected Dataset<Row> loadRows(Identifier tableIdent, Map<String, String> options) {
+    String tableName = Spark3Util.quotedFullIdentifier(tableCatalog().name(), tableIdent);
+    return spark().read().options(options).table(tableName);
+  }
 
-    if (deleteFunc == null && table.io() instanceof SupportsBulkOperations) {
-      deleteFiles((SupportsBulkOperations) table.io(), orphanFiles);
-    } else {
 ```
 
 ### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/DeleteOrphanFilesSparkAction.java`
+'SparkSession' used without 'try'-with-resources statement
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/procedures/AddFilesProcedure.java`
 #### Snippet
 ```java
-        LOG.info(
-            "Table IO {} does not support bulk operations. Using non-bulk deletes.",
-            table.io().getClass().getName());
-        deleteTasks.run(table.io()::deleteFile);
-      } else {
-```
+    Identifier tableIdent = input.ident(TABLE_PARAM);
 
-### AutoCloseableResource
-'FileIO' used without 'try'-with-resources statement
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/actions/DeleteOrphanFilesSparkAction.java`
-#### Snippet
-```java
-            "Table IO {} does not support bulk operations. Using non-bulk deletes.",
-            table.io().getClass().getName());
-        deleteTasks.run(table.io()::deleteFile);
-      } else {
-        LOG.info("Custom delete function provided. Using non-bulk deletes");
+    CatalogPlugin sessionCat = spark().sessionState().catalogManager().v2SessionCatalog();
+    Identifier sourceIdent = input.ident(SOURCE_TABLE_PARAM, sessionCat);
+
 ```
 
 ### AutoCloseableResource
@@ -20131,8 +20419,8 @@ in `core/src/main/java/org/apache/iceberg/avro/AvroSchemaUtil.java`
     String keyValueName = "k" + keyId + "_v" + valueId;
 
     Schema.Field keyField = new Schema.Field("key", keySchema, null, (Object) null);
-    if (!"key".equals(keyName)) {
-      keyField.addAlias(keyName);
+    keyField.addProp(FIELD_ID_PROP, keyId);
+
 ```
 
 ### RedundantCast
@@ -20143,8 +20431,8 @@ in `core/src/main/java/org/apache/iceberg/avro/AvroSchemaUtil.java`
     String keyValueName = "k" + keyId + "_v" + valueId;
 
     Schema.Field keyField = new Schema.Field("key", keySchema, null, (Object) null);
-    keyField.addProp(FIELD_ID_PROP, keyId);
-
+    if (!"key".equals(keyName)) {
+      keyField.addAlias(keyName);
 ```
 
 ### RedundantCast
@@ -20197,26 +20485,14 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/data/SparkOrcValueWr
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `row` may be 'final'
-in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergSerDe.java`
+Field `writerInspector` may be 'final'
+in `mr/src/main/java/org/apache/iceberg/mr/hive/Deserializer.java`
 #### Snippet
 ```java
-  private Schema tableSchema;
-  private Map<ObjectInspector, Deserializer> deserializers = Maps.newHashMapWithExpectedSize(1);
-  private Container<Record> row = new Container<>();
-
-  @Override
-```
-
-### FieldMayBeFinal
-Field `deserializers` may be 'final'
-in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergSerDe.java`
-#### Snippet
-```java
-  private ObjectInspector inspector;
-  private Schema tableSchema;
-  private Map<ObjectInspector, Deserializer> deserializers = Maps.newHashMapWithExpectedSize(1);
-  private Container<Record> row = new Container<>();
+   */
+  private static class ObjectInspectorPair {
+    private ObjectInspector writerInspector;
+    private ObjectInspector sourceInspector;
 
 ```
 
@@ -20233,18 +20509,6 @@ class Deserializer {
 ```
 
 ### FieldMayBeFinal
-Field `writerInspector` may be 'final'
-in `mr/src/main/java/org/apache/iceberg/mr/hive/Deserializer.java`
-#### Snippet
-```java
-   */
-  private static class ObjectInspectorPair {
-    private ObjectInspector writerInspector;
-    private ObjectInspector sourceInspector;
-
-```
-
-### FieldMayBeFinal
 Field `sourceInspector` may be 'final'
 in `mr/src/main/java/org/apache/iceberg/mr/hive/Deserializer.java`
 #### Snippet
@@ -20254,6 +20518,30 @@ in `mr/src/main/java/org/apache/iceberg/mr/hive/Deserializer.java`
     private ObjectInspector sourceInspector;
 
     ObjectInspectorPair(ObjectInspector writerInspector, ObjectInspector sourceInspector) {
+```
+
+### FieldMayBeFinal
+Field `deserializers` may be 'final'
+in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergSerDe.java`
+#### Snippet
+```java
+  private ObjectInspector inspector;
+  private Schema tableSchema;
+  private Map<ObjectInspector, Deserializer> deserializers = Maps.newHashMapWithExpectedSize(1);
+  private Container<Record> row = new Container<>();
+
+```
+
+### FieldMayBeFinal
+Field `row` may be 'final'
+in `mr/src/main/java/org/apache/iceberg/mr/hive/HiveIcebergSerDe.java`
+#### Snippet
+```java
+  private Schema tableSchema;
+  private Map<ObjectInspector, Deserializer> deserializers = Maps.newHashMapWithExpectedSize(1);
+  private Container<Record> row = new Container<>();
+
+  @Override
 ```
 
 ### FieldMayBeFinal
@@ -20293,6 +20581,18 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
 ```
 
 ### FieldMayBeFinal
+Field `isUseArnRegionEnabled` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+  private boolean isDualStackEnabled;
+  private boolean isPathStyleAccess;
+  private boolean isUseArnRegionEnabled;
+  private boolean isAccelerationEnabled;
+  private String endpoint;
+```
+
+### FieldMayBeFinal
 Field `isAccelerationEnabled` may be 'final'
 in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
 #### Snippet
@@ -20305,27 +20605,15 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
 ```
 
 ### FieldMayBeFinal
-Field `secretAccessKey` may be 'final'
+Field `isPathStyleAccess` may be 'final'
 in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
 #### Snippet
 ```java
-  private String sseMd5;
-  private String accessKeyId;
-  private String secretAccessKey;
-  private String sessionToken;
-  private int multipartUploadThreads;
-```
-
-### FieldMayBeFinal
-Field `isUseArnRegionEnabled` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
+  private boolean isPreloadClientEnabled;
   private boolean isDualStackEnabled;
   private boolean isPathStyleAccess;
   private boolean isUseArnRegionEnabled;
   private boolean isAccelerationEnabled;
-  private String endpoint;
 ```
 
 ### FieldMayBeFinal
@@ -20353,18 +20641,6 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
 ```
 
 ### FieldMayBeFinal
-Field `isPathStyleAccess` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
-#### Snippet
-```java
-  private boolean isPreloadClientEnabled;
-  private boolean isDualStackEnabled;
-  private boolean isPathStyleAccess;
-  private boolean isUseArnRegionEnabled;
-  private boolean isAccelerationEnabled;
-```
-
-### FieldMayBeFinal
 Field `accessKeyId` may be 'final'
 in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
 #### Snippet
@@ -20374,6 +20650,18 @@ in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
   private String accessKeyId;
   private String secretAccessKey;
   private String sessionToken;
+```
+
+### FieldMayBeFinal
+Field `secretAccessKey` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/s3/S3FileIOProperties.java`
+#### Snippet
+```java
+  private String sseMd5;
+  private String accessKeyId;
+  private String secretAccessKey;
+  private String sessionToken;
+  private int multipartUploadThreads;
 ```
 
 ### FieldMayBeFinal
@@ -20401,18 +20689,6 @@ in `aws/src/main/java/org/apache/iceberg/aws/lakeformation/LakeFormationAwsClien
 ```
 
 ### FieldMayBeFinal
-Field `builder` may be 'final'
-in `orc/src/main/java/org/apache/iceberg/orc/ExpressionToSearchArgument.java`
-#### Snippet
-```java
-          TypeID.BINARY, TypeID.FIXED, TypeID.UUID, TypeID.STRUCT, TypeID.MAP, TypeID.LIST);
-
-  private SearchArgument.Builder builder;
-  private Map<Integer, String> idToColumnName;
-
-```
-
-### FieldMayBeFinal
 Field `idToColumnName` may be 'final'
 in `orc/src/main/java/org/apache/iceberg/orc/ExpressionToSearchArgument.java`
 #### Snippet
@@ -20422,6 +20698,18 @@ in `orc/src/main/java/org/apache/iceberg/orc/ExpressionToSearchArgument.java`
   private Map<Integer, String> idToColumnName;
 
   private ExpressionToSearchArgument(
+```
+
+### FieldMayBeFinal
+Field `builder` may be 'final'
+in `orc/src/main/java/org/apache/iceberg/orc/ExpressionToSearchArgument.java`
+#### Snippet
+```java
+          TypeID.BINARY, TypeID.FIXED, TypeID.UUID, TypeID.STRUCT, TypeID.MAP, TypeID.LIST);
+
+  private SearchArgument.Builder builder;
+  private Map<Integer, String> idToColumnName;
+
 ```
 
 ### FieldMayBeFinal
@@ -20437,18 +20725,6 @@ in `orc/src/main/java/org/apache/iceberg/orc/ORC.java`
 ```
 
 ### FieldMayBeFinal
-Field `locations` may be 'final'
-in `pig/src/main/java/org/apache/iceberg/pig/IcebergStorage.java`
-#### Snippet
-```java
-  private static Tables iceberg;
-  private static Map<String, Table> tables = Maps.newConcurrentMap();
-  private static Map<String, String> locations = Maps.newConcurrentMap();
-
-  private String signature;
-```
-
-### FieldMayBeFinal
 Field `tables` may be 'final'
 in `pig/src/main/java/org/apache/iceberg/pig/IcebergStorage.java`
 #### Snippet
@@ -20458,6 +20734,18 @@ in `pig/src/main/java/org/apache/iceberg/pig/IcebergStorage.java`
   private static Map<String, Table> tables = Maps.newConcurrentMap();
   private static Map<String, String> locations = Maps.newConcurrentMap();
 
+```
+
+### FieldMayBeFinal
+Field `locations` may be 'final'
+in `pig/src/main/java/org/apache/iceberg/pig/IcebergStorage.java`
+#### Snippet
+```java
+  private static Tables iceberg;
+  private static Map<String, Table> tables = Maps.newConcurrentMap();
+  private static Map<String, String> locations = Maps.newConcurrentMap();
+
+  private String signature;
 ```
 
 ### FieldMayBeFinal
@@ -20485,18 +20773,6 @@ in `core/src/main/java/org/apache/iceberg/MetricsModes.java`
 ```
 
 ### FieldMayBeFinal
-Field `maxSnapshotAgeMs` may be 'final'
-in `core/src/main/java/org/apache/iceberg/MetadataUpdate.java`
-#### Snippet
-```java
-    private final SnapshotRefType type;
-    private Integer minSnapshotsToKeep;
-    private Long maxSnapshotAgeMs;
-    private Long maxRefAgeMs;
-
-```
-
-### FieldMayBeFinal
 Field `maxRefAgeMs` may be 'final'
 in `core/src/main/java/org/apache/iceberg/MetadataUpdate.java`
 #### Snippet
@@ -20506,6 +20782,18 @@ in `core/src/main/java/org/apache/iceberg/MetadataUpdate.java`
     private Long maxRefAgeMs;
 
     public SetSnapshotRef(
+```
+
+### FieldMayBeFinal
+Field `maxSnapshotAgeMs` may be 'final'
+in `core/src/main/java/org/apache/iceberg/MetadataUpdate.java`
+#### Snippet
+```java
+    private final SnapshotRefType type;
+    private Integer minSnapshotsToKeep;
+    private Long maxSnapshotAgeMs;
+    private Long maxRefAgeMs;
+
 ```
 
 ### FieldMayBeFinal
@@ -20530,210 +20818,6 @@ in `core/src/main/java/org/apache/iceberg/BaseTransaction.java`
   private TransactionType type;
   private TableMetadata base;
   private TableMetadata current;
-```
-
-### FieldMayBeFinal
-Field `s3UseArnRegionEnabled` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private boolean s3DualStackEnabled;
-  private boolean s3PathStyleAccess;
-  private boolean s3UseArnRegionEnabled;
-  private boolean s3AccelerationEnabled;
-  private String s3Endpoint;
-```
-
-### FieldMayBeFinal
-Field `s3AccessKeyId` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private String s3FileIoSseKey;
-  private String s3FileIoSseMd5;
-  private String s3AccessKeyId;
-  private String s3SecretAccessKey;
-  private String s3SessionToken;
-```
-
-### FieldMayBeFinal
-Field `clientAssumeRoleExternalId` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-
-  private String clientAssumeRoleArn;
-  private String clientAssumeRoleExternalId;
-  private int clientAssumeRoleTimeoutSec;
-  private String clientAssumeRoleRegion;
-```
-
-### FieldMayBeFinal
-Field `dynamoDbEndpoint` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-
-  private String dynamoDbTableName;
-  private String dynamoDbEndpoint;
-
-  private final boolean s3RemoteSigningEnabled;
-```
-
-### FieldMayBeFinal
-Field `glueEndpoint` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private String s3Endpoint;
-
-  private String glueEndpoint;
-  private String glueCatalogId;
-  private boolean glueCatalogSkipArchive;
-```
-
-### FieldMayBeFinal
-Field `s3DualStackEnabled` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private final Map<String, String> s3BucketToAccessPointMapping;
-  private boolean s3PreloadClientEnabled;
-  private boolean s3DualStackEnabled;
-  private boolean s3PathStyleAccess;
-  private boolean s3UseArnRegionEnabled;
-```
-
-### FieldMayBeFinal
-Field `s3SecretAccessKey` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private String s3FileIoSseMd5;
-  private String s3AccessKeyId;
-  private String s3SecretAccessKey;
-  private String s3SessionToken;
-  private int s3FileIoMultipartUploadThreads;
-```
-
-### FieldMayBeFinal
-Field `clientAssumeRoleTimeoutSec` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private String clientAssumeRoleArn;
-  private String clientAssumeRoleExternalId;
-  private int clientAssumeRoleTimeoutSec;
-  private String clientAssumeRoleRegion;
-  private String clientAssumeRoleSessionName;
-```
-
-### FieldMayBeFinal
-Field `s3PathStyleAccess` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private boolean s3PreloadClientEnabled;
-  private boolean s3DualStackEnabled;
-  private boolean s3PathStyleAccess;
-  private boolean s3UseArnRegionEnabled;
-  private boolean s3AccelerationEnabled;
-```
-
-### FieldMayBeFinal
-Field `clientAssumeRoleSessionName` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private int clientAssumeRoleTimeoutSec;
-  private String clientAssumeRoleRegion;
-  private String clientAssumeRoleSessionName;
-  private String clientRegion;
-  private String clientCredentialsProvider;
-```
-
-### FieldMayBeFinal
-Field `s3AccelerationEnabled` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private boolean s3PathStyleAccess;
-  private boolean s3UseArnRegionEnabled;
-  private boolean s3AccelerationEnabled;
-  private String s3Endpoint;
-
-```
-
-### FieldMayBeFinal
-Field `s3Endpoint` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private boolean s3UseArnRegionEnabled;
-  private boolean s3AccelerationEnabled;
-  private String s3Endpoint;
-
-  private String glueEndpoint;
-```
-
-### FieldMayBeFinal
-Field `clientAssumeRoleArn` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private final Set<software.amazon.awssdk.services.sts.model.Tag> stsClientAssumeRoleTags;
-
-  private String clientAssumeRoleArn;
-  private String clientAssumeRoleExternalId;
-  private int clientAssumeRoleTimeoutSec;
-```
-
-### FieldMayBeFinal
-Field `s3SessionToken` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private String s3AccessKeyId;
-  private String s3SecretAccessKey;
-  private String s3SessionToken;
-  private int s3FileIoMultipartUploadThreads;
-  private int s3FileIoMultiPartSize;
-```
-
-### FieldMayBeFinal
-Field `clientAssumeRoleRegion` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private String clientAssumeRoleExternalId;
-  private int clientAssumeRoleTimeoutSec;
-  private String clientAssumeRoleRegion;
-  private String clientAssumeRoleSessionName;
-  private String clientRegion;
-```
-
-### FieldMayBeFinal
-Field `restSigningName` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-
-  private String restSigningRegion;
-  private String restSigningName;
-  private String restAccessKeyId;
-  private String restSecretAccessKey;
-```
-
-### FieldMayBeFinal
-Field `clientCredentialsProvider` may be 'final'
-in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
-#### Snippet
-```java
-  private String clientAssumeRoleSessionName;
-  private String clientRegion;
-  private String clientCredentialsProvider;
-  private final Map<String, String> clientCredentialsProviderProperties;
-
 ```
 
 ### FieldMayBeFinal
@@ -20774,18 +20858,6 @@ public class WriteResult implements Serializable {
 
 ### FieldMayBeFinal
 Field `recordLevels` may be 'final'
-in `core/src/main/java/org/apache/iceberg/avro/AvroSchemaWithTypeVisitor.java`
-#### Snippet
-```java
-  }
-
-  private Deque<String> recordLevels = Lists.newLinkedList();
-
-  public T record(Types.StructType iStruct, Schema record, List<String> names, List<T> fields) {
-```
-
-### FieldMayBeFinal
-Field `recordLevels` may be 'final'
 in `core/src/main/java/org/apache/iceberg/avro/AvroWithPartnerByStructureVisitor.java`
 #### Snippet
 ```java
@@ -20794,6 +20866,18 @@ in `core/src/main/java/org/apache/iceberg/avro/AvroWithPartnerByStructureVisitor
   private Deque<String> recordLevels = Lists.newLinkedList();
 
   // ---------------------------------- Partner type methods
+```
+
+### FieldMayBeFinal
+Field `recordLevels` may be 'final'
+in `core/src/main/java/org/apache/iceberg/avro/AvroSchemaWithTypeVisitor.java`
+#### Snippet
+```java
+  }
+
+  private Deque<String> recordLevels = Lists.newLinkedList();
+
+  public T record(Types.StructType iStruct, Schema record, List<String> names, List<T> fields) {
 ```
 
 ### FieldMayBeFinal
@@ -20821,51 +20905,207 @@ in `core/src/main/java/org/apache/iceberg/avro/AvroSchemaVisitor.java`
 ```
 
 ### FieldMayBeFinal
-Field `datumWriter` may be 'final'
-in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
+Field `dynamoDbEndpoint` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
-  private PositionOutputStream stream;
-  private DataFileWriter<D> writer;
-  private DatumWriter<?> datumWriter;
-  private org.apache.iceberg.Schema icebergSchema;
-  private MetricsConfig metricsConfig;
+
+  private String dynamoDbTableName;
+  private String dynamoDbEndpoint;
+
+  private final boolean s3RemoteSigningEnabled;
 ```
 
 ### FieldMayBeFinal
-Field `stream` may be 'final'
-in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
+Field `clientAssumeRoleExternalId` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
 
-class AvroFileAppender<D> implements FileAppender<D> {
-  private PositionOutputStream stream;
-  private DataFileWriter<D> writer;
-  private DatumWriter<?> datumWriter;
+  private String clientAssumeRoleArn;
+  private String clientAssumeRoleExternalId;
+  private int clientAssumeRoleTimeoutSec;
+  private String clientAssumeRoleRegion;
 ```
 
 ### FieldMayBeFinal
-Field `icebergSchema` may be 'final'
-in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
+Field `glueEndpoint` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
-  private DataFileWriter<D> writer;
-  private DatumWriter<?> datumWriter;
-  private org.apache.iceberg.Schema icebergSchema;
-  private MetricsConfig metricsConfig;
-  private long numRecords = 0L;
+  private String s3Endpoint;
+
+  private String glueEndpoint;
+  private String glueCatalogId;
+  private boolean glueCatalogSkipArchive;
 ```
 
 ### FieldMayBeFinal
-Field `metricsConfig` may be 'final'
-in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
+Field `s3PathStyleAccess` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
 #### Snippet
 ```java
-  private DatumWriter<?> datumWriter;
-  private org.apache.iceberg.Schema icebergSchema;
-  private MetricsConfig metricsConfig;
-  private long numRecords = 0L;
-  private boolean isClosed = false;
+  private boolean s3PreloadClientEnabled;
+  private boolean s3DualStackEnabled;
+  private boolean s3PathStyleAccess;
+  private boolean s3UseArnRegionEnabled;
+  private boolean s3AccelerationEnabled;
+```
+
+### FieldMayBeFinal
+Field `s3SessionToken` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private String s3AccessKeyId;
+  private String s3SecretAccessKey;
+  private String s3SessionToken;
+  private int s3FileIoMultipartUploadThreads;
+  private int s3FileIoMultiPartSize;
+```
+
+### FieldMayBeFinal
+Field `clientAssumeRoleSessionName` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private int clientAssumeRoleTimeoutSec;
+  private String clientAssumeRoleRegion;
+  private String clientAssumeRoleSessionName;
+  private String clientRegion;
+  private String clientCredentialsProvider;
+```
+
+### FieldMayBeFinal
+Field `s3DualStackEnabled` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private final Map<String, String> s3BucketToAccessPointMapping;
+  private boolean s3PreloadClientEnabled;
+  private boolean s3DualStackEnabled;
+  private boolean s3PathStyleAccess;
+  private boolean s3UseArnRegionEnabled;
+```
+
+### FieldMayBeFinal
+Field `s3SecretAccessKey` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private String s3FileIoSseMd5;
+  private String s3AccessKeyId;
+  private String s3SecretAccessKey;
+  private String s3SessionToken;
+  private int s3FileIoMultipartUploadThreads;
+```
+
+### FieldMayBeFinal
+Field `clientAssumeRoleArn` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private final Set<software.amazon.awssdk.services.sts.model.Tag> stsClientAssumeRoleTags;
+
+  private String clientAssumeRoleArn;
+  private String clientAssumeRoleExternalId;
+  private int clientAssumeRoleTimeoutSec;
+```
+
+### FieldMayBeFinal
+Field `clientCredentialsProvider` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private String clientAssumeRoleSessionName;
+  private String clientRegion;
+  private String clientCredentialsProvider;
+  private final Map<String, String> clientCredentialsProviderProperties;
+
+```
+
+### FieldMayBeFinal
+Field `clientAssumeRoleTimeoutSec` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private String clientAssumeRoleArn;
+  private String clientAssumeRoleExternalId;
+  private int clientAssumeRoleTimeoutSec;
+  private String clientAssumeRoleRegion;
+  private String clientAssumeRoleSessionName;
+```
+
+### FieldMayBeFinal
+Field `clientAssumeRoleRegion` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private String clientAssumeRoleExternalId;
+  private int clientAssumeRoleTimeoutSec;
+  private String clientAssumeRoleRegion;
+  private String clientAssumeRoleSessionName;
+  private String clientRegion;
+```
+
+### FieldMayBeFinal
+Field `s3AccessKeyId` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private String s3FileIoSseKey;
+  private String s3FileIoSseMd5;
+  private String s3AccessKeyId;
+  private String s3SecretAccessKey;
+  private String s3SessionToken;
+```
+
+### FieldMayBeFinal
+Field `restSigningName` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+
+  private String restSigningRegion;
+  private String restSigningName;
+  private String restAccessKeyId;
+  private String restSecretAccessKey;
+```
+
+### FieldMayBeFinal
+Field `s3UseArnRegionEnabled` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private boolean s3DualStackEnabled;
+  private boolean s3PathStyleAccess;
+  private boolean s3UseArnRegionEnabled;
+  private boolean s3AccelerationEnabled;
+  private String s3Endpoint;
+```
+
+### FieldMayBeFinal
+Field `s3Endpoint` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private boolean s3UseArnRegionEnabled;
+  private boolean s3AccelerationEnabled;
+  private String s3Endpoint;
+
+  private String glueEndpoint;
+```
+
+### FieldMayBeFinal
+Field `s3AccelerationEnabled` may be 'final'
+in `aws/src/main/java/org/apache/iceberg/aws/AwsProperties.java`
+#### Snippet
+```java
+  private boolean s3PathStyleAccess;
+  private boolean s3UseArnRegionEnabled;
+  private boolean s3AccelerationEnabled;
+  private String s3Endpoint;
+
 ```
 
 ### FieldMayBeFinal
@@ -20881,6 +21121,54 @@ in `core/src/main/java/org/apache/iceberg/avro/AvroCustomOrderSchemaVisitor.java
 ```
 
 ### FieldMayBeFinal
+Field `icebergSchema` may be 'final'
+in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
+#### Snippet
+```java
+  private DataFileWriter<D> writer;
+  private DatumWriter<?> datumWriter;
+  private org.apache.iceberg.Schema icebergSchema;
+  private MetricsConfig metricsConfig;
+  private long numRecords = 0L;
+```
+
+### FieldMayBeFinal
+Field `stream` may be 'final'
+in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
+#### Snippet
+```java
+
+class AvroFileAppender<D> implements FileAppender<D> {
+  private PositionOutputStream stream;
+  private DataFileWriter<D> writer;
+  private DatumWriter<?> datumWriter;
+```
+
+### FieldMayBeFinal
+Field `metricsConfig` may be 'final'
+in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
+#### Snippet
+```java
+  private DatumWriter<?> datumWriter;
+  private org.apache.iceberg.Schema icebergSchema;
+  private MetricsConfig metricsConfig;
+  private long numRecords = 0L;
+  private boolean isClosed = false;
+```
+
+### FieldMayBeFinal
+Field `datumWriter` may be 'final'
+in `core/src/main/java/org/apache/iceberg/avro/AvroFileAppender.java`
+#### Snippet
+```java
+  private PositionOutputStream stream;
+  private DataFileWriter<D> writer;
+  private DatumWriter<?> datumWriter;
+  private org.apache.iceberg.Schema icebergSchema;
+  private MetricsConfig metricsConfig;
+```
+
+### FieldMayBeFinal
 Field `config` may be 'final'
 in `core/src/main/java/org/apache/iceberg/rest/responses/LoadTableResponse.java`
 #### Snippet
@@ -20890,30 +21178,6 @@ in `core/src/main/java/org/apache/iceberg/rest/responses/LoadTableResponse.java`
     private Map<String, String> config = Maps.newHashMap();
 
     private Builder() {}
-```
-
-### FieldMayBeFinal
-Field `code` may be 'final'
-in `core/src/main/java/org/apache/iceberg/rest/responses/ErrorResponse.java`
-#### Snippet
-```java
-  private String message;
-  private String type;
-  private int code;
-  private List<String> stack;
-
-```
-
-### FieldMayBeFinal
-Field `stack` may be 'final'
-in `core/src/main/java/org/apache/iceberg/rest/responses/ErrorResponse.java`
-#### Snippet
-```java
-  private String type;
-  private int code;
-  private List<String> stack;
-
-  private ErrorResponse(String message, String type, int code, List<String> stack) {
 ```
 
 ### FieldMayBeFinal
@@ -20929,6 +21193,18 @@ public class ErrorResponse implements RESTResponse {
 ```
 
 ### FieldMayBeFinal
+Field `code` may be 'final'
+in `core/src/main/java/org/apache/iceberg/rest/responses/ErrorResponse.java`
+#### Snippet
+```java
+  private String message;
+  private String type;
+  private int code;
+  private List<String> stack;
+
+```
+
+### FieldMayBeFinal
 Field `type` may be 'final'
 in `core/src/main/java/org/apache/iceberg/rest/responses/ErrorResponse.java`
 #### Snippet
@@ -20941,27 +21217,15 @@ in `core/src/main/java/org/apache/iceberg/rest/responses/ErrorResponse.java`
 ```
 
 ### FieldMayBeFinal
-Field `inner` may be 'final'
-in `core/src/main/java/org/apache/iceberg/util/StructLikeMap.java`
+Field `stack` may be 'final'
+in `core/src/main/java/org/apache/iceberg/rest/responses/ErrorResponse.java`
 #### Snippet
 ```java
-  private static class StructLikeEntry<R> implements Entry<StructLike, R> {
+  private String type;
+  private int code;
+  private List<String> stack;
 
-    private Map.Entry<StructLikeWrapper, R> inner;
-
-    private StructLikeEntry(Map.Entry<StructLikeWrapper, R> inner) {
-```
-
-### FieldMayBeFinal
-Field `stopRetryExceptions` may be 'final'
-in `core/src/main/java/org/apache/iceberg/util/Tasks.java`
-#### Snippet
-```java
-
-    // retry settings
-    private List<Class<? extends Exception>> stopRetryExceptions =
-        Lists.newArrayList(UnrecoverableException.class);
-    private List<Class<? extends Exception>> onlyRetryExceptions = null;
+  private ErrorResponse(String message, String type, int code, List<String> stack) {
 ```
 
 ### FieldMayBeFinal
@@ -20977,15 +21241,27 @@ in `core/src/main/java/org/apache/iceberg/util/Tasks.java`
 ```
 
 ### FieldMayBeFinal
-Field `addedDataFiles` may be 'final'
-in `core/src/main/java/org/apache/iceberg/actions/RewriteDataFilesActionResult.java`
+Field `stopRetryExceptions` may be 'final'
+in `core/src/main/java/org/apache/iceberg/util/Tasks.java`
 #### Snippet
 ```java
 
-  private List<DataFile> deletedDataFiles;
-  private List<DataFile> addedDataFiles;
+    // retry settings
+    private List<Class<? extends Exception>> stopRetryExceptions =
+        Lists.newArrayList(UnrecoverableException.class);
+    private List<Class<? extends Exception>> onlyRetryExceptions = null;
+```
 
-  public RewriteDataFilesActionResult(
+### FieldMayBeFinal
+Field `inner` may be 'final'
+in `core/src/main/java/org/apache/iceberg/util/StructLikeMap.java`
+#### Snippet
+```java
+  private static class StructLikeEntry<R> implements Entry<StructLike, R> {
+
+    private Map.Entry<StructLikeWrapper, R> inner;
+
+    private StructLikeEntry(Map.Entry<StructLikeWrapper, R> inner) {
 ```
 
 ### FieldMayBeFinal
@@ -21001,6 +21277,18 @@ in `core/src/main/java/org/apache/iceberg/actions/RewriteDataFilesActionResult.j
 ```
 
 ### FieldMayBeFinal
+Field `addedDataFiles` may be 'final'
+in `core/src/main/java/org/apache/iceberg/actions/RewriteDataFilesActionResult.java`
+#### Snippet
+```java
+
+  private List<DataFile> deletedDataFiles;
+  private List<DataFile> addedDataFiles;
+
+  public RewriteDataFilesActionResult(
+```
+
+### FieldMayBeFinal
 Field `caseSensitive` may be 'final'
 in `core/src/main/java/org/apache/iceberg/schema/UnionByNameVisitor.java`
 #### Snippet
@@ -21010,6 +21298,18 @@ in `core/src/main/java/org/apache/iceberg/schema/UnionByNameVisitor.java`
   private boolean caseSensitive;
 
   private UnionByNameVisitor(UpdateSchema api, Schema partnerSchema, boolean caseSensitive) {
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `core/src/main/java/org/apache/iceberg/mapping/MappedField.java`
+#### Snippet
+```java
+
+  private final Set<String> names;
+  private Integer id;
+  private MappedFields nestedMapping;
+
 ```
 
 ### FieldMayBeFinal
@@ -21025,14 +21325,26 @@ in `core/src/main/java/org/apache/iceberg/mapping/MappedField.java`
 ```
 
 ### FieldMayBeFinal
-Field `id` may be 'final'
-in `core/src/main/java/org/apache/iceberg/mapping/MappedField.java`
+Field `fileKey` may be 'final'
+in `core/src/main/java/org/apache/iceberg/encryption/NativeFileCryptoParameters.java`
 #### Snippet
 ```java
 
-  private final Set<String> names;
-  private Integer id;
-  private MappedFields nestedMapping;
+  public static class Builder {
+    private ByteBuffer fileKey;
+    private EncryptionAlgorithm fileEncryptionAlgorithm;
+
+```
+
+### FieldMayBeFinal
+Field `fileKey` may be 'final'
+in `core/src/main/java/org/apache/iceberg/encryption/NativeFileCryptoParameters.java`
+#### Snippet
+```java
+ */
+public class NativeFileCryptoParameters {
+  private ByteBuffer fileKey;
+  private EncryptionAlgorithm fileEncryptionAlgorithm;
 
 ```
 
@@ -21049,30 +21361,6 @@ public class NativeFileCryptoParameters {
 ```
 
 ### FieldMayBeFinal
-Field `fileKey` may be 'final'
-in `core/src/main/java/org/apache/iceberg/encryption/NativeFileCryptoParameters.java`
-#### Snippet
-```java
- */
-public class NativeFileCryptoParameters {
-  private ByteBuffer fileKey;
-  private EncryptionAlgorithm fileEncryptionAlgorithm;
-
-```
-
-### FieldMayBeFinal
-Field `fileKey` may be 'final'
-in `core/src/main/java/org/apache/iceberg/encryption/NativeFileCryptoParameters.java`
-#### Snippet
-```java
-
-  public static class Builder {
-    private ByteBuffer fileKey;
-    private EncryptionAlgorithm fileEncryptionAlgorithm;
-
-```
-
-### FieldMayBeFinal
 Field `enumerationSplitCountHistory` may be 'final'
 in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/enumerator/IcebergEnumeratorState.java`
 #### Snippet
@@ -21086,13 +21374,13 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/source/enumerator/I
 
 ### FieldMayBeFinal
 Field `env` may be 'final'
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/actions/RewriteDataFilesAction.java`
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/actions/Actions.java`
 #### Snippet
 ```java
-public class RewriteDataFilesAction extends BaseRewriteDataFilesAction<RewriteDataFilesAction> {
+          .set(CoreOptions.CHECK_LEAKED_CLASSLOADER, false);
 
   private StreamExecutionEnvironment env;
-  private int maxParallelism;
+  private Table table;
 
 ```
 
@@ -21110,13 +21398,13 @@ in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/actions/Actions.jav
 
 ### FieldMayBeFinal
 Field `env` may be 'final'
-in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/actions/Actions.java`
+in `flink/v1.17/flink/src/main/java/org/apache/iceberg/flink/actions/RewriteDataFilesAction.java`
 #### Snippet
 ```java
-          .set(CoreOptions.CHECK_LEAKED_CLASSLOADER, false);
+public class RewriteDataFilesAction extends BaseRewriteDataFilesAction<RewriteDataFilesAction> {
 
   private StreamExecutionEnvironment env;
-  private Table table;
+  private int maxParallelism;
 
 ```
 
@@ -21133,18 +21421,6 @@ class RandomGeneratingUDF implements Serializable {
 ```
 
 ### FieldMayBeFinal
-Field `description` may be 'final'
-in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/JobGroupInfo.java`
-#### Snippet
-```java
-public class JobGroupInfo {
-  private String groupId;
-  private String description;
-  private boolean interruptOnCancel;
-
-```
-
-### FieldMayBeFinal
 Field `interruptOnCancel` may be 'final'
 in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/JobGroupInfo.java`
 #### Snippet
@@ -21154,6 +21430,18 @@ in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/JobGroupInfo.java`
   private boolean interruptOnCancel;
 
   public JobGroupInfo(String groupId, String desc, boolean interruptOnCancel) {
+```
+
+### FieldMayBeFinal
+Field `description` may be 'final'
+in `spark/v3.4/spark/src/main/java/org/apache/iceberg/spark/JobGroupInfo.java`
+#### Snippet
+```java
+public class JobGroupInfo {
+  private String groupId;
+  private String description;
+  private boolean interruptOnCancel;
+
 ```
 
 ### FieldMayBeFinal
@@ -21194,30 +21482,6 @@ in `common/src/main/java/org/apache/iceberg/common/DynClasses.java`
 
 ### FieldMayBeFinal
 Field `hidden` may be 'final'
-in `common/src/main/java/org/apache/iceberg/common/DynConstructors.java`
-#### Snippet
-```java
-
-  private static class MakeAccessible implements PrivilegedAction<Void> {
-    private Constructor<?> hidden;
-
-    MakeAccessible(Constructor<?> hidden) {
-```
-
-### FieldMayBeFinal
-Field `problems` may be 'final'
-in `common/src/main/java/org/apache/iceberg/common/DynConstructors.java`
-#### Snippet
-```java
-    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
-    private Ctor ctor = null;
-    private Map<String, Throwable> problems = Maps.newHashMap();
-
-    public Builder(Class<?> baseClass) {
-```
-
-### FieldMayBeFinal
-Field `hidden` may be 'final'
 in `common/src/main/java/org/apache/iceberg/common/DynMethods.java`
 #### Snippet
 ```java
@@ -21238,6 +21502,30 @@ in `common/src/main/java/org/apache/iceberg/common/DynFields.java`
     private Field hidden;
 
     MakeFieldAccessible(Field hidden) {
+```
+
+### FieldMayBeFinal
+Field `hidden` may be 'final'
+in `common/src/main/java/org/apache/iceberg/common/DynConstructors.java`
+#### Snippet
+```java
+
+  private static class MakeAccessible implements PrivilegedAction<Void> {
+    private Constructor<?> hidden;
+
+    MakeAccessible(Constructor<?> hidden) {
+```
+
+### FieldMayBeFinal
+Field `problems` may be 'final'
+in `common/src/main/java/org/apache/iceberg/common/DynConstructors.java`
+#### Snippet
+```java
+    private ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    private Ctor ctor = null;
+    private Map<String, Throwable> problems = Maps.newHashMap();
+
+    public Builder(Class<?> baseClass) {
 ```
 
 ### FieldMayBeFinal
@@ -21361,6 +21649,18 @@ in `core/src/main/java/org/apache/iceberg/util/SnapshotUtil.java`
     List<Long> snapshotIds =
         Lists.newArrayList(
             ancestorIds(
+```
+
+### UnnecessaryLocalVariable
+Local variable `metadata` is redundant
+in `core/src/main/java/org/apache/iceberg/encryption/KeyMetadata.java`
+#### Snippet
+```java
+  @Override
+  public EncryptionKeyMetadata copy() {
+    KeyMetadata metadata = new KeyMetadata(encryptionKey(), aadPrefix());
+    return metadata;
+  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -21590,8 +21890,8 @@ in `orc/src/main/java/org/apache/iceberg/orc/OrcMetrics.java`
 #### Snippet
 ```java
               .map(
-                  minStats ->
-                      minStats.bigDecimalValue().setScale(((Types.DecimalType) type).scale()))
+                  maxStats ->
+                      maxStats.bigDecimalValue().setScale(((Types.DecimalType) type).scale()))
               .orElse(null);
     } else if (columnStats instanceof DateColumnStatistics) {
 ```
@@ -21602,8 +21902,8 @@ in `orc/src/main/java/org/apache/iceberg/orc/OrcMetrics.java`
 #### Snippet
 ```java
               .map(
-                  maxStats ->
-                      maxStats.bigDecimalValue().setScale(((Types.DecimalType) type).scale()))
+                  minStats ->
+                      minStats.bigDecimalValue().setScale(((Types.DecimalType) type).scale()))
               .orElse(null);
     } else if (columnStats instanceof DateColumnStatistics) {
 ```
