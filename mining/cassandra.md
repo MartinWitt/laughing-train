@@ -1,165 +1,328 @@
 # cassandra 
  
 # Bad smells
-I found 13 bad smells with 0 repairable:
+I found 40 bad smells with 40 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ConfusingMainMethod | 12 | false |
-| UnusedAssignment | 1 | false |
-## RuleId[id=ConfusingMainMethod]
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `doc/modules/cassandra/examples/CQL/ddm_create_table_with_udf.cql`
+| UnnecessaryToStringCall | 40 | true |
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/config/CFMetaData.java`
 #### Snippet
 ```java
-   RETURNS text
-   LANGUAGE java
-   AS 'return "redacted";
-
-CREATE TABLE patients (
+new ToStringBuilder(this).append("cfId", cfId).append("ksName", ksName).append("cfName", cfName).append("cfType", cfType).append("comparator", comparator).append("comment", comment).append("readRepairChance", readRepairChance).append("dcLocalReadRepairChance", dcLocalReadRepairChance).append("gcGraceSeconds", gcGraceSeconds).append("defaultValidator", defaultValidator).append("keyValidator", keyValidator).append("minCompactionThreshold", minCompactionThreshold).append("maxCompactionThreshold", maxCompactionThreshold).append("columnMetadata", columnMetadata.values()).append("compactionStrategyClass", compactionStrategyClass).append("compactionStrategyOptions", compactionStrategyOptions).append("compressionParameters", compressionParameters.asThriftOptions()).append("bloomFilterFpChance", getBloomFilterFpChance()).append("memtableFlushPeriod", memtableFlushPeriod).append("caching", caching).append("defaultTimeToLive", defaultTimeToLive).append("minIndexInterval", minIndexInterval).append("maxIndexInterval", maxIndexInterval).append("speculativeRetry", speculativeRetry).append("droppedColumns", droppedColumns).append("triggers", triggers.values()).append("isDense", isDense).toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `doc/modules/cassandra/examples/CQL/function_udfcontext.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/config/ColumnDefinition.java`
 #### Snippet
 ```java
-    RETURNS custom_type
-    LANGUAGE java
-    AS $$
-        UDTValue udt = udfContext.newReturnUDTValue();
-        udt.setString("txt", "some string");
+Objects.toStringHelper(this).add("name", name).add("type", type).add("kind", kind).add("componentIndex", componentIndex).add("indexName", indexName).add("indexType", indexType).toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `doc/modules/cassandra/examples/CQL/create_function.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/config/KSMetaData.java`
 #### Snippet
 ```java
-    RETURNS text
-    LANGUAGE java
-    AS $$
-        // some Java code
-    $$;
+Objects.toStringHelper(this).add("name", name).add("strategyClass", strategyClass.getSimpleName()).add("strategyOptions", strategyOptions).add("cfMetaData", cfMetaData).add("durableWrites", durableWrites).add("userTypes", userTypes).toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `doc/modules/cassandra/examples/CQL/create_function.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/config/TriggerDefinition.java`
 #### Snippet
 ```java
-    RETURNS text
-    LANGUAGE java
-    AS $$
-        // some Java code
-    $$;
+Objects.toStringHelper(this).add("name", name).add("classOption", classOption).toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `doc/modules/cassandra/examples/CQL/function_dollarsign.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/cql3/ColumnSpecification.java`
 #### Snippet
 ```java
-    RETURNS int
-    LANGUAGE java
-    AS $$ return arg; $$;
-
-SELECT some_function(column) FROM atable ...;
+Objects.toStringHelper(this).add("name", name).add("type", type).toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `doc/modules/cassandra/examples/CQL/function_dollarsign.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/cql3/selection/AbstractFunctionSelector.java`
 #### Snippet
 ```java
-    RETURNS text
-    LANGUAGE java
-    AS $$ return udtarg.getString("txt"); $$;
-
+new StrBuilder(fun.name().toString()).append('(').appendWithSeparators(factories.getColumnNames(), ", ").append(')').toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `doc/modules/cassandra/examples/CQL/uda.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/cql3/selection/AbstractFunctionSelector.java`
 #### Snippet
 ```java
-    RETURNS tuple
-    LANGUAGE java
-    AS $$
-        if (val != null) {
-            state.setInt(0, state.getInt(0)+1);
+new StrBuilder().append(fun.name()).append("(").appendWithSeparators(argSelectors, ", ").append(")").toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `doc/modules/cassandra/examples/CQL/uda.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/cql3/selection/Selectable.java`
 #### Snippet
 ```java
-    RETURNS double
-    LANGUAGE java
-    AS $$
-        double r = 0;
-        if (state.getInt(0) == 0) return null;
+new StrBuilder().append(functionName).append("(").appendWithSeparators(args, ", ").append(")").toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `pylib/cqlshlib/test/test_keyspace_init.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/cql3/selection/Selection.java`
 #### Snippet
 ```java
-    RETURNS text
-    LANGUAGE java
-    AS 'return "Iron Maiden";';
-
-CREATE FUNCTION fBestsong ( input double )
+Objects.toStringHelper(this).add("columns", columns).add("columnMapping", columnMapping).add("metadata", metadata).add("collectTimestamps", collectTimestamps).add("collectTTLs", collectTTLs).toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `pylib/cqlshlib/test/test_keyspace_init.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/cql3/statements/SelectStatement.java`
 #### Snippet
 ```java
-    RETURNS text
-    LANGUAGE java
-    AS 'return "Revelations";';
-
-CREATE FUNCTION fMax(current int, candidate int)
+Objects.toStringHelper(this).add("name", cfName).add("selectClause", selectClause).add("whereClause", whereClause).add("isDistinct", parameters.isDistinct).toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `pylib/cqlshlib/test/test_keyspace_init.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/db/DataRange.java`
 #### Snippet
 ```java
-    RETURNS int
-    LANGUAGE java
-    AS 'if (current == null) return candidate; else return Math.max(current, candidate);' ;
-
-CREATE FUNCTION fMin(current int, candidate int)
+Objects.toStringHelper(this).add("keyRange", keyRange).add("columnFilter", columnFilter).add("selectFullRow", selectFullRow).toString()
 ```
 
-### ConfusingMainMethod
-Method `main()` does not have signature 'public static void main(String\[\])'
-in `pylib/cqlshlib/test/test_keyspace_init.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/db/DataRange.java`
 #### Snippet
 ```java
-    RETURNS int
-    LANGUAGE java
-    AS 'if (current == null) return candidate; else return Math.min(current, candidate);' ;
-
-CREATE AGGREGATE aggMax(int)
+Objects.toStringHelper(this).add("keyRange", keyRange).add("sliceFilter", sliceFilter).add("columnFilter", columnFilter).add("firstPartitionColumnStart", firstPartitionColumnStart == null ? "null" : cfm.comparator.getString(firstPartitionColumnStart)).add("lastPartitionColumnFinish", lastPartitionColumnFinish == null ? "null" : cfm.comparator.getString(lastPartitionColumnFinish)).toString()
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `r` initializer `0` is redundant
-in `doc/modules/cassandra/examples/CQL/uda.cql`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/db/RangeSliceCommand.java`
 #### Snippet
 ```java
-    LANGUAGE java
-    AS $$
-        double r = 0;
-        if (state.getInt(0) == 0) return null;
-        r = state.getLong(1);
+Objects.toStringHelper(this).add("keyspace", keyspace).add("columnFamily", columnFamily).add("predicate", predicate).add("keyRange", keyRange).add("rowFilter", rowFilter).add("maxResults", maxResults).add("counterCQL3Rows", countCQL3Rows).add("timestamp", timestamp).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/db/SliceByNamesReadCommand.java`
+#### Snippet
+```java
+Objects.toStringHelper(this).add("ksName", ksName).add("cfName", cfName).add("key", ByteBufferUtil.bytesToHex(key)).add("filter", filter).add("timestamp", timestamp).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/db/SliceFromReadCommand.java`
+#### Snippet
+```java
+Objects.toStringHelper(this).add("ksName", ksName).add("cfName", cfName).add("key", ByteBufferUtil.bytesToHex(key)).add("filter", filter).add("timestamp", timestamp).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/db/filter/ExtendedFilter.java`
+#### Snippet
+```java
+Objects.toStringHelper(this).add("dataRange", dataRange).add("maxResults", maxResults).add("currentLimit", currentLimit).add("timestamp", timestamp).add("countCQL3Rows", countCQL3Rows).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/db/filter/ExtendedFilter.java`
+#### Snippet
+```java
+Objects.toStringHelper(this).add("dataRange", dataRange).add("timestamp", timestamp).add("clause", clause).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/db/index/SecondaryIndex.java`
+#### Snippet
+```java
+Objects.toStringHelper(this).add("columnDefs", columnDefs).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/AbstractColumnFamilyInputFormat.java`
+#### Snippet
+```java
+subrange.getStart().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/AbstractColumnFamilyInputFormat.java`
+#### Snippet
+```java
+subrange.getStart().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/AbstractColumnFamilyInputFormat.java`
+#### Snippet
+```java
+subrange.getEnd().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/AbstractColumnFamilyInputFormat.java`
+#### Snippet
+```java
+subrange.getEnd().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/AbstractColumnFamilyInputFormat.java`
+#### Snippet
+```java
+tokenRange.getStart().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/AbstractColumnFamilyInputFormat.java`
+#### Snippet
+```java
+tokenRange.getEnd().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/pig/CassandraStorage.java`
+#### Snippet
+```java
+be.getLhs().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/pig/CassandraStorage.java`
+#### Snippet
+```java
+be.getRhs().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/pig/CqlNativeStorage.java`
+#### Snippet
+```java
+be.getLhs().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/pig/CqlNativeStorage.java`
+#### Snippet
+```java
+be.getRhs().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/hadoop/pig/CqlNativeStorage.java`
+#### Snippet
+```java
+columnMetadata.getType().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/locator/InetAddressAndPort.java`
+#### Snippet
+```java
+HostAndPort.fromParts(address.getHostAddress(), port).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/service/StorageService.java`
+#### Snippet
+```java
+logger.getLevel().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/test/unit/org/apache/cassandra/service/StorageServiceServerTest.java`
+#### Snippet
+```java
+new LongToken(1).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/test/unit/org/apache/cassandra/service/StorageServiceServerTest.java`
+#### Snippet
+```java
+new LongToken(1).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/utils/NativeSSTableLoaderClient.java`
+#### Snippet
+```java
+tokenRange.getStart().getValue().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/src/java/org/apache/cassandra/utils/NativeSSTableLoaderClient.java`
+#### Snippet
+```java
+tokenRange.getEnd().getValue().toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/test/distributed/org/apache/cassandra/distributed/impl/RowUtil.java`
+#### Snippet
+```java
+columnSpec.name.toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/test/pig/org/apache/cassandra/pig/CqlTableTest.java`
+#### Snippet
+```java
+t.get(0).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/test/pig/org/apache/cassandra/pig/CqlTableTest.java`
+#### Snippet
+```java
+t.get(0).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/test/pig/org/apache/cassandra/pig/ThriftColumnFamilyTest.java`
+#### Snippet
+```java
+t.get(0).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-cassandra-583695816680971651710368504563528277853/test/pig/org/apache/pig/test/MiniCluster.java`
+#### Snippet
+```java
+m_fileSys.getUri().toString()
 ```
 
