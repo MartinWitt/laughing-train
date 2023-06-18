@@ -1,62 +1,32 @@
 # conjure-postman 
  
 # Bad smells
-I found 4 bad smells with 1 repairable:
+I found 3 bad smells with 3 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| SwitchStatementWithTooFewBranches | 1 | false |
-| RegExpSimplifiable | 1 | false |
-| UnnecessaryToStringCall | 1 | true |
-| FieldMayBeFinal | 1 | false |
-## RuleId[id=SwitchStatementWithTooFewBranches]
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/BodyParameterTypeVisitor.java`
-#### Snippet
-```java
-            @Override
-            public Optional<PostmanRequest.Body> visitPrimitive(PrimitiveType value) {
-                switch (value.get()) {
-                    case BINARY:
-                        return Optional.of(PostmanRequest.FileBody.builder().build());
-```
-
-## RuleId[id=RegExpSimplifiable]
-### RegExpSimplifiable
-`[\"]` can be simplified to '"'
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
-#### Snippet
-```java
-        String key = "{{KEY}}";
-        if (keyTemplate instanceof TextNode) {
-            key = keyTemplate.toString().replaceAll("[\"]", "");
-        }
-        return objectMapper.createObjectNode().set(key, value.getValueType().accept(this));
-```
-
+| UnnecessaryToStringCall | 3 | true |
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `conjure-postman/src/main/java/com/palantir/conjure/postman/cli/ConjurePostmanCli.java`
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-conjure-postman504674084268992423716233106240001349780/conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
 #### Snippet
 ```java
-            writer.write(generator.generate(conjureDefinition));
-        } catch (IOException e) {
-            throw new RuntimeException(String.format("Error parsing definition: %s", e.toString()));
-        }
-    }
+endpointDefinition.getHttpMethod().toString()
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `config` may be 'final'
-in `conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanCollectionGenerator.java`
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-conjure-postman504674084268992423716233106240001349780/conjure-postman-core/src/main/java/com/palantir/conjure/postman/PostmanRequestGenerator.java`
 #### Snippet
 ```java
-    private static final String POSTMAN_SCHEMA = "https://schema.getpostman.com/json/collection/v2.1.0/collection.json";
+Paths.get(apiBaseVariable).resolve(endpointDefinition.getHttpPath().get()).toString()
+```
 
-    private GeneratorConfiguration config;
-
-    public PostmanCollectionGenerator(GeneratorConfiguration config) {
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-conjure-postman504674084268992423716233106240001349780/conjure-postman-core/src/main/java/com/palantir/conjure/postman/visitor/TemplateTypeVisitor.java`
+#### Snippet
+```java
+wrapped.toString()
 ```
 
