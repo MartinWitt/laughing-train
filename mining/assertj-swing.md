@@ -8,7 +8,7 @@ I found 5 bad smells with 5 repairable:
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-assertj-swing207578771701516750017462458693911594244/assertj-swing-jide/src/main/java/org/assertj/swing/jide/grids/driver/AbstractComboBoxDriver.java`
+in `/tmp/laughing-train-assertj-swing12268024552385630255987199168885768790/assertj-swing-jide/src/main/java/org/assertj/swing/jide/grids/driver/AbstractComboBoxDriver.java`
 #### Snippet
 ```java
 propertyName(comboBox, SELECTED_INDEX_PROPERTY).toString()
@@ -16,7 +16,7 @@ propertyName(comboBox, SELECTED_INDEX_PROPERTY).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-assertj-swing207578771701516750017462458693911594244/assertj-swing-jide/src/main/java/org/assertj/swing/jide/grids/driver/ListComboBoxDriver.java`
+in `/tmp/laughing-train-assertj-swing12268024552385630255987199168885768790/assertj-swing-jide/src/main/java/org/assertj/swing/jide/grids/driver/ListComboBoxDriver.java`
 #### Snippet
 ```java
 itemAt(comboBox, i).toString()
@@ -24,7 +24,7 @@ itemAt(comboBox, i).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-assertj-swing207578771701516750017462458693911594244/assertj-swing/src/main/java/org/assertj/swing/core/LabelMatcher.java`
+in `/tmp/laughing-train-assertj-swing12268024552385630255987199168885768790/assertj-swing/src/main/java/org/assertj/swing/core/LabelMatcher.java`
 #### Snippet
 ```java
 checkNotNullOrEmpty(label).toString()
@@ -32,7 +32,7 @@ checkNotNullOrEmpty(label).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-assertj-swing207578771701516750017462458693911594244/assertj-swing/src/main/java/org/assertj/swing/core/NameMatcher.java`
+in `/tmp/laughing-train-assertj-swing12268024552385630255987199168885768790/assertj-swing/src/main/java/org/assertj/swing/core/NameMatcher.java`
 #### Snippet
 ```java
 checkNotNullOrEmpty(name).toString()
@@ -40,7 +40,7 @@ checkNotNullOrEmpty(name).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-assertj-swing207578771701516750017462458693911594244/assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageTypes.java`
+in `/tmp/laughing-train-assertj-swing12268024552385630255987199168885768790/assertj-swing/src/main/java/org/assertj/swing/driver/JOptionPaneMessageTypes.java`
 #### Snippet
 ```java
 checkNotNullOrEmpty(messageMap.get(messageType)).toString()
