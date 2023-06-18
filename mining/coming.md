@@ -1,14 +1,14 @@
 # coming 
  
 # Bad smells
-I found 205 bad smells with 205 repairable:
+I found 208 bad smells with 208 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UnnecessaryToStringCall | 205 | true |
+| UnnecessaryToStringCall | 208 | true |
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/changeminer/analyzer/instancedetector/DetectorChangePatternInstanceEngine.java`
 #### Snippet
 ```java
 currentNodeFromAction.getRoleInParent().toString()
@@ -16,7 +16,7 @@ currentNodeFromAction.getRoleInParent().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/CodeElementInfo.java`
 #### Snippet
 ```java
 element.getPosition().getFile().getName().toString()
@@ -24,7 +24,7 @@ element.getPosition().getFile().getName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/CodeFeatureDetector.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/CodeFeatureDetector.java`
 #### Snippet
 ```java
 exper.getType().unbox().toString()
@@ -32,7 +32,7 @@ exper.getType().unbox().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/FeatureAnalyzer.java`
 #### Snippet
 ```java
 analyze.toJson().toString()
@@ -40,7 +40,7 @@ analyze.toJson().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/RepairnatorFeatures.java`
 #### Snippet
 ```java
 analyze.toJson().toString()
@@ -48,7 +48,7 @@ analyze.toJson().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 assignment.getAssigned().toString()
@@ -56,7 +56,7 @@ assignment.getAssigned().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 ctLocalVariable.getDefaultExpression().toString()
@@ -64,7 +64,7 @@ ctLocalVariable.getDefaultExpression().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 ctBinaryOperator.getRightHandOperand().toString()
@@ -72,7 +72,7 @@ ctBinaryOperator.getRightHandOperand().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 ctBinaryOperator.getLeftHandOperand().toString()
@@ -80,7 +80,7 @@ ctBinaryOperator.getLeftHandOperand().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 ctBinaryOperator.getRightHandOperand().toString()
@@ -88,7 +88,7 @@ ctBinaryOperator.getRightHandOperand().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 ctBinaryOperator.getLeftHandOperand().toString()
@@ -96,7 +96,7 @@ ctBinaryOperator.getLeftHandOperand().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 assignment.getAssigned().toString()
@@ -104,7 +104,7 @@ assignment.getAssigned().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 assignment.getAssigned().toString()
@@ -112,7 +112,7 @@ assignment.getAssigned().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 specificField.getDefaultExpression().toString()
@@ -120,7 +120,7 @@ specificField.getDefaultExpression().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 assignment.getAssigned().toString()
@@ -128,7 +128,7 @@ assignment.getAssigned().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 inputLiteral.getValue().toString()
@@ -136,7 +136,7 @@ inputLiteral.getValue().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 inputLiteral.getValue().toString()
@@ -144,7 +144,7 @@ inputLiteral.getValue().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 inputLiteral.getValue().toString()
@@ -152,7 +152,7 @@ inputLiteral.getValue().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 inputLiteral.getValue().toString()
@@ -160,7 +160,7 @@ inputLiteral.getValue().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 inputLiteral.getValue().toString()
@@ -168,7 +168,7 @@ inputLiteral.getValue().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/AbstractCodeAnalyzer.java`
 #### Snippet
 ```java
 inputLiteral.getValue().toString()
@@ -176,7 +176,7 @@ inputLiteral.getValue().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
 #### Snippet
 ```java
 operator.getKind().toString()
@@ -184,7 +184,7 @@ operator.getKind().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/BinaryOperatorAnalyzer.java`
 #### Snippet
 ```java
 UnaryOperatorKind.NOT.toString()
@@ -192,7 +192,7 @@ UnaryOperatorKind.NOT.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstantAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstantAnalyzer.java`
 #### Snippet
 ```java
 var.getType().toString()
@@ -200,7 +200,7 @@ var.getType().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstantAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstantAnalyzer.java`
 #### Snippet
 ```java
 var.getType().toString()
@@ -208,7 +208,7 @@ var.getType().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstantAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstantAnalyzer.java`
 #### Snippet
 ```java
 var.getType().toString()
@@ -216,7 +216,7 @@ var.getType().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -224,7 +224,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -232,7 +232,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -240,7 +240,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -248,7 +248,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -256,7 +256,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -264,7 +264,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -272,7 +272,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -280,7 +280,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -288,7 +288,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -296,7 +296,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -304,7 +304,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -312,7 +312,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -320,7 +320,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -328,7 +328,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -336,7 +336,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -344,7 +344,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -352,7 +352,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -360,7 +360,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -368,7 +368,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -376,7 +376,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -384,7 +384,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -392,7 +392,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -400,7 +400,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -408,7 +408,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -416,7 +416,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -424,7 +424,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -432,7 +432,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -440,7 +440,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -448,7 +448,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -456,7 +456,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -464,7 +464,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -472,7 +472,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -480,7 +480,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -488,7 +488,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -496,7 +496,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -504,7 +504,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -512,7 +512,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -520,7 +520,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -528,7 +528,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -536,7 +536,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -544,7 +544,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -552,7 +552,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -560,7 +560,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -568,7 +568,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -576,7 +576,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -584,7 +584,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -592,7 +592,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -600,7 +600,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -608,7 +608,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/ConstructorAnalyzer.java`
 #### Snippet
 ```java
 conAffected.getType().getQualifiedName().toString()
@@ -616,7 +616,7 @@ conAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 exper.getType().unbox().toString()
@@ -624,7 +624,7 @@ exper.getType().unbox().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 anotherMethodInBuggyClass.getType().unbox().toString()
@@ -632,7 +632,7 @@ anotherMethodInBuggyClass.getType().unbox().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 inferredtype.unbox().toString()
@@ -640,7 +640,7 @@ inferredtype.unbox().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 potentionaltypes.get(i).unbox().toString()
@@ -648,7 +648,7 @@ potentionaltypes.get(i).unbox().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 aVarInScope.getType().unbox().toString()
@@ -656,7 +656,7 @@ aVarInScope.getType().unbox().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 invocationToStudy.getTarget().toString()
@@ -664,7 +664,7 @@ invocationToStudy.getTarget().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 operator.getKind().toString()
@@ -672,7 +672,7 @@ operator.getKind().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 operator.getKind().toString()
@@ -680,7 +680,7 @@ operator.getKind().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 BinaryOperatorKind.AND.toString()
@@ -688,7 +688,7 @@ BinaryOperatorKind.AND.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 BinaryOperatorKind.OR.toString()
@@ -696,7 +696,7 @@ BinaryOperatorKind.OR.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 UnaryOperatorKind.NOT.toString()
@@ -704,7 +704,7 @@ UnaryOperatorKind.NOT.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 operator.getKind().toString()
@@ -712,7 +712,7 @@ operator.getKind().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 BinaryOperatorKind.AND.toString()
@@ -720,7 +720,7 @@ BinaryOperatorKind.AND.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 BinaryOperatorKind.OR.toString()
@@ -728,7 +728,7 @@ BinaryOperatorKind.OR.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 invocation.getTarget().toString()
@@ -736,7 +736,7 @@ invocation.getTarget().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 specificbinOps.get(binopindex).getKind().toString()
@@ -744,7 +744,7 @@ specificbinOps.get(binopindex).getKind().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 BinaryOperatorKind.EQ.toString()
@@ -752,7 +752,7 @@ BinaryOperatorKind.EQ.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 specificbinOps.get(binopindex).getKind().toString()
@@ -760,7 +760,7 @@ specificbinOps.get(binopindex).getKind().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 BinaryOperatorKind.NE.toString()
@@ -768,7 +768,7 @@ BinaryOperatorKind.NE.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/LogicalExpressionAnalyzer.java`
 #### Snippet
 ```java
 invocationToStudy.getTarget().toString()
@@ -776,7 +776,7 @@ invocationToStudy.getTarget().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -784,7 +784,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -792,7 +792,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -800,7 +800,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -808,7 +808,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -816,7 +816,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -824,7 +824,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -832,7 +832,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -840,7 +840,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -848,7 +848,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -856,7 +856,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -864,7 +864,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -872,7 +872,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -880,7 +880,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -888,7 +888,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -896,7 +896,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -904,7 +904,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -912,7 +912,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -920,7 +920,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -928,7 +928,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -936,7 +936,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -944,7 +944,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -952,7 +952,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -960,7 +960,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -968,7 +968,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 certainexpression.getType().getQualifiedName().toString()
@@ -976,7 +976,7 @@ certainexpression.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -984,7 +984,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -992,7 +992,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1000,7 +1000,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1008,7 +1008,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1016,7 +1016,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1024,7 +1024,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1032,7 +1032,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1040,7 +1040,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1048,7 +1048,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1056,7 +1056,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1064,7 +1064,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1072,7 +1072,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1080,7 +1080,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1088,7 +1088,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1096,7 +1096,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1104,7 +1104,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1112,7 +1112,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1120,7 +1120,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1128,7 +1128,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1136,7 +1136,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1144,7 +1144,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1152,7 +1152,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1160,7 +1160,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1168,7 +1168,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/MethodAnalyzer.java`
 #### Snippet
 ```java
 invocation.getType().getQualifiedName().toString()
@@ -1176,7 +1176,7 @@ invocation.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 varAffected.getType().getQualifiedName().toString()
@@ -1184,7 +1184,7 @@ varAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 varAffected.getType().getQualifiedName().toString()
@@ -1192,7 +1192,7 @@ varAffected.getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1200,7 +1200,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1208,7 +1208,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1216,7 +1216,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1224,7 +1224,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1232,7 +1232,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1240,7 +1240,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1248,7 +1248,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1256,7 +1256,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1264,7 +1264,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1272,7 +1272,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1280,7 +1280,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1288,7 +1288,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1296,7 +1296,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1304,7 +1304,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1312,7 +1312,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1320,7 +1320,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1328,7 +1328,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1336,7 +1336,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1344,7 +1344,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1352,7 +1352,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1360,7 +1360,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1368,7 +1368,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1376,7 +1376,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1384,7 +1384,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 ctVariable.getReference().getType().getQualifiedName().toString()
@@ -1392,7 +1392,7 @@ ctVariable.getReference().getType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 varaccess.getType().toString()
@@ -1400,7 +1400,7 @@ varaccess.getType().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 varaccess.getType().toString()
@@ -1408,7 +1408,7 @@ varaccess.getType().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 varaccess.getType().toString()
@@ -1416,7 +1416,7 @@ varaccess.getType().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 varAffected.getType().toString()
@@ -1424,7 +1424,7 @@ varAffected.getType().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 varAffected.getType().toString()
@@ -1432,7 +1432,7 @@ varAffected.getType().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/codeanalyze/VariableAnalyzer.java`
 #### Snippet
 ```java
 varAffected.getType().toString()
@@ -1440,7 +1440,7 @@ varAffected.getType().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/sec/SecAnalysis.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/sec/SecAnalysis.java`
 #### Snippet
 ```java
 operation.getSrcNode().toString()
@@ -1448,7 +1448,7 @@ operation.getSrcNode().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/codefeatures/sec/SecAnalysis.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/codefeatures/sec/SecAnalysis.java`
 #### Snippet
 ```java
 op.getSrcNode().toString()
@@ -1456,7 +1456,7 @@ op.getSrcNode().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput.java`
 #### Snippet
 ```java
 operation.getSrcNode().toString()
@@ -1464,7 +1464,7 @@ operation.getSrcNode().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput.java`
 #### Snippet
 ```java
 operation.getDstNode().toString()
@@ -1472,7 +1472,7 @@ operation.getDstNode().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput.java`
 #### Snippet
 ```java
 operation.getSrcNode().getParent().toString()
@@ -1480,7 +1480,7 @@ operation.getSrcNode().getParent().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/core/entities/output/JSonPatternInstanceOutput.java`
 #### Snippet
 ```java
 operation.getDstNode().getParent().toString()
@@ -1488,7 +1488,7 @@ operation.getDstNode().getParent().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/repairability/models/ASTData.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/repairability/models/ASTData.java`
 #### Snippet
 ```java
 ((CtVariable) (element)).getReference().toString()
@@ -1496,7 +1496,7 @@ in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/j
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/repairability/models/ASTData.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/repairability/models/ASTData.java`
 #### Snippet
 ```java
 ((CtVariable) (element)).getReference().toString()
@@ -1504,7 +1504,7 @@ in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/j
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/repairability/models/ASTData.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/repairability/models/ASTData.java`
 #### Snippet
 ```java
 invocation.getExecutable().getDeclaringType().toString()
@@ -1512,7 +1512,7 @@ invocation.getExecutable().getDeclaringType().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/repairability/models/ASTData.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/repairability/models/ASTData.java`
 #### Snippet
 ```java
 method.getDeclaringType().getQualifiedName().toString()
@@ -1520,7 +1520,7 @@ method.getDeclaringType().getQualifiedName().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/repairability/models/ASTData.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/repairability/models/ASTData.java`
 #### Snippet
 ```java
 ((CtVariable) (element)).getReference().toString()
@@ -1528,7 +1528,7 @@ in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/j
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/repairability/repairtools/Arja.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/repairability/repairtools/Arja.java`
 #### Snippet
 ```java
 ((CtAbstractInvocation) (dstElement)).getExecutable().toString()
@@ -1536,7 +1536,7 @@ in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/j
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/java/fr/inria/coming/repairability/repairtools/Arja.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/java/fr/inria/coming/repairability/repairtools/Arja.java`
 #### Snippet
 ```java
 ((CtAbstractInvocation) (srcElement)).getExecutable().toString()
@@ -1544,7 +1544,7 @@ in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/j
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/test/java/fr/inria/coming/spoon/features/CodeFeatureDetectorTest.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/test/java/fr/inria/coming/spoon/features/CodeFeatureDetectorTest.java`
 #### Snippet
 ```java
 e.toString()
@@ -1552,7 +1552,7 @@ e.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/test/java/fr/inria/coming/spoon/features/CodeFeatureDetectorTest.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/test/java/fr/inria/coming/spoon/features/CodeFeatureDetectorTest.java`
 #### Snippet
 ```java
 e.toString()
@@ -1560,7 +1560,7 @@ e.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/test/java/fr/inria/coming/spoon/features/CodeFeatureDetectorTest.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/test/java/fr/inria/coming/spoon/features/CodeFeatureDetectorTest.java`
 #### Snippet
 ```java
 e.toString()
@@ -1568,7 +1568,7 @@ e.toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/test/java/fr/inria/prophet4j/GumtreeDiffTest.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/test/java/fr/inria/prophet4j/GumtreeDiffTest.java`
 #### Snippet
 ```java
 operation.getSrcNode().toString()
@@ -1576,7 +1576,7 @@ operation.getSrcNode().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/test/java/fr/inria/prophet4j/GumtreeDiffTest.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/test/java/fr/inria/prophet4j/GumtreeDiffTest.java`
 #### Snippet
 ```java
 operation.getDstNode().toString()
@@ -1584,7 +1584,7 @@ operation.getDstNode().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/test/java/fr/inria/prophet4j/GumtreeDiffTest.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/test/java/fr/inria/prophet4j/GumtreeDiffTest.java`
 #### Snippet
 ```java
 operations.get(0).getSrcNode().toString()
@@ -1592,7 +1592,7 @@ operations.get(0).getSrcNode().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/test/java/fr/inria/prophet4j/GumtreeDiffTest.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/test/java/fr/inria/prophet4j/GumtreeDiffTest.java`
 #### Snippet
 ```java
 operations.get(0).getDstNode().toString()
@@ -1600,7 +1600,7 @@ operations.get(0).getDstNode().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/resources/repairability_test_files/ground_truth/Arja/patch5-Chart-12-Arja-plausible/Arja/00131/Arja_00131_t.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/resources/repairability_test_files/ground_truth/Arja/patch6-Chart-12-Arja-plausible/Arja/00148/Arja_00148_s.java`
 #### Snippet
 ```java
 this.dataset.getRowKey(pieIndex).toString()
@@ -1608,7 +1608,7 @@ this.dataset.getRowKey(pieIndex).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/resources/repairability_test_files/ground_truth/Arja/patch5-Chart-12-Arja-plausible/Arja/00131/Arja_00131_t.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/resources/repairability_test_files/ground_truth/Arja/patch6-Chart-12-Arja-plausible/Arja/00148/Arja_00148_s.java`
 #### Snippet
 ```java
 this.dataset.getColumnKey(pieIndex).toString()
@@ -1616,7 +1616,7 @@ this.dataset.getColumnKey(pieIndex).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/resources/Defects4J_all_pairs/Chart_9/TimeSeries/Chart_9_TimeSeries_s.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/resources/repairability_test_files/ground_truth/Cardumen/patch1-Chart-9-Cardumen/Cardumen/0013/Cardumen_0013_s.java`
 #### Snippet
 ```java
 item.getPeriod().toString()
@@ -1624,7 +1624,31 @@ item.getPeriod().toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/resources/Defects4J_all_pairs/Lang_35/ArrayUtils/Lang_35_ArrayUtils_s.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/resources/Defects4J_all_pairs/Lang_31/StringUtils/Lang_31_StringUtils_t.java`
+#### Snippet
+```java
+new StringBuilder(strLen).append(Character.toTitleCase(cs.charAt(0))).append(CharSequenceUtils.subSequence(cs, 1)).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/resources/Defects4J_all_pairs/Lang_31/StringUtils/Lang_31_StringUtils_t.java`
+#### Snippet
+```java
+new StringBuilder(strLen).append(Character.toLowerCase(cs.charAt(0))).append(CharSequenceUtils.subSequence(cs, 1)).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/resources/Defects4J_all_pairs/Lang_31/StringUtils/Lang_31_StringUtils_t.java`
+#### Snippet
+```java
+CharSequenceUtils.reverse(str).toString()
+```
+
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/resources/repairability_test_files/ground_truth/Arja/patch1-Lang-35-Arja/Arja/0013/Arja_0013_t.java`
 #### Snippet
 ```java
 new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString()
@@ -1632,7 +1656,7 @@ new ToStringBuilder(array, ToStringStyle.SIMPLE_STYLE).append(array).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/resources/repairability_test_files/arjafalseneg1/arja3/three/arja3_three_t.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/resources/repairability_test_files/arjafalseneg1/arja3/three/arja3_three_s.java`
 #### Snippet
 ```java
 this.dataset.getRowKey(pieIndex).toString()
@@ -1640,7 +1664,7 @@ this.dataset.getRowKey(pieIndex).toString()
 
 ### UnnecessaryToStringCall
 The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
-in `/tmp/laughing-train-coming-32467538459382974506617773159197263184/src/main/resources/repairability_test_files/arjafalseneg1/arja3/three/arja3_three_t.java`
+in `/tmp/laughing-train-coming168016817962690519617864057046762096807/src/main/resources/repairability_test_files/arjafalseneg1/arja3/three/arja3_three_s.java`
 #### Snippet
 ```java
 this.dataset.getColumnKey(pieIndex).toString()
