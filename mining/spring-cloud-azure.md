@@ -1,32 +1,16 @@
 # spring-cloud-azure 
  
 # Bad smells
-I found 2 bad smells with 0 repairable:
+I found 1 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| UNCHECKED_WARNING | 2 | false |
-## RuleId[id=UNCHECKED_WARNING]
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.HashMap' to 'java.util.Map'
-in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
+| UnnecessaryToStringCall | 1 | true |
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+The `toString()` method is not needed in cases the underlying method handles the conversion. Also calling toString() on a String is redundant. Removing them simplifies the code.
+in `/tmp/laughing-train-spring-cloud-azure-85200664082567259841357754420619994314/spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
 #### Snippet
 ```java
-				for (Resource resource : resources) {
-					byte[] bytes = StreamUtils.copyToByteArray(resource.getInputStream());
-					Map<String, Object> rootMap = objectMapper.readValue(bytes, HashMap.class);
-					List<Map<String, Object>> properties = (List<Map<String, Object>>) rootMap.get("properties");
-					propertyCount += properties.size();
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.List\>'
-in `spring-cloud-azure-markdown-appdendix-generator/src/main/java/com/azure/spring/cloud/internal/Main.java`
-#### Snippet
-```java
-					byte[] bytes = StreamUtils.copyToByteArray(resource.getInputStream());
-					Map<String, Object> rootMap = objectMapper.readValue(bytes, HashMap.class);
-					List<Map<String, Object>> properties = (List<Map<String, Object>>) rootMap.get("properties");
-					propertyCount += properties.size();
-					properties.forEach(propertyItem -> {
+resource.getURL().toString()
 ```
 
