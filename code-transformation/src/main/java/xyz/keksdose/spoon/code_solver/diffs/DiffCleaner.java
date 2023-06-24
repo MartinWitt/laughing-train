@@ -100,9 +100,8 @@ public class DiffCleaner {
         return line.startsWith("- ") && !line.startsWith("---");
     }
 
-    private void printResult(Path filePath, String cleanResult)
-            throws IOException {
-            Files.writeString(filePath, cleanResult);
+    private void printResult(Path filePath, String cleanResult) throws IOException {
+        Files.writeString(filePath, cleanResult);
     }
 
     private void createDiffs(DiffFormatter df, List<DiffEntry> diffs) {
