@@ -81,7 +81,7 @@ public class DiffCleaner {
                         if (change.getModes().contains(DiffCleanModes.NO_WHITESPACE_ADD)) {
                             String cleanResult = new ExtraWhiteSpaceCleaner()
                                     .clean(Files.readString(filePath), lineChange, change, lineEnding);
-                            printResult(filePath, cleanResult);
+                            printResult(filePath, cleanResult, hasLineEnding, lineEnding);
                         }
                     }
                 }
@@ -100,7 +100,11 @@ public class DiffCleaner {
         return line.startsWith("- ") && !line.startsWith("---");
     }
 
-    private void printResult(Path filePath, String cleanResult) throws IOException {
+    private void printResult(Path filePath, String cleanResult, boolean hasLineEnding, String lineEnding)
+            throws IOException {
+        if (hasLineEnding) {
+            cleanResult += lineEnding;
+        }
         Files.writeString(filePath, cleanResult);
     }
 
