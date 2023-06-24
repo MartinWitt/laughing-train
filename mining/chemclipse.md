@@ -20,37 +20,6 @@ in `chemclipse/plugins/org.eclipse.chemclipse.rcp.app.ui/css/classic.css`
 ## RuleId[id=ReassignedToPlainText]
 ### ReassignedToPlainText
 This file was explicitly re-assigned to plain text
-in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/nist/SRCRESLT-3.TXT`
-#### Snippet
-```java
-Unknown: PEAK-I-NAME                                                 Compound in Library Factor = -158
-Hit 1  : <<Cyclopentane, methyl->>;<<C6H12>>; MF: 843; RMF: 877; Prob: 78.12; CAS:96-37-7; Mw: 84; Lib: <<mainlib>>; Id: 1142.
-Hit 2  : <<1-Hexanol>>;<<C6H14O>>; MF: 774; RMF: 782; Prob: 11.60; CAS:111-27-3; Mw: 102; Lib: <<mainlib>>; Id: 1583.
-Hit 3  : <<1-Pentanol, 3-methyl->>;<<C6H14O>>; MF: 750; RMF: 759; Prob: 3.89; CAS:589-35-5; Mw: 102; Lib: <<mainlib>>; Id: 430.
-Hit 4  : <<1-Hexene>>;<<C6H12>>; MF: 749; RMF: 779; Prob: 3.73; CAS:592-41-6; Mw: 84; Lib: <<mainlib>>; Id: 326.
-Hit 5  : <<1-Pentene, 2-methyl->>;<<C6H12>>; MF: 726; RMF: 757; Prob: 1.36; CAS:763-29-1; Mw: 84; Lib: <<mainlib>>; Id: 1452.
-Hit 6  : <<Cyclohexane>>;<<C6H12>>; MF: 713; RMF: 744; Prob: 0.88; CAS:110-82-7; Mw: 84; Lib: <<mainlib>>; Id: 2182.
-Hit 7  : <<2-Hexene>>;<<C6H12>>; MF: 675; RMF: 716; Prob: 0.21; CAS:592-43-8; Mw: 84; Lib: <<mainlib>>; Id: 503.
-Hit 8  : <<Acetic acid, hexyl ester>>;<<C8H16O2>>; MF: 641; RMF: 648; Prob: 0.05; CAS:142-92-7; Mw: 144; Lib: <<mainlib>>; Id: 728.
-Hit 9  : <<1-Octanol>>;<<C8H18O>>; MF: 630; RMF: 637; Prob: 0.03; CAS:111-87-5; Mw: 130; Lib: <<mainlib>>; Id: 38.
-Hit 10 : <<Formic acid, butyl ester>>;<<C5H10O2>>; MF: 618; RMF: 684; Prob: 0.02; CAS:592-84-7; Mw: 102; Lib: <<mainlib>>; Id: 1936.
-Hit 11 : <<Isooctanol>>;<<C8H18O>>; MF: 615; RMF: 624; Prob: 0.02; CAS:26952-21-6; Mw: 130; Lib: <<mainlib>>; Id: 238.
-Hit 12 : <<2-Butene>>;<<C4H8>>; MF: 591; RMF: 808; Prob: 0.00; CAS:107-01-7; Mw: 56; Lib: <<mainlib>>; Id: 112.
-Unknown: PEAK-V-NAME                                                 Compound in Library Factor = -830
-Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 623; RMF: 645; Prob: 47.31; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>; Id: 2155.
-Hit 2  : <<Cyclohexanol>>;<<C6H12O>>; MF: 574; RMF: 653; Prob: 9.71; CAS:108-93-0; Mw: 100; Lib: <<mainl
-```
-
-### ReassignedToPlainText
-This file was explicitly re-assigned to plain text
-in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/drive_c/programs/nist/NISTLOG.TXT`
-#### Snippet
-```java
-
-```
-
-### ReassignedToPlainText
-This file was explicitly re-assigned to plain text
 in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/nist/SRCRESLT-2.TXT`
 #### Snippet
 ```java
@@ -68,6 +37,22 @@ Unknown:                                                             Compound in
 Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 623; RMF: 645; Prob: 47.31; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>; Id: 2155.
 Hit 2  : <<Cyclohexanol>>;<<C6H12O>>; MF: 574; RMF: 653; Prob: 9.71; CAS:108-93-0; Mw: 100; Lib: <<mainlib>>; Id: 1222.
 Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 599; RMF: 614; Prob: 21.48; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>
+```
+
+### ReassignedToPlainText
+This file was explicitly re-assigned to plain text
+in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/drive_c/programs/nist/NISTLOG.TXT`
+#### Snippet
+```java
+
+```
+
+### ReassignedToPlainText
+This file was explicitly re-assigned to plain text
+in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/drive_c/programs/nist/SRCREADY.TXT`
+#### Snippet
+```java
+
 ```
 
 ### ReassignedToPlainText
@@ -721,6 +706,29 @@ Hit 1  : <<Gallic acid, 4TMS derivative>>;<<C19H38O5Si4>>; MF: 778; RMF: 844; Pr
 Hit 2  : <<Cholest-7-en-3-ol, (3�,5�)-, TMS derivative>>;<<C30H54OSi>>; MF: 581; RMF: 650; Prob: 1.26; CAS:2665-03-4; Mw: 458; Lib: <<replib>>; Id: 39175; RI: 3195.
 Hit 3  : <<Triptophenolide, pentafluoropropionate>>;<<C23H23F5O4>>; MF: 572; RMF: 580; Prob: 0.91; CAS:0-00-0; Mw: 458; Lib: <<mainlib>>; Id: 264887; RI: 2722.
 Unknown: ID-2                                                        Compound in Library Factor = -117
+```
+
+### ReassignedToPlainText
+This file was explicitly re-assigned to plain text
+in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/nist/SRCRESLT-3.TXT`
+#### Snippet
+```java
+Unknown: PEAK-I-NAME                                                 Compound in Library Factor = -158
+Hit 1  : <<Cyclopentane, methyl->>;<<C6H12>>; MF: 843; RMF: 877; Prob: 78.12; CAS:96-37-7; Mw: 84; Lib: <<mainlib>>; Id: 1142.
+Hit 2  : <<1-Hexanol>>;<<C6H14O>>; MF: 774; RMF: 782; Prob: 11.60; CAS:111-27-3; Mw: 102; Lib: <<mainlib>>; Id: 1583.
+Hit 3  : <<1-Pentanol, 3-methyl->>;<<C6H14O>>; MF: 750; RMF: 759; Prob: 3.89; CAS:589-35-5; Mw: 102; Lib: <<mainlib>>; Id: 430.
+Hit 4  : <<1-Hexene>>;<<C6H12>>; MF: 749; RMF: 779; Prob: 3.73; CAS:592-41-6; Mw: 84; Lib: <<mainlib>>; Id: 326.
+Hit 5  : <<1-Pentene, 2-methyl->>;<<C6H12>>; MF: 726; RMF: 757; Prob: 1.36; CAS:763-29-1; Mw: 84; Lib: <<mainlib>>; Id: 1452.
+Hit 6  : <<Cyclohexane>>;<<C6H12>>; MF: 713; RMF: 744; Prob: 0.88; CAS:110-82-7; Mw: 84; Lib: <<mainlib>>; Id: 2182.
+Hit 7  : <<2-Hexene>>;<<C6H12>>; MF: 675; RMF: 716; Prob: 0.21; CAS:592-43-8; Mw: 84; Lib: <<mainlib>>; Id: 503.
+Hit 8  : <<Acetic acid, hexyl ester>>;<<C8H16O2>>; MF: 641; RMF: 648; Prob: 0.05; CAS:142-92-7; Mw: 144; Lib: <<mainlib>>; Id: 728.
+Hit 9  : <<1-Octanol>>;<<C8H18O>>; MF: 630; RMF: 637; Prob: 0.03; CAS:111-87-5; Mw: 130; Lib: <<mainlib>>; Id: 38.
+Hit 10 : <<Formic acid, butyl ester>>;<<C5H10O2>>; MF: 618; RMF: 684; Prob: 0.02; CAS:592-84-7; Mw: 102; Lib: <<mainlib>>; Id: 1936.
+Hit 11 : <<Isooctanol>>;<<C8H18O>>; MF: 615; RMF: 624; Prob: 0.02; CAS:26952-21-6; Mw: 130; Lib: <<mainlib>>; Id: 238.
+Hit 12 : <<2-Butene>>;<<C4H8>>; MF: 591; RMF: 808; Prob: 0.00; CAS:107-01-7; Mw: 56; Lib: <<mainlib>>; Id: 112.
+Unknown: PEAK-V-NAME                                                 Compound in Library Factor = -830
+Hit 1  : <<9-Tetradecen-1-ol, (E)->>;<<C14H28O>>; MF: 623; RMF: 645; Prob: 47.31; CAS:52957-16-1; Mw: 212; Lib: <<mainlib>>; Id: 2155.
+Hit 2  : <<Cyclohexanol>>;<<C6H12O>>; MF: 574; RMF: 653; Prob: 9.71; CAS:108-93-0; Mw: 100; Lib: <<mainl
 ```
 
 ### ReassignedToPlainText
@@ -3432,7 +3440,7 @@ Hit 11 : <<Dodecane>>;<<C12H26>>; MF: 787; RMF: 838; Prob: 1.72; CAS:112-
 
 ### ReassignedToPlainText
 This file was explicitly re-assigned to plain text
-in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/drive_c/programs/nist/SRCREADY.TXT`
+in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/drive_c/programs/nist/SRCRESLT.TXT`
 #### Snippet
 ```java
 
@@ -3448,7 +3456,7 @@ in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragmen
 
 ### ReassignedToPlainText
 This file was explicitly re-assigned to plain text
-in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/dosdevices/c/programs/nist/SRCRESLT.TXT`
+in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/dosdevices/c/programs/nist/SRCREADY.TXT`
 #### Snippet
 ```java
 
@@ -3456,7 +3464,7 @@ in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragmen
 
 ### ReassignedToPlainText
 This file was explicitly re-assigned to plain text
-in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/drive_c/programs/nist/SRCRESLT.TXT`
+in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/dosdevices/c/programs/nist/SRCRESLT.TXT`
 #### Snippet
 ```java
 
@@ -3472,7 +3480,7 @@ in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragmen
 
 ### ReassignedToPlainText
 This file was explicitly re-assigned to plain text
-in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/wine/dosdevices/c/programs/nist/SRCREADY.TXT`
+in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/windows/programs/nist/SRCREADY.TXT`
 #### Snippet
 ```java
 
@@ -3481,14 +3489,6 @@ in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragmen
 ### ReassignedToPlainText
 This file was explicitly re-assigned to plain text
 in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/windows/programs/nist/SRCRESLT.TXT`
-#### Snippet
-```java
-
-```
-
-### ReassignedToPlainText
-This file was explicitly re-assigned to plain text
-in `chemclipse/tests/org.eclipse.chemclipse.msd.identifier.supplier.nist.fragment.test/testData/files/windows/programs/nist/SRCREADY.TXT`
 #### Snippet
 ```java
 
