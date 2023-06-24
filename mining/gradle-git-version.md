@@ -8,8 +8,8 @@ I found 10 bad smells with 3 repairable:
 | DataFlowIssue | 2 | false |
 | TrivialIf | 2 | false |
 | UnusedAssignment | 1 | false |
-| FieldMayBeFinal | 1 | false |
 | NullableProblems | 1 | false |
+| FieldMayBeFinal | 1 | false |
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `processedDescription` is redundant
@@ -24,18 +24,6 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `versionDetails` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
-#### Snippet
-```java
-        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
-        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
-        VersionDetails versionDetails =
-                versionDetailsMap.computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs));
-        return versionDetails;
-```
-
-### UnnecessaryLocalVariable
 Local variable `gitVersion` is redundant
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
 #### Snippet
@@ -45,6 +33,18 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
         String gitVersion = versionDetailsMap
                 .computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs))
                 .getVersion();
+```
+
+### UnnecessaryLocalVariable
+Local variable `versionDetails` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
+#### Snippet
+```java
+        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
+        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
+        VersionDetails versionDetails =
+                versionDetailsMap.computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs));
+        return versionDetails;
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -85,19 +85,6 @@ in `src/main/java/com/palantir/gradle/gitversion/Git.java`
             builder.append(line);
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `nativeGitInvoker` may be 'final'
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
-#### Snippet
-```java
-    private final GitVersionArgs args;
-
-    private Git nativeGitInvoker;
-
-    VersionDetailsImpl(File gitDir, GitVersionArgs args) {
-```
-
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
@@ -111,19 +98,20 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionPlugin.java`
             }
 ```
 
-## RuleId[id=TrivialIf]
-### TrivialIf
-`if` statement can be simplified
-in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `nativeGitInvoker` may be 'final'
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 #### Snippet
 ```java
-        try {
-            String userEmail = runGitCmd("config", "user.email");
-            if (userEmail.isEmpty()) {
-                return false;
-            }
+    private final GitVersionArgs args;
+
+    private Git nativeGitInvoker;
+
+    VersionDetailsImpl(File gitDir, GitVersionArgs args) {
 ```
 
+## RuleId[id=TrivialIf]
 ### TrivialIf
 `if` statement can be simplified
 in `src/main/java/com/palantir/gradle/gitversion/Git.java`
@@ -133,6 +121,18 @@ in `src/main/java/com/palantir/gradle/gitversion/Git.java`
             String result = runGitCmd("status", "--porcelain");
             if (result.isEmpty()) {
                 return true;
+            }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `src/main/java/com/palantir/gradle/gitversion/Git.java`
+#### Snippet
+```java
+        try {
+            String userEmail = runGitCmd("config", "user.email");
+            if (userEmail.isEmpty()) {
+                return false;
             }
 ```
 
