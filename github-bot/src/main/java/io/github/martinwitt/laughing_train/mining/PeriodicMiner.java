@@ -86,7 +86,15 @@ public class PeriodicMiner {
                 mineRandomRepo();
                 return;
             }
+
             if (checkoutResult instanceof ProjectResult.Success success) {
+                String commitHash = success.project().commitHash();
+                if (isAlreadyMined(success, commitHash)) {
+                    logger.atInfo().log(
+                            "Project %s already analyzed with commit hash %s", success.project(), commitHash);
+                    tryDeleteProject(success);
+                    mineRandomRepo();
+                }
                 logger.atInfo().log("Successfully checked out project %s", success.project());
                 var qodanaResult = analyzeProject(success);
                 if (qodanaResult instanceof QodanaResult.Failure failure) {
@@ -109,6 +117,11 @@ public class PeriodicMiner {
             logger.atInfo().log("Mining next repo in 1 minute");
             vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepo()));
         }
+    }
+
+    private boolean isAlreadyMined(ProjectResult.Success success, String commitHash) {
+        return projectRepository.findByProjectUrl(success.project().url()).stream()
+                .anyMatch(it -> !it.getCommitHashes().contains(commitHash));
     }
 
     private ProjectResult checkoutProject(Project project) throws IOException {
