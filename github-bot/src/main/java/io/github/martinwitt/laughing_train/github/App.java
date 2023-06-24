@@ -1,4 +1,4 @@
-package io.github.martinwitt.laughing_train;
+package io.github.martinwitt.laughing_train.github;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,6 +6,11 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.Var;
+import io.github.martinwitt.laughing_train.ChangelogPrinter;
+import io.github.martinwitt.laughing_train.Config;
+import io.github.martinwitt.laughing_train.Constants;
+import io.github.martinwitt.laughing_train.MarkdownPrinter;
+import io.github.martinwitt.laughing_train.UserWhitelist;
 import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.quarkiverse.githubapp.event.Issue;
 import jakarta.inject.Inject;

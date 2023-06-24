@@ -28,7 +28,7 @@ public class ChangelogPrinter {
     @Inject
     Config config;
 
-    String printChangeLog(List<? extends Change> changes) {
+    public String printChangeLog(List<? extends Change> changes) {
         StringBuilder sb = new StringBuilder();
         sb.append("## Changes: \n");
         for (var fix : changes) {

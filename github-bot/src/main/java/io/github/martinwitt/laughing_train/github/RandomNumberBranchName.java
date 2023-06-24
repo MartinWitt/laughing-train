@@ -1,4 +1,4 @@
-package io.github.martinwitt.laughing_train;
+package io.github.martinwitt.laughing_train.github;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.Random;
