@@ -30,7 +30,7 @@ public class ExtraWhiteSpaceCleaner implements GitDiffCleaner {
                         .collect(Collectors.joining(lineEnding));
             }
         }
-        if (endsWithLineEnding && !patch.getDeltas().isEmpty()) {
+        if (endsWithLineEnding && !patch.getDeltas().isEmpty() && !content.endsWith(lineEnding)) {
             content += lineEnding;
         }
         return content;
