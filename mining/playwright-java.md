@@ -1,27 +1,27 @@
 # playwright-java 
  
 # Bad smells
-I found 200 bad smells with 7 repairable:
+I found 205 bad smells with 7 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | JavadocLinkAsPlainText | 48 | false |
-| UNUSED_IMPORT | 32 | false |
-| JavadocDeclaration | 18 | false |
+| UNUSED_IMPORT | 34 | false |
+| JavadocDeclaration | 19 | false |
 | OptionalUsedAsFieldOrParameterType | 16 | false |
 | DuplicatedCode | 14 | false |
 | UNCHECKED_WARNING | 10 | false |
+| AutoCloseableResource | 7 | false |
 | ConstantValue | 6 | false |
-| AutoCloseableResource | 5 | false |
-| UnnecessarySemicolon | 4 | false |
 | DataFlowIssue | 4 | false |
+| UnnecessarySemicolon | 4 | false |
 | PointlessBooleanExpression | 4 | true |
 | RedundantCast | 3 | false |
 | DeprecatedIsStillUsed | 2 | false |
 | FinalPrivateMethod | 2 | false |
 | CatchMayIgnoreException | 2 | false |
 | Deprecation | 2 | false |
-| FinalStaticMethod | 2 | false |
 | TrivialStringConcatenation | 2 | false |
+| FinalStaticMethod | 2 | false |
 | DanglingJavadoc | 2 | false |
 | FieldCanBeLocal | 2 | false |
 | OptionalAssignedToNull | 2 | false |
@@ -68,6 +68,42 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/VideoImpl.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.util.function.Consumer\>' to 'java.util.function.Consumer'
+in `playwright/src/main/java/com/microsoft/playwright/impl/ListenerCollection.java`
+#### Snippet
+```java
+
+    for (Consumer<?> listener: new ArrayList<>(list)) {
+      ((Consumer<T>) listener).accept(param);
+    }
+  }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.function.Predicate'
+in `playwright/src/main/java/com/microsoft/playwright/impl/UrlMatcher.java`
+#### Snippet
+```java
+    }
+    if (object instanceof Predicate) {
+      return new UrlMatcher((Predicate<String>) object);
+    }
+    throw new PlaywrightException("Url must be String, Pattern or Predicate<String>, found: " + object.getClass().getTypeName());
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Class\>' to 'java.lang.Class'
+in `playwright/src/main/java/com/microsoft/playwright/impl/Utils.java`
+#### Snippet
+```java
+      return f;
+    }
+    return convertType(f, (Class<T>) f.getClass());
+  }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Enum' to 'T'
 in `playwright/src/main/java/com/microsoft/playwright/impl/Utils.java`
 #### Snippet
@@ -89,42 +125,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/Utils.java`
       return (T) Enum.valueOf((Class) t, ((Enum) f).name());
     }
 
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Class\>' to 'java.lang.Class'
-in `playwright/src/main/java/com/microsoft/playwright/impl/Utils.java`
-#### Snippet
-```java
-      return f;
-    }
-    return convertType(f, (Class<T>) f.getClass());
-  }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.function.Predicate'
-in `playwright/src/main/java/com/microsoft/playwright/impl/UrlMatcher.java`
-#### Snippet
-```java
-    }
-    if (object instanceof Predicate) {
-      return new UrlMatcher((Predicate<String>) object);
-    }
-    throw new PlaywrightException("Url must be String, Pattern or Predicate<String>, found: " + object.getClass().getTypeName());
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.util.function.Consumer\>' to 'java.util.function.Consumer'
-in `playwright/src/main/java/com/microsoft/playwright/impl/ListenerCollection.java`
-#### Snippet
-```java
-
-    for (Consumer<?> listener: new ArrayList<>(list)) {
-      ((Consumer<T>) listener).accept(param);
-    }
-  }
 ```
 
 ### UNCHECKED_WARNING
@@ -152,6 +152,18 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'com.microsoft.playwright.impl.Waitable\>' to 'com.microsoft.playwright.impl.Waitable'
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+      browserContext.setDefaultTimeoutImpl(0.0);
+      try {
+        runUntil(() -> {}, new WaitableRace<>(asList(context().pause(), (Waitable<JsonElement>) waitableClosedOrCrashed)));
+      } finally {
+        browserContext.setDefaultNavigationTimeoutImpl(defaultNavigationTimeout);
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.List' to 'java.util.Collection\>'
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
@@ -161,18 +173,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
     return new WaitableRace<T>(asList(new WaitablePageClose(), new WaitablePageCrash()));
   }
 
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'com.microsoft.playwright.impl.Waitable\>' to 'com.microsoft.playwright.impl.Waitable'
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-  public void pause() {
-    withLogging("Page.pause", () -> {
-      runUntil(() -> {}, new WaitableRace<>(asList(context().pause(), (Waitable<JsonElement>) waitableClosedOrCrashed)));
-    });
-  }
 ```
 
 ## RuleId[id=JavadocReference]
@@ -186,55 +186,6 @@ in `playwright/src/main/java/com/microsoft/playwright/assertions/PlaywrightAsser
    * @param timeout Timeout in milliseconds.
    * @since v1.25
    */
-```
-
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorUtils.java`
-#### Snippet
-```java
-
-public class LocatorUtils {
-  private static volatile String testIdAttributeName = "data-testid";;
-
-  static void setTestIdAttributeName(String name) {
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `playwright/src/main/java/com/microsoft/playwright/impl/StackTraceCollector.java`
-#### Snippet
-```java
-    while (index < stack.length && !stack[index].getClassName().equals(getClass().getName())) {
-      index++;
-    };
-    // Find Playwright API call
-    while (index < stack.length && stack[index].getClassName().startsWith("com.microsoft.playwright.")) {
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-      Predicate<Request> requestPredicate = predicate;
-      if (requestPredicate == null) {
-        requestPredicate = request -> urlMatcher.test(request.url());;
-      }
-      return waitForRequestImpl(requestPredicate, options, code);
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-      Predicate<Response> responsePredicate = predicate;
-      if (responsePredicate == null) {
-        responsePredicate = response -> urlMatcher.test(response.url());;
-      }
-      return waitForResponseImpl(responsePredicate, options, code);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -267,6 +218,18 @@ Method invocation `test` may produce `NullPointerException`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
+      Predicate<Response> responsePredicate = predicate;
+      if (responsePredicate == null) {
+        responsePredicate = response -> urlMatcher.test(response.url());;
+      }
+      return waitForResponseImpl(responsePredicate, options, code);
+```
+
+### DataFlowIssue
+Method invocation `test` may produce `NullPointerException`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
       Predicate<Request> requestPredicate = predicate;
       if (requestPredicate == null) {
         requestPredicate = request -> urlMatcher.test(request.url());;
@@ -274,8 +237,33 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
       return waitForRequestImpl(requestPredicate, options, code);
 ```
 
-### DataFlowIssue
-Method invocation `test` may produce `NullPointerException`
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorUtils.java`
+#### Snippet
+```java
+
+public class LocatorUtils {
+  private static volatile String testIdAttributeName = "data-testid";;
+
+  static void setTestIdAttributeName(String name) {
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `playwright/src/main/java/com/microsoft/playwright/impl/StackTraceCollector.java`
+#### Snippet
+```java
+    while (index < stack.length && !stack[index].getClassName().equals(getClass().getName())) {
+      index++;
+    };
+    // Find Playwright API call
+    while (index < stack.length && stack[index].getClassName().startsWith("com.microsoft.playwright.")) {
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
@@ -284,6 +272,18 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
         responsePredicate = response -> urlMatcher.test(response.url());;
       }
       return waitForResponseImpl(responsePredicate, options, code);
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+      Predicate<Request> requestPredicate = predicate;
+      if (requestPredicate == null) {
+        requestPredicate = request -> urlMatcher.test(request.url());;
+      }
+      return waitForRequestImpl(requestPredicate, options, code);
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -327,18 +327,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorImpl.java`
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'setChannel' is still used
-in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
-#### Snippet
-```java
-     * href="https://playwright.dev/java/docs/browsers#google-chrome--microsoft-edge">Google Chrome and Microsoft Edge</a>.
-     */
-    public LaunchOptions setChannel(BrowserChannel channel) {
-      this.channel = channel;
-      return this;
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'BrowserChannel' is still used
 in `playwright/src/main/java/com/microsoft/playwright/options/BrowserChannel.java`
 #### Snippet
@@ -348,6 +336,18 @@ in `playwright/src/main/java/com/microsoft/playwright/options/BrowserChannel.jav
 public enum BrowserChannel {
   CHROME,
   CHROME_BETA,
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'setChannel' is still used
+in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
+#### Snippet
+```java
+     * href="https://playwright.dev/java/docs/browsers#google-chrome--microsoft-edge">Google Chrome and Microsoft Edge</a>.
+     */
+    public LaunchOptions setChannel(BrowserChannel channel) {
+      this.channel = channel;
+      return this;
 ```
 
 ## RuleId[id=FinalPrivateMethod]
@@ -360,7 +360,7 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.ja
   PageImpl ownerPage;
   private static final Map<EventType, String> eventSubscriptions() {
     Map<EventType, String> result = new HashMap<>();
-    result.put(EventType.REQUEST, "request");
+    result.put(EventType.CONSOLE, "console");
 ```
 
 ### FinalPrivateMethod
@@ -372,7 +372,7 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
   private final Set<FrameImpl> frames = new LinkedHashSet<>();
   private static final Map<EventType, String> eventSubscriptions() {
     Map<EventType, String> result = new HashMap<>();
-    result.put(EventType.REQUEST, "request");
+    result.put(EventType.CONSOLE, "console");
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -403,6 +403,8 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.ja
 #### Snippet
 ```java
     Map<EventType, String> result = new HashMap<>();
+    result.put(EventType.CONSOLE, "console");
+    result.put(EventType.DIALOG, "dialog");
     result.put(EventType.REQUEST, "request");
     result.put(EventType.RESPONSE, "response");
     result.put(EventType.REQUESTFINISHED, "requestFinished");
@@ -638,7 +640,7 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/VideoImpl.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.java`
 #### Snippet
 ```java
           try {
@@ -673,44 +675,7 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/Serialization.java`
     .registerTypeAdapter(Media.class, new ToLowerCaseSerializer<Media>())
 ```
 
-## RuleId[id=FinalStaticMethod]
-### FinalStaticMethod
-'static' method declared `final`
-in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.java`
-#### Snippet
-```java
-  final Map<String, BindingCallback> bindings = new HashMap<>();
-  PageImpl ownerPage;
-  private static final Map<EventType, String> eventSubscriptions() {
-    Map<EventType, String> result = new HashMap<>();
-    result.put(EventType.REQUEST, "request");
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
-#### Snippet
-```java
-  private final Router routes = new Router();
-  private final Set<FrameImpl> frames = new LinkedHashSet<>();
-  private static final Map<EventType, String> eventSubscriptions() {
-    Map<EventType, String> result = new HashMap<>();
-    result.put(EventType.REQUEST, "request");
-```
-
 ## RuleId[id=TrivialStringConcatenation]
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `playwright/src/main/java/com/microsoft/playwright/impl/APIRequestContextImpl.java`
-#### Snippet
-```java
-      Map<String, String> queryParams = new LinkedHashMap<>();
-      for (Map.Entry<String, ?> e : options.params.entrySet()) {
-        queryParams.put(e.getKey(), "" + e.getValue());
-      }
-      params.add("params", toNameValueArray(queryParams));
-```
-
 ### TrivialStringConcatenation
 Empty string used in concatenation
 in `playwright/src/main/java/com/microsoft/playwright/impl/APIRequestContextImpl.java`
@@ -721,6 +686,18 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/APIRequestContextImpl
         item.addProperty("value", "" + e.getValue());
       } else {
         item.add("file", toProtocol(filePayload));
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `playwright/src/main/java/com/microsoft/playwright/impl/APIRequestContextImpl.java`
+#### Snippet
+```java
+      Map<String, String> queryParams = new LinkedHashMap<>();
+      for (Map.Entry<String, ?> e : options.params.entrySet()) {
+        queryParams.put(e.getKey(), "" + e.getValue());
+      }
+      params.add("params", toNameValueArray(queryParams));
 ```
 
 ## RuleId[id=SimplifiableConditionalExpression]
@@ -734,6 +711,31 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/APIResponseAssertions
     boolean isTextEncoding = contentType == null ? false : isTextualMimeType(contentType);
     String responseText = "";
     if (isTextEncoding) {
+```
+
+## RuleId[id=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.java`
+#### Snippet
+```java
+  final Map<String, BindingCallback> bindings = new HashMap<>();
+  PageImpl ownerPage;
+  private static final Map<EventType, String> eventSubscriptions() {
+    Map<EventType, String> result = new HashMap<>();
+    result.put(EventType.CONSOLE, "console");
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
+#### Snippet
+```java
+  private final Router routes = new Router();
+  private final Set<FrameImpl> frames = new LinkedHashSet<>();
+  private static final Map<EventType, String> eventSubscriptions() {
+    Map<EventType, String> result = new HashMap<>();
+    result.put(EventType.CONSOLE, "console");
 ```
 
 ## RuleId[id=DanglingJavadoc]
@@ -775,66 +777,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/Connection.java`
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Worker.java`
-#### Snippet
-```java
-   *
-   * <p> If the function passed to the {@link Worker#evaluateHandle Worker.evaluateHandle()} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Worker#evaluateHandle Worker.evaluateHandle()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Worker.java`
-#### Snippet
-```java
-   *
-   * <p> If the function passed to the {@link Worker#evaluate Worker.evaluate()} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Worker#evaluate Worker.evaluate()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Worker.java`
-#### Snippet
-```java
-   *
-   * <p> If the function passed to the {@link Worker#evaluateHandle Worker.evaluateHandle()} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Worker#evaluateHandle Worker.evaluateHandle()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Worker.java`
-#### Snippet
-```java
-   *
-   * <p> If the function passed to the {@link Worker#evaluate Worker.evaluate()} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Worker#evaluate Worker.evaluate()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/BrowserContext.java`
-#### Snippet
-```java
-
-    /**
-     * The [origin] to grant permissions to, e.g. "https://example.com".
-     */
-    public GrantPermissionsOptions setOrigin(String origin) {
-```
-
 ### JavadocLinkAsPlainText
 Link specified as plain text
 in `playwright/src/main/java/com/microsoft/playwright/BrowserContext.java`
@@ -897,6 +839,162 @@ in `playwright/src/main/java/com/microsoft/playwright/BrowserContext.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/BrowserContext.java`
+#### Snippet
+```java
+
+    /**
+     * The [origin] to grant permissions to, e.g. "https://example.com".
+     */
+    public GrantPermissionsOptions setOrigin(String origin) {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Worker.java`
+#### Snippet
+```java
+   *
+   * <p> If the function passed to the {@link Worker#evaluateHandle Worker.evaluateHandle()} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Worker#evaluateHandle Worker.evaluateHandle()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Worker.java`
+#### Snippet
+```java
+   *
+   * <p> If the function passed to the {@link Worker#evaluate Worker.evaluate()} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Worker#evaluate Worker.evaluate()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Worker.java`
+#### Snippet
+```java
+   *
+   * <p> If the function passed to the {@link Worker#evaluateHandle Worker.evaluateHandle()} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Worker#evaluateHandle Worker.evaluateHandle()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Worker.java`
+#### Snippet
+```java
+   *
+   * <p> If the function passed to the {@link Worker#evaluate Worker.evaluate()} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Worker#evaluate Worker.evaluate()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
+   * will wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
+   * will wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
+   * will wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
+   * will wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
+   * will wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
+   * will wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
+   * will wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
+   * will wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `playwright/src/main/java/com/microsoft/playwright/ElementHandle.java`
 #### Snippet
 ```java
@@ -961,30 +1059,6 @@ in `playwright/src/main/java/com/microsoft/playwright/JSHandle.java`
 #### Snippet
 ```java
    *
-   * <p> If the function passed to the {@code jsHandle.evaluateHandle} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@code
-   * jsHandle.evaluateHandle} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/JSHandle.java`
-#### Snippet
-```java
-   *
-   * <p> If the function passed to the {@code jsHandle.evaluateHandle} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@code
-   * jsHandle.evaluateHandle} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/JSHandle.java`
-#### Snippet
-```java
-   *
    * <p> If {@code expression} returns a <a
    * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@code
    * handle.evaluate} would wait for the promise to resolve and return its value.
@@ -993,205 +1067,61 @@ in `playwright/src/main/java/com/microsoft/playwright/JSHandle.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+in `playwright/src/main/java/com/microsoft/playwright/JSHandle.java`
 #### Snippet
 ```java
    *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
-   * will wait for the promise to resolve and return its value.
+   * <p> If the function passed to the {@code jsHandle.evaluateHandle} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@code
+   * jsHandle.evaluateHandle} would wait for the promise to resolve and return its value.
    *
 ```
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+in `playwright/src/main/java/com/microsoft/playwright/JSHandle.java`
 #### Snippet
 ```java
    *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
-   * will wait for the promise to resolve and return its value.
+   * <p> If the function passed to the {@code jsHandle.evaluateHandle} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@code
+   * jsHandle.evaluateHandle} would wait for the promise to resolve and return its value.
    *
 ```
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
 #### Snippet
 ```java
    *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
-   * will wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
-   * will wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
-   * will wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
-   * will wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
-   * will wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, this method
-   * will wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
+   * <p> If the function passed to the {@link Page#evaluate Page.evaluate()} returns a <a
    * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Frame#evalOnSelectorAll Frame.evalOnSelectorAll()} would wait for the promise to resolve and return its value.
+   * Page#evaluate Page.evaluate()} would wait for the promise to resolve and return its value.
    *
 ```
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
 #### Snippet
 ```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Frame#evalOnSelector Frame.evalOnSelector()} would wait for the promise to resolve and return its value.
+   * The method adds a function called {@code name} on the {@code window} object of every frame in the page. When called, the
+   * function executes {@code callback} and returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a> which
+   * resolves to the return value of {@code callback}.
    *
 ```
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
 #### Snippet
 ```java
    *
-   * <p> If the function passed to the {@link Frame#evaluate Frame.evaluate()} returns a <a
+   * <p> If the function passed to the {@link Page#evaluateHandle Page.evaluateHandle()} returns a <a
    * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Frame#evaluate Frame.evaluate()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Frame#evalOnSelectorAll Frame.evalOnSelectorAll()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
-#### Snippet
-```java
-   *
-   * <p> If the function, passed to the {@link Frame#evaluateHandle Frame.evaluateHandle()}, returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Frame#evaluateHandle Frame.evaluateHandle()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
-#### Snippet
-```java
-   *
-   * <p> If the function passed to the {@link Frame#evaluate Frame.evaluate()} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Frame#evaluate Frame.evaluate()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Frame#evalOnSelector Frame.evalOnSelector()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
-#### Snippet
-```java
-   *
-   * <p> If the function, passed to the {@link Frame#evaluateHandle Frame.evaluateHandle()}, returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Frame#evaluateHandle Frame.evaluateHandle()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Frame#evalOnSelector Frame.evalOnSelector()} would wait for the promise to resolve and return its value.
+   * Page#evaluateHandle Page.evaluateHandle()} would wait for the promise to resolve and return its value.
    *
 ```
 
@@ -1215,8 +1145,44 @@ in `playwright/src/main/java/com/microsoft/playwright/Page.java`
    *
    * <p> If {@code expression} returns a <a
    * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Page#evalOnSelectorAll Page.evalOnSelectorAll()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
    * Page#evalOnSelector Page.evalOnSelector()} would wait for the promise to resolve and return its value.
    *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Page#evalOnSelectorAll Page.evalOnSelectorAll()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+#### Snippet
+```java
+   * The method adds a function called {@code name} on the {@code window} object of every frame in this page. When called,
+   * the function executes {@code callback} and returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a> which
+   * resolves to the return value of {@code callback}. If the {@code callback} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, it will be
 ```
 
 ### JavadocLinkAsPlainText
@@ -1248,106 +1214,142 @@ Link specified as plain text
 in `playwright/src/main/java/com/microsoft/playwright/Page.java`
 #### Snippet
 ```java
-   * The method adds a function called {@code name} on the {@code window} object of every frame in the page. When called, the
-   * function executes {@code callback} and returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a> which
-   * resolves to the return value of {@code callback}.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
-   *
-   * <p> If the function passed to the {@link Page#evaluate Page.evaluate()} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Page#evaluate Page.evaluate()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
-   * The method adds a function called {@code name} on the {@code window} object of every frame in this page. When called,
-   * the function executes {@code callback} and returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a> which
-   * resolves to the return value of {@code callback}. If the {@code callback} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, it will be
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
-   * The method adds a function called {@code name} on the {@code window} object of every frame in this page. When called,
-   * the function executes {@code callback} and returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a> which
-   * resolves to the return value of {@code callback}. If the {@code callback} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, it will be
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
-   *
-   * <p> If the function passed to the {@link Page#evaluate Page.evaluate()} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Page#evaluate Page.evaluate()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Page#evalOnSelectorAll Page.evalOnSelectorAll()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
-   *
-   * <p> If {@code expression} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Page#evalOnSelectorAll Page.evalOnSelectorAll()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
-   *
-   * <p> If the function passed to the {@link Page#evaluateHandle Page.evaluateHandle()} returns a <a
-   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
-   * Page#evaluateHandle Page.evaluateHandle()} would wait for the promise to resolve and return its value.
-   *
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
    *
    * <p> If {@code expression} returns a <a
    * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
    * Page#evalOnSelector Page.evalOnSelector()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+#### Snippet
+```java
+   * The method adds a function called {@code name} on the {@code window} object of every frame in this page. When called,
+   * the function executes {@code callback} and returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a> which
+   * resolves to the return value of {@code callback}. If the {@code callback} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, it will be
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+#### Snippet
+```java
+   *
+   * <p> If the function passed to the {@link Page#evaluate Page.evaluate()} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Page#evaluate Page.evaluate()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+#### Snippet
+```java
+   *
+   * <p> If the function passed to the {@link Frame#evaluate Frame.evaluate()} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Frame#evaluate Frame.evaluate()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+#### Snippet
+```java
+   *
+   * <p> If the function passed to the {@link Frame#evaluate Frame.evaluate()} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Frame#evaluate Frame.evaluate()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Frame#evalOnSelectorAll Frame.evalOnSelectorAll()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Frame#evalOnSelector Frame.evalOnSelector()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Frame#evalOnSelector Frame.evalOnSelector()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+#### Snippet
+```java
+   *
+   * <p> If the function, passed to the {@link Frame#evaluateHandle Frame.evaluateHandle()}, returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Frame#evaluateHandle Frame.evaluateHandle()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Frame#evalOnSelector Frame.evalOnSelector()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+#### Snippet
+```java
+   *
+   * <p> If {@code expression} returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Frame#evalOnSelectorAll Frame.evalOnSelectorAll()} would wait for the promise to resolve and return its value.
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `playwright/src/main/java/com/microsoft/playwright/Frame.java`
+#### Snippet
+```java
+   *
+   * <p> If the function, passed to the {@link Frame#evaluateHandle Frame.evaluateHandle()}, returns a <a
+   * href='https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise'>Promise</a>, then {@link
+   * Frame#evaluateHandle Frame.evaluateHandle()} would wait for the promise to resolve and return its value.
    *
 ```
 
@@ -1404,20 +1406,8 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/JsonPipe.java`
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'forcedColors'
-in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
-#### Snippet
-```java
-     * Defaults to {@code "none"}.
-     */
-    public Optional<ForcedColors> forcedColors;
-    public Geolocation geolocation;
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'viewportSize'
-in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
+in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
 #### Snippet
 ```java
      * operating system. It makes the execution of the tests non-deterministic.
@@ -1429,7 +1419,7 @@ in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for field 'reducedMotion'
-in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
+in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
 #### Snippet
 ```java
      * defaults. Defaults to {@code "no-preference"}.
@@ -1437,30 +1427,6 @@ in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
     public Optional<ReducedMotion> reducedMotion;
     /**
      * Emulates consistent window screen size available inside web page via {@code window.screen}. Is only used when the {@code
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'colorScheme'
-in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
-#### Snippet
-```java
-     * emulation to system defaults. Defaults to {@code "light"}.
-     */
-    public Optional<ColorScheme> colorScheme;
-    /**
-     * Specify device scale factor (can be thought of as dpr). Defaults to {@code 1}. Learn more about <a
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'colorScheme'
-in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
-#### Snippet
-```java
-     * emulation to system defaults. Defaults to {@code "light"}.
-     */
-    public Optional<ColorScheme> colorScheme;
-    /**
-     * Specify device scale factor (can be thought of as dpr). Defaults to {@code 1}. Learn more about <a
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1500,39 +1466,15 @@ in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'viewportSize'
+`Optional` used as type for field 'colorScheme'
 in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
 #### Snippet
 ```java
-     * operating system. It makes the execution of the tests non-deterministic.
+     * emulation to system defaults. Defaults to {@code "light"}.
      */
-    public Optional<ViewportSize> viewportSize;
-
+    public Optional<ColorScheme> colorScheme;
     /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'viewportSize'
-in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
-#### Snippet
-```java
-     * operating system. It makes the execution of the tests non-deterministic.
-     */
-    public Optional<ViewportSize> viewportSize;
-
-    /**
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'reducedMotion'
-in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
-#### Snippet
-```java
-     * defaults. Defaults to {@code "no-preference"}.
-     */
-    public Optional<ReducedMotion> reducedMotion;
-    /**
-     * Emulates consistent window screen size available inside web page via {@code window.screen}. Is only used when the {@code
+     * Specify device scale factor (can be thought of as dpr). Defaults to {@code 1}. Learn more about <a
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1548,27 +1490,15 @@ in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'forcedColors'
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+`Optional` used as type for field 'viewportSize'
+in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
 #### Snippet
 ```java
-     * null} disables forced colors emulation.
+     * operating system. It makes the execution of the tests non-deterministic.
      */
-    public Optional<ForcedColors> forcedColors;
-    /**
-     * Changes the CSS media type of the page. The only allowed values are {@code "screen"}, {@code "print"} and {@code null}.
-```
+    public Optional<ViewportSize> viewportSize;
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'media'
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
-     * Passing {@code null} disables CSS media emulation.
-     */
-    public Optional<Media> media;
     /**
-     * Emulates {@code "prefers-reduced-motion"} media feature, supported values are {@code "reduce"}, {@code "no-preference"}.
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -1595,17 +1525,138 @@ in `playwright/src/main/java/com/microsoft/playwright/Page.java`
     /**
 ```
 
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'media'
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+#### Snippet
+```java
+     * Passing {@code null} disables CSS media emulation.
+     */
+    public Optional<Media> media;
+    /**
+     * Emulates {@code "prefers-reduced-motion"} media feature, supported values are {@code "reduce"}, {@code "no-preference"}.
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'forcedColors'
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+#### Snippet
+```java
+     * null} disables forced colors emulation.
+     */
+    public Optional<ForcedColors> forcedColors;
+    /**
+     * Changes the CSS media type of the page. The only allowed values are {@code "screen"}, {@code "print"} and {@code null}.
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'viewportSize'
+in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
+#### Snippet
+```java
+     * operating system. It makes the execution of the tests non-deterministic.
+     */
+    public Optional<ViewportSize> viewportSize;
+
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'colorScheme'
+in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
+#### Snippet
+```java
+     * emulation to system defaults. Defaults to {@code "light"}.
+     */
+    public Optional<ColorScheme> colorScheme;
+    /**
+     * Specify device scale factor (can be thought of as dpr). Defaults to {@code 1}. Learn more about <a
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'forcedColors'
+in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
+#### Snippet
+```java
+     * Defaults to {@code "none"}.
+     */
+    public Optional<ForcedColors> forcedColors;
+    public Geolocation geolocation;
+    /**
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'reducedMotion'
+in `playwright/src/main/java/com/microsoft/playwright/BrowserType.java`
+#### Snippet
+```java
+     * defaults. Defaults to {@code "no-preference"}.
+     */
+    public Optional<ReducedMotion> reducedMotion;
+    /**
+     * Emulates consistent window screen size available inside web page via {@code window.screen}. Is only used when the {@code
+```
+
+## RuleId[id=OptionalAssignedToNull]
+### OptionalAssignedToNull
+Optional value is compared with null
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserTypeImpl.java`
+#### Snippet
+```java
+      throw new PlaywrightException("recordVideoSize is set but recordVideoDir is null");
+    }
+    if (options.viewportSize != null) {
+      if (options.viewportSize.isPresent()) {
+        JsonElement size = params.get("viewportSize");
+```
+
+### OptionalAssignedToNull
+Optional value is compared with null
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserImpl.java`
+#### Snippet
+```java
+      throw new PlaywrightException("recordVideoSize is set but recordVideoDir is null");
+    }
+    if (options.viewportSize != null) {
+      if (options.viewportSize.isPresent()) {
+        JsonElement size = params.get("viewportSize");
+```
+
 ## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
 'PageImpl' used without 'try'-with-resources statement
-in `playwright/src/main/java/com/microsoft/playwright/impl/RouteImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.java`
 #### Snippet
 ```java
-      options.timeout = fetchOptions.timeout;
-    }
-    APIRequestContextImpl apiRequest = request.frame().page().context().request();
-    String url = (fetchOptions == null || fetchOptions.url == null) ? request().url() : fetchOptions.url;
-    return apiRequest.fetch(url, options);
+        listeners.notify(EventType.DIALOG, dialog);
+      }
+      PageImpl page = dialog.page();
+      if (page != null) {
+        if (page.listeners.hasListeners(PageImpl.EventType.DIALOG)) {
+```
+
+### AutoCloseableResource
+'PageImpl' used without 'try'-with-resources statement
+in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserContextImpl.java`
+#### Snippet
+```java
+      ConsoleMessageImpl message = connection.getExistingObject(guid);
+      listeners.notify(BrowserContextImpl.EventType.CONSOLE, message);
+      PageImpl page = message.page();
+      if (page != null) {
+        page.listeners.notify(PageImpl.EventType.CONSOLE, message);
+```
+
+### AutoCloseableResource
+'PageImpl' used without 'try'-with-resources statement
+in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+#### Snippet
+```java
+      }
+      JsonObject params = gson().toJsonTree(options).getAsJsonObject();
+      addLargeFileUploadParams(files, params, frame.page().context());
+      sendMessage("setInputFilePaths", params);
+    } else {
 ```
 
 ### AutoCloseableResource
@@ -1622,14 +1673,14 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/BindingCall.java`
 
 ### AutoCloseableResource
 'PageImpl' used without 'try'-with-resources statement
-in `playwright/src/main/java/com/microsoft/playwright/impl/ElementHandleImpl.java`
+in `playwright/src/main/java/com/microsoft/playwright/impl/RouteImpl.java`
 #### Snippet
 ```java
-      }
-      JsonObject params = gson().toJsonTree(options).getAsJsonObject();
-      addLargeFileUploadParams(files, params, frame.page().context());
-      sendMessage("setInputFilePaths", params);
-    } else {
+      options.timeout = fetchOptions.timeout;
+    }
+    APIRequestContextImpl apiRequest = request.frame().page().context().request();
+    String url = (fetchOptions == null || fetchOptions.url == null) ? request().url() : fetchOptions.url;
+    return apiRequest.fetch(url, options);
 ```
 
 ### AutoCloseableResource
@@ -1649,36 +1700,11 @@ in `driver-bundle/src/main/java/com/microsoft/playwright/impl/driver/jar/DriverJ
 in `playwright/src/main/java/com/microsoft/playwright/impl/PageImpl.java`
 #### Snippet
 ```java
-  public void pause() {
-    withLogging("Page.pause", () -> {
-      runUntil(() -> {}, new WaitableRace<>(asList(context().pause(), (Waitable<JsonElement>) waitableClosedOrCrashed)));
-    });
-  }
-```
-
-## RuleId[id=OptionalAssignedToNull]
-### OptionalAssignedToNull
-Optional value is compared with null
-in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserImpl.java`
-#### Snippet
-```java
-      throw new PlaywrightException("recordVideoSize is set but recordVideoDir is null");
-    }
-    if (options.viewportSize != null) {
-      if (options.viewportSize.isPresent()) {
-        JsonElement size = params.get("viewportSize");
-```
-
-### OptionalAssignedToNull
-Optional value is compared with null
-in `playwright/src/main/java/com/microsoft/playwright/impl/BrowserTypeImpl.java`
-#### Snippet
-```java
-      throw new PlaywrightException("recordVideoSize is set but recordVideoDir is null");
-    }
-    if (options.viewportSize != null) {
-      if (options.viewportSize.isPresent()) {
-        JsonElement size = params.get("viewportSize");
+      browserContext.setDefaultTimeoutImpl(0.0);
+      try {
+        runUntil(() -> {}, new WaitableRace<>(asList(context().pause(), (Waitable<JsonElement>) waitableClosedOrCrashed)));
+      } finally {
+        browserContext.setDefaultNavigationTimeoutImpl(defaultNavigationTimeout);
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -1791,6 +1817,18 @@ import java.util.function.Supplier;
 ```
 
 ### UNUSED_IMPORT
+Unused import `import com.microsoft.playwright.Page;`
+in `playwright/src/main/java/com/microsoft/playwright/impl/ConsoleMessageImpl.java`
+#### Snippet
+```java
+import com.microsoft.playwright.ConsoleMessage;
+import com.microsoft.playwright.JSHandle;
+import com.microsoft.playwright.Page;
+
+import java.util.ArrayList;
+```
+
+### UNUSED_IMPORT
 Unused import `import static com.microsoft.playwright.impl.Serialization.gson;`
 in `playwright/src/main/java/com/microsoft/playwright/impl/ConsoleMessageImpl.java`
 #### Snippet
@@ -1800,6 +1838,18 @@ import java.util.List;
 import static com.microsoft.playwright.impl.Serialization.gson;
 
 public class ConsoleMessageImpl extends ChannelOwner implements ConsoleMessage {
+```
+
+### UNUSED_IMPORT
+Unused import `import com.microsoft.playwright.Page;`
+in `playwright/src/main/java/com/microsoft/playwright/impl/DialogImpl.java`
+#### Snippet
+```java
+import com.google.gson.JsonObject;
+import com.microsoft.playwright.Dialog;
+import com.microsoft.playwright.Page;
+
+class DialogImpl extends ChannelOwner implements Dialog {
 ```
 
 ### UNUSED_IMPORT
@@ -2073,7 +2123,7 @@ in `playwright/src/main/java/com/microsoft/playwright/assertions/LocatorAssertio
 #### Snippet
 ```java
    */
-  default void hasAttribute(String name, Pattern value) {
+  default void hasAttribute(String name, String value) {
     hasAttribute(name, value, (HasAttributeOptions) null);
   }
   /**
@@ -2085,7 +2135,7 @@ in `playwright/src/main/java/com/microsoft/playwright/assertions/LocatorAssertio
 #### Snippet
 ```java
    */
-  default void hasAttribute(String name, String value) {
+  default void hasAttribute(String name, Pattern value) {
     hasAttribute(name, value, (HasAttributeOptions) null);
   }
   /**
@@ -2109,10 +2159,10 @@ Javadoc pointing to itself
 in `playwright/src/main/java/com/microsoft/playwright/BrowserContext.java`
 #### Snippet
 ```java
-   *
-   * <p> <strong>NOTE:</strong> {@link Page#setDefaultNavigationTimeout Page.setDefaultNavigationTimeout()} and {@link Page#setDefaultTimeout
-   * Page.setDefaultTimeout()} take priority over {@link BrowserContext#setDefaultNavigationTimeout
-   * BrowserContext.setDefaultNavigationTimeout()}.
+   * <p> <strong>NOTE:</strong> {@link Page#setDefaultNavigationTimeout Page.setDefaultNavigationTimeout()}, {@link Page#setDefaultTimeout
+   * Page.setDefaultTimeout()} and {@link BrowserContext#setDefaultNavigationTimeout
+   * BrowserContext.setDefaultNavigationTimeout()} take priority over {@link BrowserContext#setDefaultTimeout
+   * BrowserContext.setDefaultTimeout()}.
    *
 ```
 
@@ -2133,10 +2183,22 @@ Javadoc pointing to itself
 in `playwright/src/main/java/com/microsoft/playwright/BrowserContext.java`
 #### Snippet
 ```java
-   * <p> <strong>NOTE:</strong> {@link Page#setDefaultNavigationTimeout Page.setDefaultNavigationTimeout()}, {@link Page#setDefaultTimeout
-   * Page.setDefaultTimeout()} and {@link BrowserContext#setDefaultNavigationTimeout
-   * BrowserContext.setDefaultNavigationTimeout()} take priority over {@link BrowserContext#setDefaultTimeout
-   * BrowserContext.setDefaultTimeout()}.
+   * }</pre>
+   *
+   * <p> <strong>NOTE:</strong> When no {@link Page#onDialog Page.onDialog()} or {@link BrowserContext#onDialog BrowserContext.onDialog()} listeners are
+   * present, all dialogs are automatically dismissed.
+   */
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `playwright/src/main/java/com/microsoft/playwright/BrowserContext.java`
+#### Snippet
+```java
+   *
+   * <p> <strong>NOTE:</strong> {@link Page#setDefaultNavigationTimeout Page.setDefaultNavigationTimeout()} and {@link Page#setDefaultTimeout
+   * Page.setDefaultTimeout()} take priority over {@link BrowserContext#setDefaultNavigationTimeout
+   * BrowserContext.setDefaultNavigationTimeout()}.
    *
 ```
 
@@ -2162,18 +2224,6 @@ in `playwright/src/main/java/com/microsoft/playwright/Browser.java`
    * Browser.newContext()} **before** calling {@link Browser#close Browser.close()}.
    *
    * <p> The {@code Browser} object itself is considered to be disposed and cannot be used anymore.
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `playwright/src/main/java/com/microsoft/playwright/Keyboard.java`
-#### Snippet
-```java
-   * will be sent with that modifier active. To release the modifier key, use {@link Keyboard#up Keyboard.up()}.
-   *
-   * <p> After the key is pressed once, subsequent calls to {@link Keyboard#down Keyboard.down()} will have <a
-   * href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/repeat">repeat</a> set to true. To release the key,
-   * use {@link Keyboard#up Keyboard.up()}.
 ```
 
 ### JavadocDeclaration
@@ -2226,26 +2276,14 @@ in `playwright/src/main/java/com/microsoft/playwright/Locator.java`
 
 ### JavadocDeclaration
 Javadoc pointing to itself
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+in `playwright/src/main/java/com/microsoft/playwright/Keyboard.java`
 #### Snippet
 ```java
-   * The extra HTTP headers will be sent with every request the page initiates.
+   * will be sent with that modifier active. To release the modifier key, use {@link Keyboard#up Keyboard.up()}.
    *
-   * <p> <strong>NOTE:</strong> {@link Page#setExtraHTTPHeaders Page.setExtraHTTPHeaders()} does not guarantee the order of headers in the outgoing
-   * requests.
-   *
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
-   * This setting will change the default maximum time for all the methods accepting {@code timeout} option.
-   *
-   * <p> <strong>NOTE:</strong> {@link Page#setDefaultNavigationTimeout Page.setDefaultNavigationTimeout()} takes priority over {@link
-   * Page#setDefaultTimeout Page.setDefaultTimeout()}.
-   *
+   * <p> After the key is pressed once, subsequent calls to {@link Keyboard#down Keyboard.down()} will have <a
+   * href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/repeat">repeat</a> set to true. To release the key,
+   * use {@link Keyboard#up Keyboard.up()}.
 ```
 
 ### JavadocDeclaration
@@ -2258,6 +2296,18 @@ in `playwright/src/main/java/com/microsoft/playwright/Page.java`
    * <p> <strong>NOTE:</strong> Functions installed via {@link Page#exposeFunction Page.exposeFunction()} survive navigations.
    *
    * <p> **Usage**
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+#### Snippet
+```java
+   * This setting will change the default maximum time for all the methods accepting {@code timeout} option.
+   *
+   * <p> <strong>NOTE:</strong> {@link Page#setDefaultNavigationTimeout Page.setDefaultNavigationTimeout()} takes priority over {@link
+   * Page#setDefaultTimeout Page.setDefaultTimeout()}.
+   *
 ```
 
 ### JavadocDeclaration
@@ -2289,18 +2339,6 @@ Javadoc pointing to itself
 in `playwright/src/main/java/com/microsoft/playwright/Page.java`
 #### Snippet
 ```java
-   * }</pre>
-   *
-   * <p> <strong>NOTE:</strong> When no {@link Page#onDialog Page.onDialog()} listeners are present, all dialogs are automatically dismissed.
-   */
-  void onDialog(Consumer<Dialog> handler);
-```
-
-### JavadocDeclaration
-Javadoc pointing to itself
-in `playwright/src/main/java/com/microsoft/playwright/Page.java`
-#### Snippet
-```java
    * Browser#newContext Browser.newContext()} allows to set viewport size (and more) for all pages in the context at once.
    *
    * <p> {@link Page#setViewportSize Page.setViewportSize()} will resize the page. A lot of websites don't expect phones to
@@ -2318,6 +2356,30 @@ in `playwright/src/main/java/com/microsoft/playwright/Page.java`
    * change size, so you should set the viewport size before navigating to the page. {@link Page#setViewportSize
    * Page.setViewportSize()} will also reset {@code screen} size, use {@link Browser#newContext Browser.newContext()} with
    * {@code screen} and {@code viewport} parameters if you need better control of these properties.
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+#### Snippet
+```java
+   * The extra HTTP headers will be sent with every request the page initiates.
+   *
+   * <p> <strong>NOTE:</strong> {@link Page#setExtraHTTPHeaders Page.setExtraHTTPHeaders()} does not guarantee the order of headers in the outgoing
+   * requests.
+   *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `playwright/src/main/java/com/microsoft/playwright/Page.java`
+#### Snippet
+```java
+   * }</pre>
+   *
+   * <p> <strong>NOTE:</strong> When no {@link Page#onDialog Page.onDialog()} or {@link BrowserContext#onDialog BrowserContext.onDialog()} listeners are
+   * present, all dialogs are automatically dismissed.
+   */
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -2424,27 +2486,15 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/AssertionsBase.java`
 
 ## RuleId[id=PointlessBooleanExpression]
 ### PointlessBooleanExpression
-`options.attached == true` can be simplified to 'options.attached'
+`options.visible == true` can be simplified to 'options.visible'
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
 #### Snippet
 ```java
-  public void isAttached(IsAttachedOptions options) {
+  public void isVisible(IsVisibleOptions options) {
     FrameExpectOptions frameOptions = convertType(options, FrameExpectOptions.class);
-    boolean attached = options == null || options.attached == null || options.attached == true;
-    String message = "Locator expected to be " + (attached ? "attached" : "detached");
-    expectTrue(attached ? "to.be.attached" : "to.be.detached", message, frameOptions);
-```
-
-### PointlessBooleanExpression
-`options.enabled == true` can be simplified to 'options.enabled'
-in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
-#### Snippet
-```java
-  public void isEnabled(IsEnabledOptions options) {
-    FrameExpectOptions frameOptions = convertType(options, FrameExpectOptions.class);
-    boolean enabled = options == null || options.enabled == null || options.enabled == true;
-    String message = "Locator expected to be " + (enabled ? "enabled" : "disabled");
-    expectTrue(enabled ? "to.be.enabled" : "to.be.disabled", message, frameOptions);
+    boolean visible = options == null || options.visible == null || options.visible == true;
+    String message = "Locator expected to be " + (visible ? "visible" : "hidden");
+    expectTrue(visible ? "to.be.visible" : "to.be.hidden", message, frameOptions);
 ```
 
 ### PointlessBooleanExpression
@@ -2460,15 +2510,27 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl
 ```
 
 ### PointlessBooleanExpression
-`options.visible == true` can be simplified to 'options.visible'
+`options.enabled == true` can be simplified to 'options.enabled'
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
 #### Snippet
 ```java
-  public void isVisible(IsVisibleOptions options) {
+  public void isEnabled(IsEnabledOptions options) {
     FrameExpectOptions frameOptions = convertType(options, FrameExpectOptions.class);
-    boolean visible = options == null || options.visible == null || options.visible == true;
-    String message = "Locator expected to be " + (visible ? "visible" : "hidden");
-    expectTrue(visible ? "to.be.visible" : "to.be.hidden", message, frameOptions);
+    boolean enabled = options == null || options.enabled == null || options.enabled == true;
+    String message = "Locator expected to be " + (enabled ? "enabled" : "disabled");
+    expectTrue(enabled ? "to.be.enabled" : "to.be.disabled", message, frameOptions);
+```
+
+### PointlessBooleanExpression
+`options.attached == true` can be simplified to 'options.attached'
+in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
+#### Snippet
+```java
+  public void isAttached(IsAttachedOptions options) {
+    FrameExpectOptions frameOptions = convertType(options, FrameExpectOptions.class);
+    boolean attached = options == null || options.attached == null || options.attached == true;
+    String message = "Locator expected to be " + (attached ? "attached" : "detached");
+    expectTrue(attached ? "to.be.attached" : "to.be.detached", message, frameOptions);
 ```
 
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
@@ -2485,18 +2547,6 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/Serialization.java`
 ```
 
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Value `f` is always 'null'
-in `playwright/src/main/java/com/microsoft/playwright/impl/Utils.java`
-#### Snippet
-```java
-  static <T> T clone(T f) {
-    if (f == null) {
-      return f;
-    }
-    return convertType(f, (Class<T>) f.getClass());
-```
-
 ### ConstantValue
 Value `expectedText` is always 'null'
 in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl.java`
@@ -2534,13 +2584,25 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/LocatorAssertionsImpl
 ```
 
 ### ConstantValue
+Value `f` is always 'null'
+in `playwright/src/main/java/com/microsoft/playwright/impl/Utils.java`
+#### Snippet
+```java
+  static <T> T clone(T f) {
+    if (f == null) {
+      return f;
+    }
+    return convertType(f, (Class<T>) f.getClass());
+```
+
+### ConstantValue
 Value `timeout` is always 'null'
 in `playwright/src/main/java/com/microsoft/playwright/impl/TimeoutSettings.java`
 #### Snippet
 ```java
     }
     if (parent != null) {
-      return parent.navigationTimeout(timeout);
+      return parent.timeout(timeout);
     }
     return DEFAULT_TIMEOUT_MS;
 ```
@@ -2552,7 +2614,7 @@ in `playwright/src/main/java/com/microsoft/playwright/impl/TimeoutSettings.java`
 ```java
     }
     if (parent != null) {
-      return parent.timeout(timeout);
+      return parent.navigationTimeout(timeout);
     }
     return DEFAULT_TIMEOUT_MS;
 ```
