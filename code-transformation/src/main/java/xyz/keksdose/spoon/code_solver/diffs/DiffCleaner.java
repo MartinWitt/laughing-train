@@ -81,7 +81,7 @@ public class DiffCleaner {
                         if (change.getModes().contains(DiffCleanModes.NO_WHITESPACE_ADD)) {
                             String cleanResult = new ExtraWhiteSpaceCleaner()
                                     .clean(Files.readString(filePath), lineChange, change, lineEnding);
-                            printResult(lineEnding, hasLineEnding, filePath, cleanResult);
+                            printResult(filePath, cleanResult);
                         }
                     }
                 }
@@ -100,13 +100,9 @@ public class DiffCleaner {
         return line.startsWith("- ") && !line.startsWith("---");
     }
 
-    private void printResult(String lineEnding, boolean hasLineEnding, Path filePath, String cleanResult)
+    private void printResult(Path filePath, String cleanResult)
             throws IOException {
-        if (hasLineEnding) {
-            Files.writeString(filePath, cleanResult + lineEnding);
-        } else {
             Files.writeString(filePath, cleanResult);
-        }
     }
 
     private void createDiffs(DiffFormatter df, List<DiffEntry> diffs) {
