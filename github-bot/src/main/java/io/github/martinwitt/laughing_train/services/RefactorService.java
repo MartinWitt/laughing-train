@@ -212,12 +212,20 @@ public class RefactorService {
 
     private String createCommitMessage(List<? extends Change> changes) {
         StringBuilder message = new StringBuilder();
-        message.append("Refactor bad smells:\n");
-        changes.stream().map(Change::getBadSmell).distinct().forEach(v -> message.append("- ")
-                .append(v.getName().asText())
-                .append("\n")
-                .append(v.getDescription().asText())
-                .append("\n"));
+        if (changes.stream().map(v -> v.getBadSmell()).distinct().count() == 1) {
+            message.append("Refactor bad smell ")
+                    .append(changes.get(0).getBadSmell().getName().asText())
+                    .append("\n\n")
+                    .append(changes.get(0).getBadSmell().getDescription().asText());
+
+        } else {
+            message.append("Refactor bad smells ")
+                    .append(changes.stream()
+                            .map(v -> v.getBadSmell().getName().asText())
+                            .distinct()
+                            .collect(Collectors.joining(", ")))
+                    .append("\n");
+        }
         return message.toString();
     }
 
