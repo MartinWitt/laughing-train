@@ -9,27 +9,15 @@ I found 13 bad smells with 4 repairable:
 | UnnecessarySemicolon | 1 | false |
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `src/main/java/org/apache/sling/event/jobs/QueueConfiguration.java`
+Modifier `public` is redundant for interface members
+in `src/main/java/org/apache/sling/event/jobs/consumer/JobExecutionContext.java`
 #### Snippet
 ```java
-     * @since 1.3
-     */
-    static enum ThreadPriority {
-        NORM,
-        MIN,
-```
+    ResultBuilder result();
 
-### UnnecessaryModifier
-Modifier `static` is redundant for inner enums
-in `src/main/java/org/apache/sling/event/jobs/QueueConfiguration.java`
-#### Snippet
-```java
+    public interface ResultBuilder {
 
-    /** The queue type. */
-    static enum Type {
-        UNORDERED,          // unordered, parallel processing (push)
-        ORDERED,            // ordered, FIFO (push)
+        /**
 ```
 
 ### UnnecessaryModifier
@@ -45,15 +33,27 @@ in `src/main/java/org/apache/sling/event/jobs/JobBuilder.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/org/apache/sling/event/jobs/consumer/JobExecutionContext.java`
+Modifier `static` is redundant for inner enums
+in `src/main/java/org/apache/sling/event/jobs/QueueConfiguration.java`
 #### Snippet
 ```java
-    ResultBuilder result();
 
-    public interface ResultBuilder {
+    /** The queue type. */
+    static enum Type {
+        UNORDERED,          // unordered, parallel processing (push)
+        ORDERED,            // ordered, FIFO (push)
+```
 
-        /**
+### UnnecessaryModifier
+Modifier `static` is redundant for inner enums
+in `src/main/java/org/apache/sling/event/jobs/QueueConfiguration.java`
+#### Snippet
+```java
+     * @since 1.3
+     */
+    static enum ThreadPriority {
+        NORM,
+        MIN,
 ```
 
 ## RuleId[id=JavadocReference]
