@@ -1,14 +1,10 @@
-package io.github.martinwitt.laughing_train;
+package io.github.martinwitt.laughing_train.github;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.data.QodanaResult;
-import io.github.martinwitt.laughing_train.services.QodanaService;
+import io.github.martinwitt.laughing_train.Config;
+import io.github.martinwitt.laughing_train.Constants;
+import io.github.martinwitt.laughing_train.UserWhitelist;
 import io.quarkiverse.githubapp.event.IssueComment;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
-import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.EventBus;
-import io.vertx.core.eventbus.Message;
 import jakarta.inject.Inject;
 import java.io.IOException;
 import java.util.List;
@@ -27,18 +23,6 @@ public class MentionCommands {
 
     @Inject
     Config config;
-
-    @Inject
-    ChangelogPrinter changelogPrinter;
-
-    @Inject
-    QodanaService qodanaService;
-
-    @Inject
-    EventBus eventBus;
-
-    @Inject
-    Vertx vertx;
 
     void mentionCommands(@IssueComment GHEventPayload.IssueComment issueComment) throws IOException {
         if (!whitelist.isWhitelisted(issueComment.getComment().getUser().getLogin())) {
@@ -91,34 +75,5 @@ public class MentionCommands {
                 .createIssue(Constants.CONFIG_ISSUE_NAME)
                 .body(config.regenerateConfig())
                 .create();
-    }
-
-    private final class ListCommandHandler implements Handler<AsyncResult<Message<QodanaResult>>> {
-        private final GHEventPayload.IssueComment issueComment;
-
-        private ListCommandHandler(GHEventPayload.IssueComment issueComment) {
-            this.issueComment = issueComment;
-        }
-
-        @Override
-        public void handle(AsyncResult<Message<QodanaResult>> v) {
-            logger.atInfo().log("list command handler result %s", v);
-            try {
-                if (v.succeeded()) {
-                    if (v.result().body() instanceof QodanaResult.Success success) {
-                        issueComment.getIssue().comment(changelogPrinter.printResults(success.result()));
-                    } else if (v.result().body() instanceof QodanaResult.Failure error) {
-                        issueComment.getIssue().comment(error.message());
-                    } else {
-                        logger.atSevere().withCause(v.cause()).log("error while analyzing");
-                    }
-                }
-                if (v.failed()) {
-                    logger.atSevere().withCause(v.cause()).log("error while analyzing");
-                }
-            } catch (Exception e) {
-                logger.atSevere().withCause(e).log("error while handling list command");
-            }
-        }
     }
 }

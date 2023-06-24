@@ -1,5 +1,6 @@
-package io.github.martinwitt.laughing_train;
+package io.github.martinwitt.laughing_train.github;
 
+import io.github.martinwitt.laughing_train.Constants;
 import java.io.IOException;
 import java.util.List;
 import org.kohsuke.github.GHEventPayload;

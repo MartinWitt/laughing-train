@@ -2,14 +2,14 @@ package io.github.martinwitt.laughing_train.services;
 
 import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.Var;
-import io.github.martinwitt.laughing_train.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
 import io.github.martinwitt.laughing_train.Config;
-import io.github.martinwitt.laughing_train.GitHubUtils;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
+import io.github.martinwitt.laughing_train.github.BranchNameSupplier;
+import io.github.martinwitt.laughing_train.github.GitHubUtils;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
