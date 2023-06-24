@@ -1,7 +1,7 @@
 # fhir-access-proxy 
  
 # Bad smells
-I found 27 bad smells with 1 repairable:
+I found 26 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | FieldCanBeLocal | 6 | false |
@@ -14,7 +14,6 @@ I found 27 bad smells with 1 repairable:
 | UnnecessaryLocalVariable | 1 | true |
 | ConstantValue | 1 | false |
 | RegExpRedundantEscape | 1 | false |
-| IgnoreResultOfCall | 1 | false |
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Map' to 'java.util.Map\>'
@@ -56,27 +55,15 @@ in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Argument `authHeader` might be null
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+Method invocation `getTokenValue` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
 #### Snippet
 ```java
-          logger, "No Authorization header provided!", AuthenticationException.class);
+      ExceptionUtil.throwRuntimeExceptionAndLog(logger, "Cannot get an access token!");
     }
-    DecodedJWT decodedJwt = decodeAndVerifyBearerToken(authHeader);
-    FhirContext fhirContext = server.getFhirContext();
-    AccessDecision allowedQueriesDecision = allowedQueriesChecker.checkAccess(requestDetailsReader);
-```
+    return accessToken.getTokenValue();
+  }
 
-### DataFlowIssue
-Method invocation `checkAccess` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
-#### Snippet
-```java
-          logger, "Cannot create an AccessChecker!", AuthenticationException.class);
-    }
-    AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
-    if (!outcome.canAccess()) {
-      ExceptionUtil.throwRuntimeExceptionAndLog(
 ```
 
 ### DataFlowIssue
@@ -104,15 +91,27 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
 ```
 
 ### DataFlowIssue
-Method invocation `getTokenValue` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
+Argument `authHeader` might be null
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
-      ExceptionUtil.throwRuntimeExceptionAndLog(logger, "Cannot get an access token!");
+          logger, "No Authorization header provided!", AuthenticationException.class);
     }
-    return accessToken.getTokenValue();
-  }
+    DecodedJWT decodedJwt = decodeAndVerifyBearerToken(authHeader);
+    FhirContext fhirContext = server.getFhirContext();
+    AccessDecision allowedQueriesDecision = allowedQueriesChecker.checkAccess(requestDetailsReader);
+```
 
+### DataFlowIssue
+Method invocation `checkAccess` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+#### Snippet
+```java
+          logger, "Cannot create an AccessChecker!", AuthenticationException.class);
+    }
+    AccessDecision outcome = accessChecker.checkAccess(requestDetailsReader);
+    if (!outcome.canAccess()) {
+      ExceptionUtil.throwRuntimeExceptionAndLog(
 ```
 
 ## RuleId[id=ConstantValue]
@@ -257,11 +256,11 @@ Field can be converted to a local variable
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
-
   private final Principal principal;
   private final String resourceType;
   private final Set<Permission> permissions;
 
+  private SmartFhirScope(
 ```
 
 ### FieldCanBeLocal
@@ -281,11 +280,11 @@ Field can be converted to a local variable
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
+
   private final Principal principal;
   private final String resourceType;
   private final Set<Permission> permissions;
 
-  private SmartFhirScope(
 ```
 
 ## RuleId[id=UnstableApiUsage]
@@ -335,18 +334,5 @@ in `server/src/main/java/com/google/fhir/gateway/PatientFinderImp.java`
       return Resources.toString(url, StandardCharsets.UTF_8);
     } catch (IOException e) {
       ExceptionUtil.throwRuntimeExceptionAndLog(
-```
-
-## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `ResourceType.fromCode()` is ignored
-in `server/src/main/java/com/google/fhir/gateway/FhirUtil.java`
-#### Snippet
-```java
-  public static boolean isValidFhirResourceType(String resourceType) {
-    try {
-      ResourceType.fromCode(resourceType);
-      return true;
-    } catch (FHIRException fe) {
 ```
 
