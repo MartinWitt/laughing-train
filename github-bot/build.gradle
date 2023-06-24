@@ -27,6 +27,7 @@ dependencies {
 	implementation project(":persistence")
 	implementation project(":commons")
 	implementation("io.quarkus:quarkus-opentelemetry")
+	implementation "io.quarkiverse.loggingmanager:quarkus-logging-manager:3.0.0"
 }
 
 
