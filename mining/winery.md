@@ -124,6 +124,30 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryStatementVisitor.java`
+#### Snippet
+```java
+        List<ChefCookbookConfiguration> processedCookbookConfigs = new LinkedList<>();
+
+        Boolean elseActive = false;
+
+        for (int countConfigs = 0; countConfigs < parseResultList.size(); countConfigs++) {
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryStatementVisitor.java`
+#### Snippet
+```java
+        List<ChefCookbookConfiguration> processedCookbookConfigs = new LinkedList<>();
+
+        Boolean elseActive = false;
+
+        for (int countConfigs = 0; countConfigs < parseResultList.size(); countConfigs++) {
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
 #### Snippet
 ```java
@@ -148,50 +172,14 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryStatementVisitor.java`
-#### Snippet
-```java
-        List<ChefCookbookConfiguration> processedCookbookConfigs = new LinkedList<>();
-
-        Boolean elseActive = false;
-
-        for (int countConfigs = 0; countConfigs < parseResultList.size(); countConfigs++) {
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryStatementVisitor.java`
-#### Snippet
-```java
-        List<ChefCookbookConfiguration> processedCookbookConfigs = new LinkedList<>();
-
-        Boolean elseActive = false;
-
-        for (int countConfigs = 0; countConfigs < parseResultList.size(); countConfigs++) {
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
 #### Snippet
 ```java
-        String firstArgument;
-        String secondArgument;
-        Boolean exprResult;
-        PrimaryBaseVisitor primaryVisitor = new PrimaryBaseVisitor(parseResult);
-        List<String> firstArgList;
-```
+        List<String> argumentList;
+        List<String> callArguments = null;
+        Boolean exprResult = false;
 
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
-#### Snippet
-```java
-        String firstArgument;
-        String secondArgument;
-        Boolean exprResult;
         PrimaryBaseVisitor primaryVisitor = new PrimaryBaseVisitor(parseResult);
-        List<String> firstArgList;
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -235,11 +223,23 @@ Type may be primitive
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
 #### Snippet
 ```java
-        List<String> argumentList;
-        List<String> callArguments = null;
-        Boolean exprResult = false;
-
+        String firstArgument;
+        String secondArgument;
+        Boolean exprResult;
         PrimaryBaseVisitor primaryVisitor = new PrimaryBaseVisitor(parseResult);
+        List<String> firstArgList;
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
+#### Snippet
+```java
+        String firstArgument;
+        String secondArgument;
+        Boolean exprResult;
+        PrimaryBaseVisitor primaryVisitor = new PrimaryBaseVisitor(parseResult);
+        List<String> firstArgList;
 ```
 
 ### WrapperTypeMayBePrimitive
@@ -332,78 +332,6 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String NODE_TYPE_MGMT_TASK = "ToscaNodeManagementTask";
-
-	public static final String NODE_TYPE_START_EVENT = "StartEvent";
-
-	public static final String NODE_TYPE_END_EVENT = "EndEvent";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String NODE_TYPE_MGMT_TASK = "ToscaNodeManagementTask";
-
-	public static final String NODE_TYPE_START_EVENT = "StartEvent";
-
-	public static final String NODE_TYPE_END_EVENT = "EndEvent";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String NODE_TYPE_MGMT_TASK = "ToscaNodeManagementTask";
-
-	public static final String NODE_TYPE_START_EVENT = "StartEvent";
-
-	public static final String NODE_TYPE_END_EVENT = "EndEvent";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String CONNECTIONS = "connections";
-
-	public static final String CONDITIONS = "conditions";
-
-	public static final String CONDITION = "condition";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String CONNECTIONS = "connections";
-
-	public static final String CONDITIONS = "conditions";
-
-	public static final String CONDITION = "condition";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String CONNECTIONS = "connections";
-
-	public static final String CONDITIONS = "conditions";
-
-	public static final String CONDITION = "condition";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
 	public static final String OUTPUT = "output";
 
 	public static final String VALUE = "value";
@@ -440,114 +368,6 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	 */
-
-	public static final String NAME = "name";
-
-	public static final String ID = "id";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	 */
-
-	public static final String NAME = "name";
-
-	public static final String ID = "id";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	 */
-
-	public static final String NAME = "name";
-
-	public static final String ID = "id";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
-
-	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
-
-	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
-
-	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
-
-	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
-
-	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
-
-	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String ID = "id";
-
-	public static final String TYPE = "type";
-
-	public static final String INPUT = "input";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String ID = "id";
-
-	public static final String TYPE = "type";
-
-	public static final String INPUT = "input";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String ID = "id";
-
-	public static final String TYPE = "type";
-
-	public static final String INPUT = "input";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
 	public static final String PARAM_TYPE_VALUE_STRING = "string";
 
 	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
@@ -577,150 +397,6 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
 	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
 
 	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
-
-	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
-
-	public static final String PARAM_TYPE_VALUE_DA = "deployment_artifact";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
-
-	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
-
-	public static final String PARAM_TYPE_VALUE_DA = "deployment_artifact";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
-
-	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
-
-	public static final String PARAM_TYPE_VALUE_DA = "deployment_artifact";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	 * Parameter Types
-	 */
-	public static final String PARAM_TYPE_VALUE_STRING = "string";
-
-	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	 * Parameter Types
-	 */
-	public static final String PARAM_TYPE_VALUE_STRING = "string";
-
-	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	 * Parameter Types
-	 */
-	public static final String PARAM_TYPE_VALUE_STRING = "string";
-
-	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String NODE_OPERATION = "node_operation";
-
-	public static final String NODE_INTERFACE_NAME = "interface";
-
-	public static final String CONNECTIONS = "connections";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String NODE_OPERATION = "node_operation";
-
-	public static final String NODE_INTERFACE_NAME = "interface";
-
-	public static final String CONNECTIONS = "connections";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String NODE_OPERATION = "node_operation";
-
-	public static final String NODE_INTERFACE_NAME = "interface";
-
-	public static final String CONNECTIONS = "connections";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
-
-	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
-
-	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
-
-	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
-
-	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
-
-	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
-
-	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
 ```
 
 ### UnnecessaryModifier
@@ -764,11 +440,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String CONDITIONS = "conditions";
+	public static final String ID = "id";
 
-	public static final String CONDITION = "condition";
+	public static final String TYPE = "type";
 
-	public static final String DEFAULT = "default";
+	public static final String INPUT = "input";
 ```
 
 ### UnnecessaryModifier
@@ -776,11 +452,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String CONDITIONS = "conditions";
+	public static final String ID = "id";
 
-	public static final String CONDITION = "condition";
+	public static final String TYPE = "type";
 
-	public static final String DEFAULT = "default";
+	public static final String INPUT = "input";
 ```
 
 ### UnnecessaryModifier
@@ -788,11 +464,11 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String CONDITIONS = "conditions";
+	public static final String ID = "id";
 
-	public static final String CONDITION = "condition";
+	public static final String TYPE = "type";
 
-	public static final String DEFAULT = "default";
+	public static final String INPUT = "input";
 ```
 
 ### UnnecessaryModifier
@@ -800,11 +476,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String NODE_TYPE_START_EVENT = "StartEvent";
+	public static final String TYPE = "type";
 
-	public static final String NODE_TYPE_END_EVENT = "EndEvent";
+	public static final String INPUT = "input";
 
-	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+	public static final String OUTPUT = "output";
 ```
 
 ### UnnecessaryModifier
@@ -812,11 +488,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String NODE_TYPE_START_EVENT = "StartEvent";
+	public static final String TYPE = "type";
 
-	public static final String NODE_TYPE_END_EVENT = "EndEvent";
+	public static final String INPUT = "input";
 
-	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+	public static final String OUTPUT = "output";
 ```
 
 ### UnnecessaryModifier
@@ -824,11 +500,11 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String NODE_TYPE_START_EVENT = "StartEvent";
+	public static final String TYPE = "type";
 
-	public static final String NODE_TYPE_END_EVENT = "EndEvent";
+	public static final String INPUT = "input";
 
-	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+	public static final String OUTPUT = "output";
 ```
 
 ### UnnecessaryModifier
@@ -836,11 +512,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String NODE_INTERFACE_NAME = "interface";
+	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
 
-	public static final String CONNECTIONS = "connections";
+	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
 
-	public static final String CONDITIONS = "conditions";
+	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
 ```
 
 ### UnnecessaryModifier
@@ -848,11 +524,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String NODE_INTERFACE_NAME = "interface";
+	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
 
-	public static final String CONNECTIONS = "connections";
+	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
 
-	public static final String CONDITIONS = "conditions";
+	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
 ```
 
 ### UnnecessaryModifier
@@ -860,11 +536,11 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String NODE_INTERFACE_NAME = "interface";
+	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
 
-	public static final String CONNECTIONS = "connections";
+	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
 
-	public static final String CONDITIONS = "conditions";
+	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
 ```
 
 ### UnnecessaryModifier
@@ -872,11 +548,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String CONDITION = "condition";
+	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
 
-	public static final String DEFAULT = "default";
+	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
 
-
+	public static final String PARAM_TYPE_VALUE_DA = "deployment_artifact";
 ```
 
 ### UnnecessaryModifier
@@ -884,11 +560,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String CONDITION = "condition";
+	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
 
-	public static final String DEFAULT = "default";
+	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
 
-
+	public static final String PARAM_TYPE_VALUE_DA = "deployment_artifact";
 ```
 
 ### UnnecessaryModifier
@@ -896,11 +572,11 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String CONDITION = "condition";
+	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
 
-	public static final String DEFAULT = "default";
+	public static final String PARAM_TYPE_VALUE_IA = "implementation_artifact";
 
-
+	public static final String PARAM_TYPE_VALUE_DA = "deployment_artifact";
 ```
 
 ### UnnecessaryModifier
@@ -944,11 +620,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String VALUE = "value";
+	 */
 
-	public static final String NODE_TEMPLATE = "node_template";
+	public static final String NAME = "name";
 
-	public static final String NODE_OPERATION = "node_operation";
+	public static final String ID = "id";
 ```
 
 ### UnnecessaryModifier
@@ -956,11 +632,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String VALUE = "value";
+	 */
 
-	public static final String NODE_TEMPLATE = "node_template";
+	public static final String NAME = "name";
 
-	public static final String NODE_OPERATION = "node_operation";
+	public static final String ID = "id";
 ```
 
 ### UnnecessaryModifier
@@ -968,11 +644,11 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String VALUE = "value";
+	 */
 
-	public static final String NODE_TEMPLATE = "node_template";
+	public static final String NAME = "name";
 
-	public static final String NODE_OPERATION = "node_operation";
+	public static final String ID = "id";
 ```
 
 ### UnnecessaryModifier
@@ -980,11 +656,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+	public static final String NODE_INTERFACE_NAME = "interface";
 
-	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE_END = "ExclusiveGatewayEnd";
+	public static final String CONNECTIONS = "connections";
 
-
+	public static final String CONDITIONS = "conditions";
 ```
 
 ### UnnecessaryModifier
@@ -992,11 +668,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+	public static final String NODE_INTERFACE_NAME = "interface";
 
-	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE_END = "ExclusiveGatewayEnd";
+	public static final String CONNECTIONS = "connections";
 
-
+	public static final String CONDITIONS = "conditions";
 ```
 
 ### UnnecessaryModifier
@@ -1004,83 +680,11 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
 #### Snippet
 ```java
-	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+	public static final String NODE_INTERFACE_NAME = "interface";
 
-	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE_END = "ExclusiveGatewayEnd";
+	public static final String CONNECTIONS = "connections";
 
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String TYPE = "type";
-
-	public static final String INPUT = "input";
-
-	public static final String OUTPUT = "output";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String TYPE = "type";
-
-	public static final String INPUT = "input";
-
-	public static final String OUTPUT = "output";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String TYPE = "type";
-
-	public static final String INPUT = "input";
-
-	public static final String OUTPUT = "output";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String INPUT = "input";
-
-	public static final String OUTPUT = "output";
-
-	public static final String VALUE = "value";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String INPUT = "input";
-
-	public static final String OUTPUT = "output";
-
-	public static final String VALUE = "value";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
-#### Snippet
-```java
-	public static final String INPUT = "input";
-
-	public static final String OUTPUT = "output";
-
-	public static final String VALUE = "value";
+	public static final String CONDITIONS = "conditions";
 ```
 
 ### UnnecessaryModifier
@@ -1117,6 +721,42 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
 	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
 
 	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE_END = "ExclusiveGatewayEnd";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_TYPE_START_EVENT = "StartEvent";
+
+	public static final String NODE_TYPE_END_EVENT = "EndEvent";
+
+	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_TYPE_START_EVENT = "StartEvent";
+
+	public static final String NODE_TYPE_END_EVENT = "EndEvent";
+
+	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_TYPE_START_EVENT = "StartEvent";
+
+	public static final String NODE_TYPE_END_EVENT = "EndEvent";
+
+	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
 ```
 
 ### UnnecessaryModifier
@@ -1193,6 +833,366 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+
+	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE_END = "ExclusiveGatewayEnd";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+
+	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE_END = "ExclusiveGatewayEnd";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE = "ExclusiveGateway";
+
+	public static final String NODE_TYPE_GATEWAY_EXCLUSIVE_END = "ExclusiveGatewayEnd";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_TYPE_MGMT_TASK = "ToscaNodeManagementTask";
+
+	public static final String NODE_TYPE_START_EVENT = "StartEvent";
+
+	public static final String NODE_TYPE_END_EVENT = "EndEvent";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_TYPE_MGMT_TASK = "ToscaNodeManagementTask";
+
+	public static final String NODE_TYPE_START_EVENT = "StartEvent";
+
+	public static final String NODE_TYPE_END_EVENT = "EndEvent";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_TYPE_MGMT_TASK = "ToscaNodeManagementTask";
+
+	public static final String NODE_TYPE_START_EVENT = "StartEvent";
+
+	public static final String NODE_TYPE_END_EVENT = "EndEvent";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String CONDITION = "condition";
+
+	public static final String DEFAULT = "default";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String CONDITION = "condition";
+
+	public static final String DEFAULT = "default";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String CONDITION = "condition";
+
+	public static final String DEFAULT = "default";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String CONNECTIONS = "connections";
+
+	public static final String CONDITIONS = "conditions";
+
+	public static final String CONDITION = "condition";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String CONNECTIONS = "connections";
+
+	public static final String CONDITIONS = "conditions";
+
+	public static final String CONDITION = "condition";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String CONNECTIONS = "connections";
+
+	public static final String CONDITIONS = "conditions";
+
+	public static final String CONDITION = "condition";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String VALUE = "value";
+
+	public static final String NODE_TEMPLATE = "node_template";
+
+	public static final String NODE_OPERATION = "node_operation";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String VALUE = "value";
+
+	public static final String NODE_TEMPLATE = "node_template";
+
+	public static final String NODE_OPERATION = "node_operation";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String VALUE = "value";
+
+	public static final String NODE_TEMPLATE = "node_template";
+
+	public static final String NODE_OPERATION = "node_operation";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String INPUT = "input";
+
+	public static final String OUTPUT = "output";
+
+	public static final String VALUE = "value";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String INPUT = "input";
+
+	public static final String OUTPUT = "output";
+
+	public static final String VALUE = "value";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String INPUT = "input";
+
+	public static final String OUTPUT = "output";
+
+	public static final String VALUE = "value";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_OPERATION = "node_operation";
+
+	public static final String NODE_INTERFACE_NAME = "interface";
+
+	public static final String CONNECTIONS = "connections";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_OPERATION = "node_operation";
+
+	public static final String NODE_INTERFACE_NAME = "interface";
+
+	public static final String CONNECTIONS = "connections";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String NODE_OPERATION = "node_operation";
+
+	public static final String NODE_INTERFACE_NAME = "interface";
+
+	public static final String CONNECTIONS = "connections";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
+
+	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
+
+	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
+
+	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
+
+	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
+
+	public static final String PARAM_TYPE_VALUE_PLAN = "plan";
+
+	public static final String PARAM_TYPE_VALUE_CONCAT = "concat";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	 * Parameter Types
+	 */
+	public static final String PARAM_TYPE_VALUE_STRING = "string";
+
+	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	 * Parameter Types
+	 */
+	public static final String PARAM_TYPE_VALUE_STRING = "string";
+
+	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	 * Parameter Types
+	 */
+	public static final String PARAM_TYPE_VALUE_STRING = "string";
+
+	public static final String PARAM_TYPE_VALUE_TOPOLOGY = "topology";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String CONDITIONS = "conditions";
+
+	public static final String CONDITION = "condition";
+
+	public static final String DEFAULT = "default";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String CONDITIONS = "conditions";
+
+	public static final String CONDITION = "condition";
+
+	public static final String DEFAULT = "default";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/JsonKeys.java`
+#### Snippet
+```java
+	public static final String CONDITIONS = "conditions";
+
+	public static final String CONDITION = "condition";
+
+	public static final String DEFAULT = "default";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/MngmtActivityTemplatePlaceholders.java`
 #### Snippet
 ```java
@@ -1265,6 +1265,306 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_NAME = "ManagementPlan";
+
+	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
+
+	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_NAME = "ManagementPlan";
+
+	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
+
+	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_NAME = "ManagementPlan";
+
+	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
+
+	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/ActivityPlaceholder.java`
+#### Snippet
+```java
+public interface ActivityPlaceholder {
+
+	public static final String NAME = "activity_name";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/ActivityPlaceholder.java`
+#### Snippet
+```java
+public interface ActivityPlaceholder {
+
+	public static final String NAME = "activity_name";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/ActivityPlaceholder.java`
+#### Snippet
+```java
+public interface ActivityPlaceholder {
+
+	public static final String NAME = "activity_name";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
+
+	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
+
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
+
+	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
+
+	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
+
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
+
+	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
+
+	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
+
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
+
+	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
+
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
+
+	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
+
+	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
+
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
+
+	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
+
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
+
+	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_NAME = "plan_name";
+
+	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
+
+	public static final String PLT_CLIENT_NAME = "plt_client_name";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_NAME = "plan_name";
+
+	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
+
+	public static final String PLT_CLIENT_NAME = "plt_client_name";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_NAME = "plan_name";
+
+	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
+
+	public static final String PLT_CLIENT_NAME = "plt_client_name";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
+
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
+
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
+#### Snippet
+```java
+	public static final String VALIDATE = "validate";
+
+	public static final String FROM_SPEC_PART = "fromPart";
+
+	public static final String FROM_SPEC_VARIABLE = "fromVariable";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
+#### Snippet
+```java
+	public static final String VALIDATE = "validate";
+
+	public static final String FROM_SPEC_PART = "fromPart";
+
+	public static final String FROM_SPEC_VARIABLE = "fromVariable";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
+#### Snippet
+```java
+	public static final String VALIDATE = "validate";
+
+	public static final String FROM_SPEC_PART = "fromPart";
+
+	public static final String FROM_SPEC_VARIABLE = "fromVariable";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
+
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
 ```java
@@ -1273,6 +1573,18 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
 	public static final String FROM_SPEC_QUERY = "fromQuery";
 
 	public static final String TO_SPEC_VARIABLE = "toVariable";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
+
+	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
+
+	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
 ```
 
 ### UnnecessaryModifier
@@ -1297,6 +1609,18 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
 	public static final String FROM_SPEC_QUERY = "fromQuery";
 
 	public static final String TO_SPEC_VARIABLE = "toVariable";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
+
+	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
+
+	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
 ```
 
 ### UnnecessaryModifier
@@ -1312,6 +1636,18 @@ public interface AssignFromVarQuery2Var extends ActivityPlaceholder {
 ```
 
 ### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
+
+	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
+
+	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
+```
+
+### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
@@ -1324,6 +1660,18 @@ public interface AssignFromVarQuery2Var extends ActivityPlaceholder {
 ```
 
 ### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+public interface PlanTemplatePlaceholders {
+
+	public static final String PLAN_NAMESPACE = "plan_namespace";
+
+	public static final String PLAN_NAME = "plan_name";
+```
+
+### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
@@ -1336,15 +1684,27 @@ public interface AssignFromVarQuery2Var extends ActivityPlaceholder {
 ```
 
 ### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+public interface PlanTemplatePlaceholders {
+
+	public static final String PLAN_NAMESPACE = "plan_namespace";
+
+	public static final String PLAN_NAME = "plan_name";
+```
+
+### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
 ```java
-	public static final String FROM_SPEC_PART = "fromPart";
-
 	public static final String FROM_SPEC_VARIABLE = "fromVariable";
 
 	public static final String FROM_SPEC_QUERY_LANG = "fromQueryLang";
+
+	public static final String FROM_SPEC_QUERY = "fromQuery";
 ```
 
 ### UnnecessaryModifier
@@ -1352,11 +1712,23 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
 ```java
-	public static final String FROM_SPEC_PART = "fromPart";
-
 	public static final String FROM_SPEC_VARIABLE = "fromVariable";
 
 	public static final String FROM_SPEC_QUERY_LANG = "fromQueryLang";
+
+	public static final String FROM_SPEC_QUERY = "fromQuery";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+public interface PlanTemplatePlaceholders {
+
+	public static final String PLAN_NAMESPACE = "plan_namespace";
+
+	public static final String PLAN_NAME = "plan_name";
 ```
 
 ### UnnecessaryModifier
@@ -1364,11 +1736,23 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
 ```java
-	public static final String FROM_SPEC_PART = "fromPart";
-
 	public static final String FROM_SPEC_VARIABLE = "fromVariable";
 
 	public static final String FROM_SPEC_QUERY_LANG = "fromQueryLang";
+
+	public static final String FROM_SPEC_QUERY = "fromQuery";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_NAMESPACE = "plan_namespace";
+
+	public static final String PLAN_NAME = "plan_name";
+
+	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
 ```
 
 ### UnnecessaryModifier
@@ -1385,6 +1769,30 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_NAMESPACE = "plan_namespace";
+
+	public static final String PLAN_NAME = "plan_name";
+
+	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_NAMESPACE = "plan_namespace";
+
+	public static final String PLAN_NAME = "plan_name";
+
+	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
 ```java
@@ -1396,6 +1804,18 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
 ```
 
 ### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
+
+	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
+
+	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
+```
+
+### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
@@ -1408,87 +1828,51 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
 ```
 
 ### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
+
+	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
+
+	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
+
+	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
+
+	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
+```
+
+### UnnecessaryModifier
 Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
 ```java
-	public static final String VALIDATE = "validate";
-
 	public static final String FROM_SPEC_PART = "fromPart";
 
 	public static final String FROM_SPEC_VARIABLE = "fromVariable";
+
+	public static final String FROM_SPEC_QUERY_LANG = "fromQueryLang";
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
 #### Snippet
 ```java
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
+	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
 
-	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
+	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
 
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
-
-	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
-
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
-
-	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
-
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
-
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
-
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
-
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
+	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
 ```
 
 ### UnnecessaryModifier
@@ -1496,11 +1880,23 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
 ```java
-	public static final String VALIDATE = "validate";
-
 	public static final String FROM_SPEC_PART = "fromPart";
 
 	public static final String FROM_SPEC_VARIABLE = "fromVariable";
+
+	public static final String FROM_SPEC_QUERY_LANG = "fromQueryLang";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
+
+	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
+
+	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
 ```
 
 ### UnnecessaryModifier
@@ -1508,59 +1904,311 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
 #### Snippet
 ```java
-	public static final String VALIDATE = "validate";
-
 	public static final String FROM_SPEC_PART = "fromPart";
 
 	public static final String FROM_SPEC_VARIABLE = "fromVariable";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
-#### Snippet
-```java
-	public static final String FROM_SPEC_VARIABLE = "fromVariable";
 
 	public static final String FROM_SPEC_QUERY_LANG = "fromQueryLang";
-
-	public static final String FROM_SPEC_QUERY = "fromQuery";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
-#### Snippet
-```java
-	public static final String FROM_SPEC_VARIABLE = "fromVariable";
-
-	public static final String FROM_SPEC_QUERY_LANG = "fromQueryLang";
-
-	public static final String FROM_SPEC_QUERY = "fromQuery";
 ```
 
 ### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/AssignFromVarQuery2Var.java`
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
 #### Snippet
 ```java
-	public static final String FROM_SPEC_VARIABLE = "fromVariable";
+	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
 
-	public static final String FROM_SPEC_QUERY_LANG = "fromQueryLang";
+	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
 
-	public static final String FROM_SPEC_QUERY = "fromQuery";
+	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
 ```
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
 #### Snippet
 ```java
-	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
+	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
 
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
 
-	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
+	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
+
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
+
+	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
+
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
+
+	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
+
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
+
+	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
+
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
+
+	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
+
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
+
+	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_NAME = "pl_client_name";
+
+	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_NAME = "pl_client_name";
+
+	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_NAME = "pl_client_name";
+
+	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLT_CLIENT_NAME = "plt_client_name";
+
+	public static final String PL_CLIENT_NAME = "pl_client_name";
+
+	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLT_CLIENT_NAME = "plt_client_name";
+
+	public static final String PL_CLIENT_NAME = "pl_client_name";
+
+	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLT_CLIENT_NAME = "plt_client_name";
+
+	public static final String PL_CLIENT_NAME = "pl_client_name";
+
+	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
+
+	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
+
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
+
+	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
+
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
+
+	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
+
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
+
+	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
+
+	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
+
+	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
+
+	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
+
+	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
+
+	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
+
+	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
+
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
+
+	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
+
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
+
+	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
+
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
+
+	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
+
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
+
+	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
+
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
+
+	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
+
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
 ```
 
 ### UnnecessaryModifier
@@ -1568,11 +2216,35 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
 
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
+	public static final String PLAN_OUTPUT_VAR_NAME = "output";
 
-	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
+
+	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
+
+	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
+
+
 ```
 
 ### UnnecessaryModifier
@@ -1580,11 +2252,95 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
+
+	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
+
+	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
+
+
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
+
+	public static final String PLT_CLIENT_NAME = "plt_client_name";
+
+	public static final String PL_CLIENT_NAME = "pl_client_name";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_OPERATION = "onResult";
+
 	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
 
 	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
+```
 
-	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
+
+	public static final String PLT_CLIENT_NAME = "plt_client_name";
+
+	public static final String PL_CLIENT_NAME = "pl_client_name";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_OPERATION = "onResult";
+
+	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
+
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
+#### Snippet
+```java
+	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
+
+	public static final String PLT_CLIENT_NAME = "plt_client_name";
+
+	public static final String PL_CLIENT_NAME = "pl_client_name";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_OPERATION = "onResult";
+
+	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
+
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
 ```
 
 ### UnnecessaryModifier
@@ -1628,191 +2384,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
+	public static final String PLAN_NAMESPACE = "http://iaas.uni-stuttgart.de/bpmn4tosca";
 
-	public static final String PL_CLIENT_NAME = "client";
-
-	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
-
-	public static final String PL_CLIENT_NAME = "client";
-
-	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
-
-	public static final String PL_CLIENT_NAME = "client";
-
-	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_NAME = "callbackClient";
-
-	public static final String PLAN_END_INV_OPERATION = "onResult";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_NAME = "callbackClient";
-
-	public static final String PLAN_END_INV_OPERATION = "onResult";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_NAME = "callbackClient";
-
-	public static final String PLAN_END_INV_OPERATION = "onResult";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_NAME = "client";
-
-	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/ActivityPlaceholder.java`
-#### Snippet
-```java
-public interface ActivityPlaceholder {
-
-	public static final String NAME = "activity_name";
-
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_NAME = "client";
-
-	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/ActivityPlaceholder.java`
-#### Snippet
-```java
-public interface ActivityPlaceholder {
-
-	public static final String NAME = "activity_name";
-
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_NAME = "client";
-
-	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_OPERATION = "onResult";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
-
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/ActivityPlaceholder.java`
-#### Snippet
-```java
-public interface ActivityPlaceholder {
-
-	public static final String NAME = "activity_name";
-
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_OPERATION = "onResult";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
-
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_OPERATION = "onResult";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
-
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
 	public static final String PLAN_NAME = "ManagementPlan";
 
 	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
-
-	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
 ```
 
 ### UnnecessaryModifier
@@ -1820,11 +2396,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
+	public static final String PLAN_NAMESPACE = "http://iaas.uni-stuttgart.de/bpmn4tosca";
+
 	public static final String PLAN_NAME = "ManagementPlan";
 
 	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
-
-	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
 ```
 
 ### UnnecessaryModifier
@@ -1832,11 +2408,11 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
+	public static final String PLAN_NAMESPACE = "http://iaas.uni-stuttgart.de/bpmn4tosca";
+
 	public static final String PLAN_NAME = "ManagementPlan";
 
 	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
-
-	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
 ```
 
 ### UnnecessaryModifier
@@ -1880,11 +2456,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
+	public static final String PLAN_OUTPUT_VAR_NAME = "output";
 
-	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
 
-	public static final String PL_CLIENT_NAME = "client";
+	public static final String PLAN_END_INV_NAME = "callbackClient";
 ```
 
 ### UnnecessaryModifier
@@ -1892,11 +2468,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
+	public static final String PLAN_OUTPUT_VAR_NAME = "output";
 
-	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
 
-	public static final String PL_CLIENT_NAME = "client";
+	public static final String PLAN_END_INV_NAME = "callbackClient";
 ```
 
 ### UnnecessaryModifier
@@ -1904,11 +2480,11 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
+	public static final String PLAN_OUTPUT_VAR_NAME = "output";
 
-	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
+	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
 
-	public static final String PL_CLIENT_NAME = "client";
+	public static final String PLAN_END_INV_NAME = "callbackClient";
 ```
 
 ### UnnecessaryModifier
@@ -1952,11 +2528,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
+	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
 
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
+	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
 
-	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+	public static final String PL_CLIENT_NAME = "client";
 ```
 
 ### UnnecessaryModifier
@@ -1964,11 +2540,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
+	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
 
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
+	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
 
-	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+	public static final String PL_CLIENT_NAME = "client";
 ```
 
 ### UnnecessaryModifier
@@ -1976,11 +2552,11 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
+	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
 
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
+	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
 
-	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+	public static final String PL_CLIENT_NAME = "client";
 ```
 
 ### UnnecessaryModifier
@@ -1988,11 +2564,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
 
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
 
-	public static final String PLAN_END_INV_NAME = "callbackClient";
+	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
 ```
 
 ### UnnecessaryModifier
@@ -2000,11 +2576,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
 
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
 
-	public static final String PLAN_END_INV_NAME = "callbackClient";
+	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
 ```
 
 ### UnnecessaryModifier
@@ -2012,11 +2588,11 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
 
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
+	public static final String SERVICE_INVOKER_WSDL = "service_invoker.wsdl";
 
-	public static final String PLAN_END_INV_NAME = "callbackClient";
+	public static final String SERVICE_INVOKER_XSD = "service_invoker.xsd";
 ```
 
 ### UnnecessaryModifier
@@ -2024,11 +2600,11 @@ Modifier `public` is redundant for interface members
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
 
-	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+	public static final String PLAN_INPUT_VAR_NAME = "input";
 
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
+	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
 ```
 
 ### UnnecessaryModifier
@@ -2036,11 +2612,11 @@ Modifier `static` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
 
-	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+	public static final String PLAN_INPUT_VAR_NAME = "input";
 
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
+	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
 ```
 
 ### UnnecessaryModifier
@@ -2048,11 +2624,227 @@ Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
 ```java
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
+
+	public static final String PLAN_INPUT_VAR_NAME = "input";
+
+	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_NAME = "client";
+
+	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_NAME = "client";
+
+	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_NAME = "client";
+
+	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_NAME = "callbackClient";
+
+	public static final String PLAN_END_INV_OPERATION = "onResult";
+
+	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_NAME = "callbackClient";
+
+	public static final String PLAN_END_INV_OPERATION = "onResult";
+
+	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_END_INV_NAME = "callbackClient";
+
+	public static final String PLAN_END_INV_OPERATION = "onResult";
+
+	public static final String PLAN_END_INV_PORT_TYPE = "tns:ManagementPlanCallbackPT";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_INPUT_VAR_NAME = "input";
+
+	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
+
+	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_INPUT_VAR_NAME = "input";
+
+	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
+
+	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_INPUT_VAR_NAME = "input";
+
+	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
+
+	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
+
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
+
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
+
+	public static final String PL_CLIENT_PARTNER_ROLE = "PlanRequester";
+
+	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
+
+	public static final String PL_CLIENT_NAME = "client";
+
+	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
+
+	public static final String PL_CLIENT_NAME = "client";
+
+	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLT_CLIENT_NAME = "tns:PLT_ManagementPlan";
+
+	public static final String PL_CLIENT_NAME = "client";
+
+	public static final String PL_CLIENT_MY_ROLE = "PlanProvider";
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
+
 	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
 
 	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+```
 
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "tns:PlanResponseMessage";
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
+
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
+
+	public static final String PLAN_OUTPUT_VAR_NAME = "output";
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
+#### Snippet
+```java
+	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
+
+	public static final String PLAN_INIT_RCV_PORT_TYPE = "tns:ManagementPlanPT";
+
+	public static final String PLAN_OUTPUT_VAR_NAME = "output";
 ```
 
 ### UnnecessaryModifier
@@ -2080,30 +2872,6 @@ public interface TemplateDefaultValues {
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
-
-	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
-
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
-
-	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
-
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
-```
-
-### UnnecessaryModifier
 Modifier `final` is redundant for interface fields
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
 #### Snippet
@@ -2113,774 +2881,6 @@ public interface TemplateDefaultValues {
 	public static final String PLAN_NAMESPACE = "http://iaas.uni-stuttgart.de/bpmn4tosca";
 
 	public static final String PLAN_NAME = "ManagementPlan";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
-
-	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
-
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_NAMESPACE = "http://iaas.uni-stuttgart.de/bpmn4tosca";
-
-	public static final String PLAN_NAME = "ManagementPlan";
-
-	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_NAMESPACE = "http://iaas.uni-stuttgart.de/bpmn4tosca";
-
-	public static final String PLAN_NAME = "ManagementPlan";
-
-	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_NAMESPACE = "http://iaas.uni-stuttgart.de/bpmn4tosca";
-
-	public static final String PLAN_NAME = "ManagementPlan";
-
-	public static final String PLAN_WSDL_NAME = "managementplan.wsdl";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_NAME = "input";
-
-	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
-
-	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
-
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_NAME = "input";
-
-	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
-
-	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
-
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_NAME = "input";
-
-	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
-
-	public static final String PLAN_INIT_RCV_OPERATION = "initiate";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
-
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
-
-	public static final String PLAN_INPUT_VAR_NAME = "input";
-
-	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
-
-	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
-
-
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
-
-	public static final String PLAN_INPUT_VAR_NAME = "input";
-
-	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
-
-	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
-
-
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/TemplateDefaultValues.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "tns:PlanRequestMessage";
-
-	public static final String PLAN_INPUT_VAR_NAME = "input";
-
-	public static final String PLAN_INIT_RCV_NAME = "initiatePlan";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
-
-	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
-
-
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLT_CLIENT_NAME = "plt_client_name";
-
-	public static final String PL_CLIENT_NAME = "pl_client_name";
-
-	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLT_CLIENT_NAME = "plt_client_name";
-
-	public static final String PL_CLIENT_NAME = "pl_client_name";
-
-	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLT_CLIENT_NAME = "plt_client_name";
-
-	public static final String PL_CLIENT_NAME = "pl_client_name";
-
-	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
-
-	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
-
-	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
-
-	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
-
-	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
-
-	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
-
-	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
-
-	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
-
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
-
-	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
-
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
-
-	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
-
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
-
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
-
-	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
-
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
-
-	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
-
-	public static final String PLAN_INIT_RCV_PORT_TYPE = "plan_init_rcv_pt";
-
-	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_NAMESPACE = "plan_namespace";
-
-	public static final String PLAN_NAME = "plan_name";
-
-	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_NAMESPACE = "plan_namespace";
-
-	public static final String PLAN_NAME = "plan_name";
-
-	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_NAMESPACE = "plan_namespace";
-
-	public static final String PLAN_NAME = "plan_name";
-
-	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
-
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
-
-	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
-
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
-
-	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
-
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
-
-	public static final String SERVICE_INVOKER_XSD = "service_invoker_xsd";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
-
-	public static final String PLT_CLIENT_NAME = "plt_client_name";
-
-	public static final String PL_CLIENT_NAME = "pl_client_name";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
-
-	public static final String PLT_CLIENT_NAME = "plt_client_name";
-
-	public static final String PL_CLIENT_NAME = "pl_client_name";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
-
-	public static final String PLT_CLIENT_NAME = "plt_client_name";
-
-	public static final String PL_CLIENT_NAME = "pl_client_name";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-public interface PlanTemplatePlaceholders {
-
-	public static final String PLAN_NAMESPACE = "plan_namespace";
-
-	public static final String PLAN_NAME = "plan_name";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-public interface PlanTemplatePlaceholders {
-
-	public static final String PLAN_NAMESPACE = "plan_namespace";
-
-	public static final String PLAN_NAME = "plan_name";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-public interface PlanTemplatePlaceholders {
-
-	public static final String PLAN_NAMESPACE = "plan_namespace";
-
-	public static final String PLAN_NAME = "plan_name";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
-
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
-
-	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
-
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
-
-	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_OUTPUT_VAR_NAME = "plan_output_var_name";
-
-	public static final String PLAN_OUTPUT_VAR_MSG_TYPE = "plan_output_var_msg_type";
-
-	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
-
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
-
-	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
-
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
-
-	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
-
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
-
-	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_NAME = "plan_name";
-
-	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
-
-	public static final String PLT_CLIENT_NAME = "plt_client_name";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_NAME = "plan_name";
-
-	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
-
-	public static final String PLT_CLIENT_NAME = "plt_client_name";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_NAME = "plan_name";
-
-	public static final String PLAN_WSDL_NAME = "plan_wsdl_name";
-
-	public static final String PLT_CLIENT_NAME = "plt_client_name";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
-
-	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
-
-	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_NAME = "plan_end_inv_name";
-
-	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
-
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
-
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_END_INV_OPERATION = "plan_end_inv_operation";
-
-	public static final String PLAN_END_INV_PORT_TYPE = "plan_end_inv_callback_pt";
-
-	public static final String SERVICE_INVOKER_WSDL = "service_invoker_wsdl";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
-
-	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
-
-	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
-
-	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
-
-	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
-
-	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
-
-	public static final String PLAN_INIT_RCV_OPERATION = "plan_init_rcv_operation";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_NAME = "pl_client_name";
-
-	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_NAME = "pl_client_name";
-
-	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PL_CLIENT_NAME = "pl_client_name";
-
-	public static final String PL_CLIENT_MY_ROLE = "pl_client_pl_myrole_name";
-
-	public static final String PL_CLIENT_PARTNER_ROLE = "pl_client_partnerrole_name";
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
-
-	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
-
-	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
-
-	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
-
-	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/planwriter/placeholders/PlanTemplatePlaceholders.java`
-#### Snippet
-```java
-	public static final String PLAN_INPUT_VAR_MSG_TYPE = "plan_input_var_msg_type";
-
-	public static final String PLAN_INPUT_VAR_NAME = "plan_input_var_name";
-
-	public static final String PLAN_INIT_RCV_NAME = "plan_init_rcv_name";
 ```
 
 ## RuleId[id=MarkedForRemoval]
@@ -2994,18 +2994,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```
 
 ### EmptyStatementBody
-`if` statement has empty body
-in `org.eclipse.winery.repository.client/src/main/java/org/eclipse/winery/repository/client/WineryRepositoryClient.java`
-#### Snippet
-```java
-        clientConfig.register(MultiPartFeature.class);
-
-        if (useProxy) {
-            // todo
-        }
-```
-
-### EmptyStatementBody
 `else` statement has empty body
 in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/winery/bpmn2bpel/parser/Bpmn4JsonParser.java`
 #### Snippet
@@ -3015,6 +3003,18 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
                 } else {
                     // TODO warn
                 }
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `org.eclipse.winery.repository.client/src/main/java/org/eclipse/winery/repository/client/WineryRepositoryClient.java`
+#### Snippet
+```java
+        clientConfig.register(MultiPartFeature.class);
+
+        if (useProxy) {
+            // todo
+        }
 ```
 
 ## RuleId[id=CStyleArrayDeclaration]
@@ -3317,9 +3317,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 #### Snippet
 ```java
 
-    @XmlAttribute(name = "targetPropertyRef", required = true)
+    @XmlAttribute(name = "serviceTemplatePropertyRef", required = true)
     @NonNull
-    protected String targetPropertyRef;
+    protected String serviceTemplatePropertyRef;
 
 ```
 
@@ -3329,9 +3329,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 #### Snippet
 ```java
 
-    @XmlAttribute(name = "serviceTemplatePropertyRef", required = true)
+    @XmlAttribute(name = "targetPropertyRef", required = true)
     @NonNull
-    protected String serviceTemplatePropertyRef;
+    protected String targetPropertyRef;
 
 ```
 
@@ -3349,7 +3349,31 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTPolicy.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "policyType", required = true)
+    @NonNull
+    protected QName policyType;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTTag.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "name", required = true)
+    @NonNull
+    protected String name;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTParameter.java`
 #### Snippet
 ```java
 
@@ -3373,30 +3397,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 
 ### NotNullFieldNotInitialized
 Not-null fields must be initialized
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTParameter.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "name", required = true)
-    @NonNull
-    protected String name;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTPolicy.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "policyType", required = true)
-    @NonNull
-    protected QName policyType;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTEntityTemplate.java`
 #### Snippet
 ```java
@@ -3404,6 +3404,30 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
     @XmlAttribute(name = "type", required = true)
     @NonNull
     protected QName type;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTPrmMapping.java`
+#### Snippet
+```java
+    @XmlIDREF
+    @XmlSchemaType(name = "IDREF")
+    @NonNull
+    private XTEntityTemplate detectorElement;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTPrmMapping.java`
+#### Snippet
+```java
+    @XmlIDREF
+    @XmlSchemaType(name = "IDREF")
+    @NonNull
+    private XTEntityTemplate refinementElement;
 
 ```
 
@@ -3429,30 +3453,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
     @NonNull
     private String key;
     @XmlAttribute(name = "value", required = true)
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTPrmMapping.java`
-#### Snippet
-```java
-    @XmlIDREF
-    @XmlSchemaType(name = "IDREF")
-    @NonNull
-    private XTEntityTemplate detectorElement;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTPrmMapping.java`
-#### Snippet
-```java
-    @XmlIDREF
-    @XmlSchemaType(name = "IDREF")
-    @NonNull
-    private XTEntityTemplate refinementElement;
-
 ```
 
 ### NotNullFieldNotInitialized
@@ -3497,9 +3497,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 #### Snippet
 ```java
 
-    @XmlElement(name = "Property", required = true)
+    @XmlAttribute(name = "behaviorPattern", required = true)
     @NonNull
-    private XOTPropertyKV property;
+    private String behaviorPattern;
 
 ```
 
@@ -3509,9 +3509,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 #### Snippet
 ```java
 
-    @XmlAttribute(name = "behaviorPattern", required = true)
+    @XmlElement(name = "Property", required = true)
     @NonNull
-    private String behaviorPattern;
+    private XOTPropertyKV property;
 
 ```
 
@@ -3533,9 +3533,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 #### Snippet
 ```java
 
-    @XmlAttribute(name = "name", required = true)
+    @XmlAttribute(name = "type", required = true)
     @NonNull
-    protected String name;
+    protected String type;
 
 ```
 
@@ -3545,9 +3545,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 #### Snippet
 ```java
 
-    @XmlAttribute(name = "type", required = true)
+    @XmlAttribute(name = "name", required = true)
     @NonNull
-    protected String type;
+    protected String name;
 
 ```
 
@@ -3560,30 +3560,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
     @XmlSchemaType(name = "anyURI")
     @NonNull
     protected String name;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TTag.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "name", required = true)
-    @NonNull
-    protected String name;
-
-```
-
-### NotNullFieldNotInitialized
-Not-null fields must be initialized
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TPropertyMapping.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "targetPropertyRef", required = true)
-    @NonNull
-    protected String targetPropertyRef;
 
 ```
 
@@ -3608,6 +3584,30 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
     @XmlAttribute(name = "serviceTemplatePropertyRef", required = true)
     @NonNull
     protected String serviceTemplatePropertyRef;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TPropertyMapping.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "targetPropertyRef", required = true)
+    @NonNull
+    protected String targetPropertyRef;
+
+```
+
+### NotNullFieldNotInitialized
+Not-null fields must be initialized
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TTag.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "name", required = true)
+    @NonNull
+    protected String name;
 
 ```
 
@@ -3676,11 +3676,11 @@ Not-null fields must be initialized
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/kvproperties/OTPropertyKV.java`
 #### Snippet
 ```java
-
-    @XmlAttribute(name = "key", required = true)
-    @NonNull
     private String key;
     @XmlAttribute(name = "value", required = true)
+    @NonNull
+    private String value;
+
 ```
 
 ### NotNullFieldNotInitialized
@@ -3688,11 +3688,11 @@ Not-null fields must be initialized
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/kvproperties/OTPropertyKV.java`
 #### Snippet
 ```java
+
+    @XmlAttribute(name = "key", required = true)
+    @NonNull
     private String key;
     @XmlAttribute(name = "value", required = true)
-    @NonNull
-    private String value;
-
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -3753,9 +3753,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 ```java
 
     // required for XML deserialization
-    public XHasId() { }
-
-    // required for XML deserialization
+    public XHasId(String id) {
+        this.setId(id);
+    }
 ```
 
 ### Deprecation
@@ -3765,9 +3765,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 ```java
 
     // required for XML deserialization
-    public XHasId(String id) {
-        this.setId(id);
-    }
+    public XHasId() { }
+
+    // required for XML deserialization
 ```
 
 ### Deprecation
@@ -3832,7 +3832,7 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 
 ### Deprecation
 'Builder(java.lang.String)' is deprecated
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TGroupType.java`
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TRequirementType.java`
 #### Snippet
 ```java
 
@@ -3844,7 +3844,7 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 
 ### Deprecation
 'Builder(java.lang.String)' is deprecated
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TRequirementType.java`
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TGroupType.java`
 #### Snippet
 ```java
 
@@ -3892,18 +3892,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 
 ### Deprecation
 'Builder(java.lang.String)' is deprecated
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TInterfaceType.java`
-#### Snippet
-```java
-
-        public Builder(String name) {
-            super(name);
-        }
-
-```
-
-### Deprecation
-'Builder(java.lang.String)' is deprecated
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TArtifactType.java`
 #### Snippet
 ```java
@@ -3939,15 +3927,15 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 ```
 
 ### Deprecation
-'HasId()' is deprecated
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/OTPrmMapping.java`
+'TTopologyTemplate()' is deprecated
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/OTComplianceRule.java`
 #### Snippet
 ```java
-    }
-
-    public OTPrmMapping(TEntityTemplate detectorElement, TEntityTemplate refinementElement) {
-        this.detectorElement = detectorElement;
-        this.refinementElement = refinementElement;
+    public TTopologyTemplate getRequiredStructure() {
+        if (requiredStructure == null) {
+            requiredStructure = new TTopologyTemplate();
+        }
+        return requiredStructure;
 ```
 
 ### Deprecation
@@ -3964,18 +3952,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 
 ### Deprecation
 'TTopologyTemplate()' is deprecated
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/OTComplianceRule.java`
-#### Snippet
-```java
-    public TTopologyTemplate getRequiredStructure() {
-        if (requiredStructure == null) {
-            requiredStructure = new TTopologyTemplate();
-        }
-        return requiredStructure;
-```
-
-### Deprecation
-'TTopologyTemplate()' is deprecated
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/OTRefinementModel.java`
 #### Snippet
 ```java
@@ -3984,6 +3960,18 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
             detector = new TTopologyTemplate();
         }
         return detector;
+```
+
+### Deprecation
+'HasId()' is deprecated
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/OTPrmMapping.java`
+#### Snippet
+```java
+    }
+
+    public OTPrmMapping(TEntityTemplate detectorElement, TEntityTemplate refinementElement) {
+        this.detectorElement = detectorElement;
+        this.refinementElement = refinementElement;
 ```
 
 ### Deprecation
@@ -3996,6 +3984,18 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
             refinementStructure = new TTopologyTemplate();
         }
         return refinementStructure;
+```
+
+### Deprecation
+'Builder(java.lang.String)' is deprecated
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TInterfaceType.java`
+#### Snippet
+```java
+
+        public Builder(String name) {
+            super(name);
+        }
+
 ```
 
 ### Deprecation
@@ -4027,6 +4027,18 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/export/YamlExportAdjustmentsBuilder.java`
 #### Snippet
 ```java
+    }
+
+    public YAMLDefinitionsBasedCsarEntry build() {
+        this.entry.setDefinitions(definitions);
+        return entry;
+```
+
+### Deprecation
+'org.eclipse.winery.repository.yaml.export.entries.YAMLDefinitionsBasedCsarEntry' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/export/YamlExportAdjustmentsBuilder.java`
+#### Snippet
+```java
 public class YamlExportAdjustmentsBuilder {
 
     private YAMLDefinitionsBasedCsarEntry entry;
@@ -4044,18 +4056,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
     public YamlExportAdjustmentsBuilder(YAMLDefinitionsBasedCsarEntry entry) {
         this.entry = entry;
         this.definitions = this.entry.getDefinitions();
-```
-
-### Deprecation
-'org.eclipse.winery.repository.yaml.export.entries.YAMLDefinitionsBasedCsarEntry' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/export/YamlExportAdjustmentsBuilder.java`
-#### Snippet
-```java
-    }
-
-    public YAMLDefinitionsBasedCsarEntry build() {
-        this.entry.setDefinitions(definitions);
-        return entry;
 ```
 
 ### Deprecation
@@ -4143,27 +4143,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```
 
 ### Deprecation
-'org.eclipse.winery.repository.export.entries.XMLDefinitionsBasedCsarEntry' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/ToscaExportUtil.java`
+'serialize(org.eclipse.winery.model.tosca.TDefinitions, java.io.OutputStream)' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/entries/DefinitionsBasedCsarEntry.java`
 #### Snippet
 ```java
-        return this.referencesToPathInCSARMap.values().stream()
-            // FIXME ... why is this even restricted that way if all we want to do is "writeTOSCA"?
-            .filter(e -> e instanceof XMLDefinitionsBasedCsarEntry || e instanceof DefinitionsBasedCsarEntry)
-            .findFirst()
-            .orElseThrow(() -> new RepositoryCorruptException("Definition not found!"));
-```
-
-### Deprecation
-'TImport()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/ToscaExportUtil.java`
-#### Snippet
-```java
-     */
-    protected void addToImports(IRepository repository, DefinitionsChildId id, Collection<TImport> imports) {
-        TImport imp = new TImport();
-        imp.setImportType(Namespaces.TOSCA_NAMESPACE);
-        imp.setNamespace(id.getNamespace().getDecoded());
+    @Override
+    public void writeToOutputStream(OutputStream outputStream) throws IOException {
+        repository.serialize(definitions, outputStream);
+    }
+}
 ```
 
 ### Deprecation
@@ -4179,15 +4167,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ex
 ```
 
 ### Deprecation
-'serialize(org.eclipse.winery.model.tosca.TDefinitions, java.io.OutputStream)' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/entries/DefinitionsBasedCsarEntry.java`
+'TImport()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/ToscaExportUtil.java`
 #### Snippet
 ```java
-    @Override
-    public void writeToOutputStream(OutputStream outputStream) throws IOException {
-        repository.serialize(definitions, outputStream);
-    }
-}
+     */
+    protected void addToImports(IRepository repository, DefinitionsChildId id, Collection<TImport> imports) {
+        TImport imp = new TImport();
+        imp.setImportType(Namespaces.TOSCA_NAMESPACE);
+        imp.setNamespace(id.getNamespace().getDecoded());
+```
+
+### Deprecation
+'org.eclipse.winery.repository.export.entries.XMLDefinitionsBasedCsarEntry' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/ToscaExportUtil.java`
+#### Snippet
+```java
+        return this.referencesToPathInCSARMap.values().stream()
+            // FIXME ... why is this even restricted that way if all we want to do is "writeTOSCA"?
+            .filter(e -> e instanceof XMLDefinitionsBasedCsarEntry || e instanceof DefinitionsBasedCsarEntry)
+            .findFirst()
+            .orElseThrow(() -> new RepositoryCorruptException("Definition not found!"));
 ```
 
 ### Deprecation
@@ -4212,6 +4212,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ex
                 BackendUtils.persist(application, SelfServiceMetaDataUtils.getDataXmlRef(selfServiceMetaDataId), MediaTypes.MEDIATYPE_TEXT_XML, repository);
             } catch (IOException e) {
                 LOGGER.error("Could not persist patches to data.xml", e);
+```
+
+### Deprecation
+'persist(java.lang.Object, org.eclipse.winery.repository.common.RepositoryFileReference, org.apache.tika.mime.MediaType, org.eclipse.winery.repository.backend.IRepository)' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/SelfServiceMetaDataUtils.java`
+#### Snippet
+```java
+        if (!repository.exists(data_xml_ref)) {
+            final Application application = new Application();
+            BackendUtils.persist(application, data_xml_ref, MediaTypes.MEDIATYPE_TEXT_XML, repository);
+        }
+    }
 ```
 
 ### Deprecation
@@ -4251,15 +4263,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/xm
 ```
 
 ### Deprecation
-'persist(java.lang.Object, org.eclipse.winery.repository.common.RepositoryFileReference, org.apache.tika.mime.MediaType, org.eclipse.winery.repository.backend.IRepository)' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/SelfServiceMetaDataUtils.java`
+'TRelationshipTemplate()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/BackendUtils.java`
 #### Snippet
 ```java
-        if (!repository.exists(data_xml_ref)) {
-            final Application application = new Application();
-            BackendUtils.persist(application, data_xml_ref, MediaTypes.MEDIATYPE_TEXT_XML, repository);
-        }
-    }
+     */
+    public static TRelationshipTemplate clone(TRelationshipTemplate relationshipTemplate) {
+        TRelationshipTemplate relationshipTemplateClone = new TRelationshipTemplate();
+        relationshipTemplateClone.setSourceElement(relationshipTemplate.getSourceElement());
+        relationshipTemplateClone.setType(relationshipTemplate.getType());
 ```
 
 ### Deprecation
@@ -4284,18 +4296,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
         TServiceTemplate serviceTemplateClone = new TServiceTemplate();
         TTopologyTemplate topologyTemplateClone = clone(serviceTemplate.getTopologyTemplate());
         serviceTemplateClone.setTopologyTemplate(topologyTemplateClone);
-```
-
-### Deprecation
-'TNodeTemplate()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/BackendUtils.java`
-#### Snippet
-```java
-     */
-    public static TNodeTemplate clone(TNodeTemplate nodeTemplate) {
-        TNodeTemplate nodeTemplateClone = new TNodeTemplate();
-
-        nodeTemplateClone.setType(nodeTemplate.getType());
 ```
 
 ### Deprecation
@@ -4467,27 +4467,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 ```
 
 ### Deprecation
-'TDefinitions()' is deprecated
+'TNodeTemplate()' is deprecated
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/BackendUtils.java`
 #### Snippet
 ```java
      */
-    public static TDefinitions createWrapperDefinitions(DefinitionsChildId tcId, IRepository repo) {
-        TDefinitions defs = new TDefinitions();
-        return updateWrapperDefinitions(tcId, defs, repo);
-    }
-```
+    public static TNodeTemplate clone(TNodeTemplate nodeTemplate) {
+        TNodeTemplate nodeTemplateClone = new TNodeTemplate();
 
-### Deprecation
-'TRelationshipTemplate()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/BackendUtils.java`
-#### Snippet
-```java
-     */
-    public static TRelationshipTemplate clone(TRelationshipTemplate relationshipTemplate) {
-        TRelationshipTemplate relationshipTemplateClone = new TRelationshipTemplate();
-        relationshipTemplateClone.setSourceElement(relationshipTemplate.getSourceElement());
-        relationshipTemplateClone.setType(relationshipTemplate.getType());
+        nodeTemplateClone.setType(nodeTemplate.getType());
 ```
 
 ### Deprecation
@@ -4503,159 +4491,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 ```
 
 ### Deprecation
-'TInterfaceDefinition()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-            return null;
-        }
-        TInterfaceDefinition def = new TInterfaceDefinition();
-        def.setId(id);
-        def.setName(id);
-```
-
-### Deprecation
-'ParameterDefinition()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-            return null;
-        }
-        ParameterDefinition p = new ParameterDefinition();
-        p.setKey(name);
-        p.setType(node.getType());
-```
-
-### Deprecation
-'org.eclipse.winery.model.tosca.yaml.support.ValueHelper' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-        p.setDescription(node.getDescription());
-        p.setRequired(node.getRequired());
-        p.setDefaultValue(ValueHelper.toString(node.getDefault()));
-        p.setValue(ValueHelper.toString(node.getValue()));
-        return p;
-```
-
-### Deprecation
-'org.eclipse.winery.model.tosca.yaml.support.ValueHelper' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-        p.setRequired(node.getRequired());
-        p.setDefaultValue(ValueHelper.toString(node.getDefault()));
-        p.setValue(ValueHelper.toString(node.getValue()));
-        return p;
-    }
-```
-
-### Deprecation
-'Builder(java.lang.String)' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-        String typeName = fixNamespaceDuplication(id, node.getMetadata().get("targetNamespace"));
-        // convertRelationshipTypeImplementation(node.getInterfaces(), id, node.getMetadata().get("targetNamespace"));
-        return fillEntityTypeProperties(node, new TRelationshipType.Builder(typeName))
-            .addInterfaces(convert(node.getInterfaces(), null))
-            .addSourceInterfaces(convert(node.getInterfaces(), "SourceInterfaces"))
-```
-
-### Deprecation
-'TImplementation()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-            return null;
-        }
-        TImplementation def = new TImplementation();
-        def.setPrimary(node.getPrimaryArtifactName());
-        def.setDependencies(node.getDependencyArtifactNames());
-```
-
-### Deprecation
-'org.eclipse.winery.model.tosca.yaml.support.ValueHelper' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-            builder.setDefaultValue("\"\"");
-        } else {
-            builder.setDefaultValue(ValueHelper.toString(node.getDefault()));
-        }
-        return builder.build();
-```
-
-### Deprecation
-'TOperationDefinition()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-            return null;
-        }
-        TOperationDefinition def = new TOperationDefinition();
-        def.setId(id);
-        def.setName(id);
-```
-
-### Deprecation
-'Builder(java.lang.String)' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-        }
-        String typeName = fixNamespaceDuplication(id, node.getMetadata().get("targetNamespace"));
-        TNodeType.Builder builder = fillEntityTypeProperties(node, new TNodeType.Builder(typeName))
-            .addRequirementDefinitions(convert(node.getRequirements()))
-            .addCapabilityDefinitions(convert(node.getCapabilities()))
-```
-
-### Deprecation
-'AttributeDefinition()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-
-    public AttributeDefinition convert(YTAttributeDefinition node, String name) {
-        AttributeDefinition attribute = new AttributeDefinition();
-        attribute.setKey(name);
-        attribute.setType(node.getType());
-```
-
-### Deprecation
-'org.eclipse.winery.model.tosca.yaml.support.ValueHelper' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-        attribute.setType(node.getType());
-        attribute.setDescription(node.getDescription());
-        attribute.setDefaultValue(ValueHelper.toString(node.getDefault()));
-        return attribute;
-    }
-```
-
-### Deprecation
-'Builder(java.lang.String, org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-        }
-
-        TServiceTemplate result = new TServiceTemplate.Builder(id, convert(node.getTopologyTemplate()))
-            .addDocumentation(node.getDescription())
-            .setBoundaryDefinitions(
-```
-
-### Deprecation
 'TDefinitions()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/BackendUtils.java`
 #### Snippet
 ```java
-    public TDefinitions convert(YTServiceTemplate node, String id, String target_namespace, boolean isServiceTemplate) {
-        if (node == null) {
-            return new TDefinitions();
-        }
-        this.root = node;
+     */
+    public static TDefinitions createWrapperDefinitions(DefinitionsChildId tcId, IRepository repo) {
+        TDefinitions defs = new TDefinitions();
+        return updateWrapperDefinitions(tcId, defs, repo);
+    }
+```
+
+### Deprecation
+'serialize(org.eclipse.winery.model.tosca.TDefinitions, java.io.OutputStream)' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+#### Snippet
+```java
+    @Override
+    public void serialize(TDefinitions definitions, OutputStream target) throws IOException {
+        repository.serialize(definitions, target);
+    }
+}
 ```
 
 ### Deprecation
@@ -4695,15 +4551,159 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 ```
 
 ### Deprecation
-'serialize(org.eclipse.winery.model.tosca.TDefinitions, java.io.OutputStream)' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+'TOperationDefinition()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
 #### Snippet
 ```java
-    @Override
-    public void serialize(TDefinitions definitions, OutputStream target) throws IOException {
-        repository.serialize(definitions, target);
+            return null;
+        }
+        TOperationDefinition def = new TOperationDefinition();
+        def.setId(id);
+        def.setName(id);
+```
+
+### Deprecation
+'TInterfaceDefinition()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+            return null;
+        }
+        TInterfaceDefinition def = new TInterfaceDefinition();
+        def.setId(id);
+        def.setName(id);
+```
+
+### Deprecation
+'TDefinitions()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+    public TDefinitions convert(YTServiceTemplate node, String id, String target_namespace, boolean isServiceTemplate) {
+        if (node == null) {
+            return new TDefinitions();
+        }
+        this.root = node;
+```
+
+### Deprecation
+'ParameterDefinition()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+            return null;
+        }
+        ParameterDefinition p = new ParameterDefinition();
+        p.setKey(name);
+        p.setType(node.getType());
+```
+
+### Deprecation
+'org.eclipse.winery.model.tosca.yaml.support.ValueHelper' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+        p.setDescription(node.getDescription());
+        p.setRequired(node.getRequired());
+        p.setDefaultValue(ValueHelper.toString(node.getDefault()));
+        p.setValue(ValueHelper.toString(node.getValue()));
+        return p;
+```
+
+### Deprecation
+'org.eclipse.winery.model.tosca.yaml.support.ValueHelper' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+        p.setRequired(node.getRequired());
+        p.setDefaultValue(ValueHelper.toString(node.getDefault()));
+        p.setValue(ValueHelper.toString(node.getValue()));
+        return p;
     }
-}
+```
+
+### Deprecation
+'AttributeDefinition()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+
+    public AttributeDefinition convert(YTAttributeDefinition node, String name) {
+        AttributeDefinition attribute = new AttributeDefinition();
+        attribute.setKey(name);
+        attribute.setType(node.getType());
+```
+
+### Deprecation
+'org.eclipse.winery.model.tosca.yaml.support.ValueHelper' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+        attribute.setType(node.getType());
+        attribute.setDescription(node.getDescription());
+        attribute.setDefaultValue(ValueHelper.toString(node.getDefault()));
+        return attribute;
+    }
+```
+
+### Deprecation
+'Builder(java.lang.String)' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+        String typeName = fixNamespaceDuplication(id, node.getMetadata().get("targetNamespace"));
+        // convertRelationshipTypeImplementation(node.getInterfaces(), id, node.getMetadata().get("targetNamespace"));
+        return fillEntityTypeProperties(node, new TRelationshipType.Builder(typeName))
+            .addInterfaces(convert(node.getInterfaces(), null))
+            .addSourceInterfaces(convert(node.getInterfaces(), "SourceInterfaces"))
+```
+
+### Deprecation
+'Builder(java.lang.String, org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+        }
+
+        TServiceTemplate result = new TServiceTemplate.Builder(id, convert(node.getTopologyTemplate()))
+            .addDocumentation(node.getDescription())
+            .setBoundaryDefinitions(
+```
+
+### Deprecation
+'org.eclipse.winery.model.tosca.yaml.support.ValueHelper' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+            builder.setDefaultValue("\"\"");
+        } else {
+            builder.setDefaultValue(ValueHelper.toString(node.getDefault()));
+        }
+        return builder.build();
+```
+
+### Deprecation
+'Builder(java.lang.String)' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+        }
+        String typeName = fixNamespaceDuplication(id, node.getMetadata().get("targetNamespace"));
+        TNodeType.Builder builder = fillEntityTypeProperties(node, new TNodeType.Builder(typeName))
+            .addRequirementDefinitions(convert(node.getRequirements()))
+            .addCapabilityDefinitions(convert(node.getCapabilities()))
+```
+
+### Deprecation
+'TImplementation()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+            return null;
+        }
+        TImplementation def = new TImplementation();
+        def.setPrimary(node.getPrimaryArtifactName());
+        def.setDependencies(node.getDependencyArtifactNames());
 ```
 
 ### Deprecation
@@ -4791,18 +4791,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
 ```
 
 ### Deprecation
-'TNodeTemplate()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minhosts/TargetLabelAssignment.java`
-#### Snippet
-```java
-            possibleTargetLabels.put(nodeTemplate, targetLabels);
-        }
-        addMissingTargetLabelsRecursive(original.getTopLevelHosts(), new TNodeTemplate());
-    }
-
-```
-
-### Deprecation
 'TImport()' is deprecated
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/importing/CsarImporter.java`
 #### Snippet
@@ -4827,63 +4815,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/im
 ```
 
 ### Deprecation
-'TRelationshipTemplate()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+'TNodeTemplate()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minhosts/TargetLabelAssignment.java`
 #### Snippet
 ```java
-                                                                       topologyTemplate, TRelationshipType relationshipType, TRequirement requirement, TCapability capability) {
+            possibleTargetLabels.put(nodeTemplate, targetLabels);
+        }
+        addMissingTargetLabelsRecursive(original.getTopLevelHosts(), new TNodeTemplate());
+    }
 
-        TRelationshipTemplate matchingRelationshipTemplate = new TRelationshipTemplate();
-
-        QName relationshipTypeQName = new QName(relationshipType.getTargetNamespace(), relationshipType.getName());
 ```
 
 ### Deprecation
-'getAllRelationshipTemplates(org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+'TDataType()' is deprecated
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/yaml/DataTypeResource.java`
 #### Snippet
 ```java
-        LOGGER.debug("The QName of the matchingRelationshipType for ReqCap Matching", relationshipTypeQName);
-        List<String> ids = new ArrayList<>();
-        List<TRelationshipTemplate> tRelationshipTemplates = ModelUtilities.getAllRelationshipTemplates(topologyTemplate);
-        tRelationshipTemplates.forEach(rt -> ids.add(rt.getId()));
-        //Check if counter is already set in another Id, if yes -> increase newRelationshipCounter +1
-```
+    @Override
+    protected TExtensibleElements createNewElement() {
+        return new TDataType();
+    }
 
-### Deprecation
-'getAllNodeTemplates(org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-                                                                                      serviceTemplate, List<TNodeTemplate> matchingNodeTemplates) {
-
-        return ModelUtilities.getAllNodeTemplates(serviceTemplate.getTopologyTemplate())
-            .stream()
-            .filter(y -> !matchingNodeTemplates.contains(y))
-```
-
-### Deprecation
-'TServiceTemplate()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-        repository.forceDelete(composedServiceTemplateId);
-        repository.flagAsExisting(composedServiceTemplateId);
-        TServiceTemplate composedServiceTemplate = new TServiceTemplate();
-        composedServiceTemplate.setName(composedServiceTemplateId.getXmlId().getDecoded());
-        composedServiceTemplate.setId(composedServiceTemplate.getName());
-```
-
-### Deprecation
-'TTopologyTemplate()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-        composedServiceTemplate.setId(composedServiceTemplate.getName());
-        composedServiceTemplate.setTargetNamespace(solutionNamespace);
-        TTopologyTemplate composedTopologyTemplate = new TTopologyTemplate();
-        composedServiceTemplate.setTopologyTemplate(composedTopologyTemplate);
-        repository.setElement(composedServiceTemplateId, composedServiceTemplate);
 ```
 
 ### Deprecation
@@ -4896,30 +4848,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
         TNodeType placeholderNodeType = new TNodeType();
         placeholderNodeType.setName(nameOfNodeTemplateGettingPlaceholder + "_placeholder");
         placeholderNodeType.setId(nameOfNodeTemplateGettingPlaceholder + "_placeholder");
-```
-
-### Deprecation
-'TServiceTemplate()' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-        repository.forceDelete(splitServiceTemplateId);
-        repository.flagAsExisting(splitServiceTemplateId);
-        TServiceTemplate splitServiceTemplate = new TServiceTemplate();
-        splitServiceTemplate.setName(splitServiceTemplateId.getXmlId().getDecoded());
-        splitServiceTemplate.setId(splitServiceTemplate.getName());
-```
-
-### Deprecation
-'getAllNodeTemplates(org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-        ProviderRepository providerRepository = new ProviderRepository();
-        Map<String, List<TServiceTemplate>> connectionInjectionOptions = new HashMap<>();
-        List<TNodeTemplate> nodeTemplates = ModelUtilities.getAllNodeTemplates(serviceTemplate.getTopologyTemplate());
-        List<TNodeTemplate> nodeTemplatesWithConnectionRequirement = nodeTemplates.stream()
-            .filter(nt -> nt.getRequirements() != null)
 ```
 
 ### Deprecation
@@ -4983,6 +4911,42 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 ```
 
 ### Deprecation
+'TServiceTemplate()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+        repository.forceDelete(composedServiceTemplateId);
+        repository.flagAsExisting(composedServiceTemplateId);
+        TServiceTemplate composedServiceTemplate = new TServiceTemplate();
+        composedServiceTemplate.setName(composedServiceTemplateId.getXmlId().getDecoded());
+        composedServiceTemplate.setId(composedServiceTemplate.getName());
+```
+
+### Deprecation
+'TTopologyTemplate()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+        composedServiceTemplate.setId(composedServiceTemplate.getName());
+        composedServiceTemplate.setTargetNamespace(solutionNamespace);
+        TTopologyTemplate composedTopologyTemplate = new TTopologyTemplate();
+        composedServiceTemplate.setTopologyTemplate(composedTopologyTemplate);
+        repository.setElement(composedServiceTemplateId, composedServiceTemplate);
+```
+
+### Deprecation
+'getAllNodeTemplates(org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                                                                                      serviceTemplate, List<TNodeTemplate> matchingNodeTemplates) {
+
+        return ModelUtilities.getAllNodeTemplates(serviceTemplate.getTopologyTemplate())
+            .stream()
+            .filter(y -> !matchingNodeTemplates.contains(y))
+```
+
+### Deprecation
 'getAllNodeTemplates(org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
@@ -5007,6 +4971,42 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 ```
 
 ### Deprecation
+'TRelationshipTemplate()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                                                                       topologyTemplate, TRelationshipType relationshipType, TRequirement requirement, TCapability capability) {
+
+        TRelationshipTemplate matchingRelationshipTemplate = new TRelationshipTemplate();
+
+        QName relationshipTypeQName = new QName(relationshipType.getTargetNamespace(), relationshipType.getName());
+```
+
+### Deprecation
+'getAllRelationshipTemplates(org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+        LOGGER.debug("The QName of the matchingRelationshipType for ReqCap Matching", relationshipTypeQName);
+        List<String> ids = new ArrayList<>();
+        List<TRelationshipTemplate> tRelationshipTemplates = ModelUtilities.getAllRelationshipTemplates(topologyTemplate);
+        tRelationshipTemplates.forEach(rt -> ids.add(rt.getId()));
+        //Check if counter is already set in another Id, if yes -> increase newRelationshipCounter +1
+```
+
+### Deprecation
+'getAllNodeTemplates(org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+        ProviderRepository providerRepository = new ProviderRepository();
+        Map<String, List<TServiceTemplate>> connectionInjectionOptions = new HashMap<>();
+        List<TNodeTemplate> nodeTemplates = ModelUtilities.getAllNodeTemplates(serviceTemplate.getTopologyTemplate());
+        List<TNodeTemplate> nodeTemplatesWithConnectionRequirement = nodeTemplates.stream()
+            .filter(nt -> nt.getRequirements() != null)
+```
+
+### Deprecation
 'TNodeTemplate()' is deprecated
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
@@ -5019,27 +5019,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 ```
 
 ### Deprecation
-'TDataType()' is deprecated
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/yaml/DataTypeResource.java`
+'TServiceTemplate()' is deprecated
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-    @Override
-    protected TExtensibleElements createNewElement() {
-        return new TDataType();
-    }
-
-```
-
-### Deprecation
-'persist(java.lang.Object, org.eclipse.winery.repository.common.RepositoryFileReference, org.apache.tika.mime.MediaType, org.eclipse.winery.repository.backend.IRepository)' is deprecated
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/RestUtils.java`
-#### Snippet
-```java
-    public static Response persist(Object object, RepositoryFileReference data_xml_ref, String mimeType) {
-        try {
-            BackendUtils.persist(object, data_xml_ref, org.apache.tika.mime.MediaType.parse(mimeType), RepositoryFactory.getRepository());
-        } catch (IOException e) {
-            LOGGER.debug("Could not persist resource", e);
+        repository.forceDelete(splitServiceTemplateId);
+        repository.flagAsExisting(splitServiceTemplateId);
+        TServiceTemplate splitServiceTemplate = new TServiceTemplate();
+        splitServiceTemplate.setName(splitServiceTemplateId.getXmlId().getDecoded());
+        splitServiceTemplate.setId(splitServiceTemplate.getName());
 ```
 
 ### Deprecation
@@ -5055,6 +5043,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### Deprecation
+'persist(java.lang.Object, org.eclipse.winery.repository.common.RepositoryFileReference, org.apache.tika.mime.MediaType, org.eclipse.winery.repository.backend.IRepository)' is deprecated
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/RestUtils.java`
+#### Snippet
+```java
+    public static Response persist(Object object, RepositoryFileReference data_xml_ref, String mimeType) {
+        try {
+            BackendUtils.persist(object, data_xml_ref, org.apache.tika.mime.MediaType.parse(mimeType), RepositoryFactory.getRepository());
+        } catch (IOException e) {
+            LOGGER.debug("Could not persist resource", e);
+```
+
+### Deprecation
 'Builder(java.lang.String)' is deprecated
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/_support/AbstractRefinementModelResource.java`
 #### Snippet
@@ -5067,18 +5067,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### Deprecation
-'TDeploymentArtifact()' is deprecated
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/artifacts/DeploymentArtifactResource.java`
-#### Snippet
-```java
-        }
-        // DA does not exist in list
-        TDeploymentArtifact ia = new TDeploymentArtifact();
-        ia.setName(artifactId);
-        deploymentArtifacts.add(ia);
-```
-
-### Deprecation
 'TImplementationArtifact()' is deprecated
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/artifacts/ImplementationArtifactResource.java`
 #### Snippet
@@ -5088,6 +5076,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
         TImplementationArtifact ia = new TImplementationArtifact();
         ia.setName(artifactId);
         implementationArtifacts.add(ia);
+```
+
+### Deprecation
+'TDeploymentArtifact()' is deprecated
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/artifacts/DeploymentArtifactResource.java`
+#### Snippet
+```java
+        }
+        // DA does not exist in list
+        TDeploymentArtifact ia = new TDeploymentArtifact();
+        ia.setName(artifactId);
+        deploymentArtifacts.add(ia);
 ```
 
 ### Deprecation
@@ -5151,18 +5151,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### Deprecation
-'TPolicyTemplate()' is deprecated
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/entitytemplates/policytemplates/PolicyTemplateResource.java`
-#### Snippet
-```java
-    @Override
-    protected TExtensibleElements createNewElement() {
-        return new TPolicyTemplate();
-    }
-
-```
-
-### Deprecation
 'TRelationshipType()' is deprecated
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/entitytypes/relationshiptypes/RelationshipTypeResource.java`
 #### Snippet
@@ -5172,6 +5160,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
         return new TRelationshipType();
     }
 }
+```
+
+### Deprecation
+'TPolicyTemplate()' is deprecated
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/entitytemplates/policytemplates/PolicyTemplateResource.java`
+#### Snippet
+```java
+    @Override
+    protected TExtensibleElements createNewElement() {
+        return new TPolicyTemplate();
+    }
+
 ```
 
 ### Deprecation
@@ -5211,6 +5211,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### Deprecation
+'org.apache.commons.lang3.StringEscapeUtils' is deprecated
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/BoundaryDefinitionsJSPData.java`
+#### Snippet
+```java
+    public String getDefinedPropertiesAsEscapedHTML() {
+        String s = this.getDefinedProperties();
+        s = StringEscapeUtils.escapeHtml4(s);
+        return s;
+    }
+```
+
+### Deprecation
 'TPropertyConstraint()' is deprecated
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/PropertyConstraintsResource.java`
 #### Snippet
@@ -5235,42 +5247,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### Deprecation
-'org.apache.commons.lang3.StringEscapeUtils' is deprecated
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/BoundaryDefinitionsJSPData.java`
-#### Snippet
-```java
-    public String getDefinedPropertiesAsEscapedHTML() {
-        String s = this.getDefinedProperties();
-        s = StringEscapeUtils.escapeHtml4(s);
-        return s;
-    }
-```
-
-### Deprecation
-'TRequirementRef()' is deprecated
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/reqscaps/RequirementsResource.java`
-#### Snippet
-```java
-        }
-
-        TRequirementRef ref = new TRequirementRef();
-        ref.setName(name); // may also be null
-
-```
-
-### Deprecation
-'TRequirementRef()' is deprecated
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/reqscaps/RequirementsResource.java`
-#### Snippet
-```java
-        }
-
-        TRequirementRef ref = new TRequirementRef();
-        ref.setName(reqOrCap.name); // may also be null
-
-```
-
-### Deprecation
 'TCapabilityRef()' is deprecated
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/reqscaps/CapabilitiesResource.java`
 #### Snippet
@@ -5295,15 +5271,27 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### Deprecation
-'TRelationshipTypeImplementation()' is deprecated
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/entitytypeimplementations/relationshiptypeimplementations/RelationshipTypeImplementationResource.java`
+'TRequirementRef()' is deprecated
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/reqscaps/RequirementsResource.java`
 #### Snippet
 ```java
-    @Override
-    protected TExtensibleElements createNewElement() {
-        return new TRelationshipTypeImplementation();
-    }
-}
+        }
+
+        TRequirementRef ref = new TRequirementRef();
+        ref.setName(reqOrCap.name); // may also be null
+
+```
+
+### Deprecation
+'TRequirementRef()' is deprecated
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/reqscaps/RequirementsResource.java`
+#### Snippet
+```java
+        }
+
+        TRequirementRef ref = new TRequirementRef();
+        ref.setName(name); // may also be null
+
 ```
 
 ### Deprecation
@@ -5319,15 +5307,15 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### Deprecation
-'TTag()' is deprecated
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
+'TRelationshipTypeImplementation()' is deprecated
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/entitytypeimplementations/relationshiptypeimplementations/RelationshipTypeImplementationResource.java`
 #### Snippet
 ```java
-        String choreoValue = splitting.calculateChoreographyTag(newServiceTemplate.getTopologyTemplate().getNodeTemplates(), participantId);
-
-        TTag choreoTag = new TTag();
-        choreoTag.setName("choreography");
-        choreoTag.setValue(choreoValue);
+    @Override
+    protected TExtensibleElements createNewElement() {
+        return new TRelationshipTypeImplementation();
+    }
+}
 ```
 
 ### Deprecation
@@ -5340,18 +5328,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
         TServiceTemplate matchedServiceTemplate = new TServiceTemplate();
         matchedServiceTemplate.setName(matchedServiceTemplateId.getXmlId().getDecoded());
         matchedServiceTemplate.setId(matchedServiceTemplate.getName());
-```
-
-### Deprecation
-'TTopologyTemplate()' is deprecated
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
-#### Snippet
-```java
-            // default topology template: empty template
-            // This eases the JSPs etc. and is valid as a non-existant topology template is equal to an empty one
-            this.getServiceTemplate().setTopologyTemplate(new TTopologyTemplate());
-        }
-        return new TopologyTemplateResource(this, this.getServiceTemplate().getTopologyTemplate(), null);
 ```
 
 ### Deprecation
@@ -5379,6 +5355,30 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### Deprecation
+'TTag()' is deprecated
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
+#### Snippet
+```java
+        String choreoValue = splitting.calculateChoreographyTag(newServiceTemplate.getTopologyTemplate().getNodeTemplates(), participantId);
+
+        TTag choreoTag = new TTag();
+        choreoTag.setName("choreography");
+        choreoTag.setValue(choreoValue);
+```
+
+### Deprecation
+'TTopologyTemplate()' is deprecated
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
+#### Snippet
+```java
+            // default topology template: empty template
+            // This eases the JSPs etc. and is valid as a non-existant topology template is equal to an empty one
+            this.getServiceTemplate().setTopologyTemplate(new TTopologyTemplate());
+        }
+        return new TopologyTemplateResource(this, this.getServiceTemplate().getTopologyTemplate(), null);
+```
+
+### Deprecation
 'TRelationshipTemplate()' is deprecated
 in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/tests/TestRefinement.java`
 #### Snippet
@@ -5388,18 +5388,6 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
                         TRelationshipTemplate relationshipTemplate = new TRelationshipTemplate();
                         relationshipTemplate.setType(relationMapping.getRelationType());
                         relationshipTemplate.setId(relId);
-```
-
-### Deprecation
-'Builder(java.lang.String, org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/placement/PlacementUtils.java`
-#### Snippet
-```java
-                VersionSupport.getNewComponentVersionId(serviceTemplateId, "placement"), false);
-            repo.forceDelete(placementId);
-            TServiceTemplate placementServiceTemplate = new TServiceTemplate.Builder(placementId.getXmlId().getDecoded(), topology)
-                .setName(placementId.getXmlId().getDecoded())
-                .setTargetNamespace(serviceTemplateId.getNamespace().getDecoded())
 ```
 
 ### Deprecation
@@ -5424,6 +5412,18 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
         TNodeTemplate proxy = new TNodeTemplate();
         proxy.setType(OpenToscaBaseTypes.secureProxyContainer);
         proxy.setName(OpenToscaBaseTypes.secureProxyContainer.getLocalPart());
+```
+
+### Deprecation
+'Builder(java.lang.String, org.eclipse.winery.model.tosca.TTopologyTemplate)' is deprecated
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/placement/PlacementUtils.java`
+#### Snippet
+```java
+                VersionSupport.getNewComponentVersionId(serviceTemplateId, "placement"), false);
+            repo.forceDelete(placementId);
+            TServiceTemplate placementServiceTemplate = new TServiceTemplate.Builder(placementId.getXmlId().getDecoded(), topology)
+                .setName(placementId.getXmlId().getDecoded())
+                .setTargetNamespace(serviceTemplateId.getNamespace().getDecoded())
 ```
 
 ### Deprecation
@@ -5641,9 +5641,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 #### Snippet
 ```java
 
-    @XmlAttribute(name = "targetPropertyRef", required = true)
+    @XmlAttribute(name = "serviceTemplatePropertyRef", required = true)
     @NonNull
-    protected String targetPropertyRef;
+    protected String serviceTemplatePropertyRef;
 
 ```
 
@@ -5653,9 +5653,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 #### Snippet
 ```java
 
-    @XmlAttribute(name = "serviceTemplatePropertyRef", required = true)
+    @XmlAttribute(name = "targetPropertyRef", required = true)
     @NonNull
-    protected String serviceTemplatePropertyRef;
+    protected String targetPropertyRef;
 
 ```
 
@@ -5696,42 +5696,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTTag.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "name", required = true)
-    @NonNull
-    protected String name;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTParameter.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "type", required = true)
-    @NonNull
-    protected String type;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTParameter.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "name", required = true)
-    @NonNull
-    protected String name;
-
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.eclipse.jdt.annotation.Nullable'
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTPolicy.java`
 #### Snippet
@@ -5740,18 +5704,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
     @XmlAttribute(name = "targets")
     @Nullable
     protected List<QName> targets;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.eclipse.jdt.annotation.Nullable'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTPolicy.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "name")
-    @Nullable
-    protected String name;
 
 ```
 
@@ -5780,14 +5732,50 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 ```
 
 ### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.eclipse.jdt.annotation.Nullable'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTPolicy.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "name")
+    @Nullable
+    protected String name;
+
+```
+
+### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTEntityTemplate.java`
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTTag.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "name", required = true)
+    @NonNull
+    protected String name;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTParameter.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "name", required = true)
+    @NonNull
+    protected String name;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTParameter.java`
 #### Snippet
 ```java
 
     @XmlAttribute(name = "type", required = true)
     @NonNull
-    protected QName type;
+    protected String type;
 
 ```
 
@@ -5804,6 +5792,18 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 ```
 
 ### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTEntityTemplate.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "type", required = true)
+    @NonNull
+    protected QName type;
+
+```
+
+### NullableProblems
 Not annotated method overrides method annotated with @NonNullByDefault
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTRelationshipTypeImplementation.java`
 #### Snippet
@@ -5813,30 +5813,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
         public QName getTypeAsQName() {
             return this.getType();
         }
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTPropertyKV.java`
-#### Snippet
-```java
-    private String key;
-    @XmlAttribute(name = "value", required = true)
-    @NonNull
-    private String value;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTPropertyKV.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "key", required = true)
-    @NonNull
-    private String key;
-    @XmlAttribute(name = "value", required = true)
 ```
 
 ### NullableProblems
@@ -5861,6 +5837,30 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
     @NonNull
     private XTEntityTemplate refinementElement;
 
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTPropertyKV.java`
+#### Snippet
+```java
+    private String key;
+    @XmlAttribute(name = "value", required = true)
+    @NonNull
+    private String value;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTPropertyKV.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "key", required = true)
+    @NonNull
+    private String key;
+    @XmlAttribute(name = "value", required = true)
 ```
 
 ### NullableProblems
@@ -5905,9 +5905,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 #### Snippet
 ```java
 
-    @XmlElement(name = "Property", required = true)
+    @XmlAttribute(name = "behaviorPattern", required = true)
     @NonNull
-    private XOTPropertyKV property;
+    private String behaviorPattern;
 
 ```
 
@@ -5917,21 +5917,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 #### Snippet
 ```java
 
-    @XmlAttribute(name = "behaviorPattern", required = true)
+    @XmlElement(name = "Property", required = true)
     @NonNull
-    private String behaviorPattern;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.eclipse.jdt.annotation.Nullable'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTAttributeMapping.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "refinementProperty")
-    @Nullable
-    private String refinementProperty;
+    private XOTPropertyKV property;
 
 ```
 
@@ -5944,6 +5932,18 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
     @XmlAttribute(name = "detectorProperty")
     @Nullable
     private String detectorProperty;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.eclipse.jdt.annotation.Nullable'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTAttributeMapping.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "refinementProperty")
+    @Nullable
+    private String refinementProperty;
 
 ```
 
@@ -5984,15 +5984,15 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/o
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTMapObject.java`
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/YTAttributeDefinition.java`
 #### Snippet
 ```java
 
-    @Override
-    public void putAll(Map<? extends String, ? extends Object> map) {
-        this.map.putAll(map);
-    }
+    private String description;
+    @NonNull
+    private QName type;
+    @Annotations.FieldName("default")
 ```
 
 ### NullableProblems
@@ -6008,15 +6008,15 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/o
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/YTAttributeDefinition.java`
+Not annotated parameter overrides @NotNull parameter
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTMapObject.java`
 #### Snippet
 ```java
 
-    private String description;
-    @NonNull
-    private QName type;
-    @Annotations.FieldName("default")
+    @Override
+    public void putAll(Map<? extends String, ? extends Object> map) {
+        this.map.putAll(map);
+    }
 ```
 
 ### NullableProblems
@@ -6027,6 +6027,18 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/o
 
     @Override
     public void putAll(Map<? extends String, ? extends YTActivityDefinition> map) {
+        this.map.putAll(map);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTMapImportDefinition.java`
+#### Snippet
+```java
+
+    @Override
+    public void putAll(Map<? extends String, ? extends YTImportDefinition> map) {
         this.map.putAll(map);
     }
 ```
@@ -6045,18 +6057,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/o
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTMapImportDefinition.java`
-#### Snippet
-```java
-
-    @Override
-    public void putAll(Map<? extends String, ? extends YTImportDefinition> map) {
-        this.map.putAll(map);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTMapRequirementDefinition.java`
 #### Snippet
 ```java
@@ -6064,6 +6064,78 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/o
     @Override
     public void putAll(Map<? extends String, ? extends YTRequirementDefinition> map) {
         this.map.putAll(map);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
+#### Snippet
+```java
+
+    @Override
+    public <T> T[] toArray(T[] ts) {
+        return list.toArray(ts);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean retainAll(Collection<?> collection) {
+        return list.retainAll(collection);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean removeAll(Collection<?> collection) {
+        return list.removeAll(collection);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean addAll(int i, Collection<? extends String> collection) {
+        return list.addAll(collection);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean addAll(Collection<? extends String> collection) {
+        return list.addAll(collection);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
+#### Snippet
+```java
+
+    @Override
+    public boolean containsAll(Collection<?> collection) {
+        return list.containsAll(collection);
     }
 ```
 
@@ -6101,78 +6173,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/o
     @NonNull
     P copy();
 
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean addAll(Collection<? extends String> collection) {
-        return list.addAll(collection);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean retainAll(Collection<?> collection) {
-        return list.retainAll(collection);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean addAll(int i, Collection<? extends String> collection) {
-        return list.addAll(collection);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
-#### Snippet
-```java
-
-    @Override
-    public <T> T[] toArray(T[] ts) {
-        return list.toArray(ts);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean removeAll(Collection<?> collection) {
-        return list.removeAll(collection);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.yaml/src/main/java/org/eclipse/winery/model/tosca/yaml/support/YTListString.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean containsAll(Collection<?> collection) {
-        return list.containsAll(collection);
-    }
 ```
 
 ### NullableProblems
@@ -6253,9 +6253,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 #### Snippet
 ```java
 
-    @XmlAttribute(name = "name", required = true)
+    @XmlAttribute(name = "type", required = true)
     @NonNull
-    protected String name;
+    protected String type;
 
 ```
 
@@ -6265,33 +6265,9 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 #### Snippet
 ```java
 
-    @XmlAttribute(name = "type", required = true)
+    @XmlAttribute(name = "name", required = true)
     @NonNull
-    protected String type;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TEntityTemplate.java`
-#### Snippet
-```java
-        private String elementName = null;
-
-        @NonNull
-        private LinkedHashMap<String, String> KVProperties = new LinkedHashMap<>();
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.eclipse.jdt.annotation.Nullable'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TEntityTemplate.java`
-#### Snippet
-```java
-        private String namespace = null;
-
-        @Nullable
-        private String elementName = null;
+    protected String name;
 
 ```
 
@@ -6304,6 +6280,30 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 
         @Nullable
         private String namespace = null;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.eclipse.jdt.annotation.Nullable'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TEntityTemplate.java`
+#### Snippet
+```java
+        private String namespace = null;
+
+        @Nullable
+        private String elementName = null;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TEntityTemplate.java`
+#### Snippet
+```java
+        private String elementName = null;
+
+        @NonNull
+        private LinkedHashMap<String, String> KVProperties = new LinkedHashMap<>();
 
 ```
 
@@ -6345,30 +6345,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TTag.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "name", required = true)
-    @NonNull
-    protected String name;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TPropertyMapping.java`
-#### Snippet
-```java
-
-    @XmlAttribute(name = "targetPropertyRef", required = true)
-    @NonNull
-    protected String targetPropertyRef;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TPropertyMapping.java`
 #### Snippet
 ```java
@@ -6388,6 +6364,42 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
     @XmlAttribute(name = "serviceTemplatePropertyRef", required = true)
     @NonNull
     protected String serviceTemplatePropertyRef;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TPropertyMapping.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "targetPropertyRef", required = true)
+    @NonNull
+    protected String targetPropertyRef;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@org.eclipse.jdt.annotation.NonNull'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TTag.java`
+#### Snippet
+```java
+
+    @XmlAttribute(name = "name", required = true)
+    @NonNull
+    protected String name;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.eclipse.jdt.annotation.Nullable'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TPolicy.java`
+#### Snippet
+```java
+    //Added to support conversion to/from YAML Policies
+    @XmlAttribute(name = "targets")
+    @Nullable
+    protected List<QName> targets;
 
 ```
 
@@ -6412,18 +6424,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
     @XmlAttribute(name = "policyType", required = true)
     @NonNull
     protected QName policyType;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.eclipse.jdt.annotation.Nullable'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TPolicy.java`
-#### Snippet
-```java
-    //Added to support conversion to/from YAML Policies
-    @XmlAttribute(name = "targets")
-    @Nullable
-    protected List<QName> targets;
 
 ```
 
@@ -6516,11 +6516,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@or
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/kvproperties/OTPropertyKV.java`
 #### Snippet
 ```java
-
-    @XmlAttribute(name = "key", required = true)
-    @NonNull
     private String key;
     @XmlAttribute(name = "value", required = true)
+    @NonNull
+    private String value;
+
 ```
 
 ### NullableProblems
@@ -6528,11 +6528,11 @@ The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@or
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/kvproperties/OTPropertyKV.java`
 #### Snippet
 ```java
+
+    @XmlAttribute(name = "key", required = true)
+    @NonNull
     private String key;
     @XmlAttribute(name = "value", required = true)
-    @NonNull
-    private String value;
-
 ```
 
 ### NullableProblems
@@ -6578,9 +6578,9 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```java
 
     @Override
-    public Parameter self() {
-        return this;
-    }
+    public Parameter copy() {
+        Parameter parameter = new Parameter(this.path, this.namespace);
+        parameter.getContext().addAll(this.getContext());
 ```
 
 ### NullableProblems
@@ -6590,9 +6590,9 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```java
 
     @Override
-    public Parameter copy() {
-        Parameter parameter = new Parameter(this.path, this.namespace);
-        parameter.getContext().addAll(this.getContext());
+    public Parameter self() {
+        return this;
+    }
 ```
 
 ### NullableProblems
@@ -6626,9 +6626,9 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```java
 
         @Override
-        public Parameter copy() {
-            Parameter parameter = new Parameter(this.reference, this.entityClass);
-            parameter.getContext().addAll(this.getContext());
+        public Parameter self() {
+            return this;
+        }
 ```
 
 ### NullableProblems
@@ -6638,9 +6638,21 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```java
 
         @Override
-        public Parameter self() {
-            return this;
-        }
+        public Parameter copy() {
+            Parameter parameter = new Parameter(this.reference, this.entityClass);
+            parameter.getContext().addAll(this.getContext());
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NonNull
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/support/Parameter.java`
+#### Snippet
+```java
+
+    @Override
+    public Parameter self() {
+        return this;
+    }
 ```
 
 ### NullableProblems
@@ -6653,18 +6665,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
     public Parameter copy() {
         Parameter parameter = new Parameter();
         parameter.getContext().addAll(this.getContext());
-```
-
-### NullableProblems
-Not annotated method overrides method annotated with @NonNull
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/support/Parameter.java`
-#### Snippet
-```java
-
-    @Override
-    public Parameter self() {
-        return this;
-    }
 ```
 
 ### NullableProblems
@@ -6938,6 +6938,30 @@ Link specified as plain text
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTNodeTypeImplementation.java`
 #### Snippet
 ```java
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;attribute name="nodeTypeImplementationRef" use="required" type="{http://www.w3.org/2001/XMLSchema}QName"
+     * />
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTNodeTypeImplementation.java`
+#### Snippet
+```java
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;attribute name="nodeTypeImplementationRef" use="required" type="{http://www.w3.org/2001/XMLSchema}QName"
+     * />
+     *     &lt;/restriction>
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTNodeTypeImplementation.java`
+#### Snippet
+```java
  * &lt;complexType name="tNodeTypeImplementation">
  *   &lt;complexContent>
  *     &lt;extension base="{http://docs.oasis-open.org/tosca/ns/2011/12}tExtensibleElements">
@@ -7075,30 +7099,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
  *       &lt;attribute name="final" type="{http://docs.oasis-open.org/tosca/ns/2011/12}tBoolean" default="no" />
  *       &lt;anyAttribute processContents='lax' namespace='##other'/>
  *     &lt;/extension>
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTNodeTypeImplementation.java`
-#### Snippet
-```java
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;attribute name="nodeTypeImplementationRef" use="required" type="{http://www.w3.org/2001/XMLSchema}QName"
-     * />
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTNodeTypeImplementation.java`
-#### Snippet
-```java
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;attribute name="nodeTypeImplementationRef" use="required" type="{http://www.w3.org/2001/XMLSchema}QName"
-     * />
-     *     &lt;/restriction>
 ```
 
 ### JavadocLinkAsPlainText
@@ -7385,54 +7385,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
      * &lt;complexType>
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;attribute name="nodeRef" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
-     *       &lt;attribute name="interfaceName" use="required" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TExportedOperation.java`
-#### Snippet
-```java
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;attribute name="nodeRef" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
-     *       &lt;attribute name="interfaceName" use="required" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
-     *       &lt;attribute name="operationName" use="required" type="{http://www.w3.org/2001/XMLSchema}NCName" />
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TExportedOperation.java`
-#### Snippet
-```java
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;attribute name="nodeRef" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
-     *       &lt;attribute name="interfaceName" use="required" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
-     *       &lt;attribute name="operationName" use="required" type="{http://www.w3.org/2001/XMLSchema}NCName" />
-     *     &lt;/restriction>
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TExportedOperation.java`
-#### Snippet
-```java
-     *       &lt;attribute name="nodeRef" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
-     *       &lt;attribute name="interfaceName" use="required" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
-     *       &lt;attribute name="operationName" use="required" type="{http://www.w3.org/2001/XMLSchema}NCName" />
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TExportedOperation.java`
-#### Snippet
-```java
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;attribute name="relationshipRef" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
      *       &lt;attribute name="interfaceName" use="required" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
 ```
@@ -7493,6 +7445,54 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
      *   &lt;complexContent>
      *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
      *       &lt;attribute name="planRef" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
+     *     &lt;/restriction>
+     *   &lt;/complexContent>
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TExportedOperation.java`
+#### Snippet
+```java
+     * &lt;complexType>
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;attribute name="nodeRef" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
+     *       &lt;attribute name="interfaceName" use="required" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TExportedOperation.java`
+#### Snippet
+```java
+     *   &lt;complexContent>
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;attribute name="nodeRef" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
+     *       &lt;attribute name="interfaceName" use="required" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
+     *       &lt;attribute name="operationName" use="required" type="{http://www.w3.org/2001/XMLSchema}NCName" />
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TExportedOperation.java`
+#### Snippet
+```java
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+     *       &lt;attribute name="nodeRef" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
+     *       &lt;attribute name="interfaceName" use="required" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
+     *       &lt;attribute name="operationName" use="required" type="{http://www.w3.org/2001/XMLSchema}NCName" />
+     *     &lt;/restriction>
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TExportedOperation.java`
+#### Snippet
+```java
+     *       &lt;attribute name="nodeRef" use="required" type="{http://www.w3.org/2001/XMLSchema}IDREF" />
+     *       &lt;attribute name="interfaceName" use="required" type="{http://www.w3.org/2001/XMLSchema}anyURI" />
+     *       &lt;attribute name="operationName" use="required" type="{http://www.w3.org/2001/XMLSchema}NCName" />
      *     &lt;/restriction>
      *   &lt;/complexContent>
 ```
@@ -7643,18 +7643,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/_support/GenericFileResource.java`
-#### Snippet
-```java
-     * If the file already exists, is it <em>overridden</em>
-     *
-     * @return JSON with data required by JQuery-File-Upload (see https://github.com/blueimp/jQuery-File-Upload/wiki/Setup)
-     */
-    @POST
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/_support/collections/EntityCollectionResource.java`
 #### Snippet
 ```java
@@ -7663,6 +7651,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
      *                     http://stackoverflow.com/a/1090488/873282)
      * @param list         the list of entities contained in this resource. Has to be typed <Object> as not all TOSCA
      *                     elements in the specification inherit from TExtensibleElements
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/_support/GenericFileResource.java`
+#### Snippet
+```java
+     * If the file already exists, is it <em>overridden</em>
+     *
+     * @return JSON with data required by JQuery-File-Upload (see https://github.com/blueimp/jQuery-File-Upload/wiki/Setup)
+     */
+    @POST
 ```
 
 ## RuleId[id=DuplicateCondition]
@@ -7768,11 +7768,11 @@ Field can be converted to a local variable
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TDefinitions.java`
 #### Snippet
 ```java
-        private List<TInterfaceType> interfaceTypes;
         private List<TPolicyTemplate> policyTemplate;
         private List<OTPatternRefinementModel> patternRefinementModels;
         private List<OTTestRefinementModel> testRefinementModels;
         private List<TExtensibleElements> nonStandardElements;
+        private String name;
 ```
 
 ### FieldCanBeLocal
@@ -7780,11 +7780,11 @@ Field can be converted to a local variable
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TDefinitions.java`
 #### Snippet
 ```java
+        private List<TInterfaceType> interfaceTypes;
         private List<TPolicyTemplate> policyTemplate;
         private List<OTPatternRefinementModel> patternRefinementModels;
         private List<OTTestRefinementModel> testRefinementModels;
         private List<TExtensibleElements> nonStandardElements;
-        private String name;
 ```
 
 ### FieldCanBeLocal
@@ -7797,6 +7797,18 @@ in `org.eclipse.winery.common/src/main/java/org/eclipse/winery/common/ToscaDocum
     private final DocumentBuilderFactory plainFactory;
 
 
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
+#### Snippet
+```java
+    private Map<String, Map.Entry<String, String>> relationshipSTMap;
+    private Map<String, TNodeTemplate> nodeTemplateMap;
+    private AssignmentBuilder assignmentBuilder;
+
+    public ToCanonical(IRepository context) {
 ```
 
 ### FieldCanBeLocal
@@ -7825,18 +7837,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/ToCanonical.java`
-#### Snippet
-```java
-    private Map<String, Map.Entry<String, String>> relationshipSTMap;
-    private Map<String, TNodeTemplate> nodeTemplateMap;
-    private AssignmentBuilder assignmentBuilder;
-
-    public ToCanonical(IRepository context) {
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/management/AbstractGitResolver.java`
 #### Snippet
 ```java
@@ -7845,78 +7845,6 @@ public abstract class AbstractGitResolver implements IRepositoryResolver {
     private final String vcsSystem = "git";
     private final String repositoryUrl;
     private final String repositoryBranch;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
-#### Snippet
-```java
-
-    private String virtualHardware;
-    private String service;
-
-    private String connectsTo;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
-#### Snippet
-```java
-    private String service;
-
-    private String connectsTo;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String virtualHardware;
-    private String service;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String virtualHardware;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
-#### Snippet
-```java
-
-    private SimpleDirectedGraph<TNodeTemplateExtended, RelationshipEdge> abstractTopology;
-    private List<TNodeTemplateExtended> allNodes;
-
-    private Properties properties;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
-#### Snippet
-```java
-    private String labelApp;
-    private String labelMessaging;
-    private String labelStorage;
-
-    private String relationDeployedOn;
 ```
 
 ### FieldCanBeLocal
@@ -7936,6 +7864,18 @@ Field can be converted to a local variable
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
 #### Snippet
 ```java
+
+    private SimpleDirectedGraph<TNodeTemplateExtended, RelationshipEdge> abstractTopology;
+    private List<TNodeTemplateExtended> allNodes;
+
+    private Properties properties;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
+#### Snippet
+```java
     private List<TNodeTemplateExtended> allNodes;
 
     private Properties properties;
@@ -7945,239 +7885,35 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
 #### Snippet
 ```java
-    private String hostedOn;
-    private String connectsTo;
-    private String deployedOn;
+    private String labelApp;
+    private String labelMessaging;
+    private String labelStorage;
 
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+    private String relationDeployedOn;
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String virtualHardware;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private String server;
-    private String application;
-    private String service;
-    private String hostedOn;
-    private String connectsTo;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
 #### Snippet
 ```java
 
     private String virtualHardware;
-    private String os;
-    private String server;
-    private String application;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private String application;
     private String service;
-    private String hostedOn;
+
     private String connectsTo;
-    private String deployedOn;
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private String os;
-    private String server;
-    private String application;
-    private String service;
-    private String hostedOn;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private String virtualHardware;
-    private String os;
-    private String server;
-    private String application;
-    private String service;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
 #### Snippet
 ```java
     private String service;
-    private String hostedOn;
-    private String connectsTo;
-    private String deployedOn;
 
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String virtualHardware;
-    private String os;
-    private String server;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String os;
-    private String server;
-    private String application;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String os;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-
-    private String os;
-    private String server;
-    private String application;
-    private String hostedOn;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-    private String application;
-    private String hostedOn;
-    private String deployedOn;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-    private String server;
-    private String application;
-    private String hostedOn;
-    private String deployedOn;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-    private String os;
-    private String server;
-    private String application;
-    private String hostedOn;
-    private String deployedOn;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String os;
-    private String application;
-    private String messaging;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String os;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-    private String messaging;
-
-    private String hostedOn;
-    private String connectsTo;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-    private String os;
-    private String application;
-    private String messaging;
-
-    private String hostedOn;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-
-    private String hostedOn;
     private String connectsTo;
 
     private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
@@ -8185,26 +7921,26 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
 #### Snippet
 ```java
+    private Properties properties;
 
-    private String os;
-    private String application;
-    private String messaging;
+    private String virtualHardware;
+    private String service;
 
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
 #### Snippet
 ```java
+    private static final String propertiesFilename = "patterndetection.properties";
 
-    private String os;
-    private String storage;
+    private Properties properties;
 
-    private String hostedOn;
+    private String virtualHardware;
 ```
 
 ### FieldCanBeLocal
@@ -8224,6 +7960,30 @@ Field can be converted to a local variable
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
 #### Snippet
 ```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String os;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
+#### Snippet
+```java
+
+    private String os;
+    private String storage;
+
+    private String hostedOn;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
+#### Snippet
+```java
     private Properties properties;
 
     private String os;
@@ -8233,7 +7993,151 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String virtualHardware;
+    private String os;
+    private String server;
+    private String application;
+    private String service;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String virtualHardware;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String os;
+    private String server;
+    private String application;
+    private String service;
+    private String hostedOn;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private Properties properties;
+
+    private String virtualHardware;
+    private String os;
+    private String server;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String hostedOn;
+    private String connectsTo;
+    private String deployedOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String service;
+    private String hostedOn;
+    private String connectsTo;
+    private String deployedOn;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String server;
+    private String application;
+    private String service;
+    private String hostedOn;
+    private String connectsTo;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String application;
+    private String service;
+    private String hostedOn;
+    private String connectsTo;
+    private String deployedOn;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+
+    private String virtualHardware;
+    private String os;
+    private String server;
+    private String application;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
+#### Snippet
+```java
+    private String application;
+    private String hostedOn;
+    private String deployedOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
+#### Snippet
+```java
+    private String server;
+    private String application;
+    private String hostedOn;
+    private String deployedOn;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
+#### Snippet
+```java
+    private String os;
+    private String server;
+    private String application;
+    private String hostedOn;
+    private String deployedOn;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
 #### Snippet
 ```java
     private static final String propertiesFilename = "patterndetection.properties";
@@ -8241,6 +8145,318 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
     private Properties properties;
 
     private String os;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
+#### Snippet
+```java
+
+    private String os;
+    private String server;
+    private String application;
+    private String hostedOn;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
+#### Snippet
+```java
+    private Properties properties;
+
+    private String os;
+    private String server;
+    private String application;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+    private Properties properties;
+
+    private String os;
+    private String application;
+    private String messaging;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+    private String messaging;
+
+    private String hostedOn;
+    private String connectsTo;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+
+    private String os;
+    private String application;
+    private String messaging;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+
+    private String hostedOn;
+    private String connectsTo;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+    private String os;
+    private String application;
+    private String messaging;
+
+    private String hostedOn;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String os;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
+#### Snippet
+```java
+    private String storage;
+
+    private String hostedOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String os;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
+#### Snippet
+```java
+    private Properties properties;
+
+    private String os;
+    private String storage;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
+#### Snippet
+```java
+
+    private String os;
+    private String storage;
+
+    private String hostedOn;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private String os;
+    private String server;
+    private String application;
+    private String messaging;
+    private String service;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private String hostedOn;
+    private String connectsTo;
+    private String deployedOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private String messaging;
+    private String service;
+    private String hostedOn;
+    private String connectsTo;
+    private String deployedOn;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private String virtualHardware;
+    private String os;
+    private String server;
+    private String application;
+    private String messaging;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+
+    private String virtualHardware;
+    private String os;
+    private String server;
+    private String application;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private String server;
+    private String application;
+    private String messaging;
+    private String service;
+    private String hostedOn;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private Properties properties;
+
+    private String virtualHardware;
+    private String os;
+    private String server;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String virtualHardware;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private String application;
+    private String messaging;
+    private String service;
+    private String hostedOn;
+    private String connectsTo;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private String service;
+    private String hostedOn;
+    private String connectsTo;
+    private String deployedOn;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String os;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+    private String application;
+    private String hostedOn;
+    private String dependsOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+
+    private String os;
+    private String service;
+    private String application;
+    private String hostedOn;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+    private String service;
+    private String application;
+    private String hostedOn;
+    private String dependsOn;
+
 ```
 
 ### FieldCanBeLocal
@@ -8269,222 +8485,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String os;
-    private String storage;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String os;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
-#### Snippet
-```java
-
-    private String os;
-    private String storage;
-
-    private String hostedOn;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
-#### Snippet
-```java
-    private String storage;
-
-    private String hostedOn;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
-#### Snippet
-```java
-
-    private String os;
-    private String service;
-    private String application;
-    private String hostedOn;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
-#### Snippet
-```java
-    private String application;
-    private String hostedOn;
-    private String dependsOn;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String os;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
-#### Snippet
-```java
-    private String service;
-    private String application;
-    private String hostedOn;
-    private String dependsOn;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String virtualHardware;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-    private String service;
-    private String hostedOn;
-    private String connectsTo;
-    private String deployedOn;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-    private String os;
-    private String server;
-    private String application;
-    private String messaging;
-    private String service;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String virtualHardware;
-    private String os;
-    private String server;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-
-    private String virtualHardware;
-    private String os;
-    private String server;
-    private String application;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-    private String messaging;
-    private String service;
-    private String hostedOn;
-    private String connectsTo;
-    private String deployedOn;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-    private String virtualHardware;
-    private String os;
-    private String server;
-    private String application;
-    private String messaging;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-    private String server;
-    private String application;
-    private String messaging;
-    private String service;
-    private String hostedOn;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-    private String hostedOn;
-    private String connectsTo;
-    private String deployedOn;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-    private String application;
-    private String messaging;
-    private String service;
-    private String hostedOn;
-    private String connectsTo;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/EnvironmentBasedAvailabilityPattern.java`
 #### Snippet
 ```java
@@ -8493,18 +8493,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
     private String virtualHardware;
     private String os;
     private String hostedOn;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/EnvironmentBasedAvailabilityPattern.java`
-#### Snippet
-```java
-    private String virtualHardware;
-    private String os;
-    private String hostedOn;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
 ```
 
 ### FieldCanBeLocal
@@ -8533,14 +8521,14 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/NodeBasedAvailabilityPattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/EnvironmentBasedAvailabilityPattern.java`
 #### Snippet
 ```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
     private String virtualHardware;
+    private String os;
+    private String hostedOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
 ```
 
 ### FieldCanBeLocal
@@ -8572,11 +8560,11 @@ Field can be converted to a local variable
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/NodeBasedAvailabilityPattern.java`
 #### Snippet
 ```java
-    private String server;
     private String application;
     private String hostedOn;
     private String connectsTo;
     private String deployedOn;
+
 ```
 
 ### FieldCanBeLocal
@@ -8596,11 +8584,23 @@ Field can be converted to a local variable
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/NodeBasedAvailabilityPattern.java`
 #### Snippet
 ```java
+    private String server;
     private String application;
     private String hostedOn;
     private String connectsTo;
     private String deployedOn;
+```
 
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/NodeBasedAvailabilityPattern.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String virtualHardware;
 ```
 
 ### FieldCanBeLocal
@@ -8653,6 +8653,66 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> paasGraph;
+    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> iaasGraph;
+    private AbstractTopology abstractTopology;
+    private TNodeTemplate basisNodeTemplate;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String labelServer;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private PaaSTaxonomy paas = new PaaSTaxonomy();
+    private IaaSTaxonomy iaas = new IaaSTaxonomy();
+    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> paasGraph;
+    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> iaasGraph;
+    private AbstractTopology abstractTopology;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String keywordApache;
+    private String keywordTomcat;
+    private String keywordMosquitto;
+    private String keywordMongoDB;
+    private String keywordMySQL;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private IaaSTaxonomy iaas = new IaaSTaxonomy();
+    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> paasGraph;
+    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> iaasGraph;
+    private AbstractTopology abstractTopology;
+    private TNodeTemplate basisNodeTemplate;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
 #### Snippet
 ```java
@@ -8673,66 +8733,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
     private Map<String, String> prefix2Namespace;
     private FieldValidator validator;
 
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> paasGraph;
-    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> iaasGraph;
-    private AbstractTopology abstractTopology;
-    private TNodeTemplate basisNodeTemplate;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String keywordApache;
-    private String keywordTomcat;
-    private String keywordMosquitto;
-    private String keywordMongoDB;
-    private String keywordMySQL;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String labelServer;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private IaaSTaxonomy iaas = new IaaSTaxonomy();
-    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> paasGraph;
-    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> iaasGraph;
-    private AbstractTopology abstractTopology;
-    private TNodeTemplate basisNodeTemplate;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private PaaSTaxonomy paas = new PaaSTaxonomy();
-    private IaaSTaxonomy iaas = new IaaSTaxonomy();
-    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> paasGraph;
-    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> iaasGraph;
-    private AbstractTopology abstractTopology;
 ```
 
 ### FieldCanBeLocal
@@ -9002,18 +9002,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 ```
 
 ### RedundantMethodOverride
-Method `getArtifactRef()` is identical to its super method
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TImplementationArtifact.java`
-#### Snippet
-```java
-
-    @Nullable
-    public QName getArtifactRef() {
-        return artifactRef;
-    }
-```
-
-### RedundantMethodOverride
 Method `setArtifactRef()` is identical to its super method
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TImplementationArtifact.java`
 #### Snippet
@@ -9022,6 +9010,18 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 
     public void setArtifactRef(@Nullable QName value) {
         this.artifactRef = value;
+    }
+```
+
+### RedundantMethodOverride
+Method `getArtifactRef()` is identical to its super method
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TImplementationArtifact.java`
+#### Snippet
+```java
+
+    @Nullable
+    public QName getArtifactRef() {
+        return artifactRef;
     }
 ```
 
@@ -9051,7 +9051,7 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 
 ### RedundantMethodOverride
 Method `accept()` is identical to its super method
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/OTStayMapping.java`
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/OTAttributeMapping.java`
 #### Snippet
 ```java
 
@@ -9063,7 +9063,7 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 
 ### RedundantMethodOverride
 Method `accept()` is identical to its super method
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/OTAttributeMapping.java`
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/OTStayMapping.java`
 #### Snippet
 ```java
 
@@ -9151,11 +9151,11 @@ Redundant default parameter value assignment
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TArtifactType.java`
 #### Snippet
 ```java
-public class TArtifactType extends TEntityType {
-    // the following two fields are added to support YAML mode
     @XmlAttribute(name = "mimetype", required = false)
     private String mimeType;
     @XmlAttribute(name = "fileextensions", required = false)
+    private List<String> fileExtensions;
+
 ```
 
 ### DefaultAnnotationParam
@@ -9163,11 +9163,11 @@ Redundant default parameter value assignment
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TArtifactType.java`
 #### Snippet
 ```java
+public class TArtifactType extends TEntityType {
+    // the following two fields are added to support YAML mode
     @XmlAttribute(name = "mimetype", required = false)
     private String mimeType;
     @XmlAttribute(name = "fileextensions", required = false)
-    private List<String> fileExtensions;
-
 ```
 
 ### DefaultAnnotationParam
@@ -9276,10 +9276,10 @@ in `org.eclipse.winery.edmm/src/main/java/org/eclipse/winery/edmm/model/EdmmExpo
 #### Snippet
 ```java
 
-    private EntityId createType(TEntityType toscaType, EntityId typeRoot, EntityGraph entityGraph) {
-        if (!entityGraph.getEntity(typeRoot).isPresent()) {
-            entityGraph.addEntity(new MappingEntity(typeRoot, entityGraph));
-        }
+            EntityId relationsCollectionEntityId = sourceComponentEntityId.extend(DefaultKeys.RELATIONS);
+            if (!entityGraph.getEntity(relationsCollectionEntityId).isPresent()) {
+                entityGraph.addEntity(new SequenceEntity(relationsCollectionEntityId, entityGraph));
+            }
 ```
 
 ### SimplifyOptionalCallChains
@@ -9288,10 +9288,10 @@ in `org.eclipse.winery.edmm/src/main/java/org/eclipse/winery/edmm/model/EdmmExpo
 #### Snippet
 ```java
 
-            EntityId relationsCollectionEntityId = sourceComponentEntityId.extend(DefaultKeys.RELATIONS);
-            if (!entityGraph.getEntity(relationsCollectionEntityId).isPresent()) {
-                entityGraph.addEntity(new SequenceEntity(relationsCollectionEntityId, entityGraph));
-            }
+    private EntityId createType(TEntityType toscaType, EntityId typeRoot, EntityGraph entityGraph) {
+        if (!entityGraph.getEntity(typeRoot).isPresent()) {
+            entityGraph.addEntity(new MappingEntity(typeRoot, entityGraph));
+        }
 ```
 
 ### SimplifyOptionalCallChains
@@ -9304,18 +9304,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
         if (!xsModelOptional.isPresent()) {
             LOGGER.error("no XSModel found");
         }
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/xsd/RepositoryBasedXsdImportManager.java`
-#### Snippet
-```java
-            final List<String> allDefinedLocalNames = this.getAllDefinedLocalNames(namespace, getTypes);
-            Optional<RepositoryFileReference> ref = getXsdFileReference(imp);
-            if (!ref.isPresent()) {
-                LOGGER.error("Ref is not defined");
-            } else {
 ```
 
 ### SimplifyOptionalCallChains
@@ -9344,14 +9332,14 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/xsd/RepositoryBasedXsdImportManager.java`
 #### Snippet
 ```java
-        //check if the highest level node templates have target labels assigned
-        for (TNodeTemplate node : getNodeTemplatesWithoutIncomingHostedOnRelationships(serviceTemplate)) {
-            if (!ModelUtilities.getTargetLabel(node).isPresent()) {
-                return false;
-            }
+            final List<String> allDefinedLocalNames = this.getAllDefinedLocalNames(namespace, getTypes);
+            Optional<RepositoryFileReference> ref = getXsdFileReference(imp);
+            if (!ref.isPresent()) {
+                LOGGER.error("Ref is not defined");
+            } else {
 ```
 
 ### SimplifyOptionalCallChains
@@ -9388,6 +9376,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
                 if (!label.isPresent()) {
                     LOGGER.error("No target label present");
                     LOGGER.error("id " + replacementCandidate.getId());
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+        //check if the highest level node templates have target labels assigned
+        for (TNodeTemplate node : getNodeTemplatesWithoutIncomingHostedOnRelationships(serviceTemplate)) {
+            if (!ModelUtilities.getTargetLabel(node).isPresent()) {
+                return false;
+            }
 ```
 
 ### SimplifyOptionalCallChains
@@ -9591,18 +9591,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `prefix2Namespace` are updated, but never queried
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
-#### Snippet
-```java
-    private final String namespace;
-    private MultiException exception;
-    private Map<String, String> prefix2Namespace;
-    private FieldValidator validator;
-
-```
-
-### MismatchedCollectionQueryUpdate
 Contents of collection `incoming` are updated, but never queried
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
 #### Snippet
@@ -9615,14 +9603,14 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### MismatchedCollectionQueryUpdate
-Contents of collection `requirementTypes` are updated, but never queried
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/Substitution.java`
+Contents of collection `prefix2Namespace` are updated, but never queried
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
 #### Snippet
 ```java
-
-    private final Map<QName, TServiceTemplate> nodeTypeSubstitutableWithServiceTemplate = new HashMap<>();
-    private final Map<QName, TRequirementType> requirementTypes = new HashMap<>();
-    private final Map<QName, TCapabilityType> capabilityTypes = new HashMap<>();
+    private final String namespace;
+    private MultiException exception;
+    private Map<String, String> prefix2Namespace;
+    private FieldValidator validator;
 
 ```
 
@@ -9636,6 +9624,18 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
     private final Map<QName, TCapabilityType> capabilityTypes = new HashMap<>();
 
     public ServiceTemplateId substituteTopologyOfServiceTemplate(final ServiceTemplateId serviceTemplateId) {
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `requirementTypes` are updated, but never queried
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/Substitution.java`
+#### Snippet
+```java
+
+    private final Map<QName, TServiceTemplate> nodeTypeSubstitutableWithServiceTemplate = new HashMap<>();
+    private final Map<QName, TRequirementType> requirementTypes = new HashMap<>();
+    private final Map<QName, TCapabilityType> capabilityTypes = new HashMap<>();
+
 ```
 
 ## RuleId[id=ConfusingMainMethod]
@@ -9752,15 +9752,15 @@ in `org.eclipse.winery.common/src/main/java/org/eclipse/winery/common/HashingUti
 ```
 
 ### UnusedAssignment
-Variable `propertyAdded` initializer `false` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbook/ChefPackage.java`
+The value `attributeBegin` assigned to `attributeEnd` is never used
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/helper/ChefDslHelper.java`
 #### Snippet
 ```java
-     */
-    public boolean addProperty(String propertyName, String propertyValue) {
-        Boolean propertyAdded = false;
+        while (containsAttribute) {
+            attributeBegin = processString.indexOf("#{");
+            attributeEnd = attributeBegin;
 
-        switch (propertyName) {
+            result.append(processString.substring(0, attributeBegin));
 ```
 
 ### UnusedAssignment
@@ -9788,27 +9788,15 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### UnusedAssignment
-The value `attributeBegin` assigned to `attributeEnd` is never used
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/helper/ChefDslHelper.java`
+Variable `propertyAdded` initializer `false` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbook/ChefPackage.java`
 #### Snippet
 ```java
-        while (containsAttribute) {
-            attributeBegin = processString.indexOf("#{");
-            attributeEnd = attributeBegin;
+     */
+    public boolean addProperty(String propertyName, String propertyValue) {
+        Boolean propertyAdded = false;
 
-            result.append(processString.substring(0, attributeBegin));
-```
-
-### UnusedAssignment
-Variable `attributeValue` initializer `null` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
-#### Snippet
-```java
-    @Override
-    public List visitArgPrimary(ChefDSLParser.ArgPrimaryContext ctx) {
-        List attributeValue = null;
-        PrimaryBaseVisitor argPrimaryVisitor = new PrimaryBaseVisitor(extractedCookbookConfigs);
-        attributeValue = ctx.primary().accept(argPrimaryVisitor);
+        switch (propertyName) {
 ```
 
 ### UnusedAssignment
@@ -9824,77 +9812,39 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### UnusedAssignment
-Variable `cookbookDeprecated` initializer `false` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
+Variable `attributeValue` initializer `null` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
 #### Snippet
 ```java
-     */
-    private boolean processCookbook(JSONObject cookbookJSONObject) throws Exception {
-        boolean cookbookDeprecated = false;
-
-        cookbookDeprecated = cookbookJSONObject.getBoolean("deprecated");
+    @Override
+    public List visitArgPrimary(ChefDSLParser.ArgPrimaryContext ctx) {
+        List attributeValue = null;
+        PrimaryBaseVisitor argPrimaryVisitor = new PrimaryBaseVisitor(extractedCookbookConfigs);
+        attributeValue = ctx.primary().accept(argPrimaryVisitor);
 ```
 
 ### UnusedAssignment
-Variable `cookbookDeprecated` initializer `false` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
-#### Snippet
-```java
-     */
-    private boolean processCookbook(JSONObject cookbookJSONObject, String cookbookName, String versionRestriction) throws Exception {
-        boolean cookbookDeprecated = false;
-        String extractedVersion;
-
-```
-
-### UnusedAssignment
-The value `disposition.substring(index + 10,
-disposition.length() - 1)` assigned to `fileName` is never used
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
-#### Snippet
-```java
-                int index = disposition.indexOf("filename=");
-                if (index > 0) {
-                    fileName = disposition.substring(index + 10,
-                        disposition.length() - 1);
-                }
-```
-
-### UnusedAssignment
-The value `filename.substring(fileName.lastIndexOf("/") + 1,
-fileName.length())` assigned to `fileName` is never used
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
-#### Snippet
-```java
-                }
-            } else {
-                fileName = filename.substring(fileName.lastIndexOf("/") + 1,
-                    fileName.length());
-            }
-```
-
-### UnusedAssignment
-Variable `leftArgument` initializer `null` is redundant
+Variable `callArguments` initializer `null` is redundant
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
 #### Snippet
 ```java
-    public Boolean visitArgIndexOf(ChefDSLParser.ArgIndexOfContext ctx) {
-        Boolean exprResult = null;
-        String leftArgument = null;
-        String rightArgument = null;
-        List<String> argList;
+        String operation;
+        List<String> argumentList;
+        List<String> callArguments = null;
+        Boolean exprResult = false;
+
 ```
 
 ### UnusedAssignment
-Variable `rightArgument` initializer `null` is redundant
+The value `ctx.primary().accept(primaryVisitor)` assigned to `argumentList` is never used
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
 #### Snippet
 ```java
-        Boolean exprResult = null;
-        String leftArgument = null;
-        String rightArgument = null;
-        List<String> argList;
-        PrimaryBaseVisitor argPrimaryVisitor = new PrimaryBaseVisitor(parseResult);
+        PrimaryBaseVisitor primaryVisitor = new PrimaryBaseVisitor(parseResult);
+        CallArgsVisitor callArgsVisitor = new CallArgsVisitor(parseResult);
+        argumentList = ctx.primary().accept(primaryVisitor);
+
+        argumentList = new ArrayList<>();
 ```
 
 ### UnusedAssignment
@@ -9934,6 +9884,42 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### UnusedAssignment
+Variable `leftArgument` initializer `null` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
+#### Snippet
+```java
+    public Boolean visitArgIndexOf(ChefDSLParser.ArgIndexOfContext ctx) {
+        Boolean exprResult = null;
+        String leftArgument = null;
+        String rightArgument = null;
+        List<String> argList;
+```
+
+### UnusedAssignment
+Variable `rightArgument` initializer `null` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
+#### Snippet
+```java
+        Boolean exprResult = null;
+        String leftArgument = null;
+        String rightArgument = null;
+        List<String> argList;
+        PrimaryBaseVisitor argPrimaryVisitor = new PrimaryBaseVisitor(parseResult);
+```
+
+### UnusedAssignment
+Variable `callArguments` initializer `null` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
+#### Snippet
+```java
+        String operation;
+        List<String> argumentList;
+        List<String> callArguments = null;
+        Boolean exprResult = false;
+
+```
+
+### UnusedAssignment
 Variable `firstExpr` initializer `null` is redundant
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
 #### Snippet
@@ -9951,66 +9937,6 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 #### Snippet
 ```java
     public Boolean visitExprAnd(ChefDSLParser.ExprAndContext ctx) {
-        Boolean firstExpr = null;
-        Boolean secondExpr = null;
-
-        BooleanExprVisitor booleanExprVisitor = new BooleanExprVisitor(parseResult);
-```
-
-### UnusedAssignment
-Variable `callArguments` initializer `null` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
-#### Snippet
-```java
-        String operation;
-        List<String> argumentList;
-        List<String> callArguments = null;
-        Boolean exprResult = false;
-
-```
-
-### UnusedAssignment
-Variable `callArguments` initializer `null` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
-#### Snippet
-```java
-        String operation;
-        List<String> argumentList;
-        List<String> callArguments = null;
-        Boolean exprResult = false;
-
-```
-
-### UnusedAssignment
-The value `ctx.primary().accept(primaryVisitor)` assigned to `argumentList` is never used
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
-#### Snippet
-```java
-        PrimaryBaseVisitor primaryVisitor = new PrimaryBaseVisitor(parseResult);
-        CallArgsVisitor callArgsVisitor = new CallArgsVisitor(parseResult);
-        argumentList = ctx.primary().accept(primaryVisitor);
-
-        argumentList = new ArrayList<>();
-```
-
-### UnusedAssignment
-Variable `firstExpr` initializer `null` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
-#### Snippet
-```java
-    @Override
-    public Boolean visitArgAnd(ChefDSLParser.ArgAndContext ctx) {
-        Boolean firstExpr = null;
-        Boolean secondExpr = null;
-
-```
-
-### UnusedAssignment
-Variable `secondExpr` initializer `null` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
-#### Snippet
-```java
-    public Boolean visitArgAnd(ChefDSLParser.ArgAndContext ctx) {
         Boolean firstExpr = null;
         Boolean secondExpr = null;
 
@@ -10042,15 +9968,89 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### UnusedAssignment
-Variable `requiredStructureTemplate` initializer `null` is redundant
+Variable `firstExpr` initializer `null` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
+#### Snippet
+```java
+    @Override
+    public Boolean visitArgAnd(ChefDSLParser.ArgAndContext ctx) {
+        Boolean firstExpr = null;
+        Boolean secondExpr = null;
+
+```
+
+### UnusedAssignment
+Variable `secondExpr` initializer `null` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
+#### Snippet
+```java
+    public Boolean visitArgAnd(ChefDSLParser.ArgAndContext ctx) {
+        Boolean firstExpr = null;
+        Boolean secondExpr = null;
+
+        BooleanExprVisitor booleanExprVisitor = new BooleanExprVisitor(parseResult);
+```
+
+### UnusedAssignment
+Variable `cookbookDeprecated` initializer `false` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
+#### Snippet
+```java
+     */
+    private boolean processCookbook(JSONObject cookbookJSONObject, String cookbookName, String versionRestriction) throws Exception {
+        boolean cookbookDeprecated = false;
+        String extractedVersion;
+
+```
+
+### UnusedAssignment
+Variable `cookbookDeprecated` initializer `false` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
+#### Snippet
+```java
+     */
+    private boolean processCookbook(JSONObject cookbookJSONObject) throws Exception {
+        boolean cookbookDeprecated = false;
+
+        cookbookDeprecated = cookbookJSONObject.getBoolean("deprecated");
+```
+
+### UnusedAssignment
+The value `disposition.substring(index + 10,
+disposition.length() - 1)` assigned to `fileName` is never used
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
+#### Snippet
+```java
+                int index = disposition.indexOf("filename=");
+                if (index > 0) {
+                    fileName = disposition.substring(index + 10,
+                        disposition.length() - 1);
+                }
+```
+
+### UnusedAssignment
+The value `filename.substring(fileName.lastIndexOf("/") + 1,
+fileName.length())` assigned to `fileName` is never used
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
+#### Snippet
+```java
+                }
+            } else {
+                fileName = filename.substring(fileName.lastIndexOf("/") + 1,
+                    fileName.length());
+            }
+```
+
+### UnusedAssignment
+Variable `toCheckTemplate` initializer `null` is redundant
 in `org.eclipse.winery.compliance/src/main/java/org/eclipse/winery/compliance/checking/ComplianceRuleChecker.java`
 #### Snippet
 ```java
-
 	private TTopologyTemplate identifierTemplate = null;
 	private TTopologyTemplate requiredStructureTemplate = null;
 	private TTopologyTemplate toCheckTemplate = null;
 
+	private ToscaGraph identifierGraph = null;
 ```
 
 ### UnusedAssignment
@@ -10066,15 +10066,15 @@ public class ComplianceRuleChecker {
 ```
 
 ### UnusedAssignment
-Variable `toCheckTemplate` initializer `null` is redundant
+Variable `requiredStructureTemplate` initializer `null` is redundant
 in `org.eclipse.winery.compliance/src/main/java/org/eclipse/winery/compliance/checking/ComplianceRuleChecker.java`
 #### Snippet
 ```java
+
 	private TTopologyTemplate identifierTemplate = null;
 	private TTopologyTemplate requiredStructureTemplate = null;
 	private TTopologyTemplate toCheckTemplate = null;
 
-	private ToscaGraph identifierGraph = null;
 ```
 
 ### UnusedAssignment
@@ -10154,9 +10154,9 @@ Variable `method` initializer `null` is redundant
 in `org.eclipse.winery.highlevelrestapi/src/main/java/org/eclipse/winery/highlevelrestapi/HighLevelRestApi.java`
 #### Snippet
 ```java
-        System.out.println("Setting URI to: \n");
-        System.out.println(uri);
-        GetMethod method = null;
+    public static HttpResponseMessage Post(String uri, String requestPayload, String acceptHeaderValue) {
+
+        PostMethod method = null;
         if (uri.contains("?")) {
             System.out.println("Found query trying to split");
 ```
@@ -10166,9 +10166,9 @@ Variable `method` initializer `null` is redundant
 in `org.eclipse.winery.highlevelrestapi/src/main/java/org/eclipse/winery/highlevelrestapi/HighLevelRestApi.java`
 #### Snippet
 ```java
-    public static HttpResponseMessage Post(String uri, String requestPayload, String acceptHeaderValue) {
-
-        PostMethod method = null;
+        System.out.println("Setting URI to: \n");
+        System.out.println(uri);
+        GetMethod method = null;
         if (uri.contains("?")) {
             System.out.println("Found query trying to split");
 ```
@@ -10360,11 +10360,11 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-                             */
-                            TNodeTemplate sourceNodeTemplate = ModelUtilities.getSourceNodeTemplateOfRelationshipTemplate(serviceTemplateCopy.getTopologyTemplate(), incomingRelationship);
-                            if (((ModelUtilities.getTargetLabel(sourceNodeTemplate).get()
-                                .equalsIgnoreCase(ModelUtilities.getTargetLabel(duplicatedNode).get())
-                                && getBaseRelationshipType(incomingRelationship.getType()).getQName().equals(ToscaBaseTypes.hostedOnRelationshipType))
+
+            //TargetLable is only appended if not done yet
+            if (outgoingRelationship.getId().contains(ModelUtilities.getTargetLabel(newSource).get())) {
+                newOutgoingRelationship.setId(Util.makeNCName(outgoingRelationship.getId()));
+                newOutgoingRelationship.setName(Util.makeNCName(outgoingRelationship.getName()));
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -10372,11 +10372,35 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-                            TNodeTemplate sourceNodeTemplate = ModelUtilities.getSourceNodeTemplateOfRelationshipTemplate(serviceTemplateCopy.getTopologyTemplate(), incomingRelationship);
-                            if (((ModelUtilities.getTargetLabel(sourceNodeTemplate).get()
-                                .equalsIgnoreCase(ModelUtilities.getTargetLabel(duplicatedNode).get())
-                                && getBaseRelationshipType(incomingRelationship.getType()).getQName().equals(ToscaBaseTypes.hostedOnRelationshipType))
-                                || !predecessors.contains(sourceNodeTemplate))) {
+                newOutgoingRelationship.setName(Util.makeNCName(outgoingRelationship.getName()));
+            } else {
+                newOutgoingRelationship.setId(Util.makeNCName(outgoingRelationship.getId() + "-" + ModelUtilities.getTargetLabel(newSource).get()));
+                newOutgoingRelationship.setName(Util.makeNCName(outgoingRelationship.getName() + "-" + ModelUtilities.getTargetLabel(newSource).get()));
+            }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+            } else {
+                newOutgoingRelationship.setId(Util.makeNCName(outgoingRelationship.getId() + "-" + ModelUtilities.getTargetLabel(newSource).get()));
+                newOutgoingRelationship.setName(Util.makeNCName(outgoingRelationship.getName() + "-" + ModelUtilities.getTargetLabel(newSource).get()));
+            }
+            newOutgoingRel.add(newOutgoingRelationship);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                    successorsOfNodeTemplate.add(nodeTemplates.stream()
+                        .filter(nt -> nt.getCapabilities() != null)
+                        .filter(nt -> nt.getCapabilities().stream().anyMatch(c -> c.getId().equals(targetElement.getId()))).findAny().get());
+                }
+            }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -10385,7 +10409,7 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 #### Snippet
 ```java
         if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
-            nodeTemplates = nodeTemplates.stream().filter(nt -> ModelUtilities.getParticipant(nt).isPresent())
+            return nodeTemplates.stream().filter(nt -> ModelUtilities.getParticipant(nt).isPresent())
                 .filter(nt -> ModelUtilities.getParticipant(nt).get().equalsIgnoreCase(ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate)))
                 .collect(Collectors.toList());
         }
@@ -10396,11 +10420,23 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-            if (nodeWithOpenCapability != null) {
-                TCapability matchingCapability = nodeWithOpenCapability.getCapabilities()
-                    .stream().filter(c -> c.getType().equals(requiredCapabilityTypeQName)).findFirst().get();
-                TRelationshipType matchingRelationshipType =
-                    getMatchingRelationshipType(requirement, matchingCapability);
+        if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
+            List<TNodeTemplate> appSpecificComponentsOfOtherParticipants = serviceTemplate.getTopologyTemplate().getNodeTemplates();
+            appSpecificComponentsOfOtherParticipants.removeIf(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()));
+
+            transitiveAndDirectSuccessors.remove(appSpecificComponentsOfOtherParticipants);
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+
+            participantNodes = nodeTemplates.stream().filter(nt -> ModelUtilities.getParticipant(nt).isPresent())
+                .filter(nt -> ModelUtilities.getParticipant(nt).get().equalsIgnoreCase(ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate)))
+                .collect(Collectors.toList());
+            return participantNodes;
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -10444,18 +10480,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-
-            participantNodes = nodeTemplates.stream().filter(nt -> ModelUtilities.getParticipant(nt).isPresent())
-                .filter(nt -> ModelUtilities.getParticipant(nt).get().equalsIgnoreCase(ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate)))
-                .collect(Collectors.toList());
-            return participantNodes;
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
             if (!nodesWithMatchingCapability.isEmpty() && nodesWithMatchingCapability.size() == 1) {
                 TCapability matchingCapability = nodesWithMatchingCapability.get(0).getCapabilities()
                     .stream().filter(c -> c.getType().equals(requiredCapTypeQName)).findFirst().get();
@@ -10468,11 +10492,59 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
+                             */
+                            TNodeTemplate sourceNodeTemplate = ModelUtilities.getSourceNodeTemplateOfRelationshipTemplate(serviceTemplateCopy.getTopologyTemplate(), incomingRelationship);
+                            if (((ModelUtilities.getTargetLabel(sourceNodeTemplate).get()
+                                .equalsIgnoreCase(ModelUtilities.getTargetLabel(duplicatedNode).get())
+                                && getBaseRelationshipType(incomingRelationship.getType()).getQName().equals(ToscaBaseTypes.hostedOnRelationshipType))
+```
 
-            List<TNodeTemplate> NodesOfOtherParticipants = serviceTemplate.getTopologyTemplate().getNodeTemplates();
-            NodesOfOtherParticipants.removeIf(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()));
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                            TNodeTemplate sourceNodeTemplate = ModelUtilities.getSourceNodeTemplateOfRelationshipTemplate(serviceTemplateCopy.getTopologyTemplate(), incomingRelationship);
+                            if (((ModelUtilities.getTargetLabel(sourceNodeTemplate).get()
+                                .equalsIgnoreCase(ModelUtilities.getTargetLabel(duplicatedNode).get())
+                                && getBaseRelationshipType(incomingRelationship.getType()).getQName().equals(ToscaBaseTypes.hostedOnRelationshipType))
+                                || !predecessors.contains(sourceNodeTemplate))) {
+```
 
-            transitiveAndDirectSuccessors.remove(NodesOfOtherParticipants);
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+        if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
+            nodeTemplates.stream().filter(nt -> ModelUtilities.getParticipant(nt).isPresent())
+                .filter(nt -> ModelUtilities.getParticipant(nt).get().equalsIgnoreCase(ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate)))
+                .collect(Collectors.toList());
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+        if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
+            nodeTemplates = nodeTemplates.stream().filter(nt -> ModelUtilities.getParticipant(nt).isPresent())
+                .filter(nt -> ModelUtilities.getParticipant(nt).get().equalsIgnoreCase(ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate)))
+                .collect(Collectors.toList());
+        }
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+            if (nodeWithOpenCapability != null) {
+                TCapability matchingCapability = nodeWithOpenCapability.getCapabilities()
+                    .stream().filter(c -> c.getType().equals(requiredCapabilityTypeQName)).findFirst().get();
+                TRelationshipType matchingRelationshipType =
+                    getMatchingRelationshipType(requirement, matchingCapability);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -10529,78 +10601,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 #### Snippet
 ```java
         if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
-            List<TNodeTemplate> appSpecificComponentsOfOtherParticipants = serviceTemplate.getTopologyTemplate().getNodeTemplates();
-            appSpecificComponentsOfOtherParticipants.removeIf(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()));
-
-            transitiveAndDirectSuccessors.remove(appSpecificComponentsOfOtherParticipants);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-
-            //TargetLable is only appended if not done yet
-            if (outgoingRelationship.getId().contains(ModelUtilities.getTargetLabel(newSource).get())) {
-                newOutgoingRelationship.setId(Util.makeNCName(outgoingRelationship.getId()));
-                newOutgoingRelationship.setName(Util.makeNCName(outgoingRelationship.getName()));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-                newOutgoingRelationship.setName(Util.makeNCName(outgoingRelationship.getName()));
-            } else {
-                newOutgoingRelationship.setId(Util.makeNCName(outgoingRelationship.getId() + "-" + ModelUtilities.getTargetLabel(newSource).get()));
-                newOutgoingRelationship.setName(Util.makeNCName(outgoingRelationship.getName() + "-" + ModelUtilities.getTargetLabel(newSource).get()));
-            }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-            } else {
-                newOutgoingRelationship.setId(Util.makeNCName(outgoingRelationship.getId() + "-" + ModelUtilities.getTargetLabel(newSource).get()));
-                newOutgoingRelationship.setName(Util.makeNCName(outgoingRelationship.getName() + "-" + ModelUtilities.getTargetLabel(newSource).get()));
-            }
-            newOutgoingRel.add(newOutgoingRelationship);
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-                    successorsOfNodeTemplate.add(nodeTemplates.stream()
-                        .filter(nt -> nt.getCapabilities() != null)
-                        .filter(nt -> nt.getCapabilities().stream().anyMatch(c -> c.getId().equals(targetElement.getId()))).findAny().get());
-                }
-            }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-        if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
-            nodeTemplates.stream().filter(nt -> ModelUtilities.getParticipant(nt).isPresent())
-                .filter(nt -> ModelUtilities.getParticipant(nt).get().equalsIgnoreCase(ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate)))
-                .collect(Collectors.toList());
-        }
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-        if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
             nodeTemplates = serviceTemplate.getTopologyTemplate().getNodeTemplates().stream().filter(nt -> ModelUtilities.getParticipant(nt).isPresent())
                 .filter(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()))
                 .collect(Collectors.toList());
@@ -10612,11 +10612,11 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-        if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
-            return nodeTemplates.stream().filter(nt -> ModelUtilities.getParticipant(nt).isPresent())
-                .filter(nt -> ModelUtilities.getParticipant(nt).get().equalsIgnoreCase(ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate)))
-                .collect(Collectors.toList());
-        }
+
+            List<TNodeTemplate> NodesOfOtherParticipants = serviceTemplate.getTopologyTemplate().getNodeTemplates();
+            NodesOfOtherParticipants.removeIf(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()));
+
+            transitiveAndDirectSuccessors.remove(NodesOfOtherParticipants);
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -10660,30 +10660,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/patterndetection/BehaviorPatternDetection.java`
 #### Snippet
 ```java
-            .forEach(bpm -> {
-                ToscaEntity detectorElement = refinement.getDetectorGraph()
-                    .getVertexOrEdge(bpm.getDetectorElement().getId()).get();
-                TEntityTemplate candidateElement = getEntityCorrespondence(detectorElement, refinement.getGraphMapping());
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/patterndetection/BehaviorPatternDetection.java`
-#### Snippet
-```java
-                        TPolicy behaviorPattern = ((HasPolicies) refinementElement).getPolicies().stream()
-                            .filter(policy -> bpm.getBehaviorPattern().equals(policy.getName()))
-                            .findFirst().get();
-                        addedElementPolicies
-                            .removeIf(policy -> policy.getPolicyType().equals(behaviorPattern.getPolicyType()));
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/patterndetection/BehaviorPatternDetection.java`
-#### Snippet
-```java
         TEntityTemplate detectorElement = prm.getStayMappings().stream()
             .filter(stayMapping -> stayMapping.getRefinementElement().getId().equals(refinementElement.getId()))
             .findFirst().get()
@@ -10701,6 +10677,30 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
         ToscaEntity detectorEntity = refinement.getDetectorGraph().getVertexOrEdge(detectorElement.getId()).get();
         TEntityTemplate stayingElement = getEntityCorrespondence(detectorEntity, refinement.getGraphMapping());
 
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/patterndetection/BehaviorPatternDetection.java`
+#### Snippet
+```java
+            .forEach(bpm -> {
+                ToscaEntity detectorElement = refinement.getDetectorGraph()
+                    .getVertexOrEdge(bpm.getDetectorElement().getId()).get();
+                TEntityTemplate candidateElement = getEntityCorrespondence(detectorElement, refinement.getGraphMapping());
+
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/patterndetection/BehaviorPatternDetection.java`
+#### Snippet
+```java
+                        TPolicy behaviorPattern = ((HasPolicies) refinementElement).getPolicies().stream()
+                            .filter(policy -> bpm.getBehaviorPattern().equals(policy.getName()))
+                            .findFirst().get();
+                        addedElementPolicies
+                            .removeIf(policy -> policy.getPolicyType().equals(behaviorPattern.getPolicyType()));
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -10825,30 +10825,6 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### ConstantValue
-Result of `fileName.lastIndexOf("/") + 1` is always '0'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
-#### Snippet
-```java
-                }
-            } else {
-                fileName = filename.substring(fileName.lastIndexOf("/") + 1,
-                    fileName.length());
-            }
-```
-
-### ConstantValue
-Result of `fileName.length()` is always '0'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
-#### Snippet
-```java
-            } else {
-                fileName = filename.substring(fileName.lastIndexOf("/") + 1,
-                    fileName.length());
-            }
-
-```
-
-### ConstantValue
 Condition `argumentList != null` is always `true`
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
 #### Snippet
@@ -10882,6 +10858,30 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
         if (argumentList != null && argumentList.size() == 1) {
             argument = argumentList.get(0);
             if (ctx.function() != null && ctx.function().call_args() != null) {
+```
+
+### ConstantValue
+Result of `fileName.lastIndexOf("/") + 1` is always '0'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
+#### Snippet
+```java
+                }
+            } else {
+                fileName = filename.substring(fileName.lastIndexOf("/") + 1,
+                    fileName.length());
+            }
+```
+
+### ConstantValue
+Result of `fileName.length()` is always '0'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
+#### Snippet
+```java
+            } else {
+                fileName = filename.substring(fileName.lastIndexOf("/") + 1,
+                    fileName.length());
+            }
+
 ```
 
 ### ConstantValue
@@ -11290,43 +11290,7 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 #### Snippet
 ```java
     @Override
-    public Result visit(YTNodeTemplate node, Parameter parameter) {
-        if (Objects.isNull(node.getType())) {
-            setInvalidDefinition(parameter);
-        } else {
-```
-
-### ConstantValue
-Condition `Objects.isNull(node.getType())` is always `false`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeValidator.java`
-#### Snippet
-```java
-    @Override
     public Result visit(YTPolicyDefinition node, Parameter parameter) {
-        if (Objects.isNull(node.getType())) {
-            setInvalidDefinition(parameter);
-        } else {
-```
-
-### ConstantValue
-Condition `Objects.isNull(node.getType())` is always `false`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeValidator.java`
-#### Snippet
-```java
-    @Override
-    public Result visit(YTRelationshipTemplate node, Parameter parameter) {
-        if (Objects.isNull(node.getType())) {
-            setInvalidDefinition(parameter);
-        } else {
-```
-
-### ConstantValue
-Condition `Objects.isNull(node.getType())` is always `false`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeValidator.java`
-#### Snippet
-```java
-    @Override
-    public Result visit(YTGroupDefinition node, Parameter parameter) {
         if (Objects.isNull(node.getType())) {
             setInvalidDefinition(parameter);
         } else {
@@ -11345,15 +11309,39 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### ConstantValue
-Condition `Objects.isNull(node.getFile())` is always `false`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/Validator.java`
+Condition `Objects.isNull(node.getType())` is always `false`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeValidator.java`
 #### Snippet
 ```java
     @Override
-    public Result visit(YTImportDefinition node, Parameter parameter) {
-        if (Objects.isNull(node.getFile()) || node.getFile().isEmpty()) {
-            setException(new UndefinedFile("Field 'file' is undefined")
-                .setContext(parameter.getContext())
+    public Result visit(YTGroupDefinition node, Parameter parameter) {
+        if (Objects.isNull(node.getType())) {
+            setInvalidDefinition(parameter);
+        } else {
+```
+
+### ConstantValue
+Condition `Objects.isNull(node.getType())` is always `false`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeValidator.java`
+#### Snippet
+```java
+    @Override
+    public Result visit(YTNodeTemplate node, Parameter parameter) {
+        if (Objects.isNull(node.getType())) {
+            setInvalidDefinition(parameter);
+        } else {
+```
+
+### ConstantValue
+Condition `Objects.isNull(node.getType())` is always `false`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeValidator.java`
+#### Snippet
+```java
+    @Override
+    public Result visit(YTRelationshipTemplate node, Parameter parameter) {
+        if (Objects.isNull(node.getType())) {
+            setInvalidDefinition(parameter);
+        } else {
 ```
 
 ### ConstantValue
@@ -11369,18 +11357,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### ConstantValue
-Condition `Objects.isNull(node.getToscaDefinitionsVersion())` is always `false`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/Validator.java`
-#### Snippet
-```java
-    @Override
-    public Result visit(YTServiceTemplate node, Parameter parameter) {
-        if (Objects.isNull(node.getToscaDefinitionsVersion())) {
-            setException(new UndefinedToscaVersion(
-                    "The field 'tosca_definition_version' is undefined"
-```
-
-### ConstantValue
 Condition `Objects.isNull(node.getUrl())` is always `false`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/Validator.java`
 #### Snippet
@@ -11390,6 +11366,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
         if (Objects.isNull(node.getUrl()) || node.getUrl().isEmpty()) {
             setException(new UndefinedRequiredKeyname("Field 'url' is required")
                 .setContext(parameter.getContext())
+```
+
+### ConstantValue
+Condition `Objects.isNull(node.getFile())` is always `false`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/Validator.java`
+#### Snippet
+```java
+    @Override
+    public Result visit(YTImportDefinition node, Parameter parameter) {
+        if (Objects.isNull(node.getFile()) || node.getFile().isEmpty()) {
+            setException(new UndefinedFile("Field 'file' is undefined")
+                .setContext(parameter.getContext())
+```
+
+### ConstantValue
+Condition `Objects.isNull(node.getToscaDefinitionsVersion())` is always `false`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/Validator.java`
+#### Snippet
+```java
+    @Override
+    public Result visit(YTServiceTemplate node, Parameter parameter) {
+        if (Objects.isNull(node.getToscaDefinitionsVersion())) {
+            setException(new UndefinedToscaVersion(
+                    "The field 'tosca_definition_version' is undefined"
 ```
 
 ### ConstantValue
@@ -11414,6 +11414,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/fi
                 if (!".git".equals(file.getName()) || !defaultRepositoryFolder.equals(file.getName())) {
                     initTenantRepository(file.getName());
                 }
+```
+
+### ConstantValue
+Condition `imports != null` is always `true`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/importing/CsarImporter.java`
+#### Snippet
+```java
+                    List<TImport> imports = newDefs.getImport();
+                    boolean found = false;
+                    if (imports != null) {
+                        Iterator<TImport> iterator = imports.iterator();
+                        TImport imp;
 ```
 
 ### ConstantValue
@@ -11480,18 +11492,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### ConstantValue
-Condition `imports != null` is always `true`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/importing/CsarImporter.java`
-#### Snippet
-```java
-                    List<TImport> imports = newDefs.getImport();
-                    boolean found = false;
-                    if (imports != null) {
-                        Iterator<TImport> iterator = imports.iterator();
-                        TImport imp;
-```
-
-### ConstantValue
 Condition `topologyTemplate.getRelationshipTemplates() != null` is always `true`
 in `org.eclipse.winery.topologygraph/src/main/java/org/eclipse/winery/topologygraph/transformation/ToscaTransformer.java`
 #### Snippet
@@ -11501,18 +11501,6 @@ in `org.eclipse.winery.topologygraph/src/main/java/org/eclipse/winery/topologygr
         if (topologyTemplate.getRelationshipTemplates() != null) {
             List<TRelationshipTemplate> relationshipTemplates = topologyTemplate.getRelationshipTemplates();
             for (TRelationshipTemplate tRelationshipTemplate : relationshipTemplates) {
-```
-
-### ConstantValue
-Condition `Objects.nonNull(node.getOtherAttributes())` is always `true`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-    private boolean hasTargetLabels(TTopologyTemplate topologyTemplate) {
-        return topologyTemplate.getNodeTemplates().stream()
-            .allMatch(node -> Objects.nonNull(node.getOtherAttributes())
-                && Objects.nonNull(node.getOtherAttributes().get(ModelUtilities.QNAME_LOCATION)));
-    }
 ```
 
 ### ConstantValue
@@ -11549,6 +11537,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
         return matchingRelationshipType;
     }
 
+```
+
+### ConstantValue
+Condition `Objects.nonNull(node.getOtherAttributes())` is always `true`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+    private boolean hasTargetLabels(TTopologyTemplate topologyTemplate) {
+        return topologyTemplate.getNodeTemplates().stream()
+            .allMatch(node -> Objects.nonNull(node.getOtherAttributes())
+                && Objects.nonNull(node.getOtherAttributes().get(ModelUtilities.QNAME_LOCATION)));
+    }
 ```
 
 ### ConstantValue
@@ -11612,18 +11612,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### ConstantValue
-Condition `sourceNodeTypeInterfaces != null` is always `true`
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
-#### Snippet
-```java
-                if (allInterfaces != null && allInterfaces.isEmpty()) {
-                    List<TInterface> sourceNodeTypeInterfaces = allInterfaces.stream().filter(tInterface -> !tInterface.getIdFromIdOrNameField().contains("connect")).collect(Collectors.toList());
-                    if (sourceNodeTypeInterfaces != null) {
-                        for (TInterface tInterface : sourceNodeTypeInterfaces) {
-                            // TODO: make this more safe
-```
-
-### ConstantValue
 Condition `hostInjectionSelections != null` is always `true`
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
 #### Snippet
@@ -11657,6 +11645,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
         } else if (connectionInjectionSelections != null && !connectionInjectionSelections.isEmpty()) {
             matchedConnectedTopologyTemplate = splitting.injectConnectionNodeTemplates(this.getServiceTemplate().getTopologyTemplate(), connectionInjectionSelections);
         } else {
+```
+
+### ConstantValue
+Condition `sourceNodeTypeInterfaces != null` is always `true`
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
+#### Snippet
+```java
+                if (allInterfaces != null && allInterfaces.isEmpty()) {
+                    List<TInterface> sourceNodeTypeInterfaces = allInterfaces.stream().filter(tInterface -> !tInterface.getIdFromIdOrNameField().contains("connect")).collect(Collectors.toList());
+                    if (sourceNodeTypeInterfaces != null) {
+                        for (TInterface tInterface : sourceNodeTypeInterfaces) {
+                            // TODO: make this more safe
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
@@ -11735,6 +11735,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 ```
 
 ### RedundantOperationOnEmptyContainer
+Collection `availableMatchingRelationshipTypes` is always empty
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+
+            List<TRelationshipType> availableMatchingRelationshipTypes = new ArrayList<>();
+            availableMatchingRelationshipTypes.clear();
+
+            while (requirementType != null && capabilityType != null) {
+```
+
+### RedundantOperationOnEmptyContainer
+Collection `availableMatchingRelationshipTypes` is always empty
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                    TRequirementType derivedFromRequirementType = null;
+
+                    availableMatchingRelationshipTypes.clear();
+                    List<TRelationshipType> additionalMatchingRelationshipTypes = new ArrayList<>();
+
+```
+
+### RedundantOperationOnEmptyContainer
 Collection `matching` is always empty
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
@@ -11768,30 +11792,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
         nodesForWhichHostsFound.clear();
 
         List<TNodeTemplate> needHostNodeTemplateCandidates = getNodeTemplatesWithoutOutgoingHostedOnRelationships(serviceTemplate);
-```
-
-### RedundantOperationOnEmptyContainer
-Collection `availableMatchingRelationshipTypes` is always empty
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-
-            List<TRelationshipType> availableMatchingRelationshipTypes = new ArrayList<>();
-            availableMatchingRelationshipTypes.clear();
-
-            while (requirementType != null && capabilityType != null) {
-```
-
-### RedundantOperationOnEmptyContainer
-Collection `availableMatchingRelationshipTypes` is always empty
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-                    TRequirementType derivedFromRequirementType = null;
-
-                    availableMatchingRelationshipTypes.clear();
-                    List<TRelationshipType> additionalMatchingRelationshipTypes = new ArrayList<>();
-
 ```
 
 ### RedundantOperationOnEmptyContainer
@@ -12050,15 +12050,15 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.LinkedHashMap' to 'java.util.LinkedHashMap'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbook/ChefCookbookConfiguration.java`
+Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/CollectionVisitor.java`
 #### Snippet
 ```java
-
-    public void setDepends(LinkedHashMap depends) {
-        this.depends = depends;
-    }
-
+        List stringArray = new ArrayList<String>();
+        for (int count = 0; count < ctx.getChildCount() - 3; count++) {
+            stringArray.add(ctx.getChild(2 + count).getText());
+        }
+        return stringArray;
 ```
 
 ### UNCHECKED_WARNING
@@ -12122,6 +12122,18 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.LinkedHashMap' to 'java.util.LinkedHashMap'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbook/ChefCookbookConfiguration.java`
+#### Snippet
+```java
+
+    public void setDepends(LinkedHashMap depends) {
+        this.depends = depends;
+    }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.List' to 'java.util.List'
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/ChefCookbookAnalyzer.java`
 #### Snippet
@@ -12134,18 +12146,6 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/CollectionVisitor.java`
-#### Snippet
-```java
-        List stringArray = new ArrayList<String>();
-        for (int count = 0; count < ctx.getChildCount() - 3; count++) {
-            stringArray.add(ctx.getChild(2 + count).getText());
-        }
-        return stringArray;
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.ArrayList' to 'java.util.ArrayList'
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/AssignAttributeVisitor.java`
 #### Snippet
@@ -12155,6 +12155,78 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
                 attribute = new ChefAttribute(attributeName, attributeValue);
             }
         } else {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
+#### Snippet
+```java
+    public List getSuites() {
+        if (this.kitchenYml != null) {
+            List<Map> platformConfig = (List) kitchenYml.get("suites");
+            return platformConfig;
+        } else return null;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
+#### Snippet
+```java
+
+        if (this.kitchenYml != null) {
+            List<Map> platformConfig = (List) kitchenYml.get("platforms");
+            return platformConfig;
+        } else return null;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.List' to 'java.util.List'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
+#### Snippet
+```java
+     */
+    public List getPlatformNames() {
+        List<Map> platformConfig = this.getPlatforms();
+        if (platformConfig != null) {
+            List platformNames = new ArrayList();
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
+#### Snippet
+```java
+            List platformNames = new ArrayList();
+            for (int count = 0; count < platformConfig.size(); count++) {
+                platformNames.add(platformConfig.get(count).get("name"));
+            }
+            return platformNames;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
+#### Snippet
+```java
+    @Override
+    public List visitPrimBoolean(ChefDSLParser.PrimBooleanContext ctx) {
+        List<String> attributeValue = new ArrayList();
+        String value = ctx.getText();
+        attributeValue.add(value);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
+#### Snippet
+```java
+    @Override
+    public List visitPrimFloat(ChefDSLParser.PrimFloatContext ctx) {
+        List<String> attributeValue = new ArrayList();
+        String value = ctx.getText();
+        attributeValue.add(value);
 ```
 
 ### UNCHECKED_WARNING
@@ -12187,34 +12259,10 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 #### Snippet
 ```java
     @Override
-    public List visitPrimBoolean(ChefDSLParser.PrimBooleanContext ctx) {
+    public List visitLitSymbol(ChefDSLParser.LitSymbolContext ctx) {
         List<String> attributeValue = new ArrayList();
-        String value = ctx.getText();
-        attributeValue.add(value);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
-#### Snippet
-```java
-    @Override
-    public List visitPrimInt(ChefDSLParser.PrimIntContext ctx) {
-        List<String> attributeValue = new ArrayList();
-        String value = ctx.getText();
-        attributeValue.add(value);
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
-#### Snippet
-```java
-            e.printStackTrace();
-        }
-        attributeValue.add(varValue);
-
-        return attributeValue;
+        String literal = ctx.getChild(0).getText();
+        attributeValue.add(literal);
 ```
 
 ### UNCHECKED_WARNING
@@ -12235,31 +12283,7 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 #### Snippet
 ```java
     @Override
-    public List visitPrimOhaiFunc(ChefDSLParser.PrimOhaiFuncContext ctx) {
-        List<String> attributeValue = new ArrayList();
-        String literal;
-        int stringLength;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
-#### Snippet
-```java
-    @Override
-    public List visitLitSymbol(ChefDSLParser.LitSymbolContext ctx) {
-        List<String> attributeValue = new ArrayList();
-        String literal = ctx.getChild(0).getText();
-        attributeValue.add(literal);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
-#### Snippet
-```java
-    @Override
-    public List visitPrimFloat(ChefDSLParser.PrimFloatContext ctx) {
+    public List visitPrimInt(ChefDSLParser.PrimIntContext ctx) {
         List<String> attributeValue = new ArrayList();
         String value = ctx.getText();
         attributeValue.add(value);
@@ -12278,51 +12302,27 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.List' to 'java.util.List'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
+Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
 #### Snippet
 ```java
-
-        if (this.kitchenYml != null) {
-            List<Map> platformConfig = (List) kitchenYml.get("platforms");
-            return platformConfig;
-        } else return null;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.List' to 'java.util.List'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
-#### Snippet
-```java
-    public List getSuites() {
-        if (this.kitchenYml != null) {
-            List<Map> platformConfig = (List) kitchenYml.get("suites");
-            return platformConfig;
-        } else return null;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.List' to 'java.util.List'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
-#### Snippet
-```java
-     */
-    public List getPlatformNames() {
-        List<Map> platformConfig = this.getPlatforms();
-        if (platformConfig != null) {
-            List platformNames = new ArrayList();
+    @Override
+    public List visitPrimOhaiFunc(ChefDSLParser.PrimOhaiFuncContext ctx) {
+        List<String> attributeValue = new ArrayList();
+        String literal;
+        int stringLength;
 ```
 
 ### UNCHECKED_WARNING
 Unchecked call to 'add(E)' as a member of raw type 'java.util.List'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
 #### Snippet
 ```java
-            List platformNames = new ArrayList();
-            for (int count = 0; count < platformConfig.size(); count++) {
-                platformNames.add(platformConfig.get(count).get("name"));
-            }
-            return platformNames;
+            e.printStackTrace();
+        }
+        attributeValue.add(varValue);
+
+        return attributeValue;
 ```
 
 ### UNCHECKED_WARNING
@@ -12335,18 +12335,6 @@ in `org.eclipse.winery.compliance/src/main/java/org/eclipse/winery/compliance/ch
             complianceRules.addAll((Collection<? extends ComplianceRuleId>) RepositoryFactory.getRepository().getAllIdsInNamespace(ComplianceRuleId.class, space));
         }
         return complianceRules;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'getVertexCorrespondence(V, boolean)' as a member of raw type 'org.jgrapht.GraphMapping'
-in `org.eclipse.winery.compliance/src/main/java/org/eclipse/winery/compliance/checking/ComplianceRuleChecker.java`
-#### Snippet
-```java
-		Map<ToscaNode, ToscaNode> result = new HashMap<>();
-		for (ToscaNode node : subGraph.vertexSet()) {
-			Optional.of(mapping.getVertexCorrespondence(node, false)).map(vertex -> (ToscaNode) vertex).ifPresent(vertex -> result.put(node, vertex));
-		}
-		return result;
 ```
 
 ### UNCHECKED_WARNING
@@ -12374,6 +12362,18 @@ in `org.eclipse.winery.compliance/src/main/java/org/eclipse/winery/compliance/ch
 ```
 
 ### UNCHECKED_WARNING
+Unchecked call to 'getVertexCorrespondence(V, boolean)' as a member of raw type 'org.jgrapht.GraphMapping'
+in `org.eclipse.winery.compliance/src/main/java/org/eclipse/winery/compliance/checking/ComplianceRuleChecker.java`
+#### Snippet
+```java
+		Map<ToscaNode, ToscaNode> result = new HashMap<>();
+		for (ToscaNode node : subGraph.vertexSet()) {
+			Optional.of(mapping.getVertexCorrespondence(node, false)).map(vertex -> (ToscaNode) vertex).ifPresent(vertex -> result.put(node, vertex));
+		}
+		return result;
+```
+
+### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/AssignmentBuilder.java`
 #### Snippet
@@ -12383,18 +12383,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
                         for (Map.Entry<String, Object> fentry : ((Map<String, Object>) entry.getValue()).entrySet())
                             value = fentry.getKey() + ": " + fentry.getValue().toString();
                     }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'capture' to 'K'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/FromCanonical.java`
-#### Snippet
-```java
-            .peek(entry -> LOGGER.debug("entry: {}", entry))
-            .filter(Objects::nonNull)
-            .collect(Collectors.toMap(Map.Entry::getKey, entry -> (K) entry.getValue()));
-    }
-
 ```
 
 ### UNCHECKED_WARNING
@@ -12410,6 +12398,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'capture' to 'K'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/FromCanonical.java`
+#### Snippet
+```java
+            .peek(entry -> LOGGER.debug("entry: {}", entry))
+            .filter(Objects::nonNull)
+            .collect(Collectors.toMap(Map.Entry::getKey, entry -> (K) entry.getValue()));
+    }
+
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'map' has raw type, so result of entrySet is erased
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/ObjectValidator.java`
 #### Snippet
@@ -12419,18 +12419,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
             Set<Map.Entry> entries = map.entrySet();
             if (entries.size() == 0 || !entries.iterator().next().getKey().equals("tosca_definitions_version")) {
                 for (Map.Entry entry : entries) {
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/writer/YamlPrinter.java`
-#### Snippet
-```java
-                .print(' ');
-            this.indent += 2;
-            Map<String, Object> map = (Map<String, Object>) object;
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                printKeyObject(entry.getKey(), entry.getValue());
 ```
 
 ### UNCHECKED_WARNING
@@ -12458,6 +12446,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/writer/YamlPrinter.java`
+#### Snippet
+```java
+                .print(' ');
+            this.indent += 2;
+            Map<String, Object> map = (Map<String, Object>) object;
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                printKeyObject(entry.getKey(), entry.getValue());
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
+#### Snippet
+```java
+                }
+            }
+            abstractTopology.addEdge(sourceNode, targetNode, new RelationshipEdge(sourceNode, targetNode, tRelationshipTemplate.getType().getLocalPart()));
+        }
+    }
+```
+
+### UNCHECKED_WARNING
 Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
 #### Snippet
@@ -12471,14 +12483,26 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 
 ### UNCHECKED_WARNING
 Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
 #### Snippet
 ```java
-                }
-            }
-            abstractTopology.addEdge(sourceNode, targetNode, new RelationshipEdge(sourceNode, targetNode, tRelationshipTemplate.getType().getLocalPart()));
-        }
+        pattern.addVertex(storageComponent2);
+
+        pattern.addEdge(storageComponent1, operatingSystem, new RelationshipEdge(storageComponent1, operatingSystem, hostedOn));
+        pattern.addEdge(storageComponent2, storageComponent1, new RelationshipEdge(storageComponent2, storageComponent1, hostedOn));
     }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
+#### Snippet
+```java
+
+        pattern.addEdge(storageComponent1, operatingSystem, new RelationshipEdge(storageComponent1, operatingSystem, hostedOn));
+        pattern.addEdge(storageComponent2, storageComponent1, new RelationshipEdge(storageComponent2, storageComponent1, hostedOn));
+    }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -12639,54 +12663,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 
 ### UNCHECKED_WARNING
 Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
-#### Snippet
-```java
-        pattern.addVertex(storageComponent2);
-
-        pattern.addEdge(storageComponent1, operatingSystem, new RelationshipEdge(storageComponent1, operatingSystem, hostedOn));
-        pattern.addEdge(storageComponent2, storageComponent1, new RelationshipEdge(storageComponent2, storageComponent1, hostedOn));
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
-#### Snippet
-```java
-
-        pattern.addEdge(storageComponent1, operatingSystem, new RelationshipEdge(storageComponent1, operatingSystem, hostedOn));
-        pattern.addEdge(storageComponent2, storageComponent1, new RelationshipEdge(storageComponent2, storageComponent1, hostedOn));
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
-#### Snippet
-```java
-        //pattern.addVertex(appComponent2);
-
-        pattern.addEdge(serviceComponent, operatingSystem, new RelationshipEdge(serviceComponent, operatingSystem, hostedOn));
-        pattern.addEdge(appComponent1, serviceComponent, new RelationshipEdge(appComponent1, serviceComponent, dependsOn));
-        //pattern.addEdge(appComponent2, serviceComponent, new RelationshipEdge(appComponent2, serviceComponent, dependsOn));
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
-#### Snippet
-```java
-
-        pattern.addEdge(serviceComponent, operatingSystem, new RelationshipEdge(serviceComponent, operatingSystem, hostedOn));
-        pattern.addEdge(appComponent1, serviceComponent, new RelationshipEdge(appComponent1, serviceComponent, dependsOn));
-        //pattern.addEdge(appComponent2, serviceComponent, new RelationshipEdge(appComponent2, serviceComponent, dependsOn));
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
 #### Snippet
 ```java
@@ -12790,6 +12766,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
         pattern.addEdge(messagingComponent, appComponent1, new RelationshipEdge(messagingComponent, appComponent1, connectsTo));
         pattern.addEdge(messagingComponent, appComponent2, new RelationshipEdge(messagingComponent, appComponent2, connectsTo));
 
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+        //pattern.addVertex(appComponent2);
+
+        pattern.addEdge(serviceComponent, operatingSystem, new RelationshipEdge(serviceComponent, operatingSystem, hostedOn));
+        pattern.addEdge(appComponent1, serviceComponent, new RelationshipEdge(appComponent1, serviceComponent, dependsOn));
+        //pattern.addEdge(appComponent2, serviceComponent, new RelationshipEdge(appComponent2, serviceComponent, dependsOn));
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'RelationshipEdge(V, V, String)' as a member of raw type 'org.eclipse.winery.repository.patterndetection.model.RelationshipEdge'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+
+        pattern.addEdge(serviceComponent, operatingSystem, new RelationshipEdge(serviceComponent, operatingSystem, hostedOn));
+        pattern.addEdge(appComponent1, serviceComponent, new RelationshipEdge(appComponent1, serviceComponent, dependsOn));
+        //pattern.addEdge(appComponent2, serviceComponent, new RelationshipEdge(appComponent2, serviceComponent, dependsOn));
     }
 ```
 
@@ -12878,18 +12878,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
-#### Snippet
-```java
-                return new YTCallOperationActivityDefinition((String) object);
-            }
-            Map<String, Object> map = (Map<String, Object>) object;
-            YTCallOperationActivityDefinition callOperation = new YTCallOperationActivityDefinition(stringValue(map.get(YamlSpecKeywords.OPERATION)));
-            Map<String, YTParameterDefinition> inputs = buildParameterDefinitions(map.get(YamlSpecKeywords.INPUTS),
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'org.jgrapht.alg.isomorphism.VF2SubgraphIsomorphismInspector' to 'org.jgrapht.alg.isomorphism.VF2SubgraphIsomorphismInspector'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
 #### Snippet
@@ -12947,6 +12935,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
             T comparisonValueComparable = (T) comparisonValue;
             int compareResult = valueComparable.compareTo(comparisonValueComparable);
 
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
+#### Snippet
+```java
+                return new YTCallOperationActivityDefinition((String) object);
+            }
+            Map<String, Object> map = (Map<String, Object>) object;
+            YTCallOperationActivityDefinition callOperation = new YTCallOperationActivityDefinition(stringValue(map.get(YamlSpecKeywords.OPERATION)));
+            Map<String, YTParameterDefinition> inputs = buildParameterDefinitions(map.get(YamlSpecKeywords.INPUTS),
 ```
 
 ### UNCHECKED_WARNING
@@ -13083,18 +13083,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.eclipse.winery.repository.resources.servicetemplates.boundarydefinitions.reqscaps.CapabilitiesResource`
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/reqscaps/RequirementsResource.java`
-#### Snippet
-```java
-
-/**
- * This class is mirrored at {@link org.eclipse.winery.repository.resources.servicetemplates.boundarydefinitions.reqscaps.CapabilitiesResource}
- */
-public class RequirementsResource extends EntityWithoutIdCollectionResource<RequirementResource, TRequirementRef> {
-```
-
-### JavadocReference
 Cannot resolve symbol `org.eclipse.winery.repository.resources.servicetemplates.boundarydefinitions.reqscaps.RequirementsResource`
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/reqscaps/CapabilitiesResource.java`
 #### Snippet
@@ -13104,6 +13092,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
  * This class is an adaption from {@link org.eclipse.winery.repository.resources.servicetemplates.boundarydefinitions.reqscaps.RequirementsResource}
  */
 public class CapabilitiesResource extends EntityWithoutIdCollectionResource<CapabilityResource, TCapabilityRef> {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.eclipse.winery.repository.resources.servicetemplates.boundarydefinitions.reqscaps.CapabilitiesResource`
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/boundarydefinitions/reqscaps/RequirementsResource.java`
+#### Snippet
+```java
+
+/**
+ * This class is mirrored at {@link org.eclipse.winery.repository.resources.servicetemplates.boundarydefinitions.reqscaps.CapabilitiesResource}
+ */
+public class RequirementsResource extends EntityWithoutIdCollectionResource<RequirementResource, TRequirementRef> {
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -13373,30 +13373,6 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### DataFlowIssue
-Condition `child instanceof ChefDSLParser.When_argsContext` is redundant and can be replaced with a null check
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
-#### Snippet
-```java
-            ParseTree child = ctx.getChild(iterChild);
-
-            if (child instanceof ChefDSLParser.When_argsContext) {
-                whenArgs = child.accept(whenArgsVisitor);
-            } else if ("else".equals(child.getText())) {
-```
-
-### DataFlowIssue
-Method invocation `getText` will produce `NullPointerException`
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
-#### Snippet
-```java
-            if (child instanceof ChefDSLParser.When_argsContext) {
-                whenArgs = child.accept(whenArgsVisitor);
-            } else if ("else".equals(child.getText())) {
-                whenArgs.clear();
-                elseActive = true;
-```
-
-### DataFlowIssue
 Condition `child instanceof ChefDSLParser.ExprContext` is redundant and can be replaced with a null check
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryStatementVisitor.java`
 #### Snippet
@@ -13454,6 +13430,30 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
             for (String file : files) {
                 File srcFile = new File(sourceFolder, file);
                 File destFile = new File(destinationFolder, file);
+```
+
+### DataFlowIssue
+Condition `child instanceof ChefDSLParser.When_argsContext` is redundant and can be replaced with a null check
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
+#### Snippet
+```java
+            ParseTree child = ctx.getChild(iterChild);
+
+            if (child instanceof ChefDSLParser.When_argsContext) {
+                whenArgs = child.accept(whenArgsVisitor);
+            } else if ("else".equals(child.getText())) {
+```
+
+### DataFlowIssue
+Method invocation `getText` will produce `NullPointerException`
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
+#### Snippet
+```java
+            if (child instanceof ChefDSLParser.When_argsContext) {
+                whenArgs = child.accept(whenArgsVisitor);
+            } else if ("else".equals(child.getText())) {
+                whenArgs.clear();
+                elseActive = true;
 ```
 
 ### DataFlowIssue
@@ -13565,18 +13565,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ex
 ```
 
 ### DataFlowIssue
-Argument `newSource` might be null
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/BackendUtils.java`
-#### Snippet
-```java
-                    || stayingElementIds.stream().noneMatch(elementId -> elementId.equals(source.getId())))) {
-                    TNodeTemplate newSource = topologyTemplateB.getNodeTemplate(idMapping.get(source.getId()));
-                    rel.setSourceNodeTemplate(newSource);
-                }
-
-```
-
-### DataFlowIssue
 Argument `serviceTemplate.getTopologyTemplate()` might be null
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/BackendUtils.java`
 #### Snippet
@@ -13586,6 +13574,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
         TTopologyTemplate topologyTemplateClone = clone(serviceTemplate.getTopologyTemplate());
         serviceTemplateClone.setTopologyTemplate(topologyTemplateClone);
         List<TTag> tags = serviceTemplate.getTags();
+```
+
+### DataFlowIssue
+Argument `newSource` might be null
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/BackendUtils.java`
+#### Snippet
+```java
+                    || stayingElementIds.stream().noneMatch(elementId -> elementId.equals(source.getId())))) {
+                    TNodeTemplate newSource = topologyTemplateB.getNodeTemplate(idMapping.get(source.getId()));
+                    rel.setSourceNodeTemplate(newSource);
+                }
+
 ```
 
 ### DataFlowIssue
@@ -13697,18 +13697,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 ```
 
 ### DataFlowIssue
-Argument `location` might be null
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/importing/YamlCsarImporter.java`
-#### Snippet
-```java
-            String location = imp.getLocation();
-            if (Namespaces.TOSCA_YAML_NS.equals(importType)) {
-                Path defsPath = basePath.resolve(location);
-                // fallback for older CSARs, where the location is given from the root
-                if (Files.exists(defsPath)) {
-```
-
-### DataFlowIssue
 Method invocation `getClass` may produce `NullPointerException`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/writer/YamlWriter.java`
 #### Snippet
@@ -13721,15 +13709,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### DataFlowIssue
-Method invocation `getId` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/util/FragmentsCache.java`
+Argument `location` might be null
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/importing/YamlCsarImporter.java`
 #### Snippet
 ```java
-        }
-        if (allFragments.values().stream().flatMap(List::stream).count() == 0) {
-            throw new AllocationException("No matching fragments found for NT " + topLevelNT.getId() +
-                " with target labels " + targetLabels);
-        }
+            String location = imp.getLocation();
+            if (Namespaces.TOSCA_YAML_NS.equals(importType)) {
+                Path defsPath = basePath.resolve(location);
+                // fallback for older CSARs, where the location is given from the root
+                if (Files.exists(defsPath)) {
 ```
 
 ### DataFlowIssue
@@ -13805,14 +13793,14 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### DataFlowIssue
-Argument `type` might be null
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyWrapper.java`
+Method invocation `getId` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/util/FragmentsCache.java`
 #### Snippet
 ```java
-            if (property.getKey().equals(propertyKey)) {
-                String type = getType(policyType, propertyKey);
-                return cast(property.getValue(), type);
-            }
+        }
+        if (allFragments.values().stream().flatMap(List::stream).count() == 0) {
+            throw new AllocationException("No matching fragments found for NT " + topLevelNT.getId() +
+                " with target labels " + targetLabels);
         }
 ```
 
@@ -13841,18 +13829,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
 ```
 
 ### DataFlowIssue
-Dereference of `state` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minhosts/TargetLabelAssignment.java`
-#### Snippet
-```java
-    private boolean isMatchable(TNodeTemplate nodeTemplate) {
-        PredecessorsTargetLabelState state = determinePredecessorsTargetLabelState(nodeTemplate);
-        switch (state) {
-            case ALL_PREDECESSORS_HAVE_TARGET_LABELS:
-                return isMatchableAllPredecessorsHaveTargetLabel(nodeTemplate);
-```
-
-### DataFlowIssue
 Argument `storedPrefix` might be null
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/importing/CsarImporter.java`
 #### Snippet
@@ -13874,6 +13850,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/im
                             if (imp.getLocation().equals(loc)) {
                                 found = true;
                                 break;
+```
+
+### DataFlowIssue
+Argument `type` might be null
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyWrapper.java`
+#### Snippet
+```java
+            if (property.getKey().equals(propertyKey)) {
+                String type = getType(policyType, propertyKey);
+                return cast(property.getValue(), type);
+            }
+        }
+```
+
+### DataFlowIssue
+Dereference of `state` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minhosts/TargetLabelAssignment.java`
+#### Snippet
+```java
+    private boolean isMatchable(TNodeTemplate nodeTemplate) {
+        PredecessorsTargetLabelState state = determinePredecessorsTargetLabelState(nodeTemplate);
+        switch (state) {
+            case ALL_PREDECESSORS_HAVE_TARGET_LABELS:
+                return isMatchableAllPredecessorsHaveTargetLabel(nodeTemplate);
 ```
 
 ### DataFlowIssue
@@ -13961,27 +13961,87 @@ in `org.eclipse.winery.topologygraph/src/main/java/org/eclipse/winery/topologygr
 ```
 
 ### DataFlowIssue
-Method invocation `addNodeTemplate` may produce `NullPointerException`
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-                        }
 
-                        serviceTemplate.getTopologyTemplate().addNodeTemplate(duplicatedNode);
-                        serviceTemplateCopy.getTopologyTemplate().addNodeTemplate(duplicatedNode);
-                        ModelUtilities.setTargetLabel(duplicatedNode, targetLabel);
+            for (TRelationshipType relationshipType : relationshipTypes) {
+                if (basisCapabilityType != null && basisCapabilityType.getName().equalsIgnoreCase("container")
+                    && relationshipType.getName().equalsIgnoreCase("hostedon") && relationshipType.getValidSource() == null
+                    && (relationshipType.getValidTarget() == null || relationshipType.getValidTarget().getTypeRef().getLocalPart().equalsIgnoreCase("container"))) {
 ```
 
 ### DataFlowIssue
-Method invocation `addNodeTemplate` may produce `NullPointerException`
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+            for (TRelationshipType relationshipType : relationshipTypes) {
+                if (basisCapabilityType != null && basisCapabilityType.getName().equalsIgnoreCase("container")
+                    && relationshipType.getName().equalsIgnoreCase("hostedon") && relationshipType.getValidSource() == null
+                    && (relationshipType.getValidTarget() == null || relationshipType.getValidTarget().getTypeRef().getLocalPart().equalsIgnoreCase("container"))) {
+                    return relationshipType;
+```
+
+### DataFlowIssue
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                }
+                if (basisCapabilityType != null && basisCapabilityType.getName().equalsIgnoreCase("endpoint")
+                    && relationshipType.getName().equalsIgnoreCase("connectsto") && relationshipType.getValidSource() == null
+                    && (relationshipType.getValidTarget() == null || relationshipType.getValidTarget().getTypeRef().getLocalPart().equalsIgnoreCase("endpoint"))) {
+                    return relationshipType;
+```
+
+### DataFlowIssue
+Method invocation `getNodeTemplates` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                                                                                           serviceTemplate) {
+
+        List<TNodeTemplate> nodeTemplates = serviceTemplate.getTopologyTemplate().getNodeTemplates()
+            .stream()
+            .filter(nt -> getHostedOnPredecessorsOfNodeTemplate(serviceTemplate.getTopologyTemplate(), nt).isEmpty())
+```
+
+### DataFlowIssue
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+            if (hasNodeOpenRequirement(serviceTemplate, nodeTemplateCandidate)) {
+                if (nodeTemplateCandidate.getRequirements() != null && nodeTemplateCandidate.getRequirements().stream()
+                    .anyMatch(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Container"))) {
+                    nodesToCheck.add(nodeTemplateCandidate);
+                }
+```
+
+### DataFlowIssue
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
 
-                        serviceTemplate.getTopologyTemplate().addNodeTemplate(duplicatedNode);
-                        serviceTemplateCopy.getTopologyTemplate().addNodeTemplate(duplicatedNode);
-                        ModelUtilities.setTargetLabel(duplicatedNode, targetLabel);
+                List<TRequirement> openHostedOnRequirements = needHostNode.getRequirements().stream()
+                    .filter(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Container")).collect(Collectors.toList());
 
+                List<TServiceTemplate> compatibleTopologyFragments = repository
+```
+
+### DataFlowIssue
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                    } else {
+                        List<TRequirement> openHostedOnRequirements = predecessor.getRequirements().stream()
+                            .filter(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Container")).collect(Collectors.toList());
+
+                        List<TServiceTemplate> compatibleTopologyFragments = repository
 ```
 
 ### DataFlowIssue
@@ -13989,35 +14049,59 @@ Method invocation `getNodeTemplateOrRelationshipTemplate` may produce `NullPoint
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-
-                    // Remove the original node and its relations from the origin topology template and the copy
-                    serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().remove(currentNode);
-                    serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(outgoingRelationships);
-                    serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(incomingRelationships);
+            }
+            // Delete all replacement candidates and their relationships.
+            serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(replacementNodeTemplateCandidates);
+            List<TRelationshipTemplate> removingIncomingRelationships = ModelUtilities.getAllRelationshipTemplates(serviceTemplate.getTopologyTemplate())
+                .stream()
 ```
 
 ### DataFlowIssue
-Method invocation `getNodeTemplateOrRelationshipTemplate` may produce `NullPointerException`
+Method invocation `getNodeTemplates` may produce `NullPointerException`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-                    serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(outgoingRelationships);
-                    serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(incomingRelationships);
-                    serviceTemplateCopy.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().remove(currentNode);
-                    serviceTemplateCopy.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(outgoingRelationships);
-                    serviceTemplateCopy.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(incomingRelationships);
+         * The application-specific nodes must not be replacement candidates!
+         */
+        List<TNodeTemplate> checkListAllNodesMatched = serviceTemplate.getTopologyTemplate().getNodeTemplates().stream()
+            .filter(z -> getNodeTemplatesWithoutOutgoingHostedOnRelationships(serviceTemplate).contains(z))
+            .filter(node -> hasNodeOpenRequirement(serviceTemplate, node))
 ```
 
 ### DataFlowIssue
-Method invocation `getNodeTemplateOrRelationshipTemplate` may produce `NullPointerException`
+Argument `serviceTemplate.getTopologyTemplate()` might be null
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
+     */
+    public boolean checkValidTopology(TServiceTemplate serviceTemplate) {
+        Map<TNodeTemplate, Set<TNodeTemplate>> transitiveAndDirectSuccessors = computeTransitiveClosure(serviceTemplate.getTopologyTemplate());
 
-                // Remove the hostedOn-predecessors of the considered node and their relations in the working copy
-                serviceTemplateCopy.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(predecessors);
-                List<TRelationshipTemplate> removingRelationships =
-                    serviceTemplateCopy.getTopologyTemplate().getRelationshipTemplates().stream()
+        if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
+```
+
+### DataFlowIssue
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+        if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
+            List<TNodeTemplate> appSpecificComponentsOfOtherParticipants = serviceTemplate.getTopologyTemplate().getNodeTemplates();
+            appSpecificComponentsOfOtherParticipants.removeIf(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()));
+
+            transitiveAndDirectSuccessors.remove(appSpecificComponentsOfOtherParticipants);
+```
+
+### DataFlowIssue
+Method invocation `getNodeTemplates` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                                                                                           serviceTemplate) {
+        List<TNodeTemplate> participantNodes = new ArrayList<>();
+        List<TNodeTemplate> nodeTemplates = serviceTemplate.getTopologyTemplate().getNodeTemplates().stream()
+            .filter(nt -> getHostedOnSuccessorsOfNodeTemplate(serviceTemplate.getTopologyTemplate(), nt).isEmpty())
+            .collect(Collectors.toList());
 ```
 
 ### DataFlowIssue
@@ -14030,42 +14114,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
         QName relationshipTypeQName = new QName(relationshipType.getTargetNamespace(), relationshipType.getName());
         LOGGER.debug("The QName of the matchingRelationshipType for ReqCap Matching", relationshipTypeQName);
         List<String> ids = new ArrayList<>();
-```
-
-### DataFlowIssue
-Method invocation `getNodeTemplates` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-            QName requiredCapabilityTypeQName = getRequiredCapabilityTypeQNameOfRequirement(requirement);
-
-            TNodeTemplate nodeWithOpenCapability = composedTopologyTemplate.getNodeTemplates().stream()
-                .filter(nt -> nt.getCapabilities() != null)
-                .filter(nt -> nt.getCapabilities().stream()
-```
-
-### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-            .filter(nt -> nt.getRequirements() != null)
-            .filter(nt -> nt.getRequirements().stream()
-                .anyMatch(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Endpoint")))
-            .collect(Collectors.toList());
-
-```
-
-### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-            for (TNodeTemplate nodeWithOpenConnectionRequirement : nodeTemplatesWithConnectionRequirement) {
-                List<TRequirement> requirements = nodeWithOpenConnectionRequirement.getRequirements().stream()
-                    .filter(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Endpoint"))
-                    .filter(req -> getOpenRequirementsAndMatchingBasisCapabilityTypeNames(serviceTemplate).keySet().contains(req))
-                    .collect(Collectors.toList());
 ```
 
 ### DataFlowIssue
@@ -14133,54 +14181,6 @@ Method invocation `getNodeTemplates` may produce `NullPointerException`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-                                                                                           serviceTemplate) {
-        List<TNodeTemplate> participantNodes = new ArrayList<>();
-        List<TNodeTemplate> nodeTemplates = serviceTemplate.getTopologyTemplate().getNodeTemplates().stream()
-            .filter(nt -> getHostedOnSuccessorsOfNodeTemplate(serviceTemplate.getTopologyTemplate(), nt).isEmpty())
-            .collect(Collectors.toList());
-```
-
-### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-
-            for (TRelationshipType relationshipType : relationshipTypes) {
-                if (basisCapabilityType != null && basisCapabilityType.getName().equalsIgnoreCase("container")
-                    && relationshipType.getName().equalsIgnoreCase("hostedon") && relationshipType.getValidSource() == null
-                    && (relationshipType.getValidTarget() == null || relationshipType.getValidTarget().getTypeRef().getLocalPart().equalsIgnoreCase("container"))) {
-```
-
-### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-            for (TRelationshipType relationshipType : relationshipTypes) {
-                if (basisCapabilityType != null && basisCapabilityType.getName().equalsIgnoreCase("container")
-                    && relationshipType.getName().equalsIgnoreCase("hostedon") && relationshipType.getValidSource() == null
-                    && (relationshipType.getValidTarget() == null || relationshipType.getValidTarget().getTypeRef().getLocalPart().equalsIgnoreCase("container"))) {
-                    return relationshipType;
-```
-
-### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-                }
-                if (basisCapabilityType != null && basisCapabilityType.getName().equalsIgnoreCase("endpoint")
-                    && relationshipType.getName().equalsIgnoreCase("connectsto") && relationshipType.getValidSource() == null
-                    && (relationshipType.getValidTarget() == null || relationshipType.getValidTarget().getTypeRef().getLocalPart().equalsIgnoreCase("endpoint"))) {
-                    return relationshipType;
-```
-
-### DataFlowIssue
-Method invocation `getNodeTemplates` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
         for (TRequirement requirement : openRequirements) {
             QName requiredCapTypeQName = getRequiredCapabilityTypeQNameOfRequirement(requirement);
             List<TNodeTemplate> nodesWithMatchingCapability = topologyTemplate.getNodeTemplates().stream()
@@ -14189,63 +14189,99 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 ```
 
 ### DataFlowIssue
+Method invocation `addNodeTemplate` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                        }
+
+                        serviceTemplate.getTopologyTemplate().addNodeTemplate(duplicatedNode);
+                        serviceTemplateCopy.getTopologyTemplate().addNodeTemplate(duplicatedNode);
+                        ModelUtilities.setTargetLabel(duplicatedNode, targetLabel);
+```
+
+### DataFlowIssue
+Method invocation `addNodeTemplate` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+
+                        serviceTemplate.getTopologyTemplate().addNodeTemplate(duplicatedNode);
+                        serviceTemplateCopy.getTopologyTemplate().addNodeTemplate(duplicatedNode);
+                        ModelUtilities.setTargetLabel(duplicatedNode, targetLabel);
+
+```
+
+### DataFlowIssue
+Method invocation `getNodeTemplateOrRelationshipTemplate` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+
+                    // Remove the original node and its relations from the origin topology template and the copy
+                    serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().remove(currentNode);
+                    serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(outgoingRelationships);
+                    serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(incomingRelationships);
+```
+
+### DataFlowIssue
+Method invocation `getNodeTemplateOrRelationshipTemplate` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                    serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(outgoingRelationships);
+                    serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(incomingRelationships);
+                    serviceTemplateCopy.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().remove(currentNode);
+                    serviceTemplateCopy.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(outgoingRelationships);
+                    serviceTemplateCopy.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(incomingRelationships);
+```
+
+### DataFlowIssue
+Method invocation `getNodeTemplateOrRelationshipTemplate` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+
+                // Remove the hostedOn-predecessors of the considered node and their relations in the working copy
+                serviceTemplateCopy.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(predecessors);
+                List<TRelationshipTemplate> removingRelationships =
+                    serviceTemplateCopy.getTopologyTemplate().getRelationshipTemplates().stream()
+```
+
+### DataFlowIssue
 Method invocation `getNodeTemplates` may produce `NullPointerException`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-                                                                                                serviceTemplate) throws SplittingException {
-        if (!checkApplicationSpecificComponentTargetLabeling(serviceTemplate)) {
-            serviceTemplate.getTopologyTemplate().getNodeTemplates().forEach(t -> ModelUtilities.setTargetLabel(t, "*"));
-        } else if (checkValidTopology(serviceTemplate)) {
-            Map<TNodeTemplate, Set<TNodeTemplate>> transitiveAndDirectSuccessors = computeTransitiveClosure(serviceTemplate.getTopologyTemplate());
-```
-
-### DataFlowIssue
-Argument `serviceTemplate.getTopologyTemplate()` might be null
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-            serviceTemplate.getTopologyTemplate().getNodeTemplates().forEach(t -> ModelUtilities.setTargetLabel(t, "*"));
-        } else if (checkValidTopology(serviceTemplate)) {
-            Map<TNodeTemplate, Set<TNodeTemplate>> transitiveAndDirectSuccessors = computeTransitiveClosure(serviceTemplate.getTopologyTemplate());
-            List<TNodeTemplate> appSpecificComponents = getNodeTemplatesWithoutIncomingHostedOnRelationships(serviceTemplate);
-
-```
-
-### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-
-            List<TNodeTemplate> NodesOfOtherParticipants = serviceTemplate.getTopologyTemplate().getNodeTemplates();
-            NodesOfOtherParticipants.removeIf(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()));
-
-            transitiveAndDirectSuccessors.remove(NodesOfOtherParticipants);
-```
-
-### DataFlowIssue
-Argument `serviceTemplate.getTopologyTemplate()` might be null
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-     */
-    public boolean checkValidTopology(TServiceTemplate serviceTemplate) {
-        Map<TNodeTemplate, Set<TNodeTemplate>> transitiveAndDirectSuccessors = computeTransitiveClosure(serviceTemplate.getTopologyTemplate());
+    public List<TRequirement> getOpenRequirements(TServiceTemplate serviceTemplate) {
+        List<TRequirement> openRequirements = new ArrayList<>();
+        List<TNodeTemplate> nodeTemplates = serviceTemplate.getTopologyTemplate().getNodeTemplates();
 
         if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
 ```
 
 ### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
+Method invocation `getNodeTemplates` may produce `NullPointerException`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-        if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
-            List<TNodeTemplate> appSpecificComponentsOfOtherParticipants = serviceTemplate.getTopologyTemplate().getNodeTemplates();
-            appSpecificComponentsOfOtherParticipants.removeIf(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()));
+            QName requiredCapabilityTypeQName = getRequiredCapabilityTypeQNameOfRequirement(requirement);
 
-            transitiveAndDirectSuccessors.remove(appSpecificComponentsOfOtherParticipants);
+            TNodeTemplate nodeWithOpenCapability = composedTopologyTemplate.getNodeTemplates().stream()
+                .filter(nt -> nt.getCapabilities() != null)
+                .filter(nt -> nt.getCapabilities().stream()
+```
+
+### DataFlowIssue
+Method invocation `equals` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+            LinkedHashMap<String, String> properties1 = ModelUtilities.getPropertiesKV(node1);
+            LinkedHashMap<String, String> properties2 = ModelUtilities.getPropertiesKV(node2);
+            if (!properties1.equals(properties2)) {
+                return false;
+            }
 ```
 
 ### DataFlowIssue
@@ -14285,15 +14321,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 ```
 
 ### DataFlowIssue
-Method invocation `getNodeTemplates` may produce `NullPointerException`
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-    public List<TRequirement> getOpenRequirements(TServiceTemplate serviceTemplate) {
-        List<TRequirement> openRequirements = new ArrayList<>();
-        List<TNodeTemplate> nodeTemplates = serviceTemplate.getTopologyTemplate().getNodeTemplates();
+            .filter(nt -> nt.getRequirements() != null)
+            .filter(nt -> nt.getRequirements().stream()
+                .anyMatch(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Endpoint")))
+            .collect(Collectors.toList());
 
-        if (ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate) != null) {
 ```
 
 ### DataFlowIssue
@@ -14301,71 +14337,11 @@ Method invocation `equalsIgnoreCase` may produce `NullPointerException`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-            if (hasNodeOpenRequirement(serviceTemplate, nodeTemplateCandidate)) {
-                if (nodeTemplateCandidate.getRequirements() != null && nodeTemplateCandidate.getRequirements().stream()
-                    .anyMatch(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Container"))) {
-                    nodesToCheck.add(nodeTemplateCandidate);
-                }
-```
-
-### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-
-                List<TRequirement> openHostedOnRequirements = needHostNode.getRequirements().stream()
-                    .filter(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Container")).collect(Collectors.toList());
-
-                List<TServiceTemplate> compatibleTopologyFragments = repository
-```
-
-### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-                    } else {
-                        List<TRequirement> openHostedOnRequirements = predecessor.getRequirements().stream()
-                            .filter(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Container")).collect(Collectors.toList());
-
-                        List<TServiceTemplate> compatibleTopologyFragments = repository
-```
-
-### DataFlowIssue
-Method invocation `getNodeTemplateOrRelationshipTemplate` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-            }
-            // Delete all replacement candidates and their relationships.
-            serviceTemplate.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(replacementNodeTemplateCandidates);
-            List<TRelationshipTemplate> removingIncomingRelationships = ModelUtilities.getAllRelationshipTemplates(serviceTemplate.getTopologyTemplate())
-                .stream()
-```
-
-### DataFlowIssue
-Method invocation `getNodeTemplates` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-         * The application-specific nodes must not be replacement candidates!
-         */
-        List<TNodeTemplate> checkListAllNodesMatched = serviceTemplate.getTopologyTemplate().getNodeTemplates().stream()
-            .filter(z -> getNodeTemplatesWithoutOutgoingHostedOnRelationships(serviceTemplate).contains(z))
-            .filter(node -> hasNodeOpenRequirement(serviceTemplate, node))
-```
-
-### DataFlowIssue
-Method invocation `equals` may produce `NullPointerException`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-            LinkedHashMap<String, String> properties1 = ModelUtilities.getPropertiesKV(node1);
-            LinkedHashMap<String, String> properties2 = ModelUtilities.getPropertiesKV(node2);
-            if (!properties1.equals(properties2)) {
-                return false;
-            }
+            for (TNodeTemplate nodeWithOpenConnectionRequirement : nodeTemplatesWithConnectionRequirement) {
+                List<TRequirement> requirements = nodeWithOpenConnectionRequirement.getRequirements().stream()
+                    .filter(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Endpoint"))
+                    .filter(req -> getOpenRequirementsAndMatchingBasisCapabilityTypeNames(serviceTemplate).keySet().contains(req))
+                    .collect(Collectors.toList());
 ```
 
 ### DataFlowIssue
@@ -14397,11 +14373,35 @@ Method invocation `getNodeTemplates` may produce `NullPointerException`
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-                                                                                           serviceTemplate) {
+                                                                                                serviceTemplate) throws SplittingException {
+        if (!checkApplicationSpecificComponentTargetLabeling(serviceTemplate)) {
+            serviceTemplate.getTopologyTemplate().getNodeTemplates().forEach(t -> ModelUtilities.setTargetLabel(t, "*"));
+        } else if (checkValidTopology(serviceTemplate)) {
+            Map<TNodeTemplate, Set<TNodeTemplate>> transitiveAndDirectSuccessors = computeTransitiveClosure(serviceTemplate.getTopologyTemplate());
+```
 
-        List<TNodeTemplate> nodeTemplates = serviceTemplate.getTopologyTemplate().getNodeTemplates()
-            .stream()
-            .filter(nt -> getHostedOnPredecessorsOfNodeTemplate(serviceTemplate.getTopologyTemplate(), nt).isEmpty())
+### DataFlowIssue
+Argument `serviceTemplate.getTopologyTemplate()` might be null
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+            serviceTemplate.getTopologyTemplate().getNodeTemplates().forEach(t -> ModelUtilities.setTargetLabel(t, "*"));
+        } else if (checkValidTopology(serviceTemplate)) {
+            Map<TNodeTemplate, Set<TNodeTemplate>> transitiveAndDirectSuccessors = computeTransitiveClosure(serviceTemplate.getTopologyTemplate());
+            List<TNodeTemplate> appSpecificComponents = getNodeTemplatesWithoutIncomingHostedOnRelationships(serviceTemplate);
+
+```
+
+### DataFlowIssue
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+
+            List<TNodeTemplate> NodesOfOtherParticipants = serviceTemplate.getTopologyTemplate().getNodeTemplates();
+            NodesOfOtherParticipants.removeIf(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()));
+
+            transitiveAndDirectSuccessors.remove(NodesOfOtherParticipants);
 ```
 
 ### DataFlowIssue
@@ -14597,6 +14597,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### DataFlowIssue
+Variable is already assigned to this value
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
+#### Snippet
+```java
+        if (!DASpecification.getNodeTemplatesWithAbstractDAs(matchedConnectedTopologyTemplate).isEmpty() &&
+            DASpecification.getNodeTemplatesWithAbstractDAs(matchedConnectedTopologyTemplate) != null) {
+            daSpecifiedTopology = DriverInjection.injectDriver(matchedConnectedTopologyTemplate);
+        }
+        //End additional functionality Driver Injection
+```
+
+### DataFlowIssue
 Method invocation `setParticipants` may produce `NullPointerException`
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
 #### Snippet
@@ -14666,18 +14678,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
                 placeholderNodeTemplate.setX(placeholderNodeTemplate.getX());
                 // add placeholder to node template and connect with source node template with open requirements
                 topologyTemplate.addNodeTemplate(placeholderNodeTemplate);
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
-#### Snippet
-```java
-        if (!DASpecification.getNodeTemplatesWithAbstractDAs(matchedConnectedTopologyTemplate).isEmpty() &&
-            DASpecification.getNodeTemplatesWithAbstractDAs(matchedConnectedTopologyTemplate) != null) {
-            daSpecifiedTopology = DriverInjection.injectDriver(matchedConnectedTopologyTemplate);
-        }
-        //End additional functionality Driver Injection
 ```
 
 ### DataFlowIssue
@@ -14753,30 +14753,6 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
 ```
 
 ### DataFlowIssue
-Argument `host.getX()` might be null
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/instance/InstanceModelUtils.java`
-#### Snippet
-```java
-                host
-        );
-        node.setX(host.getX());
-        node.setY(String.valueOf(Integer.parseInt(host.getY()) - 160));
-        topology.addNodeTemplate(node);
-```
-
-### DataFlowIssue
-Argument `host.getY()` might be null
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/instance/InstanceModelUtils.java`
-#### Snippet
-```java
-        );
-        node.setX(host.getX());
-        node.setY(String.valueOf(Integer.parseInt(host.getY()) - 160));
-        topology.addNodeTemplate(node);
-        topology.addRelationshipTemplate(relationshipTemplate);
-```
-
-### DataFlowIssue
 Argument `topology.getNodeTemplate(topologyNodeId)` might be null
 in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/tests/TestRefinement.java`
 #### Snippet
@@ -14801,15 +14777,39 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
 ```
 
 ### DataFlowIssue
-Argument `topology.getNodeTemplate(id)` might be null
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/RefinementUtils.java`
+Argument `host.getX()` might be null
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/instance/InstanceModelUtils.java`
 #### Snippet
 ```java
-                if (Objects.nonNull(idMapping)) {
-                    String id = idMapping.get(relationMapping.getRefinementElement().getId());
-                    relationship.setSourceNodeTemplate(topology.getNodeTemplate(id));
-                }
-                return true;
+                host
+        );
+        node.setX(host.getX());
+        node.setY(String.valueOf(Integer.parseInt(host.getY()) - 160));
+        topology.addNodeTemplate(node);
+```
+
+### DataFlowIssue
+Argument `host.getY()` might be null
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/instance/InstanceModelUtils.java`
+#### Snippet
+```java
+        );
+        node.setX(host.getX());
+        node.setY(String.valueOf(Integer.parseInt(host.getY()) - 160));
+        topology.addNodeTemplate(node);
+        topology.addRelationshipTemplate(relationshipTemplate);
+```
+
+### DataFlowIssue
+Method invocation `stream` may produce `NullPointerException`
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/patterndetection/BehaviorPatternDetection.java`
+#### Snippet
+```java
+    private void addCompatibleBehaviorPatterns(TEntityTemplate refinementElement, RefinementCandidate refinement) {
+        OTPatternRefinementModel prm = (OTPatternRefinementModel) refinement.getRefinementModel();
+        TEntityTemplate detectorElement = prm.getStayMappings().stream()
+            .filter(stayMapping -> stayMapping.getRefinementElement().getId().equals(refinementElement.getId()))
+            .findFirst().get()
 ```
 
 ### DataFlowIssue
@@ -14837,15 +14837,15 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
 ```
 
 ### DataFlowIssue
-Method invocation `stream` may produce `NullPointerException`
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/patterndetection/BehaviorPatternDetection.java`
+Argument `topology.getNodeTemplate(id)` might be null
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/RefinementUtils.java`
 #### Snippet
 ```java
-    private void addCompatibleBehaviorPatterns(TEntityTemplate refinementElement, RefinementCandidate refinement) {
-        OTPatternRefinementModel prm = (OTPatternRefinementModel) refinement.getRefinementModel();
-        TEntityTemplate detectorElement = prm.getStayMappings().stream()
-            .filter(stayMapping -> stayMapping.getRefinementElement().getId().equals(refinementElement.getId()))
-            .findFirst().get()
+                if (Objects.nonNull(idMapping)) {
+                    String id = idMapping.get(relationMapping.getRefinementElement().getId());
+                    relationship.setSourceNodeTemplate(topology.getNodeTemplate(id));
+                }
+                return true;
 ```
 
 ### DataFlowIssue
@@ -14933,6 +14933,18 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
 ```
 
 ### DataFlowIssue
+Method invocation `getNodeTemplate` may produce `NullPointerException`
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
+#### Snippet
+```java
+
+                    TNodeTemplate correspondingNode = substitution.getServiceTemplateCandidate().getTopologyTemplate()
+                        .getNodeTemplate(substitution.getGraphMapping().getVertexCorrespondence(v, false).getTemplate().getId());
+                    TRelationshipTemplate outgoingRelationship = ModelUtilities.getOutgoingRelationshipTemplates(substitutionTemplate, correspondingNode)
+                        .stream()
+```
+
+### DataFlowIssue
 Method invocation `keySet` may produce `NullPointerException`
 in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
 #### Snippet
@@ -14954,18 +14966,6 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
                 if (candidate.getServiceTemplateCandidate().getTopologyTemplate().getNodeTemplates().stream()
                     .anyMatch(nt -> nt.getType().getNamespaceURI().equals(OpenToscaBaseTypes.placeholderTypeNamespace))) {
                     return false;
-```
-
-### DataFlowIssue
-Method invocation `getNodeTemplate` may produce `NullPointerException`
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
-#### Snippet
-```java
-
-                    TNodeTemplate correspondingNode = substitution.getServiceTemplateCandidate().getTopologyTemplate()
-                        .getNodeTemplate(substitution.getGraphMapping().getVertexCorrespondence(v, false).getTemplate().getId());
-                    TRelationshipTemplate outgoingRelationship = ModelUtilities.getOutgoingRelationshipTemplates(substitutionTemplate, correspondingNode)
-                        .stream()
 ```
 
 ### DataFlowIssue
@@ -14993,15 +14993,15 @@ in `org.eclipse.winery.model.threatmodeling/src/main/java/org/eclipse/winery/mod
 ```
 
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
+Method invocation `getLocalPart` may produce `NullPointerException`
 in `org.eclipse.winery.model.threatmodeling/src/main/java/org/eclipse/winery/model/threatmodeling/ThreatModeling.java`
 #### Snippet
 ```java
-                    LinkedHashMap<String, String> properties = ModelUtilities.getPropertiesKV(mitigationTemplate);
-                    // FIXME Assumption that we're dealing with simple KV Properties
-                    String threatReferenceString = (String)properties.get("ThreatReference");
+                            threat.setProperties(ModelUtilities.getPropertiesKV(threatTemplate));
+                        }
+                        threat.setTemplateName(threatQName.getLocalPart());
+                        threat.setNamespace(threatQName.getNamespaceURI());
 
-                    QName threatReference = QName.valueOf(threatReferenceString);
 ```
 
 ### DataFlowIssue
@@ -15017,15 +15017,15 @@ in `org.eclipse.winery.model.threatmodeling/src/main/java/org/eclipse/winery/mod
 ```
 
 ### DataFlowIssue
-Method invocation `getLocalPart` may produce `NullPointerException`
+Method invocation `get` may produce `NullPointerException`
 in `org.eclipse.winery.model.threatmodeling/src/main/java/org/eclipse/winery/model/threatmodeling/ThreatModeling.java`
 #### Snippet
 ```java
-                            threat.setProperties(ModelUtilities.getPropertiesKV(threatTemplate));
-                        }
-                        threat.setTemplateName(threatQName.getLocalPart());
-                        threat.setNamespace(threatQName.getNamespaceURI());
+                    LinkedHashMap<String, String> properties = ModelUtilities.getPropertiesKV(mitigationTemplate);
+                    // FIXME Assumption that we're dealing with simple KV Properties
+                    String threatReferenceString = (String)properties.get("ThreatReference");
 
+                    QName threatReference = QName.valueOf(threatReferenceString);
 ```
 
 ### DataFlowIssue
@@ -15200,30 +15200,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ex
 
 ### SimplifyStreamApiCallChains
 'collect(toList())' can be replaced with 'toList()'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/xml/converter/ToCanonical.java`
-#### Snippet
-```java
-            TRelationshipTemplate.RelationshipConstraints constraints = new TRelationshipTemplate.RelationshipConstraints();
-            constraints.getRelationshipConstraint().addAll(xml.getRelationshipConstraints().getRelationshipConstraint().stream()
-                .map(this::convert).collect(Collectors.toList()));
-            builder.setRelationshipConstraints(constraints);
-        }
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/xml/converter/FromCanonical.java`
-#### Snippet
-```java
-            XTRelationshipTemplate.RelationshipConstraints constraints = new XTRelationshipTemplate.RelationshipConstraints();
-            constraints.getRelationshipConstraint().addAll(canonical.getRelationshipConstraints().getRelationshipConstraint().stream()
-                .map(this::convert).collect(Collectors.toList()));
-            builder.setRelationshipConstraints(constraints);
-        }
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/WineryVersionUtils.java`
 #### Snippet
 ```java
@@ -15236,6 +15212,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 
 ### SimplifyStreamApiCallChains
 'collect(toList())' can be replaced with 'toList()'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/xml/converter/ToCanonical.java`
+#### Snippet
+```java
+            TRelationshipTemplate.RelationshipConstraints constraints = new TRelationshipTemplate.RelationshipConstraints();
+            constraints.getRelationshipConstraint().addAll(xml.getRelationshipConstraints().getRelationshipConstraint().stream()
+                .map(this::convert).collect(Collectors.toList()));
+            builder.setRelationshipConstraints(constraints);
+        }
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/BackendUtils.java`
 #### Snippet
 ```java
@@ -15244,6 +15232,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
             }).collect(Collectors.toList()));
 
             // finally, persist only if something changed
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+#### Snippet
+```java
+                    // -> check if any file in the folder is changed
+                    .filter(item -> item.getNewPath().startsWith(BackendUtils.getPathInsideRepo(ref.getParent())))
+                    .collect(Collectors.toList());
+                git.getRepository().close();
+                return entries.size() > 0;
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/xml/converter/FromCanonical.java`
+#### Snippet
+```java
+            XTRelationshipTemplate.RelationshipConstraints constraints = new XTRelationshipTemplate.RelationshipConstraints();
+            constraints.getRelationshipConstraint().addAll(canonical.getRelationshipConstraints().getRelationshipConstraint().stream()
+                .map(this::convert).collect(Collectors.toList()));
+            builder.setRelationshipConstraints(constraints);
+        }
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15272,18 +15284,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 
 ### SimplifyStreamApiCallChains
 'collect(toList())' can be replaced with 'toList()'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
-#### Snippet
-```java
-                    // -> check if any file in the folder is changed
-                    .filter(item -> item.getNewPath().startsWith(BackendUtils.getPathInsideRepo(ref.getParent())))
-                    .collect(Collectors.toList());
-                git.getRepository().close();
-                return entries.size() > 0;
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/writer/WriterUtils.java`
 #### Snippet
 ```java
@@ -15307,18 +15307,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### SimplifyStreamApiCallChains
-'filter()' and 'map()' can be swapped
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/ProviderRepository.java`
-#### Snippet
-```java
-        List<TServiceTemplate> fragments = getTopologyFragments(targetLabel, requirements);
-
-        return fragments.stream().filter(tt -> tt.getTopologyTemplate().getNodeTemplates().size() != 1).map(st -> st.getTopologyTemplate())
-            .collect(Collectors.toList());
-    }
-```
-
-### SimplifyStreamApiCallChains
 'collect(toList())' can be replaced with 'toList()'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/ProviderRepository.java`
 #### Snippet
@@ -15328,6 +15316,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
                         .collect(Collectors.toList());
 
                     matchedNodeTemplates.forEach(t ->
+```
+
+### SimplifyStreamApiCallChains
+'filter()' and 'map()' can be swapped
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/ProviderRepository.java`
+#### Snippet
+```java
+        List<TServiceTemplate> fragments = getTopologyFragments(targetLabel, requirements);
+
+        return fragments.stream().filter(tt -> tt.getTopologyTemplate().getNodeTemplates().size() != 1).map(st -> st.getTopologyTemplate())
+            .collect(Collectors.toList());
+    }
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15352,18 +15352,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
             .map(tt -> tt.getNodeTemplates().get(0).getId()).collect(Collectors.toList());
         return "{NTs: " + ids +
             ", replacement: " + replacementIds +
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with 'String.join'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
-#### Snippet
-```java
-        @Override
-        public String toString() {
-            return context.stream().collect(Collectors.joining(":"));
-        }
-    }
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15427,15 +15415,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/dr
 ```
 
 ### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+Can be replaced with 'String.join'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
 #### Snippet
 ```java
-                        .filter(rt -> predecessors.contains(ModelUtilities.getSourceNodeTemplateOfRelationshipTemplate(serviceTemplateCopy.getTopologyTemplate(), rt))
-                            || predecessors.contains(ModelUtilities.getTargetNodeTemplateOfRelationshipTemplate(serviceTemplateCopy.getTopologyTemplate(), rt)))
-                        .collect(Collectors.toList());
-
-                serviceTemplateCopy.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(removingRelationships);
+        @Override
+        public String toString() {
+            return context.stream().collect(Collectors.joining(":"));
+        }
+    }
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15455,11 +15443,11 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-            .filter(nt -> nt.getRequirements().stream()
-                .anyMatch(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Endpoint")))
-            .collect(Collectors.toList());
+                .filter(nt -> nt.getCapabilities().stream()
+                    .anyMatch(c -> c.getType().equals(requiredCapTypeQName)))
+                .collect(Collectors.toList());
 
-        if (!nodeTemplatesWithConnectionRequirement.isEmpty()) {
+            if (!nodesWithMatchingCapability.isEmpty() && nodesWithMatchingCapability.size() == 1) {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15467,11 +15455,11 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-                    .filter(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Endpoint"))
-                    .filter(req -> getOpenRequirementsAndMatchingBasisCapabilityTypeNames(serviceTemplate).keySet().contains(req))
-                    .collect(Collectors.toList());
+                        .filter(rt -> predecessors.contains(ModelUtilities.getSourceNodeTemplateOfRelationshipTemplate(serviceTemplateCopy.getTopologyTemplate(), rt))
+                            || predecessors.contains(ModelUtilities.getTargetNodeTemplateOfRelationshipTemplate(serviceTemplateCopy.getTopologyTemplate(), rt)))
+                        .collect(Collectors.toList());
 
-                for (TRequirement openRequirement : requirements) {
+                serviceTemplateCopy.getTopologyTemplate().getNodeTemplateOrRelationshipTemplate().removeAll(removingRelationships);
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15611,11 +15599,23 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
 #### Snippet
 ```java
-                .filter(nt -> nt.getCapabilities().stream()
-                    .anyMatch(c -> c.getType().equals(requiredCapTypeQName)))
-                .collect(Collectors.toList());
+            .filter(nt -> nt.getRequirements().stream()
+                .anyMatch(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Endpoint")))
+            .collect(Collectors.toList());
 
-            if (!nodesWithMatchingCapability.isEmpty() && nodesWithMatchingCapability.size() == 1) {
+        if (!nodeTemplatesWithConnectionRequirement.isEmpty()) {
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+                    .filter(req -> getBasisCapabilityType(getRequiredCapabilityTypeQNameOfRequirement(req)).getName().equalsIgnoreCase("Endpoint"))
+                    .filter(req -> getOpenRequirementsAndMatchingBasisCapabilityTypeNames(serviceTemplate).keySet().contains(req))
+                    .collect(Collectors.toList());
+
+                for (TRequirement openRequirement : requirements) {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15683,11 +15683,11 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/dataflowmodels/DataFlowResource.java`
 #### Snippet
 ```java
-            List<ArtifactTemplateId> artifactTemplateIds = repo.getAllDefinitionsChildIds().stream()
-                .filter(id -> id.getGroup().equals(ARTIFACT_TEMPLATE_GROUP) && id instanceof ArtifactTemplateId)
-                .map(id -> (ArtifactTemplateId) id).collect(Collectors.toList());
+        List<ServiceTemplateId> serviceTemplateIds = repo.getAllDefinitionsChildIds().stream()
+            .filter(id -> id.getGroup().equals(SERVICE_TEMPLATE_GROUP) && id instanceof ServiceTemplateId)
+            .map(id -> (ServiceTemplateId) id).collect(Collectors.toList());
 
-            for (QName artifactName : artifacts) {
+        for (ServiceTemplateId id : serviceTemplateIds) {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15695,11 +15695,11 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/dataflowmodels/DataFlowResource.java`
 #### Snippet
 ```java
-        List<ServiceTemplateId> serviceTemplateIds = repo.getAllDefinitionsChildIds().stream()
-            .filter(id -> id.getGroup().equals(SERVICE_TEMPLATE_GROUP) && id instanceof ServiceTemplateId)
-            .map(id -> (ServiceTemplateId) id).collect(Collectors.toList());
+            List<ArtifactTemplateId> artifactTemplateIds = repo.getAllDefinitionsChildIds().stream()
+                .filter(id -> id.getGroup().equals(ARTIFACT_TEMPLATE_GROUP) && id instanceof ArtifactTemplateId)
+                .map(id -> (ArtifactTemplateId) id).collect(Collectors.toList());
 
-        for (ServiceTemplateId id : serviceTemplateIds) {
+            for (QName artifactName : artifacts) {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15751,18 +15751,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
-#### Snippet
-```java
-                List<TInterface> allInterfaces = elementNodeType.getInterfaces();
-                if (allInterfaces != null && allInterfaces.isEmpty()) {
-                    List<TInterface> sourceNodeTypeInterfaces = allInterfaces.stream().filter(tInterface -> !tInterface.getIdFromIdOrNameField().contains("connect")).collect(Collectors.toList());
-                    if (sourceNodeTypeInterfaces != null) {
-                        for (TInterface tInterface : sourceNodeTypeInterfaces) {
-```
-
-### SimplifyStreamApiCallChains
 '!Stream.anyMatch(...)' can be replaced with 'noneMatch()'
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
 #### Snippet
@@ -15772,6 +15760,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
             !sourceNodeType.getWinerysPropertiesDefinition().getPropertyDefinitions().stream().anyMatch(p -> p.getKey().equals(inputParameter.getName()))
             && !propertyDefinitionKVList.contains(inputParamKV)) {
             propertyDefinitionKVList.add(inputParamKV);
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
+#### Snippet
+```java
+                List<TInterface> allInterfaces = elementNodeType.getInterfaces();
+                if (allInterfaces != null && allInterfaces.isEmpty()) {
+                    List<TInterface> sourceNodeTypeInterfaces = allInterfaces.stream().filter(tInterface -> !tInterface.getIdFromIdOrNameField().contains("connect")).collect(Collectors.toList());
+                    if (sourceNodeTypeInterfaces != null) {
+                        for (TInterface tInterface : sourceNodeTypeInterfaces) {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15827,18 +15827,6 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
 in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/placement/PlacementUtils.java`
 #### Snippet
 ```java
-                .filter(node -> getLocation(node).equalsIgnoreCase(location))
-                .filter(node -> Objects.nonNull(getProvider(node)))
-                .collect(Collectors.toList());
-            for (TNodeTemplate dataSource : dataSourcesForLocation) {
-                String provider = getProvider(dataSource);
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/placement/PlacementUtils.java`
-#### Snippet
-```java
             .getOutgoingRelationshipTemplates(topology, node).stream()
             .filter(relation -> relation.getType().equals(ToscaBaseTypes.connectsToRelationshipType))
             .collect(Collectors.toList());
@@ -15847,15 +15835,15 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
 ```
 
 ### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
+'collect(toList())' can be replaced with 'toList()'
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/placement/PlacementUtils.java`
 #### Snippet
 ```java
-        Set<ServiceTemplateId> versionsOfConsideredServiceTemplate = (Set<ServiceTemplateId>) WineryVersionUtils.getOtherVersionDefinitionsFromDefinition(serviceTemplateId, repository);
-        Set<QName> versionQNames = new HashSet<>();
-        versionsOfConsideredServiceTemplate.stream().forEach(st -> versionQNames.add(st.getQName()));
-
-        return serviceTemplates.entrySet()
+                .filter(node -> getLocation(node).equalsIgnoreCase(location))
+                .filter(node -> Objects.nonNull(getProvider(node)))
+                .collect(Collectors.toList());
+            for (TNodeTemplate dataSource : dataSourcesForLocation) {
+                String provider = getProvider(dataSource);
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15906,6 +15894,18 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
                     // If the current detectorNode refines to multiple refinement nodes and the nodesTheSourceRefinesTo
 ```
 
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
+#### Snippet
+```java
+        Set<ServiceTemplateId> versionsOfConsideredServiceTemplate = (Set<ServiceTemplateId>) WineryVersionUtils.getOtherVersionDefinitionsFromDefinition(serviceTemplateId, repository);
+        Set<QName> versionQNames = new HashSet<>();
+        versionsOfConsideredServiceTemplate.stream().forEach(st -> versionQNames.add(st.getQName()));
+
+        return serviceTemplates.entrySet()
+```
+
 ## RuleId[id=ParameterCanBeLocal]
 ### ParameterCanBeLocal
 Parameter can be converted to a local variable
@@ -15925,10 +15925,10 @@ Call to `substring()` is redundant
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/helper/ChefDslHelper.java`
 #### Snippet
 ```java
-            codeEnd = codeBegin;
+            attributeEnd = attributeBegin;
 
-            resultStringBuilder.append(processString.substring(0, codeBegin));
-            processString = processString.substring(codeBegin);
+            result.append(processString.substring(0, attributeBegin));
+            processString = processString.substring(attributeBegin);
 
 ```
 
@@ -15937,10 +15937,10 @@ Call to `substring()` is redundant
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/helper/ChefDslHelper.java`
 #### Snippet
 ```java
-            attributeEnd = attributeBegin;
+            codeEnd = codeBegin;
 
-            result.append(processString.substring(0, attributeBegin));
-            processString = processString.substring(attributeBegin);
+            resultStringBuilder.append(processString.substring(0, codeBegin));
+            processString = processString.substring(codeBegin);
 
 ```
 
@@ -16091,18 +16091,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'XOTRefinementModel' is still used
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTRefinementModel.java`
-#### Snippet
-```java
-
-    @Deprecated // required for XML deserialization
-    public XOTRefinementModel() { }
-
-    public XOTRefinementModel(Builder<? extends Builder<?>> builder) {
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'XTDefinitions' is still used
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/XTDefinitions.java`
 #### Snippet
@@ -16112,6 +16100,18 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/or
     public XTDefinitions() {
     }
 
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'XOTRefinementModel' is still used
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.xml/src/main/java/org/eclipse/winery/model/tosca/xml/extensions/XOTRefinementModel.java`
+#### Snippet
+```java
+
+    @Deprecated // required for XML deserialization
+    public XOTRefinementModel() { }
+
+    public XOTRefinementModel(Builder<? extends Builder<?>> builder) {
 ```
 
 ### DeprecatedIsStillUsed
@@ -16151,18 +16151,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'TImplementation' is still used
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TImplementation.java`
-#### Snippet
-```java
-
-    @Deprecated // used for XML deserialization of API request content
-    public TImplementation() { }
-
-    public String getPrimary() {
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'TDeploymentOrImplementationArtifact' is still used
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TDeploymentOrImplementationArtifact.java`
 #### Snippet
@@ -16170,18 +16158,6 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 
     @Deprecated // used for XML deserialization of API request content
     public TDeploymentOrImplementationArtifact() {
-    }
-
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'TInterfaceType' is still used
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TInterfaceType.java`
-#### Snippet
-```java
-
-    @Deprecated // used for XML deserialization of API request content
-    public TInterfaceType() {
     }
 
 ```
@@ -16199,27 +16175,15 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'AttributeDefinition' is still used
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/kvproperties/AttributeDefinition.java`
+Deprecated member 'TInterfaceType' is still used
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TInterfaceType.java`
 #### Snippet
 ```java
 
     @Deprecated // used for XML deserialization of API request content
-    public AttributeDefinition() { }
+    public TInterfaceType() {
+    }
 
-    public AttributeDefinition(String key, QName type) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'ParameterDefinition' is still used
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/kvproperties/ParameterDefinition.java`
-#### Snippet
-```java
-
-    @Deprecated // used for XML deserialization of API request content
-    public ParameterDefinition() { }
-
-    public ParameterDefinition(String key, QName type) {
 ```
 
 ### DeprecatedIsStillUsed
@@ -16247,6 +16211,42 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'ParameterDefinition' is still used
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/kvproperties/ParameterDefinition.java`
+#### Snippet
+```java
+
+    @Deprecated // used for XML deserialization of API request content
+    public ParameterDefinition() { }
+
+    public ParameterDefinition(String key, QName type) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'AttributeDefinition' is still used
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/extensions/kvproperties/AttributeDefinition.java`
+#### Snippet
+```java
+
+    @Deprecated // used for XML deserialization of API request content
+    public AttributeDefinition() { }
+
+    public AttributeDefinition(String key, QName type) {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'TImplementation' is still used
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TImplementation.java`
+#### Snippet
+```java
+
+    @Deprecated // used for XML deserialization of API request content
+    public TImplementation() { }
+
+    public String getPrimary() {
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'convertToServiceTemplate' is still used
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/YamlRepository.java`
 #### Snippet
@@ -16259,15 +16259,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'XMLDefinitionsBasedCsarEntry' is still used
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/entries/XMLDefinitionsBasedCsarEntry.java`
+Deprecated member 'convertNodeTypeImplementation' is still used
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/FromCanonical.java`
 #### Snippet
 ```java
-//  CSAR Entries are inherently dependent on the Standard to which the CSAR is serialized
-@Deprecated
-public class XMLDefinitionsBasedCsarEntry implements CsarEntry {
-    private static final boolean INCLUDE_PROCESSING = true;
-    
+
+    @Deprecated
+    public YTServiceTemplate convertNodeTypeImplementation(YTServiceTemplate type, TNodeTypeImplementation node) {
+        if (Objects.isNull(node)) {
+            return null;
 ```
 
 ### DeprecatedIsStillUsed
@@ -16279,18 +16279,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
     @Deprecated
     public YTArtifactDefinition convertArtifactTemplate(TArtifactTemplate node) {
         if (Objects.isNull(node) || Objects.isNull(node.getType())) {
-            return null;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'convertNodeTypeImplementation' is still used
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/FromCanonical.java`
-#### Snippet
-```java
-
-    @Deprecated
-    public YTServiceTemplate convertNodeTypeImplementation(YTServiceTemplate type, TNodeTypeImplementation node) {
-        if (Objects.isNull(node)) {
             return null;
 ```
 
@@ -16307,18 +16295,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'YAMLDefinitionsBasedCsarEntry' is still used
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/export/entries/YAMLDefinitionsBasedCsarEntry.java`
-#### Snippet
-```java
- */
-@Deprecated
-public class YAMLDefinitionsBasedCsarEntry implements CsarEntry {
-    private YTServiceTemplate definitions;
-
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'ConfigurationBasedNamespaceManager' is still used
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/ConfigurationBasedNamespaceManager.java`
 #### Snippet
@@ -16328,6 +16304,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 public class ConfigurationBasedNamespaceManager extends AbstractNamespaceManager {
 
     private Configuration configuration;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'XMLDefinitionsBasedCsarEntry' is still used
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/entries/XMLDefinitionsBasedCsarEntry.java`
+#### Snippet
+```java
+//  CSAR Entries are inherently dependent on the Standard to which the CSAR is serialized
+@Deprecated
+public class XMLDefinitionsBasedCsarEntry implements CsarEntry {
+    private static final boolean INCLUDE_PROCESSING = true;
+    
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'YAMLDefinitionsBasedCsarEntry' is still used
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/export/entries/YAMLDefinitionsBasedCsarEntry.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public class YAMLDefinitionsBasedCsarEntry implements CsarEntry {
+    private YTServiceTemplate definitions;
+
 ```
 
 ### DeprecatedIsStillUsed
@@ -16506,18 +16506,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 ## RuleId[id=SwitchStatementWithTooFewBranches]
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
-#### Snippet
-```java
-        if (primaryValue != null && ctx.function().getChildCount() == 1) {
-            functionName = ctx.function().getText();
-            switch (functionName) {
-                case "to_i":
-                    Integer convertedValue;
-```
-
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/CommandVisitor.java`
 #### Snippet
 ```java
@@ -16542,14 +16530,14 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 
 ### SwitchStatementWithTooFewBranches
 'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
 #### Snippet
 ```java
-            if (ctx.operation() != null && ctx.call_args() != null) {
-                operation = ctx.operation().getText();
-                switch (operation) {
-                    case "start_with?":
-                        callArguments = ctx.call_args().accept(callArgsVisitor);
+        if (primaryValue != null && ctx.function().getChildCount() == 1) {
+            functionName = ctx.function().getText();
+            switch (functionName) {
+                case "to_i":
+                    Integer convertedValue;
 ```
 
 ### SwitchStatementWithTooFewBranches
@@ -16562,6 +16550,18 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
                 switch (operation) {
                     case "start_with?":
                         callArguments = ctx.function().call_args().accept(callArgsVisitor);
+```
+
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/BooleanExprVisitor.java`
+#### Snippet
+```java
+            if (ctx.operation() != null && ctx.call_args() != null) {
+                operation = ctx.operation().getText();
+                switch (operation) {
+                    case "start_with?":
+                        callArguments = ctx.call_args().accept(callArgsVisitor);
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -17481,18 +17481,6 @@ Class member declared `protected` in 'final' class
 in `org.eclipse.winery.common/src/main/java/org/eclipse/winery/common/configuration/Environment.java`
 #### Snippet
 ```java
-    }
-
-    protected static Environment getInstance() {
-        if (instance == null) {
-            instance = new Environment();
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `org.eclipse.winery.common/src/main/java/org/eclipse/winery/common/configuration/Environment.java`
-#### Snippet
-```java
      * back to the original state, before the test.
      */
     protected void setConfiguration(YAMLConfiguration configuration) {
@@ -17505,11 +17493,11 @@ Class member declared `protected` in 'final' class
 in `org.eclipse.winery.common/src/main/java/org/eclipse/winery/common/configuration/Environment.java`
 #### Snippet
 ```java
-     * @return the configuration attribute of Environment
+     * This method writes the current configuration of the configuration attribute into the winery.yml file.
      */
-    protected YAMLConfiguration getConfiguration() {
-        if (config == null) {
-            this.getConfigFromFile();
+    protected void save() {
+        if (configFile != null) {
+            try (FileWriter writer = new FileWriter(configFile)) {
 ```
 
 ### ProtectedMemberInFinalClass
@@ -17517,11 +17505,23 @@ Class member declared `protected` in 'final' class
 in `org.eclipse.winery.common/src/main/java/org/eclipse/winery/common/configuration/Environment.java`
 #### Snippet
 ```java
-     * This method writes the current configuration of the configuration attribute into the winery.yml file.
+    }
+
+    protected static Environment getInstance() {
+        if (instance == null) {
+            instance = new Environment();
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `org.eclipse.winery.common/src/main/java/org/eclipse/winery/common/configuration/Environment.java`
+#### Snippet
+```java
+     * @return the configuration attribute of Environment
      */
-    protected void save() {
-        if (configFile != null) {
-            try (FileWriter writer = new FileWriter(configFile)) {
+    protected YAMLConfiguration getConfiguration() {
+        if (config == null) {
+            this.getConfigFromFile();
 ```
 
 ## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
@@ -17712,9 +17712,21 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 #### Snippet
 ```java
 
-                ServiceTemplateId newId = new ServiceTemplateId(id.getNamespace().getDecoded(),
-                    VersionUtils.getNameWithoutVersion(id.getXmlId().getDecoded()) + WineryVersion.WINERY_NAME_FROM_VERSION_SEPARATOR + newVersion.toString(),
-                    false);
+        WineryVersion newVersion = new WineryVersion(
+            "gdm-" + version.toString(),
+            1,
+            1
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
+#### Snippet
+```java
+
+        ServiceTemplateId newId = new ServiceTemplateId(id.getNamespace().getDecoded(),
+            VersionUtils.getNameWithoutVersion(id.getXmlId().getDecoded()) + WineryVersion.WINERY_NAME_FROM_VERSION_SEPARATOR + newVersion.toString(),
+            false);
 
 ```
 
@@ -17736,21 +17748,9 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 #### Snippet
 ```java
 
-        WineryVersion newVersion = new WineryVersion(
-            "gdm-" + version.toString(),
-            1,
-            1
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
-#### Snippet
-```java
-
-        ServiceTemplateId newId = new ServiceTemplateId(id.getNamespace().getDecoded(),
-            VersionUtils.getNameWithoutVersion(id.getXmlId().getDecoded()) + WineryVersion.WINERY_NAME_FROM_VERSION_SEPARATOR + newVersion.toString(),
-            false);
+                ServiceTemplateId newId = new ServiceTemplateId(id.getNamespace().getDecoded(),
+                    VersionUtils.getNameWithoutVersion(id.getXmlId().getDecoded()) + WineryVersion.WINERY_NAME_FROM_VERSION_SEPARATOR + newVersion.toString(),
+                    false);
 
 ```
 
@@ -17776,6 +17776,18 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
             LOGGER.debug("Management plan zip file saved to " + zipFilePath.toString());
         } catch (Exception e) {
             throw new PlanWriterException(e);
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `org.eclipse.winery.repository.client/src/main/java/org/eclipse/winery/repository/client/WineryRepositoryClient.java`
+#### Snippet
+```java
+            if (response.getStatusInfo().equals(Response.Status.NO_CONTENT)
+                || response.getStatusInfo().equals(Response.Status.NOT_FOUND)) {
+                LOGGER.error("Error {} when deleting id {} from URI {}", response.getStatus(), id.toString(), wr.getUri().toString());
+            }
+        }
 ```
 
 ### UnnecessaryToStringCall
@@ -17826,31 +17838,7 @@ in `org.eclipse.winery.repository.client/src/main/java/org/eclipse/winery/reposi
         }
 ```
 
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `org.eclipse.winery.repository.client/src/main/java/org/eclipse/winery/repository/client/WineryRepositoryClient.java`
-#### Snippet
-```java
-            if (response.getStatusInfo().equals(Response.Status.NO_CONTENT)
-                || response.getStatusInfo().equals(Response.Status.NOT_FOUND)) {
-                LOGGER.error("Error {} when deleting id {} from URI {}", response.getStatus(), id.toString(), wr.getUri().toString());
-            }
-        }
-```
-
 ## RuleId[id=SuspiciousMethodCalls]
-### SuspiciousMethodCalls
-Suspicious call to 'Map.remove()'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
-#### Snippet
-```java
-            appSpecificComponentsOfOtherParticipants.removeIf(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()));
-
-            transitiveAndDirectSuccessors.remove(appSpecificComponentsOfOtherParticipants);
-        }
-
-```
-
 ### SuspiciousMethodCalls
 Suspicious call to 'List.contains()'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
@@ -17884,6 +17872,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
                 .stream()
                 .filter(ir -> replacementNodeTemplateCandidates.contains(ir.getSourceElement().getRef()))
                 .collect(Collectors.toList());
+
+```
+
+### SuspiciousMethodCalls
+Suspicious call to 'Map.remove()'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/splitting/Splitting.java`
+#### Snippet
+```java
+            appSpecificComponentsOfOtherParticipants.removeIf(nt -> ModelUtilities.getOwnerParticipantOfServiceTemplate(serviceTemplate).equalsIgnoreCase(ModelUtilities.getParticipant(nt).get()));
+
+            transitiveAndDirectSuccessors.remove(appSpecificComponentsOfOtherParticipants);
+        }
 
 ```
 
@@ -18166,9 +18166,9 @@ StandardCharsets.UTF_8 can be used instead
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/ids/EncodingUtil.java`
 #### Snippet
 ```java
-    public static String URLencode(String s) {
+    public static String URLdecode(String s) {
         try {
-            return URLEncoder.encode(s, "UTF-8");
+            return URLDecoder.decode(s, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new IllegalStateException();
 ```
@@ -18178,9 +18178,9 @@ StandardCharsets.UTF_8 can be used instead
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/ids/EncodingUtil.java`
 #### Snippet
 ```java
-    public static String URLdecode(String s) {
+    public static String URLencode(String s) {
         try {
-            return URLDecoder.decode(s, "UTF-8");
+            return URLEncoder.encode(s, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             throw new IllegalStateException();
 ```
@@ -18385,10 +18385,10 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 #### Snippet
 ```java
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getGitHubAccessToken(OAuthStateAndCodeApiData codeApiData) throws Exception {
+    public Response getCheUrl() throws Exception {
         HttpClient httpclient = HttpClients.createDefault();
-        HttpPost httppost = new HttpPost("https://github.com/login/oauth/access_token");
-        httppost.setHeader("Accept", "application/json");
+        String cheApiEndpoint = System.getenv("CHE_API");
+        String cheMachineToken = System.getenv("CHE_MACHINE_TOKEN");
 ```
 
 ### AutoCloseableResource
@@ -18397,10 +18397,34 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 #### Snippet
 ```java
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCheUrl() throws Exception {
+    public Response getGitHubAccessToken(OAuthStateAndCodeApiData codeApiData) throws Exception {
         HttpClient httpclient = HttpClients.createDefault();
-        String cheApiEndpoint = System.getenv("CHE_API");
-        String cheMachineToken = System.getenv("CHE_MACHINE_TOKEN");
+        HttpPost httppost = new HttpPost("https://github.com/login/oauth/access_token");
+        httppost.setHeader("Accept", "application/json");
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/_support/AbstractRefinementModelMappingsResource.java`
+#### Snippet
+```java
+        this.mappings.remove(mapping);
+        this.mappings.add(mapping);
+        RestUtils.persist(this.res);
+        return mappings;
+    }
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/_support/AbstractRefinementModelMappingsResource.java`
+#### Snippet
+```java
+    public List<T> removePatternRefinement(@PathParam("id") String id) {
+        this.mappings.removeIf(mapping -> mapping.getId().equals(id));
+        RestUtils.persist(this.res);
+        return this.mappings;
+    }
 ```
 
 ### AutoCloseableResource
@@ -18441,54 +18465,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/_support/AbstractRefinementModelMappingsResource.java`
-#### Snippet
-```java
-        this.mappings.remove(mapping);
-        this.mappings.add(mapping);
-        RestUtils.persist(this.res);
-        return mappings;
-    }
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/_support/AbstractRefinementModelMappingsResource.java`
-#### Snippet
-```java
-    public List<T> removePatternRefinement(@PathParam("id") String id) {
-        this.mappings.removeIf(mapping -> mapping.getId().equals(id));
-        RestUtils.persist(this.res);
-        return this.mappings;
-    }
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/artifacts/DeploymentArtifactResource.java`
-#### Snippet
-```java
-    public void setArtifactType(ArtifactTypeId artifactTypeId) {
-        this.getDeploymentArtifact().setArtifactType(artifactTypeId.getQName());
-        RestUtils.persist(this.res);
-    }
-
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/artifacts/DeploymentArtifactResource.java`
-#### Snippet
-```java
-    public void setArtifactTemplate(ArtifactTemplateId artifactTemplateId) {
-        this.getDeploymentArtifact().setArtifactRef(artifactTemplateId.getQName());
-        RestUtils.persist(this.res);
-    }
-
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/artifacts/ImplementationArtifactResource.java`
 #### Snippet
 ```java
@@ -18513,14 +18489,26 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/artifacts/GenericArtifactsResource.java`
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/artifacts/DeploymentArtifactResource.java`
 #### Snippet
 ```java
+    public void setArtifactTemplate(ArtifactTemplateId artifactTemplateId) {
+        this.getDeploymentArtifact().setArtifactRef(artifactTemplateId.getQName());
+        RestUtils.persist(this.res);
+    }
 
-        // TODO: Check for error, and in case one found return it
-        RestUtils.persist(super.res);
+```
 
-        response.setStatus(Status.CREATED.getStatusCode());
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/artifacts/DeploymentArtifactResource.java`
+#### Snippet
+```java
+    public void setArtifactType(ArtifactTypeId artifactTypeId) {
+        this.getDeploymentArtifact().setArtifactType(artifactTypeId.getQName());
+        RestUtils.persist(this.res);
+    }
+
 ```
 
 ### AutoCloseableResource
@@ -18549,6 +18537,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/artifacts/GenericArtifactsResource.java`
+#### Snippet
+```java
+
+        // TODO: Check for error, and in case one found return it
+        RestUtils.persist(super.res);
+
+        response.setStatus(Status.CREATED.getStatusCode());
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/refinementmodels/TestRefinementModelResource.java`
 #### Snippet
 ```java
@@ -18569,6 +18569,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
         RestUtils.persist(this);
         for (TRelationshipTemplate relTemplate : topologyTemplate.getRelationshipTemplates()) {
             String mappingId;
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/plans/PlansResource.java`
+#### Snippet
+```java
+                RepositoryFileReference ref = new RepositoryFileReference(planId, fileName);
+                // Errors are ignored in the following call
+                RestUtils.putContentToFile(ref, "{}", MediaType.APPLICATION_JSON_TYPE);
+            } else {
+                // We use the filename also as local file name. Alternatively, we could use the xml id
 ```
 
 ### AutoCloseableResource
@@ -18597,18 +18609,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/plans/PlansResource.java`
-#### Snippet
-```java
-                RepositoryFileReference ref = new RepositoryFileReference(planId, fileName);
-                // Errors are ignored in the following call
-                RestUtils.putContentToFile(ref, "{}", MediaType.APPLICATION_JSON_TYPE);
-            } else {
-                // We use the filename also as local file name. Alternatively, we could use the xml id
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/selfserviceportal/OptionsResource.java`
 #### Snippet
 ```java
@@ -18617,18 +18617,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
         RestUtils.putContentToFile(planInputMessageRef, planInputMessage, MediaType.TEXT_XML_TYPE);
 
         // END: store icon and planInputMessage
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/selfserviceportal/SelfServicePortalResource.java`
-#### Snippet
-```java
-        if (StringUtils.isEmpty(this.application.getIconUrl())) {
-            this.application.setIconUrl("icon.jpg");
-            persist();
-        }
-        return response;
 ```
 
 ### AutoCloseableResource
@@ -18645,6 +18633,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/selfserviceportal/SelfServicePortalResource.java`
+#### Snippet
+```java
+        if (StringUtils.isEmpty(this.application.getIconUrl())) {
+            this.application.setIconUrl("icon.jpg");
+            persist();
+        }
+        return response;
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/topologytemplates/NodeTemplateResource.java`
 #### Snippet
 ```java
@@ -18653,6 +18653,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
             .onJsonPost(new QNameWithTypeApiData(
                 newArtifactTemplateId.getQName().getLocalPart(),
                 newArtifactTemplateId.getQName().getNamespaceURI(),
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/topologytemplates/TopologyTemplateResource.java`
+#### Snippet
+```java
+        SolutionStrategy strategy = SolutionFactory.getSolution(data);
+        if (strategy.applySolution(this.topologyTemplate, data)) {
+            RestUtils.persist(parent);
+        } else {
+            throw new InternalError("Could not apply the given algorithm to the topology!");
 ```
 
 ### AutoCloseableResource
@@ -18693,14 +18705,14 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 
 ### AutoCloseableResource
 'Response' used without 'try'-with-resources statement
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/topologytemplates/TopologyTemplateResource.java`
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
 #### Snippet
 ```java
-        SolutionStrategy strategy = SolutionFactory.getSolution(data);
-        if (strategy.applySolution(this.topologyTemplate, data)) {
-            RestUtils.persist(parent);
-        } else {
-            throw new InternalError("Could not apply the given algorithm to the topology!");
+    public Response deleteSubstitutableNodeType() {
+        this.getServiceTemplate().setSubstitutableNodeType(null);
+        RestUtils.persist(this);
+        return Response.noContent().build();
+    }
 ```
 
 ### AutoCloseableResource
@@ -18732,23 +18744,23 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
 #### Snippet
 ```java
-    public Response deleteSubstitutableNodeType() {
-        this.getServiceTemplate().setSubstitutableNodeType(null);
-        RestUtils.persist(this);
-        return Response.noContent().build();
-    }
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/ServiceTemplateResource.java`
-#### Snippet
-```java
                 this.getServiceTemplate().setTopologyTemplate(daSpecifiedTopology);
                 topologyTemplate = this.getTopology();
                 RestUtils.persist(this);
             } catch (Exception e) {
                 e.printStackTrace();
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `org.eclipse.winery.repository.client/src/main/java/org/eclipse/winery/repository/client/WineryRepositoryClient.java`
+#### Snippet
+```java
+        String pathFragment = IdUtil.getURLPathFragment(id);
+        for (WebTarget wr : this.repositoryResources) {
+            Response response = wr.path(pathFragment).request().delete();
+            if (response.getStatusInfo().equals(Response.Status.NO_CONTENT)
+                || response.getStatusInfo().equals(Response.Status.NOT_FOUND)) {
 ```
 
 ### AutoCloseableResource
@@ -18795,18 +18807,6 @@ in `org.eclipse.winery.repository.client/src/main/java/org/eclipse/winery/reposi
             Response response = wr.path(pathFragment).path("id")
                 .request()
                 .post(Entity.json(namespaceAndIdAsString));
-            if (response.getStatusInfo().equals(Response.Status.NO_CONTENT)
-                || response.getStatusInfo().equals(Response.Status.NOT_FOUND)) {
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `org.eclipse.winery.repository.client/src/main/java/org/eclipse/winery/repository/client/WineryRepositoryClient.java`
-#### Snippet
-```java
-        String pathFragment = IdUtil.getURLPathFragment(id);
-        for (WebTarget wr : this.repositoryResources) {
-            Response response = wr.path(pathFragment).request().delete();
             if (response.getStatusInfo().equals(Response.Status.NO_CONTENT)
                 || response.getStatusInfo().equals(Response.Status.NOT_FOUND)) {
 ```
@@ -18862,6 +18862,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 ```
 
 ### JavadocDeclaration
+Wrong tag `{@link`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+#### Snippet
+```java
+     *
+     * @param eventListener an objects that contains methods annotated with the
+     *                      @{@link com.google.common.eventbus.Subscribe}
+     */
+    public void unregisterForEvents(Object eventListener) {
+```
+
+### JavadocDeclaration
+Wrong tag `{@link`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+#### Snippet
+```java
+     *
+     * @param eventListener an objects that contains methods annotated with the
+     *                      @{@link com.google.common.eventbus.Subscribe}
+     */
+    public void registerForEvents(Object eventListener) {
+```
+
+### JavadocDeclaration
 UndefinedFile is not declared to be thrown by method readObject
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlReader.java`
 #### Snippet
@@ -18887,26 +18911,14 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 
 ### JavadocDeclaration
 Wrong tag `{@link`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/MultiRepository.java`
 #### Snippet
 ```java
      *
      * @param eventListener an objects that contains methods annotated with the
-     *                      @{@link com.google.common.eventbus.Subscribe}
+     * @{@link com.google.common.eventbus.Subscribe}
      */
     public void registerForEvents(Object eventListener) {
-```
-
-### JavadocDeclaration
-Wrong tag `{@link`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
-#### Snippet
-```java
-     *
-     * @param eventListener an objects that contains methods annotated with the
-     *                      @{@link com.google.common.eventbus.Subscribe}
-     */
-    public void unregisterForEvents(Object eventListener) {
 ```
 
 ### JavadocDeclaration
@@ -18919,18 +18931,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/fi
      * @{@link com.google.common.eventbus.Subscribe}
      */
     public void unregisterForEvents(Object eventListener) {
-```
-
-### JavadocDeclaration
-Wrong tag `{@link`
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/MultiRepository.java`
-#### Snippet
-```java
-     *
-     * @param eventListener an objects that contains methods annotated with the
-     * @{@link com.google.common.eventbus.Subscribe}
-     */
-    public void registerForEvents(Object eventListener) {
 ```
 
 ### JavadocDeclaration
@@ -19007,6 +19007,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/sp
 ```
 
 ### RedundantCast
+Casting `iter.next()` to `Node` is redundant
+in `org.eclipse.winery.model.bpmn4tosca/src/main/java/org/eclipse/winery/bpmn2bpel/model/ManagementFlow.java`
+#### Snippet
+```java
+        Iterator<Node> iter = vertexSet().iterator();
+        while (iter.hasNext()) {
+            Node node = (Node) iter.next();
+            if (node.getId().equals(id))
+                return node;
+```
+
+### RedundantCast
 Casting `iter.next()` to `Parameter` is redundant
 in `org.eclipse.winery.model.bpmn4tosca/src/main/java/org/eclipse/winery/bpmn2bpel/model/Task.java`
 #### Snippet
@@ -19028,18 +19040,6 @@ in `org.eclipse.winery.model.bpmn4tosca/src/main/java/org/eclipse/winery/bpmn2bp
             Parameter param = (Parameter) iter.next();
             this.inputParams.put(param.getName(), param);
         }
-```
-
-### RedundantCast
-Casting `iter.next()` to `Node` is redundant
-in `org.eclipse.winery.model.bpmn4tosca/src/main/java/org/eclipse/winery/bpmn2bpel/model/ManagementFlow.java`
-#### Snippet
-```java
-        Iterator<Node> iter = vertexSet().iterator();
-        while (iter.hasNext()) {
-            Node node = (Node) iter.next();
-            if (node.getId().equals(id))
-                return node;
 ```
 
 ### RedundantCast
@@ -19140,18 +19140,6 @@ public abstract class AbstractParameter<P extends AbstractParameter> implements 
 ```
 
 ### FieldMayBeFinal
-Field `name` may be 'final'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TTag.java`
-#### Snippet
-```java
-    public static class Builder {
-
-        private String name;
-        private String value;
-
-```
-
-### FieldMayBeFinal
 Field `value` may be 'final'
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TTag.java`
 #### Snippet
@@ -19161,6 +19149,18 @@ in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/j
         private String value;
 
         public Builder(String name, String value) {
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/tosca/TTag.java`
+#### Snippet
+```java
+    public static class Builder {
+
+        private String name;
+        private String value;
+
 ```
 
 ### FieldMayBeFinal
@@ -19176,18 +19176,6 @@ public abstract class YAMLParserException extends Exception {
 ```
 
 ### FieldMayBeFinal
-Field `exceptions` may be 'final'
-in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/converter/support/exception/MultiException.java`
-#### Snippet
-```java
-
-public class MultiException extends Exception {
-    private List<Exception> exceptions;
-    private List<String> context;
-
-```
-
-### FieldMayBeFinal
 Field `context` may be 'final'
 in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/converter/support/exception/MultiException.java`
 #### Snippet
@@ -19197,6 +19185,18 @@ public class MultiException extends Exception {
     private List<String> context;
 
     public MultiException() {
+```
+
+### FieldMayBeFinal
+Field `exceptions` may be 'final'
+in `org.eclipse.winery.model/org.eclipse.winery.model.tosca.canonical/src/main/java/org/eclipse/winery/model/converter/support/exception/MultiException.java`
+#### Snippet
+```java
+
+public class MultiException extends Exception {
+    private List<Exception> exceptions;
+    private List<String> context;
+
 ```
 
 ### FieldMayBeFinal
@@ -19261,18 +19261,6 @@ public class ArgVisitor extends ChefDSLBaseVisitor<List> {
 
 ### FieldMayBeFinal
 Field `extractedCookbookConfigs` may be 'final'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/ArgsVisitor.java`
-#### Snippet
-```java
-public class ArgsVisitor extends ChefDSLBaseVisitor<List> {
-
-    private CookbookParseResult extractedCookbookConfigs;
-
-    public ArgsVisitor(CookbookParseResult cookbookConfigurations) {
-```
-
-### FieldMayBeFinal
-Field `extractedCookbookConfigs` may be 'final'
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/CaseConditionVisitor.java`
 #### Snippet
 ```java
@@ -19281,6 +19269,18 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
     private CookbookParseResult extractedCookbookConfigs;
 
     public CaseConditionVisitor(CookbookParseResult cookbookConfigurations) {
+```
+
+### FieldMayBeFinal
+Field `extractedCookbookConfigs` may be 'final'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/ArgsVisitor.java`
+#### Snippet
+```java
+public class ArgsVisitor extends ChefDSLBaseVisitor<List> {
+
+    private CookbookParseResult extractedCookbookConfigs;
+
+    public ArgsVisitor(CookbookParseResult cookbookConfigurations) {
 ```
 
 ### FieldMayBeFinal
@@ -19308,18 +19308,6 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### FieldMayBeFinal
-Field `attributes` may be 'final'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbook/ChefCookbookConfiguration.java`
-#### Snippet
-```java
-    private String description;
-
-    private HashMap<String, List> attributes;
-
-    private LinkedHashMap<String, ChefPackage> installedPackages;
-```
-
-### FieldMayBeFinal
 Field `extractedCookbookConfigs` may be 'final'
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/CollectionVisitor.java`
 #### Snippet
@@ -19344,6 +19332,18 @@ public class WhenArgsVisitor extends ChefDSLBaseVisitor<List> {
 ```
 
 ### FieldMayBeFinal
+Field `attributes` may be 'final'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbook/ChefCookbookConfiguration.java`
+#### Snippet
+```java
+    private String description;
+
+    private HashMap<String, List> attributes;
+
+    private LinkedHashMap<String, ChefPackage> installedPackages;
+```
+
+### FieldMayBeFinal
 Field `extractedCookbookConfigs` may be 'final'
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/AssignAttributeVisitor.java`
 #### Snippet
@@ -19357,14 +19357,62 @@ public class AssignAttributeVisitor extends ChefDSLBaseVisitor<ChefAttribute> {
 
 ### FieldMayBeFinal
 Field `extractedCookbookConfigs` may be 'final'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryStatementVisitor.java`
 #### Snippet
 ```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(PrimaryBaseVisitor.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(PrimaryStatementVisitor.class.getName());
 
     private CookbookParseResult extractedCookbookConfigs;
 
-    public PrimaryBaseVisitor(CookbookParseResult cookbookConfigurations) {
+    public PrimaryStatementVisitor(CookbookParseResult cookbookConfigurations) {
+```
+
+### FieldMayBeFinal
+Field `cookbookDirectory` may be 'final'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/CrawlCookbookRunnable.java`
+#### Snippet
+```java
+    private Thread thread;
+    private String threadName;
+    private String cookbookDirectory;
+    private String tempDirectory;
+    private String versionRestriction;
+```
+
+### FieldMayBeFinal
+Field `tempDirectory` may be 'final'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/CrawlCookbookRunnable.java`
+#### Snippet
+```java
+    private String threadName;
+    private String cookbookDirectory;
+    private String tempDirectory;
+    private String versionRestriction;
+
+```
+
+### FieldMayBeFinal
+Field `threadName` may be 'final'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/CrawlCookbookRunnable.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = LoggerFactory.getLogger(CrawlCookbookRunnable.class.getName());
+    private Thread thread;
+    private String threadName;
+    private String cookbookDirectory;
+    private String tempDirectory;
+```
+
+### FieldMayBeFinal
+Field `cookbookPath` may be 'final'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
+#### Snippet
+```java
+    private Map<String, Object> kitchenYml;
+    private String cookbookName;
+    private String cookbookPath;
+
+    public ChefKitchenYmlParser(CookbookParseResult cookbookParseResult) {
 ```
 
 ### FieldMayBeFinal
@@ -19392,87 +19440,15 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### FieldMayBeFinal
-Field `cookbookPath` may be 'final'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
-#### Snippet
-```java
-    private Map<String, Object> kitchenYml;
-    private String cookbookName;
-    private String cookbookPath;
-
-    public ChefKitchenYmlParser(CookbookParseResult cookbookParseResult) {
-```
-
-### FieldMayBeFinal
-Field `cookbookDirectory` may be 'final'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/CrawlCookbookRunnable.java`
-#### Snippet
-```java
-    private Thread thread;
-    private String threadName;
-    private String cookbookDirectory;
-    private String tempDirectory;
-    private String versionRestriction;
-```
-
-### FieldMayBeFinal
-Field `threadName` may be 'final'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/CrawlCookbookRunnable.java`
-#### Snippet
-```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(CrawlCookbookRunnable.class.getName());
-    private Thread thread;
-    private String threadName;
-    private String cookbookDirectory;
-    private String tempDirectory;
-```
-
-### FieldMayBeFinal
-Field `tempDirectory` may be 'final'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/CrawlCookbookRunnable.java`
-#### Snippet
-```java
-    private String threadName;
-    private String cookbookDirectory;
-    private String tempDirectory;
-    private String versionRestriction;
-
-```
-
-### FieldMayBeFinal
 Field `extractedCookbookConfigs` may be 'final'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryStatementVisitor.java`
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/PrimaryBaseVisitor.java`
 #### Snippet
 ```java
-    private static final Logger LOGGER = Logger.getLogger(PrimaryStatementVisitor.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(PrimaryBaseVisitor.class.getName());
 
     private CookbookParseResult extractedCookbookConfigs;
 
-    public PrimaryStatementVisitor(CookbookParseResult cookbookConfigurations) {
-```
-
-### FieldMayBeFinal
-Field `cookbookDirectory` may be 'final'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
-#### Snippet
-```java
-    private String tempDirectory;
-
-    private String cookbookDirectory;
-
-    public ChefSupermarketCrawler(String cookbookDirectory, String tempDirectory) {
-```
-
-### FieldMayBeFinal
-Field `tempDirectory` may be 'final'
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
-#### Snippet
-```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(ChefSupermarketCrawler.class.getName());
-
-    private String tempDirectory;
-
-    private String cookbookDirectory;
+    public PrimaryBaseVisitor(CookbookParseResult cookbookConfigurations) {
 ```
 
 ### FieldMayBeFinal
@@ -19488,6 +19464,30 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### FieldMayBeFinal
+Field `tempDirectory` may be 'final'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
+#### Snippet
+```java
+    private static final Logger LOGGER = LoggerFactory.getLogger(ChefSupermarketCrawler.class.getName());
+
+    private String tempDirectory;
+
+    private String cookbookDirectory;
+```
+
+### FieldMayBeFinal
+Field `cookbookDirectory` may be 'final'
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/ChefSupermarketCrawler.java`
+#### Snippet
+```java
+    private String tempDirectory;
+
+    private String cookbookDirectory;
+
+    public ChefSupermarketCrawler(String cookbookDirectory, String tempDirectory) {
+```
+
+### FieldMayBeFinal
 Field `serviceTemplate` may be 'final'
 in `org.eclipse.winery.compliance/src/main/java/org/eclipse/winery/compliance/checking/ServiceTemplateComplianceRuleRuleChecker.java`
 #### Snippet
@@ -19497,18 +19497,6 @@ in `org.eclipse.winery.compliance/src/main/java/org/eclipse/winery/compliance/ch
     private TServiceTemplate serviceTemplate;
 
     public ServiceTemplateComplianceRuleRuleChecker(@NonNull TServiceTemplate serviceTemplate) {
-```
-
-### FieldMayBeFinal
-Field `entry` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/export/YamlExportAdjustmentsBuilder.java`
-#### Snippet
-```java
-public class YamlExportAdjustmentsBuilder {
-
-    private YAMLDefinitionsBasedCsarEntry entry;
-    private YTServiceTemplate definitions;
-
 ```
 
 ### FieldMayBeFinal
@@ -19524,6 +19512,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```
 
 ### FieldMayBeFinal
+Field `entry` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/export/YamlExportAdjustmentsBuilder.java`
+#### Snippet
+```java
+public class YamlExportAdjustmentsBuilder {
+
+    private YAMLDefinitionsBasedCsarEntry entry;
+    private YTServiceTemplate definitions;
+
+```
+
+### FieldMayBeFinal
 Field `propertyAssignmentBuildPlan` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/AssignmentBuilder.java`
 #### Snippet
@@ -19536,6 +19536,30 @@ public class AssignmentBuilder {
 ```
 
 ### FieldMayBeFinal
+Field `objects` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/ReferenceVisitor.java`
+#### Snippet
+```java
+
+    public static class Result extends AbstractResult<Result> {
+        private List<Object> objects;
+        private List<QName> names;
+
+```
+
+### FieldMayBeFinal
+Field `serviceTemplates` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/ReferenceVisitor.java`
+#### Snippet
+```java
+
+    private Map<YTImportDefinition, ReferenceVisitor> visitors;
+    private Map<YTImportDefinition, YTServiceTemplate> serviceTemplates;
+
+    public ReferenceVisitor(YTServiceTemplate serviceTemplate, String namespace, Path path) {
+```
+
+### FieldMayBeFinal
 Field `visitors` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/ReferenceVisitor.java`
 #### Snippet
@@ -19560,8 +19584,20 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```
 
 ### FieldMayBeFinal
+Field `objects` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/visitors/ReferenceVisitor.java`
+#### Snippet
+```java
+
+    public static class Result extends AbstractResult<Result> {
+        private List<Object> objects;
+        private List<QName> names;
+
+```
+
+### FieldMayBeFinal
 Field `serviceTemplates` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/ReferenceVisitor.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/visitors/ReferenceVisitor.java`
 #### Snippet
 ```java
 
@@ -19572,14 +19608,14 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```
 
 ### FieldMayBeFinal
-Field `objects` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/ReferenceVisitor.java`
+Field `visitors` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/visitors/ReferenceVisitor.java`
 #### Snippet
 ```java
+    private final Path path;
 
-    public static class Result extends AbstractResult<Result> {
-        private List<Object> objects;
-        private List<QName> names;
+    private Map<YTImportDefinition, ReferenceVisitor> visitors;
+    private Map<YTImportDefinition, YTServiceTemplate> serviceTemplates;
 
 ```
 
@@ -19596,51 +19632,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ya
 ```
 
 ### FieldMayBeFinal
-Field `objects` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/visitors/ReferenceVisitor.java`
-#### Snippet
-```java
-
-    public static class Result extends AbstractResult<Result> {
-        private List<Object> objects;
-        private List<QName> names;
-
-```
-
-### FieldMayBeFinal
-Field `visitors` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/visitors/ReferenceVisitor.java`
-#### Snippet
-```java
-    private final Path path;
-
-    private Map<YTImportDefinition, ReferenceVisitor> visitors;
-    private Map<YTImportDefinition, YTServiceTemplate> serviceTemplates;
-
-```
-
-### FieldMayBeFinal
-Field `serviceTemplates` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/yaml/converter/support/visitors/ReferenceVisitor.java`
-#### Snippet
-```java
-
-    private Map<YTImportDefinition, ReferenceVisitor> visitors;
-    private Map<YTImportDefinition, YTServiceTemplate> serviceTemplates;
-
-    public ReferenceVisitor(YTServiceTemplate serviceTemplate, String namespace, Path path) {
-```
-
-### FieldMayBeFinal
-Field `phaseStartTimes` may be 'final'
+Field `durations` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/ExecutionTimeDebugger.java`
 #### Snippet
 ```java
+ * */
 public class ExecutionTimeDebugger {
     private Map<String, AccumulatedMethodInvocationTime> durations;
     private Map<String, LocalDateTime> phaseStartTimes;
 
-    /**
 ```
 
 ### FieldMayBeFinal
@@ -19656,15 +19656,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ex
 ```
 
 ### FieldMayBeFinal
-Field `durations` may be 'final'
+Field `phaseStartTimes` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/ExecutionTimeDebugger.java`
 #### Snippet
 ```java
- * */
 public class ExecutionTimeDebugger {
     private Map<String, AccumulatedMethodInvocationTime> durations;
     private Map<String, LocalDateTime> phaseStartTimes;
 
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -19692,27 +19692,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ex
 ```
 
 ### FieldMayBeFinal
-Field `repository` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/entries/XMLDefinitionsBasedCsarEntry.java`
+Field `namespaceToPrefixMap` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/ConfigurationBasedNamespaceManager.java`
 #### Snippet
 ```java
-    
-    private XTDefinitions definitions;
-    private IRepository repository;
 
-    public XMLDefinitionsBasedCsarEntry(XTDefinitions definitions, IRepository repository) {
-```
+    private Configuration configuration;
+    private Map<String, String> namespaceToPrefixMap = new HashMap<>();
 
-### FieldMayBeFinal
-Field `definitions` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/entries/XMLDefinitionsBasedCsarEntry.java`
-#### Snippet
-```java
-    private static final boolean INCLUDE_PROCESSING = true;
-    
-    private XTDefinitions definitions;
-    private IRepository repository;
-
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -19728,18 +19716,6 @@ public class ConfigurationBasedNamespaceManager extends AbstractNamespaceManager
 ```
 
 ### FieldMayBeFinal
-Field `namespaceToPrefixMap` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/ConfigurationBasedNamespaceManager.java`
-#### Snippet
-```java
-
-    private Configuration configuration;
-    private Map<String, String> namespaceToPrefixMap = new HashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
 Field `errorList` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/consistencycheck/ConsistencyErrorCollector.java`
 #### Snippet
@@ -19752,39 +19728,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 ```
 
 ### FieldMayBeFinal
-Field `id` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/patternAtlas/PatternAtlasConsumer.java`
+Field `ignoreFile` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
 #### Snippet
 ```java
-    public static class Pattern {
-        private String namespace;
-        private String id;
-        private String name;
-        private URI uri;
-```
+    private static final Logger LOGGER = LoggerFactory.getLogger(GitBasedRepository.class);
 
-### FieldMayBeFinal
-Field `patternLanguageId` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/patternAtlas/PatternAtlasConsumer.java`
-#### Snippet
-```java
-        private URI uri;
-        private URL iconURL;
-        private String patternLanguageId;
-        private String patternLanguageName;
-        private boolean deploymentModelingBehaviorPattern;
-```
+    private static List<String> ignoreFile = new ArrayList<>();
+    private final Path workingRepositoryRoot;
 
-### FieldMayBeFinal
-Field `namespace` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/patternAtlas/PatternAtlasConsumer.java`
-#### Snippet
-```java
-    // TODO: Maybe we could directly convert it to NodeTypes?
-    public static class Pattern {
-        private String namespace;
-        private String id;
-        private String name;
 ```
 
 ### FieldMayBeFinal
@@ -19797,6 +19749,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
         private URI uri;
         private URL iconURL;
         private String patternLanguageId;
+```
+
+### FieldMayBeFinal
+Field `namespace` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/patternAtlas/PatternAtlasConsumer.java`
+#### Snippet
+```java
+    // TODO: Maybe we could directly convert it to NodeTypes?
+    public static class Pattern {
+        private String namespace;
+        private String id;
+        private String name;
 ```
 
 ### FieldMayBeFinal
@@ -19824,15 +19788,51 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 ```
 
 ### FieldMayBeFinal
-Field `exceptionBuffer` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlReader.java`
+Field `patternLanguageId` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/patternAtlas/PatternAtlasConsumer.java`
 #### Snippet
 ```java
-    private Map<Path, byte[]> hashBuffer = new HashMap<>();
-    private Map<Path, YTServiceTemplate> serviceTemplateBuffer = new HashMap<>();
-    private Map<Path, MultiException> exceptionBuffer = new HashMap<>();
+        private URI uri;
+        private URL iconURL;
+        private String patternLanguageId;
+        private String patternLanguageName;
+        private boolean deploymentModelingBehaviorPattern;
+```
 
-    /**
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/patternAtlas/PatternAtlasConsumer.java`
+#### Snippet
+```java
+    public static class Pattern {
+        private String namespace;
+        private String id;
+        private String name;
+        private URI uri;
+```
+
+### FieldMayBeFinal
+Field `definitions` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/entries/XMLDefinitionsBasedCsarEntry.java`
+#### Snippet
+```java
+    private static final boolean INCLUDE_PROCESSING = true;
+    
+    private XTDefinitions definitions;
+    private IRepository repository;
+
+```
+
+### FieldMayBeFinal
+Field `repository` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/export/entries/XMLDefinitionsBasedCsarEntry.java`
+#### Snippet
+```java
+    
+    private XTDefinitions definitions;
+    private IRepository repository;
+
+    public XMLDefinitionsBasedCsarEntry(XTDefinitions definitions, IRepository repository) {
 ```
 
 ### FieldMayBeFinal
@@ -19848,18 +19848,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### FieldMayBeFinal
-Field `hashBuffer` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlReader.java`
-#### Snippet
-```java
-    private Yaml yaml;
-
-    private Map<Path, byte[]> hashBuffer = new HashMap<>();
-    private Map<Path, YTServiceTemplate> serviceTemplateBuffer = new HashMap<>();
-    private Map<Path, MultiException> exceptionBuffer = new HashMap<>();
-```
-
-### FieldMayBeFinal
 Field `yaml` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlReader.java`
 #### Snippet
@@ -19872,27 +19860,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### FieldMayBeFinal
-Field `ignoreFile` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+Field `hashBuffer` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlReader.java`
 #### Snippet
 ```java
-    private static final Logger LOGGER = LoggerFactory.getLogger(GitBasedRepository.class);
+    private Yaml yaml;
 
-    private static List<String> ignoreFile = new ArrayList<>();
-    private final Path workingRepositoryRoot;
-
+    private Map<Path, byte[]> hashBuffer = new HashMap<>();
+    private Map<Path, YTServiceTemplate> serviceTemplateBuffer = new HashMap<>();
+    private Map<Path, MultiException> exceptionBuffer = new HashMap<>();
 ```
 
 ### FieldMayBeFinal
-Field `stringBuilder` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/writer/YamlPrinter.java`
+Field `exceptionBuffer` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlReader.java`
 #### Snippet
 ```java
-public class YamlPrinter extends AbstractResult<YamlPrinter> {
+    private Map<Path, byte[]> hashBuffer = new HashMap<>();
+    private Map<Path, YTServiceTemplate> serviceTemplateBuffer = new HashMap<>();
+    private Map<Path, MultiException> exceptionBuffer = new HashMap<>();
 
-    private StringBuilder stringBuilder;
-    private int indent;
-
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -19908,15 +19896,15 @@ public class TypeValidator extends ExceptionVisitor<Result, Parameter> {
 ```
 
 ### FieldMayBeFinal
-Field `nodeTemplates` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/DefinitionsVisitor.java`
+Field `declaredFields` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/FieldValidator.java`
 #### Snippet
 ```java
+    private static final Pattern UPPERCASE_LETTERS = Pattern.compile("[A-Z]");
 
-public class DefinitionsVisitor extends ImportVisitor {
-    private Map<String, List<String>> nodeTemplates;
-    private Map<String, List<String>> repositoryDefinitions;
+    private Map<Class, Set<String>> declaredFields;
 
+    public FieldValidator() {
 ```
 
 ### FieldMayBeFinal
@@ -19932,6 +19920,30 @@ public class DefinitionsVisitor extends ImportVisitor {
 ```
 
 ### FieldMayBeFinal
+Field `stringBuilder` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/writer/YamlPrinter.java`
+#### Snippet
+```java
+public class YamlPrinter extends AbstractResult<YamlPrinter> {
+
+    private StringBuilder stringBuilder;
+    private int indent;
+
+```
+
+### FieldMayBeFinal
+Field `nodeTemplates` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/DefinitionsVisitor.java`
+#### Snippet
+```java
+
+public class DefinitionsVisitor extends ImportVisitor {
+    private Map<String, List<String>> nodeTemplates;
+    private Map<String, List<String>> repositoryDefinitions;
+
+```
+
+### FieldMayBeFinal
 Field `definitionsVisitor` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/DefinitionValidator.java`
 #### Snippet
@@ -19941,42 +19953,6 @@ public class DefinitionValidator extends ExceptionVisitor<Result, Parameter> {
     private DefinitionsVisitor definitionsVisitor;
 
     public DefinitionValidator(Path path) {
-```
-
-### FieldMayBeFinal
-Field `declaredFields` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/FieldValidator.java`
-#### Snippet
-```java
-    private static final Pattern UPPERCASE_LETTERS = Pattern.compile("[A-Z]");
-
-    private Map<Class, Set<String>> declaredFields;
-
-    public FieldValidator() {
-```
-
-### FieldMayBeFinal
-Field `relationshipTypes` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
-#### Snippet
-```java
-    private Map<String, List<String>> capabilityTypes;
-    private Map<String, List<String>> interfaceTypes;
-    private Map<String, List<String>> relationshipTypes;
-    private Map<String, List<String>> nodeTypes;
-    private Map<String, List<String>> groupTypes;
-```
-
-### FieldMayBeFinal
-Field `dataTypes` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
-#### Snippet
-```java
-public class TypeVisitor extends ImportVisitor {
-    private Map<String, List<String>> artifactTypes;
-    private Map<String, List<String>> dataTypes;
-    private Map<String, List<String>> capabilityTypes;
-    private Map<String, List<String>> interfaceTypes;
 ```
 
 ### FieldMayBeFinal
@@ -19992,39 +19968,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### FieldMayBeFinal
-Field `artifactTypes` may be 'final'
+Field `groupTypes` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
 #### Snippet
 ```java
+    private Map<String, List<String>> relationshipTypes;
+    private Map<String, List<String>> nodeTypes;
+    private Map<String, List<String>> groupTypes;
+    private Map<String, List<String>> policyTypes;
 
+```
+
+### FieldMayBeFinal
+Field `dataTypes` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
+#### Snippet
+```java
 public class TypeVisitor extends ImportVisitor {
     private Map<String, List<String>> artifactTypes;
     private Map<String, List<String>> dataTypes;
     private Map<String, List<String>> capabilityTypes;
-```
-
-### FieldMayBeFinal
-Field `capabilityTypes` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
-#### Snippet
-```java
-    private Map<String, List<String>> artifactTypes;
-    private Map<String, List<String>> dataTypes;
-    private Map<String, List<String>> capabilityTypes;
     private Map<String, List<String>> interfaceTypes;
-    private Map<String, List<String>> relationshipTypes;
-```
-
-### FieldMayBeFinal
-Field `interfaceTypes` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
-#### Snippet
-```java
-    private Map<String, List<String>> dataTypes;
-    private Map<String, List<String>> capabilityTypes;
-    private Map<String, List<String>> interfaceTypes;
-    private Map<String, List<String>> relationshipTypes;
-    private Map<String, List<String>> nodeTypes;
 ```
 
 ### FieldMayBeFinal
@@ -20040,15 +20004,51 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### FieldMayBeFinal
-Field `groupTypes` may be 'final'
+Field `relationshipTypes` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
 #### Snippet
 ```java
+    private Map<String, List<String>> capabilityTypes;
+    private Map<String, List<String>> interfaceTypes;
     private Map<String, List<String>> relationshipTypes;
     private Map<String, List<String>> nodeTypes;
     private Map<String, List<String>> groupTypes;
-    private Map<String, List<String>> policyTypes;
+```
 
+### FieldMayBeFinal
+Field `interfaceTypes` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
+#### Snippet
+```java
+    private Map<String, List<String>> dataTypes;
+    private Map<String, List<String>> capabilityTypes;
+    private Map<String, List<String>> interfaceTypes;
+    private Map<String, List<String>> relationshipTypes;
+    private Map<String, List<String>> nodeTypes;
+```
+
+### FieldMayBeFinal
+Field `capabilityTypes` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
+#### Snippet
+```java
+    private Map<String, List<String>> artifactTypes;
+    private Map<String, List<String>> dataTypes;
+    private Map<String, List<String>> capabilityTypes;
+    private Map<String, List<String>> interfaceTypes;
+    private Map<String, List<String>> relationshipTypes;
+```
+
+### FieldMayBeFinal
+Field `artifactTypes` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
+#### Snippet
+```java
+
+public class TypeVisitor extends ImportVisitor {
+    private Map<String, List<String>> artifactTypes;
+    private Map<String, List<String>> dataTypes;
+    private Map<String, List<String>> capabilityTypes;
 ```
 
 ### FieldMayBeFinal
@@ -20076,15 +20076,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/fi
 ```
 
 ### FieldMayBeFinal
-Field `v1` may be 'final'
+Field `label` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/RelationshipEdge.java`
 #### Snippet
 ```java
-
-public class RelationshipEdge<V> extends DefaultEdge {
     private V v1;
     private V v2;
     private String label;
+
+    public RelationshipEdge(V v1, V v2, String label) {
 ```
 
 ### FieldMayBeFinal
@@ -20100,15 +20100,27 @@ public class RelationshipEdge<V> extends DefaultEdge {
 ```
 
 ### FieldMayBeFinal
-Field `label` may be 'final'
+Field `v1` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/RelationshipEdge.java`
 #### Snippet
 ```java
+
+public class RelationshipEdge<V> extends DefaultEdge {
     private V v1;
     private V v2;
     private String label;
+```
 
-    public RelationshipEdge(V v1, V v2, String label) {
+### FieldMayBeFinal
+Field `min` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/PatternComponent.java`
+#### Snippet
+```java
+    private String name;
+
+    private int min;
+    private int max;
+
 ```
 
 ### FieldMayBeFinal
@@ -20124,14 +20136,14 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `min` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/PatternComponent.java`
+Field `patternName` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/PatternPosition.java`
 #### Snippet
 ```java
-    private String name;
+public class PatternPosition {
 
-    private int min;
-    private int max;
+    private String patternName;
+    private SimpleDirectedGraph<TNodeTemplateExtended, RelationshipEdge> nodesOfOriginGraph;
 
 ```
 
@@ -20148,123 +20160,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `patternName` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/PatternPosition.java`
-#### Snippet
-```java
-public class PatternPosition {
-
-    private String patternName;
-    private SimpleDirectedGraph<TNodeTemplateExtended, RelationshipEdge> nodesOfOriginGraph;
-
-```
-
-### FieldMayBeFinal
-Field `service` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
-#### Snippet
-```java
-
-    private String virtualHardware;
-    private String service;
-
-    private String connectsTo;
-```
-
-### FieldMayBeFinal
-Field `connectsTo` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
-#### Snippet
-```java
-    private String service;
-
-    private String connectsTo;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-```
-
-### FieldMayBeFinal
-Field `pattern` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
-#### Snippet
-```java
-    private String connectsTo;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-
-    public ElasticityManagerPattern() {
-```
-
-### FieldMayBeFinal
-Field `virtualHardware` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String virtualHardware;
-    private String service;
-
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String virtualHardware;
-```
-
-### FieldMayBeFinal
-Field `labelService` may be 'final'
+Field `relationConnectsTo` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
 #### Snippet
 ```java
-    private String labelVirtualHardware;
-    private String labelServer;
-    private String labelService;
-    private String labelOS;
-    private String labelApp;
-```
+    private String relationHostedOn;
+    private String relationDependsOn;
+    private String relationConnectsTo;
 
-### FieldMayBeFinal
-Field `labelVirtualHardware` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private String labelVirtualHardware;
-    private String labelServer;
-    private String labelService;
-```
-
-### FieldMayBeFinal
-Field `labelMessaging` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
-#### Snippet
-```java
-    private String labelOS;
-    private String labelApp;
-    private String labelMessaging;
-    private String labelStorage;
-
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
-#### Snippet
-```java
-    private List<TNodeTemplateExtended> allNodes;
-
-    private Properties properties;
-
-    public AbstractTopology(TTopologyTemplate tTopologyTemplate, List<TNodeTemplateExtended> labeled) {
+    private SimpleDirectedGraph<TNodeTemplateExtended, RelationshipEdge> abstractTopology;
 ```
 
 ### FieldMayBeFinal
@@ -20280,26 +20184,26 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `relationHostedOn` may be 'final'
+Field `labelOS` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
 #### Snippet
 ```java
-
-    private String relationDeployedOn;
-    private String relationHostedOn;
-    private String relationDependsOn;
-    private String relationConnectsTo;
+    private String labelServer;
+    private String labelService;
+    private String labelOS;
+    private String labelApp;
+    private String labelMessaging;
 ```
 
 ### FieldMayBeFinal
-Field `relationDependsOn` may be 'final'
+Field `labelMessaging` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
 #### Snippet
 ```java
-    private String relationDeployedOn;
-    private String relationHostedOn;
-    private String relationDependsOn;
-    private String relationConnectsTo;
+    private String labelOS;
+    private String labelApp;
+    private String labelMessaging;
+    private String labelStorage;
 
 ```
 
@@ -20316,50 +20220,14 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `labelOS` may be 'final'
+Field `relationDependsOn` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
 #### Snippet
 ```java
-    private String labelServer;
-    private String labelService;
-    private String labelOS;
-    private String labelApp;
-    private String labelMessaging;
-```
-
-### FieldMayBeFinal
-Field `labelStorage` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
-#### Snippet
-```java
-    private String labelApp;
-    private String labelMessaging;
-    private String labelStorage;
-
     private String relationDeployedOn;
-```
-
-### FieldMayBeFinal
-Field `labelApp` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
-#### Snippet
-```java
-    private String labelService;
-    private String labelOS;
-    private String labelApp;
-    private String labelMessaging;
-    private String labelStorage;
-```
-
-### FieldMayBeFinal
-Field `abstractTopology` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
-#### Snippet
-```java
+    private String relationHostedOn;
+    private String relationDependsOn;
     private String relationConnectsTo;
-
-    private SimpleDirectedGraph<TNodeTemplateExtended, RelationshipEdge> abstractTopology;
-    private List<TNodeTemplateExtended> allNodes;
 
 ```
 
@@ -20376,15 +20244,147 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `relationConnectsTo` may be 'final'
+Field `labelStorage` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
 #### Snippet
 ```java
+    private String labelApp;
+    private String labelMessaging;
+    private String labelStorage;
+
+    private String relationDeployedOn;
+```
+
+### FieldMayBeFinal
+Field `relationHostedOn` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
+#### Snippet
+```java
+
+    private String relationDeployedOn;
     private String relationHostedOn;
     private String relationDependsOn;
     private String relationConnectsTo;
+```
+
+### FieldMayBeFinal
+Field `labelVirtualHardware` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private String labelVirtualHardware;
+    private String labelServer;
+    private String labelService;
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
+#### Snippet
+```java
+    private List<TNodeTemplateExtended> allNodes;
+
+    private Properties properties;
+
+    public AbstractTopology(TTopologyTemplate tTopologyTemplate, List<TNodeTemplateExtended> labeled) {
+```
+
+### FieldMayBeFinal
+Field `abstractTopology` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
+#### Snippet
+```java
+    private String relationConnectsTo;
 
     private SimpleDirectedGraph<TNodeTemplateExtended, RelationshipEdge> abstractTopology;
+    private List<TNodeTemplateExtended> allNodes;
+
+```
+
+### FieldMayBeFinal
+Field `labelService` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
+#### Snippet
+```java
+    private String labelVirtualHardware;
+    private String labelServer;
+    private String labelService;
+    private String labelOS;
+    private String labelApp;
+```
+
+### FieldMayBeFinal
+Field `labelApp` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/AbstractTopology.java`
+#### Snippet
+```java
+    private String labelService;
+    private String labelOS;
+    private String labelApp;
+    private String labelMessaging;
+    private String labelStorage;
+```
+
+### FieldMayBeFinal
+Field `pattern` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
+#### Snippet
+```java
+    private String connectsTo;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+
+    public ElasticityManagerPattern() {
+```
+
+### FieldMayBeFinal
+Field `service` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
+#### Snippet
+```java
+
+    private String virtualHardware;
+    private String service;
+
+    private String connectsTo;
+```
+
+### FieldMayBeFinal
+Field `connectsTo` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
+#### Snippet
+```java
+    private String service;
+
+    private String connectsTo;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+```
+
+### FieldMayBeFinal
+Field `virtualHardware` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
+#### Snippet
+```java
+    private Properties properties;
+
+    private String virtualHardware;
+    private String service;
+
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticityManagerPattern.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String virtualHardware;
 ```
 
 ### FieldMayBeFinal
@@ -20400,140 +20400,20 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/fi
 ```
 
 ### FieldMayBeFinal
-Field `deployedOn` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private String hostedOn;
-    private String connectsTo;
-    private String deployedOn;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String virtualHardware;
-```
-
-### FieldMayBeFinal
-Field `service` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private String server;
-    private String application;
-    private String service;
-    private String hostedOn;
-    private String connectsTo;
-```
-
-### FieldMayBeFinal
-Field `os` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-
-    private String virtualHardware;
-    private String os;
-    private String server;
-    private String application;
-```
-
-### FieldMayBeFinal
 Field `hostedOn` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
 #### Snippet
 ```java
-    private String application;
-    private String service;
+    private String storage;
+
     private String hostedOn;
-    private String connectsTo;
-    private String deployedOn;
-```
-
-### FieldMayBeFinal
-Field `application` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private String os;
-    private String server;
-    private String application;
-    private String service;
-    private String hostedOn;
-```
-
-### FieldMayBeFinal
-Field `server` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private String virtualHardware;
-    private String os;
-    private String server;
-    private String application;
-    private String service;
-```
-
-### FieldMayBeFinal
-Field `connectsTo` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private String service;
-    private String hostedOn;
-    private String connectsTo;
-    private String deployedOn;
-
-```
-
-### FieldMayBeFinal
-Field `virtualHardware` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String virtualHardware;
-    private String os;
-    private String server;
-```
-
-### FieldMayBeFinal
-Field `pattern` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
-#### Snippet
-```java
-    private String deployedOn;
 
     private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-
-    public ElasticLoadBalancerPattern() {
-```
-
-### FieldMayBeFinal
-Field `os` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String os;
-    private String server;
-    private String application;
 ```
 
 ### FieldMayBeFinal
 Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
 #### Snippet
 ```java
     private static final String propertiesFilename = "patterndetection.properties";
@@ -20541,150 +20421,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
     private Properties properties;
 
     private String os;
-```
-
-### FieldMayBeFinal
-Field `server` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-
-    private String os;
-    private String server;
-    private String application;
-    private String hostedOn;
-```
-
-### FieldMayBeFinal
-Field `pattern` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-    private String deployedOn;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-
-    public ExecutionEnvironmentPattern2() {
-```
-
-### FieldMayBeFinal
-Field `deployedOn` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-    private String application;
-    private String hostedOn;
-    private String deployedOn;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-```
-
-### FieldMayBeFinal
-Field `hostedOn` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-    private String server;
-    private String application;
-    private String hostedOn;
-    private String deployedOn;
-
-```
-
-### FieldMayBeFinal
-Field `application` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
-#### Snippet
-```java
-    private String os;
-    private String server;
-    private String application;
-    private String hostedOn;
-    private String deployedOn;
-```
-
-### FieldMayBeFinal
-Field `pattern` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-    private String connectsTo;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-
-    public MessageOrientedMiddlewarePattern() {
-```
-
-### FieldMayBeFinal
-Field `os` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String os;
-    private String application;
-    private String messaging;
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String os;
-```
-
-### FieldMayBeFinal
-Field `hostedOn` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-    private String messaging;
-
-    private String hostedOn;
-    private String connectsTo;
-
-```
-
-### FieldMayBeFinal
-Field `messaging` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-    private String os;
-    private String application;
-    private String messaging;
-
-    private String hostedOn;
-```
-
-### FieldMayBeFinal
-Field `connectsTo` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-
-    private String hostedOn;
-    private String connectsTo;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-```
-
-### FieldMayBeFinal
-Field `application` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
-#### Snippet
-```java
-
-    private String os;
-    private String application;
-    private String messaging;
-
 ```
 
 ### FieldMayBeFinal
@@ -20697,18 +20433,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
     private String storage;
 
     private String hostedOn;
-```
-
-### FieldMayBeFinal
-Field `hostedOn` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
-#### Snippet
-```java
-    private String storage;
-
-    private String hostedOn;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
 ```
 
 ### FieldMayBeFinal
@@ -20736,68 +20460,164 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
+Field `server` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String virtualHardware;
+    private String os;
+    private String server;
+    private String application;
+    private String service;
+```
+
+### FieldMayBeFinal
 Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/RelationalDatabasePattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
 #### Snippet
 ```java
     private static final String propertiesFilename = "patterndetection.properties";
 
     private Properties properties;
 
-    private String os;
+    private String virtualHardware;
+```
+
+### FieldMayBeFinal
+Field `pattern` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String deployedOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+
+    public ElasticLoadBalancerPattern() {
 ```
 
 ### FieldMayBeFinal
 Field `application` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
 #### Snippet
 ```java
     private String os;
-    private String service;
+    private String server;
     private String application;
+    private String service;
     private String hostedOn;
-    private String dependsOn;
 ```
 
 ### FieldMayBeFinal
-Field `os` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+Field `virtualHardware` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
 #### Snippet
 ```java
     private Properties properties;
 
+    private String virtualHardware;
     private String os;
-    private String service;
-    private String application;
+    private String server;
 ```
 
 ### FieldMayBeFinal
-Field `service` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+Field `deployedOn` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
 #### Snippet
 ```java
-
-    private String os;
-    private String service;
-    private String application;
     private String hostedOn;
-```
-
-### FieldMayBeFinal
-Field `dependsOn` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
-#### Snippet
-```java
-    private String application;
-    private String hostedOn;
-    private String dependsOn;
+    private String connectsTo;
+    private String deployedOn;
 
     private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
 ```
 
 ### FieldMayBeFinal
+Field `connectsTo` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String service;
+    private String hostedOn;
+    private String connectsTo;
+    private String deployedOn;
+
+```
+
+### FieldMayBeFinal
+Field `service` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String server;
+    private String application;
+    private String service;
+    private String hostedOn;
+    private String connectsTo;
+```
+
+### FieldMayBeFinal
+Field `hostedOn` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+    private String application;
+    private String service;
+    private String hostedOn;
+    private String connectsTo;
+    private String deployedOn;
+```
+
+### FieldMayBeFinal
+Field `os` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticLoadBalancerPattern.java`
+#### Snippet
+```java
+
+    private String virtualHardware;
+    private String os;
+    private String server;
+    private String application;
+```
+
+### FieldMayBeFinal
+Field `deployedOn` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
+#### Snippet
+```java
+    private String application;
+    private String hostedOn;
+    private String deployedOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+```
+
+### FieldMayBeFinal
+Field `hostedOn` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
+#### Snippet
+```java
+    private String server;
+    private String application;
+    private String hostedOn;
+    private String deployedOn;
+
+```
+
+### FieldMayBeFinal
+Field `application` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
+#### Snippet
+```java
+    private String os;
+    private String server;
+    private String application;
+    private String hostedOn;
+    private String deployedOn;
+```
+
+### FieldMayBeFinal
 Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
 #### Snippet
 ```java
     private static final String propertiesFilename = "patterndetection.properties";
@@ -20809,43 +20629,115 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 
 ### FieldMayBeFinal
 Field `pattern` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
 #### Snippet
 ```java
-    private String dependsOn;
+    private String deployedOn;
 
     private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
 
-    public ExecutionEnvironmentPattern() {
+    public ExecutionEnvironmentPattern2() {
 ```
 
 ### FieldMayBeFinal
-Field `hostedOn` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+Field `server` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
 #### Snippet
 ```java
-    private String service;
+
+    private String os;
+    private String server;
     private String application;
     private String hostedOn;
-    private String dependsOn;
-
 ```
 
 ### FieldMayBeFinal
 Field `os` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern2.java`
 #### Snippet
 ```java
     private Properties properties;
 
     private String os;
-    private String storage;
+    private String server;
+    private String application;
+```
+
+### FieldMayBeFinal
+Field `pattern` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+    private String connectsTo;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+
+    public MessageOrientedMiddlewarePattern() {
+```
+
+### FieldMayBeFinal
+Field `os` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+    private Properties properties;
+
+    private String os;
+    private String application;
+    private String messaging;
+```
+
+### FieldMayBeFinal
+Field `hostedOn` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+    private String messaging;
+
+    private String hostedOn;
+    private String connectsTo;
 
 ```
 
 ### FieldMayBeFinal
+Field `application` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+
+    private String os;
+    private String application;
+    private String messaging;
+
+```
+
+### FieldMayBeFinal
+Field `connectsTo` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+
+    private String hostedOn;
+    private String connectsTo;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+```
+
+### FieldMayBeFinal
+Field `messaging` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
+#### Snippet
+```java
+    private String os;
+    private String application;
+    private String messaging;
+
+    private String hostedOn;
+```
+
+### FieldMayBeFinal
 Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/MessageOrientedMiddlewarePattern.java`
 #### Snippet
 ```java
     private static final String propertiesFilename = "patterndetection.properties";
@@ -20868,18 +20760,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `storage` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
-#### Snippet
-```java
-
-    private String os;
-    private String storage;
-
-    private String hostedOn;
-```
-
-### FieldMayBeFinal
 Field `hostedOn` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
 #### Snippet
@@ -20893,26 +20773,38 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 
 ### FieldMayBeFinal
 Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
 #### Snippet
 ```java
     private static final String propertiesFilename = "patterndetection.properties";
 
     private Properties properties;
 
-    private String virtualHardware;
+    private String os;
 ```
 
 ### FieldMayBeFinal
-Field `connectsTo` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+Field `os` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
 #### Snippet
 ```java
-    private String service;
-    private String hostedOn;
-    private String connectsTo;
-    private String deployedOn;
+    private Properties properties;
 
+    private String os;
+    private String storage;
+
+```
+
+### FieldMayBeFinal
+Field `storage` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/KeyValueStoragePattern.java`
+#### Snippet
+```java
+
+    private String os;
+    private String storage;
+
+    private String hostedOn;
 ```
 
 ### FieldMayBeFinal
@@ -20928,27 +20820,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `virtualHardware` may be 'final'
+Field `deployedOn` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
 #### Snippet
 ```java
-    private Properties properties;
+    private String hostedOn;
+    private String connectsTo;
+    private String deployedOn;
 
-    private String virtualHardware;
-    private String os;
-    private String server;
-```
-
-### FieldMayBeFinal
-Field `os` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
-#### Snippet
-```java
-
-    private String virtualHardware;
-    private String os;
-    private String server;
-    private String application;
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
 ```
 
 ### FieldMayBeFinal
@@ -20976,6 +20856,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
+Field `os` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+
+    private String virtualHardware;
+    private String os;
+    private String server;
+    private String application;
+```
+
+### FieldMayBeFinal
 Field `messaging` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
 #### Snippet
@@ -20988,15 +20880,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `deployedOn` may be 'final'
+Field `virtualHardware` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
 #### Snippet
 ```java
-    private String hostedOn;
-    private String connectsTo;
-    private String deployedOn;
+    private Properties properties;
 
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+    private String virtualHardware;
+    private String os;
+    private String server;
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String virtualHardware;
 ```
 
 ### FieldMayBeFinal
@@ -21024,15 +20928,99 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `virtualHardware` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/EnvironmentBasedAvailabilityPattern.java`
+Field `connectsTo` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ElasticQueuePattern.java`
+#### Snippet
+```java
+    private String service;
+    private String hostedOn;
+    private String connectsTo;
+    private String deployedOn;
+
+```
+
+### FieldMayBeFinal
+Field `pattern` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+    private String dependsOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+
+    public ExecutionEnvironmentPattern() {
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String os;
+```
+
+### FieldMayBeFinal
+Field `dependsOn` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+    private String application;
+    private String hostedOn;
+    private String dependsOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+```
+
+### FieldMayBeFinal
+Field `service` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+
+    private String os;
+    private String service;
+    private String application;
+    private String hostedOn;
+```
+
+### FieldMayBeFinal
+Field `hostedOn` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+    private String service;
+    private String application;
+    private String hostedOn;
+    private String dependsOn;
+
+```
+
+### FieldMayBeFinal
+Field `application` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
+#### Snippet
+```java
+    private String os;
+    private String service;
+    private String application;
+    private String hostedOn;
+    private String dependsOn;
+```
+
+### FieldMayBeFinal
+Field `os` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/ExecutionEnvironmentPattern.java`
 #### Snippet
 ```java
     private Properties properties;
 
-    private String virtualHardware;
     private String os;
-    private String hostedOn;
+    private String service;
+    private String application;
 ```
 
 ### FieldMayBeFinal
@@ -21048,15 +21036,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `hostedOn` may be 'final'
+Field `virtualHardware` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/EnvironmentBasedAvailabilityPattern.java`
 #### Snippet
 ```java
+    private Properties properties;
+
     private String virtualHardware;
     private String os;
     private String hostedOn;
-
-    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
 ```
 
 ### FieldMayBeFinal
@@ -21084,27 +21072,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/NodeBasedAvailabilityPattern.java`
+Field `hostedOn` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/EnvironmentBasedAvailabilityPattern.java`
 #### Snippet
 ```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
     private String virtualHardware;
-```
-
-### FieldMayBeFinal
-Field `pattern` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/NodeBasedAvailabilityPattern.java`
-#### Snippet
-```java
-    private String deployedOn;
+    private String os;
+    private String hostedOn;
 
     private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
-
-    public NodeBasedAvailabilityPattern() {
 ```
 
 ### FieldMayBeFinal
@@ -21132,15 +21108,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `hostedOn` may be 'final'
+Field `pattern` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/NodeBasedAvailabilityPattern.java`
 #### Snippet
 ```java
-    private String server;
+    private String deployedOn;
+
+    private SimpleDirectedGraph<PatternComponent, RelationshipEdge> pattern;
+
+    public NodeBasedAvailabilityPattern() {
+```
+
+### FieldMayBeFinal
+Field `connectsTo` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/NodeBasedAvailabilityPattern.java`
+#### Snippet
+```java
     private String application;
     private String hostedOn;
     private String connectsTo;
     private String deployedOn;
+
 ```
 
 ### FieldMayBeFinal
@@ -21156,15 +21144,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `connectsTo` may be 'final'
+Field `hostedOn` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/NodeBasedAvailabilityPattern.java`
 #### Snippet
 ```java
+    private String server;
     private String application;
     private String hostedOn;
     private String connectsTo;
     private String deployedOn;
+```
 
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterns/NodeBasedAvailabilityPattern.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String virtualHardware;
 ```
 
 ### FieldMayBeFinal
@@ -21192,15 +21192,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `nodeBasedAv` may be 'final'
+Field `elasticLoadBalancer` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/IaaSTaxonomy.java`
 #### Snippet
 ```java
-    private String publicCloud;
-    private String envBasedAv;
     private String nodeBasedAv;
     private String elasticityManager;
     private String elasticLoadBalancer;
+    private String elasticQueue;
+
+```
+
+### FieldMayBeFinal
+Field `publicCloud` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/IaaSTaxonomy.java`
+#### Snippet
+```java
+    private String iaas;
+    private String elasticInfrastructure;
+    private String publicCloud;
+    private String envBasedAv;
+    private String nodeBasedAv;
 ```
 
 ### FieldMayBeFinal
@@ -21216,6 +21228,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
+Field `properties` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/IaaSTaxonomy.java`
+#### Snippet
+```java
+    private static final String propertiesFilename = "patterndetection.properties";
+
+    private Properties properties;
+
+    private String iaas;
+```
+
+### FieldMayBeFinal
+Field `elasticQueue` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/IaaSTaxonomy.java`
+#### Snippet
+```java
+    private String elasticityManager;
+    private String elasticLoadBalancer;
+    private String elasticQueue;
+
+
+```
+
+### FieldMayBeFinal
 Field `envBasedAv` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/IaaSTaxonomy.java`
 #### Snippet
@@ -21225,18 +21261,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
     private String envBasedAv;
     private String nodeBasedAv;
     private String elasticityManager;
-```
-
-### FieldMayBeFinal
-Field `elasticInfrastructure` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/IaaSTaxonomy.java`
-#### Snippet
-```java
-
-    private String iaas;
-    private String elasticInfrastructure;
-    private String publicCloud;
-    private String envBasedAv;
 ```
 
 ### FieldMayBeFinal
@@ -21252,51 +21276,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `elasticLoadBalancer` may be 'final'
+Field `nodeBasedAv` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/IaaSTaxonomy.java`
 #### Snippet
 ```java
+    private String publicCloud;
+    private String envBasedAv;
     private String nodeBasedAv;
     private String elasticityManager;
     private String elasticLoadBalancer;
-    private String elasticQueue;
-
 ```
 
 ### FieldMayBeFinal
-Field `elasticQueue` may be 'final'
+Field `elasticInfrastructure` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/IaaSTaxonomy.java`
 #### Snippet
 ```java
-    private String elasticityManager;
-    private String elasticLoadBalancer;
-    private String elasticQueue;
 
-
-```
-
-### FieldMayBeFinal
-Field `publicCloud` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/IaaSTaxonomy.java`
-#### Snippet
-```java
     private String iaas;
     private String elasticInfrastructure;
     private String publicCloud;
     private String envBasedAv;
-    private String nodeBasedAv;
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/IaaSTaxonomy.java`
-#### Snippet
-```java
-    private static final String propertiesFilename = "patterndetection.properties";
-
-    private Properties properties;
-
-    private String iaas;
 ```
 
 ### FieldMayBeFinal
@@ -21312,15 +21312,15 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `elasticLoadBalancer` may be 'final'
+Field `execEnvironment` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
 #### Snippet
 ```java
-    private String nodeBasedAv;
-    private String elasticityManager;
-    private String elasticLoadBalancer;
     private String elasticQueue;
     private String relationalDatabase;
+    private String execEnvironment;
+    private String messagingMiddleware;
+    private String keyValueStorage;
 ```
 
 ### FieldMayBeFinal
@@ -21336,90 +21336,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `envBasedAv` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
-#### Snippet
-```java
-
-    private String publicCloud;
-    private String envBasedAv;
-    private String nodeBasedAv;
-    private String elasticityManager;
-```
-
-### FieldMayBeFinal
-Field `publicCloud` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
-#### Snippet
-```java
-    private String elasticPlatform;
-
-    private String publicCloud;
-    private String envBasedAv;
-    private String nodeBasedAv;
-```
-
-### FieldMayBeFinal
-Field `messagingMiddleware` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
-#### Snippet
-```java
-    private String relationalDatabase;
-    private String execEnvironment;
-    private String messagingMiddleware;
-    private String keyValueStorage;
-
-```
-
-### FieldMayBeFinal
-Field `nodeBasedAv` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
-#### Snippet
-```java
-    private String publicCloud;
-    private String envBasedAv;
-    private String nodeBasedAv;
-    private String elasticityManager;
-    private String elasticLoadBalancer;
-```
-
-### FieldMayBeFinal
-Field `relationalDatabase` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
-#### Snippet
-```java
-    private String elasticLoadBalancer;
-    private String elasticQueue;
-    private String relationalDatabase;
-    private String execEnvironment;
-    private String messagingMiddleware;
-```
-
-### FieldMayBeFinal
-Field `paas` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
-#### Snippet
-```java
-    private Properties properties;
-
-    private String paas;
-    private String elasticPlatform;
-
-```
-
-### FieldMayBeFinal
-Field `elasticityManager` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
-#### Snippet
-```java
-    private String envBasedAv;
-    private String nodeBasedAv;
-    private String elasticityManager;
-    private String elasticLoadBalancer;
-    private String elasticQueue;
-```
-
-### FieldMayBeFinal
 Field `elasticPlatform` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
 #### Snippet
@@ -21429,18 +21345,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
     private String elasticPlatform;
 
     private String publicCloud;
-```
-
-### FieldMayBeFinal
-Field `elasticQueue` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
-#### Snippet
-```java
-    private String elasticityManager;
-    private String elasticLoadBalancer;
-    private String elasticQueue;
-    private String relationalDatabase;
-    private String execEnvironment;
 ```
 
 ### FieldMayBeFinal
@@ -21456,15 +21360,111 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `execEnvironment` may be 'final'
+Field `elasticLoadBalancer` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
 #### Snippet
 ```java
+    private String nodeBasedAv;
+    private String elasticityManager;
+    private String elasticLoadBalancer;
+    private String elasticQueue;
+    private String relationalDatabase;
+```
+
+### FieldMayBeFinal
+Field `envBasedAv` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
+#### Snippet
+```java
+
+    private String publicCloud;
+    private String envBasedAv;
+    private String nodeBasedAv;
+    private String elasticityManager;
+```
+
+### FieldMayBeFinal
+Field `elasticityManager` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
+#### Snippet
+```java
+    private String envBasedAv;
+    private String nodeBasedAv;
+    private String elasticityManager;
+    private String elasticLoadBalancer;
+    private String elasticQueue;
+```
+
+### FieldMayBeFinal
+Field `elasticQueue` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
+#### Snippet
+```java
+    private String elasticityManager;
+    private String elasticLoadBalancer;
+    private String elasticQueue;
+    private String relationalDatabase;
+    private String execEnvironment;
+```
+
+### FieldMayBeFinal
+Field `relationalDatabase` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
+#### Snippet
+```java
+    private String elasticLoadBalancer;
     private String elasticQueue;
     private String relationalDatabase;
     private String execEnvironment;
     private String messagingMiddleware;
+```
+
+### FieldMayBeFinal
+Field `nodeBasedAv` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
+#### Snippet
+```java
+    private String publicCloud;
+    private String envBasedAv;
+    private String nodeBasedAv;
+    private String elasticityManager;
+    private String elasticLoadBalancer;
+```
+
+### FieldMayBeFinal
+Field `paas` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
+#### Snippet
+```java
+    private Properties properties;
+
+    private String paas;
+    private String elasticPlatform;
+
+```
+
+### FieldMayBeFinal
+Field `messagingMiddleware` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
+#### Snippet
+```java
+    private String relationalDatabase;
+    private String execEnvironment;
+    private String messagingMiddleware;
     private String keyValueStorage;
+
+```
+
+### FieldMayBeFinal
+Field `publicCloud` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/model/patterntaxonomies/PaaSTaxonomy.java`
+#### Snippet
+```java
+    private String elasticPlatform;
+
+    private String publicCloud;
+    private String envBasedAv;
+    private String nodeBasedAv;
 ```
 
 ### FieldMayBeFinal
@@ -21477,270 +21477,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
     private String keyValueStorage;
 
 
-```
-
-### FieldMayBeFinal
-Field `exception` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
-#### Snippet
-```java
-
-    private final String namespace;
-    private MultiException exception;
-    private Map<String, String> prefix2Namespace;
-    private FieldValidator validator;
-```
-
-### FieldMayBeFinal
-Field `context` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
-#### Snippet
-```java
-
-    public static class Parameter<T> {
-        private Set<String> context;
-        private String value;
-        private Class<?> clazz;
-```
-
-### FieldMayBeFinal
-Field `validator` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
-#### Snippet
-```java
-    private MultiException exception;
-    private Map<String, String> prefix2Namespace;
-    private FieldValidator validator;
-
-    public YamlBuilder(String namespace) {
-```
-
-### FieldMayBeFinal
-Field `presentTargetLabels` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/util/FragmentsCache.java`
-#### Snippet
-```java
-public class FragmentsCache {
-
-    private Set<String> presentTargetLabels;
-    private Map<CachingKey, List<TTopologyTemplate>> cachedFragments = new HashMap<>();
-
-```
-
-### FieldMayBeFinal
-Field `targetLabel` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/util/FragmentsCache.java`
-#### Snippet
-```java
-
-    private static class CachingKey {
-        private String targetLabel;
-        private Set<QName> requirementTypes;
-
-```
-
-### FieldMayBeFinal
-Field `cachedFragments` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/util/FragmentsCache.java`
-#### Snippet
-```java
-
-    private Set<String> presentTargetLabels;
-    private Map<CachingKey, List<TTopologyTemplate>> cachedFragments = new HashMap<>();
-
-    public FragmentsCache(Set<String> presentTargetLabels) {
-```
-
-### FieldMayBeFinal
-Field `requirementTypes` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/util/FragmentsCache.java`
-#### Snippet
-```java
-    private static class CachingKey {
-        private String targetLabel;
-        private Set<QName> requirementTypes;
-
-        private CachingKey(String targetLabel, Set<QName> requirementTypes) {
-```
-
-### FieldMayBeFinal
-Field `patternProbabilityMedium` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    // lists with pattern probablilities
-    private List<String> patternProbabilityHigh = new ArrayList<>();
-    private List<String> patternProbabilityMedium = new ArrayList<>();
-    private List<String> patternProbabilityLow = new ArrayList<>();
-
-```
-
-### FieldMayBeFinal
-Field `patternElasticityManager` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String patternElasticLoadBalancer;
-    private String patternExecEnv;
-    private String patternElasticityManager;
-    private String patternElasticQueue;
-    private String patternMessageMiddleware;
-```
-
-### FieldMayBeFinal
-Field `keywordTomcat` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String keywordPython;
-    private String keywordApache;
-    private String keywordTomcat;
-    private String keywordMosquitto;
-    private String keywordMongoDB;
-```
-
-### FieldMayBeFinal
-Field `patternEnvBasedAvail` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String keywordMySQL;
-
-    private String patternEnvBasedAvail;
-    private String patternElasticLoadBalancer;
-    private String patternExecEnv;
-```
-
-### FieldMayBeFinal
-Field `patternElasticQueue` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String patternExecEnv;
-    private String patternElasticityManager;
-    private String patternElasticQueue;
-    private String patternMessageMiddleware;
-    private String patternNodeBasedAvail;
-```
-
-### FieldMayBeFinal
-Field `patternPositions` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-
-    // this list holds the information about the patterns and their correspondent nodes in a topology graph
-    private List<PatternPosition> patternPositions;
-
-    public Detection(ServiceTemplateId serviceTemplateId) {
-```
-
-### FieldMayBeFinal
-Field `labelStorage` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String labelVirtualHardware;
-    private String labelMessaging;
-    private String labelStorage;
-
-    private String keywordBeanstalk;
-```
-
-### FieldMayBeFinal
-Field `keywordMySQL` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String keywordMosquitto;
-    private String keywordMongoDB;
-    private String keywordMySQL;
-
-    private String patternEnvBasedAvail;
-```
-
-### FieldMayBeFinal
-Field `patternIaaS` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String patternElasticPlatform;
-    private String patternPaaS;
-    private String patternIaaS;
-    private String patternPublicCloud;
-    private String patternKeyValueStorage;
-```
-
-### FieldMayBeFinal
-Field `keywordBeanstalk` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String labelStorage;
-
-    private String keywordBeanstalk;
-    private String keywordOpenstack;
-    private String keywordEC2;
-```
-
-### FieldMayBeFinal
-Field `serviceTemplateId` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private TNodeTemplate basisNodeTemplate;
-
-    private ServiceTemplateId serviceTemplateId;
-
-    // this list holds the information about the patterns and their correspondent nodes in a topology graph
-```
-
-### FieldMayBeFinal
-Field `patternMessageMiddleware` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String patternElasticityManager;
-    private String patternElasticQueue;
-    private String patternMessageMiddleware;
-    private String patternNodeBasedAvail;
-    private String patternRelationalDatabase;
-```
-
-### FieldMayBeFinal
-Field `keywordEC2` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String keywordBeanstalk;
-    private String keywordOpenstack;
-    private String keywordEC2;
-    private String keywordJava;
-    private String keywordPython;
-```
-
-### FieldMayBeFinal
-Field `keywordOpenstack` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-
-    private String keywordBeanstalk;
-    private String keywordOpenstack;
-    private String keywordEC2;
-    private String keywordJava;
-```
-
-### FieldMayBeFinal
-Field `patternElasticPlatform` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String patternRelationalDatabase;
-    private String patternElasticInfrastructure;
-    private String patternElasticPlatform;
-    private String patternPaaS;
-    private String patternIaaS;
 ```
 
 ### FieldMayBeFinal
@@ -21768,50 +21504,50 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `patternElasticInfrastructure` may be 'final'
+Field `labelVirtualHardware` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
 #### Snippet
 ```java
-    private String patternNodeBasedAvail;
-    private String patternRelationalDatabase;
-    private String patternElasticInfrastructure;
-    private String patternElasticPlatform;
-    private String patternPaaS;
-```
-
-### FieldMayBeFinal
-Field `labeledNodeTemplates` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-
-    // this list contains all NodeTemplates, which are identified via keywords
-    private List<TNodeTemplateExtended> labeledNodeTemplates = new ArrayList<>();
-
-    private PaaSTaxonomy paas = new PaaSTaxonomy();
-```
-
-### FieldMayBeFinal
-Field `patternExecEnv` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String patternEnvBasedAvail;
-    private String patternElasticLoadBalancer;
-    private String patternExecEnv;
-    private String patternElasticityManager;
-    private String patternElasticQueue;
-```
-
-### FieldMayBeFinal
-Field `labelMessaging` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
+    private String labelService;
     private String labelOS;
     private String labelVirtualHardware;
     private String labelMessaging;
     private String labelStorage;
+```
+
+### FieldMayBeFinal
+Field `keywordBeanstalk` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String labelStorage;
+
+    private String keywordBeanstalk;
+    private String keywordOpenstack;
+    private String keywordEC2;
+```
+
+### FieldMayBeFinal
+Field `patternElasticityManager` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String patternElasticLoadBalancer;
+    private String patternExecEnv;
+    private String patternElasticityManager;
+    private String patternElasticQueue;
+    private String patternMessageMiddleware;
+```
+
+### FieldMayBeFinal
+Field `patternPublicCloud` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String patternPaaS;
+    private String patternIaaS;
+    private String patternPublicCloud;
+    private String patternKeyValueStorage;
 
 ```
 
@@ -21828,66 +21564,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `patternKeyValueStorage` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String patternIaaS;
-    private String patternPublicCloud;
-    private String patternKeyValueStorage;
-
-    // intially both boolean values are set to false, isIaas is set to true if any virtual hardware is detected, isPaaS is set to true if anything on top of the virtual hardware level (such as: server, application, etc.) is detected
-```
-
-### FieldMayBeFinal
-Field `detectedPattern` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-
-    // list with pattern names, which are detected
-    private List<String> detectedPattern = new ArrayList<>();
-    private List<String> impossiblePattern = new ArrayList<>();
-
-```
-
-### FieldMayBeFinal
-Field `patternNodeBasedAvail` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String patternElasticQueue;
-    private String patternMessageMiddleware;
-    private String patternNodeBasedAvail;
-    private String patternRelationalDatabase;
-    private String patternElasticInfrastructure;
-```
-
-### FieldMayBeFinal
-Field `patternElasticLoadBalancer` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-
-    private String patternEnvBasedAvail;
-    private String patternElasticLoadBalancer;
-    private String patternExecEnv;
-    private String patternElasticityManager;
-```
-
-### FieldMayBeFinal
-Field `patternPublicCloud` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String patternPaaS;
-    private String patternIaaS;
-    private String patternPublicCloud;
-    private String patternKeyValueStorage;
-
-```
-
-### FieldMayBeFinal
 Field `impossiblePattern` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
 #### Snippet
@@ -21900,15 +21576,39 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `keywordApache` may be 'final'
+Field `keywordTomcat` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
 #### Snippet
 ```java
-    private String keywordJava;
     private String keywordPython;
     private String keywordApache;
     private String keywordTomcat;
     private String keywordMosquitto;
+    private String keywordMongoDB;
+```
+
+### FieldMayBeFinal
+Field `patternPositions` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+
+    // this list holds the information about the patterns and their correspondent nodes in a topology graph
+    private List<PatternPosition> patternPositions;
+
+    public Detection(ServiceTemplateId serviceTemplateId) {
+```
+
+### FieldMayBeFinal
+Field `labelStorage` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String labelVirtualHardware;
+    private String labelMessaging;
+    private String labelStorage;
+
+    private String keywordBeanstalk;
 ```
 
 ### FieldMayBeFinal
@@ -21924,99 +21624,27 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `patternProbabilityHigh` may be 'final'
+Field `patternElasticInfrastructure` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
 #### Snippet
 ```java
-
-    // lists with pattern probablilities
-    private List<String> patternProbabilityHigh = new ArrayList<>();
-    private List<String> patternProbabilityMedium = new ArrayList<>();
-    private List<String> patternProbabilityLow = new ArrayList<>();
-```
-
-### FieldMayBeFinal
-Field `patternRelationalDatabase` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String patternMessageMiddleware;
     private String patternNodeBasedAvail;
     private String patternRelationalDatabase;
     private String patternElasticInfrastructure;
     private String patternElasticPlatform;
+    private String patternPaaS;
 ```
 
 ### FieldMayBeFinal
-Field `keywordJava` may be 'final'
+Field `keywordApache` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
 #### Snippet
 ```java
-    private String keywordOpenstack;
-    private String keywordEC2;
     private String keywordJava;
     private String keywordPython;
     private String keywordApache;
-```
-
-### FieldMayBeFinal
-Field `labelOS` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String labelServer;
-    private String labelService;
-    private String labelOS;
-    private String labelVirtualHardware;
-    private String labelMessaging;
-```
-
-### FieldMayBeFinal
-Field `labelVirtualHardware` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String labelService;
-    private String labelOS;
-    private String labelVirtualHardware;
-    private String labelMessaging;
-    private String labelStorage;
-```
-
-### FieldMayBeFinal
-Field `matchedKeywords` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-
-    // this list contains all keywords detected any name of a node template
-    private List<String> matchedKeywords = new ArrayList<>();
-
-    // lists with pattern probablilities
-```
-
-### FieldMayBeFinal
-Field `keywordMosquitto` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-    private String keywordApache;
     private String keywordTomcat;
     private String keywordMosquitto;
-    private String keywordMongoDB;
-    private String keywordMySQL;
-```
-
-### FieldMayBeFinal
-Field `iaas` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
-#### Snippet
-```java
-
-    private PaaSTaxonomy paas = new PaaSTaxonomy();
-    private IaaSTaxonomy iaas = new IaaSTaxonomy();
-    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> paasGraph;
-    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> iaasGraph;
 ```
 
 ### FieldMayBeFinal
@@ -22032,6 +21660,138 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
+Field `patternElasticQueue` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String patternExecEnv;
+    private String patternElasticityManager;
+    private String patternElasticQueue;
+    private String patternMessageMiddleware;
+    private String patternNodeBasedAvail;
+```
+
+### FieldMayBeFinal
+Field `patternElasticPlatform` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String patternRelationalDatabase;
+    private String patternElasticInfrastructure;
+    private String patternElasticPlatform;
+    private String patternPaaS;
+    private String patternIaaS;
+```
+
+### FieldMayBeFinal
+Field `patternIaaS` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String patternElasticPlatform;
+    private String patternPaaS;
+    private String patternIaaS;
+    private String patternPublicCloud;
+    private String patternKeyValueStorage;
+```
+
+### FieldMayBeFinal
+Field `patternRelationalDatabase` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String patternMessageMiddleware;
+    private String patternNodeBasedAvail;
+    private String patternRelationalDatabase;
+    private String patternElasticInfrastructure;
+    private String patternElasticPlatform;
+```
+
+### FieldMayBeFinal
+Field `patternElasticLoadBalancer` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+
+    private String patternEnvBasedAvail;
+    private String patternElasticLoadBalancer;
+    private String patternExecEnv;
+    private String patternElasticityManager;
+```
+
+### FieldMayBeFinal
+Field `keywordMosquitto` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String keywordApache;
+    private String keywordTomcat;
+    private String keywordMosquitto;
+    private String keywordMongoDB;
+    private String keywordMySQL;
+```
+
+### FieldMayBeFinal
+Field `patternProbabilityMedium` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    // lists with pattern probablilities
+    private List<String> patternProbabilityHigh = new ArrayList<>();
+    private List<String> patternProbabilityMedium = new ArrayList<>();
+    private List<String> patternProbabilityLow = new ArrayList<>();
+
+```
+
+### FieldMayBeFinal
+Field `iaas` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+
+    private PaaSTaxonomy paas = new PaaSTaxonomy();
+    private IaaSTaxonomy iaas = new IaaSTaxonomy();
+    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> paasGraph;
+    private SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> iaasGraph;
+```
+
+### FieldMayBeFinal
+Field `patternNodeBasedAvail` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String patternElasticQueue;
+    private String patternMessageMiddleware;
+    private String patternNodeBasedAvail;
+    private String patternRelationalDatabase;
+    private String patternElasticInfrastructure;
+```
+
+### FieldMayBeFinal
+Field `keywordOpenstack` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+
+    private String keywordBeanstalk;
+    private String keywordOpenstack;
+    private String keywordEC2;
+    private String keywordJava;
+```
+
+### FieldMayBeFinal
+Field `labelOS` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String labelServer;
+    private String labelService;
+    private String labelOS;
+    private String labelVirtualHardware;
+    private String labelMessaging;
+```
+
+### FieldMayBeFinal
 Field `labelService` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
 #### Snippet
@@ -22041,6 +21801,150 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
     private String labelService;
     private String labelOS;
     private String labelVirtualHardware;
+```
+
+### FieldMayBeFinal
+Field `keywordMySQL` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String keywordMosquitto;
+    private String keywordMongoDB;
+    private String keywordMySQL;
+
+    private String patternEnvBasedAvail;
+```
+
+### FieldMayBeFinal
+Field `detectedPattern` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+
+    // list with pattern names, which are detected
+    private List<String> detectedPattern = new ArrayList<>();
+    private List<String> impossiblePattern = new ArrayList<>();
+
+```
+
+### FieldMayBeFinal
+Field `patternProbabilityHigh` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+
+    // lists with pattern probablilities
+    private List<String> patternProbabilityHigh = new ArrayList<>();
+    private List<String> patternProbabilityMedium = new ArrayList<>();
+    private List<String> patternProbabilityLow = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `keywordEC2` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String keywordBeanstalk;
+    private String keywordOpenstack;
+    private String keywordEC2;
+    private String keywordJava;
+    private String keywordPython;
+```
+
+### FieldMayBeFinal
+Field `labeledNodeTemplates` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+
+    // this list contains all NodeTemplates, which are identified via keywords
+    private List<TNodeTemplateExtended> labeledNodeTemplates = new ArrayList<>();
+
+    private PaaSTaxonomy paas = new PaaSTaxonomy();
+```
+
+### FieldMayBeFinal
+Field `serviceTemplateId` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private TNodeTemplate basisNodeTemplate;
+
+    private ServiceTemplateId serviceTemplateId;
+
+    // this list holds the information about the patterns and their correspondent nodes in a topology graph
+```
+
+### FieldMayBeFinal
+Field `labelMessaging` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String labelOS;
+    private String labelVirtualHardware;
+    private String labelMessaging;
+    private String labelStorage;
+
+```
+
+### FieldMayBeFinal
+Field `matchedKeywords` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+
+    // this list contains all keywords detected any name of a node template
+    private List<String> matchedKeywords = new ArrayList<>();
+
+    // lists with pattern probablilities
+```
+
+### FieldMayBeFinal
+Field `patternMessageMiddleware` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String patternElasticityManager;
+    private String patternElasticQueue;
+    private String patternMessageMiddleware;
+    private String patternNodeBasedAvail;
+    private String patternRelationalDatabase;
+```
+
+### FieldMayBeFinal
+Field `patternKeyValueStorage` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String patternIaaS;
+    private String patternPublicCloud;
+    private String patternKeyValueStorage;
+
+    // intially both boolean values are set to false, isIaas is set to true if any virtual hardware is detected, isPaaS is set to true if anything on top of the virtual hardware level (such as: server, application, etc.) is detected
+```
+
+### FieldMayBeFinal
+Field `patternEnvBasedAvail` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String keywordMySQL;
+
+    private String patternEnvBasedAvail;
+    private String patternElasticLoadBalancer;
+    private String patternExecEnv;
+```
+
+### FieldMayBeFinal
+Field `keywordJava` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String keywordOpenstack;
+    private String keywordEC2;
+    private String keywordJava;
+    private String keywordPython;
+    private String keywordApache;
 ```
 
 ### FieldMayBeFinal
@@ -22056,6 +21960,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
+Field `patternExecEnv` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
+#### Snippet
+```java
+    private String patternEnvBasedAvail;
+    private String patternElasticLoadBalancer;
+    private String patternExecEnv;
+    private String patternElasticityManager;
+    private String patternElasticQueue;
+```
+
+### FieldMayBeFinal
 Field `keywordMongoDB` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/patterndetection/Detection.java`
 #### Snippet
@@ -22068,27 +21984,51 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/pa
 ```
 
 ### FieldMayBeFinal
-Field `repository` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/Allocation.java`
+Field `targetLabel` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/util/FragmentsCache.java`
 #### Snippet
 ```java
-    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Allocation.class);
 
-    private IRepository repository = RepositoryFactory.getRepository();
-    private boolean assignOnly;
-    private List<Criteria> criteria = new ArrayList<>();
+    private static class CachingKey {
+        private String targetLabel;
+        private Set<QName> requirementTypes;
+
 ```
 
 ### FieldMayBeFinal
-Field `criteria` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/Allocation.java`
+Field `presentTargetLabels` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/util/FragmentsCache.java`
 #### Snippet
 ```java
-    private IRepository repository = RepositoryFactory.getRepository();
-    private boolean assignOnly;
-    private List<Criteria> criteria = new ArrayList<>();
+public class FragmentsCache {
 
-    public Allocation(AllocationRequest allocationRequest) throws AllocationException {
+    private Set<String> presentTargetLabels;
+    private Map<CachingKey, List<TTopologyTemplate>> cachedFragments = new HashMap<>();
+
+```
+
+### FieldMayBeFinal
+Field `requirementTypes` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/util/FragmentsCache.java`
+#### Snippet
+```java
+    private static class CachingKey {
+        private String targetLabel;
+        private Set<QName> requirementTypes;
+
+        private CachingKey(String targetLabel, Set<QName> requirementTypes) {
+```
+
+### FieldMayBeFinal
+Field `cachedFragments` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/util/FragmentsCache.java`
+#### Snippet
+```java
+
+    private Set<String> presentTargetLabels;
+    private Map<CachingKey, List<TTopologyTemplate>> cachedFragments = new HashMap<>();
+
+    public FragmentsCache(Set<String> presentTargetLabels) {
 ```
 
 ### FieldMayBeFinal
@@ -22104,6 +22044,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
 ```
 
 ### FieldMayBeFinal
+Field `criteria` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/Allocation.java`
+#### Snippet
+```java
+    private IRepository repository = RepositoryFactory.getRepository();
+    private boolean assignOnly;
+    private List<Criteria> criteria = new ArrayList<>();
+
+    public Allocation(AllocationRequest allocationRequest) throws AllocationException {
+```
+
+### FieldMayBeFinal
+Field `repository` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/Allocation.java`
+#### Snippet
+```java
+    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Allocation.class);
+
+    private IRepository repository = RepositoryFactory.getRepository();
+    private boolean assignOnly;
+    private List<Criteria> criteria = new ArrayList<>();
+```
+
+### FieldMayBeFinal
 Field `LOGGER` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/Allocation.java`
 #### Snippet
@@ -22113,54 +22077,6 @@ public class Allocation {
     private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(Allocation.class);
 
     private IRepository repository = RepositoryFactory.getRepository();
-```
-
-### FieldMayBeFinal
-Field `propertyKey` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyWrapper.java`
-#### Snippet
-```java
-
-    private TPolicyTemplate policy;
-    private String propertyKey;
-    private Object property;
-    private String operator;
-```
-
-### FieldMayBeFinal
-Field `originalTargetLabels` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/SplitByIds.java`
-#### Snippet
-```java
-
-    private Splitting splitting;
-    private Map<String, String> originalTargetLabels = new HashMap<>();
-
-    public SplitByIds(TopologyWrapper topology, List<TNodeTemplate> topLevelNTsToSplit) {
-```
-
-### FieldMayBeFinal
-Field `topLevelNTsToSplit` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/SplitByIds.java`
-#### Snippet
-```java
-
-    private TopologyWrapper topology;
-    private List<TNodeTemplate> topLevelNTsToSplit;
-
-    private Splitting splitting;
-```
-
-### FieldMayBeFinal
-Field `topology` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/SplitByIds.java`
-#### Snippet
-```java
-public class SplitByIds {
-
-    private TopologyWrapper topology;
-    private List<TNodeTemplate> topLevelNTsToSplit;
-
 ```
 
 ### FieldMayBeFinal
@@ -22176,38 +22092,62 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
 ```
 
 ### FieldMayBeFinal
-Field `topologiesByFragments` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PoliciesFilter.java`
+Field `originalTargetLabels` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/SplitByIds.java`
 #### Snippet
 ```java
-    private Map<TopologyWrapper, Map<TNodeTemplate, Set<TNodeTemplate>>> transitiveClosures = new HashMap<>();
-    private Map<TopologyWrapper, Map<String, TNodeTemplate>> topLevelNTsByIds = new HashMap<>();
-    private Map<TNodeTemplate, TopologyWrapper> topologiesByFragments = new HashMap<>();
 
-    public PoliciesFilter(List<TopologyWrapper> topologies, Map<TNodeTemplate, List<PolicyWrapper>> policiesForNTs) {
+    private Splitting splitting;
+    private Map<String, String> originalTargetLabels = new HashMap<>();
+
+    public SplitByIds(TopologyWrapper topology, List<TNodeTemplate> topLevelNTsToSplit) {
 ```
 
 ### FieldMayBeFinal
-Field `transitiveClosures` may be 'final'
+Field `topology` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/SplitByIds.java`
+#### Snippet
+```java
+public class SplitByIds {
+
+    private TopologyWrapper topology;
+    private List<TNodeTemplate> topLevelNTsToSplit;
+
+```
+
+### FieldMayBeFinal
+Field `topLevelNTsToSplit` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/SplitByIds.java`
+#### Snippet
+```java
+
+    private TopologyWrapper topology;
+    private List<TNodeTemplate> topLevelNTsToSplit;
+
+    private Splitting splitting;
+```
+
+### FieldMayBeFinal
+Field `propertyKey` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyWrapper.java`
+#### Snippet
+```java
+
+    private TPolicyTemplate policy;
+    private String propertyKey;
+    private Object property;
+    private String operator;
+```
+
+### FieldMayBeFinal
+Field `topologies` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PoliciesFilter.java`
 #### Snippet
 ```java
+public class PoliciesFilter {
+
+    private List<TopologyWrapper> topologies;
     private Map<TNodeTemplate, List<PolicyWrapper>> policiesForNTs;
-
-    private Map<TopologyWrapper, Map<TNodeTemplate, Set<TNodeTemplate>>> transitiveClosures = new HashMap<>();
-    private Map<TopologyWrapper, Map<String, TNodeTemplate>> topLevelNTsByIds = new HashMap<>();
-    private Map<TNodeTemplate, TopologyWrapper> topologiesByFragments = new HashMap<>();
-```
-
-### FieldMayBeFinal
-Field `topLevelNTsByIds` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PoliciesFilter.java`
-#### Snippet
-```java
-
-    private Map<TopologyWrapper, Map<TNodeTemplate, Set<TNodeTemplate>>> transitiveClosures = new HashMap<>();
-    private Map<TopologyWrapper, Map<String, TNodeTemplate>> topLevelNTsByIds = new HashMap<>();
-    private Map<TNodeTemplate, TopologyWrapper> topologiesByFragments = new HashMap<>();
 
 ```
 
@@ -22224,39 +22164,111 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
 ```
 
 ### FieldMayBeFinal
-Field `topologies` may be 'final'
+Field `transitiveClosures` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PoliciesFilter.java`
 #### Snippet
 ```java
-public class PoliciesFilter {
-
-    private List<TopologyWrapper> topologies;
     private Map<TNodeTemplate, List<PolicyWrapper>> policiesForNTs;
 
+    private Map<TopologyWrapper, Map<TNodeTemplate, Set<TNodeTemplate>>> transitiveClosures = new HashMap<>();
+    private Map<TopologyWrapper, Map<String, TNodeTemplate>> topLevelNTsByIds = new HashMap<>();
+    private Map<TNodeTemplate, TopologyWrapper> topologiesByFragments = new HashMap<>();
 ```
 
 ### FieldMayBeFinal
-Field `assignedAsGroup` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minhosts/TargetLabelAssignment.java`
+Field `topologiesByFragments` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PoliciesFilter.java`
 #### Snippet
 ```java
-    private Map<TNodeTemplate, Set<String>> possibleTargetLabels = new HashMap<>();
-    private List<TNodeTemplate> doneTopLevelHosts = new ArrayList<>();
-    private List<List<TNodeTemplate>> assignedAsGroup = new ArrayList<>();
-    private int outputCap;
+    private Map<TopologyWrapper, Map<TNodeTemplate, Set<TNodeTemplate>>> transitiveClosures = new HashMap<>();
+    private Map<TopologyWrapper, Map<String, TNodeTemplate>> topLevelNTsByIds = new HashMap<>();
+    private Map<TNodeTemplate, TopologyWrapper> topologiesByFragments = new HashMap<>();
+
+    public PoliciesFilter(List<TopologyWrapper> topologies, Map<TNodeTemplate, List<PolicyWrapper>> policiesForNTs) {
+```
+
+### FieldMayBeFinal
+Field `topLevelNTsByIds` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PoliciesFilter.java`
+#### Snippet
+```java
+
+    private Map<TopologyWrapper, Map<TNodeTemplate, Set<TNodeTemplate>>> transitiveClosures = new HashMap<>();
+    private Map<TopologyWrapper, Map<String, TNodeTemplate>> topLevelNTsByIds = new HashMap<>();
+    private Map<TNodeTemplate, TopologyWrapper> topologiesByFragments = new HashMap<>();
 
 ```
 
 ### FieldMayBeFinal
-Field `doneTopLevelHosts` may be 'final'
+Field `fragment` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyComparison.java`
+#### Snippet
+```java
+
+    private static class FragmentWithPolicies {
+        private TTopologyTemplate fragment;
+        private List<PolicyWrapper> policies;
+
+```
+
+### FieldMayBeFinal
+Field `fragments` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyComparison.java`
+#### Snippet
+```java
+
+    private List<PolicyWrapper> policies;
+    private List<TTopologyTemplate> fragments;
+    private List<FragmentWithPolicies> fragmentsWithPolicies = new ArrayList<>();
+
+```
+
+### FieldMayBeFinal
+Field `fragmentsWithPolicies` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyComparison.java`
+#### Snippet
+```java
+    private List<PolicyWrapper> policies;
+    private List<TTopologyTemplate> fragments;
+    private List<FragmentWithPolicies> fragmentsWithPolicies = new ArrayList<>();
+
+    public PolicyComparison(List<PolicyWrapper> policies, List<TTopologyTemplate> fragments) {
+```
+
+### FieldMayBeFinal
+Field `policies` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyComparison.java`
+#### Snippet
+```java
+    private static class FragmentWithPolicies {
+        private TTopologyTemplate fragment;
+        private List<PolicyWrapper> policies;
+
+        private FragmentWithPolicies(TTopologyTemplate fragment, List<PolicyWrapper> policies) {
+```
+
+### FieldMayBeFinal
+Field `policies` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyComparison.java`
+#### Snippet
+```java
+public class PolicyComparison {
+
+    private List<PolicyWrapper> policies;
+    private List<TTopologyTemplate> fragments;
+    private List<FragmentWithPolicies> fragmentsWithPolicies = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `possibleTargetLabels` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minhosts/TargetLabelAssignment.java`
 #### Snippet
 ```java
+    private TopologyWrapper original;
     private Set<String> presentTargetLabels = new HashSet<>();
     private Map<TNodeTemplate, Set<String>> possibleTargetLabels = new HashMap<>();
     private List<TNodeTemplate> doneTopLevelHosts = new ArrayList<>();
     private List<List<TNodeTemplate>> assignedAsGroup = new ArrayList<>();
-    private int outputCap;
 ```
 
 ### FieldMayBeFinal
@@ -22284,6 +22296,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
 ```
 
 ### FieldMayBeFinal
+Field `assignedAsGroup` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minhosts/TargetLabelAssignment.java`
+#### Snippet
+```java
+    private Map<TNodeTemplate, Set<String>> possibleTargetLabels = new HashMap<>();
+    private List<TNodeTemplate> doneTopLevelHosts = new ArrayList<>();
+    private List<List<TNodeTemplate>> assignedAsGroup = new ArrayList<>();
+    private int outputCap;
+
+```
+
+### FieldMayBeFinal
 Field `presentTargetLabels` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minhosts/TargetLabelAssignment.java`
 #### Snippet
@@ -22296,15 +22320,75 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
 ```
 
 ### FieldMayBeFinal
-Field `possibleTargetLabels` may be 'final'
+Field `doneTopLevelHosts` may be 'final'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minhosts/TargetLabelAssignment.java`
 #### Snippet
 ```java
-    private TopologyWrapper original;
     private Set<String> presentTargetLabels = new HashSet<>();
     private Map<TNodeTemplate, Set<String>> possibleTargetLabels = new HashMap<>();
     private List<TNodeTemplate> doneTopLevelHosts = new ArrayList<>();
     private List<List<TNodeTemplate>> assignedAsGroup = new ArrayList<>();
+    private int outputCap;
+```
+
+### FieldMayBeFinal
+Field `repetitions` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minexternalconnections/KargerMinCutVariation.java`
+#### Snippet
+```java
+    private ConnectsToGraph current;
+
+    private int repetitions;
+    private Random random = new Random();
+
+```
+
+### FieldMayBeFinal
+Field `original` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minexternalconnections/KargerMinCutVariation.java`
+#### Snippet
+```java
+    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(KargerMinCutVariation.class);
+
+    private ConnectsToGraph original;
+    private ConnectsToGraph current;
+
+```
+
+### FieldMayBeFinal
+Field `random` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minexternalconnections/KargerMinCutVariation.java`
+#### Snippet
+```java
+
+    private int repetitions;
+    private Random random = new Random();
+
+    public KargerMinCutVariation(ConnectsToGraph graph) {
+```
+
+### FieldMayBeFinal
+Field `LOGGER` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minexternalconnections/KargerMinCutVariation.java`
+#### Snippet
+```java
+public class KargerMinCutVariation {
+
+    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(KargerMinCutVariation.class);
+
+    private ConnectsToGraph original;
+```
+
+### FieldMayBeFinal
+Field `edges` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minexternalconnections/ConnectsToGraph.java`
+#### Snippet
+```java
+
+    private List<Node> nodes = new ArrayList<>();
+    private List<Edge> edges = new ArrayList<>();
+    private List<Edge> edgesForContraction = new ArrayList<>();
+
 ```
 
 ### FieldMayBeFinal
@@ -22344,123 +22428,39 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ta
 ```
 
 ### FieldMayBeFinal
-Field `edges` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minexternalconnections/ConnectsToGraph.java`
+Field `context` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
 #### Snippet
 ```java
 
-    private List<Node> nodes = new ArrayList<>();
-    private List<Edge> edges = new ArrayList<>();
-    private List<Edge> edgesForContraction = new ArrayList<>();
-
+    public static class Parameter<T> {
+        private Set<String> context;
+        private String value;
+        private Class<?> clazz;
 ```
 
 ### FieldMayBeFinal
-Field `repetitions` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minexternalconnections/KargerMinCutVariation.java`
+Field `validator` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
 #### Snippet
 ```java
-    private ConnectsToGraph current;
+    private MultiException exception;
+    private Map<String, String> prefix2Namespace;
+    private FieldValidator validator;
 
-    private int repetitions;
-    private Random random = new Random();
-
+    public YamlBuilder(String namespace) {
 ```
 
 ### FieldMayBeFinal
-Field `LOGGER` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minexternalconnections/KargerMinCutVariation.java`
-#### Snippet
-```java
-public class KargerMinCutVariation {
-
-    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(KargerMinCutVariation.class);
-
-    private ConnectsToGraph original;
-```
-
-### FieldMayBeFinal
-Field `original` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minexternalconnections/KargerMinCutVariation.java`
-#### Snippet
-```java
-    private static org.slf4j.Logger LOGGER = LoggerFactory.getLogger(KargerMinCutVariation.class);
-
-    private ConnectsToGraph original;
-    private ConnectsToGraph current;
-
-```
-
-### FieldMayBeFinal
-Field `random` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/minexternalconnections/KargerMinCutVariation.java`
+Field `exception` may be 'final'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
 #### Snippet
 ```java
 
-    private int repetitions;
-    private Random random = new Random();
-
-    public KargerMinCutVariation(ConnectsToGraph graph) {
-```
-
-### FieldMayBeFinal
-Field `fragments` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyComparison.java`
-#### Snippet
-```java
-
-    private List<PolicyWrapper> policies;
-    private List<TTopologyTemplate> fragments;
-    private List<FragmentWithPolicies> fragmentsWithPolicies = new ArrayList<>();
-
-```
-
-### FieldMayBeFinal
-Field `policies` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyComparison.java`
-#### Snippet
-```java
-public class PolicyComparison {
-
-    private List<PolicyWrapper> policies;
-    private List<TTopologyTemplate> fragments;
-    private List<FragmentWithPolicies> fragmentsWithPolicies = new ArrayList<>();
-```
-
-### FieldMayBeFinal
-Field `fragment` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyComparison.java`
-#### Snippet
-```java
-
-    private static class FragmentWithPolicies {
-        private TTopologyTemplate fragment;
-        private List<PolicyWrapper> policies;
-
-```
-
-### FieldMayBeFinal
-Field `policies` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyComparison.java`
-#### Snippet
-```java
-    private static class FragmentWithPolicies {
-        private TTopologyTemplate fragment;
-        private List<PolicyWrapper> policies;
-
-        private FragmentWithPolicies(TTopologyTemplate fragment, List<PolicyWrapper> policies) {
-```
-
-### FieldMayBeFinal
-Field `fragmentsWithPolicies` may be 'final'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/targetallocation/criteria/fulfillpolicies/PolicyComparison.java`
-#### Snippet
-```java
-    private List<PolicyWrapper> policies;
-    private List<TTopologyTemplate> fragments;
-    private List<FragmentWithPolicies> fragmentsWithPolicies = new ArrayList<>();
-
-    public PolicyComparison(List<PolicyWrapper> policies, List<TTopologyTemplate> fragments) {
+    private final String namespace;
+    private MultiException exception;
+    private Map<String, String> prefix2Namespace;
+    private FieldValidator validator;
 ```
 
 ### FieldMayBeFinal
@@ -22500,6 +22500,30 @@ in `org.eclipse.winery.accountability/src/main/java/org/eclipse/winery/accountab
 ```
 
 ### FieldMayBeFinal
+Field `namespace` may be 'final'
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/datatypes/ComponentId.java`
+#### Snippet
+```java
+    private String id;
+    private String name;
+    private String namespace;
+    private QName qName;
+    private TDefinitions full;
+```
+
+### FieldMayBeFinal
+Field `version` may be 'final'
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/datatypes/ComponentId.java`
+#### Snippet
+```java
+    private QName qName;
+    private TDefinitions full;
+    private WineryVersion version;
+
+    public ComponentId(String id, String name, String namespace, QName qName, TDefinitions full, WineryVersion version) {
+```
+
+### FieldMayBeFinal
 Field `id` may be 'final'
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/datatypes/ComponentId.java`
 #### Snippet
@@ -22509,6 +22533,18 @@ public class ComponentId {
     private String id;
     private String name;
     private String namespace;
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/datatypes/ComponentId.java`
+#### Snippet
+```java
+
+    private String id;
+    private String name;
+    private String namespace;
+    private QName qName;
 ```
 
 ### FieldMayBeFinal
@@ -22533,42 +22569,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
     private TDefinitions full;
     private WineryVersion version;
 
-```
-
-### FieldMayBeFinal
-Field `version` may be 'final'
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/datatypes/ComponentId.java`
-#### Snippet
-```java
-    private QName qName;
-    private TDefinitions full;
-    private WineryVersion version;
-
-    public ComponentId(String id, String name, String namespace, QName qName, TDefinitions full, WineryVersion version) {
-```
-
-### FieldMayBeFinal
-Field `namespace` may be 'final'
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/datatypes/ComponentId.java`
-#### Snippet
-```java
-    private String id;
-    private String name;
-    private String namespace;
-    private QName qName;
-    private TDefinitions full;
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/datatypes/ComponentId.java`
-#### Snippet
-```java
-
-    private String id;
-    private String name;
-    private String namespace;
-    private QName qName;
 ```
 
 ### FieldMayBeFinal
@@ -22668,42 +22668,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### FieldMayBeFinal
-Field `interfaces` may be 'final'
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/interfaces/InterfacesResource.java`
-#### Snippet
-```java
-
-    private TopologyGraphElementEntityTypeResource res;
-    private List<TInterface> interfaces;
-    private String interfaceType;
-
-```
-
-### FieldMayBeFinal
-Field `res` may be 'final'
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/interfaces/InterfacesResource.java`
-#### Snippet
-```java
-public class InterfacesResource {
-
-    private TopologyGraphElementEntityTypeResource res;
-    private List<TInterface> interfaces;
-    private String interfaceType;
-```
-
-### FieldMayBeFinal
-Field `interfaceType` may be 'final'
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/interfaces/InterfacesResource.java`
-#### Snippet
-```java
-    private TopologyGraphElementEntityTypeResource res;
-    private List<TInterface> interfaces;
-    private String interfaceType;
-
-    public InterfacesResource(TopologyGraphElementEntityTypeResource res, List<TInterface> interfaces, String interfaceType) {
-```
-
-### FieldMayBeFinal
 Field `instanceStates` may be 'final'
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/entitytypes/InstanceStatesResource.java`
 #### Snippet
@@ -22725,6 +22689,42 @@ public class InstanceStatesResource {
     private TopologyGraphElementEntityTypeResource typeResource;
     private List<TInstanceState> instanceStates;
 
+```
+
+### FieldMayBeFinal
+Field `res` may be 'final'
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/interfaces/InterfacesResource.java`
+#### Snippet
+```java
+public class InterfacesResource {
+
+    private TopologyGraphElementEntityTypeResource res;
+    private List<TInterface> interfaces;
+    private String interfaceType;
+```
+
+### FieldMayBeFinal
+Field `interfaces` may be 'final'
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/interfaces/InterfacesResource.java`
+#### Snippet
+```java
+
+    private TopologyGraphElementEntityTypeResource res;
+    private List<TInterface> interfaces;
+    private String interfaceType;
+
+```
+
+### FieldMayBeFinal
+Field `interfaceType` may be 'final'
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/interfaces/InterfacesResource.java`
+#### Snippet
+```java
+    private TopologyGraphElementEntityTypeResource res;
+    private List<TInterface> interfaces;
+    private String interfaceType;
+
+    public InterfacesResource(TopologyGraphElementEntityTypeResource res, List<TInterface> interfaces, String interfaceType) {
 ```
 
 ### FieldMayBeFinal
@@ -22824,18 +22824,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### FieldMayBeFinal
-Field `linkedPlansTableData` may be 'final'
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/plans/PlansResourceData.java`
-#### Snippet
-```java
-
-    // data: [ [id, pre, name, type, lang, reference]* ]
-    private String linkedPlansTableData;
-
-
-```
-
-### FieldMayBeFinal
 Field `embeddedPlansTableData` may be 'final'
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/plans/PlansResourceData.java`
 #### Snippet
@@ -22848,14 +22836,14 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### FieldMayBeFinal
-Field `plan` may be 'final'
-in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/plans/PlanFileResource.java`
+Field `linkedPlansTableData` may be 'final'
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/plans/PlansResourceData.java`
 #### Snippet
 ```java
 
-    private final PlanId planId;
-    private TPlan plan;
-    private ServiceTemplateResource res;
+    // data: [ [id, pre, name, type, lang, reference]* ]
+    private String linkedPlansTableData;
+
 
 ```
 
@@ -22869,6 +22857,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
     private ServiceTemplateResource res;
 
     public PlanFileResource(ServiceTemplateResource res, PlanId planId, TPlan plan) {
+```
+
+### FieldMayBeFinal
+Field `plan` may be 'final'
+in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/resources/servicetemplates/plans/PlanFileResource.java`
+#### Snippet
+```java
+
+    private final PlanId planId;
+    private TPlan plan;
+    private ServiceTemplateResource res;
+
 ```
 
 ### FieldMayBeFinal
@@ -22896,18 +22896,6 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 ```
 
 ### FieldMayBeFinal
-Field `httpClient` may be 'final'
-in `org.eclipse.winery.highlevelrestapi/src/main/java/org/eclipse/winery/highlevelrestapi/LowLevelRestApi.java`
-#### Snippet
-```java
-
-    // Local HttpClient used for every communication (Singleton implementation)
-    private static HttpClient httpClient = new HttpClient();
-
-    /**
-```
-
-### FieldMayBeFinal
 Field `socketList` may be 'final'
 in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/repository/rest/websockets/GitWebSocket.java`
 #### Snippet
@@ -22929,6 +22917,18 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
         private Map<String, Map<DiffEntry, String>> repoList;
         private List<GitWebSocket> socketList;
         private String jsonString = "[]";
+```
+
+### FieldMayBeFinal
+Field `httpClient` may be 'final'
+in `org.eclipse.winery.highlevelrestapi/src/main/java/org/eclipse/winery/highlevelrestapi/LowLevelRestApi.java`
+#### Snippet
+```java
+
+    // Local HttpClient used for every communication (Singleton implementation)
+    private static HttpClient httpClient = new HttpClient();
+
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -22968,18 +22968,6 @@ public class Subtypes<T extends HasInheritance> {
 ```
 
 ### FieldMayBeFinal
-Field `IdCounter` may be 'final'
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/problemsolving/algorithms/PubSubProxyAlgorithm.java`
-#### Snippet
-```java
-
-    private static int newRelationshipIdCounter = 100;
-    private static int IdCounter = 1;
-    private static int newCapabilityCounter = 1;
-    private static int newRequirementCounter = 1;
-```
-
-### FieldMayBeFinal
 Field `newRelationshipIdCounter` may be 'final'
 in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/problemsolving/algorithms/PubSubProxyAlgorithm.java`
 #### Snippet
@@ -23001,6 +22989,18 @@ in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/a
     private static int newCapabilityCounter = 1;
     private static int newRequirementCounter = 1;
 
+```
+
+### FieldMayBeFinal
+Field `IdCounter` may be 'final'
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/problemsolving/algorithms/PubSubProxyAlgorithm.java`
+#### Snippet
+```java
+
+    private static int newRelationshipIdCounter = 100;
+    private static int IdCounter = 1;
+    private static int newCapabilityCounter = 1;
+    private static int newRequirementCounter = 1;
 ```
 
 ### FieldMayBeFinal
@@ -23028,51 +23028,15 @@ public abstract class Task extends Node {
 ```
 
 ### FieldMayBeFinal
-Field `serviceTemplateId` may be 'final'
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
+Field `targets` may be 'final'
+in `org.eclipse.winery.model.threatmodeling/src/main/java/org/eclipse/winery/model/threatmodeling/Threat.java`
 #### Snippet
 ```java
-    private static int IdCounter = 1;
+    private String namespace;
+    private LinkedHashMap<String, String> properties = new LinkedHashMap<>();
+    private List<ThreatTarget> targets = new ArrayList<>();
 
-    private ServiceTemplateId serviceTemplateId;
-    private TTopologyTemplate topologyTemplate;
-    private SubstitutionChooser substitutionChooser;
-```
-
-### FieldMayBeFinal
-Field `substitutionServiceTemplateId` may be 'final'
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
-#### Snippet
-```java
-    private SubstitutionChooser substitutionChooser;
-
-    private ServiceTemplateId substitutionServiceTemplateId;
-
-    public PlaceholderSubstitution(ServiceTemplateId serviceTemplateId, SubstitutionChooser substitutionChooser) {
-```
-
-### FieldMayBeFinal
-Field `substitutionChooser` may be 'final'
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
-#### Snippet
-```java
-    private ServiceTemplateId serviceTemplateId;
-    private TTopologyTemplate topologyTemplate;
-    private SubstitutionChooser substitutionChooser;
-
-    private ServiceTemplateId substitutionServiceTemplateId;
-```
-
-### FieldMayBeFinal
-Field `topologyTemplate` may be 'final'
-in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
-#### Snippet
-```java
-
-    private ServiceTemplateId serviceTemplateId;
-    private TTopologyTemplate topologyTemplate;
-    private SubstitutionChooser substitutionChooser;
-
+    public String getNamespace() {
 ```
 
 ### FieldMayBeFinal
@@ -23088,15 +23052,51 @@ public class Threat {
 ```
 
 ### FieldMayBeFinal
-Field `targets` may be 'final'
-in `org.eclipse.winery.model.threatmodeling/src/main/java/org/eclipse/winery/model/threatmodeling/Threat.java`
+Field `substitutionChooser` may be 'final'
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
 #### Snippet
 ```java
-    private String namespace;
-    private LinkedHashMap<String, String> properties = new LinkedHashMap<>();
-    private List<ThreatTarget> targets = new ArrayList<>();
+    private ServiceTemplateId serviceTemplateId;
+    private TTopologyTemplate topologyTemplate;
+    private SubstitutionChooser substitutionChooser;
 
-    public String getNamespace() {
+    private ServiceTemplateId substitutionServiceTemplateId;
+```
+
+### FieldMayBeFinal
+Field `substitutionServiceTemplateId` may be 'final'
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
+#### Snippet
+```java
+    private SubstitutionChooser substitutionChooser;
+
+    private ServiceTemplateId substitutionServiceTemplateId;
+
+    public PlaceholderSubstitution(ServiceTemplateId serviceTemplateId, SubstitutionChooser substitutionChooser) {
+```
+
+### FieldMayBeFinal
+Field `serviceTemplateId` may be 'final'
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
+#### Snippet
+```java
+    private static int IdCounter = 1;
+
+    private ServiceTemplateId serviceTemplateId;
+    private TTopologyTemplate topologyTemplate;
+    private SubstitutionChooser substitutionChooser;
+```
+
+### FieldMayBeFinal
+Field `topologyTemplate` may be 'final'
+in `org.eclipse.winery.model.adaptation/src/main/java/org/eclipse/winery/model/adaptation/substitution/refinement/placeholder/PlaceholderSubstitution.java`
+#### Snippet
+```java
+
+    private ServiceTemplateId serviceTemplateId;
+    private TTopologyTemplate topologyTemplate;
+    private SubstitutionChooser substitutionChooser;
+
 ```
 
 ### FieldMayBeFinal
@@ -23112,15 +23112,39 @@ in `org.eclipse.winery.model.csar.toscametafile/src/main/java/org/eclipse/winery
 ```
 
 ### FieldMayBeFinal
-Field `nodeTemplates` may be 'final'
-in `org.eclipse.winery.model.threatmodeling/src/main/java/org/eclipse/winery/model/threatmodeling/ThreatModeling.java`
+Field `path` may be 'final'
+in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/commons/Dockerfile.java`
 #### Snippet
 ```java
-    private final IRepository repository;
-    private final ThreatModelingUtils utils;
-    private List<TNodeTemplate> nodeTemplates;
-    private TServiceTemplate serviceTemplate;
-    private Map<QName, Threat> abstractThreatMitigations = new HashMap<>();
+public class Dockerfile {
+
+    private String path;
+    private String content;
+    private String repoName;
+```
+
+### FieldMayBeFinal
+Field `repoName` may be 'final'
+in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/commons/Dockerfile.java`
+#### Snippet
+```java
+    private String path;
+    private String content;
+    private String repoName;
+
+    public Dockerfile(String path, String content, String repoName) {
+```
+
+### FieldMayBeFinal
+Field `content` may be 'final'
+in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/commons/Dockerfile.java`
+#### Snippet
+```java
+
+    private String path;
+    private String content;
+    private String repoName;
+
 ```
 
 ### FieldMayBeFinal
@@ -23148,39 +23172,15 @@ in `org.eclipse.winery.model.threatmodeling/src/main/java/org/eclipse/winery/mod
 ```
 
 ### FieldMayBeFinal
-Field `content` may be 'final'
-in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/commons/Dockerfile.java`
+Field `nodeTemplates` may be 'final'
+in `org.eclipse.winery.model.threatmodeling/src/main/java/org/eclipse/winery/model/threatmodeling/ThreatModeling.java`
 #### Snippet
 ```java
-
-    private String path;
-    private String content;
-    private String repoName;
-
-```
-
-### FieldMayBeFinal
-Field `repoName` may be 'final'
-in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/commons/Dockerfile.java`
-#### Snippet
-```java
-    private String path;
-    private String content;
-    private String repoName;
-
-    public Dockerfile(String path, String content, String repoName) {
-```
-
-### FieldMayBeFinal
-Field `path` may be 'final'
-in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/commons/Dockerfile.java`
-#### Snippet
-```java
-public class Dockerfile {
-
-    private String path;
-    private String content;
-    private String repoName;
+    private final IRepository repository;
+    private final ThreatModelingUtils utils;
+    private List<TNodeTemplate> nodeTemplates;
+    private TServiceTemplate serviceTemplate;
+    private Map<QName, Threat> abstractThreatMitigations = new HashMap<>();
 ```
 
 ### FieldMayBeFinal
@@ -23196,6 +23196,18 @@ public class Component {
 ```
 
 ### FieldMayBeFinal
+Field `name` may be 'final'
+in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/commons/Component.java`
+#### Snippet
+```java
+
+public class Component {
+    private String name;
+    private String version;
+    private String versionOperator;
+```
+
+### FieldMayBeFinal
 Field `versionOperator` may be 'final'
 in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/commons/Component.java`
 #### Snippet
@@ -23208,15 +23220,15 @@ in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/wine
 ```
 
 ### FieldMayBeFinal
-Field `name` may be 'final'
-in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/commons/Component.java`
+Field `folder` may be 'final'
+in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/crawler/LocalCrawler.java`
 #### Snippet
 ```java
+public class LocalCrawler implements ICrawlerImplementation {
 
-public class Component {
-    private String name;
-    private String version;
-    private String versionOperator;
+    private File folder;
+
+    public LocalCrawler(String path) {
 ```
 
 ### FieldMayBeFinal
@@ -23244,18 +23256,6 @@ public class Repository {
 ```
 
 ### FieldMayBeFinal
-Field `folder` may be 'final'
-in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/crawler/LocalCrawler.java`
-#### Snippet
-```java
-public class LocalCrawler implements ICrawlerImplementation {
-
-    private File folder;
-
-    public LocalCrawler(String path) {
-```
-
-### FieldMayBeFinal
 Field `filesplitter` may be 'final'
 in `org.eclipse.winery.tools.deployablecomponents/src/main/java/org/eclipse/winery/tools/deployablecomponents/fileanalyzer/Fileanalyzer.java`
 #### Snippet
@@ -23280,66 +23280,6 @@ in `org.eclipse.winery.bpmn4tosca.converter.tobpel/src/main/java/org/eclipse/win
 ```
 
 ## RuleId[id=UnnecessaryUnicodeEscape]
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u00B7` can be replaced with '·'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
-#### Snippet
-```java
-    // NameCharRange \u10000-\ueffff is not supported by Java
-    private static final String NCNameStartChar_RegExp = "[A-Z_a-z\u00c0-\u00d6\u00d8\u00f6\u00f8\u02ff\u0370\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]";
-    private static final String NCNameChar_RegExp = Util.NCNameStartChar_RegExp + "|[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040]";
-    private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
-    private static final Pattern NCNameChar_RegExp_Pattern = Pattern.compile(Util.NCNameChar_RegExp);
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u0300` can be replaced with '̀'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
-#### Snippet
-```java
-    // NameCharRange \u10000-\ueffff is not supported by Java
-    private static final String NCNameStartChar_RegExp = "[A-Z_a-z\u00c0-\u00d6\u00d8\u00f6\u00f8\u02ff\u0370\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]";
-    private static final String NCNameChar_RegExp = Util.NCNameStartChar_RegExp + "|[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040]";
-    private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
-    private static final Pattern NCNameChar_RegExp_Pattern = Pattern.compile(Util.NCNameChar_RegExp);
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u036F` can be replaced with 'ͯ'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
-#### Snippet
-```java
-    // NameCharRange \u10000-\ueffff is not supported by Java
-    private static final String NCNameStartChar_RegExp = "[A-Z_a-z\u00c0-\u00d6\u00d8\u00f6\u00f8\u02ff\u0370\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]";
-    private static final String NCNameChar_RegExp = Util.NCNameStartChar_RegExp + "|[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040]";
-    private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
-    private static final Pattern NCNameChar_RegExp_Pattern = Pattern.compile(Util.NCNameChar_RegExp);
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u203F` can be replaced with '‿'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
-#### Snippet
-```java
-    // NameCharRange \u10000-\ueffff is not supported by Java
-    private static final String NCNameStartChar_RegExp = "[A-Z_a-z\u00c0-\u00d6\u00d8\u00f6\u00f8\u02ff\u0370\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]";
-    private static final String NCNameChar_RegExp = Util.NCNameStartChar_RegExp + "|[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040]";
-    private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
-    private static final Pattern NCNameChar_RegExp_Pattern = Pattern.compile(Util.NCNameChar_RegExp);
-```
-
-### UnnecessaryUnicodeEscape
-Unicode escape sequence `\u2040` can be replaced with '⁀'
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
-#### Snippet
-```java
-    // NameCharRange \u10000-\ueffff is not supported by Java
-    private static final String NCNameStartChar_RegExp = "[A-Z_a-z\u00c0-\u00d6\u00d8\u00f6\u00f8\u02ff\u0370\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]";
-    private static final String NCNameChar_RegExp = Util.NCNameStartChar_RegExp + "|[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040]";
-    private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
-    private static final Pattern NCNameChar_RegExp_Pattern = Pattern.compile(Util.NCNameChar_RegExp);
-```
-
 ### UnnecessaryUnicodeEscape
 Unicode escape sequence `\u1000` can be replaced with 'က'
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
@@ -23520,6 +23460,66 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
     private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
 ```
 
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u00B7` can be replaced with '·'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
+#### Snippet
+```java
+    // NameCharRange \u10000-\ueffff is not supported by Java
+    private static final String NCNameStartChar_RegExp = "[A-Z_a-z\u00c0-\u00d6\u00d8\u00f6\u00f8\u02ff\u0370\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]";
+    private static final String NCNameChar_RegExp = Util.NCNameStartChar_RegExp + "|[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040]";
+    private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
+    private static final Pattern NCNameChar_RegExp_Pattern = Pattern.compile(Util.NCNameChar_RegExp);
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u0300` can be replaced with '̀'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
+#### Snippet
+```java
+    // NameCharRange \u10000-\ueffff is not supported by Java
+    private static final String NCNameStartChar_RegExp = "[A-Z_a-z\u00c0-\u00d6\u00d8\u00f6\u00f8\u02ff\u0370\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]";
+    private static final String NCNameChar_RegExp = Util.NCNameStartChar_RegExp + "|[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040]";
+    private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
+    private static final Pattern NCNameChar_RegExp_Pattern = Pattern.compile(Util.NCNameChar_RegExp);
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u036F` can be replaced with 'ͯ'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
+#### Snippet
+```java
+    // NameCharRange \u10000-\ueffff is not supported by Java
+    private static final String NCNameStartChar_RegExp = "[A-Z_a-z\u00c0-\u00d6\u00d8\u00f6\u00f8\u02ff\u0370\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]";
+    private static final String NCNameChar_RegExp = Util.NCNameStartChar_RegExp + "|[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040]";
+    private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
+    private static final Pattern NCNameChar_RegExp_Pattern = Pattern.compile(Util.NCNameChar_RegExp);
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u203F` can be replaced with '‿'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
+#### Snippet
+```java
+    // NameCharRange \u10000-\ueffff is not supported by Java
+    private static final String NCNameStartChar_RegExp = "[A-Z_a-z\u00c0-\u00d6\u00d8\u00f6\u00f8\u02ff\u0370\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]";
+    private static final String NCNameChar_RegExp = Util.NCNameStartChar_RegExp + "|[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040]";
+    private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
+    private static final Pattern NCNameChar_RegExp_Pattern = Pattern.compile(Util.NCNameChar_RegExp);
+```
+
+### UnnecessaryUnicodeEscape
+Unicode escape sequence `\u2040` can be replaced with '⁀'
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/common/Util.java`
+#### Snippet
+```java
+    // NameCharRange \u10000-\ueffff is not supported by Java
+    private static final String NCNameStartChar_RegExp = "[A-Z_a-z\u00c0-\u00d6\u00d8\u00f6\u00f8\u02ff\u0370\u037d\u037f-\u1fff\u200c-\u200d\u2070-\u218f\u2c00-\u2fef\u3001-\ud7ff\uf900-\ufdcf\ufdf0-\ufffd]";
+    private static final String NCNameChar_RegExp = Util.NCNameStartChar_RegExp + "|[-\\.0-9\u00B7\u0300-\u036F\u203F-\u2040]";
+    private static final Pattern NCNameStartChar_Pattern = Pattern.compile(Util.NCNameStartChar_RegExp);
+    private static final Pattern NCNameChar_RegExp_Pattern = Pattern.compile(Util.NCNameChar_RegExp);
+```
+
 ## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `client`
@@ -23571,39 +23571,15 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `platformConfig` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
+Local variable `newParseResult` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/CommandVisitor.java`
 #### Snippet
 ```java
+            }
 
-        if (this.kitchenYml != null) {
-            List<Map> platformConfig = (List) kitchenYml.get("platforms");
-            return platformConfig;
-        } else return null;
-```
-
-### UnnecessaryLocalVariable
-Local variable `platformConfig` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
-#### Snippet
-```java
-    public List getSuites() {
-        if (this.kitchenYml != null) {
-            List<Map> platformConfig = (List) kitchenYml.get("suites");
-            return platformConfig;
-        } else return null;
-```
-
-### UnnecessaryLocalVariable
-Local variable `directories` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/CrawledCookbooks.java`
-#### Snippet
-```java
-    public static String[] getDirectories(String directory) {
-        File file = new File(directory);
-        String[] directories = file.list(new FilenameFilter() {
-            @Override
-            public boolean accept(File current, String name) {
+            CookbookParseResult newParseResult = ChefCookbookAnalyzer.getParseResultFromFile(extractedCookbookConfigs, recipePath);
+            extractedCookbookConfigs = newParseResult;
+            extractedCookbookConfigs.setInDependentRecipe(isDependentRecipe);
 ```
 
 ### UnnecessaryLocalVariable
@@ -23619,15 +23595,39 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `newParseResult` is redundant
-in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefdslparser/CommandVisitor.java`
+Local variable `directories` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/chefcookbookcrawler/CrawledCookbooks.java`
 #### Snippet
 ```java
-            }
+    public static String[] getDirectories(String directory) {
+        File file = new File(directory);
+        String[] directories = file.list(new FilenameFilter() {
+            @Override
+            public boolean accept(File current, String name) {
+```
 
-            CookbookParseResult newParseResult = ChefCookbookAnalyzer.getParseResultFromFile(extractedCookbookConfigs, recipePath);
-            extractedCookbookConfigs = newParseResult;
-            extractedCookbookConfigs.setInDependentRecipe(isDependentRecipe);
+### UnnecessaryLocalVariable
+Local variable `platformConfig` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
+#### Snippet
+```java
+    public List getSuites() {
+        if (this.kitchenYml != null) {
+            List<Map> platformConfig = (List) kitchenYml.get("suites");
+            return platformConfig;
+        } else return null;
+```
+
+### UnnecessaryLocalVariable
+Local variable `platformConfig` is redundant
+in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/kitchenparser/ChefKitchenYmlParser.java`
+#### Snippet
+```java
+
+        if (this.kitchenYml != null) {
+            List<Map> platformConfig = (List) kitchenYml.get("platforms");
+            return platformConfig;
+        } else return null;
 ```
 
 ### UnnecessaryLocalVariable
@@ -23679,18 +23679,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/co
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `output` is redundant
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
-#### Snippet
-```java
-        }
-        //if (Objects.isNull(parameter.getFilter())) parameter.setFilter(this::nonNull);
-        Map<String, T> output = buildStream(object, parameter)
-            .map(entry -> {
-                return Tuples.pair(entry.getKey(), parameter.getBuilderOO().apply(
-```
-
-### UnnecessaryLocalVariable
 Local variable `namespace` is redundant
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/importing/CsarImporter.java`
 #### Snippet
@@ -23700,6 +23688,18 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/im
                 String namespace = s;
                 if (namespaceManager.hasPermanentProperties(namespace)) {
                     String storedPrefix = namespaceManager.getPrefix(namespace);
+```
+
+### UnnecessaryLocalVariable
+Local variable `output` is redundant
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/reader/YamlBuilder.java`
+#### Snippet
+```java
+        }
+        //if (Objects.isNull(parameter.getFilter())) parameter.setFilter(this::nonNull);
+        Map<String, T> output = buildStream(object, parameter)
+            .map(entry -> {
+                return Tuples.pair(entry.getKey(), parameter.getBuilderOO().apply(
 ```
 
 ### UnnecessaryLocalVariable
@@ -23780,6 +23780,78 @@ Call to `asList()` with only one argument
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
 #### Snippet
 ```java
+            relationshipTypes.get(namespace).add(name);
+        } else {
+            relationshipTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
+        }
+    }
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
+#### Snippet
+```java
+            capabilityTypes.get(namespace).add(name);
+        } else {
+            capabilityTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
+        }
+    }
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
+#### Snippet
+```java
+            artifactTypes.get(namespace).add(name);
+        } else {
+            artifactTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
+        }
+    }
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
+#### Snippet
+```java
+            policyTypes.get(namespace).add(name);
+        } else {
+            policyTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
+        }
+    }
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
+#### Snippet
+```java
+            groupTypes.get(namespace).add(name);
+        } else {
+            groupTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
+        }
+    }
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
+#### Snippet
+```java
+            interfaceTypes.get(namespace).add(name);
+        } else {
+            interfaceTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
+        }
+    }
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
+#### Snippet
+```java
                     map.get(namespace).add(shorthandName);
                 } else {
                     map.put(namespace, new ArrayList<>(Arrays.asList(shorthandName)));
@@ -23804,81 +23876,9 @@ Call to `asList()` with only one argument
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
 #### Snippet
 ```java
-            interfaceTypes.get(namespace).add(name);
-        } else {
-            interfaceTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
-        }
-    }
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
-#### Snippet
-```java
-            policyTypes.get(namespace).add(name);
-        } else {
-            policyTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
-        }
-    }
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
-#### Snippet
-```java
-            capabilityTypes.get(namespace).add(name);
-        } else {
-            capabilityTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
-        }
-    }
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
-#### Snippet
-```java
-            relationshipTypes.get(namespace).add(name);
-        } else {
-            relationshipTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
-        }
-    }
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
-#### Snippet
-```java
-            artifactTypes.get(namespace).add(name);
-        } else {
-            artifactTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
-        }
-    }
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
-#### Snippet
-```java
             nodeTypes.get(namespace).add(name);
         } else {
             nodeTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
-        }
-    }
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/converter/validator/TypeVisitor.java`
-#### Snippet
-```java
-            groupTypes.get(namespace).add(name);
-        } else {
-            groupTypes.put(namespace, new ArrayList<>(Arrays.asList(name)));
         }
     }
 ```
@@ -23913,11 +23913,11 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/ChefCookbookAnalyzer.java`
 #### Snippet
 ```java
-        
-        //  Compile Attributes from cookbook which is analyzed
-        if (cookbookConfigs.isInRecursiveTransformation() == false) {
-            attributePath = cookbookConfigs.getCookbookPath() + ChefDslConstants.ATTRIBUTES_PATH;
-            defaultAttributesPath = attributePath + ChefDslConstants.DEFAULT_RB_PATH;
+     */
+    private CookbookParseResult returnComponentTypesFromRecipes(CookbookParseResult cookbookConfigs) {
+        if (cookbookConfigs.isInRecursiveTransformation() == false ) {
+            String defaultRecipePath = cookbookConfigs.getCookbookPath() + ChefDslConstants.RECIPES_PATH + ChefDslConstants.DEFAULT_RB_PATH;
+            LOGGER.info("Parsing Recipes: default.rb ...");
 ```
 
 ### PointlessBooleanExpression
@@ -23937,11 +23937,11 @@ in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcook
 in `org.eclipse.winery.crawler/src/main/java/org/eclipse/winery/crawler/chefcookbooks/ChefCookbookAnalyzer.java`
 #### Snippet
 ```java
-     */
-    private CookbookParseResult returnComponentTypesFromRecipes(CookbookParseResult cookbookConfigs) {
-        if (cookbookConfigs.isInRecursiveTransformation() == false ) {
-            String defaultRecipePath = cookbookConfigs.getCookbookPath() + ChefDslConstants.RECIPES_PATH + ChefDslConstants.DEFAULT_RB_PATH;
-            LOGGER.info("Parsing Recipes: default.rb ...");
+        
+        //  Compile Attributes from cookbook which is analyzed
+        if (cookbookConfigs.isInRecursiveTransformation() == false) {
+            attributePath = cookbookConfigs.getCookbookPath() + ChefDslConstants.ATTRIBUTES_PATH;
+            defaultAttributesPath = attributePath + ChefDslConstants.DEFAULT_RB_PATH;
 ```
 
 ### PointlessBooleanExpression
@@ -24043,6 +24043,54 @@ in `org.eclipse.winery.repository.rest/src/main/java/org/eclipse/winery/reposito
 
 ## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
+'EventBus()' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+#### Snippet
+```java
+            }
+
+            this.eventBus = new EventBus();
+
+            // explicitly enable long paths to ensure proper handling of long paths
+```
+
+### UnstableApiUsage
+'com.google.common.eventbus.EventBus' is marked unstable with @Beta
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+#### Snippet
+```java
+            }
+
+            this.eventBus = new EventBus();
+
+            // explicitly enable long paths to ensure proper handling of long paths
+```
+
+### UnstableApiUsage
+'com.google.common.eventbus.EventBus' is marked unstable with @Beta
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+#### Snippet
+```java
+
+    /**
+     * This method unregisters an Object on the repositories {@link EventBus}
+     *
+     * @param eventListener an objects that contains methods annotated with the
+```
+
+### UnstableApiUsage
+'register(java.lang.Object)' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+#### Snippet
+```java
+     */
+    public void unregisterForEvents(Object eventListener) {
+        this.eventBus.register(eventListener);
+    }
+
+```
+
+### UnstableApiUsage
 'com.google.common.eventbus.EventBus' is marked unstable with @Beta
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
 #### Snippet
@@ -24067,30 +24115,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 ```
 
 ### UnstableApiUsage
-'EventBus()' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
-#### Snippet
-```java
-            }
-
-            this.eventBus = new EventBus();
-
-            // explicitly enable long paths to ensure proper handling of long paths
-```
-
-### UnstableApiUsage
-'com.google.common.eventbus.EventBus' is marked unstable with @Beta
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
-#### Snippet
-```java
-            }
-
-            this.eventBus = new EventBus();
-
-            // explicitly enable long paths to ensure proper handling of long paths
-```
-
-### UnstableApiUsage
 'com.google.common.eventbus.EventBus' is marked unstable with @Beta
 in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
 #### Snippet
@@ -24116,23 +24140,23 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/ba
 
 ### UnstableApiUsage
 'com.google.common.eventbus.EventBus' is marked unstable with @Beta
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/MultiRepository.java`
 #### Snippet
 ```java
 
     /**
-     * This method unregisters an Object on the repositories {@link EventBus}
+     * This method registers an Object on the repositories {@link EventBus}
      *
      * @param eventListener an objects that contains methods annotated with the
 ```
 
 ### UnstableApiUsage
 'register(java.lang.Object)' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/backend/filebased/GitBasedRepository.java`
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/MultiRepository.java`
 #### Snippet
 ```java
      */
-    public void unregisterForEvents(Object eventListener) {
+    public void registerForEvents(Object eventListener) {
         this.eventBus.register(eventListener);
     }
 
@@ -24160,6 +24184,30 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/fi
         this.eventBus.register(eventListener);
     }
 
+```
+
+### UnstableApiUsage
+'EventBus()' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/MultiRepository.java`
+#### Snippet
+```java
+    public MultiRepository(Path repositoryRoot) throws IOException, GitAPIException {
+        this.repositoryRoot = repositoryRoot;
+        this.eventBus = new EventBus();
+        try {
+            LOGGER.debug("Trying to initialize local repository...");
+```
+
+### UnstableApiUsage
+'com.google.common.eventbus.EventBus' is marked unstable with @Beta
+in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/MultiRepository.java`
+#### Snippet
+```java
+    public MultiRepository(Path repositoryRoot) throws IOException, GitAPIException {
+        this.repositoryRoot = repositoryRoot;
+        this.eventBus = new EventBus();
+        try {
+            LOGGER.debug("Trying to initialize local repository...");
 ```
 
 ### UnstableApiUsage
@@ -24172,54 +24220,6 @@ in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/fi
     private final EventBus eventBus;
 
     /**
-```
-
-### UnstableApiUsage
-'com.google.common.eventbus.EventBus' is marked unstable with @Beta
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/MultiRepository.java`
-#### Snippet
-```java
-
-    /**
-     * This method registers an Object on the repositories {@link EventBus}
-     *
-     * @param eventListener an objects that contains methods annotated with the
-```
-
-### UnstableApiUsage
-'register(java.lang.Object)' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/MultiRepository.java`
-#### Snippet
-```java
-     */
-    public void registerForEvents(Object eventListener) {
-        this.eventBus.register(eventListener);
-    }
-
-```
-
-### UnstableApiUsage
-'EventBus()' is declared in unstable class 'com.google.common.eventbus.EventBus' marked with @Beta
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/MultiRepository.java`
-#### Snippet
-```java
-    public MultiRepository(Path repositoryRoot) throws IOException, GitAPIException {
-        this.repositoryRoot = repositoryRoot;
-        this.eventBus = new EventBus();
-        try {
-            LOGGER.debug("Trying to initialize local repository...");
-```
-
-### UnstableApiUsage
-'com.google.common.eventbus.EventBus' is marked unstable with @Beta
-in `org.eclipse.winery.repository/src/main/java/org/eclipse/winery/repository/filebased/MultiRepository.java`
-#### Snippet
-```java
-    public MultiRepository(Path repositoryRoot) throws IOException, GitAPIException {
-        this.repositoryRoot = repositoryRoot;
-        this.eventBus = new EventBus();
-        try {
-            LOGGER.debug("Trying to initialize local repository...");
 ```
 
 ### UnstableApiUsage
