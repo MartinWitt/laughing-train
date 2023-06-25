@@ -1,5 +1,5 @@
 # Laughing-Train
-
+[![Project Map](https://sourcespy.com/shield.svg)](https://sourcespy.com/github/martinwittlaughingtrain/)  
 Laughing-Train is a code refactoring tool using [Spoon](https://github.com/INRIA/spoon) and static analyzers to refactor Java code.
 This includes the analysis of the code, the refactoring of the code and the generation of pull requests on GitHub.
 We analyze projects with qodana, a static code analyzer from JetBrains, and use the results to refactor the code.
