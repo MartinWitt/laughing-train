@@ -260,18 +260,6 @@ import javax.servlet.http.HttpServletRequest;
 
 ## RuleId[id=InnerClassMayBeStatic]
 ### InnerClassMayBeStatic
-Inner class `ExternalAgreementLinkSettings` may be 'static'
-in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
-#### Snippet
-```java
-    }
-
-    class ExternalAgreementLinkSettings implements TermsOfServiceManager.ExternalAgreementLink {
-        private final String text;
-        private final String url;
-```
-
-### InnerClassMayBeStatic
 Inner class `GuestNoticeSettings` may be 'static'
 in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
 #### Snippet
@@ -281,6 +269,18 @@ in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/Ter
     class GuestNoticeSettings implements GuestNotice {
         private final String title;
         private final String note;
+```
+
+### InnerClassMayBeStatic
+Inner class `ExternalAgreementLinkSettings` may be 'static'
+in `termsOfService-server/src/main/java/jetbrains/buildServer/termsOfService/TermsOfServiceManagerImpl.java`
+#### Snippet
+```java
+    }
+
+    class ExternalAgreementLinkSettings implements TermsOfServiceManager.ExternalAgreementLink {
+        private final String text;
+        private final String url;
 ```
 
 ## RuleId[id=TrivialIf]
