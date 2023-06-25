@@ -178,11 +178,11 @@ Casting `typeFactory.builder()` to `Builder` is redundant
 in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
 #### Snippet
 ```java
-            @Override
-            public RelDataType getRowType(RelDataTypeFactory typeFactory) {
-                Builder builder = (Builder) typeFactory.builder();
-                return builder
-                        .add("data_product_id", SqlTypeName.INTEGER)
+                @Override
+                public RelDataType getRowType(RelDataTypeFactory typeFactory) {
+                    Builder builder = (Builder) typeFactory.builder();
+
+                    // Add all of the common fields
 ```
 
 ### RedundantCast
@@ -190,11 +190,11 @@ Casting `typeFactory.builder()` to `Builder` is redundant
 in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
 #### Snippet
 ```java
-                @Override
-                public RelDataType getRowType(RelDataTypeFactory typeFactory) {
-                    Builder builder = (Builder) typeFactory.builder();
-
-                    // Add all of the common fields
+            @Override
+            public RelDataType getRowType(RelDataTypeFactory typeFactory) {
+                Builder builder = (Builder) typeFactory.builder();
+                return builder
+                        .add("data_product_id", SqlTypeName.INTEGER)
 ```
 
 ## RuleId[id=JavadocDeclaration]
@@ -256,198 +256,6 @@ in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalo
      * @return
      */
     String rewriteQuery(UserEntity userEntity, SqlNode sqlNode, Collection<MetadataSchemaEntity> metadataSchemas,
-```
-
-### JavadocDeclaration
-`@param tenantId` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     * initialization).
-     *
-     * @param tenantId
-     * @throws SharingException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     *
-     * @param tenantId
-     * @throws SharingException
-     */
-    void initialize(String tenantId) throws SharingException;
-```
-
-### JavadocDeclaration
-`@param userInfo` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     * permission.
-     *
-     * @param userInfo
-     * @param dataProduct
-     * @param permission
-```
-
-### JavadocDeclaration
-`@param dataProduct` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     *
-     * @param userInfo
-     * @param dataProduct
-     * @param permission
-     * @return
-```
-
-### JavadocDeclaration
-`@param permission` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     * @param userInfo
-     * @param dataProduct
-     * @param permission
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     * @param dataProduct
-     * @param permission
-     * @return
-     */
-    boolean userHasAccess(UserInfo userInfo, DataProduct dataProduct, Permission permission) throws SharingException;
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     * should be a number as defined in the {@link Permission} enum.
-     *
-     * @return
-     */
-    String getDataProductSharingView();
-```
-
-### JavadocDeclaration
-`@param dataProduct` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     * Revoke public access from the given data product.
-     *
-     * @param dataProduct
-     * @param permission
-     */
-```
-
-### JavadocDeclaration
-`@param permission` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     *
-     * @param dataProduct
-     * @param permission
-     */
-    void revokePublicAccess(DataProduct dataProduct, Permission permission) throws SharingException;
-```
-
-### JavadocDeclaration
-`@param userInfo` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     * Revoke permission from the user for the given data product.
-     *
-     * @param userInfo
-     * @param dataProduct
-     * @param permission
-```
-
-### JavadocDeclaration
-`@param dataProduct` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     *
-     * @param userInfo
-     * @param dataProduct
-     * @param permission
-     */
-```
-
-### JavadocDeclaration
-`@param permission` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     * @param userInfo
-     * @param dataProduct
-     * @param permission
-     */
-    void revokePermissionFromUser(UserInfo userInfo, DataProduct dataProduct, Permission permission)
-```
-
-### JavadocDeclaration
-`@param userInfo` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     * Get or create a {@link UserEntity}.
-     *
-     * @param userInfo
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     *
-     * @param userInfo
-     * @return
-     */
-    UserEntity resolveUser(UserInfo userInfo) throws SharingException;
-```
-
-### JavadocDeclaration
-`@param dataProduct` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     * Grant public access to the given data product.
-     *
-     * @param dataProduct
-     * @param permission
-     */
-```
-
-### JavadocDeclaration
-`@param permission` tag description is missing
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
-#### Snippet
-```java
-     *
-     * @param dataProduct
-     * @param permission
-     */
-    void grantPublicAccess(DataProduct dataProduct, Permission permission) throws SharingException;
 ```
 
 ### JavadocDeclaration
@@ -523,6 +331,78 @@ in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/a
 ```
 
 ### JavadocDeclaration
+`@return` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * should be a number as defined in the {@link Permission} enum.
+     *
+     * @return
+     */
+    String getDataProductSharingView();
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Revoke public access from the given data product.
+     *
+     * @param dataProduct
+     * @param permission
+     */
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param dataProduct
+     * @param permission
+     */
+    void revokePublicAccess(DataProduct dataProduct, Permission permission) throws SharingException;
+```
+
+### JavadocDeclaration
+`@param userInfo` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Revoke permission from the user for the given data product.
+     *
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+     */
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+     */
+    void revokePermissionFromUser(UserInfo userInfo, DataProduct dataProduct, Permission permission)
+```
+
+### JavadocDeclaration
 `@param groupInfo` tag description is missing
 in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
 #### Snippet
@@ -559,6 +439,30 @@ in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/a
 ```
 
 ### JavadocDeclaration
+`@param userInfo` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Get or create a {@link UserEntity}.
+     *
+     * @param userInfo
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param userInfo
+     * @return
+     */
+    UserEntity resolveUser(UserInfo userInfo) throws SharingException;
+```
+
+### JavadocDeclaration
 `@param groupInfo` tag description is missing
 in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
 #### Snippet
@@ -592,6 +496,102 @@ in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/a
      * @param permission
      * @param sharedByUser optional (nullable), the user who is granting the
      *                     permission
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * Grant public access to the given data product.
+     *
+     * @param dataProduct
+     * @param permission
+     */
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param dataProduct
+     * @param permission
+     */
+    void grantPublicAccess(DataProduct dataProduct, Permission permission) throws SharingException;
+```
+
+### JavadocDeclaration
+`@param tenantId` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * initialization).
+     *
+     * @param tenantId
+     * @throws SharingException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param tenantId
+     * @throws SharingException
+     */
+    void initialize(String tenantId) throws SharingException;
+```
+
+### JavadocDeclaration
+`@param userInfo` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * permission.
+     *
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+```
+
+### JavadocDeclaration
+`@param dataProduct` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     *
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+     * @return
+```
+
+### JavadocDeclaration
+`@param permission` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * @param userInfo
+     * @param dataProduct
+     * @param permission
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/sharing/SharingManager.java`
+#### Snippet
+```java
+     * @param dataProduct
+     * @param permission
+     * @return
+     */
+    boolean userHasAccess(UserInfo userInfo, DataProduct dataProduct, Permission permission) throws SharingException;
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -710,10 +710,10 @@ Autowired members must be defined in valid Spring bean (@Component\|@Service\|..
 in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
 #### Snippet
 ```java
-    private SimpleUserSharingRepository simpleUserSharingRepository;
+    private SimpleUserRepository simpleUserRepository;
 
     @Autowired
-    private SimpleGroupSharingRepository simpleGroupSharingRepository;
+    private SimpleGroupRepository simpleGroupRepository;
 
 ```
 
@@ -722,22 +722,10 @@ Autowired members must be defined in valid Spring bean (@Component\|@Service\|..
 in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
 #### Snippet
 ```java
-    private SimplePublicSharingRepository simplePublicSharingRepository;
-
-    @Autowired
     private SimpleTenantRepository simpleTenantRepository;
 
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
-in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
-#### Snippet
-```java
-    private DataProductRepository dataProductRepository;
-
     @Autowired
-    private SimpleUserSharingRepository simpleUserSharingRepository;
+    private SimpleUserRepository simpleUserRepository;
 
 ```
 
@@ -750,6 +738,42 @@ in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/dat
 
     @Autowired
     private DataProductRepository dataProductRepository;
+
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
+in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
+#### Snippet
+```java
+    private SimpleUserSharingRepository simpleUserSharingRepository;
+
+    @Autowired
+    private SimpleGroupSharingRepository simpleGroupSharingRepository;
+
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
+in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
+#### Snippet
+```java
+    private SimpleGroupSharingRepository simpleGroupSharingRepository;
+
+    @Autowired
+    private SimplePublicSharingRepository simplePublicSharingRepository;
+
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
+in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
+#### Snippet
+```java
+    private TenantRepository tenantRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
 ```
 
@@ -770,10 +794,10 @@ Autowired members must be defined in valid Spring bean (@Component\|@Service\|..
 in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
 #### Snippet
 ```java
-    private TenantRepository tenantRepository;
+    private DataProductRepository dataProductRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private SimpleUserSharingRepository simpleUserSharingRepository;
 
 ```
 
@@ -782,34 +806,10 @@ Autowired members must be defined in valid Spring bean (@Component\|@Service\|..
 in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
 #### Snippet
 ```java
-    private SimpleGroupSharingRepository simpleGroupSharingRepository;
-
-    @Autowired
     private SimplePublicSharingRepository simplePublicSharingRepository;
 
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
-in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
-#### Snippet
-```java
-    private SimpleUserRepository simpleUserRepository;
-
     @Autowired
-    private SimpleGroupRepository simpleGroupRepository;
-
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
-in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
-#### Snippet
-```java
     private SimpleTenantRepository simpleTenantRepository;
-
-    @Autowired
-    private SimpleUserRepository simpleUserRepository;
 
 ```
 
@@ -860,109 +860,13 @@ public class MetadataSchemaFieldMapper {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
-#### Snippet
-```java
-    MetadataSchemaFieldMapper metadataSchemaFieldMapper;
-
-    @Autowired
-    MetadataSchemaQueryExecutor metadataSchemaQueryExecutor;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
-#### Snippet
-```java
-    MetadataSchemaRepository metadataSchemaRepository;
-
-    @Autowired
-    MetadataSchemaFieldRepository metadataSchemaFieldRepository;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
-#### Snippet
-```java
-    MetadataSchemaQueryExecutor metadataSchemaQueryExecutor;
-
-    @Autowired
-    SharingManager sharingManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
-#### Snippet
-```java
-
-    // Repositories
-    @Autowired
-    DataProductRepository dataProductRepository;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
-#### Snippet
-```java
-    MetadataSchemaMapper metadataSchemaMapper;
-
-    @Autowired
-    MetadataSchemaFieldMapper metadataSchemaFieldMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
-#### Snippet
-```java
-    DataProductMapper dataProductMapper;
-
-    @Autowired
-    MetadataSchemaMapper metadataSchemaMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
-#### Snippet
-```java
-
-    // Mappers
-    @Autowired
-    DataProductMapper dataProductMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
-#### Snippet
-```java
-    DataProductRepository dataProductRepository;
-
-    @Autowired
-    MetadataSchemaRepository metadataSchemaRepository;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/mapper/DataProductMapper.java`
 #### Snippet
 ```java
-public class DataProductMapper {
+    DataProductRepository dataProductRepository;
 
     @Autowired
-    DataProductRepository dataProductRepository;
+    MetadataSchemaRepository metadataSchemaRepository;
 
 ```
 
@@ -983,10 +887,10 @@ Field injection is not recommended
 in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/mapper/DataProductMapper.java`
 #### Snippet
 ```java
-    DataProductRepository dataProductRepository;
+public class DataProductMapper {
 
     @Autowired
-    MetadataSchemaRepository metadataSchemaRepository;
+    DataProductRepository dataProductRepository;
 
 ```
 
@@ -1004,13 +908,97 @@ public class PostgresqlMetadataSchemaQueryWriterImpl implements MetadataSchemaQu
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/DataCatalogAPIService.java`
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
 #### Snippet
 ```java
-    DataCatalogService dataCatalogService;
+    MetadataSchemaQueryExecutor metadataSchemaQueryExecutor;
 
     @Autowired
     SharingManager sharingManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+    MetadataSchemaFieldMapper metadataSchemaFieldMapper;
+
+    @Autowired
+    MetadataSchemaQueryExecutor metadataSchemaQueryExecutor;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+    MetadataSchemaMapper metadataSchemaMapper;
+
+    @Autowired
+    MetadataSchemaFieldMapper metadataSchemaFieldMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+    DataProductMapper dataProductMapper;
+
+    @Autowired
+    MetadataSchemaMapper metadataSchemaMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+    MetadataSchemaRepository metadataSchemaRepository;
+
+    @Autowired
+    MetadataSchemaFieldRepository metadataSchemaFieldRepository;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+
+    // Repositories
+    @Autowired
+    DataProductRepository dataProductRepository;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+    DataProductRepository dataProductRepository;
+
+    @Autowired
+    MetadataSchemaRepository metadataSchemaRepository;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/impl/DataCatalogServiceImpl.java`
+#### Snippet
+```java
+
+    // Mappers
+    @Autowired
+    DataProductMapper dataProductMapper;
 
 ```
 
@@ -1023,6 +1011,42 @@ in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalo
 
     @Autowired
     DataCatalogService dataCatalogService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/service/DataCatalogAPIService.java`
+#### Snippet
+```java
+    DataCatalogService dataCatalogService;
+
+    @Autowired
+    SharingManager sharingManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
+#### Snippet
+```java
+    MetadataSchemaQueryWriter metadataSchemaQueryWriter;
+
+    @Autowired
+    EntityManager entityManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
+#### Snippet
+```java
+    private static final Logger logger = LoggerFactory.getLogger(MetadataSchemaQueryExecutorImpl.class);
+
+    @Autowired
+    MetadataSchemaRepository metadataSchemaRepository;
 
 ```
 
@@ -1043,48 +1067,24 @@ Field injection is not recommended
 in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
 #### Snippet
 ```java
-    MetadataSchemaQueryWriter metadataSchemaQueryWriter;
-
-    @Autowired
-    EntityManager entityManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
-#### Snippet
-```java
     MetadataSchemaRepository metadataSchemaRepository;
 
     @Autowired
     MetadataSchemaQueryWriter metadataSchemaQueryWriter;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
-#### Snippet
-```java
-    private static final Logger logger = LoggerFactory.getLogger(MetadataSchemaQueryExecutorImpl.class);
-
-    @Autowired
-    MetadataSchemaRepository metadataSchemaRepository;
 
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
-Local variable `validator` is redundant
-in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
+Local variable `simpleGroup` is redundant
+in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
 #### Snippet
 ```java
-                planner.getTypeFactory(), connectionConfig);
-
-        SqlValidator validator = SqlValidatorUtil.newValidator(SqlStdOperatorTable.instance(),
-                catalogReader, planner.getTypeFactory(),
-                config.getSqlValidatorConfig().withIdentifierExpansion(false));
+        Optional<SimpleGroupEntity> maybeSimpleGroup = simpleGroupRepository
+                .findByExternalIdAndSimpleTenant(groupInfo.getGroupId(), tenant);
+        SimpleGroupEntity simpleGroup = maybeSimpleGroup.orElseGet(() -> {
+            SimpleGroupEntity newGroup = new SimpleGroupEntity();
+            newGroup.setExternalId(groupInfo.getGroupId());
 ```
 
 ### UnnecessaryLocalVariable
@@ -1112,15 +1112,15 @@ in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/dat
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `simpleGroup` is redundant
-in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/sharing/SimpleSharingManagerImpl.java`
+Local variable `validator` is redundant
+in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalog/api/query/impl/MetadataSchemaQueryExecutorImpl.java`
 #### Snippet
 ```java
-        Optional<SimpleGroupEntity> maybeSimpleGroup = simpleGroupRepository
-                .findByExternalIdAndSimpleTenant(groupInfo.getGroupId(), tenant);
-        SimpleGroupEntity simpleGroup = maybeSimpleGroup.orElseGet(() -> {
-            SimpleGroupEntity newGroup = new SimpleGroupEntity();
-            newGroup.setExternalId(groupInfo.getGroupId());
+                planner.getTypeFactory(), connectionConfig);
+
+        SqlValidator validator = SqlValidatorUtil.newValidator(SqlStdOperatorTable.instance(),
+                catalogReader, planner.getTypeFactory(),
+                config.getSqlValidatorConfig().withIdentifierExpansion(false));
 ```
 
 ## RuleId[id=SpringBootApplicationSetup]
@@ -1177,14 +1177,14 @@ in `data-catalog-api/server/service/src/main/java/org/apache/airavata/datacatalo
 ## RuleId[id=TrivialIf]
 ### TrivialIf
 `if` statement can be simplified
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/MetadataSchemaFieldEntity.java`
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/TenantEntity.java`
 #### Snippet
 ```java
-        MetadataSchemaFieldEntity other = (MetadataSchemaFieldEntity) obj;
-        if (metadataSchemaFieldId == null) {
-            if (other.metadataSchemaFieldId != null)
+        TenantEntity other = (TenantEntity) obj;
+        if (tenantId == null) {
+            if (other.tenantId != null)
                 return false;
-        } else if (!metadataSchemaFieldId.equals(other.metadataSchemaFieldId))
+        } else if (!tenantId.equals(other.tenantId))
 ```
 
 ### TrivialIf
@@ -1201,12 +1201,24 @@ in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/a
 
 ### TrivialIf
 `if` statement can be simplified
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/MetadataSchemaFieldEntity.java`
+in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimpleUserSharingEntity.java`
 #### Snippet
 ```java
-            if (other.metadataSchemaFieldId != null)
+        SimpleUserSharingEntity other = (SimpleUserSharingEntity) obj;
+        if (sharingId == null) {
+            if (other.sharingId != null)
                 return false;
-        } else if (!metadataSchemaFieldId.equals(other.metadataSchemaFieldId))
+        } else if (!sharingId.equals(other.sharingId))
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/TenantEntity.java`
+#### Snippet
+```java
+            if (other.tenantId != null)
+                return false;
+        } else if (!tenantId.equals(other.tenantId))
             return false;
         return true;
 ```
@@ -1225,24 +1237,36 @@ in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/a
 
 ### TrivialIf
 `if` statement can be simplified
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/DataProductEntity.java`
+in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimpleUserSharingEntity.java`
 #### Snippet
 ```java
-        DataProductEntity other = (DataProductEntity) obj;
-        if (dataProductId == null) {
-            if (other.dataProductId != null)
+            if (other.sharingId != null)
                 return false;
-        } else if (!dataProductId.equals(other.dataProductId))
+        } else if (!sharingId.equals(other.sharingId))
+            return false;
+        return true;
 ```
 
 ### TrivialIf
 `if` statement can be simplified
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/DataProductEntity.java`
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/MetadataSchemaFieldEntity.java`
 #### Snippet
 ```java
-            if (other.dataProductId != null)
+        MetadataSchemaFieldEntity other = (MetadataSchemaFieldEntity) obj;
+        if (metadataSchemaFieldId == null) {
+            if (other.metadataSchemaFieldId != null)
                 return false;
-        } else if (!dataProductId.equals(other.dataProductId))
+        } else if (!metadataSchemaFieldId.equals(other.metadataSchemaFieldId))
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/MetadataSchemaFieldEntity.java`
+#### Snippet
+```java
+            if (other.metadataSchemaFieldId != null)
+                return false;
+        } else if (!metadataSchemaFieldId.equals(other.metadataSchemaFieldId))
             return false;
         return true;
 ```
@@ -1257,42 +1281,6 @@ in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/dat
             if (other.sharingId != null)
                 return false;
         } else if (!sharingId.equals(other.sharingId))
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimplePublicSharingEntity.java`
-#### Snippet
-```java
-            if (other.sharingId != null)
-                return false;
-        } else if (!sharingId.equals(other.sharingId))
-            return false;
-        return true;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimpleTenantEntity.java`
-#### Snippet
-```java
-        SimpleTenantEntity other = (SimpleTenantEntity) obj;
-        if (simpleTenantId == null) {
-            if (other.simpleTenantId != null)
-                return false;
-        } else if (!simpleTenantId.equals(other.simpleTenantId))
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimpleTenantEntity.java`
-#### Snippet
-```java
-            if (other.simpleTenantId != null)
-                return false;
-        } else if (!simpleTenantId.equals(other.simpleTenantId))
-            return false;
-        return true;
 ```
 
 ### TrivialIf
@@ -1315,6 +1303,42 @@ in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/dat
             if (other.sharingId != null)
                 return false;
         } else if (!sharingId.equals(other.sharingId))
+            return false;
+        return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimplePublicSharingEntity.java`
+#### Snippet
+```java
+            if (other.sharingId != null)
+                return false;
+        } else if (!sharingId.equals(other.sharingId))
+            return false;
+        return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/UserEntity.java`
+#### Snippet
+```java
+        UserEntity other = (UserEntity) obj;
+        if (userId == null) {
+            if (other.userId != null)
+                return false;
+        } else if (!userId.equals(other.userId))
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/UserEntity.java`
+#### Snippet
+```java
+            if (other.userId != null)
+                return false;
+        } else if (!userId.equals(other.userId))
             return false;
         return true;
 ```
@@ -1345,6 +1369,30 @@ in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/dat
 
 ### TrivialIf
 `if` statement can be simplified
+in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimpleTenantEntity.java`
+#### Snippet
+```java
+        SimpleTenantEntity other = (SimpleTenantEntity) obj;
+        if (simpleTenantId == null) {
+            if (other.simpleTenantId != null)
+                return false;
+        } else if (!simpleTenantId.equals(other.simpleTenantId))
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimpleTenantEntity.java`
+#### Snippet
+```java
+            if (other.simpleTenantId != null)
+                return false;
+        } else if (!simpleTenantId.equals(other.simpleTenantId))
+            return false;
+        return true;
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimpleGroupEntity.java`
 #### Snippet
 ```java
@@ -1369,72 +1417,24 @@ in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/dat
 
 ### TrivialIf
 `if` statement can be simplified
-in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimpleUserSharingEntity.java`
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/DataProductEntity.java`
 #### Snippet
 ```java
-        SimpleUserSharingEntity other = (SimpleUserSharingEntity) obj;
-        if (sharingId == null) {
-            if (other.sharingId != null)
+        DataProductEntity other = (DataProductEntity) obj;
+        if (dataProductId == null) {
+            if (other.dataProductId != null)
                 return false;
-        } else if (!sharingId.equals(other.sharingId))
+        } else if (!dataProductId.equals(other.dataProductId))
 ```
 
 ### TrivialIf
 `if` statement can be simplified
-in `data-catalog-api/server/simple-sharing/src/main/java/org/apache/airavata/datacatalog/api/model/sharing/simple/SimpleUserSharingEntity.java`
+in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/DataProductEntity.java`
 #### Snippet
 ```java
-            if (other.sharingId != null)
+            if (other.dataProductId != null)
                 return false;
-        } else if (!sharingId.equals(other.sharingId))
-            return false;
-        return true;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/TenantEntity.java`
-#### Snippet
-```java
-        TenantEntity other = (TenantEntity) obj;
-        if (tenantId == null) {
-            if (other.tenantId != null)
-                return false;
-        } else if (!tenantId.equals(other.tenantId))
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/TenantEntity.java`
-#### Snippet
-```java
-            if (other.tenantId != null)
-                return false;
-        } else if (!tenantId.equals(other.tenantId))
-            return false;
-        return true;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/UserEntity.java`
-#### Snippet
-```java
-        UserEntity other = (UserEntity) obj;
-        if (userId == null) {
-            if (other.userId != null)
-                return false;
-        } else if (!userId.equals(other.userId))
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `data-catalog-api/server/core/src/main/java/org/apache/airavata/datacatalog/api/model/UserEntity.java`
-#### Snippet
-```java
-            if (other.userId != null)
-                return false;
-        } else if (!userId.equals(other.userId))
+        } else if (!dataProductId.equals(other.dataProductId))
             return false;
         return true;
 ```
