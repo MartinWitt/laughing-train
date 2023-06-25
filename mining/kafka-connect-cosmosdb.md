@@ -1,12 +1,12 @@
 # kafka-connect-cosmosdb 
  
 # Bad smells
-I found 42 bad smells with 1 repairable:
+I found 43 bad smells with 1 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | UnusedAssignment | 9 | false |
+| UNCHECKED_WARNING | 7 | false |
 | UNUSED_IMPORT | 7 | false |
-| UNCHECKED_WARNING | 6 | false |
 | FieldMayBeFinal | 3 | false |
 | ConditionCoveredByFurtherCondition | 2 | false |
 | RedundantCast | 2 | false |
@@ -23,6 +23,30 @@ I found 42 bad smells with 1 repairable:
 | FieldCanBeLocal | 1 | false |
 | TrivialIf | 1 | false |
 ## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
+#### Snippet
+```java
+                    //  TODO: Do we need to update the value schema to map or keep it struct?
+                } else if (record.value() instanceof Map) {
+                    recordValue = StructToJsonMap.handleMap((Map<String, Object>) record.value());
+                } else {
+                    recordValue = record.value();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
+#### Snippet
+```java
+            return;
+        }
+        Map<String, Object> recordMap = (Map<String, Object>) recordValue;
+        IdStrategy idStrategy = config.idStrategy();
+        recordMap.put(AbstractIdStrategyConfig.ID, idStrategy.generateId(sinkRecord));
+```
+
 ### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/StructToJsonMap.java`
@@ -64,35 +88,23 @@ Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
 #### Snippet
 ```java
+            LinkedHashMap<IdAndPartitionKey, SinkRecord> uniqueItems = new LinkedHashMap<>();
+            for (SinkRecord sinkRecord : sinkRecords) {
+                IdAndPartitionKey idAndPartitionKey = new IdAndPartitionKey(((Map<String, Object>) sinkRecord.value()).get("id"), this.getPartitionKeyValue(sinkRecord.value()));
+                uniqueItems.compute(idAndPartitionKey, (key, previousSinkRecord) -> {
+                    if (previousSinkRecord == null) {
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/BulkWriter.java`
+#### Snippet
+```java
         //TODO: examine the code here for sub-partition
         String partitionKeyPath = StringUtils.join(this.partitionKeyDefinition.getPaths(), "");
         Map<String, Object> recordMap = (Map<String, Object>) recordValue;
         Object partitionKeyValue = recordMap.get(partitionKeyPath.substring(1));
         PartitionKeyInternal partitionKeyInternal = PartitionKeyInternal.fromObjectArray(Collections.singletonList(partitionKeyValue), false);
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
-#### Snippet
-```java
-            return;
-        }
-        Map<String, Object> recordMap = (Map<String, Object>) recordValue;
-        IdStrategy idStrategy = config.idStrategy();
-        recordMap.put(AbstractIdStrategyConfig.ID, idStrategy.generateId(sinkRecord));
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkTask.java`
-#### Snippet
-```java
-                    //  TODO: Do we need to update the value schema to map or keep it struct?
-                } else if (record.value() instanceof Map) {
-                    recordValue = StructToJsonMap.handleMap((Map<String, Object>) record.value());
-                } else {
-                    recordValue = record.value();
 ```
 
 ## RuleId[id=EmptyTryBlock]
@@ -371,11 +383,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-        while (!running.get()) {
+            // Wait till the items are drained by poll before stopping.
             try {
                 sleep(500);
             } catch (InterruptedException e) {
-                logger.warn("Interrupted!", e);                
+                logger.error("Interrupted! Failed to stop the task", e);            
 ```
 
 ### BusyWait
@@ -383,11 +395,11 @@ Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceTask.java`
 #### Snippet
 ```java
-            // Wait till the items are drained by poll before stopping.
+        while (!running.get()) {
             try {
                 sleep(500);
             } catch (InterruptedException e) {
-                logger.error("Interrupted! Failed to stop the task", e);            
+                logger.warn("Interrupted!", e);                
 ```
 
 ## RuleId[id=ArraysAsListWithZeroOrOneArgument]
@@ -406,18 +418,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.jav
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrategyConfig.java`
-#### Snippet
-```java
-                TEMPLATE_CONFIG_DOC,
-                groupName,
-                groupOrder++,
-                ConfigDef.Width.MEDIUM,
-                TEMPLATE_CONFIG_DISPLAY
-```
-
-### UnusedAssignment
-The value changed at `groupOrder++` is never used
 in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataStrategyConfig.java`
 #### Snippet
 ```java
@@ -430,13 +430,13 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/KafkaMetadataS
 
 ### UnusedAssignment
 The value changed at `groupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/TemplateStrategyConfig.java`
 #### Snippet
 ```java
-                ID_STRATEGY_DOC,
+                TEMPLATE_CONFIG_DOC,
                 groupName,
                 groupOrder++,
-                Width.MEDIUM,
+                ConfigDef.Width.MEDIUM,
                 TEMPLATE_CONFIG_DISPLAY
 ```
 
@@ -453,15 +453,15 @@ in `src/main/java/com/azure/cosmos/kafka/connect/sink/id/strategy/ProvidedInConf
 ```
 
 ### UnusedAssignment
-The value changed at `messageGroupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.java`
+The value changed at `groupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/sink/CosmosDBSinkConfig.java`
 #### Snippet
 ```java
-                COSMOS_MESSAGE_KEY_FIELD_DOC,
-                messageGroupName,
-                messageGroupOrder++,
-                Width.SHORT,
-                COSMOS_MESSAGE_KEY_FIELD_DISPLAY,
+                ID_STRATEGY_DOC,
+                groupName,
+                groupOrder++,
+                Width.MEDIUM,
+                TEMPLATE_CONFIG_DISPLAY
 ```
 
 ### UnusedAssignment
@@ -477,12 +477,36 @@ in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.jav
 ```
 
 ### UnusedAssignment
+The value changed at `messageGroupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/source/CosmosDBSourceConfig.java`
+#### Snippet
+```java
+                COSMOS_MESSAGE_KEY_FIELD_DOC,
+                messageGroupName,
+                messageGroupOrder++,
+                Width.SHORT,
+                COSMOS_MESSAGE_KEY_FIELD_DISPLAY,
+```
+
+### UnusedAssignment
+The value changed at `databaseGroupOrder++` is never used
+in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
+#### Snippet
+```java
+                        COSMOS_CONTAINER_TOPIC_MAP_DOC,
+                        databaseGroupName,
+                        databaseGroupOrder++,
+                        Width.MEDIUM,
+                        COSMOS_CONTAINER_TOPIC_MAP_DISPLAY
+```
+
+### UnusedAssignment
 Variable `topicContainerMap` initializer `TopicContainerMap.empty()` is redundant
 in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
 #### Snippet
 ```java
-    private final boolean connectionSharingEnabled;
     private final int maxRetryCount;
+    private final boolean bulkModeCompressionEnabled;
     private TopicContainerMap topicContainerMap = TopicContainerMap.empty();
 
     public CosmosDBConfig(ConfigDef config, Map<String, String> parsedConfig) {
@@ -498,18 +522,6 @@ in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
                         connectionGroupOrder++,
                         Width.LONG,
                         COSMOS_CONN_KEY_DISPLAY
-```
-
-### UnusedAssignment
-The value changed at `databaseGroupOrder++` is never used
-in `src/main/java/com/azure/cosmos/kafka/connect/CosmosDBConfig.java`
-#### Snippet
-```java
-                        COSMOS_CONTAINER_TOPIC_MAP_DOC,
-                        databaseGroupName,
-                        databaseGroupOrder++,
-                        Width.MEDIUM,
-                        COSMOS_CONTAINER_TOPIC_MAP_DISPLAY
 ```
 
 ## RuleId[id=ConstantValue]
