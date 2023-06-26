@@ -51,18 +51,6 @@ Result of `Assert.notEmpty()` is ignored
 in `src/main/java/org/eclipse/keyple/plugin/pcsc/PcscPluginFactoryBuilder.java`
 #### Snippet
 ```java
-        String contactlessReaderIdentificationFilter) {
-      Assert.getInstance()
-          .notEmpty(contactlessReaderIdentificationFilter, "contactlessReaderIdentificationFilter");
-      try {
-        this.contactlessReaderIdentificationFilterPattern =
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/plugin/pcsc/PcscPluginFactoryBuilder.java`
-#### Snippet
-```java
     public Builder updateProtocolIdentificationRule(
         String readerProtocolName, String protocolRule) {
       Assert.getInstance().notEmpty(readerProtocolName, "readerProtocolName");
@@ -71,15 +59,27 @@ in `src/main/java/org/eclipse/keyple/plugin/pcsc/PcscPluginFactoryBuilder.java`
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/plugin/pcsc/PcscPluginFactoryBuilder.java`
+#### Snippet
+```java
+        String contactlessReaderIdentificationFilter) {
+      Assert.getInstance()
+          .notEmpty(contactlessReaderIdentificationFilter, "contactlessReaderIdentificationFilter");
+      try {
+        this.contactlessReaderIdentificationFilterPattern =
+```
+
+### IgnoreResultOfCall
 Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/plugin/pcsc/AbstractPcscReaderAdapter.java`
 #### Snippet
 ```java
   @Override
-  public byte[] transmitControlCommand(int commandId, byte[] command) {
-    Assert.getInstance().notNull(command, "command");
-    byte[] response;
-    int controlCode = isWindows ? 0x00310000 | (commandId << 2) : 0x42000000 | commandId;
+  public final PcscReader setIsoProtocol(IsoProtocol isoProtocol) {
+    Assert.getInstance().notNull(isoProtocol, "isoProtocol");
+    if (logger.isTraceEnabled()) {
+      logger.trace(
 ```
 
 ### IgnoreResultOfCall
@@ -100,10 +100,10 @@ in `src/main/java/org/eclipse/keyple/plugin/pcsc/AbstractPcscReaderAdapter.java`
 #### Snippet
 ```java
   @Override
-  public final PcscReader setSharingMode(SharingMode sharingMode) {
-    Assert.getInstance().notNull(sharingMode, "sharingMode");
-    if (logger.isTraceEnabled()) {
-      logger.trace("{}: set sharing mode to {}", getName(), sharingMode.name());
+  public byte[] transmitControlCommand(int commandId, byte[] command) {
+    Assert.getInstance().notNull(command, "command");
+    byte[] response;
+    int controlCode = isWindows ? 0x00310000 | (commandId << 2) : 0x42000000 | commandId;
 ```
 
 ### IgnoreResultOfCall
@@ -112,9 +112,9 @@ in `src/main/java/org/eclipse/keyple/plugin/pcsc/AbstractPcscReaderAdapter.java`
 #### Snippet
 ```java
   @Override
-  public final PcscReader setIsoProtocol(IsoProtocol isoProtocol) {
-    Assert.getInstance().notNull(isoProtocol, "isoProtocol");
+  public final PcscReader setSharingMode(SharingMode sharingMode) {
+    Assert.getInstance().notNull(sharingMode, "sharingMode");
     if (logger.isTraceEnabled()) {
-      logger.trace(
+      logger.trace("{}: set sharing mode to {}", getName(), sharingMode.name());
 ```
 
