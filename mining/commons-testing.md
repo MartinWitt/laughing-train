@@ -1,27 +1,14 @@
 # commons-testing 
  
 # Bad smells
-I found 6 bad smells with 2 repairable:
+I found 5 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| StringBufferReplaceableByString | 2 | false |
-| UtilityClassWithoutPrivateConstructor | 1 | true |
+| StringBufferReplaceableByString | 1 | false |
 | DataFlowIssue | 1 | false |
+| JavadocDeclaration | 1 | false |
 | CommentedOutCode | 1 | false |
-| NonProtectedConstructorInAbstractClass | 1 | true |
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `RuleChainFactory` has only 'static' members, and lacks a 'private' constructor
-in `commons-testing-junit4/src/main/java/org/apache/commons/testing/junit4/RuleChainFactory.java`
-#### Snippet
-```java
- * Builds JUnit {@link RuleChain}s.
- */
-public class RuleChainFactory {
-
-    /**
-```
-
+| FieldMayBeFinal | 1 | false |
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
@@ -33,18 +20,6 @@ in `commons-testing-junit4/src/main/java/org/apache/commons/testing/junit4/net/A
         final StringBuilder builder = new StringBuilder();
         builder.append("AvailableServerPortSystemPropertyTestRule [name=");
         builder.append(name);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder builder` can be replaced with 'String'
-in `commons-testing-junit4-mongodb/src/main/java/org/apache/commons/testing/junit4/mongodb/MongoDbTestRule.java`
-#### Snippet
-```java
-    @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("MongoDbTestRule [portSystemPropertyName=");
-        builder.append(portSystemPropertyName);
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -60,6 +35,19 @@ in `commons-testing-generic/src/main/java/org/apache/commons/testing/net/Availab
             }
 ```
 
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@param targetFilePath` tag description is missing
+in `commons-testing-junit4/src/main/java/org/apache/commons/testing/junit4/io/CopyFileTestRule.java`
+#### Snippet
+```java
+     * @param targetTemporaryFolder
+     *            the destination folder.
+     * @param targetFilePath
+     * @return a new test rule.
+     */
+```
+
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (18 lines)
@@ -73,16 +61,16 @@ public abstract class AbstractAvailableLocalesTest {
 //        Arrays.stream(objects).forEachOrdered(object -> locales.stream().forEachOrdered(locale -> result.add(new Object[] { object, locale })));
 ```
 
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractAvailableLocalesTest()` of an abstract class should not be declared 'public'
-in `commons-testing-junit4/src/main/java/org/apache/commons/testing/junit4/AbstractAvailableLocalesTest.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `currentMinPort` may be 'final'
+in `commons-testing-generic/src/main/java/org/apache/commons/testing/net/AvailableServerPortFinder.java`
 #### Snippet
 ```java
-    public final DefaultLocaleTestRule rule;
+     * Incremented to the next lowest available port when getNextAvailable() is called.
+     */
+    private static AtomicInteger currentMinPort = new AtomicInteger(MIN_PORT_NUMBER);
 
-    public AbstractAvailableLocalesTest(final Locale locale)  {
-        this.locale = locale;
-        this.rule = new DefaultLocaleTestRule(locale);
+    /**
 ```
 
