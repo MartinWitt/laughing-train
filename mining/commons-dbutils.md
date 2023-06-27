@@ -72,43 +72,7 @@ in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 ```java
         final Connection conn = this.prepareConnection();
 
-        return this.<T>query(conn, true, sql, rsh, (Object[]) null);
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
-#### Snippet
-```java
-        final Connection conn = this.prepareConnection();
-
-        return this.<T>query(conn, true, sql, rsh, params);
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
-#### Snippet
-```java
-     */
-    public <T> T query(final Connection conn, final String sql, final ResultSetHandler<T> rsh, final Object... params) throws SQLException {
-        return this.<T>query(conn, false, sql, rsh, params);
-    }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
-in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
-#### Snippet
-```java
-    @Deprecated
-    public <T> T query(final Connection conn, final String sql, final Object param, final ResultSetHandler<T> rsh) throws SQLException {
-        return this.<T>query(conn, false, sql, rsh, param);
+        return this.<T>query(conn, true, sql, rsh, param);
     }
 
 ```
@@ -130,9 +94,45 @@ Explicit type arguments can be inferred
 in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 #### Snippet
 ```java
+     */
+    public <T> T query(final Connection conn, final String sql, final ResultSetHandler<T> rsh) throws SQLException {
+        return this.<T>query(conn, false, sql, rsh, (Object[]) null);
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
+#### Snippet
+```java
+     */
+    public <T> T query(final Connection conn, final String sql, final ResultSetHandler<T> rsh, final Object... params) throws SQLException {
+        return this.<T>query(conn, false, sql, rsh, params);
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
+#### Snippet
+```java
         final Connection conn = this.prepareConnection();
 
-        return this.<T>query(conn, true, sql, rsh, param);
+        return this.<T>query(conn, true, sql, rsh, (Object[]) null);
+    }
+
+```
+
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
+#### Snippet
+```java
+    @Deprecated
+    public <T> T query(final Connection conn, final String sql, final Object param, final ResultSetHandler<T> rsh) throws SQLException {
+        return this.<T>query(conn, false, sql, rsh, param);
     }
 
 ```
@@ -154,9 +154,9 @@ Explicit type arguments can be inferred
 in `src/main/java/org/apache/commons/dbutils/QueryRunner.java`
 #### Snippet
 ```java
-     */
-    public <T> T query(final Connection conn, final String sql, final ResultSetHandler<T> rsh) throws SQLException {
-        return this.<T>query(conn, false, sql, rsh, (Object[]) null);
+        final Connection conn = this.prepareConnection();
+
+        return this.<T>query(conn, true, sql, rsh, params);
     }
 
 ```
@@ -181,9 +181,9 @@ in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
 ```java
      */
     @Deprecated
-    public AsyncQueryRunner(final boolean pmdKnownBroken, final ExecutorService executorService) {
-        this(null, pmdKnownBroken, executorService);
-    }
+    public AsyncQueryRunner(final DataSource ds, final boolean pmdKnownBroken, final ExecutorService executorService) {
+        super(ds, pmdKnownBroken);
+        this.executorService = executorService;
 ```
 
 ### DeprecatedIsStillUsed
@@ -193,9 +193,9 @@ in `src/main/java/org/apache/commons/dbutils/AsyncQueryRunner.java`
 ```java
      */
     @Deprecated
-    public AsyncQueryRunner(final DataSource ds, final boolean pmdKnownBroken, final ExecutorService executorService) {
-        super(ds, pmdKnownBroken);
-        this.executorService = executorService;
+    public AsyncQueryRunner(final boolean pmdKnownBroken, final ExecutorService executorService) {
+        this(null, pmdKnownBroken, executorService);
+    }
 ```
 
 ## RuleId[id=UnusedAssignment]
