@@ -101,18 +101,6 @@ in `util/src/com/intellij/rt/coverage/instrumentation/JSR45Util.java`
 
 ## RuleId[id=Deprecation]
 ### Deprecation
-Overrides deprecated method in 'org.junit.internal.RealSystem'
-in `junit4-test-discovery-launcher/src/org/junit/runner/JUnitLauncher.java`
-#### Snippet
-```java
-      result = core.runMain(new RealSystem() {
-        @Override
-        public void exit(int code) {
-          retCode[0] = code;
-        }
-```
-
-### Deprecation
 'newInstance()' is deprecated
 in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.java`
 #### Snippet
@@ -122,6 +110,18 @@ in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.ja
       myDataListener = (TestDiscoveryDataListener) Class.forName(testDiscoveryDataListener).newInstance();
       myNameEnumerator = myDataListener.getNameEnumerator();
     } catch (InstantiationException e) {
+```
+
+### Deprecation
+Overrides deprecated method in 'org.junit.internal.RealSystem'
+in `junit4-test-discovery-launcher/src/org/junit/runner/JUnitLauncher.java`
+#### Snippet
+```java
+      result = core.runMain(new RealSystem() {
+        @Override
+        public void exit(int code) {
+          retCode[0] = code;
+        }
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -177,18 +177,6 @@ in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.ja
 ```
 
 ### CommentedOutCode
-Commented out code (6 lines)
-in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
-#### Snippet
-```java
-
-  public static void writeINT(DataOutput record, int val) throws IOException {
-    /*
-    if (0 <= val && val < 255)
-      record.writeByte(val);
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
 in `util/src/com/intellij/rt/coverage/instrumentation/ExtraFieldInstrumenter.java`
 #### Snippet
@@ -198,6 +186,18 @@ in `util/src/com/intellij/rt/coverage/instrumentation/ExtraFieldInstrumenter.jav
         //interface I {
         //  I DEFAULT = new I ();
         //}
+```
+
+### CommentedOutCode
+Commented out code (6 lines)
+in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
+#### Snippet
+```java
+
+  public static void writeINT(DataOutput record, int val) throws IOException {
+    /*
+    if (0 <= val && val < 255)
+      record.writeByte(val);
 ```
 
 ## RuleId[id=ConstantValue]
@@ -228,6 +228,30 @@ in `test-discovery/src/com/intellij/rt/coverage/data/SocketTestDiscoveryProtocol
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
+#### Snippet
+```java
+
+  public void createHTMLReport(File htmlDir, String title, String charset) throws IOException {
+    htmlDir.mkdirs();
+    final HTMLReportBuilder builder = ReportBuilderFactory.createHTMLReportBuilderForKover();
+    builder.setReportDir(htmlDir);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
+#### Snippet
+```java
+    FileOutputStream out = null;
+    try {
+      xmlFile.getParentFile().mkdirs();
+      out = new FileOutputStream(xmlFile);
+      report.write(out, myLoad.getProjectData());
+```
+
+### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
 in `src/com/intellij/rt/coverage/util/TestTrackingIOUtil.java`
 #### Snippet
@@ -237,18 +261,6 @@ in `src/com/intellij/rt/coverage/util/TestTrackingIOUtil.java`
       traceFile.createNewFile();
     }
     DataOutputStream os = null;
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
-#### Snippet
-```java
-      myLock = new File(target.getParentFile(), target.getName() + ".lck");
-      if (myLock.getParentFile() != null) {
-        myLock.getParentFile().mkdirs();
-      }
-    }
 ```
 
 ### IgnoreResultOfCall
@@ -289,26 +301,14 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
+in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
 #### Snippet
 ```java
-    FileOutputStream out = null;
-    try {
-      xmlFile.getParentFile().mkdirs();
-      out = new FileOutputStream(xmlFile);
-      report.write(out, myLoad.getProjectData());
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
-#### Snippet
-```java
-
-  public void createHTMLReport(File htmlDir, String title, String charset) throws IOException {
-    htmlDir.mkdirs();
-    final HTMLReportBuilder builder = ReportBuilderFactory.createHTMLReportBuilderForKover();
-    builder.setReportDir(htmlDir);
+      myLock = new File(target.getParentFile(), target.getName() + ".lck");
+      if (myLock.getParentFile() != null) {
+        myLock.getParentFile().mkdirs();
+      }
+    }
 ```
 
 ### IgnoreResultOfCall
