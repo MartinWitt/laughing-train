@@ -1,14 +1,14 @@
 # incubator-hugegraph 
  
 # Bad smells
-I found 1411 bad smells with 63 repairable:
+I found 1412 bad smells with 63 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | AutoCloseableResource | 328 | false |
 | DataFlowIssue | 207 | false |
 | DuplicatedCode | 185 | false |
-| ConstantValue | 125 | false |
-| FieldMayBeFinal | 101 | false |
+| ConstantValue | 124 | false |
+| FieldMayBeFinal | 102 | false |
 | UnusedAssignment | 48 | false |
 | ProtectedMemberInFinalClass | 28 | true |
 | UnstableApiUsage | 27 | false |
@@ -35,12 +35,12 @@ I found 1411 bad smells with 63 repairable:
 | IntegerMultiplicationImplicitCastToLong | 6 | false |
 | SlowListContainsAll | 6 | false |
 | PointlessBitwiseExpression | 6 | false |
+| UNCHECKED_WARNING | 6 | false |
 | JavadocReference | 6 | false |
 | SuspiciousMethodCalls | 6 | false |
 | RedundantCast | 6 | false |
 | ArraysAsListWithZeroOrOneArgument | 6 | false |
 | ThrowFromFinallyBlock | 5 | false |
-| UNCHECKED_WARNING | 5 | false |
 | JavadocDeclaration | 5 | false |
 | WrapperTypeMayBePrimitive | 4 | false |
 | EmptyTryBlock | 4 | false |
@@ -68,10 +68,10 @@ I found 1411 bad smells with 63 repairable:
 | ArrayHashCode | 2 | false |
 | EqualsWhichDoesntCheckParameterClass | 2 | false |
 | CastCanBeRemovedNarrowingVariableType | 2 | false |
-| EqualsWithItself | 1 | false |
 | ToArrayCallWithZeroLengthArrayArgument | 1 | true |
-| UnnecessaryModifier | 1 | true |
+| EqualsWithItself | 1 | false |
 | MismatchedArrayReadWrite | 1 | false |
+| UnnecessaryModifier | 1 | true |
 | ConditionalBreakInInfiniteLoop | 1 | false |
 | SortedCollectionWithNonComparableKeys | 1 | false |
 | RefusedBequest | 1 | false |
@@ -92,6 +92,19 @@ I found 1411 bad smells with 63 repairable:
 | UnnecessaryContinue | 1 | false |
 | PointlessBooleanExpression | 1 | true |
 | AssignmentToCatchBlockParameter | 1 | false |
+## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
+### ToArrayCallWithZeroLengthArrayArgument
+Call to `toArray()` with pre-sized array argument 'new Object\[kvList.size()\]'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugePrimaryKeyStrategy.java`
+#### Snippet
+```java
+
+                if (kvList.size() > 0) {
+                    curAddStep.configure(kvList.toArray(new Object[kvList.size()]));
+                }
+
+```
+
 ## RuleId[id=EqualsWithItself]
 ### EqualsWithItself
 `compareTo()` called on itself
@@ -105,17 +118,53 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/id/IdTest.java`
         Assert.assertThrows(UnsupportedOperationException.class, () -> {
 ```
 
-## RuleId[id=ToArrayCallWithZeroLengthArrayArgument]
-### ToArrayCallWithZeroLengthArrayArgument
-Call to `toArray()` with pre-sized array argument 'new Object\[kvList.size()\]'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugePrimaryKeyStrategy.java`
+## RuleId[id=WrapperTypeMayBePrimitive]
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendTable.java`
 #### Snippet
 ```java
+            }
+            long maxKey = this.maxKey();
+            Double each = maxKey / count;
 
-                if (kvList.size() > 0) {
-                    curAddStep.configure(kvList.toArray(new Object[kvList.size()]));
+            List<Shard> splits = new ArrayList<>((int) count);
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseMetrics.java`
+#### Snippet
+```java
+        long fileSizeBytes = 0L;
+        for (RegionMetrics region : regions) {
+            Double tempValue = region.getStoreFileSize().get(Size.Unit.BYTE);
+            fileSizeBytes += tempValue.longValue();
+        }
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
+#### Snippet
+```java
+                TableName tableName = TableName.valueOf(this.namespace, table);
+                for (RegionMetrics m : admin.getRegionMetrics(rs, tableName)) {
+                    Double storeFileSize = m.getStoreFileSize().get(Size.Unit.BYTE);
+                    total += storeFileSize.longValue();
+
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
+#### Snippet
+```java
+                    total += storeFileSize.longValue();
+
+                    Double memStoreFileSize = m.getMemStoreSize().get(Size.Unit.BYTE);
+                    total += memStoreFileSize.longValue();
                 }
-
 ```
 
 ## RuleId[id=StringEquality]
@@ -155,53 +204,17 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/query/ConditionQue
         } else {
 ```
 
-## RuleId[id=WrapperTypeMayBePrimitive]
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseMetrics.java`
-#### Snippet
-```java
-        long fileSizeBytes = 0L;
-        for (RegionMetrics region : regions) {
-            Double tempValue = region.getStoreFileSize().get(Size.Unit.BYTE);
-            fileSizeBytes += tempValue.longValue();
-        }
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
-#### Snippet
-```java
-                TableName tableName = TableName.valueOf(this.namespace, table);
-                for (RegionMetrics m : admin.getRegionMetrics(rs, tableName)) {
-                    Double storeFileSize = m.getStoreFileSize().get(Size.Unit.BYTE);
-                    total += storeFileSize.longValue();
-
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
-#### Snippet
-```java
-                    total += storeFileSize.longValue();
-
-                    Double memStoreFileSize = m.getMemStoreSize().get(Size.Unit.BYTE);
-                    total += memStoreFileSize.longValue();
-                }
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
+## RuleId[id=MismatchedArrayReadWrite]
+### MismatchedArrayReadWrite
+Contents of array `EMPTY` are read, but never written to
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendTable.java`
 #### Snippet
 ```java
-            }
-            long maxKey = this.maxKey();
-            Double each = maxKey / count;
+        public static final String END = "";
 
-            List<Shard> splits = new ArrayList<>((int) count);
+        private static final byte[] EMPTY = new byte[0];
+        public static final byte[] START_BYTES = new byte[]{0x0};
+        public static final byte[] END_BYTES = new byte[]{-1, -1, -1, -1,
 ```
 
 ## RuleId[id=UnnecessaryModifier]
@@ -215,19 +228,6 @@ in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloLoa
         private State(int code, String name) {
             assert code >= 0 && code < 256;
             this.code = (byte) code;
-```
-
-## RuleId[id=MismatchedArrayReadWrite]
-### MismatchedArrayReadWrite
-Contents of array `EMPTY` are read, but never written to
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendTable.java`
-#### Snippet
-```java
-        public static final String END = "";
-
-        private static final byte[] EMPTY = new byte[0];
-        public static final byte[] START_BYTES = new byte[]{0x0};
-        public static final byte[] END_BYTES = new byte[]{-1, -1, -1, -1,
 ```
 
 ## RuleId[id=ConditionalBreakInInfiniteLoop]
@@ -245,30 +245,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SubGra
 
 ## RuleId[id=PointlessArithmeticExpression]
 ### PointlessArithmeticExpression
-`1000 * 1000 * 1L` can be replaced with '1000 \* 1000'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/config/CoreOptions.java`
-#### Snippet
-```java
-                    "The max cache size(items) of edge cache.",
-                    rangeInt(0L, Long.MAX_VALUE),
-                    (1000 * 1000 * 1L)
-            );
-
-```
-
-### PointlessArithmeticExpression
-`1 * MB` can be replaced with 'MB'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/AbstractCache.java`
-#### Snippet
-```java
-
-    public static final int MB = 1024 * 1024;
-    public static final int DEFAULT_SIZE = 1 * MB;
-    public static final int MAX_INIT_CAP = 100 * MB;
-
-```
-
-### PointlessArithmeticExpression
 `TestTask.UNIT * 1` can be replaced with 'TestTask.UNIT'
 in `hugegraph-example/src/main/java/org/apache/hugegraph/example/TaskExample.java`
 #### Snippet
@@ -278,18 +254,6 @@ in `hugegraph-example/src/main/java/org/apache/hugegraph/example/TaskExample.jav
         Thread.sleep(TestTask.UNIT * 1);
         scheduler.save(task);
 
-```
-
-### PointlessArithmeticExpression
-`1L * 1024L * 1024L` can be replaced with '1024L \* 1024L'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        Set<Edge> edges = new HashSet<>();
-
-        long splitSize = 1L * 1024L * 1024L;
-        List<Shard> splits = graph.metadata(HugeType.EDGE_OUT, "splits",
-                                            splitSize);
 ```
 
 ### PointlessArithmeticExpression
@@ -328,19 +292,43 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
             graph.metadata(HugeType.VERTEX, "splits", splitSize);
 ```
 
-## RuleId[id=EmptyTryBlock]
-### EmptyTryBlock
-Empty `try` block
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/SecurityManagerTest.java`
+### PointlessArithmeticExpression
+`1L * 1024L * 1024L` can be replaced with '1024L \* 1024L'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
 #### Snippet
 ```java
-         * then throw exception because checkLink failed
-         */
-        try (ServerSocket serverSocket = new ServerSocket(8200)) {
-            // pass
-        } catch (IOException ignored) {
+        Set<Edge> edges = new HashSet<>();
+
+        long splitSize = 1L * 1024L * 1024L;
+        List<Shard> splits = graph.metadata(HugeType.EDGE_OUT, "splits",
+                                            splitSize);
 ```
 
+### PointlessArithmeticExpression
+`1000 * 1000 * 1L` can be replaced with '1000 \* 1000'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/config/CoreOptions.java`
+#### Snippet
+```java
+                    "The max cache size(items) of edge cache.",
+                    rangeInt(0L, Long.MAX_VALUE),
+                    (1000 * 1000 * 1L)
+            );
+
+```
+
+### PointlessArithmeticExpression
+`1 * MB` can be replaced with 'MB'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/AbstractCache.java`
+#### Snippet
+```java
+
+    public static final int MB = 1024 * 1024;
+    public static final int DEFAULT_SIZE = 1 * MB;
+    public static final int MAX_INIT_CAP = 100 * MB;
+
+```
+
+## RuleId[id=EmptyTryBlock]
 ### EmptyTryBlock
 Empty `try` block
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/SecurityManagerTest.java`
@@ -373,6 +361,18 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/SecurityManagerT
 
         // write file
         try (FileOutputStream fos = new FileOutputStream(new File(""))) {
+            // pass
+        } catch (IOException ignored) {
+```
+
+### EmptyTryBlock
+Empty `try` block
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/SecurityManagerTest.java`
+#### Snippet
+```java
+         * then throw exception because checkLink failed
+         */
+        try (ServerSocket serverSocket = new ServerSocket(8200)) {
             // pass
         } catch (IOException ignored) {
 ```
@@ -428,6 +428,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/util/Consumers.java`
 ```
 
 ### EmptyStatementBody
+`else` statement has empty body
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftContext.java`
+#### Snippet
+```java
+                }
+                this.notifyCache(Cache.ACTION_INVALID, type, ids);
+            } else {
+                // Ignore other types due to not cached them
+            }
+```
+
+### EmptyStatementBody
 `while` statement has empty body
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/compress/ParallelCompressStrategy.java`
 #### Snippet
@@ -440,15 +452,15 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/compres
 ```
 
 ### EmptyStatementBody
-`else` statement has empty body
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftContext.java`
+`if` statement has empty body
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/TextSerializer.java`
 #### Snippet
 ```java
-                }
-                this.notifyCache(Cache.ACTION_INVALID, type, ids);
-            } else {
-                // Ignore other types due to not cached them
-            }
+        }
+        // Parse system property
+        else if (type.equals(writeType(HugeType.SYS_PROPERTY))) {
+            // pass
+        }
 ```
 
 ### EmptyStatementBody
@@ -485,18 +497,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinaryS
                 if (type.isNumericIndex()) {
                     // TODO: add numeric index partition
                 }
-```
-
-### EmptyStatementBody
-`if` statement has empty body
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/TextSerializer.java`
-#### Snippet
-```java
-        }
-        // Parse system property
-        else if (type.equals(writeType(HugeType.SYS_PROPERTY))) {
-            // pass
-        }
 ```
 
 ## RuleId[id=UnnecessaryStringEscape]
@@ -539,15 +539,75 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/comm/Triangl
 
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (3 lines)
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
+Commented out code (2 lines)
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTable.java`
 #### Snippet
 ```java
-            for (ServerName rs : admin.getRegionServers()) {
-                // NOTE: we can use getLoad() before hbase 2.0
-                //ServerLoad load = admin.getClusterStatus().getLoad(rs);
-                //total += load.getStorefileSizeMB() * Bytes.MB;
-                //total += load.getMemStoreSizeMB() * Bytes.MB;
+             * "cassandra no viable alternative at input 'like'..."
+             */
+            // case LIKE:
+            //    return QueryBuilder.like(key, value);
+            case NEQ:
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `hugegraph-scylladb/src/main/java/org/apache/hugegraph/backend/store/scylladb/ScyllaDBMetrics.java`
+#### Snippet
+```java
+        appendCounterMetrics(metrics, probe, this.keyspace(), this.tables(),
+                             "PendingFlushes");
+        //appendCounterMetrics(metrics, probe, this.keyspace(), this.tables(),
+        //                     "KeyCacheHitRate");
+        appendCounterMetrics(metrics, probe, this.keyspace(), this.tables(),
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
+#### Snippet
+```java
+                    assertMapContains(host, "bloom_filter_false_ratio");
+
+                    //assertMapContains(host, "write_latency_hugegraph");
+                    //assertMapContains(host, "read_latency_hugegraph");
+                    //assertMapContains(host, "write_latency_*");
+```
+
+### CommentedOutCode
+Commented out code (7 lines)
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBSessionTest.java`
+#### Snippet
+```java
+
+        // TODO: enable after fixed rocksdb issue #8239
+        /*
+        session.deleteRange(TABLE, new byte[]{1, -3}, new byte[]{1, 3});
+        Assert.assertThrows(BackendException.class, () -> {
+```
+
+### CommentedOutCode
+Commented out code (7 lines)
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/Example1.java`
+#### Snippet
+```java
+              .onV("author").search().by("lived").create();
+
+        // schemaManager.getVertexLabel("author").index("byName").secondary().by("name").add();
+        // schemaManager.getVertexLabel("recipe").index("byRecipe").materialized().by("name").add();
+        // schemaManager.getVertexLabel("meal").index("byMeal").materialized().by("name").add();
+```
+
+### CommentedOutCode
+Commented out code (7 lines)
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        // FIXME: expect to throw error here
+
+        //        Assert.assertThrows(IllegalArgumentException.class, () -> {
+        //            graph.traversal().V().has("pagerank", 0.1D).toList();
+        //        }, e -> {
 ```
 
 ### CommentedOutCode
@@ -560,6 +620,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/comm/Louvain
         // shuffle
         //r = r.order().by(shuffle);
 
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+
+        // TODO: Seems Cassandra Bug if contains null value #862
+        //edges = graph.traversal().E().hasValue(3).toList();
+        //Assert.assertEquals(3, edges.size());
+    }
 ```
 
 ### CommentedOutCode
@@ -587,27 +659,15 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `hugegraph-scylladb/src/main/java/org/apache/hugegraph/backend/store/scylladb/ScyllaDBMetrics.java`
+Commented out code (3 lines)
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
 #### Snippet
 ```java
-        appendCounterMetrics(metrics, probe, this.keyspace(), this.tables(),
-                             "PendingFlushes");
-        //appendCounterMetrics(metrics, probe, this.keyspace(), this.tables(),
-        //                     "KeyCacheHitRate");
-        appendCounterMetrics(metrics, probe, this.keyspace(), this.tables(),
-```
-
-### CommentedOutCode
-Commented out code (7 lines)
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/Example1.java`
-#### Snippet
-```java
-              .onV("author").search().by("lived").create();
-
-        // schemaManager.getVertexLabel("author").index("byName").secondary().by("name").add();
-        // schemaManager.getVertexLabel("recipe").index("byRecipe").materialized().by("name").add();
-        // schemaManager.getVertexLabel("meal").index("byMeal").materialized().by("name").add();
+            for (ServerName rs : admin.getRegionServers()) {
+                // NOTE: we can use getLoad() before hbase 2.0
+                //ServerLoad load = admin.getClusterStatus().getLoad(rs);
+                //total += load.getStorefileSizeMB() * Bytes.MB;
+                //total += load.getMemStoreSizeMB() * Bytes.MB;
 ```
 
 ### CommentedOutCode
@@ -632,66 +692,6 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeFactoryAuthProxy.j
         //registerPrivateActions(HugeUser.class);
         //registerPrivateActions(RolePermission.class);
         //registerPrivateActions(HugeResource.class);
-```
-
-### CommentedOutCode
-Commented out code (4 lines)
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
-#### Snippet
-```java
-                    assertMapContains(host, "bloom_filter_false_ratio");
-
-                    //assertMapContains(host, "write_latency_hugegraph");
-                    //assertMapContains(host, "read_latency_hugegraph");
-                    //assertMapContains(host, "write_latency_*");
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-
-        // TODO: Seems Cassandra Bug if contains null value #862
-        //edges = graph.traversal().E().hasValue(3).toList();
-        //Assert.assertEquals(3, edges.size());
-    }
-```
-
-### CommentedOutCode
-Commented out code (7 lines)
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBSessionTest.java`
-#### Snippet
-```java
-
-        // TODO: enable after fixed rocksdb issue #8239
-        /*
-        session.deleteRange(TABLE, new byte[]{1, -3}, new byte[]{1, 3});
-        Assert.assertThrows(BackendException.class, () -> {
-```
-
-### CommentedOutCode
-Commented out code (7 lines)
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        // FIXME: expect to throw error here
-
-        //        Assert.assertThrows(IllegalArgumentException.class, () -> {
-        //            graph.traversal().V().has("pagerank", 0.1D).toList();
-        //        }, e -> {
-```
-
-### CommentedOutCode
-Commented out code (2 lines)
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTable.java`
-#### Snippet
-```java
-             * "cassandra no viable alternative at input 'like'..."
-             */
-            // case LIKE:
-            //    return QueryBuilder.like(key, value);
-            case NEQ:
 ```
 
 ## RuleId[id=RefusedBequest]
@@ -782,6 +782,30 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
 
 ## RuleId[id=NonFinalFieldInEnum]
 ### NonFinalFieldInEnum
+Non-final field `name` in enum 'State'
+in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloLoadInfo.java`
+#### Snippet
+```java
+
+        private byte code;
+        private String name;
+
+        private State(int code, String name) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `code` in enum 'State'
+in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloLoadInfo.java`
+#### Snippet
+```java
+        CANCELLED(5, "CANCELLED");
+
+        private byte code;
+        private String name;
+
+```
+
+### NonFinalFieldInEnum
 Non-final field `name` in enum 'HugePermission'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/HugePermission.java`
 #### Snippet
@@ -841,31 +865,55 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/type/HugeType.java`
     private static final Map<String, HugeType> ALL_NAME = new HashMap<>();
 ```
 
-### NonFinalFieldInEnum
-Non-final field `name` in enum 'State'
-in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloLoadInfo.java`
-#### Snippet
-```java
-
-        private byte code;
-        private String name;
-
-        private State(int code, String name) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `code` in enum 'State'
-in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloLoadInfo.java`
-#### Snippet
-```java
-        CANCELLED(5, "CANCELLED");
-
-        private byte code;
-        private String name;
-
-```
-
 ## RuleId[id=DuplicateExpressions]
+### DuplicateExpressions
+Multiple occurrences of `Paths.get(rootDir, sourceDir)`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/CompressUtilTest.java`
+#### Snippet
+```java
+        String output = "output";
+        try {
+            prepareFiles(Paths.get(rootDir, sourceDir).toString());
+
+            Checksum checksum = new CRC64();
+```
+
+### DuplicateExpressions
+Multiple occurrences of `Paths.get(rootDir, sourceDir).toString()`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/CompressUtilTest.java`
+#### Snippet
+```java
+        String output = "output";
+        try {
+            prepareFiles(Paths.get(rootDir, sourceDir).toString());
+
+            Checksum checksum = new CRC64();
+```
+
+### DuplicateExpressions
+Multiple occurrences of `Paths.get(rootDir, sourceDir)`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/CompressUtilTest.java`
+#### Snippet
+```java
+
+            Checksum checksum = new CRC64();
+            CompressUtil.compressZip(Paths.get(rootDir, sourceDir).toString(),
+                                     zipFile, checksum);
+
+```
+
+### DuplicateExpressions
+Multiple occurrences of `Paths.get(rootDir, sourceDir).toString()`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/CompressUtilTest.java`
+#### Snippet
+```java
+
+            Checksum checksum = new CRC64();
+            CompressUtil.compressZip(Paths.get(rootDir, sourceDir).toString(),
+                                     zipFile, checksum);
+
+```
+
 ### DuplicateExpressions
 Multiple occurrences of `Paths.get(inputDir)`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/util/CompressUtil.java`
@@ -873,7 +921,7 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/util/CompressUtil.java`
 ```java
     public static void compressZip(String inputDir, String outputFile,
                                    Checksum checksum) throws IOException {
-        String rootDir = Paths.get(inputDir).getParent().toString();
+        String rootDir = Paths.get(inputDir).toAbsolutePath().getParent().toString();
         String sourceDir = Paths.get(inputDir).getFileName().toString();
         compressZip(rootDir, sourceDir, outputFile, checksum);
 ```
@@ -884,7 +932,7 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/util/CompressUtil.java`
 #### Snippet
 ```java
                                    Checksum checksum) throws IOException {
-        String rootDir = Paths.get(inputDir).getParent().toString();
+        String rootDir = Paths.get(inputDir).toAbsolutePath().getParent().toString();
         String sourceDir = Paths.get(inputDir).getFileName().toString();
         compressZip(rootDir, sourceDir, outputFile, checksum);
     }
@@ -909,7 +957,7 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/StoreSn
 ```java
                 LOG.info("Prepare to compress dir '{}' to '{}'", snapshotDir, outputFile);
                 long begin = System.currentTimeMillis();
-                String rootDir = Paths.get(snapshotDir).getParent().toString();
+                String rootDir = Paths.get(snapshotDir).toAbsolutePath().getParent().toString();
                 String sourceDir = Paths.get(snapshotDir).getFileName().toString();
                 CompressStrategyManager.getDefault()
 ```
@@ -920,108 +968,35 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/StoreSn
 #### Snippet
 ```java
                 long begin = System.currentTimeMillis();
-                String rootDir = Paths.get(snapshotDir).getParent().toString();
+                String rootDir = Paths.get(snapshotDir).toAbsolutePath().getParent().toString();
                 String sourceDir = Paths.get(snapshotDir).getFileName().toString();
                 CompressStrategyManager.getDefault()
                                        .compressZip(rootDir, sourceDir, outputFile, checksum);
 ```
 
-### DuplicateExpressions
-Multiple occurrences of `Paths.get(rootDir, sourceDir)`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/CompressUtilTest.java`
-#### Snippet
-```java
-        String output = "output";
-        try {
-            prepareFiles(Paths.get(rootDir, sourceDir).toString());
-
-            Checksum checksum = new CRC64();
-```
-
-### DuplicateExpressions
-Multiple occurrences of `Paths.get(rootDir, sourceDir).toString()`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/CompressUtilTest.java`
-#### Snippet
-```java
-        String output = "output";
-        try {
-            prepareFiles(Paths.get(rootDir, sourceDir).toString());
-
-            Checksum checksum = new CRC64();
-```
-
-### DuplicateExpressions
-Multiple occurrences of `Paths.get(rootDir, sourceDir)`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/CompressUtilTest.java`
-#### Snippet
-```java
-
-            Checksum checksum = new CRC64();
-            CompressUtil.compressZip(Paths.get(rootDir, sourceDir).toString(),
-                                     zipFile, checksum);
-
-```
-
-### DuplicateExpressions
-Multiple occurrences of `Paths.get(rootDir, sourceDir).toString()`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/CompressUtilTest.java`
-#### Snippet
-```java
-
-            Checksum checksum = new CRC64();
-            CompressUtil.compressZip(Paths.get(rootDir, sourceDir).toString(),
-                                     zipFile, checksum);
-
-```
-
-## RuleId[id=Deprecation]
-### Deprecation
-'write(java.io.File, java.lang.CharSequence, boolean)' is deprecated
-in `hugegraph-dist/src/main/java/org/apache/hugegraph/cmd/ConfDumper.java`
-#### Snippet
-```java
-        sb.append(EOL);
-        // Write to output file
-        FileUtils.write(output, sb.toString(), true);
-    }
-}
-```
-
-### Deprecation
-'readFileToString(java.io.File)' is deprecated
-in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloFile.java`
-#### Snippet
-```java
-    public String readAsString() {
-        try {
-            return FileUtils.readFileToString(this);
-        } catch (IOException e) {
-            throw new BackendException(e);
-```
-
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/rank/PageRankAlgorithm.java`
+`StringBuilder buf` can be replaced with 'String'
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlUtil.java`
 #### Snippet
 ```java
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("left:").append(this.left)
-              .append(", right: ").append(this.right);
+                return value;
+            }
+            StringBuilder buf = new StringBuilder(length + 2);
+            buf.append('\'').append(value).append('\'');
+            return buf.toString();
 ```
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/SchemaDefine.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/ResourceObject.java`
 #### Snippet
 ```java
-        public String idString() {
-            String label = Hidden.unHide(this.label());
-            StringBuilder sb = new StringBuilder(label.length() +
-                                                 this.source().length() +
-                                                 this.target().length() + 4);
+                       operatedStr.length() + 36;
+
+        StringBuilder sb = new StringBuilder(capacity);
+        return sb.append("Resource{graph=").append(this.graph)
+                 .append(",type=").append(typeStr)
 ```
 
 ### StringBufferReplaceableByString
@@ -1038,14 +1013,26 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/SchemaDefine.java`
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/ResourceObject.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/SchemaDefine.java`
 #### Snippet
 ```java
-                       operatedStr.length() + 36;
+        public String idString() {
+            String label = Hidden.unHide(this.label());
+            StringBuilder sb = new StringBuilder(label.length() +
+                                                 this.source().length() +
+                                                 this.target().length() + 4);
+```
 
-        StringBuilder sb = new StringBuilder(capacity);
-        return sb.append("Resource{graph=").append(this.graph)
-                 .append(",type=").append(typeStr)
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/rank/PageRankAlgorithm.java`
+#### Snippet
+```java
+        @Override
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("left:").append(this.left)
+              .append(", right: ").append(this.right);
 ```
 
 ### StringBufferReplaceableByString
@@ -1066,8 +1053,8 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendStore
 #### Snippet
 ```java
 
-    default String olapTableName(HugeType type) {
-        StringBuilder builder = new StringBuilder(7);
+    default String olapTableName(Id id) {
+        StringBuilder builder = new StringBuilder(5 + 4);
         builder.append(this.store())
                .append("_")
 ```
@@ -1078,8 +1065,8 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendStore
 #### Snippet
 ```java
 
-    default String olapTableName(Id id) {
-        StringBuilder builder = new StringBuilder(5 + 4);
+    default String olapTableName(HugeType type) {
+        StringBuilder builder = new StringBuilder(7);
         builder.append(this.store())
                .append("_")
 ```
@@ -1109,18 +1096,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/query/Condition.ja
 ```
 
 ### StringBufferReplaceableByString
-`StringBuilder buf` can be replaced with 'String'
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlUtil.java`
-#### Snippet
-```java
-                return value;
-            }
-            StringBuilder buf = new StringBuilder(length + 2);
-            buf.append('\'').append(value).append('\'');
-            return buf.toString();
-```
-
-### StringBufferReplaceableByString
 `StringBuilder builder` can be replaced with 'String'
 in `hugegraph-api/src/main/java/org/apache/hugegraph/api/cypher/CypherClient.java`
 #### Snippet
@@ -1130,6 +1105,31 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/cypher/CypherClient.jav
         final StringBuilder builder = new StringBuilder("CypherClient{");
         builder.append("userName='").append(userName).append('\'')
                .append(", token='").append(token).append('\'').append('}');
+```
+
+## RuleId[id=Deprecation]
+### Deprecation
+'write(java.io.File, java.lang.CharSequence, boolean)' is deprecated
+in `hugegraph-dist/src/main/java/org/apache/hugegraph/cmd/ConfDumper.java`
+#### Snippet
+```java
+        sb.append(EOL);
+        // Write to output file
+        FileUtils.write(output, sb.toString(), true);
+    }
+}
+```
+
+### Deprecation
+'readFileToString(java.io.File)' is deprecated
+in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloFile.java`
+#### Snippet
+```java
+    public String readAsString() {
+        try {
+            return FileUtils.readFileToString(this);
+        } catch (IOException e) {
+            throw new BackendException(e);
 ```
 
 ## RuleId[id=UnnecessaryReturn]
@@ -1146,6 +1146,78 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendEntry
 ```
 
 ## RuleId[id=FinalStaticMethod]
+### FinalStaticMethod
+'static' method declared `final`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
+#### Snippet
+```java
+    }
+
+    protected static final CassandraBackendEntry castBackendEntry(BackendEntry entry) {
+        assert entry instanceof CassandraBackendEntry : entry.getClass();
+        if (!(entry instanceof CassandraBackendEntry)) {
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTable.java`
+#### Snippet
+```java
+    }
+
+    public static final String formatKey(HugeKeys key) {
+        return key.name();
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTable.java`
+#### Snippet
+```java
+    }
+
+    public static final HugeKeys parseKey(String name) {
+        return HugeKeys.valueOf(name.toUpperCase());
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTable.java`
+#### Snippet
+```java
+    }
+
+    public static final Clause formatEQ(HugeKeys key, Object value) {
+        return QueryBuilder.eq(formatKey(key), value);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/BaseUnitTest.java`
+#### Snippet
+```java
+    }
+
+    protected static final void waitTillNext(long seconds) {
+        TimeUtil.tillNextMillis(TimeUtil.timeGen() + seconds * 1000);
+    }
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/BaseUnitTest.java`
+#### Snippet
+```java
+    }
+
+    protected static final void runWithThreads(int threads, Runnable task) {
+        ExecutorService executor = Executors.newFixedThreadPool(threads);
+        List<Future<?>> futures = new ArrayList<>();
+```
+
 ### FinalStaticMethod
 'static' method declared `final`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/BackendException.java`
@@ -1220,13 +1292,13 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeVertex.java`
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeEdge.java`
 #### Snippet
 ```java
     }
 
-    public static final Id getIdValue(HugeType type, Object idValue) {
-        assert type.isGraph();
+    public static final EdgeId getIdValue(Object idValue,
+                                          boolean returnNullIfError) {
         Id id = getIdValue(idValue);
 ```
 
@@ -1235,11 +1307,11 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java
 in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java`
 #### Snippet
 ```java
+    }
 
-    @Watched(prefix = "element")
-    public static final Object getLabelValue(Object... keyValues) {
-        Object labelValue = null;
-        for (int i = 0; i < keyValues.length; i = i + 2) {
+    public static final Id getIdValue(HugeType type, Object idValue) {
+        assert type.isGraph();
+        Id id = getIdValue(idValue);
 ```
 
 ### FinalStaticMethod
@@ -1256,86 +1328,14 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeEdge.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java`
 #### Snippet
 ```java
-    }
 
-    public static final EdgeId getIdValue(Object idValue,
-                                          boolean returnNullIfError) {
-        Id id = getIdValue(idValue);
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/BaseUnitTest.java`
-#### Snippet
-```java
-    }
-
-    protected static final void waitTillNext(long seconds) {
-        TimeUtil.tillNextMillis(TimeUtil.timeGen() + seconds * 1000);
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/BaseUnitTest.java`
-#### Snippet
-```java
-    }
-
-    protected static final void runWithThreads(int threads, Runnable task) {
-        ExecutorService executor = Executors.newFixedThreadPool(threads);
-        List<Future<?>> futures = new ArrayList<>();
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
-#### Snippet
-```java
-    }
-
-    protected static final CassandraBackendEntry castBackendEntry(BackendEntry entry) {
-        assert entry instanceof CassandraBackendEntry : entry.getClass();
-        if (!(entry instanceof CassandraBackendEntry)) {
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTable.java`
-#### Snippet
-```java
-    }
-
-    public static final HugeKeys parseKey(String name) {
-        return HugeKeys.valueOf(name.toUpperCase());
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTable.java`
-#### Snippet
-```java
-    }
-
-    public static final String formatKey(HugeKeys key) {
-        return key.name();
-    }
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTable.java`
-#### Snippet
-```java
-    }
-
-    public static final Clause formatEQ(HugeKeys key, Object value) {
-        return QueryBuilder.eq(formatKey(key), value);
-    }
+    @Watched(prefix = "element")
+    public static final Object getLabelValue(Object... keyValues) {
+        Object labelValue = null;
+        for (int i = 0; i < keyValues.length; i = i + 2) {
 ```
 
 ## RuleId[id=RedundantTypeArguments]
@@ -1396,8 +1396,8 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/IdGenerator.jav
 
         @Override
         public int compareTo(Id other) {
-            E.checkNotNull(other, "compare id");
             int cmp = compareType(this, other);
+            if (cmp != 0) {
 ```
 
 ### NullableProblems
@@ -1408,8 +1408,8 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/IdGenerator.jav
 
         @Override
         public int compareTo(Id other) {
+            E.checkNotNull(other, "compare id");
             int cmp = compareType(this, other);
-            if (cmp != 0) {
 ```
 
 ### NullableProblems
@@ -1455,8 +1455,32 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/HugeTr
 ```java
 
         @Override
+        public boolean retainAll(Collection<?> c) {
+            return this.paths.retainAll(c);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/HugeTraverser.java`
+#### Snippet
+```java
+
+        @Override
         public boolean containsAll(Collection<?> c) {
             return this.paths.containsAll(c);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/HugeTraverser.java`
+#### Snippet
+```java
+
+        @Override
+        public <T> T[] toArray(T[] a) {
+            return this.paths.toArray(a);
         }
 ```
 
@@ -1479,32 +1503,8 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/HugeTr
 ```java
 
         @Override
-        public boolean retainAll(Collection<?> c) {
-            return this.paths.retainAll(c);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/HugeTraverser.java`
-#### Snippet
-```java
-
-        @Override
         public boolean removeAll(Collection<?> c) {
             return this.paths.removeAll(c);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/HugeTraverser.java`
-#### Snippet
-```java
-
-        @Override
-        public <T> T[] toArray(T[] a) {
-            return this.paths.toArray(a);
         }
 ```
 
@@ -1518,6 +1518,19 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeGraphAuthProxy.jav
         public void execute(Runnable command) {
             super.execute(new ContextTask(command));
         }
+```
+
+## RuleId[id=NegativeIntConstantInLongContext]
+### NegativeIntConstantInLongContext
+Negative int hexadecimal constant in long context
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/ram/RamTable.java`
+#### Snippet
+```java
+        assert (label & 0x0fffffff) == label;
+        assert target < 2L * Integer.MAX_VALUE : target;
+        long value = target & 0xffffffff;
+        long dir = direction == Directions.OUT ?
+                   0x00000000L : 0x80000000L;
 ```
 
 ## RuleId[id=EqualsBetweenInconvertibleTypes]
@@ -1560,14 +1573,50 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `hugegraph-core/src/main/java/org/apache/hugegraph/analyzer/JcsegAnalyzer.java`
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdbsst/RocksDBSstSessions.java`
 #### Snippet
 ```java
+         * Merge a record to an existing key to a table
+         * For more details about merge-operator:
+         *  https://github.com/facebook/rocksdb/wiki/merge-operator
+         */
+        @Override
+```
 
-/**
- * Reference from https://github.com/lionsoul2014/jcseg
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStdSessions.java`
+#### Snippet
+```java
+         * Merge a record to an existing key to a table
+         * For more details about merge-operator:
+         *  https://github.com/facebook/rocksdb/wiki/merge-operator
+         */
+        @Override
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/StructureBasicSuite.java`
+#### Snippet
+```java
+ * Standard structure test suite for tinkerpop graph
+ *
+ * @author Stephen Mallette (http://stephen.genoprime.com)
  */
-public class JcsegAnalyzer implements Analyzer {
+public class StructureBasicSuite extends AbstractGremlinSuite {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/ProcessBasicSuite.java`
+#### Snippet
+```java
+ * Standard process test suite for tinkerpop graph
+ *
+ * @author Stephen Mallette (http://stephen.genoprime.com)
+ */
+public class ProcessBasicSuite extends AbstractGremlinSuite {
 ```
 
 ### JavadocLinkAsPlainText
@@ -1596,6 +1645,18 @@ public class SmartCNAnalyzer implements Analyzer {
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
+in `hugegraph-core/src/main/java/org/apache/hugegraph/analyzer/JcsegAnalyzer.java`
+#### Snippet
+```java
+
+/**
+ * Reference from https://github.com/lionsoul2014/jcseg
+ */
+public class JcsegAnalyzer implements Analyzer {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `hugegraph-core/src/main/java/org/apache/hugegraph/analyzer/HanLPAnalyzer.java`
 #### Snippet
 ```java
@@ -1604,6 +1665,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/analyzer/HanLPAnalyzer.jav
  * Reference from https://github.com/hankcs/HanLP/wiki
  */
 public class HanLPAnalyzer implements Analyzer {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `hugegraph-core/src/main/java/org/apache/hugegraph/analyzer/AnsjAnalyzer.java`
+#### Snippet
+```java
+
+/**
+ * Reference from https://github.com/NLPchina/ansj_seg/wiki
+ */
+public class AnsjAnalyzer implements Analyzer {
 ```
 
 ### JavadocLinkAsPlainText
@@ -1632,18 +1705,6 @@ public class MMSeg4JAnalyzer implements Analyzer {
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `hugegraph-core/src/main/java/org/apache/hugegraph/analyzer/AnsjAnalyzer.java`
-#### Snippet
-```java
-
-/**
- * Reference from https://github.com/NLPchina/ansj_seg/wiki
- */
-public class AnsjAnalyzer implements Analyzer {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeScriptTraversal.java`
 #### Snippet
 ```java
@@ -1652,42 +1713,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeScr
  * @author Marko A. Rodriguez (http://markorodriguez.com)
  */
 public final class HugeScriptTraversal<S, E> extends DefaultTraversal<S, E> {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStdSessions.java`
-#### Snippet
-```java
-         * Merge a record to an existing key to a table
-         * For more details about merge-operator:
-         *  https://github.com/facebook/rocksdb/wiki/merge-operator
-         */
-        @Override
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdbsst/RocksDBSstSessions.java`
-#### Snippet
-```java
-         * Merge a record to an existing key to a table
-         * For more details about merge-operator:
-         *  https://github.com/facebook/rocksdb/wiki/merge-operator
-         */
-        @Override
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/traversers/ResourceAllocationAPI.java`
-#### Snippet
-```java
- * ResourceAllocation is one of the prediction algorithms in graph, you can get
- * more info and definition in:
- * https://arxiv.org/pdf/0901.0553.pdf
- */
-@Path("graphs/{graph}/traversers/resourceallocation")
 ```
 
 ### JavadocLinkAsPlainText
@@ -1704,42 +1729,29 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/traversers/AdamicAdarAP
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/StructureBasicSuite.java`
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/traversers/ResourceAllocationAPI.java`
 #### Snippet
 ```java
- * Standard structure test suite for tinkerpop graph
- *
- * @author Stephen Mallette (http://stephen.genoprime.com)
+ * ResourceAllocation is one of the prediction algorithms in graph, you can get
+ * more info and definition in:
+ * https://arxiv.org/pdf/0901.0553.pdf
  */
-public class StructureBasicSuite extends AbstractGremlinSuite {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/ProcessBasicSuite.java`
-#### Snippet
-```java
- * Standard process test suite for tinkerpop graph
- *
- * @author Stephen Mallette (http://stephen.genoprime.com)
- */
-public class ProcessBasicSuite extends AbstractGremlinSuite {
-```
-
-## RuleId[id=NegativeIntConstantInLongContext]
-### NegativeIntConstantInLongContext
-Negative int hexadecimal constant in long context
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/ram/RamTable.java`
-#### Snippet
-```java
-        assert (label & 0x0fffffff) == label;
-        assert target < 2L * Integer.MAX_VALUE : target;
-        long value = target & 0xffffffff;
-        long dir = direction == Directions.OUT ?
-                   0x00000000L : 0x80000000L;
+@Path("graphs/{graph}/traversers/resourceallocation")
 ```
 
 ## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/SchemaApiTest.java`
+#### Snippet
+```java
+public class SchemaApiTest extends BaseApiTest {
+
+    private static String path = "/graphs/hugegraph/schema";
+
+    @Test
+```
+
 ### FieldCanBeLocal
 Field can be converted to a local variable
 in `hugegraph-core/src/main/java/org/apache/hugegraph/io/HugeGraphSONModule.java`
@@ -1750,18 +1762,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/io/HugeGraphSONModule.java
     private static boolean OPTIMIZE_SERIALIZE = true;
 
     @SuppressWarnings("rawtypes")
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseStore.java`
-#### Snippet
-```java
-
-    public static class HbaseGraphStore extends HbaseStore {
-        private boolean enablePartition;
-        public HbaseGraphStore(HugeConfig config, BackendStoreProvider provider,
-                               String namespace, String store) {
 ```
 
 ### FieldCanBeLocal
@@ -1778,26 +1778,14 @@ public class FixedTimerWindowRateLimiter implements RateLimiter {
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/ProfileAPI.java`
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseStore.java`
 #### Snippet
 ```java
 
-            @JsonProperty("name")
-            private final String name;
-            @JsonProperty("type")
-            private final String type;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/ProfileAPI.java`
-#### Snippet
-```java
-            private final String type;
-            @JsonProperty("default_value")
-            private final String defaultValue;
-
-            public ParamInfo(String name, String type) {
+    public static class HbaseGraphStore extends HbaseStore {
+        private boolean enablePartition;
+        public HbaseGraphStore(HugeConfig config, BackendStoreProvider provider,
+                               String namespace, String store) {
 ```
 
 ### FieldCanBeLocal
@@ -1810,18 +1798,6 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/ProfileAPI.java
             private final String type;
             @JsonProperty("default_value")
             private final String defaultValue;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/ProfileAPI.java`
-#### Snippet
-```java
-
-        @JsonProperty("url")
-        private final String url;
-        @JsonProperty("method")
-        private final String method;
 ```
 
 ### FieldCanBeLocal
@@ -1841,6 +1817,42 @@ Field can be converted to a local variable
 in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/ProfileAPI.java`
 #### Snippet
 ```java
+
+        @JsonProperty("url")
+        private final String url;
+        @JsonProperty("method")
+        private final String method;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/ProfileAPI.java`
+#### Snippet
+```java
+            private final String type;
+            @JsonProperty("default_value")
+            private final String defaultValue;
+
+            public ParamInfo(String name, String type) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/ProfileAPI.java`
+#### Snippet
+```java
+
+            @JsonProperty("name")
+            private final String name;
+            @JsonProperty("type")
+            private final String type;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/ProfileAPI.java`
+#### Snippet
+```java
         private final String url;
         @JsonProperty("method")
         private final String method;
@@ -1848,31 +1860,7 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/ProfileAPI.java
         private final List<ParamInfo> parameters;
 ```
 
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/SchemaApiTest.java`
-#### Snippet
-```java
-public class SchemaApiTest extends BaseApiTest {
-
-    private static String path = "/graphs/hugegraph/schema";
-
-    @Test
-```
-
 ## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `Iterator.hasNext()` is ignored
-in `hugegraph-api/src/main/java/org/apache/hugegraph/serializer/JsonSerializer.java`
-#### Snippet
-```java
-                                 boolean paging) {
-        // Early throw if needed
-        iter.hasNext();
-
-        // Serialize Iterator
-```
-
 ### IgnoreResultOfCall
 Result of `Comparable.compareTo()` is ignored
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/id/IdTest.java`
@@ -1883,18 +1871,6 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/id/IdTest.java`
             id.compareTo(id);
         });
         Assert.assertThrows(UnsupportedOperationException.class, () -> {
-```
-
-### IgnoreResultOfCall
-Result of `System.getProperties()` is ignored
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/SecurityManagerTest.java`
-#### Snippet
-```java
-    @Test
-    public void testProperties() {
-        System.getProperties();
-        String result = runGremlinJob("System.getProperties()");
-        assertError(result,
 ```
 
 ### IgnoreResultOfCall
@@ -1919,6 +1895,54 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/SecurityManagerT
         new File("").getAbsolutePath();
         result = runGremlinJob("new File(\"\").getAbsolutePath()");
         assertError(result, "Not allowed to access " +
+```
+
+### IgnoreResultOfCall
+Result of `System.getProperties()` is ignored
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/SecurityManagerTest.java`
+#### Snippet
+```java
+    @Test
+    public void testProperties() {
+        System.getProperties();
+        String result = runGremlinJob("System.getProperties()");
+        assertError(result,
+```
+
+### IgnoreResultOfCall
+Result of `Iterator.hasNext()` is ignored
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+            query.eq(HugeKeys.LABEL, author);
+            query.query((Id) vertex.id());
+            graph.vertices(query).hasNext();
+        }, e -> {
+            Assert.assertContains("Not supported querying by id and conditions",
+```
+
+### IgnoreResultOfCall
+Result of `Iterator.hasNext()` is ignored
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+            query.eq(HugeKeys.LABEL, author);
+            query.eq(HugeKeys.NAME, "n1");
+            graph.vertices(query).hasNext();
+        }, e -> {
+            Assert.assertContains("Not supported querying vertices by",
+```
+
+### IgnoreResultOfCall
+Result of `Iterator.hasNext()` is ignored
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+            query.eq(HugeKeys.NAME, "n2");
+            query.query(Condition.eq(IdGenerator.of("fake"), "n3"));
+            graph.vertices(query).hasNext();
+        }, e -> {
+            Assert.assertContains("Can't do index query with [",
 ```
 
 ### IgnoreResultOfCall
@@ -1959,38 +1983,14 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
 
 ### IgnoreResultOfCall
 Result of `Iterator.hasNext()` is ignored
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+in `hugegraph-api/src/main/java/org/apache/hugegraph/serializer/JsonSerializer.java`
 #### Snippet
 ```java
-            query.eq(HugeKeys.LABEL, author);
-            query.query((Id) vertex.id());
-            graph.vertices(query).hasNext();
-        }, e -> {
-            Assert.assertContains("Not supported querying by id and conditions",
-```
+                                 boolean paging) {
+        // Early throw if needed
+        iter.hasNext();
 
-### IgnoreResultOfCall
-Result of `Iterator.hasNext()` is ignored
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-            query.eq(HugeKeys.LABEL, author);
-            query.eq(HugeKeys.NAME, "n1");
-            graph.vertices(query).hasNext();
-        }, e -> {
-            Assert.assertContains("Not supported querying vertices by",
-```
-
-### IgnoreResultOfCall
-Result of `Iterator.hasNext()` is ignored
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-            query.eq(HugeKeys.NAME, "n2");
-            query.query(Condition.eq(IdGenerator.of("fake"), "n3"));
-            graph.vertices(query).hasNext();
-        }, e -> {
-            Assert.assertContains("Can't do index query with [",
+        // Serialize Iterator
 ```
 
 ## RuleId[id=AccessStaticViaInstance]
@@ -2024,10 +2024,10 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/core/RamTableTest.java`
 #### Snippet
 ```java
     @Test
-    public void testReloadFromFileAndQuery() throws Exception {
+    public void testReloadAndQueryWithProperty() throws Exception {
         HugeGraph graph = this.graph();
+        SchemaManager schema = graph.schema();
 
-        // insert vertices and edges
 ```
 
 ### AccessStaticViaInstance
@@ -2036,7 +2036,7 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/core/RamTableTest.java`
 #### Snippet
 ```java
     @Test
-    public void testReloadAndQueryWithMultiEdges() throws Exception {
+    public void testReloadFromFileAndQuery() throws Exception {
         HugeGraph graph = this.graph();
 
         // insert vertices and edges
@@ -2052,6 +2052,18 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/core/RamTableTest.java`
         return this.graph().edges(query);
     }
 }
+```
+
+### AccessStaticViaInstance
+Static member 'org.apache.hugegraph.core.RamTableTest.graph()' accessed via instance reference
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/RamTableTest.java`
+#### Snippet
+```java
+    @Test
+    public void testReloadAndQueryWithMultiEdges() throws Exception {
+        HugeGraph graph = this.graph();
+
+        // insert vertices and edges
 ```
 
 ### AccessStaticViaInstance
@@ -2084,10 +2096,10 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/core/RamTableTest.java`
 #### Snippet
 ```java
     @Test
-    public void testReloadAndQueryWithProperty() throws Exception {
+    public void testReloadAndQuery() throws Exception {
         HugeGraph graph = this.graph();
-        SchemaManager schema = graph.schema();
 
+        // insert vertices and edges
 ```
 
 ### AccessStaticViaInstance
@@ -2102,16 +2114,17 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/core/RamTableTest.java`
         Assume.assumeTrue("Ramtable is not supported by backend",
 ```
 
-### AccessStaticViaInstance
-Static member 'org.apache.hugegraph.core.RamTableTest.graph()' accessed via instance reference
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/RamTableTest.java`
+## RuleId[id=MalformedFormatString]
+### MalformedFormatString
+Too many arguments for format string (found: 2, expected: 0)
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
 #### Snippet
 ```java
-    @Test
-    public void testReloadAndQuery() throws Exception {
-        HugeGraph graph = this.graph();
-
-        // insert vertices and edges
+        @SuppressWarnings("unused")
+        private void dump(String table, Scan scan) throws IOException {
+            LOG.info(String.format(">>>> scan table {} with {}", table, scan));
+            RowIterator iterator = this.scan(table, scan);
+            while (iterator.hasNext()) {
 ```
 
 ## RuleId[id=RedundantMethodOverride]
@@ -2139,20 +2152,43 @@ in `hugegraph-postgresql/src/main/java/org/apache/hugegraph/backend/store/postgr
     }
 ```
 
-## RuleId[id=MalformedFormatString]
-### MalformedFormatString
-Too many arguments for format string (found: 2, expected: 0)
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
+## RuleId[id=IntegerMultiplicationImplicitCastToLong]
+### IntegerMultiplicationImplicitCastToLong
+threadCount \* times \* multiple: integer multiplication implicitly cast to long
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExampleBase.java`
 #### Snippet
 ```java
-        @SuppressWarnings("unused")
-        private void dump(String table, Scan scan) throws IOException {
-            LOG.info(String.format(">>>> scan table {} with {}", table, scan));
-            RowIterator iterator = this.scan(table, scan);
-            while (iterator.hasNext()) {
+                               throws Exception {
+        // Total vertices/edges
+        long n = threadCount * times * multiple;
+        long vertices = (PERSON_NUM + SOFTWARE_NUM) * n;
+        long edges = EDGE_NUM * n;
 ```
 
-## RuleId[id=IntegerMultiplicationImplicitCastToLong]
+### IntegerMultiplicationImplicitCastToLong
+(PERSON_NUM + SOFTWARE_NUM) \* threadCount \* times: integer multiplication implicitly cast to long
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExampleBase.java`
+#### Snippet
+```java
+        }, threadCount);
+
+        final long size = (PERSON_NUM + SOFTWARE_NUM) * threadCount * times;
+        LOG.info("Query rate with threads: {} vedges/s, " +
+                 "query total vedges {}, cost time: {}ms",
+```
+
+### IntegerMultiplicationImplicitCastToLong
+(PERSON_NUM + SOFTWARE_NUM) \* threadCount \* times: integer multiplication implicitly cast to long
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExampleBase.java`
+#### Snippet
+```java
+        }, threadCount);
+
+        final long size = (PERSON_NUM + SOFTWARE_NUM) * threadCount * times;
+        LOG.info("Query rate with threads: {} vertices/s, " +
+                 "query total vertices {}, cost time: {}ms",
+```
+
 ### IntegerMultiplicationImplicitCastToLong
 index \<\< SHIFT: integer shift implicitly cast to long
 in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.java`
@@ -2189,43 +2225,19 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BytesBu
             case 3:
 ```
 
-### IntegerMultiplicationImplicitCastToLong
-(PERSON_NUM + SOFTWARE_NUM) \* threadCount \* times: integer multiplication implicitly cast to long
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExampleBase.java`
-#### Snippet
-```java
-        }, threadCount);
-
-        final long size = (PERSON_NUM + SOFTWARE_NUM) * threadCount * times;
-        LOG.info("Query rate with threads: {} vertices/s, " +
-                 "query total vertices {}, cost time: {}ms",
-```
-
-### IntegerMultiplicationImplicitCastToLong
-threadCount \* times \* multiple: integer multiplication implicitly cast to long
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExampleBase.java`
-#### Snippet
-```java
-                               throws Exception {
-        // Total vertices/edges
-        long n = threadCount * times * multiple;
-        long vertices = (PERSON_NUM + SOFTWARE_NUM) * n;
-        long edges = EDGE_NUM * n;
-```
-
-### IntegerMultiplicationImplicitCastToLong
-(PERSON_NUM + SOFTWARE_NUM) \* threadCount \* times: integer multiplication implicitly cast to long
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExampleBase.java`
-#### Snippet
-```java
-        }, threadCount);
-
-        final long size = (PERSON_NUM + SOFTWARE_NUM) * threadCount * times;
-        LOG.info("Query rate with threads: {} vedges/s, " +
-                 "query total vedges {}, cost time: {}ms",
-```
-
 ## RuleId[id=ThrowFromFinallyBlock]
+### ThrowFromFinallyBlock
+`throw` inside 'finally' block
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/ResultSetWrapper.java`
+#### Snippet
+```java
+                }
+            } catch (SQLException e) {
+                throw new BackendException("Failed to close Statement", e);
+            }
+        }
+```
+
 ### ThrowFromFinallyBlock
 `throw` inside 'finally' block
 in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/AbstractAlgorithm.java`
@@ -2264,18 +2276,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/OltpTr
 
 ### ThrowFromFinallyBlock
 `throw` inside 'finally' block
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/ResultSetWrapper.java`
-#### Snippet
-```java
-                }
-            } catch (SQLException e) {
-                throw new BackendException("Failed to close Statement", e);
-            }
-        }
-```
-
-### ThrowFromFinallyBlock
-`throw` inside 'finally' block
 in `hugegraph-api/src/main/java/org/apache/hugegraph/serializer/JsonSerializer.java`
 #### Snippet
 ```java
@@ -2287,6 +2287,18 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/serializer/JsonSerializer.j
 ```
 
 ## RuleId[id=SlowListContainsAll]
+### SlowListContainsAll
+Call to 'list.containsAll(collection)' may have poor performance
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelBuilder.java`
+#### Snippet
+```java
+             * (except for unique index)
+             */
+            if (this.indexType.isUnique() && oldFields.containsAll(newFields) ||
+                !this.indexType.isUnique() &&
+                CollectionUtil.prefixOf(oldFields, newFields)) {
+```
+
 ### SlowListContainsAll
 Call to 'list.containsAll(collection)' may have poor performance
 in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelBuilder.java`
@@ -2313,14 +2325,14 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelB
 
 ### SlowListContainsAll
 Call to 'list.containsAll(collection)' may have poor performance
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelBuilder.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
 #### Snippet
 ```java
-             * (except for unique index)
-             */
-            if (this.indexType.isUnique() && oldFields.containsAll(newFields) ||
-                !this.indexType.isUnique() &&
-                CollectionUtil.prefixOf(oldFields, newFields)) {
+                // Check whether primaryKey exists
+                List<Id> primaryKeys = vertexLabel.primaryKeys();
+                E.checkArgument(keys.containsAll(primaryKeys),
+                                "The primary keys: %s of vertex label '%s' " +
+                                "must be set when using '%s' id strategy",
 ```
 
 ### SlowListContainsAll
@@ -2333,18 +2345,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTrans
         return subFields.containsAll(queryKeys);
     }
 
-```
-
-### SlowListContainsAll
-Call to 'list.containsAll(collection)' may have poor performance
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
-#### Snippet
-```java
-                // Check whether primaryKey exists
-                List<Id> primaryKeys = vertexLabel.primaryKeys();
-                E.checkArgument(keys.containsAll(primaryKeys),
-                                "The primary keys: %s of vertex label '%s' " +
-                                "must be set when using '%s' id strategy",
 ```
 
 ### SlowListContainsAll
@@ -2531,10 +2531,10 @@ import org.apache.hugegraph.schema.EdgeLabel;
 ## RuleId[id=ListRemoveInLoop]
 ### ListRemoveInLoop
 Can be replaced with 'List.subList().clear()'
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlEntryIterator.java`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraEntryIterator.java`
 #### Snippet
 ```java
-        MysqlBackendEntry e = (MysqlBackendEntry) entry;
+        CassandraBackendEntry e = (CassandraBackendEntry) entry;
         E.checkState(e.subRows().size() > skip, "Invalid entry to skip");
         for (long i = 0; i < skip; i++) {
             e.subRows().remove(0);
@@ -2543,10 +2543,10 @@ in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/Mysql
 
 ### ListRemoveInLoop
 Can be replaced with 'List.subList().clear()'
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraEntryIterator.java`
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlEntryIterator.java`
 #### Snippet
 ```java
-        CassandraBackendEntry e = (CassandraBackendEntry) entry;
+        MysqlBackendEntry e = (MysqlBackendEntry) entry;
         E.checkState(e.subRows().size() > skip, "Invalid entry to skip");
         for (long i = 0; i < skip; i++) {
             e.subRows().remove(0);
@@ -2567,18 +2567,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/SnowflakeIdGene
 ```
 
 ### PointlessBitwiseExpression
-`-1L ^ (-1L << DC_BIT)` can be replaced with '\~(-1L \<\< DC_BIT)'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/SnowflakeIdGenerator.java`
-#### Snippet
-```java
-
-        private static final long DC_BIT = 5L;
-        private static final long MAX_DC_ID = -1L ^ (-1L << DC_BIT);
-
-        private static final long SEQUENCE_BIT = 12L;
-```
-
-### PointlessBitwiseExpression
 `-1L ^ (-1L << WORKER_BIT)` can be replaced with '\~(-1L \<\< WORKER_BIT)'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/SnowflakeIdGenerator.java`
 #### Snippet
@@ -2588,6 +2576,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/SnowflakeIdGene
         private static final long MAX_WORKER_ID = -1L ^ (-1L << WORKER_BIT);
 
         private static final long DC_BIT = 5L;
+```
+
+### PointlessBitwiseExpression
+`-1L ^ (-1L << DC_BIT)` can be replaced with '\~(-1L \<\< DC_BIT)'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/SnowflakeIdGenerator.java`
+#### Snippet
+```java
+
+        private static final long DC_BIT = 5L;
+        private static final long MAX_DC_ID = -1L ^ (-1L << DC_BIT);
+
+        private static final long SEQUENCE_BIT = 12L;
 ```
 
 ### PointlessBitwiseExpression
@@ -2654,6 +2654,199 @@ in `hugegraph-postgresql/src/main/java/org/apache/hugegraph/backend/store/postgr
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
+Variable `count` initializer `0` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/BaseCoreTest.java`
+#### Snippet
+```java
+        graph.tx().rollback();
+
+        int count = 0;
+
+        // Clear edge
+```
+
+### UnusedAssignment
+Variable `sessions` initializer `null` is redundant
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStore.java`
+#### Snippet
+```java
+                                   String walPath, List<String> tableNames) {
+        LOG.info("Opening RocksDB with data path: {}", dataPath);
+        RocksDBSessions sessions = null;
+        try {
+            sessions = this.openSessionPool(config, dataPath,
+```
+
+### UnusedAssignment
+Variable `counter` initializer `0L` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBCountersTest.java`
+#### Snippet
+```java
+        final int MAX_TIMES = 1000;
+        // Do get-increase-get-compare operation
+        long counter = 0L;
+        long expect = -1L;
+        synchronized (this) {
+```
+
+### UnusedAssignment
+The value `r.nextInt(n)` assigned to `value` is never used
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBPerfTest.java`
+#### Snippet
+```java
+                session.delete(TABLE, getBytes(old));
+
+                value = r.nextInt(n); // TODO: aggregate
+                value =  i + 1;
+                comms.put(i, value);
+```
+
+### UnusedAssignment
+Variable `vertices` initializer `null` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        init5Persons();
+
+        List<Vertex> vertices = null;
+
+        String[] dates = new String[]{
+```
+
+### UnusedAssignment
+Variable `vertices` initializer `null` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        init5Persons();
+
+        List<Vertex> vertices = null;
+
+        String[] dates = new String[]{
+```
+
+### UnusedAssignment
+Variable `vertex` initializer `graph.addVertex(T.label, "author", "id", 1, "name", "Tom")` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+    public void testAddVertexPropertyExisted() {
+        HugeGraph graph = graph();
+        Vertex vertex = graph.addVertex(T.label, "author", "id", 1,
+                                        "name", "Tom");
+        this.mayCommitTx();
+
+```
+
+### UnusedAssignment
+Variable `vertex` initializer `graph.addVertex(T.label, "review", "id", 1, "contribution", ...` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+    public void testAddVertexWithPropertySet() {
+        HugeGraph graph = graph();
+        Vertex vertex = graph.addVertex(T.label, "review", "id", 1,
+                                        "contribution", "+1",
+                                        "contribution", "+2",
+                                        "contribution", "+2");
+        this.mayCommitTx();
+
+```
+
+### UnusedAssignment
+The value `graph.addVertex(T.label, "review", "id", 2,
+"contribution",
+ImmutableSet.of("+1", "+1", "+2"))` assigned to `vertex` is never used
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+                            vertex.value("contribution"));
+
+        vertex = graph.addVertex(T.label, "review", "id", 2,
+                                 "contribution",
+                                 ImmutableSet.of("+1", "+1", "+2"));
+```
+
+### UnusedAssignment
+Variable `vertex` initializer `graph.addVertex(T.label, "person", "name", "Tom", "city", "H...` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+    public void testAddVertexPropertyExistedWithIndex() {
+        HugeGraph graph = graph();
+        Vertex vertex = graph.addVertex(T.label, "person", "name", "Tom",
+                                        "city", "Hongkong", "age", 3);
+        this.mayCommitTx();
+
+```
+
+### UnusedAssignment
+Variable `vertices` initializer `null` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        GraphTraversalSource g = graph.traversal();
+        List<Vertex> vertices = null;
+
+        String[] dates = new String[]{
+```
+
+### UnusedAssignment
+Variable `vertex` initializer `graph.addVertex(T.label, "review", "id", 1, "comment", "look...` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        HugeGraph graph = graph();
+
+        Vertex vertex = graph.addVertex(T.label, "review", "id", 1,
+                                        "comment", "looks good!",
+                                        "comment", "LGTM!");
+        this.mayCommitTx();
+
+```
+
+### UnusedAssignment
+The value `graph.addVertex(T.label, "review", "id", 2,
+"comment",
+ImmutableList.of("looks good 2!", "LGTM!"))` assigned to `vertex` is never used
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        Assert.assertEquals("LGTM!", props.get(1));
+
+        vertex = graph.addVertex(T.label, "review", "id", 2,
+                                 "comment",
+                                 ImmutableList.of("looks good 2!", "LGTM!"));
+```
+
+### UnusedAssignment
+The value `graph.addVertex(T.label, "review", "id", 3,
+"comment",
+new String[]{"looks good 3!", "LGTM!"})` assigned to `vertex` is never used
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        Assert.assertEquals("LGTM!", props.get(1));
+
+        vertex = graph.addVertex(T.label, "review", "id", 3,
+                                 "comment",
+                                 new String[]{"looks good 3!", "LGTM!"});
+```
+
+### UnusedAssignment
+Variable `vertices` initializer `null` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        init5Persons();
+
+        List<Vertex> vertices = null;
+
+        Date[] dates = new Date[]{
+```
+
+### UnusedAssignment
 Variable `name` initializer `null` is redundant
 in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/Frequency.java`
 #### Snippet
@@ -2678,15 +2871,27 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/Frequency.java
 ```
 
 ### UnusedAssignment
-Variable `type` initializer `0` is redundant
-in `hugegraph-core/src/main/java/org/apache/hugegraph/type/HugeType.java`
+Variable `code` initializer `0` is redundant
+in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/IdStrategy.java`
 #### Snippet
 ```java
-    MAX_TYPE(255, "~");
+    CUSTOMIZE_UUID(5, "customize_uuid");
 
-    private byte type = 0;
-    private String name;
+    private byte code = 0;
+    private String name = null;
 
+```
+
+### UnusedAssignment
+Variable `name` initializer `null` is redundant
+in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/IdStrategy.java`
+#### Snippet
+```java
+
+    private byte code = 0;
+    private String name = null;
+
+    static {
 ```
 
 ### UnusedAssignment
@@ -2704,6 +2909,30 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/WriteType.java
 ### UnusedAssignment
 Variable `name` initializer `null` is redundant
 in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/WriteType.java`
+#### Snippet
+```java
+
+    private byte code = 0;
+    private String name = null;
+
+    static {
+```
+
+### UnusedAssignment
+Variable `code` initializer `0` is redundant
+in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/IndexType.java`
+#### Snippet
+```java
+    UNIQUE(5, "unique");
+
+    private byte code = 0;
+    private String name = null;
+
+```
+
+### UnusedAssignment
+Variable `name` initializer `null` is redundant
+in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/IndexType.java`
 #### Snippet
 ```java
 
@@ -2738,50 +2967,14 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/HugeKeys.java`
 ```
 
 ### UnusedAssignment
-Variable `name` initializer `null` is redundant
-in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/IndexType.java`
+Variable `type` initializer `0` is redundant
+in `hugegraph-core/src/main/java/org/apache/hugegraph/type/HugeType.java`
 #### Snippet
 ```java
+    MAX_TYPE(255, "~");
 
-    private byte code = 0;
-    private String name = null;
-
-    static {
-```
-
-### UnusedAssignment
-Variable `code` initializer `0` is redundant
-in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/IndexType.java`
-#### Snippet
-```java
-    UNIQUE(5, "unique");
-
-    private byte code = 0;
-    private String name = null;
-
-```
-
-### UnusedAssignment
-Variable `name` initializer `null` is redundant
-in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/IdStrategy.java`
-#### Snippet
-```java
-
-    private byte code = 0;
-    private String name = null;
-
-    static {
-```
-
-### UnusedAssignment
-Variable `code` initializer `0` is redundant
-in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/IdStrategy.java`
-#### Snippet
-```java
-    CUSTOMIZE_UUID(5, "customize_uuid");
-
-    private byte code = 0;
-    private String name = null;
+    private byte type = 0;
+    private String name;
 
 ```
 
@@ -2810,18 +3003,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/SchemaStatus.j
 ```
 
 ### UnusedAssignment
-Variable `code` initializer `0` is redundant
-in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/Directions.java`
-#### Snippet
-```java
-    IN(2, "in");
-
-    private byte code = 0;
-    private String name = null;
-
-```
-
-### UnusedAssignment
 Variable `name` initializer `null` is redundant
 in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/Directions.java`
 #### Snippet
@@ -2831,6 +3012,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/Directions.jav
     private String name = null;
 
     static {
+```
+
+### UnusedAssignment
+Variable `code` initializer `0` is redundant
+in `hugegraph-core/src/main/java/org/apache/hugegraph/type/define/Directions.java`
+#### Snippet
+```java
+    IN(2, "in");
+
+    private byte code = 0;
+    private String name = null;
+
 ```
 
 ### UnusedAssignment
@@ -2978,18 +3171,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/ram/RamTable
 ```
 
 ### UnusedAssignment
-Variable `sourceFinishOneStep` initializer `false` is redundant
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/TemplatePathsTraverser.java`
-#### Snippet
-```java
-        protected int targetIndex;
-
-        protected boolean sourceFinishOneStep = false;
-        protected boolean targetFinishOneStep = false;
-
-```
-
-### UnusedAssignment
 Variable `targetFinishOneStep` initializer `false` is redundant
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/TemplatePathsTraverser.java`
 #### Snippet
@@ -3002,6 +3183,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/Templa
 ```
 
 ### UnusedAssignment
+Variable `sourceFinishOneStep` initializer `false` is redundant
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/TemplatePathsTraverser.java`
+#### Snippet
+```java
+        protected int targetIndex;
+
+        protected boolean sourceFinishOneStep = false;
+        protected boolean targetFinishOneStep = false;
+
+```
+
+### UnusedAssignment
 Variable `maxTimes` initializer `1` is redundant
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/steps/RepeatEdgeStep.java`
 #### Snippet
@@ -3011,18 +3204,6 @@ public class RepeatEdgeStep extends EdgeStep {
     private int maxTimes = 1;
 
     public RepeatEdgeStep(HugeGraph g, Directions direction) {
-```
-
-### UnusedAssignment
-Variable `sessions` initializer `null` is redundant
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStore.java`
-#### Snippet
-```java
-                                   String walPath, List<String> tableNames) {
-        LOG.info("Opening RocksDB with data path: {}", dataPath);
-        RocksDBSessions sessions = null;
-        try {
-            sessions = this.openSessionPool(config, dataPath,
 ```
 
 ### UnusedAssignment
@@ -3061,188 +3242,283 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/WsAndHttpBasicAuthHand
                     final String encoded = header.substring(basic.length());
 ```
 
-### UnusedAssignment
-Variable `count` initializer `0` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/BaseCoreTest.java`
-#### Snippet
-```java
-        graph.tx().rollback();
-
-        int count = 0;
-
-        // Clear edge
-```
-
-### UnusedAssignment
-Variable `counter` initializer `0L` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBCountersTest.java`
-#### Snippet
-```java
-        final int MAX_TIMES = 1000;
-        // Do get-increase-get-compare operation
-        long counter = 0L;
-        long expect = -1L;
-        synchronized (this) {
-```
-
-### UnusedAssignment
-The value `r.nextInt(n)` assigned to `value` is never used
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBPerfTest.java`
-#### Snippet
-```java
-                session.delete(TABLE, getBytes(old));
-
-                value = r.nextInt(n); // TODO: aggregate
-                value =  i + 1;
-                comms.put(i, value);
-```
-
-### UnusedAssignment
-Variable `vertex` initializer `graph.addVertex(T.label, "author", "id", 1, "name", "Tom")` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-    public void testAddVertexPropertyExisted() {
-        HugeGraph graph = graph();
-        Vertex vertex = graph.addVertex(T.label, "author", "id", 1,
-                                        "name", "Tom");
-        this.mayCommitTx();
-
-```
-
-### UnusedAssignment
-Variable `vertex` initializer `graph.addVertex(T.label, "review", "id", 1, "contribution", ...` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-    public void testAddVertexWithPropertySet() {
-        HugeGraph graph = graph();
-        Vertex vertex = graph.addVertex(T.label, "review", "id", 1,
-                                        "contribution", "+1",
-                                        "contribution", "+2",
-                                        "contribution", "+2");
-        this.mayCommitTx();
-
-```
-
-### UnusedAssignment
-The value `graph.addVertex(T.label, "review", "id", 2,
-"contribution",
-ImmutableSet.of("+1", "+1", "+2"))` assigned to `vertex` is never used
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-                            vertex.value("contribution"));
-
-        vertex = graph.addVertex(T.label, "review", "id", 2,
-                                 "contribution",
-                                 ImmutableSet.of("+1", "+1", "+2"));
-```
-
-### UnusedAssignment
-Variable `vertices` initializer `null` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        init5Persons();
-
-        List<Vertex> vertices = null;
-
-        String[] dates = new String[]{
-```
-
-### UnusedAssignment
-Variable `vertices` initializer `null` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        init5Persons();
-
-        List<Vertex> vertices = null;
-
-        String[] dates = new String[]{
-```
-
-### UnusedAssignment
-Variable `vertices` initializer `null` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        init5Persons();
-
-        List<Vertex> vertices = null;
-
-        Date[] dates = new Date[]{
-```
-
-### UnusedAssignment
-Variable `vertices` initializer `null` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        GraphTraversalSource g = graph.traversal();
-        List<Vertex> vertices = null;
-
-        String[] dates = new String[]{
-```
-
-### UnusedAssignment
-Variable `vertex` initializer `graph.addVertex(T.label, "review", "id", 1, "comment", "look...` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        HugeGraph graph = graph();
-
-        Vertex vertex = graph.addVertex(T.label, "review", "id", 1,
-                                        "comment", "looks good!",
-                                        "comment", "LGTM!");
-        this.mayCommitTx();
-
-```
-
-### UnusedAssignment
-The value `graph.addVertex(T.label, "review", "id", 2,
-"comment",
-ImmutableList.of("looks good 2!", "LGTM!"))` assigned to `vertex` is never used
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        Assert.assertEquals("LGTM!", props.get(1));
-
-        vertex = graph.addVertex(T.label, "review", "id", 2,
-                                 "comment",
-                                 ImmutableList.of("looks good 2!", "LGTM!"));
-```
-
-### UnusedAssignment
-The value `graph.addVertex(T.label, "review", "id", 3,
-"comment",
-new String[]{"looks good 3!", "LGTM!"})` assigned to `vertex` is never used
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        Assert.assertEquals("LGTM!", props.get(1));
-
-        vertex = graph.addVertex(T.label, "review", "id", 3,
-                                 "comment",
-                                 new String[]{"looks good 3!", "LGTM!"});
-```
-
-### UnusedAssignment
-Variable `vertex` initializer `graph.addVertex(T.label, "person", "name", "Tom", "city", "H...` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-    public void testAddVertexPropertyExistedWithIndex() {
-        HugeGraph graph = graph();
-        Vertex vertex = graph.addVertex(T.label, "person", "name", "Tom",
-                                        "city", "Hongkong", "age", 3);
-        this.mayCommitTx();
-
-```
-
 ## RuleId[id=ConstantValue]
+### ConstantValue
+Condition `merged != null` is always `true`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraEntryIterator.java`
+#### Snippet
+```java
+            } else if (merged == this.current) {
+                // The next entry belongs to the current entry
+                assert merged != null;
+            } else {
+                // New entry
+```
+
+### ConstantValue
+Value `this.partitioner` is always 'null'
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraShard.java`
+#### Snippet
+```java
+    private boolean isPartitionerOpp() {
+        return this.partitioner instanceof OrderPreservingPartitioner ||
+               this.partitioner instanceof ByteOrderedPartitioner;
+    }
+
+```
+
+### ConstantValue
+Condition `this.sessions != null` is always `true`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
+#### Snippet
+```java
+        }
+
+        assert this.sessions != null;
+        if (!this.sessions.closed()) {
+            // TODO: maybe we should throw an exception here instead of ignore
+```
+
+### ConstantValue
+Condition `!(entry instanceof CassandraBackendEntry)` is always `false`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
+#### Snippet
+```java
+    protected static final CassandraBackendEntry castBackendEntry(BackendEntry entry) {
+        assert entry instanceof CassandraBackendEntry : entry.getClass();
+        if (!(entry instanceof CassandraBackendEntry)) {
+            throw new BackendException("Cassandra store only supports CassandraBackendEntry");
+        }
+```
+
+### ConstantValue
+Condition `retries-- > 0` is always `true`
+in `hugegraph-dist/src/main/java/org/apache/hugegraph/cmd/InitStore.java`
+#### Snippet
+```java
+            }
+            break;
+        } while (retries-- > 0);
+    }
+}
+```
+
+### ConstantValue
+Condition `END.equals(position)` is always `false` when reached
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBTable.java`
+#### Snippet
+```java
+        @Override
+        public byte[] position(String position) {
+            if (START.equals(position) || END.equals(position)) {
+                return null;
+            }
+```
+
+### ConstantValue
+Value `this.matched` is always 'false'
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStdSessions.java`
+#### Snippet
+```java
+            if (!this.matched) {
+                // Maybe closed
+                return this.matched;
+            }
+
+```
+
+### ConstantValue
+Value `gender` is always 'true'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/PropertyCoreTest.java`
+#### Snippet
+```java
+    public void testTypeBoolean() {
+        boolean gender = true;
+        Assert.assertEquals(gender, property("bool", gender));
+
+        gender = false;
+```
+
+### ConstantValue
+Value `gender` is always 'true'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/PropertyCoreTest.java`
+#### Snippet
+```java
+    public void testTypeBoolean() {
+        boolean gender = true;
+        Assert.assertEquals(gender, property("bool", gender));
+
+        gender = false;
+```
+
+### ConstantValue
+Value `gender` is always 'false'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/PropertyCoreTest.java`
+#### Snippet
+```java
+
+        gender = false;
+        Assert.assertEquals(gender, property("bool", gender));
+
+        List<Boolean> list = ImmutableList.of(true, false, true, false);
+```
+
+### ConstantValue
+Value `gender` is always 'false'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/PropertyCoreTest.java`
+#### Snippet
+```java
+
+        gender = false;
+        Assert.assertEquals(gender, property("bool", gender));
+
+        List<Boolean> list = ImmutableList.of(true, false, true, false);
+```
+
+### ConstantValue
+Result of `names.size()` is always '0'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/RowLockTest.java`
+#### Snippet
+```java
+        Set<String> names = new HashSet<>(THREADS_NUM);
+
+        Assert.assertEquals(0, names.size());
+
+        runWithThreads(THREADS_NUM, () -> {
+```
+
+### ConstantValue
+Result of `names.size()` is always '0'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/RowLockTest.java`
+#### Snippet
+```java
+        }
+
+        Assert.assertEquals(0, names.size());
+
+        runWithThreads(THREADS_NUM, () -> {
+```
+
+### ConstantValue
+Condition `merged != null` is always `true`
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlEntryIterator.java`
+#### Snippet
+```java
+                } else if (merged == this.current) {
+                    // Does the next entry belongs to the current entry
+                    assert merged != null;
+                } else {
+                    // New entry
+```
+
+### ConstantValue
+Value `loadGraphWith` is always 'null'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
+#### Snippet
+```java
+                              final String testName) {
+        if (loadGraphWith == null) {
+            super.loadGraphData(graph, loadGraphWith, testClass, testName);
+            return;
+        }
+```
+
+### ConstantValue
+Condition `this.loadedGraph == null` is always `true` when reached
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
+#### Snippet
+```java
+        }
+
+        if (needRedefineSchema && this.loadedGraph == null) {
+            this.clearSchema();
+            this.tx().commit();
+```
+
+### ConstantValue
+Condition `"person".equals(defaultVL)` is always `true`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
+#### Snippet
+```java
+            this.tx().commit();
+            if (!this.autoPerson &&
+                "person".equals(defaultVL) &&
+                idStrategy == IdStrategy.AUTOMATIC) {
+                this.autoPerson = true;
+```
+
+### ConstantValue
+Condition `idStrategy == IdStrategy.AUTOMATIC` is always `true`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
+#### Snippet
+```java
+            if (!this.autoPerson &&
+                "person".equals(defaultVL) &&
+                idStrategy == IdStrategy.AUTOMATIC) {
+                this.autoPerson = true;
+            }
+```
+
+### ConstantValue
+Condition `idStrategy == IdStrategy.CUSTOMIZE_STRING` is always `false`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
+#### Snippet
+```java
+            }
+
+            this.isLastIdCustomized = idStrategy == IdStrategy.CUSTOMIZE_STRING;
+        }
+
+```
+
+### ConstantValue
+Value `value` is always 'true'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Object value = true;
+        byte[] bytes = genBytes("01");
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+```
+
+### ConstantValue
+Value `value` is always 'true'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        byte[] bytes = genBytes("01");
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        value = false;
+```
+
+### ConstantValue
+Value `value` is always 'false'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        bytes = genBytes("00");
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+```
+
+### ConstantValue
+Value `value` is always 'false'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genPkey(DataType.BYTE);
+```
+
 ### ConstantValue
 Condition `rootCause instanceof InterruptedIOException` is always `false`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeException.java`
@@ -3268,18 +3544,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeException.java`
 ```
 
 ### ConstantValue
-Condition `END.equals(position)` is always `false` when reached
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTable.java`
-#### Snippet
-```java
-        @Override
-        public byte[] position(String position) {
-            if (START.equals(position) || END.equals(position)) {
-                return null;
-            }
-```
-
-### ConstantValue
 Value `config` is always 'null'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeFactory.java`
 #### Snippet
@@ -3292,15 +3556,39 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeFactory.java`
 ```
 
 ### ConstantValue
-Condition `this.sessions != null` is always `true`
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseStore.java`
+Result of `iter.hasNext()` is always 'true'
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/Example1.java`
 #### Snippet
 ```java
-        }
+            Iterator<Vertex> iter = graph.vertices(q);
+            assert iter.hasNext();
+            LOG.info(">>>> queryVertices(age): {}", iter.hasNext());
+            while (iter.hasNext()) {
+                LOG.info(">>>> queryVertices(age): {}", iter.next());
+```
 
-        assert this.sessions != null;
-        if (!this.sessions.closed()) {
-            LOG.debug("Store {} has been opened before", this.store);
+### ConstantValue
+Result of `edges2.hasNext()` is always 'true'
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/Example1.java`
+#### Snippet
+```java
+        Iterator<Edge> edges2 = graph.edges(q);
+        assert edges2.hasNext();
+        LOG.info(">>>> queryEdges(id-condition): {}", edges2.hasNext());
+        while (edges2.hasNext()) {
+            LOG.info(">>>> queryEdges(id-condition): {}", edges2.next());
+```
+
+### ConstantValue
+Result of `edges3.hasNext()` is always 'true'
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/Example1.java`
+#### Snippet
+```java
+            Iterator<Edge> edges3 = graph.edges(q);
+            assert edges3.hasNext();
+            LOG.info(">>>> queryEdges(contribution): {}", edges3.hasNext());
+            while (edges3.hasNext()) {
+                LOG.info(">>>> queryEdges(contribution): {}", edges3.next());
 ```
 
 ### ConstantValue
@@ -3316,18 +3604,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/cent/Abstrac
 ```
 
 ### ConstantValue
-Condition `this != NONE` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/ResourceType.java`
-#### Snippet
-```java
-        switch (required) {
-            case NONE:
-                return this != NONE;
-            default:
-                break;
-```
-
-### ConstantValue
 Condition `vertex != source` is always `true`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/comm/TriangleCountAlgorithm.java`
 #### Snippet
@@ -3340,6 +3616,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/comm/Triangl
 ```
 
 ### ConstantValue
+Condition `this != NONE` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/ResourceType.java`
+#### Snippet
+```java
+        switch (required) {
+            case NONE:
+                return this != NONE;
+            default:
+                break;
+```
+
+### ConstantValue
 Value `allExist` is always 'true'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/comm/LouvainTraverser.java`
 #### Snippet
@@ -3349,6 +3637,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/comm/Louvain
         return allExist;
     }
 
+```
+
+### ConstantValue
+Result of `i * TX_BATCH` is always '0'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        for (int i = 0; i < txCap / TX_BATCH; i++) {
+            for (int j = 0; j < TX_BATCH; j++) {
+                int time = i * TX_BATCH + j;
+                guido.addEdge("write", java1, "time", "time-" + time);
+            }
 ```
 
 ### ConstantValue
@@ -3400,18 +3700,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/task/HugeTask.java`
 ```
 
 ### ConstantValue
-Condition `oldV == NULL_VALUE` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.java`
-#### Snippet
-```java
-            }
-            if (UNSAFE.compareAndSwapInt(this.values, offset, oldV, newV)) {
-                assert oldV == NULL_VALUE;
-                this.size.incrementAndGet();
-                this.indexBlocksSet.add(key >>> this.indexBlockSizeShift);
-```
-
-### ConstantValue
 Condition `oldV != NULL_VALUE` is always `true`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.java`
 #### Snippet
@@ -3433,6 +3721,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.jav
             if (value == NULL_VALUE) {
                 return false;
             }
+```
+
+### ConstantValue
+Condition `oldV == NULL_VALUE` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.java`
+#### Snippet
+```java
+            }
+            if (UNSAFE.compareAndSwapInt(this.values, offset, oldV, newV)) {
+                assert oldV == NULL_VALUE;
+                this.size.incrementAndGet();
+                this.indexBlocksSet.add(key >>> this.indexBlockSizeShift);
 ```
 
 ### ConstantValue
@@ -3472,6 +3772,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/OffheapCache
 ```
 
 ### ConstantValue
+Condition `prev == node.prev` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/RamCache.java`
+#### Snippet
+```java
+                    node.next.prev = node.prev;
+
+                    assert prev == node.prev : prev.key() + "!=" + node.prev;
+
+                    // Clear the links of `node`
+```
+
+### ConstantValue
 Condition `this.head.next == this.rear` is always `true`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/RamCache.java`
 #### Snippet
@@ -3493,18 +3805,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/RamCache.jav
             assert this.rear.prev == this.head;
         }
 
-```
-
-### ConstantValue
-Condition `prev == node.prev` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/RamCache.java`
-#### Snippet
-```java
-                    node.next.prev = node.prev;
-
-                    assert prev == node.prev : prev.key() + "!=" + node.prev;
-
-                    // Clear the links of `node`
 ```
 
 ### ConstantValue
@@ -3580,27 +3880,39 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendTable
 ```
 
 ### ConstantValue
-Condition `entries instanceof Metadatable` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+Condition `!checkMustExist` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
 #### Snippet
 ```java
-                return new PageIds(ids, PageState.EMPTY);
-            }
-            E.checkState(entries instanceof Metadatable,
-                         "The entries must be Metadatable when query " +
-                         "in paging, but got '%s'",
+                              "Vertex '%s' does not exist", id);
+                } else if (adjacentVertex) {
+                    assert !checkMustExist;
+                    // Return undefined if adjacentVertex but !checkMustExist
+                    vertex = HugeVertex.undefined(this.graph(), id);
 ```
 
 ### ConstantValue
-Condition `ids.size() < this.indexIntersectThresh` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+Condition `vertex == null` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
 #### Snippet
 ```java
-                query.optimized(OptimizedType.INDEX_FILTER);
-            } else if (filtering) {
-                assert ids.size() < this.indexIntersectThresh;
-                resultHolder = holder;
-                this.storeSelectedIndexField(indexLabel, query);
+                } else {
+                    // Return null
+                    assert vertex == null;
+                }
+            }
+```
+
+### ConstantValue
+Condition `edgeLabels.length == 0` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
+#### Snippet
+```java
+                                     Arrays.asList(edgeLabels)));
+        } else {
+            assert edgeLabels.length == 0;
+        }
+
 ```
 
 ### ConstantValue
@@ -3652,18 +3964,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransactio
 ```
 
 ### ConstantValue
-Condition `edgeLabels.length == 0` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
-#### Snippet
-```java
-                                     Arrays.asList(edgeLabels)));
-        } else {
-            assert edgeLabels.length == 0;
-        }
-
-```
-
-### ConstantValue
 Condition `dedupEdge` is always `false`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
 #### Snippet
@@ -3673,90 +3973,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransactio
         if (dedupEdge) {
             Set<Id> returnedEdges = new HashSet<>();
             results = new FilterIterator<>(results, edge -> {
-```
-
-### ConstantValue
-Condition `!checkMustExist` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
-#### Snippet
-```java
-                              "Vertex '%s' does not exist", id);
-                } else if (adjacentVertex) {
-                    assert !checkMustExist;
-                    // Return undefined if adjacentVertex but !checkMustExist
-                    vertex = HugeVertex.undefined(this.graph(), id);
-```
-
-### ConstantValue
-Condition `vertex == null` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
-#### Snippet
-```java
-                } else {
-                    // Return null
-                    assert vertex == null;
-                }
-            }
-```
-
-### ConstantValue
-Condition `this.context != null` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStoreProvider.java`
-#### Snippet
-```java
-    public void close() {
-        this.provider.close();
-        if (this.context != null) {
-            this.context.close();
-        }
-```
-
-### ConstantValue
-Condition `this.context == null` is always `false`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStoreProvider.java`
-#### Snippet
-```java
-
-    private RaftContext context() {
-        if (this.context == null) {
-            E.checkState(false, "Please ensure init raft context");
-        }
-```
-
-### ConstantValue
-Condition `this.context != null` is always `true` when reached
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStoreProvider.java`
-#### Snippet
-```java
-    @Override
-    public boolean initialized() {
-        return this.provider.initialized() && this.context != null;
-    }
-
-```
-
-### ConstantValue
-Condition `otherV >= 0L` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/ram/RamTable.java`
-#### Snippet
-```java
-            long value = RamTable.this.edges.get(this.current++);
-            long otherV = value >>> 32;
-            assert otherV >= 0L : otherV;
-            Directions actualDir = (value & 0x80000000L) == 0L ?
-                                   Directions.OUT : Directions.IN;
-```
-
-### ConstantValue
-Condition `label >= 0` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/ram/RamTable.java`
-#### Snippet
-```java
-                                   Directions.OUT : Directions.IN;
-            int label = (int) value & 0x7fffffff;
-            assert label >= 0;
-
-            if (this.dir != actualDir && this.dir != Directions.BOTH) {
 ```
 
 ### ConstantValue
@@ -3784,27 +4000,87 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/ram/RamTable
 ```
 
 ### ConstantValue
-Condition `count > offset` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/memory/InMemoryDBTables.java`
+Condition `otherV >= 0L` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/ram/RamTable.java`
 #### Snippet
 ```java
-
-            // Collect edges that are over-skipped
-            assert count > offset;
-            assert last != null;
-            int remaining = (int) (count - offset);
+            long value = RamTable.this.edges.get(this.current++);
+            long otherV = value >>> 32;
+            assert otherV >= 0L : otherV;
+            Directions actualDir = (value & 0x80000000L) == 0L ?
+                                   Directions.OUT : Directions.IN;
 ```
 
 ### ConstantValue
-Condition `count > limit` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/memory/InMemoryDBTables.java`
+Condition `label >= 0` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/ram/RamTable.java`
+#### Snippet
+```java
+                                   Directions.OUT : Directions.IN;
+            int label = (int) value & 0x7fffffff;
+            assert label >= 0;
+
+            if (this.dir != actualDir && this.dir != Directions.BOTH) {
+```
+
+### ConstantValue
+Condition `this.context != null` is always `true` when reached
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStoreProvider.java`
+#### Snippet
+```java
+    @Override
+    public boolean initialized() {
+        return this.provider.initialized() && this.context != null;
+    }
+
+```
+
+### ConstantValue
+Condition `this.context == null` is always `false`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStoreProvider.java`
 #### Snippet
 ```java
 
-            // Drop edges that are over-fetched
-            assert count > limit;
-            assert last != null;
-            int head = (int) (limit + last.columnsSize() - count);
+    private RaftContext context() {
+        if (this.context == null) {
+            E.checkState(false, "Please ensure init raft context");
+        }
+```
+
+### ConstantValue
+Condition `this.context != null` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStoreProvider.java`
+#### Snippet
+```java
+    public void close() {
+        this.provider.close();
+        if (this.context != null) {
+            this.context.close();
+        }
+```
+
+### ConstantValue
+Condition `entries instanceof Metadatable` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+#### Snippet
+```java
+                return new PageIds(ids, PageState.EMPTY);
+            }
+            E.checkState(entries instanceof Metadatable,
+                         "The entries must be Metadatable when query " +
+                         "in paging, but got '%s'",
+```
+
+### ConstantValue
+Condition `ids.size() < this.indexIntersectThresh` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+#### Snippet
+```java
+                query.optimized(OptimizedType.INDEX_FILTER);
+            } else if (filtering) {
+                assert ids.size() < this.indexIntersectThresh;
+                resultHolder = holder;
+                this.storeSelectedIndexField(indexLabel, query);
 ```
 
 ### ConstantValue
@@ -3820,27 +4096,27 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinaryE
 ```
 
 ### ConstantValue
-Value `keyMinEq` is always 'true'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+Condition `count > limit` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/memory/InMemoryDBTables.java`
 #### Snippet
 ```java
-            increaseOne(max.asBytes());
-        }
-        return new IdRangeQuery(query, start, keyMinEq, max, keyMaxEq);
-    }
 
+            // Drop edges that are over-fetched
+            assert count > limit;
+            assert last != null;
+            int head = (int) (limit + last.columnsSize() - count);
 ```
 
 ### ConstantValue
-Value `keyMaxEq` is always 'false'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+Condition `count > offset` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/memory/InMemoryDBTables.java`
 #### Snippet
 ```java
-            increaseOne(max.asBytes());
-        }
-        return new IdRangeQuery(query, start, keyMinEq, max, keyMaxEq);
-    }
 
+            // Collect edges that are over-skipped
+            assert count > offset;
+            assert last != null;
+            int remaining = (int) (count - offset);
 ```
 
 ### ConstantValue
@@ -3904,15 +4180,15 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVer
 ```
 
 ### ConstantValue
-Value `id` is always 'null'
+Condition `this.id == null` is always `true`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeVertex.java`
 #### Snippet
 ```java
-        }
-
-        HugeEdge edge = new HugeEdge(this, id, edgeLabel, vertex);
-
-        // Set properties
+            name = parts[1];
+        } else {
+            assert this.id == null;
+            List<Object> propValues = this.primaryValues();
+            E.checkState(!propValues.isEmpty(),
 ```
 
 ### ConstantValue
@@ -3928,15 +4204,15 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeVertex.java`
 ```
 
 ### ConstantValue
-Condition `this.id == null` is always `true`
+Value `id` is always 'null'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeVertex.java`
 #### Snippet
 ```java
-            name = parts[1];
-        } else {
-            assert this.id == null;
-            List<Object> propValues = this.primaryValues();
-            E.checkState(!propValues.isEmpty(),
+        }
+
+        HugeEdge edge = new HugeEdge(this, id, edgeLabel, vertex);
+
+        // Set properties
 ```
 
 ### ConstantValue
@@ -4036,15 +4312,27 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVer
 ```
 
 ### ConstantValue
-Condition `idValue instanceof Element` is always `false`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java`
+Value `keyMinEq` is always 'true'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
 #### Snippet
 ```java
-            // Id itself
-            return (Id) idValue;
-        } else if (idValue instanceof Element) {
-            // Element
-            return (Id) ((Element) idValue).id();
+            increaseOne(max.asBytes());
+        }
+        return new IdRangeQuery(query, start, keyMinEq, max, keyMaxEq);
+    }
+
+```
+
+### ConstantValue
+Value `keyMaxEq` is always 'false'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+            increaseOne(max.asBytes());
+        }
+        return new IdRangeQuery(query, start, keyMinEq, max, keyMaxEq);
+    }
+
 ```
 
 ### ConstantValue
@@ -4060,6 +4348,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java
 ```
 
 ### ConstantValue
+Condition `idValue instanceof Element` is always `false`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java`
+#### Snippet
+```java
+            // Id itself
+            return (Id) idValue;
+        } else if (idValue instanceof Element) {
+            // Element
+            return (Id) ((Element) idValue).id();
+```
+
+### ConstantValue
 Condition `sameLayerTransfer` is always `true`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/NeighborRankTraverser.java`
 #### Snippet
@@ -4072,27 +4372,15 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/Neighb
 ```
 
 ### ConstantValue
-Condition `parentGraph.filter(g -> !(g instanceof EmptyGraph)).isPresent()` is always `false`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
+Condition `vertices.size() == otherVertices.size()` is always `true`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SubGraphTraverser.java`
 #### Snippet
 ```java
-                                                                      .asAdmin()
-                                                                      .getGraph();
-            if (parentGraph.filter(g -> !(g instanceof EmptyGraph)).isPresent()) {
-                traversal.setGraph(parentGraph.get());
+                return false;
             }
-```
-
-### ConstantValue
-Condition `!(g instanceof EmptyGraph)` is always `false`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
-#### Snippet
-```java
-                                                                      .asAdmin()
-                                                                      .getGraph();
-            if (parentGraph.filter(g -> !(g instanceof EmptyGraph)).isPresent()) {
-                traversal.setGraph(parentGraph.get());
-            }
+            assert vertices.size() == otherVertices.size();
+            for (int i = 0, size = vertices.size(); i < size; i++) {
+                int j = size - i - 1;
 ```
 
 ### ConstantValue
@@ -4157,54 +4445,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
 ```
 
 ### ConstantValue
-Value `step` is always 'null'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
-#### Snippet
-```java
-            step = step.getNextStep();
-        } while (step instanceof OrderGlobalStep ||
-                 step instanceof IdentityStep);
-    }
-
-```
-
-### ConstantValue
-Value `step` is always 'null'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
-#### Snippet
-```java
-            }
-        } while (step instanceof CountGlobalStep ||
-                 step instanceof FilterStep ||
-                 step instanceof IdentityStep ||
-                 step instanceof NoOpBarrierStep);
-```
-
-### ConstantValue
-Value `step` is always 'null'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
-#### Snippet
-```java
-        } while (step instanceof CountGlobalStep ||
-                 step instanceof FilterStep ||
-                 step instanceof IdentityStep ||
-                 step instanceof NoOpBarrierStep);
-    }
-```
-
-### ConstantValue
-Value `step` is always 'null'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
-#### Snippet
-```java
-                 step instanceof FilterStep ||
-                 step instanceof IdentityStep ||
-                 step instanceof NoOpBarrierStep);
-    }
-
-```
-
-### ConstantValue
 Condition `bp instanceof Condition.RelationType` is always `false`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
 #### Snippet
@@ -4258,8 +4498,32 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
 #### Snippet
 ```java
             }
-            step = step.getNextStep();
-        } while (step instanceof HasStep || step instanceof NoOpBarrierStep);
+        } while (step instanceof CountGlobalStep ||
+                 step instanceof FilterStep ||
+                 step instanceof IdentityStep ||
+                 step instanceof NoOpBarrierStep);
+```
+
+### ConstantValue
+Value `step` is always 'null'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
+#### Snippet
+```java
+        } while (step instanceof CountGlobalStep ||
+                 step instanceof FilterStep ||
+                 step instanceof IdentityStep ||
+                 step instanceof NoOpBarrierStep);
+    }
+```
+
+### ConstantValue
+Value `step` is always 'null'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
+#### Snippet
+```java
+                 step instanceof FilterStep ||
+                 step instanceof IdentityStep ||
+                 step instanceof NoOpBarrierStep);
     }
 
 ```
@@ -4269,8 +4533,56 @@ Value `step` is always 'null'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
 #### Snippet
 ```java
-                traversal.removeStep(step);
             }
+        } while (step instanceof RangeGlobalStep ||
+                 step instanceof IdentityStep ||
+                 step instanceof NoOpBarrierStep);
+    }
+```
+
+### ConstantValue
+Value `step` is always 'null'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
+#### Snippet
+```java
+        } while (step instanceof RangeGlobalStep ||
+                 step instanceof IdentityStep ||
+                 step instanceof NoOpBarrierStep);
+    }
+
+```
+
+### ConstantValue
+Condition `parentGraph.filter(g -> !(g instanceof EmptyGraph)).isPresent()` is always `false`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
+#### Snippet
+```java
+                                                                      .asAdmin()
+                                                                      .getGraph();
+            if (parentGraph.filter(g -> !(g instanceof EmptyGraph)).isPresent()) {
+                traversal.setGraph(parentGraph.get());
+            }
+```
+
+### ConstantValue
+Condition `!(g instanceof EmptyGraph)` is always `false`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
+#### Snippet
+```java
+                                                                      .asAdmin()
+                                                                      .getGraph();
+            if (parentGraph.filter(g -> !(g instanceof EmptyGraph)).isPresent()) {
+                traversal.setGraph(parentGraph.get());
+            }
+```
+
+### ConstantValue
+Value `step` is always 'null'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
+#### Snippet
+```java
+            }
+            step = step.getNextStep();
         } while (step instanceof HasStep || step instanceof NoOpBarrierStep);
     }
 
@@ -4293,11 +4605,11 @@ Value `step` is always 'null'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
 #### Snippet
 ```java
+                traversal.removeStep(step);
             }
-        } while (step instanceof RangeGlobalStep ||
-                 step instanceof IdentityStep ||
-                 step instanceof NoOpBarrierStep);
+        } while (step instanceof HasStep || step instanceof NoOpBarrierStep);
     }
+
 ```
 
 ### ConstantValue
@@ -4305,28 +4617,16 @@ Value `step` is always 'null'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
 #### Snippet
 ```java
-        } while (step instanceof RangeGlobalStep ||
-                 step instanceof IdentityStep ||
-                 step instanceof NoOpBarrierStep);
+            step = step.getNextStep();
+        } while (step instanceof OrderGlobalStep ||
+                 step instanceof IdentityStep);
     }
 
 ```
 
 ### ConstantValue
-Condition `vertices.size() == otherVertices.size()` is always `true`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SubGraphTraverser.java`
-#### Snippet
-```java
-                return false;
-            }
-            assert vertices.size() == otherVertices.size();
-            for (int i = 0, size = vertices.size(); i < size; i++) {
-                int j = size - i - 1;
-```
-
-### ConstantValue
 Condition `END.equals(position)` is always `false` when reached
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBTable.java`
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTable.java`
 #### Snippet
 ```java
         @Override
@@ -4337,75 +4637,15 @@ in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/R
 ```
 
 ### ConstantValue
-Value `this.matched` is always 'false'
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStdSessions.java`
+Condition `this.sessions != null` is always `true`
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseStore.java`
 #### Snippet
 ```java
-            if (!this.matched) {
-                // Maybe closed
-                return this.matched;
-            }
+        }
 
-```
-
-### ConstantValue
-Condition `retries-- > 0` is always `true`
-in `hugegraph-dist/src/main/java/org/apache/hugegraph/cmd/InitStore.java`
-#### Snippet
-```java
-            }
-            break;
-        } while (retries-- > 0);
-    }
-}
-```
-
-### ConstantValue
-Condition `merged != null` is always `true`
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlEntryIterator.java`
-#### Snippet
-```java
-                } else if (merged == this.current) {
-                    // Does the next entry belongs to the current entry
-                    assert merged != null;
-                } else {
-                    // New entry
-```
-
-### ConstantValue
-Result of `iter.hasNext()` is always 'true'
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/Example1.java`
-#### Snippet
-```java
-            Iterator<Vertex> iter = graph.vertices(q);
-            assert iter.hasNext();
-            LOG.info(">>>> queryVertices(age): {}", iter.hasNext());
-            while (iter.hasNext()) {
-                LOG.info(">>>> queryVertices(age): {}", iter.next());
-```
-
-### ConstantValue
-Result of `edges2.hasNext()` is always 'true'
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/Example1.java`
-#### Snippet
-```java
-        Iterator<Edge> edges2 = graph.edges(q);
-        assert edges2.hasNext();
-        LOG.info(">>>> queryEdges(id-condition): {}", edges2.hasNext());
-        while (edges2.hasNext()) {
-            LOG.info(">>>> queryEdges(id-condition): {}", edges2.next());
-```
-
-### ConstantValue
-Result of `edges3.hasNext()` is always 'true'
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/Example1.java`
-#### Snippet
-```java
-            Iterator<Edge> edges3 = graph.edges(q);
-            assert edges3.hasNext();
-            LOG.info(">>>> queryEdges(contribution): {}", edges3.hasNext());
-            while (edges3.hasNext()) {
-                LOG.info(">>>> queryEdges(contribution): {}", edges3.next());
+        assert this.sessions != null;
+        if (!this.sessions.closed()) {
+            LOG.debug("Store {} has been opened before", this.store);
 ```
 
 ### ConstantValue
@@ -4457,18 +4697,6 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/traversers/KneighborAPI
 ```
 
 ### ConstantValue
-Condition `this.password == null` is always `false`
-in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/StandardAuthenticator.java`
-#### Snippet
-```java
-                throw new AuthenticationException("SASL authentication ID must not be null.");
-            }
-            if (this.password == null) {
-                throw new AuthenticationException("SASL password must not be null.");
-            }
-```
-
-### ConstantValue
 Condition `this.requireAuthentication() && !(graph instanceof HugeGraphAuthProxy)` is always `false`
 in `hugegraph-api/src/main/java/org/apache/hugegraph/core/GraphManager.java`
 #### Snippet
@@ -4505,247 +4733,19 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/serializer/JsonSerializer.j
                 } else if (iter instanceof Metadatable) {
 ```
 
-### ConstantValue
-Result of `names.size()` is always '0'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/RowLockTest.java`
-#### Snippet
-```java
-        }
-
-        Assert.assertEquals(0, names.size());
-
-        runWithThreads(THREADS_NUM, () -> {
-```
-
-### ConstantValue
-Result of `names.size()` is always '0'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/RowLockTest.java`
-#### Snippet
-```java
-        Set<String> names = new HashSet<>(THREADS_NUM);
-
-        Assert.assertEquals(0, names.size());
-
-        runWithThreads(THREADS_NUM, () -> {
-```
-
-### ConstantValue
-Value `gender` is always 'true'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/PropertyCoreTest.java`
-#### Snippet
-```java
-    public void testTypeBoolean() {
-        boolean gender = true;
-        Assert.assertEquals(gender, property("bool", gender));
-
-        gender = false;
-```
-
-### ConstantValue
-Value `gender` is always 'true'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/PropertyCoreTest.java`
-#### Snippet
-```java
-    public void testTypeBoolean() {
-        boolean gender = true;
-        Assert.assertEquals(gender, property("bool", gender));
-
-        gender = false;
-```
-
-### ConstantValue
-Value `gender` is always 'false'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/PropertyCoreTest.java`
-#### Snippet
-```java
-
-        gender = false;
-        Assert.assertEquals(gender, property("bool", gender));
-
-        List<Boolean> list = ImmutableList.of(true, false, true, false);
-```
-
-### ConstantValue
-Value `gender` is always 'false'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/PropertyCoreTest.java`
-#### Snippet
-```java
-
-        gender = false;
-        Assert.assertEquals(gender, property("bool", gender));
-
-        List<Boolean> list = ImmutableList.of(true, false, true, false);
-```
-
-### ConstantValue
-Result of `i * TX_BATCH` is always '0'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        for (int i = 0; i < txCap / TX_BATCH; i++) {
-            for (int j = 0; j < TX_BATCH; j++) {
-                int time = i * TX_BATCH + j;
-                guido.addEdge("write", java1, "time", "time-" + time);
-            }
-```
-
-### ConstantValue
-Condition `merged != null` is always `true`
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraEntryIterator.java`
-#### Snippet
-```java
-            } else if (merged == this.current) {
-                // The next entry belongs to the current entry
-                assert merged != null;
-            } else {
-                // New entry
-```
-
-### ConstantValue
-Value `value` is always 'true'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Object value = true;
-        byte[] bytes = genBytes("01");
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-```
-
-### ConstantValue
-Value `value` is always 'true'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        byte[] bytes = genBytes("01");
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        value = false;
-```
-
-### ConstantValue
-Value `value` is always 'false'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        bytes = genBytes("00");
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-```
-
-### ConstantValue
-Value `value` is always 'false'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genPkey(DataType.BYTE);
-```
-
-### ConstantValue
-Value `loadGraphWith` is always 'null'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
-#### Snippet
-```java
-                              final String testName) {
-        if (loadGraphWith == null) {
-            super.loadGraphData(graph, loadGraphWith, testClass, testName);
-            return;
-        }
-```
-
-### ConstantValue
-Value `this.partitioner` is always 'null'
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraShard.java`
-#### Snippet
-```java
-    private boolean isPartitionerOpp() {
-        return this.partitioner instanceof OrderPreservingPartitioner ||
-               this.partitioner instanceof ByteOrderedPartitioner;
-    }
-
-```
-
-### ConstantValue
-Condition `this.loadedGraph == null` is always `true` when reached
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
-#### Snippet
-```java
-        }
-
-        if (needRedefineSchema && this.loadedGraph == null) {
-            this.clearSchema();
-            this.tx().commit();
-```
-
-### ConstantValue
-Condition `"person".equals(defaultVL)` is always `true`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
-#### Snippet
-```java
-            this.tx().commit();
-            if (!this.autoPerson &&
-                "person".equals(defaultVL) &&
-                idStrategy == IdStrategy.AUTOMATIC) {
-                this.autoPerson = true;
-```
-
-### ConstantValue
-Condition `idStrategy == IdStrategy.AUTOMATIC` is always `true`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
-#### Snippet
-```java
-            if (!this.autoPerson &&
-                "person".equals(defaultVL) &&
-                idStrategy == IdStrategy.AUTOMATIC) {
-                this.autoPerson = true;
-            }
-```
-
-### ConstantValue
-Condition `idStrategy == IdStrategy.CUSTOMIZE_STRING` is always `false`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
-#### Snippet
-```java
-            }
-
-            this.isLastIdCustomized = idStrategy == IdStrategy.CUSTOMIZE_STRING;
-        }
-
-```
-
-### ConstantValue
-Condition `!(entry instanceof CassandraBackendEntry)` is always `false`
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
-#### Snippet
-```java
-    protected static final CassandraBackendEntry castBackendEntry(BackendEntry entry) {
-        assert entry instanceof CassandraBackendEntry : entry.getClass();
-        if (!(entry instanceof CassandraBackendEntry)) {
-            throw new BackendException("Cassandra store only supports CassandraBackendEntry");
-        }
-```
-
-### ConstantValue
-Condition `this.sessions != null` is always `true`
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
-#### Snippet
-```java
-        }
-
-        assert this.sessions != null;
-        if (!this.sessions.closed()) {
-            // TODO: maybe we should throw an exception here instead of ignore
-```
-
 ## RuleId[id=NonAtomicOperationOnVolatileField]
+### NonAtomicOperationOnVolatileField
+Non-atomic operation on volatile field `id`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
+#### Snippet
+```java
+            List<Object> kvs = new ArrayList<>(Arrays.asList(keyValues));
+            kvs.add(T.id);
+            kvs.add(String.valueOf(id++));
+            keyValues = kvs.toArray();
+        }
+```
+
 ### NonAtomicOperationOnVolatileField
 Non-atomic operation on volatile field `retries`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/task/HugeTask.java`
@@ -4770,18 +4770,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/masterelection/StandardRol
                           context.node(), context.epoch(), pre.getClass().getSimpleName(),
 ```
 
-### NonAtomicOperationOnVolatileField
-Non-atomic operation on volatile field `id`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
-#### Snippet
-```java
-            List<Object> kvs = new ArrayList<>(Arrays.asList(keyValues));
-            kvs.add(T.id);
-            kvs.add(String.valueOf(id++));
-            keyValues = kvs.toArray();
-        }
-```
-
 ## RuleId[id=ReplaceInefficientStreamCount]
 ### ReplaceInefficientStreamCount
 Can be replaced with '!stream.findAny().isPresent()'
@@ -4789,26 +4777,49 @@ in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/R
 #### Snippet
 ```java
                     // Delete empty snapshot parent directory
-                    Path parentPath = Paths.get(snapshotPath).getParent();
+                    Path parentPath = Paths.get(snapshotPath).toAbsolutePath().getParent();
                     if (Files.list(parentPath).count() == 0) {
                         FileUtils.deleteDirectory(parentPath.toFile());
                     }
 ```
 
-## RuleId[id=RedundantLengthCheck]
-### RedundantLengthCheck
-Redundant array length check
-in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloFile.java`
+## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked call to 'reduce(T, T)' as a member of raw type 'org.apache.hugegraph.task.EphemeralJobQueue.Reduce'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/task/EphemeralJobQueue.java`
 #### Snippet
 ```java
-            }
-            String[] fileNames = tableDir.list();
-            if (fileNames == null || fileNames.length == 0) {
-                continue;
+                Object obj = job.call();
+                if (job instanceof Reduce) {
+                    result = ((Reduce) job).reduce(result, obj);
+                }
             }
 ```
 
-## RuleId[id=UNCHECKED_WARNING]
+### UNCHECKED_WARNING
+Unchecked call to 'HashSet(Collection)' as a member of raw type 'java.util.HashSet'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+                                     .toList();
+        Assert.assertEquals(3, vertices.size());
+        Assert.assertEquals(2, new HashSet<>(vertices).size());
+        Assert.assertTrue(vertices.contains(james));
+        Assert.assertTrue(vertices.contains(jeff));
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'HashSet(Collection)' as a member of raw type 'java.util.HashSet'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+                        .toList();
+        Assert.assertEquals(4, vertices.size());
+        Assert.assertEquals(2, new HashSet<>(vertices).size());
+        Assert.assertTrue(vertices.contains(james));
+        Assert.assertTrue(vertices.contains(louise));
+```
+
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.ArrayList' to 'java.util.List'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
@@ -4845,28 +4856,17 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/cypher/CypherModel.java
 
 ```
 
-### UNCHECKED_WARNING
-Unchecked call to 'HashSet(Collection)' as a member of raw type 'java.util.HashSet'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+## RuleId[id=RedundantLengthCheck]
+### RedundantLengthCheck
+Redundant array length check
+in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloFile.java`
 #### Snippet
 ```java
-                                     .toList();
-        Assert.assertEquals(3, vertices.size());
-        Assert.assertEquals(2, new HashSet<>(vertices).size());
-        Assert.assertTrue(vertices.contains(james));
-        Assert.assertTrue(vertices.contains(jeff));
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'HashSet(Collection)' as a member of raw type 'java.util.HashSet'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-                        .toList();
-        Assert.assertEquals(4, vertices.size());
-        Assert.assertEquals(2, new HashSet<>(vertices).size());
-        Assert.assertTrue(vertices.contains(james));
-        Assert.assertTrue(vertices.contains(louise));
+            }
+            String[] fileNames = tableDir.list();
+            if (fileNames == null || fileNames.length == 0) {
+                continue;
+            }
 ```
 
 ## RuleId[id=JavadocReference]
@@ -4969,6 +4969,330 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/query/Condition.ja
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
+Method invocation `column` may produce `NullPointerException`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTables.java`
+#### Snippet
+```java
+            long maxSize = BackendEntryIterator.INLINE_BATCH_SIZE;
+            if (current != null && current.subRows().size() < maxSize) {
+                Object nextVertexId = next.column(HugeKeys.OWNER_VERTEX);
+                if (current.id().equals(IdGenerator.of(nextVertexId))) {
+                    current.subRow(next.row());
+```
+
+### DataFlowIssue
+Argument `next` might be null
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTables.java`
+#### Snippet
+```java
+            }
+
+            return this.wrapByVertex(next);
+        }
+
+```
+
+### DataFlowIssue
+Method invocation `column` may produce `NullPointerException`
+in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloTables.java`
+#### Snippet
+```java
+            if (current != null && current.subRows().size() < maxSize) {
+                Id nextVertexId = IdGenerator.of(
+                                  next.<String>column(HugeKeys.OWNER_VERTEX));
+                if (current.id().equals(nextVertexId)) {
+                    current.subRow(next.row());
+```
+
+### DataFlowIssue
+Argument `next` might be null
+in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloTables.java`
+#### Snippet
+```java
+            }
+
+            return this.wrapByVertex(next);
+        }
+
+```
+
+### DataFlowIssue
+Method invocation `row` may produce `NullPointerException`
+in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloTables.java`
+#### Snippet
+```java
+                String nextId = this.entryId(next);
+                if (currentId.equals(nextId)) {
+                    current.subRow(next.row());
+                    return current;
+                }
+```
+
+### DataFlowIssue
+Method invocation `asBytes` may produce `NullPointerException`
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBTables.java`
+#### Snippet
+```java
+
+            E.checkArgumentNotNull(min, "Range index begin key is missing");
+            byte[] begin = min.asBytes();
+            if (!minEq) {
+                BinarySerializer.increaseOne(begin);
+```
+
+### DataFlowIssue
+Method invocation `asBytes` may produce `NullPointerException`
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBTables.java`
+#### Snippet
+```java
+            if (max == null) {
+                E.checkArgumentNotNull(prefix, "Range index prefix is missing");
+                return session.scan(this.table(), begin, prefix.asBytes(),
+                                    RocksDBSessions.Session.SCAN_PREFIX_END);
+            } else {
+```
+
+### DataFlowIssue
+Casting `value` to `Map` may produce `ClassCastException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
+#### Snippet
+```java
+
+        Assert.assertTrue(value instanceof Map);
+        Map<?, ?> graph = (Map<?, ?>) value;
+        assertMapContains(graph, "backend");
+        assertMapContains(graph, "nodes");
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
+#### Snippet
+```java
+        assertMapContains(graph, "backend");
+        assertMapContains(graph, "nodes");
+        String backend = (String) graph.get("backend");
+        int nodes = (Integer) graph.get("nodes");
+        switch (backend) {
+```
+
+### DataFlowIssue
+Casting `value` to `Map` may produce `ClassCastException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
+#### Snippet
+```java
+                                      key, value),
+                                      value instanceof Map);
+                    host = (Map<?, ?>) value;
+                    assertMapContains(host, "mem_max");
+                    assertMapContains(host, "mem_committed");
+```
+
+### DataFlowIssue
+Casting `value` to `Map` may produce `ClassCastException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
+#### Snippet
+```java
+                                      key, value),
+                                      value instanceof Map);
+                    host = (Map<?, ?>) value;
+                    assertMapContains(host, "mem_max");
+                    assertMapContains(host, "mem_committed");
+```
+
+### DataFlowIssue
+Casting `value` to `Map` may produce `ClassCastException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
+#### Snippet
+```java
+                                      key, value),
+                                      value instanceof Map);
+                    Map<?, ?> regionServer = (Map<?, ?>) value;
+                    assertMapContains(regionServer, "mem_max");
+                    assertMapContains(regionServer, "mem_used");
+```
+
+### DataFlowIssue
+Method invocation `epoch` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/RoleElectionStateMachineTest.java`
+#### Snippet
+```java
+                    }
+
+                    Assert.assertEquals(value.epoch(), copy.epoch());
+                    if (Objects.equals(value.node(), copy.node()) &&
+                        value.clock() <= copy.clock()) {
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/Utils.java`
+#### Snippet
+```java
+        try {
+            confPath = Utils.class.getClassLoader()
+                            .getResource(confPath).getPath();
+        } catch (Exception ignored) {
+            // ignored Exception
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/Utils.java`
+#### Snippet
+```java
+    public static PropertiesConfiguration getConf() {
+        String confFile = Utils.class.getClassLoader()
+                                     .getResource(CONF_PATH).getPath();
+        File file = new File(confFile);
+        E.checkArgument(file.exists() && file.isFile() && file.canRead(),
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
+#### Snippet
+```java
+                        "Can't find tests filter '%s' in resource directory",
+                        filter);
+        File file = new File(blackList.getPath());
+        E.checkArgument(
+                file.exists() && file.isFile() && file.canRead(),
+```
+
+### DataFlowIssue
+The call to 'assumeTrue' always fails, according to its method contracts
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBSessionTest.java`
+#### Snippet
+```java
+    @Test
+    public void testMergeWithStringList() throws RocksDBException {
+        Assume.assumeTrue("Not support string append now", false);
+
+        this.rocks.session().put(TABLE, getBytes("person:1gphoneno"), getBytes("12306"));
+```
+
+### DataFlowIssue
+Method invocation `size` may produce `NullPointerException`
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/WhereBuilder.java`
+#### Snippet
+```java
+                        "The clauses can't be empty");
+
+        int size = clauses.size();
+        int i = 0;
+        for (StringBuilder clause : clauses) {
+```
+
+### DataFlowIssue
+Method invocation `column` may produce `NullPointerException`
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlTables.java`
+#### Snippet
+```java
+            if (current != null && current.subRows().size() < maxSize) {
+                Id nextVertexId = IdGenerator.of(
+                                  next.<String>column(HugeKeys.OWNER_VERTEX));
+                if (current.id().equals(nextVertexId)) {
+                    current.subRow(next.row());
+```
+
+### DataFlowIssue
+Argument `next` might be null
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlTables.java`
+#### Snippet
+```java
+            }
+
+            return this.wrapByVertex(next);
+        }
+
+```
+
+### DataFlowIssue
+Condition `rootCause instanceof TraversalInterruptedException` is redundant and can be replaced with a null check
+in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeException.java`
+#### Snippet
+```java
+        Throwable rootCause = HugeException.rootCause(e);
+        return rootCause instanceof InterruptedException ||
+               rootCause instanceof TraversalInterruptedException ||
+               rootCause instanceof InterruptedIOException;
+    }
+```
+
+### DataFlowIssue
+Method invocation `getPath` may produce `NullPointerException`
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/ExampleUtil.java`
+#### Snippet
+```java
+        try {
+            String path = ExampleUtil.class.getClassLoader()
+                                     .getResource(conf).getPath();
+            File file = new File(path);
+            if (file.exists() && file.isFile()) {
+```
+
+### DataFlowIssue
+Casting `value` to `String` may produce `ClassCastException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/GremlinJob.java`
+#### Snippet
+```java
+        E.checkArgument(value instanceof String,
+                        "Invalid gremlin value '%s'", value);
+        String gremlin = (String) value;
+
+        value = map.get("bindings");
+```
+
+### DataFlowIssue
+Casting `value` to `Map` may produce `ClassCastException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/GremlinJob.java`
+#### Snippet
+```java
+                        "Invalid bindings value '%s'", value);
+        @SuppressWarnings("unchecked")
+        Map<String, Object> bindings = (Map<String, Object>) value;
+
+        value = map.get("language");
+```
+
+### DataFlowIssue
+Casting `value` to `String` may produce `ClassCastException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/GremlinJob.java`
+#### Snippet
+```java
+        E.checkArgument(value instanceof String,
+                        "Invalid language value '%s'", value);
+        String language = (String) value;
+
+        value = map.get("aliases");
+```
+
+### DataFlowIssue
+Casting `value` to `Map` may produce `ClassCastException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/GremlinJob.java`
+#### Snippet
+```java
+                        "Invalid aliases value '%s'", value);
+        @SuppressWarnings("unchecked")
+        Map<String, String> aliases = (Map<String, String>) value;
+
+        bindings.put(TASK_BIND_NAME, new GremlinJobProxy());
+```
+
+### DataFlowIssue
+Method invocation `put` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/GremlinJob.java`
+#### Snippet
+```java
+        Map<String, String> aliases = (Map<String, String>) value;
+
+        bindings.put(TASK_BIND_NAME, new GremlinJobProxy());
+
+        HugeScriptTraversal<?, ?> traversal = new HugeScriptTraversal<>(
+```
+
+### DataFlowIssue
 Casting `value` to `String` may produce `ClassCastException`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/job/AlgorithmJob.java`
 #### Snippet
@@ -5041,87 +5365,507 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/job/ComputerJob.java`
 ```
 
 ### DataFlowIssue
-Casting `value` to `String` may produce `ClassCastException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/GremlinJob.java`
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
 #### Snippet
 ```java
-        E.checkArgument(value instanceof String,
-                        "Invalid gremlin value '%s'", value);
-        String gremlin = (String) value;
 
-        value = map.get("bindings");
+        vertex = vertex("author", "id", 1);
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
+    }
+
 ```
 
 ### DataFlowIssue
-Casting `value` to `Map` may produce `ClassCastException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/GremlinJob.java`
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
 #### Snippet
 ```java
-                        "Invalid bindings value '%s'", value);
-        @SuppressWarnings("unchecked")
-        Map<String, Object> bindings = (Map<String, Object>) value;
 
-        value = map.get("language");
-```
-
-### DataFlowIssue
-Casting `value` to `String` may produce `ClassCastException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/GremlinJob.java`
-#### Snippet
-```java
-        E.checkArgument(value instanceof String,
-                        "Invalid language value '%s'", value);
-        String language = (String) value;
-
-        value = map.get("aliases");
-```
-
-### DataFlowIssue
-Casting `value` to `Map` may produce `ClassCastException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/GremlinJob.java`
-#### Snippet
-```java
-                        "Invalid aliases value '%s'", value);
-        @SuppressWarnings("unchecked")
-        Map<String, String> aliases = (Map<String, String>) value;
-
-        bindings.put(TASK_BIND_NAME, new GremlinJobProxy());
-```
-
-### DataFlowIssue
-Method invocation `put` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/GremlinJob.java`
-#### Snippet
-```java
-        Map<String, String> aliases = (Map<String, String>) value;
-
-        bindings.put(TASK_BIND_NAME, new GremlinJobProxy());
-
-        HugeScriptTraversal<?, ?> traversal = new HugeScriptTraversal<>(
-```
-
-### DataFlowIssue
-Condition `rootCause instanceof TraversalInterruptedException` is redundant and can be replaced with a null check
-in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeException.java`
-#### Snippet
-```java
-        Throwable rootCause = HugeException.rootCause(e);
-        return rootCause instanceof InterruptedException ||
-               rootCause instanceof TraversalInterruptedException ||
-               rootCause instanceof InterruptedIOException;
+        vertex = vertex("author", "id", 1);
+        Assert.assertTrue(vertex.property("lived").isPresent());
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
     }
 ```
 
 ### DataFlowIssue
-Method invocation `getAddress` may produce `NullPointerException`
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseMetrics.java`
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
 #### Snippet
 ```java
-            results.put(CLUSTER_ID, clusterMetrics.getClusterId());
-            results.put("master_name",
-                        clusterMetrics.getMasterName().getAddress().toString());
-            results.put("average_load", clusterMetrics.getAverageLoad());
-            results.put("hbase_version", clusterMetrics.getHBaseVersion());
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertFalse(vertex.property("lived").isPresent());
+        Assert.assertEquals("Tomcat", vertex.property("name").value());
+    }
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `getMessage` will produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+                    Assert.assertContains("0x00", e.getCause().getMessage());
+                } else {
+                    Assert.assertContains("0x00", e.getMessage());
+                }
+            });
+```
+
+### DataFlowIssue
+Method invocation `value` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        vertex = vertex("review", "id", 1);
+        Assert.assertEquals(ImmutableList.of("looks good!", "LGTM!"),
+                            vertex.value("comment"));
+        List<Object> props = vertex.value("comment");
+        Assert.assertEquals(2, props.size());
+```
+
+### DataFlowIssue
+Method invocation `value` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        vertex = vertex("review", "id", 2);
+        Assert.assertEquals(ImmutableList.of("looks good 2!", "LGTM!"),
+                            vertex.value("comment"));
+        props = vertex.value("comment");
+        Assert.assertEquals(2, props.size());
+```
+
+### DataFlowIssue
+Method invocation `value` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        vertex = vertex("review", "id", 3);
+        Assert.assertEquals(ImmutableList.of("looks good 3!", "LGTM!"),
+                            vertex.value("comment"));
+        props = vertex.value("comment");
+        Assert.assertEquals(2, props.size());
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        this.mayCommitTx();
+        Vertex vertex = vertex("person", "name", "marko");
+        Assert.assertTrue(vertex.property("age").isPresent());
+        Assert.assertEquals(18, vertex.value("age"));
+        Assert.assertTrue(vertex.property("city").isPresent());
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        this.mayCommitTx();
+        vertex = vertex("person", "name", "marko");
+        Assert.assertFalse(vertex.property("age").isPresent());
+        Assert.assertTrue(vertex.property("city").isPresent());
+        Assert.assertEquals("Wuhan", vertex.value("city"));
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        this.mayCommitTx();
+        vertex = vertex("person", "name", "marko");
+        Assert.assertTrue(vertex.property("age").isPresent());
+        Assert.assertEquals(19, vertex.value("age"));
+        Assert.assertTrue(vertex.property("city").isPresent());
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertFalse(vertex.property("lived").isPresent());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `label` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        // remove vertex without label index
+        Vertex vertex = vertex("author2", "id", 1);
+        graph.removeVertex(vertex.label(), vertex.id());
+        this.mayCommitTx();
+
+```
+
+### DataFlowIssue
+Method invocation `label` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        // remove vertex with label index
+        vertex = vertex("author", "id", 2);
+        graph.removeVertex(vertex.label(), vertex.id());
+        this.mayCommitTx();
+
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        Vertex vertex = vertex("author", "id", 1);
+        Assert.assertTrue(vertex.property("lived").isPresent());
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
+    }
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("person", "name", "Tom");
+        Assert.assertEquals(3, vertex.property("age").value());
+
+        vertex.property("age", 4);
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(4, vertex.property("age").value());
+        vertex = vertex("person", "name", "Tom");
+        Assert.assertEquals(4, vertex.property("age").value());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertFalse(vertex.property("lived").isPresent());
+        Assert.assertEquals("Tomcat", vertex.property("name").value());
+    }
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        Vertex vertex = vertex("author", "id", 1);
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertFalse(vertex.property("lived").isPresent());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `remove` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        Vertex vertex = vertex("author", "id", 1);
+        vertex.remove();
+        this.mayCommitTx();
+
+```
+
+### DataFlowIssue
+Method invocation `remove` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        Vertex vertex = vertex("author", "id", 1);
+        vertex.remove();
+        this.mayCommitTx();
+
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertEquals("Tom", vertex.property("name").value());
+
+        vertex.property("name", "Tom2");
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertEquals("Tom2", vertex.property("name").value());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertFalse(vertex.property("lived").isPresent());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            // Update primary key property
+            vertex.property("id", 2);
+        });
+    }
+```
+
+### DataFlowIssue
+Method invocation `value` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        this.commitTx();
+        Vertex vertex = vertex("person", "name", "marko");
+        Assert.assertEquals("Beijing", vertex.value("city"));
+        Assert.assertEquals(Utils.date("1992-11-17 12:00:00.000"),
+                            vertex.value("birth"));
+```
+
+### DataFlowIssue
+Method invocation `value` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        Assert.assertEquals("Beijing", vertex.value("city"));
+        vertex = vertex("person", "name", "marko");
+        Assert.assertEquals(26, (int) vertex.value("age"));
+        Assert.assertEquals(Utils.date("1992-11-17 12:00:00.000"),
+                            vertex.value("birth"));
+```
+
+### DataFlowIssue
+Method invocation `value` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        this.commitTx();
+        vertex = vertex("person", "name", "marko");
+        Assert.assertEquals("Beijing", vertex.value("city"));
+        Assert.assertEquals(26, (int) vertex.value("age"));
+        Assert.assertEquals(Utils.date("1993-11-17 12:00:00.000"),
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertEquals("Tom2", vertex.property("name").value());
+        Assert.assertEquals(10, vertex.property("age").value());
+        Assert.assertEquals("USA", vertex.property("lived").value());
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertEquals("Tomcat", vertex.property("name").value());
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
+    }
+```
+
+### DataFlowIssue
+Method invocation `value` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        vertex = vertex("review", "id", 1);
+        Assert.assertEquals(ImmutableSet.of("+1", "+2"),
+                            vertex.value("contribution"));
+
+        vertex = graph.addVertex(T.label, "review", "id", 2,
+```
+
+### DataFlowIssue
+Method invocation `value` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        vertex = vertex("review", "id", 2);
+        Assert.assertEquals(ImmutableSet.of("+1", "+2"),
+                            vertex.value("contribution"));
+    }
+
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertTrue(vertex.property("lived").isPresent());
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
+    }
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertFalse(vertex.property("age").isPresent());
+        Assert.assertFalse(vertex.property("lived").isPresent());
+    }
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertTrue(vertex.property("lived").isPresent());
+        Assert.assertEquals("Shanghai", vertex.property("lived").value());
+    }
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+        // Remove "lived" property
+        Vertex vertex = vertex("author", "id", 1);
+        Assert.assertTrue(vertex.property("name").isPresent());
+        Assert.assertTrue(vertex.property("lived").isPresent());
+        vertex.property("lived").remove();
+```
+
+### DataFlowIssue
+Method invocation `property` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+
+        vertex = vertex("author", "id", 1);
+        Assert.assertEquals(10, vertex.property("age").value());
+        Assert.assertTrue(vertex.property("name").isPresent());
+        Assert.assertFalse(vertex.property("lived").isPresent());
+```
+
+### DataFlowIssue
+Method invocation `getNodeName` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/computer/AbstractComputer.java`
+#### Snippet
+```java
+                           (root = nodeHandler.getRootNode()) != null,
+                           "Node '%s' must contain root", node);
+            results.put(root.getNodeName(), root.getValue());
+        }
+
 ```
 
 ### DataFlowIssue
@@ -5145,18 +5889,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/SubgraphStat
                         KEY_SUBGRAPH, subgraph.getClass().getSimpleName());
         return (String) subgraph;
     }
-
-```
-
-### DataFlowIssue
-Method invocation `getNodeName` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/computer/AbstractComputer.java`
-#### Snippet
-```java
-                           (root = nodeHandler.getRootNode()) != null,
-                           "Node '%s' must contain root", node);
-            results.put(root.getNodeName(), root.getValue());
-        }
 
 ```
 
@@ -5185,6 +5917,246 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/task/ServerInfoManager.jav
 ```
 
 ### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+
+        // BOTH
+        List<Vertex> vertices = graph.traversal().V(jeff.id())
+                                     .both("friend").toList();
+        Assert.assertEquals(2, vertices.size());
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+
+        // NOTE: the has() just filter by vertex props
+        List<Vertex> vertices = graph.traversal().V(java3.id())
+                                     .in("look").has("age", P.gt(22))
+                                     .toList();
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        Vertex java3 = vertex("book", "name", "java-3");
+
+        List<Vertex> vertices = graph.traversal().V(java3.id())
+                                     .in("look").toList();
+        Assert.assertEquals(4, vertices.size());
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        Vertex louise = vertex("person", "name", "Louise");
+
+        List<Edge> edges = graph.traversal().V(louise.id()).outE("look")
+                                .has("time", "2017-5-1").has("score", 3)
+                                .toList();
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+
+        Vertex java = vertex("language", "name", "java");
+        List<Edge> edges = graph.traversal().V(java.id()).inE().toList();
+
+        Assert.assertEquals(1, edges.size());
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        Vertex java3 = vertex("book", "name", "java-3");
+
+        List<Edge> edges = graph.traversal().V(java3.id())
+                                .inE().has("score", 3).toList();
+        Assert.assertEquals(3, edges.size());
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        Vertex james = vertex("author", "id", 1);
+        List<Edge> edges = ImmutableList.copyOf(
+                           graph.adjacentEdges((Id) james.id()));
+        Assert.assertEquals(6, edges.size());
+
+```
+
+### DataFlowIssue
+Method invocation `getVertices` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+
+        List<Vertex> vertices = ImmutableList.copyOf(
+                                james.getVertices(Directions.BOTH));
+        Assert.assertEquals(6, vertices.size());
+
+```
+
+### DataFlowIssue
+Method invocation `getMessage` will produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+                    Assert.assertContains("0x00", e.getCause().getMessage());
+                } else {
+                    Assert.assertContains("0x00", e.getMessage());
+                }
+            });
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        Vertex louise = vertex("person", "name", "Louise");
+
+        List<Edge> edges = graph.traversal().V(louise.id()).outE("look")
+                                .has("time", "2017-5-1").toList();
+        Assert.assertEquals(2, edges.size());
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+
+        // BOTH
+        List<Vertex> vertices = graph.traversal().V(jeff.id())
+                                     .bothE("friend").as("e").otherV()
+                                     .toList();
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+
+        Vertex james = vertex("author", "id", 1);
+        List<Vertex> vertices = graph.traversal().V(james.id()).out().toList();
+
+        Assert.assertEquals(4, vertices.size());
+```
+
+### DataFlowIssue
+Method invocation `addEdge` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        Vertex sean = vertex("person", "name", "Sean");
+
+        louise.addEdge("transfer", sean, "id", 1, "amount", 500.00F,
+                       "timestamp", edge.value("timestamp"),
+                       "message", "Happy birthday!");
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+
+        // Query BOTH edges of a vertex
+        List<Edge> edges = graph.traversal().V(james.id()).bothE().toList();
+        Assert.assertEquals(6, edges.size());
+
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+
+        Vertex guido = vertex("author", "id", 2);
+        List<Edge> edges = graph.traversal().V(guido.id()).inE().toList();
+
+        Assert.assertEquals(0, edges.size());
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        // Query IN edges of a vertex
+        Vertex james = vertex("author", "id", 1);
+        List<Edge> edges = graph.traversal().V(james.id()).inE().toList();
+
+        Assert.assertEquals(2, edges.size());
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        Vertex louise = vertex("person", "name", "Louise");
+
+        Assert.assertEquals(4, graph.traversal().V(louise.id())
+                                    .out("look").count().next().longValue());
+        List<Vertex> vertices = graph.traversal().V(louise.id())
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        Vertex java3 = vertex("book", "name", "java-3");
+
+        List<Edge> edges = graph.traversal().V(java3.id()).inE().toList();
+        Assert.assertEquals(5, edges.size());
+
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        // Query OUT edges of a vertex
+        Vertex james = vertex("author", "id", 1);
+        List<Edge> edges = graph.traversal().V(james.id()).outE().toList();
+
+        Assert.assertEquals(4, edges.size());
+```
+
+### DataFlowIssue
+Method invocation `id` may produce `NullPointerException`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
+#### Snippet
+```java
+        Vertex java3 = vertex("book", "name", "java-3");
+
+        List<Edge> edges = graph.traversal().V(java3.id())
+                                .inE("look").toList();
+        Assert.assertEquals(4, edges.size());
+```
+
+### DataFlowIssue
 Casting `value` to `Boolean` may produce `ClassCastException`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/util/ParameterUtil.java`
 #### Snippet
@@ -5194,18 +6166,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/util/ParameterUtil.java`
         return ((Boolean) value);
     }
 }
-```
-
-### DataFlowIssue
-Casting `value` to `String` may produce `ClassCastException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/util/ParameterUtil.java`
-#### Snippet
-```java
-                        "Expect string value for parameter '%s': '%s'",
-                        key, value);
-        return (String) value;
-    }
-
 ```
 
 ### DataFlowIssue
@@ -5225,9 +6185,21 @@ Casting `value` to `Number` may produce `ClassCastException`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/util/ParameterUtil.java`
 #### Snippet
 ```java
-                        "Expect double value for parameter '%s': '%s'",
+                        "Expect long value for parameter '%s': '%s'",
                         key, value);
-        return ((Number) value).doubleValue();
+        return ((Number) value).longValue();
+    }
+
+```
+
+### DataFlowIssue
+Casting `value` to `String` may produce `ClassCastException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/util/ParameterUtil.java`
+#### Snippet
+```java
+                        "Expect string value for parameter '%s': '%s'",
+                        key, value);
+        return (String) value;
     }
 
 ```
@@ -5237,9 +6209,9 @@ Casting `value` to `Number` may produce `ClassCastException`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/util/ParameterUtil.java`
 #### Snippet
 ```java
-                        "Expect long value for parameter '%s': '%s'",
+                        "Expect double value for parameter '%s': '%s'",
                         key, value);
-        return ((Number) value).longValue();
+        return ((Number) value).doubleValue();
     }
 
 ```
@@ -5281,18 +6253,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/util/CompressUtil.java`
 ```
 
 ### DataFlowIssue
-Method invocation `charAt` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/Id.java`
-#### Snippet
-```java
-            E.checkArgument(id != null && id.length() > 0,
-                            "Invalid id '%s'", id);
-            switch (id.charAt(0)) {
-                case 'L':
-                    return IdType.LONG;
-```
-
-### DataFlowIssue
 Method invocation `toString` may produce `NullPointerException`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/PropertyKey.java`
 #### Snippet
@@ -5302,6 +6262,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/PropertyKey.java`
                 return validValue.toString();
             }
         }
+```
+
+### DataFlowIssue
+Method invocation `charAt` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/Id.java`
+#### Snippet
+```java
+            E.checkArgument(id != null && id.length() > 0,
+                            "Invalid id '%s'", id);
+            switch (id.charAt(0)) {
+                case 'L':
+                    return IdType.LONG;
 ```
 
 ### DataFlowIssue
@@ -5353,18 +6325,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelB
 ```
 
 ### DataFlowIssue
-Method invocation `iterator` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/QueryList.java`
-#### Snippet
-```java
-        E.checkNotNull(query, "query");
-        assert offset >= visited;
-        return query.iterator(offset - visited, pageInfo.page(), pageSize);
-    }
-
-```
-
-### DataFlowIssue
 Condition `this.entries instanceof Metadatable` is redundant and can be replaced with a null check
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/IdHolder.java`
 #### Snippet
@@ -5374,6 +6334,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/IdHolder.java
             E.checkState(this.entries instanceof Metadatable,
                          "Invalid iterator for Metadatable: %s",
                          this.entries.getClass());
+```
+
+### DataFlowIssue
+Method invocation `iterator` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/QueryList.java`
+#### Snippet
+```java
+        E.checkNotNull(query, "query");
+        assert offset >= visited;
+        return query.iterator(offset - visited, pageInfo.page(), pageSize);
+    }
+
 ```
 
 ### DataFlowIssue
@@ -5473,27 +6445,39 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftRem
 ```
 
 ### DataFlowIssue
-Method invocation `resultType` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+Method invocation `toString` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftGroupManagerImpl.java`
 #### Snippet
 ```java
-            @SuppressWarnings({ "unchecked", "rawtypes" })
-            Collection<Query> queries = (Collection) this.values();
-            return new JointQuery(this.rootQuery().resultType(),
-                                  this.parentQuery, queries);
-        }
+        E.checkState(leaderId != null,
+                     "There is no leader for raft group '%s'", this.group);
+        return leaderId.toString();
+    }
+
 ```
 
 ### DataFlowIssue
-Method invocation `indexFields` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+Method invocation `fresh` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
 #### Snippet
 ```java
-        // Collect property values of index fields
-        List<Object> allPropValues = new ArrayList<>();
-        int fieldsNum = indexLabel.indexFields().size();
-        int firstNullField = fieldsNum;
-        for (Id fieldId : indexLabel.indexFields()) {
+
+        // Add property in memory for new created edge
+        if (edge.fresh()) {
+            // The owner will do property update
+            edge.setProperty(prop);
+```
+
+### DataFlowIssue
+Method invocation `hasProperty` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
+#### Snippet
+```java
+
+        // Maybe have ever been removed (compatible with tinkerpop)
+        if (!vertex.hasProperty(propKey.id())) {
+            // PropertyTest shouldAllowRemovalFromVertexWhenAlreadyRemoved()
+            return;
 ```
 
 ### DataFlowIssue
@@ -5521,42 +6505,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransactio
 ```
 
 ### DataFlowIssue
-Method invocation `hasProperty` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
-#### Snippet
-```java
-
-        // Maybe have ever been removed (compatible with tinkerpop)
-        if (!vertex.hasProperty(propKey.id())) {
-            // PropertyTest shouldAllowRemovalFromVertexWhenAlreadyRemoved()
-            return;
-```
-
-### DataFlowIssue
-Method invocation `fresh` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
-#### Snippet
-```java
-
-        // Add property in memory for new created edge
-        if (edge.fresh()) {
-            // The owner will do property update
-            edge.setProperty(prop);
-```
-
-### DataFlowIssue
-Method invocation `toString` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftGroupManagerImpl.java`
-#### Snippet
-```java
-        E.checkState(leaderId != null,
-                     "There is no leader for raft group '%s'", this.group);
-        return leaderId.toString();
-    }
-
-```
-
-### DataFlowIssue
 Method invocation `waitFinished` may produce `NullPointerException`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStoreProvider.java`
 #### Snippet
@@ -5581,6 +6529,42 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftCon
 ```
 
 ### DataFlowIssue
+Method invocation `resultType` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+#### Snippet
+```java
+            @SuppressWarnings({ "unchecked", "rawtypes" })
+            Collection<Query> queries = (Collection) this.values();
+            return new JointQuery(this.rootQuery().resultType(),
+                                  this.parentQuery, queries);
+        }
+```
+
+### DataFlowIssue
+Method invocation `indexFields` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+#### Snippet
+```java
+        // Collect property values of index fields
+        List<Object> allPropValues = new ArrayList<>();
+        int fieldsNum = indexLabel.indexFields().size();
+        int firstNullField = fieldsNum;
+        for (Id fieldId : indexLabel.indexFields()) {
+```
+
+### DataFlowIssue
+Casting `query` to `ConditionQuery` may produce `ClassCastException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/memory/InMemoryDBTable.java`
+#### Snippet
+```java
+        // Query by condition(s)
+        if (query.conditionsSize() > 0) {
+            ConditionQuery condQuery = (ConditionQuery) query;
+            if (condQuery.containsScanRelation()) {
+                return this.queryByRange(condQuery);
+```
+
+### DataFlowIssue
 Dereference of `iterators` may produce `NullPointerException`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/MergeIterator.java`
 #### Snippet
@@ -5590,6 +6574,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/MergeIt
         for (Iterator<R> iterator : iterators) {
             if (iterator.hasNext()) {
                 this.iterators.add(iterator);
+```
+
+### DataFlowIssue
+Argument `indexLabel` might be null
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/memory/InMemoryDBTables.java`
+#### Snippet
+```java
+                return;
+            }
+            Id indexLabelId = IdGenerator.of(Long.parseLong(indexLabel));
+            Id min = HugeIndex.formatIndexId(entry.type(), indexLabelId, 0L);
+            indexLabelId = IdGenerator.of(indexLabelId.asLong() + 1L);
 ```
 
 ### DataFlowIssue
@@ -5609,11 +6605,11 @@ Argument `indexLabel` might be null
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/memory/InMemoryDBTables.java`
 #### Snippet
 ```java
-                return;
-            }
-            Id indexLabelId = IdGenerator.of(Long.parseLong(indexLabel));
-            Id min = HugeIndex.formatIndexId(entry.type(), indexLabelId, 0L);
-            indexLabelId = IdGenerator.of(indexLabelId.asLong() + 1L);
+                Entry<Id, BackendEntry> e = iter.next();
+                // Delete if prefix with index label
+                if (e.getKey().asString().startsWith(indexLabel)) {
+                    iter.remove();
+                }
 ```
 
 ### DataFlowIssue
@@ -5626,66 +6622,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/memory/InMem
                 keyMin = NumericUtil.minValueOf(keyMax.getClass());
             }
             Id min = HugeIndex.formatIndexId(type, indexLabelId, keyMin);
-```
-
-### DataFlowIssue
-Argument `indexLabel` might be null
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/memory/InMemoryDBTables.java`
-#### Snippet
-```java
-                Entry<Id, BackendEntry> e = iter.next();
-                // Delete if prefix with index label
-                if (e.getKey().asString().startsWith(indexLabel)) {
-                    iter.remove();
-                }
-```
-
-### DataFlowIssue
-Casting `query` to `ConditionQuery` may produce `ClassCastException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/memory/InMemoryDBTable.java`
-#### Snippet
-```java
-        // Query by condition(s)
-        if (query.conditionsSize() > 0) {
-            ConditionQuery condQuery = (ConditionQuery) query;
-            if (condQuery.containsScanRelation()) {
-                return this.queryByRange(condQuery);
-```
-
-### DataFlowIssue
-Dereference of `column` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-            E.checkState(column != null, "Not found key '%s' from entry %s",
-                         key, this.entry);
-            E.checkNotNull(column.value, "column.value");
-            return column.value;
-        }
-```
-
-### DataFlowIssue
-Method invocation `getClass` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-                            "Please specify at least one condition");
-            // Set keyMin to min value
-            keyMin = NumericUtil.minValueOf(keyMax.getClass());
-            keyMinEq = true;
-        }
-```
-
-### DataFlowIssue
-Casting `id` to `BinaryId` may produce `ClassCastException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-            E.checkState(id instanceof BinaryId,
-                         "Expect a BinaryId for BackendEntry with edge id");
-            return new BinaryBackendEntry(type, (BinaryId) id);
-        }
-
 ```
 
 ### DataFlowIssue
@@ -5725,42 +6661,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/QueryHo
 ```
 
 ### DataFlowIssue
-Condition `AddVertexStartStep.class.isInstance(step)` is redundant and can be replaced with a null check
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugePrimaryKeyStrategy.java`
-#### Snippet
-```java
-            Step step = stepList.get(i);
-
-            if (i == 0 && AddVertexStartStep.class.isInstance(step)) {
-                curAddStep = (Mutating) step;
-                continue;
-```
-
-### DataFlowIssue
-Condition `AddVertexStep.class.isInstance((step))` is redundant and can be replaced with a null check
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugePrimaryKeyStrategy.java`
-#### Snippet
-```java
-                curAddStep = (Mutating) step;
-                continue;
-            } else if (curAddStep == null && AddVertexStep.class.isInstance((step))) {
-                curAddStep = (Mutating) step;
-                continue;
-```
-
-### DataFlowIssue
-Condition `AddPropertyStep.class.isInstance(step)` is redundant and can be replaced with a null check
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugePrimaryKeyStrategy.java`
-#### Snippet
-```java
-            if (curAddStep == null) continue;
-
-            if (!AddPropertyStep.class.isInstance(step)) {
-                curAddStep = null;
-                continue;
-```
-
-### DataFlowIssue
 Method invocation `schemaLabel` may produce `NullPointerException`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeVertex.java`
 #### Snippet
@@ -5770,18 +6670,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeVertex.java`
         if (vertex.schemaLabel().undefined() ||
             !vertex.schemaLabel().equals(this.schemaLabel())) {
             // Update vertex label of dangling edge to undefined
-```
-
-### DataFlowIssue
-Method invocation `serialValue` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeVertex.java`
-#### Snippet
-```java
-                         "The value of primary key '%s' can't be null",
-                         this.graph().propertyKey(pk).name());
-            Object propValue = property.serialValue(encodeNumber);
-            if (Strings.EMPTY.equals(propValue)) {
-                propValue = ConditionQuery.INDEX_VALUE_EMPTY;
 ```
 
 ### DataFlowIssue
@@ -5797,27 +6685,87 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeVertex.java`
 ```
 
 ### DataFlowIssue
-Casting `id` to `IdGenerator.LongId` may produce `ClassCastException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java`
+Method invocation `serialValue` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeVertex.java`
 #### Snippet
 ```java
-        E.checkArgument(id instanceof IdGenerator.LongId,
-                        "Can't get number from %s(%s)", id, id.getClass());
-        return ((IdGenerator.LongId) id).intValue();
-    }
+                         "The value of primary key '%s' can't be null",
+                         this.graph().propertyKey(pk).name());
+            Object propValue = property.serialValue(encodeNumber);
+            if (Strings.EMPTY.equals(propValue)) {
+                propValue = ConditionQuery.INDEX_VALUE_EMPTY;
+```
+
+### DataFlowIssue
+Dereference of `column` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+            E.checkState(column != null, "Not found key '%s' from entry %s",
+                         key, this.entry);
+            E.checkNotNull(column.value, "column.value");
+            return column.value;
+        }
+```
+
+### DataFlowIssue
+Condition `AddVertexStartStep.class.isInstance(step)` is redundant and can be replaced with a null check
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugePrimaryKeyStrategy.java`
+#### Snippet
+```java
+            Step step = stepList.get(i);
+
+            if (i == 0 && AddVertexStartStep.class.isInstance(step)) {
+                curAddStep = (Mutating) step;
+                continue;
+```
+
+### DataFlowIssue
+Method invocation `getClass` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+                            "Please specify at least one condition");
+            // Set keyMin to min value
+            keyMin = NumericUtil.minValueOf(keyMax.getClass());
+            keyMinEq = true;
+        }
+```
+
+### DataFlowIssue
+Condition `AddVertexStep.class.isInstance((step))` is redundant and can be replaced with a null check
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugePrimaryKeyStrategy.java`
+#### Snippet
+```java
+                curAddStep = (Mutating) step;
+                continue;
+            } else if (curAddStep == null && AddVertexStep.class.isInstance((step))) {
+                curAddStep = (Mutating) step;
+                continue;
+```
+
+### DataFlowIssue
+Casting `id` to `BinaryId` may produce `ClassCastException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+            E.checkState(id instanceof BinaryId,
+                         "Expect a BinaryId for BackendEntry with edge id");
+            return new BinaryBackendEntry(type, (BinaryId) id);
+        }
 
 ```
 
 ### DataFlowIssue
-Method invocation `serialValue` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeEdge.java`
+Condition `AddPropertyStep.class.isInstance(step)` is redundant and can be replaced with a null check
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugePrimaryKeyStrategy.java`
 #### Snippet
 ```java
-            E.checkState(property != null,
-                         "The value of sort key '%s' can't be null", sk);
-            Object propValue = property.serialValue(true);
-            if (Strings.EMPTY.equals(propValue)) {
-                propValue = ConditionQuery.INDEX_VALUE_EMPTY;
+            if (curAddStep == null) continue;
+
+            if (!AddPropertyStep.class.isInstance(step)) {
+                curAddStep = null;
+                continue;
 ```
 
 ### DataFlowIssue
@@ -5833,15 +6781,15 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeEdge.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getParent` will produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVertexStepStrategy.java`
+Method invocation `serialValue` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeEdge.java`
 #### Snippet
 ```java
-        }
-
-        TraversalParent parent = traversal.getParent();
-        return containsPath(parent.asStep().getTraversal());
-    }
+            E.checkState(property != null,
+                         "The value of sort key '%s' can't be null", sk);
+            Object propValue = property.serialValue(true);
+            if (Strings.EMPTY.equals(propValue)) {
+                propValue = ConditionQuery.INDEX_VALUE_EMPTY;
 ```
 
 ### DataFlowIssue
@@ -5854,6 +6802,30 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVer
         TraversalParent parent = traversal.getParent();
         return containsTree(parent.asStep().getTraversal());
     }
+```
+
+### DataFlowIssue
+Method invocation `getParent` will produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVertexStepStrategy.java`
+#### Snippet
+```java
+        }
+
+        TraversalParent parent = traversal.getParent();
+        return containsPath(parent.asStep().getTraversal());
+    }
+```
+
+### DataFlowIssue
+Casting `id` to `IdGenerator.LongId` may produce `ClassCastException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java`
+#### Snippet
+```java
+        E.checkArgument(id instanceof IdGenerator.LongId,
+                        "Can't get number from %s(%s)", id, id.getClass());
+        return ((IdGenerator.LongId) id).intValue();
+    }
+
 ```
 
 ### DataFlowIssue
@@ -5881,15 +6853,27 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/Custom
 ```
 
 ### DataFlowIssue
-Condition `bp instanceof Compare` is redundant and can be replaced with a null check
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
+Unboxing of `oldRank` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/PersonalRankTraverser.java`
 #### Snippet
 ```java
-                                                                  HasContainer has) {
-        BiPredicate<?, ?> bp = has.getPredicate().getBiPredicate();
-        assert bp instanceof Compare;
+                    continue;
+                }
+                double incrRank = oldRank * this.alpha / degree;
 
-        HugeKeys key = token2HugeKey(has.getKey());
+                // Collect all neighbors increment
+```
+
+### DataFlowIssue
+Method invocation `values` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizePathsTraverser.java`
+#### Snippet
+```java
+        }
+        List<Path> paths = newList();
+        for (List<Node> nodes : newVertices.values()) {
+            for (Node n : nodes) {
+                if (sorted) {
 ```
 
 ### DataFlowIssue
@@ -5941,18 +6925,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
 ```
 
 ### DataFlowIssue
-Condition `bp instanceof Compare` is redundant and can be replaced with a null check
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
-#### Snippet
-```java
-        assert type.isGraph();
-        BiPredicate<?, ?> bp = has.getPredicate().getBiPredicate();
-        assert bp instanceof Compare;
-
-        return isSysProp(has.getKey()) ?
-```
-
-### DataFlowIssue
 Condition `bp instanceof Contains` is redundant and can be replaced with a null check
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
 #### Snippet
@@ -5965,39 +6937,27 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
 ```
 
 ### DataFlowIssue
-Unboxing of `oldRank` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/PersonalRankTraverser.java`
+Condition `bp instanceof Compare` is redundant and can be replaced with a null check
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
 #### Snippet
 ```java
-                    continue;
-                }
-                double incrRank = oldRank * this.alpha / degree;
+        assert type.isGraph();
+        BiPredicate<?, ?> bp = has.getPredicate().getBiPredicate();
+        assert bp instanceof Compare;
 
-                // Collect all neighbors increment
+        return isSysProp(has.getKey()) ?
 ```
 
 ### DataFlowIssue
-Method invocation `values` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizePathsTraverser.java`
+Condition `bp instanceof Compare` is redundant and can be replaced with a null check
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
 #### Snippet
 ```java
-        }
-        List<Path> paths = newList();
-        for (List<Node> nodes : newVertices.values()) {
-            for (Node n : nodes) {
-                if (sorted) {
-```
+                                                                  HasContainer has) {
+        BiPredicate<?, ?> bp = has.getPredicate().getBiPredicate();
+        assert bp instanceof Compare;
 
-### DataFlowIssue
-Method invocation `isEmpty` may produce `NullPointerException`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/variables/HugeVariables.java`
-#### Snippet
-```java
-            throw Graph.Variables.Exceptions.variableKeyCanNotBeNull();
-        }
-        if (key.isEmpty()) {
-            throw Graph.Variables.Exceptions.variableKeyCanNotBeEmpty();
-        }
+        HugeKeys key = token2HugeKey(has.getKey());
 ```
 
 ### DataFlowIssue
@@ -6025,87 +6985,15 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/variables/HugeVariables.ja
 ```
 
 ### DataFlowIssue
-Method invocation `asBytes` may produce `NullPointerException`
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBTables.java`
+Method invocation `isEmpty` may produce `NullPointerException`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/variables/HugeVariables.java`
 #### Snippet
 ```java
-
-            E.checkArgumentNotNull(min, "Range index begin key is missing");
-            byte[] begin = min.asBytes();
-            if (!minEq) {
-                BinarySerializer.increaseOne(begin);
-```
-
-### DataFlowIssue
-Method invocation `asBytes` may produce `NullPointerException`
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBTables.java`
-#### Snippet
-```java
-            if (max == null) {
-                E.checkArgumentNotNull(prefix, "Range index prefix is missing");
-                return session.scan(this.table(), begin, prefix.asBytes(),
-                                    RocksDBSessions.Session.SCAN_PREFIX_END);
-            } else {
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/ExampleUtil.java`
-#### Snippet
-```java
-        try {
-            String path = ExampleUtil.class.getClassLoader()
-                                     .getResource(conf).getPath();
-            File file = new File(path);
-            if (file.exists() && file.isFile()) {
-```
-
-### DataFlowIssue
-Method invocation `size` may produce `NullPointerException`
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/WhereBuilder.java`
-#### Snippet
-```java
-                        "The clauses can't be empty");
-
-        int size = clauses.size();
-        int i = 0;
-        for (StringBuilder clause : clauses) {
-```
-
-### DataFlowIssue
-Method invocation `column` may produce `NullPointerException`
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlTables.java`
-#### Snippet
-```java
-            if (current != null && current.subRows().size() < maxSize) {
-                Id nextVertexId = IdGenerator.of(
-                                  next.<String>column(HugeKeys.OWNER_VERTEX));
-                if (current.id().equals(nextVertexId)) {
-                    current.subRow(next.row());
-```
-
-### DataFlowIssue
-Argument `next` might be null
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlTables.java`
-#### Snippet
-```java
-            }
-
-            return this.wrapByVertex(next);
+            throw Graph.Variables.Exceptions.variableKeyCanNotBeNull();
         }
-
-```
-
-### DataFlowIssue
-Argument `algorithm` might be null
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/job/AlgorithmAPI.java`
-#### Snippet
-```java
-
-        HugeGraph g = graph(manager, graph);
-        Map<String, Object> input = ImmutableMap.of("algorithm", algorithm,
-                                                    "parameters", parameters);
-        JobBuilder<Object> builder = JobBuilder.of(g);
+        if (key.isEmpty()) {
+            throw Graph.Variables.Exceptions.variableKeyCanNotBeEmpty();
+        }
 ```
 
 ### DataFlowIssue
@@ -6133,39 +7021,27 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/API.java`
 ```
 
 ### DataFlowIssue
-Method invocation `column` may produce `NullPointerException`
-in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloTables.java`
+Argument `algorithm` might be null
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/job/AlgorithmAPI.java`
 #### Snippet
 ```java
-            if (current != null && current.subRows().size() < maxSize) {
-                Id nextVertexId = IdGenerator.of(
-                                  next.<String>column(HugeKeys.OWNER_VERTEX));
-                if (current.id().equals(nextVertexId)) {
-                    current.subRow(next.row());
+
+        HugeGraph g = graph(manager, graph);
+        Map<String, Object> input = ImmutableMap.of("algorithm", algorithm,
+                                                    "parameters", parameters);
+        JobBuilder<Object> builder = JobBuilder.of(g);
 ```
 
 ### DataFlowIssue
-Argument `next` might be null
-in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloTables.java`
+Method invocation `getAddress` may produce `NullPointerException`
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseMetrics.java`
 #### Snippet
 ```java
-            }
-
-            return this.wrapByVertex(next);
-        }
-
-```
-
-### DataFlowIssue
-Method invocation `row` may produce `NullPointerException`
-in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloTables.java`
-#### Snippet
-```java
-                String nextId = this.entryId(next);
-                if (currentId.equals(nextId)) {
-                    current.subRow(next.row());
-                    return current;
-                }
+            results.put(CLUSTER_ID, clusterMetrics.getClusterId());
+            results.put("master_name",
+                        clusterMetrics.getMasterName().getAddress().toString());
+            results.put("average_load", clusterMetrics.getAverageLoad());
+            results.put("hbase_version", clusterMetrics.getHBaseVersion());
 ```
 
 ### DataFlowIssue
@@ -6182,6 +7058,18 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/auth/GroupAPI.java`
 
 ### DataFlowIssue
 Variable is already assigned to this value
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/auth/UserAPI.java`
+#### Snippet
+```java
+            throw new IllegalArgumentException("Invalid user id: " + id);
+        }
+        user = jsonUser.build(user);
+        manager.authManager().updateUser(user);
+        return manager.serializer(g).writeAuthElement(user);
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
 in `hugegraph-api/src/main/java/org/apache/hugegraph/api/auth/TargetAPI.java`
 #### Snippet
 ```java
@@ -6190,18 +7078,6 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/auth/TargetAPI.java`
         target = jsonTarget.build(target);
         manager.authManager().updateTarget(target);
         return manager.serializer(g).writeAuthElement(target);
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/auth/AccessAPI.java`
-#### Snippet
-```java
-            throw new IllegalArgumentException("Invalid access id: " + id);
-        }
-        access = jsonAccess.build(access);
-        manager.authManager().updateAccess(access);
-        return manager.serializer(g).writeAuthElement(access);
 ```
 
 ### DataFlowIssue
@@ -6218,14 +7094,14 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/auth/BelongAPI.java`
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/auth/UserAPI.java`
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/auth/AccessAPI.java`
 #### Snippet
 ```java
-            throw new IllegalArgumentException("Invalid user id: " + id);
+            throw new IllegalArgumentException("Invalid access id: " + id);
         }
-        user = jsonUser.build(user);
-        manager.authManager().updateUser(user);
-        return manager.serializer(g).writeAuthElement(user);
+        access = jsonAccess.build(access);
+        manager.authManager().updateAccess(access);
+        return manager.serializer(g).writeAuthElement(access);
 ```
 
 ### DataFlowIssue
@@ -6385,6 +7261,30 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java
 ```
 
 ### DataFlowIssue
+Dereference of `value` may produce `NullPointerException`
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/variables/VariablesAPI.java`
+#### Snippet
+```java
+
+        HugeGraph g = graph(manager, graph);
+        commit(g, () -> g.variables().set(key, value.data));
+        return ImmutableMap.of(key, value.data);
+    }
+```
+
+### DataFlowIssue
+Dereference of `value` may produce `NullPointerException`
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/variables/VariablesAPI.java`
+#### Snippet
+```java
+        HugeGraph g = graph(manager, graph);
+        commit(g, () -> g.variables().set(key, value.data));
+        return ImmutableMap.of(key, value.data);
+    }
+
+```
+
+### DataFlowIssue
 Argument `readMode` might be null
 in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/GraphsAPI.java`
 #### Snippet
@@ -6404,30 +7304,6 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/profile/GraphsAPI.java`
         HugeGraph g = graph(manager, name);
         g.mode(mode);
         return ImmutableMap.of("mode", mode);
-    }
-
-```
-
-### DataFlowIssue
-Dereference of `value` may produce `NullPointerException`
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/variables/VariablesAPI.java`
-#### Snippet
-```java
-
-        HugeGraph g = graph(manager, graph);
-        commit(g, () -> g.variables().set(key, value.data));
-        return ImmutableMap.of(key, value.data);
-    }
-```
-
-### DataFlowIssue
-Dereference of `value` may produce `NullPointerException`
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/variables/VariablesAPI.java`
-#### Snippet
-```java
-        HugeGraph g = graph(manager, graph);
-        commit(g, () -> g.variables().set(key, value.data));
-        return ImmutableMap.of(key, value.data);
     }
 
 ```
@@ -6493,90 +7369,6 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeAuthenticator.java
 ```
 
 ### DataFlowIssue
-Casting `value` to `Map` may produce `ClassCastException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
-#### Snippet
-```java
-
-        Assert.assertTrue(value instanceof Map);
-        Map<?, ?> graph = (Map<?, ?>) value;
-        assertMapContains(graph, "backend");
-        assertMapContains(graph, "nodes");
-```
-
-### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
-#### Snippet
-```java
-        assertMapContains(graph, "backend");
-        assertMapContains(graph, "nodes");
-        String backend = (String) graph.get("backend");
-        int nodes = (Integer) graph.get("nodes");
-        switch (backend) {
-```
-
-### DataFlowIssue
-Casting `value` to `Map` may produce `ClassCastException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
-#### Snippet
-```java
-                                      key, value),
-                                      value instanceof Map);
-                    host = (Map<?, ?>) value;
-                    assertMapContains(host, "mem_max");
-                    assertMapContains(host, "mem_committed");
-```
-
-### DataFlowIssue
-Casting `value` to `Map` may produce `ClassCastException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
-#### Snippet
-```java
-                                      key, value),
-                                      value instanceof Map);
-                    host = (Map<?, ?>) value;
-                    assertMapContains(host, "mem_max");
-                    assertMapContains(host, "mem_committed");
-```
-
-### DataFlowIssue
-Casting `value` to `Map` may produce `ClassCastException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
-#### Snippet
-```java
-                                      key, value),
-                                      value instanceof Map);
-                    Map<?, ?> regionServer = (Map<?, ?>) value;
-                    assertMapContains(regionServer, "mem_max");
-                    assertMapContains(regionServer, "mem_used");
-```
-
-### DataFlowIssue
-Condition `ex instanceof TraversalInterruptedException` is redundant and can be replaced with a null check
-in `hugegraph-api/src/main/java/org/apache/hugegraph/opencypher/CypherOpProcessor.java`
-#### Snippet
-```java
-
-    private String getErrorMessage(RequestMessage msg, Exception ex) {
-        if (ex instanceof InterruptedException || ex instanceof TraversalInterruptedException) {
-            return String.format("A timeout occurred during traversal evaluation of [%s] " +
-                                 "- consider increasing the limit given to scriptEvaluationTimeout",
-```
-
-### DataFlowIssue
-Method invocation `getMessage` will produce `NullPointerException`
-in `hugegraph-api/src/main/java/org/apache/hugegraph/opencypher/CypherOpProcessor.java`
-#### Snippet
-```java
-                                 msg);
-        } else {
-            return ex.getMessage();
-        }
-    }
-```
-
-### DataFlowIssue
 Argument `graph` might be null
 in `hugegraph-api/src/main/java/org/apache/hugegraph/core/GraphManager.java`
 #### Snippet
@@ -6613,15 +7405,27 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/core/GraphManager.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getBytecode` will produce `NullPointerException`
-in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeGraphAuthProxy.java`
+Condition `ex instanceof TraversalInterruptedException` is redundant and can be replaced with a null check
+in `hugegraph-api/src/main/java/org/apache/hugegraph/opencypher/CypherOpProcessor.java`
 #### Snippet
 ```java
-            } else {
-                GroovyTranslator translator = GroovyTranslator.of("g");
-                Script script1 = translator.translate(traversal.getBytecode());
-                if (script1 != null) {
-                    script = script1.getScript();
+
+    private String getErrorMessage(RequestMessage msg, Exception ex) {
+        if (ex instanceof InterruptedException || ex instanceof TraversalInterruptedException) {
+            return String.format("A timeout occurred during traversal evaluation of [%s] " +
+                                 "- consider increasing the limit given to scriptEvaluationTimeout",
+```
+
+### DataFlowIssue
+Method invocation `getMessage` will produce `NullPointerException`
+in `hugegraph-api/src/main/java/org/apache/hugegraph/opencypher/CypherOpProcessor.java`
+#### Snippet
+```java
+                                 msg);
+        } else {
+            return ex.getMessage();
+        }
+    }
 ```
 
 ### DataFlowIssue
@@ -6637,819 +7441,15 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeGraphAuthProxy.jav
 ```
 
 ### DataFlowIssue
-Method invocation `epoch` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/RoleElectionStateMachineTest.java`
-#### Snippet
-```java
-                    }
-
-                    Assert.assertEquals(value.epoch(), copy.epoch());
-                    if (Objects.equals(value.node(), copy.node()) &&
-                        value.clock() <= copy.clock()) {
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/Utils.java`
-#### Snippet
-```java
-        try {
-            confPath = Utils.class.getClassLoader()
-                            .getResource(confPath).getPath();
-        } catch (Exception ignored) {
-            // ignored Exception
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/Utils.java`
-#### Snippet
-```java
-    public static PropertiesConfiguration getConf() {
-        String confFile = Utils.class.getClassLoader()
-                                     .getResource(CONF_PATH).getPath();
-        File file = new File(confFile);
-        E.checkArgument(file.exists() && file.isFile() && file.canRead(),
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        // Query IN edges of a vertex
-        Vertex james = vertex("author", "id", 1);
-        List<Edge> edges = graph.traversal().V(james.id()).inE().toList();
-
-        Assert.assertEquals(2, edges.size());
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        Vertex james = vertex("author", "id", 1);
-        List<Edge> edges = ImmutableList.copyOf(
-                           graph.adjacentEdges((Id) james.id()));
-        Assert.assertEquals(6, edges.size());
-
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-
-        // Query BOTH edges of a vertex
-        List<Edge> edges = graph.traversal().V(james.id()).bothE().toList();
-        Assert.assertEquals(6, edges.size());
-
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        Vertex java3 = vertex("book", "name", "java-3");
-
-        List<Edge> edges = graph.traversal().V(java3.id()).inE().toList();
-        Assert.assertEquals(5, edges.size());
-
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-
-        Vertex james = vertex("author", "id", 1);
-        List<Vertex> vertices = graph.traversal().V(james.id()).out().toList();
-
-        Assert.assertEquals(4, vertices.size());
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        // Query OUT edges of a vertex
-        Vertex james = vertex("author", "id", 1);
-        List<Edge> edges = graph.traversal().V(james.id()).outE().toList();
-
-        Assert.assertEquals(4, edges.size());
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-
-        // NOTE: the has() just filter by vertex props
-        List<Vertex> vertices = graph.traversal().V(java3.id())
-                                     .in("look").has("age", P.gt(22))
-                                     .toList();
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        Vertex louise = vertex("person", "name", "Louise");
-
-        Assert.assertEquals(4, graph.traversal().V(louise.id())
-                                    .out("look").count().next().longValue());
-        List<Vertex> vertices = graph.traversal().V(louise.id())
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        Vertex java3 = vertex("book", "name", "java-3");
-
-        List<Vertex> vertices = graph.traversal().V(java3.id())
-                                     .in("look").toList();
-        Assert.assertEquals(4, vertices.size());
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        Vertex louise = vertex("person", "name", "Louise");
-
-        List<Edge> edges = graph.traversal().V(louise.id()).outE("look")
-                                .has("time", "2017-5-1").toList();
-        Assert.assertEquals(2, edges.size());
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-
-        // BOTH
-        List<Vertex> vertices = graph.traversal().V(jeff.id())
-                                     .both("friend").toList();
-        Assert.assertEquals(2, vertices.size());
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-
-        Vertex java = vertex("language", "name", "java");
-        List<Edge> edges = graph.traversal().V(java.id()).inE().toList();
-
-        Assert.assertEquals(1, edges.size());
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-
-        // BOTH
-        List<Vertex> vertices = graph.traversal().V(jeff.id())
-                                     .bothE("friend").as("e").otherV()
-                                     .toList();
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        Vertex java3 = vertex("book", "name", "java-3");
-
-        List<Edge> edges = graph.traversal().V(java3.id())
-                                .inE().has("score", 3).toList();
-        Assert.assertEquals(3, edges.size());
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-
-        Vertex guido = vertex("author", "id", 2);
-        List<Edge> edges = graph.traversal().V(guido.id()).inE().toList();
-
-        Assert.assertEquals(0, edges.size());
-```
-
-### DataFlowIssue
-Method invocation `getVertices` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-
-        List<Vertex> vertices = ImmutableList.copyOf(
-                                james.getVertices(Directions.BOTH));
-        Assert.assertEquals(6, vertices.size());
-
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        Vertex louise = vertex("person", "name", "Louise");
-
-        List<Edge> edges = graph.traversal().V(louise.id()).outE("look")
-                                .has("time", "2017-5-1").has("score", 3)
-                                .toList();
-```
-
-### DataFlowIssue
-Method invocation `addEdge` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        Vertex sean = vertex("person", "name", "Sean");
-
-        louise.addEdge("transfer", sean, "id", 1, "amount", 500.00F,
-                       "timestamp", edge.value("timestamp"),
-                       "message", "Happy birthday!");
-```
-
-### DataFlowIssue
-Method invocation `getMessage` will produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-                    Assert.assertContains("0x00", e.getCause().getMessage());
-                } else {
-                    Assert.assertContains("0x00", e.getMessage());
-                }
-            });
-```
-
-### DataFlowIssue
-Method invocation `id` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/EdgeCoreTest.java`
-#### Snippet
-```java
-        Vertex java3 = vertex("book", "name", "java-3");
-
-        List<Edge> edges = graph.traversal().V(java3.id())
-                                .inE("look").toList();
-        Assert.assertEquals(4, edges.size());
-```
-
-### DataFlowIssue
-The call to 'assumeTrue' always fails, according to its method contracts
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBSessionTest.java`
-#### Snippet
-```java
-    @Test
-    public void testMergeWithStringList() throws RocksDBException {
-        Assume.assumeTrue("Not support string append now", false);
-
-        this.rocks.session().put(TABLE, getBytes("person:1gphoneno"), getBytes("12306"));
-```
-
-### DataFlowIssue
-Method invocation `getPath` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
-#### Snippet
-```java
-                        "Can't find tests filter '%s' in resource directory",
-                        filter);
-        File file = new File(blackList.getPath());
-        E.checkArgument(
-                file.exists() && file.isFile() && file.canRead(),
-```
-
-### DataFlowIssue
-Method invocation `column` may produce `NullPointerException`
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTables.java`
-#### Snippet
-```java
-            long maxSize = BackendEntryIterator.INLINE_BATCH_SIZE;
-            if (current != null && current.subRows().size() < maxSize) {
-                Object nextVertexId = next.column(HugeKeys.OWNER_VERTEX);
-                if (current.id().equals(IdGenerator.of(nextVertexId))) {
-                    current.subRow(next.row());
-```
-
-### DataFlowIssue
-Argument `next` might be null
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTables.java`
-#### Snippet
-```java
-            }
-
-            return this.wrapByVertex(next);
-        }
-
-```
-
-### DataFlowIssue
-Method invocation `remove` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        Vertex vertex = vertex("author", "id", 1);
-        vertex.remove();
-        this.mayCommitTx();
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `value` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        this.commitTx();
-        Vertex vertex = vertex("person", "name", "marko");
-        Assert.assertEquals("Beijing", vertex.value("city"));
-        Assert.assertEquals(Utils.date("1992-11-17 12:00:00.000"),
-                            vertex.value("birth"));
-```
-
-### DataFlowIssue
-Method invocation `value` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        Assert.assertEquals("Beijing", vertex.value("city"));
-        vertex = vertex("person", "name", "marko");
-        Assert.assertEquals(26, (int) vertex.value("age"));
-        Assert.assertEquals(Utils.date("1992-11-17 12:00:00.000"),
-                            vertex.value("birth"));
-```
-
-### DataFlowIssue
-Method invocation `value` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        this.commitTx();
-        vertex = vertex("person", "name", "marko");
-        Assert.assertEquals("Beijing", vertex.value("city"));
-        Assert.assertEquals(26, (int) vertex.value("age"));
-        Assert.assertEquals(Utils.date("1993-11-17 12:00:00.000"),
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertFalse(vertex.property("lived").isPresent());
-        Assert.assertEquals("Tomcat", vertex.property("name").value());
-    }
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            // Update primary key property
-            vertex.property("id", 2);
-        });
-    }
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertEquals("Tom", vertex.property("name").value());
-
-        vertex.property("name", "Tom2");
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertEquals("Tom2", vertex.property("name").value());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertEquals("Tom2", vertex.property("name").value());
-        Assert.assertEquals(10, vertex.property("age").value());
-        Assert.assertEquals("USA", vertex.property("lived").value());
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertTrue(vertex.property("lived").isPresent());
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
-```
-
-### DataFlowIssue
-Method invocation `label` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        // remove vertex without label index
-        Vertex vertex = vertex("author2", "id", 1);
-        graph.removeVertex(vertex.label(), vertex.id());
-        this.mayCommitTx();
-
-```
-
-### DataFlowIssue
-Method invocation `label` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        // remove vertex with label index
-        vertex = vertex("author", "id", 2);
-        graph.removeVertex(vertex.label(), vertex.id());
-        this.mayCommitTx();
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertFalse(vertex.property("lived").isPresent());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        this.mayCommitTx();
-        Vertex vertex = vertex("person", "name", "marko");
-        Assert.assertTrue(vertex.property("age").isPresent());
-        Assert.assertEquals(18, vertex.value("age"));
-        Assert.assertTrue(vertex.property("city").isPresent());
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        this.mayCommitTx();
-        vertex = vertex("person", "name", "marko");
-        Assert.assertFalse(vertex.property("age").isPresent());
-        Assert.assertTrue(vertex.property("city").isPresent());
-        Assert.assertEquals("Wuhan", vertex.value("city"));
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        this.mayCommitTx();
-        vertex = vertex("person", "name", "marko");
-        Assert.assertTrue(vertex.property("age").isPresent());
-        Assert.assertEquals(19, vertex.value("age"));
-        Assert.assertTrue(vertex.property("city").isPresent());
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        Vertex vertex = vertex("author", "id", 1);
-        Assert.assertTrue(vertex.property("lived").isPresent());
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        Vertex vertex = vertex("author", "id", 1);
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertFalse(vertex.property("lived").isPresent());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertTrue(vertex.property("lived").isPresent());
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertFalse(vertex.property("age").isPresent());
-        Assert.assertFalse(vertex.property("lived").isPresent());
-    }
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertTrue(vertex.property("lived").isPresent());
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        // Remove "lived" property
-        Vertex vertex = vertex("author", "id", 1);
-        Assert.assertTrue(vertex.property("name").isPresent());
-        Assert.assertTrue(vertex.property("lived").isPresent());
-        vertex.property("lived").remove();
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertEquals(10, vertex.property("age").value());
-        Assert.assertTrue(vertex.property("name").isPresent());
-        Assert.assertFalse(vertex.property("lived").isPresent());
-```
-
-### DataFlowIssue
-Method invocation `remove` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        Vertex vertex = vertex("author", "id", 1);
-        vertex.remove();
-        this.mayCommitTx();
-
-```
-
-### DataFlowIssue
-Method invocation `value` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        vertex = vertex("review", "id", 1);
-        Assert.assertEquals(ImmutableSet.of("+1", "+2"),
-                            vertex.value("contribution"));
-
-        vertex = graph.addVertex(T.label, "review", "id", 2,
-```
-
-### DataFlowIssue
-Method invocation `value` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        vertex = vertex("review", "id", 2);
-        Assert.assertEquals(ImmutableSet.of("+1", "+2"),
-                            vertex.value("contribution"));
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `value` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        vertex = vertex("review", "id", 1);
-        Assert.assertEquals(ImmutableList.of("looks good!", "LGTM!"),
-                            vertex.value("comment"));
-        List<Object> props = vertex.value("comment");
-        Assert.assertEquals(2, props.size());
-```
-
-### DataFlowIssue
-Method invocation `value` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        vertex = vertex("review", "id", 2);
-        Assert.assertEquals(ImmutableList.of("looks good 2!", "LGTM!"),
-                            vertex.value("comment"));
-        props = vertex.value("comment");
-        Assert.assertEquals(2, props.size());
-```
-
-### DataFlowIssue
-Method invocation `value` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        vertex = vertex("review", "id", 3);
-        Assert.assertEquals(ImmutableList.of("looks good 3!", "LGTM!"),
-                            vertex.value("comment"));
-        props = vertex.value("comment");
-        Assert.assertEquals(2, props.size());
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("person", "name", "Tom");
-        Assert.assertEquals(3, vertex.property("age").value());
-
-        vertex.property("age", 4);
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(4, vertex.property("age").value());
-        vertex = vertex("person", "name", "Tom");
-        Assert.assertEquals(4, vertex.property("age").value());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertFalse(vertex.property("lived").isPresent());
-    }
-
-```
-
-### DataFlowIssue
-Method invocation `getMessage` will produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-                    Assert.assertContains("0x00", e.getCause().getMessage());
-                } else {
-                    Assert.assertContains("0x00", e.getMessage());
-                }
-            });
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertFalse(vertex.property("lived").isPresent());
-        Assert.assertEquals("Tomcat", vertex.property("name").value());
-    }
-```
-
-### DataFlowIssue
-Method invocation `property` may produce `NullPointerException`
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-
-        vertex = vertex("author", "id", 1);
-        Assert.assertEquals("Tomcat", vertex.property("name").value());
-        Assert.assertEquals("Shanghai", vertex.property("lived").value());
-    }
+Method invocation `getBytecode` will produce `NullPointerException`
+in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeGraphAuthProxy.java`
+#### Snippet
+```java
+            } else {
+                GroovyTranslator translator = GroovyTranslator.of("g");
+                Script script1 = translator.translate(traversal.getBytecode());
+                if (script1 != null) {
+                    script = script1.getScript();
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -11031,11 +11031,11 @@ Class member declared `protected` in 'final' class
 in `hugegraph-core/src/main/java/org/apache/hugegraph/task/TaskManager.java`
 #### Snippet
 ```java
-    }
+    private static final ThreadLocal<String> CONTEXTS = new ThreadLocal<>();
 
-    protected void notifyNewTask(HugeTask<?> task) {
-        Queue<Runnable> queue = ((ThreadPoolExecutor) this.schedulerExecutor)
-                                                          .getQueue();
+    protected static void setContext(String context) {
+        CONTEXTS.set(context);
+    }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11067,11 +11067,11 @@ Class member declared `protected` in 'final' class
 in `hugegraph-core/src/main/java/org/apache/hugegraph/task/TaskManager.java`
 #### Snippet
 ```java
-    private static final ThreadLocal<String> CONTEXTS = new ThreadLocal<>();
-
-    protected static void setContext(String context) {
-        CONTEXTS.set(context);
     }
+
+    protected void notifyNewTask(HugeTask<?> task) {
+        Queue<Runnable> queue = ((ThreadPoolExecutor) this.schedulerExecutor)
+                                                          .getQueue();
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11088,14 +11088,14 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/task/HugeServerInfo.java`
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/QueryList.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/LevelCache.java`
 #### Snippet
 ```java
     }
 
-    protected Query parent() {
-        return this.parent;
-    }
+    protected AbstractCache<Id, Object> last() {
+        final int length = this.caches.length;
+        E.checkState(length > 0,
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11112,14 +11112,14 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/QueryList.jav
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/LevelCache.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/QueryList.java`
 #### Snippet
 ```java
     }
 
-    protected AbstractCache<Id, Object> last() {
-        final int length = this.caches.length;
-        E.checkState(length > 0,
+    protected Query parent() {
+        return this.parent;
+    }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11141,9 +11141,9 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftNod
 ```java
     }
 
-    protected RaftContext context() {
-        return this.context;
-    }
+    protected LeaderInfo waitLeaderElected(int timeout) {
+        String group = this.context.group();
+        LeaderInfo leaderInfo = this.leaderInfo.get();
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11153,9 +11153,9 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftNod
 ```java
     }
 
-    protected LeaderInfo waitLeaderElected(int timeout) {
-        String group = this.context.group();
-        LeaderInfo leaderInfo = this.leaderInfo.get();
+    protected RaftContext context() {
+        return this.context;
+    }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11177,9 +11177,9 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftCon
 ```java
     }
 
-    protected void notifyCache(String action, HugeType type, List<Id> ids) {
-        EventHub eventHub;
-        if (type.isGraph()) {
+    protected RaftBackendStore[] stores() {
+        return this.stores;
+    }
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11201,9 +11201,9 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftCon
 ```java
     }
 
-    protected RpcForwarder rpcForwarder() {
-        return this.rpcForwarder;
-    }
+    protected void clearCache() {
+        // Just choose two representatives used to represent schema and graph
+        this.notifyCache(Cache.ACTION_CLEAR, HugeType.VERTEX_LABEL, null);
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11213,9 +11213,9 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftCon
 ```java
     }
 
-    protected RaftBackendStore[] stores() {
-        return this.stores;
-    }
+    protected void notifyCache(String action, HugeType type, List<Id> ids) {
+        EventHub eventHub;
+        if (type.isGraph()) {
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11237,21 +11237,9 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftCon
 ```java
     }
 
-    protected void clearCache() {
-        // Just choose two representatives used to represent schema and graph
-        this.notifyCache(Cache.ACTION_CLEAR, HugeType.VERTEX_LABEL, null);
-```
-
-### ProtectedMemberInFinalClass
-Class member declared `protected` in 'final' class
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeGraphStep.java`
-#### Snippet
-```java
+    protected RpcForwarder rpcForwarder() {
+        return this.rpcForwarder;
     }
-
-    protected long count() {
-        if (this.ids == null) {
-            return 0L;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11268,14 +11256,14 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeCou
 
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVertexStepStrategy.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeGraphStep.java`
 #### Snippet
 ```java
-     * @return the traversal or its parents contain at least one Path step
-     */
-    protected static boolean containsPath(Traversal.Admin<?, ?> traversal) {
-        boolean hasPath = TraversalHelper.getStepsOfClass(
-                          PathStep.class, traversal).size() > 0;
+    }
+
+    protected long count() {
+        if (this.ids == null) {
+            return 0L;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11288,6 +11276,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVer
     protected static boolean containsTree(Traversal.Admin<?, ?> traversal) {
         boolean hasTree = TraversalHelper.getStepsOfClass(
                           TreeStep.class, traversal).size() > 0;
+```
+
+### ProtectedMemberInFinalClass
+Class member declared `protected` in 'final' class
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVertexStepStrategy.java`
+#### Snippet
+```java
+     * @return the traversal or its parents contain at least one Path step
+     */
+    protected static boolean containsPath(Traversal.Admin<?, ?> traversal) {
+        boolean hasPath = TraversalHelper.getStepsOfClass(
+                          PathStep.class, traversal).size() > 0;
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11307,11 +11307,11 @@ Class member declared `protected` in 'final' class
 in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeGraphAuthProxy.java`
 #### Snippet
 ```java
-    }
+    private static final ThreadLocal<Context> CONTEXTS = new InheritableThreadLocal<>();
 
-    protected static void resetContext() {
-        CONTEXTS.remove();
-    }
+    protected static Context setContext(Context context) {
+        Context old = CONTEXTS.get();
+        CONTEXTS.set(context);
 ```
 
 ### ProtectedMemberInFinalClass
@@ -11343,11 +11343,11 @@ Class member declared `protected` in 'final' class
 in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeGraphAuthProxy.java`
 #### Snippet
 ```java
-    private static final ThreadLocal<Context> CONTEXTS = new InheritableThreadLocal<>();
+    }
 
-    protected static Context setContext(Context context) {
-        Context old = CONTEXTS.get();
-        CONTEXTS.set(context);
+    protected static void resetContext() {
+        CONTEXTS.remove();
+    }
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -11361,104 +11361,6 @@ in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/Mysql
             select.append(aggregate.toString());
         } else {
             select.append("*");
-```
-
-## RuleId[id=SuspiciousMethodCalls]
-### SuspiciousMethodCalls
-Suspicious call to 'Set.contains()'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/query/ConditionQuery.java`
-#### Snippet
-```java
-            }
-            Relation relation = (Relation) condition;
-            if (keys.contains(relation.key())) {
-                int keyCount = keyCounts.getOrDefault(relation.key(), 0);
-                if (++keyCount > 1) {
-```
-
-### SuspiciousMethodCalls
-Suspicious call to 'Map.getOrDefault()'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/query/ConditionQuery.java`
-#### Snippet
-```java
-            Relation relation = (Relation) condition;
-            if (keys.contains(relation.key())) {
-                int keyCount = keyCounts.getOrDefault(relation.key(), 0);
-                if (++keyCount > 1) {
-                    return true;
-```
-
-### SuspiciousMethodCalls
-'Map' may not contain keys of type ''
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
-#### Snippet
-```java
-
-        return new MapperIterator<>(ids.iterator(), id -> {
-            HugeVertex vertex = vertices.get(id);
-            if (vertex == null) {
-                if (checkMustExist) {
-```
-
-### SuspiciousMethodCalls
-'Map' may not contain keys of type ''
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
-#### Snippet
-```java
-
-        return new MapperIterator<>(ids.iterator(), id -> {
-            Edge edge = edges.get(id);
-            return edge;
-        });
-```
-
-### SuspiciousMethodCalls
-Suspicious call to 'Set.contains()'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/collection/IdSetTest.java`
-#### Snippet
-```java
-                } else if (id instanceof IdGenerator.UuidId) {
-                    Assert.assertTrue(id.uuid() &&
-                                      uuids.contains(id.asObject()));
-                } else {
-                    Assert.assertTrue(id instanceof IdGenerator.StringId);
-```
-
-### SuspiciousMethodCalls
-Suspicious call to 'Set.contains()'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
-#### Snippet
-```java
-                                            "Tom Cat", "Lisa");
-        for (Object name : vertices) {
-            Assert.assertTrue(names.contains(name));
-        }
-    }
-```
-
-## RuleId[id=DanglingJavadoc]
-### DanglingJavadoc
-Dangling Javadoc comment
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/SplicingIdGenerator.java`
-#### Snippet
-```java
-    public static final String ID_SPLITOR_STR = String.valueOf(ID_SPLITOR);
-
-    /****************************** id generate ******************************/
-
-    /**
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `hugegraph-api/src/main/java/org/apache/hugegraph/opencypher/CypherPlugin.java`
-#### Snippet
-```java
- */
-
-/**
- * Description of the modifications:
- * <p>
 ```
 
 ## RuleId[id=InnerClassMayBeStatic]
@@ -11523,18 +11425,6 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/server/ApplicationConfig.ja
 ```
 
 ### InnerClassMayBeStatic
-Inner class `GraphManagerFactory` may be 'static'
-in `hugegraph-api/src/main/java/org/apache/hugegraph/server/ApplicationConfig.java`
-#### Snippet
-```java
-    }
-
-    private class GraphManagerFactory extends AbstractBinder implements Factory<GraphManager> {
-
-        private GraphManager manager = null;
-```
-
-### InnerClassMayBeStatic
 Inner class `ConfFactory` may be 'static'
 in `hugegraph-api/src/main/java/org/apache/hugegraph/server/ApplicationConfig.java`
 #### Snippet
@@ -11546,7 +11436,141 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/server/ApplicationConfig.ja
         private final HugeConfig conf;
 ```
 
+### InnerClassMayBeStatic
+Inner class `GraphManagerFactory` may be 'static'
+in `hugegraph-api/src/main/java/org/apache/hugegraph/server/ApplicationConfig.java`
+#### Snippet
+```java
+    }
+
+    private class GraphManagerFactory extends AbstractBinder implements Factory<GraphManager> {
+
+        private GraphManager manager = null;
+```
+
+## RuleId[id=DanglingJavadoc]
+### DanglingJavadoc
+Dangling Javadoc comment
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/SplicingIdGenerator.java`
+#### Snippet
+```java
+    public static final String ID_SPLITOR_STR = String.valueOf(ID_SPLITOR);
+
+    /****************************** id generate ******************************/
+
+    /**
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `hugegraph-api/src/main/java/org/apache/hugegraph/opencypher/CypherPlugin.java`
+#### Snippet
+```java
+ */
+
+/**
+ * Description of the modifications:
+ * <p>
+```
+
+## RuleId[id=SuspiciousMethodCalls]
+### SuspiciousMethodCalls
+Suspicious call to 'Set.contains()'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/collection/IdSetTest.java`
+#### Snippet
+```java
+                } else if (id instanceof IdGenerator.UuidId) {
+                    Assert.assertTrue(id.uuid() &&
+                                      uuids.contains(id.asObject()));
+                } else {
+                    Assert.assertTrue(id instanceof IdGenerator.StringId);
+```
+
+### SuspiciousMethodCalls
+Suspicious call to 'Set.contains()'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
+#### Snippet
+```java
+                                            "Tom Cat", "Lisa");
+        for (Object name : vertices) {
+            Assert.assertTrue(names.contains(name));
+        }
+    }
+```
+
+### SuspiciousMethodCalls
+Suspicious call to 'Set.contains()'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/query/ConditionQuery.java`
+#### Snippet
+```java
+            }
+            Relation relation = (Relation) condition;
+            if (keys.contains(relation.key())) {
+                int keyCount = keyCounts.getOrDefault(relation.key(), 0);
+                if (++keyCount > 1) {
+```
+
+### SuspiciousMethodCalls
+Suspicious call to 'Map.getOrDefault()'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/query/ConditionQuery.java`
+#### Snippet
+```java
+            Relation relation = (Relation) condition;
+            if (keys.contains(relation.key())) {
+                int keyCount = keyCounts.getOrDefault(relation.key(), 0);
+                if (++keyCount > 1) {
+                    return true;
+```
+
+### SuspiciousMethodCalls
+'Map' may not contain keys of type ''
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
+#### Snippet
+```java
+
+        return new MapperIterator<>(ids.iterator(), id -> {
+            Edge edge = edges.get(id);
+            return edge;
+        });
+```
+
+### SuspiciousMethodCalls
+'Map' may not contain keys of type ''
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
+#### Snippet
+```java
+
+        return new MapperIterator<>(ids.iterator(), id -> {
+            HugeVertex vertex = vertices.get(id);
+            if (vertex == null) {
+                if (checkMustExist) {
+```
+
 ## RuleId[id=SwitchStatementWithConfusingDeclaration]
+### SwitchStatementWithConfusingDeclaration
+Local variable `servers` declared in one 'switch' branch and used in another
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
+#### Snippet
+```java
+                Assert.assertEquals("local", clusterId);
+
+                Map<?, ?> servers = assertMapContains(graph, "servers");
+                Assert.assertEquals(1, servers.size());
+                Map.Entry<?, ?> server = servers.entrySet().iterator().next();
+```
+
+### SwitchStatementWithConfusingDeclaration
+Local variable `host` declared in one 'switch' branch and used in another
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
+#### Snippet
+```java
+                Assert.assertEquals("local", server.getKey());
+
+                Map<?, ?> host = (Map<?, ?>) server.getValue();
+                assertMapContains(host, "mem_used");
+                assertMapContains(host, "mem_used_readable");
+```
+
 ### SwitchStatementWithConfusingDeclaration
 Local variable `label` declared in one 'switch' branch and used in another
 in `hugegraph-core/src/main/java/org/apache/hugegraph/job/schema/IndexLabelRebuildJob.java`
@@ -11631,30 +11655,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
                                      Condition.lt(pk.id(), v2));
 ```
 
-### SwitchStatementWithConfusingDeclaration
-Local variable `servers` declared in one 'switch' branch and used in another
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
-#### Snippet
-```java
-                Assert.assertEquals("local", clusterId);
-
-                Map<?, ?> servers = assertMapContains(graph, "servers");
-                Assert.assertEquals(1, servers.size());
-                Map.Entry<?, ?> server = servers.entrySet().iterator().next();
-```
-
-### SwitchStatementWithConfusingDeclaration
-Local variable `host` declared in one 'switch' branch and used in another
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
-#### Snippet
-```java
-                Assert.assertEquals("local", server.getKey());
-
-                Map<?, ?> host = (Map<?, ?>) server.getValue();
-                assertMapContains(host, "mem_used");
-                assertMapContains(host, "mem_used_readable");
-```
-
 ## RuleId[id=TrivialIf]
 ### TrivialIf
 `if` statement can be simplified
@@ -11673,11 +11673,11 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/task/HugeServerInfo.java`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/task/HugeTask.java`
 #### Snippet
 ```java
-                     this.id(), e);
-            // Update status to FAILED if exception occurred(not interrupted)
-            if (this.result(TaskStatus.FAILED, e.toString())) {
-                return true;
-            }
+        String result = JsonUtil.toJson(v);
+        checkPropertySize(result, P.RESULT);
+        if (!this.result(TaskStatus.SUCCESS, result)) {
+            assert this.completed();
+        }
 ```
 
 ### TrivialIf
@@ -11685,11 +11685,11 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/task/HugeTask.java`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/task/HugeTask.java`
 #### Snippet
 ```java
-        String result = JsonUtil.toJson(v);
-        checkPropertySize(result, P.RESULT);
-        if (!this.result(TaskStatus.SUCCESS, result)) {
-            assert this.completed();
-        }
+                     this.id(), e);
+            // Update status to FAILED if exception occurred(not interrupted)
+            if (this.result(TaskStatus.FAILED, e.toString())) {
+                return true;
+            }
 ```
 
 ### TrivialIf
@@ -11701,18 +11701,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/PropertyKey
 
         if (this.writeType != propertyKey.writeType()) {
             return false;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
-#### Snippet
-```java
-        // Not select current item, continue to select C(m-1, n)
-        result.remove(index);
-        if (cmn(all, m - 1, n, current, result, callback)) {
-            return true;
         }
 ```
 
@@ -11730,14 +11718,14 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransactio
 
 ### TrivialIf
 `if` statement can be simplified
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
 #### Snippet
 ```java
-                                                       Object fieldValues) {
-        if (value != null && value.length > 0 && fieldValues != null) {
-            if (!StringEncoding.decode(value).equals(fieldValues)) {
-                return true;
-            }
+        // Not select current item, continue to select C(m-1, n)
+        result.remove(index);
+        if (cmn(all, m - 1, n, current, result, callback)) {
+            return true;
+        }
 ```
 
 ### TrivialIf
@@ -11750,6 +11738,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/security/HugeSecurityManag
         if (file != null && (USER_DIR != null && file.startsWith(USER_DIR) ||
             USER_DIR_IDE != null && file.startsWith(USER_DIR_IDE)) &&
             (file.endsWith(".class") || file.endsWith(".groovy"))) {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+                                                       Object fieldValues) {
+        if (value != null && value.length > 0 && fieldValues != null) {
+            if (!StringEncoding.decode(value).equals(fieldValues)) {
+                return true;
+            }
 ```
 
 ### TrivialIf
@@ -11791,18 +11791,6 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeAuthenticator.java
 ## RuleId[id=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStdSessions.java`
-#### Snippet
-```java
-
-        private void seek() {
-            if (this.keyBegin == null || this.keyBegin.length <= 0) {
-                // Seek to the first if no `keyBegin`
-                this.iter.seekToFirst();
-```
-
-### NonStrictComparisonCanBeEquality
-Can be replaced with equality
 in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdbsst/RocksDBSstSessions.java`
 #### Snippet
 ```java
@@ -11811,6 +11799,18 @@ in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdbss
             if (count <= 0) {
                 return 0;
             }
+```
+
+### NonStrictComparisonCanBeEquality
+Can be replaced with equality
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStdSessions.java`
+#### Snippet
+```java
+
+        private void seek() {
+            if (this.keyBegin == null || this.keyBegin.length <= 0) {
+                // Seek to the first if no `keyBegin`
+                this.iter.seekToFirst();
 ```
 
 ## RuleId[id=CharsetObjectCanBeUsed]
@@ -11828,758 +11828,86 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/WsAndHttpBasicAuthHand
 
 ## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
-'RowIterator' used without 'try'-with-resources statement
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTables.java`
+'Cluster' used without 'try'-with-resources statement
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraSessionPool.java`
 #### Snippet
 ```java
-                session.commit();
-                // Prefix query index label related indexes
-                HbaseSessions.RowIterator iter = session.scan(this.table(), column.name);
-                while (iter.hasNext()) {
-                    session.delete(this.table(), CF, iter.next().getRow());
-```
-
-### AutoCloseableResource
-'Connection' used without 'try'-with-resources statement
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseMetrics.java`
-#### Snippet
-```java
-    private Map<String, Object> clusterInfo() {
-        Map<String, Object> results = InsertionOrderUtil.newMap();
-        try (Admin admin = this.hbase.hbase().getAdmin()) {
-            // Cluster info
-            ClusterMetrics clusterMetrics = admin.getClusterMetrics();
-```
-
-### AutoCloseableResource
-'Connection' used without 'try'-with-resources statement
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseMetrics.java`
-#### Snippet
-```java
+            this.opened = true;
+            assert this.session == null;
+            this.session = cluster().connect(keyspace());
         }
 
-        try (Admin admin = this.hbase.hbase().getAdmin()) {
-            ClusterMetrics clusterMetrics = admin.getClusterMetrics();
-            Map<ServerName, ServerMetrics> metrics =
-```
-
-### AutoCloseableResource
-'Connection' used without 'try'-with-resources statement
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTable.java`
-#### Snippet
-```java
-                                                       String table) {
-            Map<String, Double> regionSizes = new HashMap<>();
-            try (Admin admin = session.hbase().getAdmin()) {
-                TableName tableName = TableName.valueOf(namespace, table);
-                for (ServerName serverName : admin.getRegionServers()) {
-```
-
-### AutoCloseableResource
-'Connection' used without 'try'-with-resources statement
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTable.java`
-#### Snippet
-```java
-            Map<String, Range> regionRanges = InsertionOrderUtil.newMap();
-            TableName tableName = TableName.valueOf(namespace, table);
-            try (Admin admin = session.hbase().getAdmin()) {
-                for (RegionInfo regionInfo : admin.getRegions(tableName)) {
-                    byte[] start = regionInfo.getStartKey();
-```
-
-### AutoCloseableResource
-'RowIterator' used without 'try'-with-resources statement
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
-#### Snippet
-```java
-        private void dump(String table, Scan scan) throws IOException {
-            LOG.info(String.format(">>>> scan table {} with {}", table, scan));
-            RowIterator iterator = this.scan(table, scan);
-            while (iterator.hasNext()) {
-                Result row = iterator.next();
 ```
 
 ### AutoCloseableResource
 'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/util/StringEncoding.java`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraSerializer.java`
 #### Snippet
 ```java
-
-    public static byte[] compress(String value, float bufferRatio) {
-        BytesBuffer buf = LZ4Util.compress(encode(value), BLOCK_SIZE, bufferRatio);
-        return buf.bytes();
+    @SuppressWarnings("unchecked")
+    protected <T> T readProperty(PropertyKey pkey, Object value) {
+        BytesBuffer buffer = BytesBuffer.wrap((ByteBuffer) value);
+        return (T) buffer.readProperty(pkey);
     }
 ```
 
 ### AutoCloseableResource
 'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/util/StringEncoding.java`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraSerializer.java`
 #### Snippet
 ```java
-
-    public static String decompress(byte[] value, float bufferRatio) {
-        BytesBuffer buf = LZ4Util.decompress(value, BLOCK_SIZE, bufferRatio);
-        return decode(buf.array(), 0, buf.position());
-    }
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/IdUtil.java`
-#### Snippet
-```java
-    public static Object writeBinString(Id id) {
-        int len = id.edge() ? BytesBuffer.BUF_EDGE_ID : id.length() + 1;
-        BytesBuffer buffer = BytesBuffer.allocate(len).writeId(id);
-        buffer.forReadWritten();
-        return buffer.asByteBuffer();
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/IdUtil.java`
-#### Snippet
-```java
-
-    public static Id readBinString(Object id) {
-        BytesBuffer buffer = BytesBuffer.wrap((ByteBuffer) id);
-        return buffer.readId();
-    }
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/IdGenerator.java`
-#### Snippet
-```java
-        private static UUID fromBytes(byte[] bytes) {
-            E.checkArgument(bytes != null, "The UUID can't be null");
-            BytesBuffer buffer = BytesBuffer.wrap(bytes);
-            long high = buffer.readLong();
-            long low = buffer.readLong();
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/IdGenerator.java`
-#### Snippet
-```java
-        @Override
-        public byte[] asBytes() {
-            BytesBuffer buffer = BytesBuffer.allocate(16);
-            buffer.writeLong(this.uuid.getMostSignificantBits());
-            buffer.writeLong(this.uuid.getLeastSignificantBits());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/PageInfo.java`
-#### Snippet
-```java
-        byte[] pageState = PageState.toBytes(this.page);
-        int length = 2 + BytesBuffer.INT_LEN + pageState.length;
-        BytesBuffer buffer = BytesBuffer.allocate(length);
-        buffer.writeInt(this.offset);
-        buffer.writeBytes(pageState);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/PageInfo.java`
-#### Snippet
-```java
-        }
-        try {
-            BytesBuffer buffer = BytesBuffer.wrap(bytes);
-            int offset = buffer.readInt();
-            byte[] pageState = buffer.readBytes();
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/PageState.java`
-#### Snippet
-```java
-        assert this.position.length > 0;
-        int length = 2 + this.position.length + 2 * BytesBuffer.INT_LEN;
-        BytesBuffer buffer = BytesBuffer.allocate(length);
-        buffer.writeBytes(this.position);
-        buffer.writeInt(this.offset);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/PageState.java`
-#### Snippet
-```java
-        }
-        try {
-            BytesBuffer buffer = BytesBuffer.wrap(bytes);
-            return new PageState(buffer.readBytes(), buffer.readInt(),
-                                 buffer.readInt());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/OffheapCache.java`
-#### Snippet
-```java
-        public int serializedSize(Id id) {
-            // NOTE: return size must be == actual bytes to write
-            return BytesBuffer.allocate(id.length() + 2)
-                              .writeId(id, true).position();
-        }
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/OffheapCache.java`
-#### Snippet
-```java
-        @Override
-        public void serialize(Id id, ByteBuffer output) {
-            BytesBuffer.wrap(output).writeId(id, true);
-        }
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/OffheapCache.java`
-#### Snippet
-```java
-        @Override
-        public Id deserialize(ByteBuffer input) {
-            return BytesBuffer.wrap(input).readId(true);
-        }
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/StoreSerializer.java`
-#### Snippet
-```java
-
-    public static byte[] writeMutation(BackendMutation mutation) {
-        BytesBuffer buffer = BytesBuffer.allocate(MUTATION_SIZE);
-        // write mutation size
-        buffer.writeVInt(mutation.size());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/StoreStateMachine.java`
-#### Snippet
-```java
-        // Leader just take the command out from the closure
-        StoreCommand command = closure.command();
-        BytesBuffer buffer = BytesBuffer.wrap(command.data());
-        // The first two bytes are StoreType and StoreAction
-        StoreType type = StoreType.valueOf(buffer.read());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftNode.java`
-#### Snippet
-```java
-        Task task = new Task();
-        // Compress data, note compress() will return a BytesBuffer
-        ByteBuffer buffer = LZ4Util.compress(command.data(),
-                                             RaftContext.BLOCK_SIZE)
-                                   .forReadWritten()
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinaryScatterSerializer.java`
-#### Snippet
-```java
-        VertexLabel vertexLabel = VertexLabel.NONE;
-        if (vl != null) {
-            Id labelId = BytesBuffer.wrap(vl.value).readId();
-            vertexLabel = graph.vertexLabelOrNone(labelId);
-        }
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinaryBackendEntry.java`
-#### Snippet
-```java
-
-    public BinaryBackendEntry(HugeType type, byte[] bytes) {
-        this(type, BytesBuffer.wrap(bytes).parseId(type, false));
-    }
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinaryBackendEntry.java`
-#### Snippet
-```java
-
-    public BinaryBackendEntry(HugeType type, byte[] bytes, boolean enablePartition) {
-        this(type, BytesBuffer.wrap(bytes).parseId(type, enablePartition));
-    }
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-            Id id = this.entry.id().origin();
-            int size = 1 + id.length() + 1;
-            BytesBuffer buffer = BytesBuffer.allocate(size);
-            buffer.writeId(id);
-            buffer.write(key.code());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-        int idLen = this.keyWithIdPrefix ? 1 + id.length() : 0;
-        Id pkeyId = prop.propertyKey().id();
-        BytesBuffer buffer = BytesBuffer.allocate(idLen + 2 + pkeyId.length());
-        if (this.keyWithIdPrefix) {
-            buffer.writeId(id);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-        private long readLong(HugeKeys key) {
-            byte[] value = column(key);
-            BytesBuffer buffer = BytesBuffer.wrap(value);
-            return buffer.readVLong();
-        }
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-            id = new BinaryId(buffer.bytes(), id);
-        } else {
-            BytesBuffer buffer = BytesBuffer.allocate(1 + id.length());
-            id = new BinaryId(buffer.writeId(id).bytes(), id);
-        }
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-    public BackendEntry writeOlapVertex(HugeVertex vertex) {
-        BinaryBackendEntry entry = newBackendEntry(HugeType.OLAP, vertex.id());
-        BytesBuffer buffer = BytesBuffer.allocate(8 + 16);
-
-        Collection<HugeProperty<?>> properties = vertex.getProperties();
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-        col.name = this.formatSyspropName(elem.id(), HugeKeys.LABEL);
-        Id label = elem.schemaLabel().id();
-        BytesBuffer buffer = BytesBuffer.allocate(label.length() + 1);
-        col.value = buffer.writeId(label).bytes();
-        return col;
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-            id = HugeIndex.formatIndexHashId(type, indexLabel, fieldValues);
-        }
-        BytesBuffer buffer = BytesBuffer.allocate(1 + id.length());
-        byte[] idBytes = buffer.writeIndexId(id, type, withEnding).bytes();
-        return new BinaryId(idBytes, id);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-            bytes = Arrays.copyOfRange(bytes, parsedEntry.id().length(), bytes.length);
-        }
-        BytesBuffer buffer = BytesBuffer.allocate(BytesBuffer.BUF_EDGE_ID);
-        buffer.write(parsedEntry.id().asBytes());
-        buffer.write(bytes);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-        buffer.write(bytes);
-        parsedEntry = new BinaryBackendEntry(originEntry.type(), new BinaryId(buffer.bytes(),
-                                             BytesBuffer.wrap(buffer.bytes()).readEdgeId()));
-
-        for (BackendColumn col : originEntry.columns()) {
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-                size += (1 + id.length());
-            }
-            BytesBuffer buffer = BytesBuffer.allocate(size);
-            buffer.writeUInt16(ids.size());
-            for (Id id : ids) {
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-
-    protected BackendColumn formatProperty(HugeProperty<?> prop) {
+    @Override
+    protected Object writeProperty(PropertyKey propertyKey, Object value) {
         BytesBuffer buffer = BytesBuffer.allocate(BytesBuffer.BUF_PROPERTY);
-        buffer.writeProperty(prop.propertyKey(), prop.value());
-        return BackendColumn.of(this.formatPropertyName(prop), buffer.bytes());
+        if (propertyKey == null) {
+            /*
 ```
 
 ### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-    protected byte[] formatSyspropName(Id id, HugeKeys col) {
-        int idLen = this.keyWithIdPrefix ? 1 + id.length() : 0;
-        BytesBuffer buffer = BytesBuffer.allocate(idLen + 1 + 1);
-        byte sysprop = HugeType.SYS_PROPERTY.code();
-        if (this.keyWithIdPrefix) {
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-            edgeId = EdgeId.parse(id.asString());
-        }
-        BytesBuffer buffer = BytesBuffer.allocate(BytesBuffer.BUF_EDGE_ID);
-        if (this.enablePartition) {
-            buffer.writeShort(getPartition(HugeType.EDGE, edgeId.ownerVertexId()));
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-        start.writeId(label);
-
-        BytesBuffer end = BytesBuffer.allocate(BytesBuffer.BUF_EDGE_ID);
-        end.copyFrom(start);
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-                continue;
-            }
-            BytesBuffer buffer = BytesBuffer.wrap(col.name);
-            if (this.indexWithIdPrefix) {
-                buffer.readIndexId(index.type());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+'Cluster' used without 'try'-with-resources statement
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
 #### Snippet
 ```java
 
-        private Id[] readIds(byte[] value) {
-            BytesBuffer buffer = BytesBuffer.wrap(value);
-            int size = buffer.readUInt16();
-            Id[] ids = new Id[size];
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-    protected byte[] formatSyspropName(BinaryId id, HugeKeys col) {
-        int idLen = this.keyWithIdPrefix ? id.length() : 0;
-        BytesBuffer buffer = BytesBuffer.allocate(idLen + 1 + 1);
-        byte sysprop = HugeType.SYS_PROPERTY.code();
-        if (this.keyWithIdPrefix) {
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-
-    protected void parseColumn(BackendColumn col, HugeVertex vertex) {
-        BytesBuffer buffer = BytesBuffer.wrap(col.name);
-        Id id = this.keyWithIdPrefix ? buffer.readId() : vertex.id();
-        E.checkState(buffer.remaining() > 0, "Missing column type");
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-        if (!this.indexWithIdPrefix) {
-            int idLen = 1 + elemId.length();
-            buffer = BytesBuffer.allocate(idLen);
-        } else {
-            Id indexId = index.id();
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-            }
-            int idLen = 1 + elemId.length() + 1 + indexId.length();
-            buffer = BytesBuffer.allocate(idLen);
-            // Write index-id
-            buffer.writeIndexId(indexId, type);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-
-        private Id readId(byte[] value) {
-            BytesBuffer buffer = BytesBuffer.wrap(value);
-            return buffer.readId();
-        }
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-        private byte[] writeId(Id id) {
-            int size = 1 + id.length();
-            BytesBuffer buffer = BytesBuffer.allocate(size);
-            buffer.writeId(id);
-            return buffer.bytes();
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-                }
-            }
-            BytesBuffer buffer = BytesBuffer.allocate(1 + id.length());
-            byte[] idBytes = buffer.writeIndexId(id, type).bytes();
-            return new BinaryBackendEntry(type, new BinaryId(idBytes, id));
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-        }
-
-        BytesBuffer buffer = BytesBuffer.allocate(1 + id.length());
-        byte[] idBytes = buffer.writeId(id).bytes();
-        return new BinaryBackendEntry(type, new BinaryId(idBytes, id));
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-        if (index.type().isStringIndex()) {
-            byte[] idBytes = IdGenerator.of(id.asString()).asBytes();
-            BytesBuffer buffer = BytesBuffer.allocate(idBytes.length);
-            buffer.write(idBytes);
-            entry.column(buffer.bytes(), null);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
-#### Snippet
-```java
-        } else {
-            assert index.type().isRangeIndex();
-            BytesBuffer buffer = BytesBuffer.allocate(4);
-            buffer.writeInt((int) id.asLong());
-            entry.column(buffer.bytes(), null);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeIndex.java`
-#### Snippet
-```java
-            assert type.isRangeIndex();
-            int length = type.isRange4Index() ? 4 : 8;
-            BytesBuffer buffer = BytesBuffer.allocate(4 + length);
-            buffer.writeInt(SchemaElement.schemaId(indexLabelId));
-            if (fieldValues != null) {
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeIndex.java`
-#### Snippet
-```java
-            final int labelLength = 4;
-            E.checkState(id.length > labelLength, "Invalid range index id");
-            BytesBuffer buffer = BytesBuffer.wrap(id);
-            Id label = IdGenerator.of(buffer.readInt());
-            indexLabel = IndexLabel.label(graph, label);
-```
-
-### AutoCloseableResource
-'Stream' used without 'try'-with-resources statement
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStore.java`
-#### Snippet
-```java
-                    // Delete empty snapshot parent directory
-                    Path parentPath = Paths.get(snapshotPath).getParent();
-                    if (Files.list(parentPath).count() == 0) {
-                        FileUtils.deleteDirectory(parentPath.toFile());
-                    }
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/gremlin/GremlinAPI.java`
-#### Snippet
-```java
-        // .build();
-        String auth = headers.getHeaderString(HttpHeaders.AUTHORIZATION);
-        Response response = this.client().doPostRequest(auth, request);
-        GREMLIN_INPUT_HISTOGRAM.update(request.length());
-        GREMLIN_OUTPUT_HISTOGRAM.update(response.getLength());
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/gremlin/GremlinAPI.java`
-#### Snippet
-```java
-        String query = uriInfo.getRequestUri().getRawQuery();
-        MultivaluedMap<String, String> params = uriInfo.getQueryParameters();
-        Response response = this.client().doGetRequest(auth, params);
-        GREMLIN_INPUT_HISTOGRAM.update(query.length());
-        GREMLIN_OUTPUT_HISTOGRAM.update(response.getLength());
-```
-
-### AutoCloseableResource
-'ServerReporter' used without 'try'-with-resources statement
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
-#### Snippet
-```java
-    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
-    public String histograms() {
-        ServerReporter reporter = ServerReporter.instance();
-        return JsonUtil.toJson(reporter.histograms());
+    protected boolean existsTable(String table) {
+        KeyspaceMetadata keyspace = this.cluster().getMetadata().getKeyspace(this.keyspace);
+        return keyspace != null && keyspace.getTable(table) != null;
     }
 ```
 
 ### AutoCloseableResource
-'ServerReporter' used without 'try'-with-resources statement
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
+'Cluster' used without 'try'-with-resources statement
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
 #### Snippet
 ```java
-    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
-    public String gauges() {
-        ServerReporter reporter = ServerReporter.instance();
-        return JsonUtil.toJson(reporter.gauges());
+        LOG.debug("Drop keyspace: {}", stmt);
+
+        Session session = this.cluster().connect();
+        try {
+            session.execute(stmt);
+```
+
+### AutoCloseableResource
+'Cluster' used without 'try'-with-resources statement
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
+#### Snippet
+```java
+        // Create keyspace with non-keyspace-session
+        LOG.debug("Create keyspace: {}", stmt);
+        Session session = this.cluster().connect();
+        try {
+            session.execute(stmt);
+```
+
+### AutoCloseableResource
+'Cluster' used without 'try'-with-resources statement
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
+#### Snippet
+```java
+
+    protected boolean existsKeyspace() {
+        return this.cluster().getMetadata().getKeyspace(this.keyspace) != null;
     }
-```
-
-### AutoCloseableResource
-'ServerReporter' used without 'try'-with-resources statement
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
-#### Snippet
-```java
-    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
-    public String meters() {
-        ServerReporter reporter = ServerReporter.instance();
-        return JsonUtil.toJson(reporter.meters());
-    }
-```
-
-### AutoCloseableResource
-'ServerReporter' used without 'try'-with-resources statement
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
-#### Snippet
-```java
-    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
-    public String timers() {
-        ServerReporter reporter = ServerReporter.instance();
-        return JsonUtil.toJson(reporter.timers());
-    }
-```
-
-### AutoCloseableResource
-'ServerReporter' used without 'try'-with-resources statement
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
-#### Snippet
-```java
-    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
-    public String counters() {
-        ServerReporter reporter = ServerReporter.instance();
-        return JsonUtil.toJson(reporter.counters());
-    }
-```
-
-### AutoCloseableResource
-'ServerReporter' used without 'try'-with-resources statement
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
-#### Snippet
-```java
-    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
-    public String all() {
-        ServerReporter reporter = ServerReporter.instance();
-        Map<String, Map<String, ? extends Metric>> result = new LinkedHashMap<>();
-        result.put("gauges", reporter.gauges());
-```
-
-### AutoCloseableResource
-'ServerReporter' used without 'try'-with-resources statement
-in `hugegraph-api/src/main/java/org/apache/hugegraph/core/GraphManager.java`
-#### Snippet
-```java
-        final MetricManager metric = MetricManager.INSTANCE;
-        // Force to add server reporter
-        ServerReporter reporter = ServerReporter.instance(metric.getRegistry());
-        reporter.start(60L, TimeUnit.SECONDS);
 
 ```
 
@@ -12636,30 +11964,6 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/api/GremlinApiTest.java`
 in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
 #### Snippet
 ```java
-                                    joshId, vadasId, markoId, rippleId,
-                                    peterId, rippleId);
-        createAndAssert(path, body);
-    }
-
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
-#### Snippet
-```java
-                                   .collect(Collectors.toList());
-            ids.forEach(id -> {
-                client.delete(path, (String) id);
-            });
-        };
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
-#### Snippet
-```java
         String path = URL_PREFIX + SCHEMA_ELS;
 
         createAndAssert(path, "{\n" +
@@ -12677,6 +11981,90 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
         createAndAssert(path, "{\n" +
                 "\"name\": \"knows\",\n" +
                 "\"source_label\": \"person\",\n" +
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
+#### Snippet
+```java
+        String path = URL_PREFIX + GRAPH_VERTEX;
+
+        createAndAssert(path, "{\n" +
+                "\"label\": \"person\",\n" +
+                "\"type\": \"vertex\",\n" +
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
+#### Snippet
+```java
+                "}\n" +
+                "}");
+        createAndAssert(path, "{\n" +
+                "\"label\": \"person\",\n" +
+                "\"type\": \"vertex\",\n" +
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
+#### Snippet
+```java
+                "}\n" +
+                "}");
+        createAndAssert(path, "{\n" +
+                "\"label\": \"person\",\n" +
+                "\"type\": \"vertex\",\n" +
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
+#### Snippet
+```java
+                "}\n" +
+                "}");
+        createAndAssert(path, "{\n" +
+                "\"label\": \"person\",\n" +
+                "\"type\": \"vertex\",\n" +
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
+#### Snippet
+```java
+                "}\n" +
+                "}");
+        createAndAssert(path, "{\n" +
+                "\"label\": \"software\",\n" +
+                "\"type\": \"vertex\",\n" +
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
+#### Snippet
+```java
+                "}\n" +
+                "}");
+        createAndAssert(path, "{\n" +
+                "\"label\": \"software\",\n" +
+                "\"type\": \"vertex\",\n" +
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
+#### Snippet
+```java
+        Map<String, Object> param = ImmutableMap.of("token", token,
+                                                    "confirm_message", message);
+        client.delete("graphs/" + GRAPH + "/clear", param);
+    }
+
 ```
 
 ### AutoCloseableResource
@@ -12768,71 +12156,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
 in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
 #### Snippet
 ```java
-        String path = URL_PREFIX + GRAPH_VERTEX;
-
-        createAndAssert(path, "{\n" +
-                "\"label\": \"person\",\n" +
-                "\"type\": \"vertex\",\n" +
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
-#### Snippet
-```java
-                "}\n" +
-                "}");
-        createAndAssert(path, "{\n" +
-                "\"label\": \"person\",\n" +
-                "\"type\": \"vertex\",\n" +
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
-#### Snippet
-```java
-                "}\n" +
-                "}");
-        createAndAssert(path, "{\n" +
-                "\"label\": \"person\",\n" +
-                "\"type\": \"vertex\",\n" +
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
-#### Snippet
-```java
-                "}\n" +
-                "}");
-        createAndAssert(path, "{\n" +
-                "\"label\": \"person\",\n" +
-                "\"type\": \"vertex\",\n" +
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
-#### Snippet
-```java
-                "}\n" +
-                "}");
-        createAndAssert(path, "{\n" +
-                "\"label\": \"software\",\n" +
-                "\"type\": \"vertex\",\n" +
-```
-
-### AutoCloseableResource
-'Response' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
-#### Snippet
-```java
-                "}\n" +
-                "}");
-        createAndAssert(path, "{\n" +
-                "\"label\": \"software\",\n" +
-                "\"type\": \"vertex\",\n" +
+                                   .collect(Collectors.toList());
+            ids.forEach(id -> {
+                client.delete(path, (String) id);
+            });
+        };
 ```
 
 ### AutoCloseableResource
@@ -12864,35 +12192,23 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
 in `hugegraph-test/src/main/java/org/apache/hugegraph/api/BaseApiTest.java`
 #### Snippet
 ```java
-        Map<String, Object> param = ImmutableMap.of("token", token,
-                                                    "confirm_message", message);
-        client.delete("graphs/" + GRAPH + "/clear", param);
+                                    joshId, vadasId, markoId, rippleId,
+                                    peterId, rippleId);
+        createAndAssert(path, body);
     }
 
 ```
 
 ### AutoCloseableResource
-'BackendColumnIterator' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBPerfTest.java`
+'Stream' used without 'try'-with-resources statement
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStore.java`
 #### Snippet
 ```java
-        Session session = this.rocks.session();
-        for (int i = 0; i < TIMES; i++) {
-            Iterator<BackendColumn> iter = session.scan(TABLE, getBytes("person:1"));
-            while (iter.hasNext()) {
-                iter.next();
-```
-
-### AutoCloseableResource
-'BackendColumnIterator' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBPerfTest.java`
-#### Snippet
-```java
-        Session session = this.rocks.session();
-        for (int i = 0; i < TIMES; i++) {
-            Iterator<BackendColumn> iter = session.scan(TABLE, getBytes("exist"));
-            while (iter.hasNext()) {
-                iter.next();
+                    // Delete empty snapshot parent directory
+                    Path parentPath = Paths.get(snapshotPath).toAbsolutePath().getParent();
+                    if (Files.list(parentPath).count() == 0) {
+                        FileUtils.deleteDirectory(parentPath.toFile());
+                    }
 ```
 
 ### AutoCloseableResource
@@ -12915,6 +12231,30 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBPerfTe
         Session session = this.rocks.session();
         for (int i = 0; i < TIMES; i++) {
             Iterator<BackendColumn> iter = session.scan(TABLE, getBytes("non-exist"));
+            while (iter.hasNext()) {
+                iter.next();
+```
+
+### AutoCloseableResource
+'BackendColumnIterator' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBPerfTest.java`
+#### Snippet
+```java
+        Session session = this.rocks.session();
+        for (int i = 0; i < TIMES; i++) {
+            Iterator<BackendColumn> iter = session.scan(TABLE, getBytes("person:1"));
+            while (iter.hasNext()) {
+                iter.next();
+```
+
+### AutoCloseableResource
+'BackendColumnIterator' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBPerfTest.java`
+#### Snippet
+```java
+        Session session = this.rocks.session();
+        for (int i = 0; i < TIMES; i++) {
+            Iterator<BackendColumn> iter = session.scan(TABLE, getBytes("exist"));
             while (iter.hasNext()) {
                 iter.next();
 ```
@@ -12960,11 +12300,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBSessio
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBSessionTest.java`
 #### Snippet
 ```java
-
-        Map<ByteBuffer, byte[]> results = new HashMap<>();
-        Iterator<BackendColumn> iter = session.scan(TABLE,
-                                                    new byte[]{1, 0},
-                                                    new byte[]{2, 3});
+        Map<String, String> results = new HashMap<>();
+        Session session = this.rocks.session();
+        Iterator<BackendColumn> iter = session.scan(TABLE, getBytes("person:1"));
+        while (iter.hasNext()) {
+            BackendColumn col = iter.next();
 ```
 
 ### AutoCloseableResource
@@ -12972,11 +12312,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBSessio
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBSessionTest.java`
 #### Snippet
 ```java
-        Map<String, String> results = new HashMap<>();
-        Session session = this.rocks.session();
-        Iterator<BackendColumn> iter = session.scan(TABLE, getBytes("person:1"));
-        while (iter.hasNext()) {
-            BackendColumn col = iter.next();
+
+        Map<ByteBuffer, byte[]> results = new HashMap<>();
+        Iterator<BackendColumn> iter = session.scan(TABLE,
+                                                    new byte[]{1, 0},
+                                                    new byte[]{2, 3});
 ```
 
 ### AutoCloseableResource
@@ -13025,618 +12365,6 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBSessio
         iter = session.scan(TABLE);
         while (iter.hasNext()) {
             BackendColumn col = iter.next();
-```
-
-### AutoCloseableResource
-'Cluster' used without 'try'-with-resources statement
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraSessionPool.java`
-#### Snippet
-```java
-            this.opened = true;
-            assert this.session == null;
-            this.session = cluster().connect(keyspace());
-        }
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-    @Test
-    public void testPropertyWithList() {
-        BytesBuffer buf = BytesBuffer.allocate(0);
-        PropertyKey pkey = genListPkey(DataType.BOOLEAN);
-        Object value = ImmutableList.of(true, false);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        byte[] bytes = genBytes("020100");
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.BYTE);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.BYTE);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.INT);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.FLOAT);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.LONG);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.DOUBLE);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.DATE);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.TEXT);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.BLOB);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        List<?> list = (List<?>) BytesBuffer.wrap(bytes).readProperty(pkey);
-        Assert.assertEquals(Blob.wrap(genBytes("001199aabbcc")), list.get(0));
-        Assert.assertEquals(Blob.wrap(genBytes("5566")), list.get(1));
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.OBJECT);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genListPkey(DataType.OBJECT);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        list = (List<?>) BytesBuffer.wrap(bytes).readProperty(pkey);
-        Assert.assertArrayEquals(new int[]{1, 3}, (int[]) list.get(0));
-        Assert.assertArrayEquals(new int[]{2, 5}, (int[]) list.get(1));
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-    @Test
-    public void testWrap() {
-        BytesBuffer buf4 = BytesBuffer.wrap(new byte[]{1, 2, 3, 4});
-        Assert.assertArrayEquals(new byte[]{1, 2, 3, 4}, buf4.array());
-        Assert.assertArrayEquals(new byte[]{1, 2, 3, 4}, buf4.read(4));
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-    @Test
-    public void testPropertyWithSet() {
-        BytesBuffer buf = BytesBuffer.allocate(0);
-        PropertyKey pkey = genSetPkey(DataType.BOOLEAN);
-        Object value = ImmutableSet.of(true, false);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        byte[] bytes = genBytes("020100");
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.BYTE);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.BYTE);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.INT);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.FLOAT);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.LONG);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.DOUBLE);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.DATE);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.TEXT);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.BLOB);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Set<?> set = (Set<?>) BytesBuffer.wrap(bytes).readProperty(pkey);
-        Iterator<?> iterator = set.iterator();
-        Assert.assertEquals(Blob.wrap(genBytes("001199aabbcc")),
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.OBJECT);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
-
-        pkey = genSetPkey(DataType.OBJECT);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        buf.forReadWritten();
-        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
-        set = (Set<?>) BytesBuffer.wrap(bytes).readProperty(pkey);
-        iterator = set.iterator();
-        Assert.assertArrayEquals(new int[]{1, 3}, (int[]) iterator.next());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-    public void testVarLong() {
-        Assert.assertArrayEquals(new byte[]{0},
-                                 BytesBuffer.allocate(5).writeVLong(0).bytes());
-        Assert.assertArrayEquals(new byte[]{1},
-                                 BytesBuffer.allocate(5).writeVLong(1).bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                 BytesBuffer.allocate(5).writeVLong(0).bytes());
-        Assert.assertArrayEquals(new byte[]{1},
-                                 BytesBuffer.allocate(5).writeVLong(1).bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0x7f},
-                                 BytesBuffer.allocate(5)
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                 BytesBuffer.allocate(5).writeVLong(1).bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0x7f},
-                                 BytesBuffer.allocate(5)
-                                            .writeVLong(127)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                            .bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0x81, 0},
-                                 BytesBuffer.allocate(5)
-                                            .writeVLong(128)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                            .bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0xff, (byte) 0x7f},
-                                 BytesBuffer.allocate(5)
-                                            .writeVLong(16383)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                            .bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0x81, (byte) 0x80, 0},
-                                 BytesBuffer.allocate(5)
-                                            .writeVLong(16384)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                            .bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0x81, (byte) 0x80, 1},
-                                 BytesBuffer.allocate(5)
-                                            .writeVLong(16385)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(new byte[]{-127, -1, -1, -1, -1,
-                                            -1, -1, -1, -1, 127},
-                                 BytesBuffer.allocate(5).writeVLong(-1).bytes());
-        Assert.assertArrayEquals(new byte[]{-121, -1, -1, -1, 127},
-                                 BytesBuffer.allocate(5)
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                 BytesBuffer.allocate(5).writeVLong(-1).bytes());
-        Assert.assertArrayEquals(new byte[]{-121, -1, -1, -1, 127},
-                                 BytesBuffer.allocate(5)
-                                            .writeVLong(Integer.MAX_VALUE)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(new byte[]{-127, -1, -1, -1, -1,
-                                            -8, -128, -128, -128, 0},
-                                 BytesBuffer.allocate(5)
-                                            .writeVLong(Integer.MIN_VALUE)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(new byte[]{-1, -1, -1, -1, -1,
-                                            -1, -1, -1, 127},
-                                 BytesBuffer.allocate(5)
-                                            .writeVLong(Long.MAX_VALUE)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(new byte[]{-127, -128, -128, -128, -128,
-                                            -128, -128, -128, -128, 0},
-                                 BytesBuffer.allocate(5)
-                                            .writeVLong(Long.MIN_VALUE)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-
-        for (long i = Short.MIN_VALUE; i < Short.MAX_VALUE; i++) {
-            BytesBuffer buf = BytesBuffer.allocate(10).writeVLong(i);
-            Assert.assertEquals(i, buf.forReadWritten().readVLong());
-        }
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Random random = new Random();
-        for (long i = Long.MIN_VALUE; i < Long.MAX_VALUE;) {
-            BytesBuffer buf = BytesBuffer.allocate(10).writeVLong(i);
-            Assert.assertEquals(i, buf.forReadWritten().readVLong());
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-    @Test
-    public void testAllocate() {
-        Assert.assertEquals(0, BytesBuffer.allocate(0).array().length);
-        Assert.assertEquals(0, BytesBuffer.allocate(0).bytes().length);
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-    public void testAllocate() {
-        Assert.assertEquals(0, BytesBuffer.allocate(0).array().length);
-        Assert.assertEquals(0, BytesBuffer.allocate(0).bytes().length);
-
-        Assert.assertEquals(4, BytesBuffer.allocate(4).array().length);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(0, BytesBuffer.allocate(0).bytes().length);
-
-        Assert.assertEquals(4, BytesBuffer.allocate(4).array().length);
-        Assert.assertEquals(0, BytesBuffer.allocate(4).bytes().length);
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-
-        Assert.assertEquals(4, BytesBuffer.allocate(4).array().length);
-        Assert.assertEquals(0, BytesBuffer.allocate(4).bytes().length);
-
-        BytesBuffer buf4 = BytesBuffer.allocate(4);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(0, BytesBuffer.allocate(4).bytes().length);
-
-        BytesBuffer buf4 = BytesBuffer.allocate(4);
-        buf4.write(new byte[4]);
-        Assert.assertArrayEquals(new byte[]{0, 0, 0, 0},
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                 buf4.bytes());
-
-        BytesBuffer buf2 = BytesBuffer.allocate(2);
-        buf2.write(new byte[4]);
-        Assert.assertArrayEquals(new byte[]{0, 0, 0, 0},
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                 buf2.bytes());
-
-        BytesBuffer buf0 = BytesBuffer.allocate(0);
-        buf0.write(new byte[4]);
-        Assert.assertArrayEquals(new byte[]{0, 0, 0, 0},
 ```
 
 ### AutoCloseableResource
@@ -13872,11 +12600,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        bytes[0] = (byte) 0x80;
-        bytes[1] = (byte) 0x7f;
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
-                                                   .writeId(id, true).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
+    @Test
+    public void testPropertyWithSet() {
+        BytesBuffer buf = BytesBuffer.allocate(0);
+        PropertyKey pkey = genSetPkey(DataType.BOOLEAN);
+        Object value = ImmutableSet.of(true, false);
 ```
 
 ### AutoCloseableResource
@@ -13884,11 +12612,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
-                                                   .writeId(id, true).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
+        byte[] bytes = genBytes("020100");
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-        id = IdGenerator.of(genString(32512));
+        pkey = genSetPkey(DataType.BYTE);
 ```
 
 ### AutoCloseableResource
@@ -13896,743 +12624,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        bytes[0] = (byte) 0xfe;
-        bytes[1] = (byte) 0xff;
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
-                                                   .writeId(id, true).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
-                                                   .writeId(id, true).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
-
-        id = IdGenerator.of(genString(32768));
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        bytes[0] = (byte) 0xff;
-        bytes[1] = (byte) 0xff;
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
-                                                   .writeId(id, true).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
-                                                   .writeId(id, true).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
-
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            BytesBuffer.allocate(0).writeId(IdGenerator.of(genString(32769)),
-                                            true);
-        }, e -> {
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        byte[] bytes = genBytes("7f835e1153928149578691cf79258e90eb");
-
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(17)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(17)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = new UuidId(UUID.randomUUID());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-
-        id = new UuidId(UUID.randomUUID());
-        bytes = BytesBuffer.allocate(0).writeId(id).bytes();
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-    }
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = new UuidId(UUID.randomUUID());
-        bytes = BytesBuffer.allocate(0).writeId(id).bytes();
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-    }
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-    public void testVarInt() {
-        Assert.assertArrayEquals(new byte[]{0},
-                                 BytesBuffer.allocate(5).writeVInt(0).bytes());
-        Assert.assertArrayEquals(new byte[]{1},
-                                 BytesBuffer.allocate(5).writeVInt(1).bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                 BytesBuffer.allocate(5).writeVInt(0).bytes());
-        Assert.assertArrayEquals(new byte[]{1},
-                                 BytesBuffer.allocate(5).writeVInt(1).bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0x7f},
-                                 BytesBuffer.allocate(5)
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                 BytesBuffer.allocate(5).writeVInt(1).bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0x7f},
-                                 BytesBuffer.allocate(5)
-                                            .writeVInt(127)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                            .bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0x81, 0},
-                                 BytesBuffer.allocate(5)
-                                            .writeVInt(128)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                            .bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0xff, (byte) 0x7f},
-                                 BytesBuffer.allocate(5)
-                                            .writeVInt(16383)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                            .bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0x81, (byte) 0x80, 0},
-                                 BytesBuffer.allocate(5)
-                                            .writeVInt(16384)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                            .bytes());
-        Assert.assertArrayEquals(new byte[]{(byte) 0x81, (byte) 0x80, 1},
-                                 BytesBuffer.allocate(5)
-                                            .writeVInt(16385)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-
-        Assert.assertArrayEquals(new byte[]{-113, -1, -1, -1, 127},
-                                 BytesBuffer.allocate(5).writeVInt(-1).bytes());
-        Assert.assertArrayEquals(new byte[]{-121, -1, -1, -1, 127},
-                                 BytesBuffer.allocate(5)
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                 BytesBuffer.allocate(5).writeVInt(-1).bytes());
-        Assert.assertArrayEquals(new byte[]{-121, -1, -1, -1, 127},
-                                 BytesBuffer.allocate(5)
-                                            .writeVInt(Integer.MAX_VALUE)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-                                            .bytes());
-        Assert.assertArrayEquals(new byte[]{-120, -128, -128, -128, 0},
-                                 BytesBuffer.allocate(5)
-                                            .writeVInt(Integer.MIN_VALUE)
-                                            .bytes());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-
-        for (int i = Short.MIN_VALUE; i < Short.MAX_VALUE; i++) {
-            BytesBuffer buf = BytesBuffer.allocate(5).writeVInt(i);
-            Assert.assertEquals(i, buf.forReadWritten().readVInt());
-        }
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Random random = new Random();
-        for (int i = Integer.MIN_VALUE; i < Integer.MAX_VALUE;) {
-            BytesBuffer buf = BytesBuffer.allocate(5).writeVInt(i);
-            Assert.assertEquals(i, buf.forReadWritten().readVInt());
-
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Id id = IdGenerator.of(0);
-        byte[] bytes = genBytes("0800");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(1);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(1);
-        bytes = genBytes("0801");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(127);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(127);
-        bytes = genBytes("087f");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(128);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(128);
-        bytes = genBytes("0880");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(255);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(255);
-        bytes = genBytes("08ff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(256);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(256);
-        bytes = genBytes("0900");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(1573);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(1573);
-        bytes = genBytes("0e25");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(0x7ff);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ff);
-        bytes = genBytes("0fff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        // 3 bytes
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ff + 1);
-        bytes = genBytes("180800");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(0x7ffff);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffff);
-        bytes = genBytes("1fffff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        // 4 bytes
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffff + 1);
-        bytes = genBytes("28080000");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(0x7ffffff);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffffff);
-        bytes = genBytes("2fffffff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        // 5 bytes
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffffff + 1);
-        bytes = genBytes("3808000000");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(0x7ffffffffL);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffffffffL);
-        bytes = genBytes("3fffffffff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        // 6 bytes
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffffffffL + 1L);
-        bytes = genBytes("480800000000");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(0x7ffffffffffL);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffffffffffL);
-        bytes = genBytes("4fffffffffff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        // 7 bytes
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffffffffffL + 1L);
-        bytes = genBytes("58080000000000");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(0x7ffffffffffffL);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffffffffffffL);
-        bytes = genBytes("5fffffffffffff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        // 8 bytes
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffffffffffffL + 1L);
-        bytes = genBytes("6808000000000000");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(0x7ffffffffffffffL);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffffffffffffffL);
-        bytes = genBytes("6fffffffffffffff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        // 9 bytes
-```
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(0x7ffffffffffffffL + 1L);
-        bytes = genBytes("780800000000000000");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        pkey = genSetPkey(DataType.BYTE);
 ```
 
 ### AutoCloseableResource
@@ -14640,23 +12636,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        // others
-```
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(Short.MAX_VALUE);
-        bytes = genBytes("187fff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        pkey = genSetPkey(DataType.INT);
 ```
 
 ### AutoCloseableResource
@@ -14664,23 +12648,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(Short.MAX_VALUE + 1);
-```
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(Short.MAX_VALUE + 1);
-        bytes = genBytes("188000");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        pkey = genSetPkey(DataType.FLOAT);
 ```
 
 ### AutoCloseableResource
@@ -14688,23 +12660,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-        id = IdGenerator.of(Integer.MAX_VALUE);
-```
-
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(Integer.MAX_VALUE);
-        bytes = genBytes("387fffffff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        pkey = genSetPkey(DataType.LONG);
 ```
 
 ### AutoCloseableResource
@@ -14712,23 +12672,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(Integer.MAX_VALUE + 1L);
-```
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(Integer.MAX_VALUE + 1L);
-        bytes = genBytes("3880000000");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        pkey = genSetPkey(DataType.DOUBLE);
 ```
 
 ### AutoCloseableResource
@@ -14736,23 +12684,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-
-        id = IdGenerator.of(Long.MAX_VALUE);
-```
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        id = IdGenerator.of(Long.MAX_VALUE);
-        bytes = genBytes("787fffffffffffffff");
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        pkey = genSetPkey(DataType.DATE);
 ```
 
 ### AutoCloseableResource
@@ -14760,23 +12696,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
-    }
-
-```
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-### AutoCloseableResource
-'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
-#### Snippet
-```java
-        byte[] bytes = genBytes(128);
-        bytes[0] = (byte) 0xfe;
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        pkey = genSetPkey(DataType.TEXT);
 ```
 
 ### AutoCloseableResource
@@ -14784,11 +12708,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-        id = IdGenerator.of(genString(128));
+        pkey = genSetPkey(DataType.BLOB);
 ```
 
 ### AutoCloseableResource
@@ -14796,11 +12720,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        bytes = genBytes(129);
-        bytes[0] = (byte) 0xff;
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Set<?> set = (Set<?>) BytesBuffer.wrap(bytes).readProperty(pkey);
+        Iterator<?> iterator = set.iterator();
+        Assert.assertEquals(Blob.wrap(genBytes("001199aabbcc")),
 ```
 
 ### AutoCloseableResource
@@ -14808,11 +12732,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
+        pkey = genSetPkey(DataType.OBJECT);
 ```
 
 ### AutoCloseableResource
@@ -14820,11 +12744,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
 
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            BytesBuffer.allocate(0).writeId(IdGenerator.of(genString(129)));
-        }, e -> {
-            Assert.assertContains("Id max length is 128, but got 129",
+        pkey = genSetPkey(DataType.OBJECT);
 ```
 
 ### AutoCloseableResource
@@ -14832,11 +12756,11 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
-        });
-        Assert.assertThrows(IllegalArgumentException.class, () -> {
-            BytesBuffer.allocate(0).writeId(IdGenerator.of(genString(130)));
-        }, e -> {
-            Assert.assertContains("Id max length is 128, but got 130",
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        set = (Set<?>) BytesBuffer.wrap(bytes).readProperty(pkey);
+        iterator = set.iterator();
+        Assert.assertArrayEquals(new int[]{1, 3}, (int[]) iterator.next());
 ```
 
 ### AutoCloseableResource
@@ -15492,6 +13416,1458 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
 #### Snippet
 ```java
+        byte[] bytes = genBytes(128);
+        bytes[0] = (byte) 0xfe;
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(genString(128));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        bytes = genBytes(129);
+        bytes[0] = (byte) 0xff;
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            BytesBuffer.allocate(0).writeId(IdGenerator.of(genString(129)));
+        }, e -> {
+            Assert.assertContains("Id max length is 128, but got 129",
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        });
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            BytesBuffer.allocate(0).writeId(IdGenerator.of(genString(130)));
+        }, e -> {
+            Assert.assertContains("Id max length is 128, but got 130",
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+    @Test
+    public void testWrap() {
+        BytesBuffer buf4 = BytesBuffer.wrap(new byte[]{1, 2, 3, 4});
+        Assert.assertArrayEquals(new byte[]{1, 2, 3, 4}, buf4.array());
+        Assert.assertArrayEquals(new byte[]{1, 2, 3, 4}, buf4.read(4));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Id id = IdGenerator.of(0);
+        byte[] bytes = genBytes("0800");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(1);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(1);
+        bytes = genBytes("0801");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(127);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(127);
+        bytes = genBytes("087f");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(128);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(128);
+        bytes = genBytes("0880");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(255);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(255);
+        bytes = genBytes("08ff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(256);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(256);
+        bytes = genBytes("0900");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(1573);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(1573);
+        bytes = genBytes("0e25");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(0x7ff);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ff);
+        bytes = genBytes("0fff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        // 3 bytes
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ff + 1);
+        bytes = genBytes("180800");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(0x7ffff);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffff);
+        bytes = genBytes("1fffff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        // 4 bytes
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffff + 1);
+        bytes = genBytes("28080000");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(0x7ffffff);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffffff);
+        bytes = genBytes("2fffffff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        // 5 bytes
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffffff + 1);
+        bytes = genBytes("3808000000");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(0x7ffffffffL);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffffffffL);
+        bytes = genBytes("3fffffffff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        // 6 bytes
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffffffffL + 1L);
+        bytes = genBytes("480800000000");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(0x7ffffffffffL);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffffffffffL);
+        bytes = genBytes("4fffffffffff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        // 7 bytes
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffffffffffL + 1L);
+        bytes = genBytes("58080000000000");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(0x7ffffffffffffL);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffffffffffffL);
+        bytes = genBytes("5fffffffffffff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        // 8 bytes
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffffffffffffL + 1L);
+        bytes = genBytes("6808000000000000");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(0x7ffffffffffffffL);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffffffffffffffL);
+        bytes = genBytes("6fffffffffffffff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        // 9 bytes
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(0x7ffffffffffffffL + 1L);
+        bytes = genBytes("780800000000000000");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        // others
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(Short.MAX_VALUE);
+        bytes = genBytes("187fff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(Short.MAX_VALUE + 1);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(Short.MAX_VALUE + 1);
+        bytes = genBytes("188000");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(Integer.MAX_VALUE);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(Integer.MAX_VALUE);
+        bytes = genBytes("387fffffff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(Integer.MAX_VALUE + 1L);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(Integer.MAX_VALUE + 1L);
+        bytes = genBytes("3880000000");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of(Long.MAX_VALUE);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = IdGenerator.of(Long.MAX_VALUE);
+        bytes = genBytes("787fffffffffffffff");
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(2)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+    }
+
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        byte[] bytes = genBytes("7f835e1153928149578691cf79258e90eb");
+
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(17)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(17)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = new UuidId(UUID.randomUUID());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+
+        id = new UuidId(UUID.randomUUID());
+        bytes = BytesBuffer.allocate(0).writeId(id).bytes();
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+    }
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        id = new UuidId(UUID.randomUUID());
+        bytes = BytesBuffer.allocate(0).writeId(id).bytes();
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+    }
+
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        bytes[0] = (byte) 0x80;
+        bytes[1] = (byte) 0x7f;
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
+                                                   .writeId(id, true).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
+                                                   .writeId(id, true).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
+
+        id = IdGenerator.of(genString(32512));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        bytes[0] = (byte) 0xfe;
+        bytes[1] = (byte) 0xff;
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
+                                                   .writeId(id, true).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
+                                                   .writeId(id, true).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
+
+        id = IdGenerator.of(genString(32768));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        bytes[0] = (byte) 0xff;
+        bytes[1] = (byte) 0xff;
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
+                                                   .writeId(id, true).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(0)
+                                                   .writeId(id, true).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId(true));
+
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+
+        Assert.assertThrows(IllegalArgumentException.class, () -> {
+            BytesBuffer.allocate(0).writeId(IdGenerator.of(genString(32769)),
+                                            true);
+        }, e -> {
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+    @Test
+    public void testPropertyWithList() {
+        BytesBuffer buf = BytesBuffer.allocate(0);
+        PropertyKey pkey = genListPkey(DataType.BOOLEAN);
+        Object value = ImmutableList.of(true, false);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        byte[] bytes = genBytes("020100");
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.BYTE);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.BYTE);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.INT);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.FLOAT);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.LONG);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.DOUBLE);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.DATE);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.TEXT);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.BLOB);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        List<?> list = (List<?>) BytesBuffer.wrap(bytes).readProperty(pkey);
+        Assert.assertEquals(Blob.wrap(genBytes("001199aabbcc")), list.get(0));
+        Assert.assertEquals(Blob.wrap(genBytes("5566")), list.get(1));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.OBJECT);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        Assert.assertEquals(value, BytesBuffer.wrap(bytes).readProperty(pkey));
+
+        pkey = genListPkey(DataType.OBJECT);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        buf.forReadWritten();
+        Assert.assertArrayEquals(bytes, buf.writeProperty(pkey, value).bytes());
+        list = (List<?>) BytesBuffer.wrap(bytes).readProperty(pkey);
+        Assert.assertArrayEquals(new int[]{1, 3}, (int[]) list.get(0));
+        Assert.assertArrayEquals(new int[]{2, 5}, (int[]) list.get(1));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+    public void testVarInt() {
+        Assert.assertArrayEquals(new byte[]{0},
+                                 BytesBuffer.allocate(5).writeVInt(0).bytes());
+        Assert.assertArrayEquals(new byte[]{1},
+                                 BytesBuffer.allocate(5).writeVInt(1).bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                 BytesBuffer.allocate(5).writeVInt(0).bytes());
+        Assert.assertArrayEquals(new byte[]{1},
+                                 BytesBuffer.allocate(5).writeVInt(1).bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0x7f},
+                                 BytesBuffer.allocate(5)
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                 BytesBuffer.allocate(5).writeVInt(1).bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0x7f},
+                                 BytesBuffer.allocate(5)
+                                            .writeVInt(127)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                            .bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0x81, 0},
+                                 BytesBuffer.allocate(5)
+                                            .writeVInt(128)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                            .bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0xff, (byte) 0x7f},
+                                 BytesBuffer.allocate(5)
+                                            .writeVInt(16383)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                            .bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0x81, (byte) 0x80, 0},
+                                 BytesBuffer.allocate(5)
+                                            .writeVInt(16384)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                            .bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0x81, (byte) 0x80, 1},
+                                 BytesBuffer.allocate(5)
+                                            .writeVInt(16385)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+
+        Assert.assertArrayEquals(new byte[]{-113, -1, -1, -1, 127},
+                                 BytesBuffer.allocate(5).writeVInt(-1).bytes());
+        Assert.assertArrayEquals(new byte[]{-121, -1, -1, -1, 127},
+                                 BytesBuffer.allocate(5)
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                 BytesBuffer.allocate(5).writeVInt(-1).bytes());
+        Assert.assertArrayEquals(new byte[]{-121, -1, -1, -1, 127},
+                                 BytesBuffer.allocate(5)
+                                            .writeVInt(Integer.MAX_VALUE)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                            .bytes());
+        Assert.assertArrayEquals(new byte[]{-120, -128, -128, -128, 0},
+                                 BytesBuffer.allocate(5)
+                                            .writeVInt(Integer.MIN_VALUE)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+
+        for (int i = Short.MIN_VALUE; i < Short.MAX_VALUE; i++) {
+            BytesBuffer buf = BytesBuffer.allocate(5).writeVInt(i);
+            Assert.assertEquals(i, buf.forReadWritten().readVInt());
+        }
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Random random = new Random();
+        for (int i = Integer.MIN_VALUE; i < Integer.MAX_VALUE;) {
+            BytesBuffer buf = BytesBuffer.allocate(5).writeVInt(i);
+            Assert.assertEquals(i, buf.forReadWritten().readVInt());
+
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        byte[] bytes = new byte[]{(byte) 0x82, 97, 98, 99};
+
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(4)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(4)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+
+        id = IdGenerator.of("abcd");
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        bytes = new byte[]{(byte) 0x83, 97, 98, 99, 100};
+
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(5)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(5)
+                                                   .writeId(id).bytes());
+        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+    }
+
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+    @Test
+    public void testAllocate() {
+        Assert.assertEquals(0, BytesBuffer.allocate(0).array().length);
+        Assert.assertEquals(0, BytesBuffer.allocate(0).bytes().length);
+
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+    public void testAllocate() {
+        Assert.assertEquals(0, BytesBuffer.allocate(0).array().length);
+        Assert.assertEquals(0, BytesBuffer.allocate(0).bytes().length);
+
+        Assert.assertEquals(4, BytesBuffer.allocate(4).array().length);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(0, BytesBuffer.allocate(0).bytes().length);
+
+        Assert.assertEquals(4, BytesBuffer.allocate(4).array().length);
+        Assert.assertEquals(0, BytesBuffer.allocate(4).bytes().length);
+
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+
+        Assert.assertEquals(4, BytesBuffer.allocate(4).array().length);
+        Assert.assertEquals(0, BytesBuffer.allocate(4).bytes().length);
+
+        BytesBuffer buf4 = BytesBuffer.allocate(4);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(0, BytesBuffer.allocate(4).bytes().length);
+
+        BytesBuffer buf4 = BytesBuffer.allocate(4);
+        buf4.write(new byte[4]);
+        Assert.assertArrayEquals(new byte[]{0, 0, 0, 0},
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                 buf4.bytes());
+
+        BytesBuffer buf2 = BytesBuffer.allocate(2);
+        buf2.write(new byte[4]);
+        Assert.assertArrayEquals(new byte[]{0, 0, 0, 0},
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                 buf2.bytes());
+
+        BytesBuffer buf0 = BytesBuffer.allocate(0);
+        buf0.write(new byte[4]);
+        Assert.assertArrayEquals(new byte[]{0, 0, 0, 0},
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+    public void testVarLong() {
+        Assert.assertArrayEquals(new byte[]{0},
+                                 BytesBuffer.allocate(5).writeVLong(0).bytes());
+        Assert.assertArrayEquals(new byte[]{1},
+                                 BytesBuffer.allocate(5).writeVLong(1).bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                 BytesBuffer.allocate(5).writeVLong(0).bytes());
+        Assert.assertArrayEquals(new byte[]{1},
+                                 BytesBuffer.allocate(5).writeVLong(1).bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0x7f},
+                                 BytesBuffer.allocate(5)
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                 BytesBuffer.allocate(5).writeVLong(1).bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0x7f},
+                                 BytesBuffer.allocate(5)
+                                            .writeVLong(127)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                            .bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0x81, 0},
+                                 BytesBuffer.allocate(5)
+                                            .writeVLong(128)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                            .bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0xff, (byte) 0x7f},
+                                 BytesBuffer.allocate(5)
+                                            .writeVLong(16383)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                            .bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0x81, (byte) 0x80, 0},
+                                 BytesBuffer.allocate(5)
+                                            .writeVLong(16384)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                            .bytes());
+        Assert.assertArrayEquals(new byte[]{(byte) 0x81, (byte) 0x80, 1},
+                                 BytesBuffer.allocate(5)
+                                            .writeVLong(16385)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(new byte[]{-127, -1, -1, -1, -1,
+                                            -1, -1, -1, -1, 127},
+                                 BytesBuffer.allocate(5).writeVLong(-1).bytes());
+        Assert.assertArrayEquals(new byte[]{-121, -1, -1, -1, 127},
+                                 BytesBuffer.allocate(5)
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+                                 BytesBuffer.allocate(5).writeVLong(-1).bytes());
+        Assert.assertArrayEquals(new byte[]{-121, -1, -1, -1, 127},
+                                 BytesBuffer.allocate(5)
+                                            .writeVLong(Integer.MAX_VALUE)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(new byte[]{-127, -1, -1, -1, -1,
+                                            -8, -128, -128, -128, 0},
+                                 BytesBuffer.allocate(5)
+                                            .writeVLong(Integer.MIN_VALUE)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(new byte[]{-1, -1, -1, -1, -1,
+                                            -1, -1, -1, 127},
+                                 BytesBuffer.allocate(5)
+                                            .writeVLong(Long.MAX_VALUE)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Assert.assertArrayEquals(new byte[]{-127, -128, -128, -128, -128,
+                                            -128, -128, -128, -128, 0},
+                                 BytesBuffer.allocate(5)
+                                            .writeVLong(Long.MIN_VALUE)
+                                            .bytes());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+
+        for (long i = Short.MIN_VALUE; i < Short.MAX_VALUE; i++) {
+            BytesBuffer buf = BytesBuffer.allocate(10).writeVLong(i);
+            Assert.assertEquals(i, buf.forReadWritten().readVLong());
+        }
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
+        Random random = new Random();
+        for (long i = Long.MIN_VALUE; i < Long.MAX_VALUE;) {
+            BytesBuffer buf = BytesBuffer.allocate(10).writeVLong(i);
+            Assert.assertEquals(i, buf.forReadWritten().readVLong());
+
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+#### Snippet
+```java
     @Test
     public void testString() {
         BytesBuffer buf = BytesBuffer.allocate(0);
@@ -15645,125 +15021,773 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBuffe
 
 ### AutoCloseableResource
 'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/util/StringEncoding.java`
 #### Snippet
 ```java
-        byte[] bytes = new byte[]{(byte) 0x82, 97, 98, 99};
 
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(4)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+    public static byte[] compress(String value, float bufferRatio) {
+        BytesBuffer buf = LZ4Util.compress(encode(value), BLOCK_SIZE, bufferRatio);
+        return buf.bytes();
+    }
 ```
 
 ### AutoCloseableResource
 'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/util/StringEncoding.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(4)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
 
-        id = IdGenerator.of("abcd");
+    public static String decompress(byte[] value, float bufferRatio) {
+        BytesBuffer buf = LZ4Util.decompress(value, BLOCK_SIZE, bufferRatio);
+        return decode(buf.array(), 0, buf.position());
+    }
 ```
 
 ### AutoCloseableResource
 'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/IdUtil.java`
 #### Snippet
 ```java
-        bytes = new byte[]{(byte) 0x83, 97, 98, 99, 100};
 
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(5)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+    public static Id readBinString(Object id) {
+        BytesBuffer buffer = BytesBuffer.wrap((ByteBuffer) id);
+        return buffer.readId();
+    }
 ```
 
 ### AutoCloseableResource
 'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/serializer/BytesBufferTest.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/IdUtil.java`
 #### Snippet
 ```java
-        Assert.assertArrayEquals(bytes, BytesBuffer.allocate(5)
-                                                   .writeId(id).bytes());
-        Assert.assertEquals(id, BytesBuffer.wrap(bytes).readId());
+    public static Object writeBinString(Id id) {
+        int len = id.edge() ? BytesBuffer.BUF_EDGE_ID : id.length() + 1;
+        BytesBuffer buffer = BytesBuffer.allocate(len).writeId(id);
+        buffer.forReadWritten();
+        return buffer.asByteBuffer();
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/IdGenerator.java`
+#### Snippet
+```java
+        private static UUID fromBytes(byte[] bytes) {
+            E.checkArgument(bytes != null, "The UUID can't be null");
+            BytesBuffer buffer = BytesBuffer.wrap(bytes);
+            long high = buffer.readLong();
+            long low = buffer.readLong();
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/id/IdGenerator.java`
+#### Snippet
+```java
+        @Override
+        public byte[] asBytes() {
+            BytesBuffer buffer = BytesBuffer.allocate(16);
+            buffer.writeLong(this.uuid.getMostSignificantBits());
+            buffer.writeLong(this.uuid.getLeastSignificantBits());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/PageInfo.java`
+#### Snippet
+```java
+        byte[] pageState = PageState.toBytes(this.page);
+        int length = 2 + BytesBuffer.INT_LEN + pageState.length;
+        BytesBuffer buffer = BytesBuffer.allocate(length);
+        buffer.writeInt(this.offset);
+        buffer.writeBytes(pageState);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/PageInfo.java`
+#### Snippet
+```java
+        }
+        try {
+            BytesBuffer buffer = BytesBuffer.wrap(bytes);
+            int offset = buffer.readInt();
+            byte[] pageState = buffer.readBytes();
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/PageState.java`
+#### Snippet
+```java
+        }
+        try {
+            BytesBuffer buffer = BytesBuffer.wrap(bytes);
+            return new PageState(buffer.readBytes(), buffer.readInt(),
+                                 buffer.readInt());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/page/PageState.java`
+#### Snippet
+```java
+        assert this.position.length > 0;
+        int length = 2 + this.position.length + 2 * BytesBuffer.INT_LEN;
+        BytesBuffer buffer = BytesBuffer.allocate(length);
+        buffer.writeBytes(this.position);
+        buffer.writeInt(this.offset);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/OffheapCache.java`
+#### Snippet
+```java
+        @Override
+        public Id deserialize(ByteBuffer input) {
+            return BytesBuffer.wrap(input).readId(true);
+        }
+
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/OffheapCache.java`
+#### Snippet
+```java
+        public int serializedSize(Id id) {
+            // NOTE: return size must be == actual bytes to write
+            return BytesBuffer.allocate(id.length() + 2)
+                              .writeId(id, true).position();
+        }
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/OffheapCache.java`
+#### Snippet
+```java
+        @Override
+        public void serialize(Id id, ByteBuffer output) {
+            BytesBuffer.wrap(output).writeId(id, true);
+        }
+
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/StoreSerializer.java`
+#### Snippet
+```java
+
+    public static byte[] writeMutation(BackendMutation mutation) {
+        BytesBuffer buffer = BytesBuffer.allocate(MUTATION_SIZE);
+        // write mutation size
+        buffer.writeVInt(mutation.size());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/StoreStateMachine.java`
+#### Snippet
+```java
+        // Leader just take the command out from the closure
+        StoreCommand command = closure.command();
+        BytesBuffer buffer = BytesBuffer.wrap(command.data());
+        // The first two bytes are StoreType and StoreAction
+        StoreType type = StoreType.valueOf(buffer.read());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftNode.java`
+#### Snippet
+```java
+        Task task = new Task();
+        // Compress data, note compress() will return a BytesBuffer
+        ByteBuffer buffer = LZ4Util.compress(command.data(),
+                                             RaftContext.BLOCK_SIZE)
+                                   .forReadWritten()
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinaryScatterSerializer.java`
+#### Snippet
+```java
+        VertexLabel vertexLabel = VertexLabel.NONE;
+        if (vl != null) {
+            Id labelId = BytesBuffer.wrap(vl.value).readId();
+            vertexLabel = graph.vertexLabelOrNone(labelId);
+        }
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinaryBackendEntry.java`
+#### Snippet
+```java
+
+    public BinaryBackendEntry(HugeType type, byte[] bytes, boolean enablePartition) {
+        this(type, BytesBuffer.wrap(bytes).parseId(type, enablePartition));
     }
 
 ```
 
 ### AutoCloseableResource
 'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraSerializer.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinaryBackendEntry.java`
 #### Snippet
 ```java
-    @SuppressWarnings("unchecked")
-    protected <T> T readProperty(PropertyKey pkey, Object value) {
-        BytesBuffer buffer = BytesBuffer.wrap((ByteBuffer) value);
-        return (T) buffer.readProperty(pkey);
+
+    public BinaryBackendEntry(HugeType type, byte[] bytes) {
+        this(type, BytesBuffer.wrap(bytes).parseId(type, false));
     }
+
 ```
 
 ### AutoCloseableResource
 'BytesBuffer' used without 'try'-with-resources statement
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraSerializer.java`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeIndex.java`
 #### Snippet
 ```java
-    @Override
-    protected Object writeProperty(PropertyKey propertyKey, Object value) {
+            assert type.isRangeIndex();
+            int length = type.isRange4Index() ? 4 : 8;
+            BytesBuffer buffer = BytesBuffer.allocate(4 + length);
+            buffer.writeInt(SchemaElement.schemaId(indexLabelId));
+            if (fieldValues != null) {
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeIndex.java`
+#### Snippet
+```java
+            final int labelLength = 4;
+            E.checkState(id.length > labelLength, "Invalid range index id");
+            BytesBuffer buffer = BytesBuffer.wrap(id);
+            Id label = IdGenerator.of(buffer.readInt());
+            indexLabel = IndexLabel.label(graph, label);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+
+    protected void parseColumn(BackendColumn col, HugeVertex vertex) {
+        BytesBuffer buffer = BytesBuffer.wrap(col.name);
+        Id id = this.keyWithIdPrefix ? buffer.readId() : vertex.id();
+        E.checkState(buffer.remaining() > 0, "Missing column type");
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+        private byte[] writeId(Id id) {
+            int size = 1 + id.length();
+            BytesBuffer buffer = BytesBuffer.allocate(size);
+            buffer.writeId(id);
+            return buffer.bytes();
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+                continue;
+            }
+            BytesBuffer buffer = BytesBuffer.wrap(col.name);
+            if (this.indexWithIdPrefix) {
+                buffer.readIndexId(index.type());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+        col.name = this.formatSyspropName(elem.id(), HugeKeys.LABEL);
+        Id label = elem.schemaLabel().id();
+        BytesBuffer buffer = BytesBuffer.allocate(label.length() + 1);
+        col.value = buffer.writeId(label).bytes();
+        return col;
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+        start.writeId(label);
+
+        BytesBuffer end = BytesBuffer.allocate(BytesBuffer.BUF_EDGE_ID);
+        end.copyFrom(start);
+
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+            id = new BinaryId(buffer.bytes(), id);
+        } else {
+            BytesBuffer buffer = BytesBuffer.allocate(1 + id.length());
+            id = new BinaryId(buffer.writeId(id).bytes(), id);
+        }
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+    public BackendEntry writeOlapVertex(HugeVertex vertex) {
+        BinaryBackendEntry entry = newBackendEntry(HugeType.OLAP, vertex.id());
+        BytesBuffer buffer = BytesBuffer.allocate(8 + 16);
+
+        Collection<HugeProperty<?>> properties = vertex.getProperties();
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+            Id id = this.entry.id().origin();
+            int size = 1 + id.length() + 1;
+            BytesBuffer buffer = BytesBuffer.allocate(size);
+            buffer.writeId(id);
+            buffer.write(key.code());
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+
+    protected BackendColumn formatProperty(HugeProperty<?> prop) {
         BytesBuffer buffer = BytesBuffer.allocate(BytesBuffer.BUF_PROPERTY);
-        if (propertyKey == null) {
-            /*
+        buffer.writeProperty(prop.propertyKey(), prop.value());
+        return BackendColumn.of(this.formatPropertyName(prop), buffer.bytes());
 ```
 
 ### AutoCloseableResource
-'Cluster' used without 'try'-with-resources statement
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
 #### Snippet
 ```java
 
-    protected boolean existsTable(String table) {
-        KeyspaceMetadata keyspace = this.cluster().getMetadata().getKeyspace(this.keyspace);
-        return keyspace != null && keyspace.getTable(table) != null;
+        private Id readId(byte[] value) {
+            BytesBuffer buffer = BytesBuffer.wrap(value);
+            return buffer.readId();
+        }
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+            bytes = Arrays.copyOfRange(bytes, parsedEntry.id().length(), bytes.length);
+        }
+        BytesBuffer buffer = BytesBuffer.allocate(BytesBuffer.BUF_EDGE_ID);
+        buffer.write(parsedEntry.id().asBytes());
+        buffer.write(bytes);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+        buffer.write(bytes);
+        parsedEntry = new BinaryBackendEntry(originEntry.type(), new BinaryId(buffer.bytes(),
+                                             BytesBuffer.wrap(buffer.bytes()).readEdgeId()));
+
+        for (BackendColumn col : originEntry.columns()) {
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+        if (!this.indexWithIdPrefix) {
+            int idLen = 1 + elemId.length();
+            buffer = BytesBuffer.allocate(idLen);
+        } else {
+            Id indexId = index.id();
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+            }
+            int idLen = 1 + elemId.length() + 1 + indexId.length();
+            buffer = BytesBuffer.allocate(idLen);
+            // Write index-id
+            buffer.writeIndexId(indexId, type);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+        int idLen = this.keyWithIdPrefix ? 1 + id.length() : 0;
+        Id pkeyId = prop.propertyKey().id();
+        BytesBuffer buffer = BytesBuffer.allocate(idLen + 2 + pkeyId.length());
+        if (this.keyWithIdPrefix) {
+            buffer.writeId(id);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+        private long readLong(HugeKeys key) {
+            byte[] value = column(key);
+            BytesBuffer buffer = BytesBuffer.wrap(value);
+            return buffer.readVLong();
+        }
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+                size += (1 + id.length());
+            }
+            BytesBuffer buffer = BytesBuffer.allocate(size);
+            buffer.writeUInt16(ids.size());
+            for (Id id : ids) {
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+            edgeId = EdgeId.parse(id.asString());
+        }
+        BytesBuffer buffer = BytesBuffer.allocate(BytesBuffer.BUF_EDGE_ID);
+        if (this.enablePartition) {
+            buffer.writeShort(getPartition(HugeType.EDGE, edgeId.ownerVertexId()));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+        if (index.type().isStringIndex()) {
+            byte[] idBytes = IdGenerator.of(id.asString()).asBytes();
+            BytesBuffer buffer = BytesBuffer.allocate(idBytes.length);
+            buffer.write(idBytes);
+            entry.column(buffer.bytes(), null);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+        } else {
+            assert index.type().isRangeIndex();
+            BytesBuffer buffer = BytesBuffer.allocate(4);
+            buffer.writeInt((int) id.asLong());
+            entry.column(buffer.bytes(), null);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+
+        private Id[] readIds(byte[] value) {
+            BytesBuffer buffer = BytesBuffer.wrap(value);
+            int size = buffer.readUInt16();
+            Id[] ids = new Id[size];
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+            id = HugeIndex.formatIndexHashId(type, indexLabel, fieldValues);
+        }
+        BytesBuffer buffer = BytesBuffer.allocate(1 + id.length());
+        byte[] idBytes = buffer.writeIndexId(id, type, withEnding).bytes();
+        return new BinaryId(idBytes, id);
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+                }
+            }
+            BytesBuffer buffer = BytesBuffer.allocate(1 + id.length());
+            byte[] idBytes = buffer.writeIndexId(id, type).bytes();
+            return new BinaryBackendEntry(type, new BinaryId(idBytes, id));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+        }
+
+        BytesBuffer buffer = BytesBuffer.allocate(1 + id.length());
+        byte[] idBytes = buffer.writeId(id).bytes();
+        return new BinaryBackendEntry(type, new BinaryId(idBytes, id));
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+    protected byte[] formatSyspropName(BinaryId id, HugeKeys col) {
+        int idLen = this.keyWithIdPrefix ? id.length() : 0;
+        BytesBuffer buffer = BytesBuffer.allocate(idLen + 1 + 1);
+        byte sysprop = HugeType.SYS_PROPERTY.code();
+        if (this.keyWithIdPrefix) {
+```
+
+### AutoCloseableResource
+'BytesBuffer' used without 'try'-with-resources statement
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/serializer/BinarySerializer.java`
+#### Snippet
+```java
+    protected byte[] formatSyspropName(Id id, HugeKeys col) {
+        int idLen = this.keyWithIdPrefix ? 1 + id.length() : 0;
+        BytesBuffer buffer = BytesBuffer.allocate(idLen + 1 + 1);
+        byte sysprop = HugeType.SYS_PROPERTY.code();
+        if (this.keyWithIdPrefix) {
+```
+
+### AutoCloseableResource
+'Connection' used without 'try'-with-resources statement
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseMetrics.java`
+#### Snippet
+```java
+    private Map<String, Object> clusterInfo() {
+        Map<String, Object> results = InsertionOrderUtil.newMap();
+        try (Admin admin = this.hbase.hbase().getAdmin()) {
+            // Cluster info
+            ClusterMetrics clusterMetrics = admin.getClusterMetrics();
+```
+
+### AutoCloseableResource
+'Connection' used without 'try'-with-resources statement
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseMetrics.java`
+#### Snippet
+```java
+        }
+
+        try (Admin admin = this.hbase.hbase().getAdmin()) {
+            ClusterMetrics clusterMetrics = admin.getClusterMetrics();
+            Map<ServerName, ServerMetrics> metrics =
+```
+
+### AutoCloseableResource
+'RowIterator' used without 'try'-with-resources statement
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTables.java`
+#### Snippet
+```java
+                session.commit();
+                // Prefix query index label related indexes
+                HbaseSessions.RowIterator iter = session.scan(this.table(), column.name);
+                while (iter.hasNext()) {
+                    session.delete(this.table(), CF, iter.next().getRow());
+```
+
+### AutoCloseableResource
+'Connection' used without 'try'-with-resources statement
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTable.java`
+#### Snippet
+```java
+            Map<String, Range> regionRanges = InsertionOrderUtil.newMap();
+            TableName tableName = TableName.valueOf(namespace, table);
+            try (Admin admin = session.hbase().getAdmin()) {
+                for (RegionInfo regionInfo : admin.getRegions(tableName)) {
+                    byte[] start = regionInfo.getStartKey();
+```
+
+### AutoCloseableResource
+'Connection' used without 'try'-with-resources statement
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTable.java`
+#### Snippet
+```java
+                                                       String table) {
+            Map<String, Double> regionSizes = new HashMap<>();
+            try (Admin admin = session.hbase().getAdmin()) {
+                TableName tableName = TableName.valueOf(namespace, table);
+                for (ServerName serverName : admin.getRegionServers()) {
+```
+
+### AutoCloseableResource
+'RowIterator' used without 'try'-with-resources statement
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
+#### Snippet
+```java
+        private void dump(String table, Scan scan) throws IOException {
+            LOG.info(String.format(">>>> scan table {} with {}", table, scan));
+            RowIterator iterator = this.scan(table, scan);
+            while (iterator.hasNext()) {
+                Result row = iterator.next();
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/gremlin/GremlinAPI.java`
+#### Snippet
+```java
+        // .build();
+        String auth = headers.getHeaderString(HttpHeaders.AUTHORIZATION);
+        Response response = this.client().doPostRequest(auth, request);
+        GREMLIN_INPUT_HISTOGRAM.update(request.length());
+        GREMLIN_OUTPUT_HISTOGRAM.update(response.getLength());
+```
+
+### AutoCloseableResource
+'Response' used without 'try'-with-resources statement
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/gremlin/GremlinAPI.java`
+#### Snippet
+```java
+        String query = uriInfo.getRequestUri().getRawQuery();
+        MultivaluedMap<String, String> params = uriInfo.getQueryParameters();
+        Response response = this.client().doGetRequest(auth, params);
+        GREMLIN_INPUT_HISTOGRAM.update(query.length());
+        GREMLIN_OUTPUT_HISTOGRAM.update(response.getLength());
+```
+
+### AutoCloseableResource
+'ServerReporter' used without 'try'-with-resources statement
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
+#### Snippet
+```java
+    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
+    public String meters() {
+        ServerReporter reporter = ServerReporter.instance();
+        return JsonUtil.toJson(reporter.meters());
     }
 ```
 
 ### AutoCloseableResource
-'Cluster' used without 'try'-with-resources statement
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
+'ServerReporter' used without 'try'-with-resources statement
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
 #### Snippet
 ```java
-        LOG.debug("Drop keyspace: {}", stmt);
-
-        Session session = this.cluster().connect();
-        try {
-            session.execute(stmt);
-```
-
-### AutoCloseableResource
-'Cluster' used without 'try'-with-resources statement
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
-#### Snippet
-```java
-
-    protected boolean existsKeyspace() {
-        return this.cluster().getMetadata().getKeyspace(this.keyspace) != null;
+    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
+    public String timers() {
+        ServerReporter reporter = ServerReporter.instance();
+        return JsonUtil.toJson(reporter.timers());
     }
-
 ```
 
 ### AutoCloseableResource
-'Cluster' used without 'try'-with-resources statement
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraStore.java`
+'ServerReporter' used without 'try'-with-resources statement
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
 #### Snippet
 ```java
-        // Create keyspace with non-keyspace-session
-        LOG.debug("Create keyspace: {}", stmt);
-        Session session = this.cluster().connect();
-        try {
-            session.execute(stmt);
+    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
+    public String all() {
+        ServerReporter reporter = ServerReporter.instance();
+        Map<String, Map<String, ? extends Metric>> result = new LinkedHashMap<>();
+        result.put("gauges", reporter.gauges());
+```
+
+### AutoCloseableResource
+'ServerReporter' used without 'try'-with-resources statement
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
+#### Snippet
+```java
+    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
+    public String counters() {
+        ServerReporter reporter = ServerReporter.instance();
+        return JsonUtil.toJson(reporter.counters());
+    }
+```
+
+### AutoCloseableResource
+'ServerReporter' used without 'try'-with-resources statement
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
+#### Snippet
+```java
+    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
+    public String gauges() {
+        ServerReporter reporter = ServerReporter.instance();
+        return JsonUtil.toJson(reporter.gauges());
+    }
+```
+
+### AutoCloseableResource
+'ServerReporter' used without 'try'-with-resources statement
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
+#### Snippet
+```java
+    @RolesAllowed({"admin", "$owner= $action=metrics_read"})
+    public String histograms() {
+        ServerReporter reporter = ServerReporter.instance();
+        return JsonUtil.toJson(reporter.histograms());
+    }
+```
+
+### AutoCloseableResource
+'ServerReporter' used without 'try'-with-resources statement
+in `hugegraph-api/src/main/java/org/apache/hugegraph/core/GraphManager.java`
+#### Snippet
+```java
+        final MetricManager metric = MetricManager.INSTANCE;
+        // Force to add server reporter
+        ServerReporter reporter = ServerReporter.instance(metric.getRegistry());
+        reporter.start(60L, TimeUnit.SECONDS);
+
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
+### ConditionCoveredByFurtherCondition
+Condition 'START.equals(...)' covered by subsequent condition 'END.equals(...)'
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBTable.java`
+#### Snippet
+```java
+        @Override
+        public byte[] position(String position) {
+            if (START.equals(position) || END.equals(position)) {
+                return null;
+            }
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'value != null' covered by subsequent condition '"\\u0000".equals(...)'
+in `hugegraph-postgresql/src/main/java/org/apache/hugegraph/backend/store/postgresql/PostgresqlSerializer.java`
+#### Snippet
+```java
+        } else {
+            Object value = index.fieldValues();
+            if (value != null && "\u0000".equals(value)) {
+                value = Strings.EMPTY;
+            }
+```
+
 ### ConditionCoveredByFurtherCondition
 Condition 'rootCause instanceof InterruptedException' covered by subsequent condition 'rootCause instanceof TraversalInterruptedException'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeException.java`
@@ -15774,18 +15798,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeException.java`
         return rootCause instanceof InterruptedException ||
                rootCause instanceof TraversalInterruptedException ||
                rootCause instanceof InterruptedIOException;
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'START.equals(...)' covered by subsequent condition 'END.equals(...)'
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTable.java`
-#### Snippet
-```java
-        @Override
-        public byte[] position(String position) {
-            if (START.equals(position) || END.equals(position)) {
-                return null;
-            }
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -15825,6 +15837,30 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeElement.java
 ```
 
 ### ConditionCoveredByFurtherCondition
+Condition 'limit == Query.NO_LIMIT' covered by subsequent condition 'limit \> 0L'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/records/KneighborRecords.java`
+#### Snippet
+```java
+        for (int i = 1; i < records.size(); i++) {
+            IntIterator iterator = records.get(i).keys();
+            while ((limit == Query.NO_LIMIT || limit > 0L) && iterator.hasNext()) {
+                paths.add(this.linkPath(i, iterator.next()));
+                limit--;
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'limit == Query.NO_LIMIT' covered by subsequent condition 'limit \> 0L'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/records/KneighborRecords.java`
+#### Snippet
+```java
+        for (int i = 1; i < records.size(); i++) {
+            IntIterator iterator = records.get(i).keys();
+            while ((limit == Query.NO_LIMIT || limit > 0L) && iterator.hasNext()) {
+                ids.add(this.id(iterator.next()));
+                limit--;
+```
+
+### ConditionCoveredByFurtherCondition
 Condition 'step instanceof FilterStep' covered by subsequent condition 'step instanceof PropertiesStep'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
 #### Snippet
@@ -15837,18 +15873,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
 ```
 
 ### ConditionCoveredByFurtherCondition
-Condition 'step instanceof OrderGlobalStep' covered by subsequent condition 'step instanceof IdentityStep'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
-#### Snippet
-```java
-            }
-            step = step.getNextStep();
-        } while (step instanceof OrderGlobalStep ||
-                 step instanceof IdentityStep);
-    }
-```
-
-### ConditionCoveredByFurtherCondition
 Condition 'step instanceof CountGlobalStep' covered by subsequent condition 'step instanceof FilterStep'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
 #### Snippet
@@ -15858,6 +15882,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
         } while (step instanceof CountGlobalStep ||
                  step instanceof FilterStep ||
                  step instanceof IdentityStep ||
+```
+
+### ConditionCoveredByFurtherCondition
+Condition 'step instanceof RangeGlobalStep' covered by subsequent condition 'step instanceof IdentityStep'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
+#### Snippet
+```java
+                }
+            }
+        } while (step instanceof RangeGlobalStep ||
+                 step instanceof IdentityStep ||
+                 step instanceof NoOpBarrierStep);
 ```
 
 ### ConditionCoveredByFurtherCondition
@@ -15885,62 +15921,26 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
 ```
 
 ### ConditionCoveredByFurtherCondition
-Condition 'step instanceof RangeGlobalStep' covered by subsequent condition 'step instanceof IdentityStep'
+Condition 'step instanceof OrderGlobalStep' covered by subsequent condition 'step instanceof IdentityStep'
 in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/TraversalUtil.java`
 #### Snippet
 ```java
-                }
             }
-        } while (step instanceof RangeGlobalStep ||
-                 step instanceof IdentityStep ||
-                 step instanceof NoOpBarrierStep);
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'limit == Query.NO_LIMIT' covered by subsequent condition 'limit \> 0L'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/records/KneighborRecords.java`
-#### Snippet
-```java
-        for (int i = 1; i < records.size(); i++) {
-            IntIterator iterator = records.get(i).keys();
-            while ((limit == Query.NO_LIMIT || limit > 0L) && iterator.hasNext()) {
-                paths.add(this.linkPath(i, iterator.next()));
-                limit--;
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'limit == Query.NO_LIMIT' covered by subsequent condition 'limit \> 0L'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/records/KneighborRecords.java`
-#### Snippet
-```java
-        for (int i = 1; i < records.size(); i++) {
-            IntIterator iterator = records.get(i).keys();
-            while ((limit == Query.NO_LIMIT || limit > 0L) && iterator.hasNext()) {
-                ids.add(this.id(iterator.next()));
-                limit--;
+            step = step.getNextStep();
+        } while (step instanceof OrderGlobalStep ||
+                 step instanceof IdentityStep);
+    }
 ```
 
 ### ConditionCoveredByFurtherCondition
 Condition 'START.equals(...)' covered by subsequent condition 'END.equals(...)'
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBTable.java`
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTable.java`
 #### Snippet
 ```java
         @Override
         public byte[] position(String position) {
             if (START.equals(position) || END.equals(position)) {
                 return null;
-            }
-```
-
-### ConditionCoveredByFurtherCondition
-Condition 'value != null' covered by subsequent condition '"\\u0000".equals(...)'
-in `hugegraph-postgresql/src/main/java/org/apache/hugegraph/backend/store/postgresql/PostgresqlSerializer.java`
-#### Snippet
-```java
-        } else {
-            Object value = index.fieldValues();
-            if (value != null && "\u0000".equals(value)) {
-                value = Strings.EMPTY;
             }
 ```
 
@@ -15969,7 +15969,92 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
 
 ```
 
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@throws` tag description is missing
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExample4.java`
+#### Snippet
+```java
+     * @param args 3 arguments, 1st should be 1, meaning single thread,
+     *             product of 2nd and 3rd is total number of "person" vertices
+     * @throws InterruptedException
+     */
+    public static void main(String[] args) throws Exception {
+```
+
+### JavadocDeclaration
+`@param index` tag description is missing
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/system/JobCounters.java`
+#### Snippet
+```java
+        /**
+         * Try to add edge in collection waiting to be deleted
+         * @param index
+         * @return true if we should create a new delete job, false otherwise
+         */
+```
+
+### JavadocDeclaration
+`@param element` tag description is missing
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/system/JobCounters.java`
+#### Snippet
+```java
+        /**
+         * Try to add element in collection waiting to be deleted
+         * @param element
+         * @return true if we should create a new delete job, false otherwise
+         */
+```
+
+### JavadocDeclaration
+`@param traversal` tag description is missing
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVertexStepStrategy.java`
+#### Snippet
+```java
+    /**
+     * Does a Traversal contain any Tree step
+     * @param traversal
+     * @return the traversal or its parents contain at least one Tree step
+     */
+```
+
+### JavadocDeclaration
+`@param traversal` tag description is missing
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVertexStepStrategy.java`
+#### Snippet
+```java
+    /**
+     * Does a Traversal contain any Path step
+     * @param traversal
+     * @return the traversal or its parents contain at least one Path step
+     */
+```
+
 ## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `idParts` to `Object[]` is redundant
+in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloTables.java`
+#### Snippet
+```java
+                if (idParts.length == 1) {
+                    // Delete edge by label
+                    return Arrays.asList((Object[]) idParts);
+                }
+                id = IdUtil.readString(id.asString());
+```
+
+### RedundantCast
+Casting `idParts` to `Object[]` is redundant
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlTables.java`
+#### Snippet
+```java
+                if (idParts.length == 1) {
+                    // Delete edge by label
+                    return Arrays.asList((Object[]) idParts);
+                }
+                id = IdUtil.readString(id.asString());
+```
+
 ### RedundantCast
 Casting `query.condition(...)` to `Id` is redundant
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
@@ -16007,30 +16092,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/Travers
 ```
 
 ### RedundantCast
-Casting `idParts` to `Object[]` is redundant
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlTables.java`
-#### Snippet
-```java
-                if (idParts.length == 1) {
-                    // Delete edge by label
-                    return Arrays.asList((Object[]) idParts);
-                }
-                id = IdUtil.readString(id.asString());
-```
-
-### RedundantCast
-Casting `idParts` to `Object[]` is redundant
-in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloTables.java`
-#### Snippet
-```java
-                if (idParts.length == 1) {
-                    // Delete edge by label
-                    return Arrays.asList((Object[]) idParts);
-                }
-                id = IdUtil.readString(id.asString());
-```
-
-### RedundantCast
 Casting `origin` to `TraversalStrategy` is redundant
 in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeGraphAuthProxy.java`
 #### Snippet
@@ -16040,67 +16101,6 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeGraphAuthProxy.jav
             TraversalStrategy<T> strategy = (TraversalStrategy) origin;
             this.origin = strategy;
         }
-```
-
-## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-`@param index` tag description is missing
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/system/JobCounters.java`
-#### Snippet
-```java
-        /**
-         * Try to add edge in collection waiting to be deleted
-         * @param index
-         * @return true if we should create a new delete job, false otherwise
-         */
-```
-
-### JavadocDeclaration
-`@param element` tag description is missing
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/system/JobCounters.java`
-#### Snippet
-```java
-        /**
-         * Try to add element in collection waiting to be deleted
-         * @param element
-         * @return true if we should create a new delete job, false otherwise
-         */
-```
-
-### JavadocDeclaration
-`@param traversal` tag description is missing
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVertexStepStrategy.java`
-#### Snippet
-```java
-    /**
-     * Does a Traversal contain any Path step
-     * @param traversal
-     * @return the traversal or its parents contain at least one Path step
-     */
-```
-
-### JavadocDeclaration
-`@param traversal` tag description is missing
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/optimize/HugeVertexStepStrategy.java`
-#### Snippet
-```java
-    /**
-     * Does a Traversal contain any Tree step
-     * @param traversal
-     * @return the traversal or its parents contain at least one Tree step
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExample4.java`
-#### Snippet
-```java
-     * @param args 3 arguments, 1st should be 1, meaning single thread,
-     *             product of 2nd and 3rd is total number of "person" vertices
-     * @throws InterruptedException
-     */
-    public static void main(String[] args) throws Exception {
 ```
 
 ## RuleId[id=ThreadWithDefaultRunMethod]
@@ -16118,747 +16118,63 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/SecurityManagerT
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `enablePartition` may be 'final'
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseFeatures.java`
+Field `batch` may be 'final'
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraSessionPool.java`
 #### Snippet
 ```java
-public class HbaseFeatures implements BackendFeatures {
 
-    private boolean enablePartition;
+        private com.datastax.driver.core.Session session;
+        private BatchStatement batch;
 
-    public HbaseFeatures(boolean enablePartition) {
+        public Session() {
 ```
 
 ### FieldMayBeFinal
-Field `schemaSerializer` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/io/HugeGryoModule.java`
+Field `partitioner` may be 'final'
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraShard.java`
 #### Snippet
 ```java
-public class HugeGryoModule {
+    private String table;
 
-    private static GraphSONSchemaSerializer schemaSerializer =
-                   new GraphSONSchemaSerializer();
+    private IPartitioner partitioner;
 
+    public CassandraShard(CassandraSessionPool.Session session,
 ```
 
 ### FieldMayBeFinal
-Field `OPTIMIZE_SERIALIZE` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/io/HugeGraphSONModule.java`
+Field `session` may be 'final'
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraShard.java`
 #### Snippet
 ```java
-    private static final String TYPE_NAMESPACE = "hugegraph";
+    private static final int MIN_SHARD_SIZE = (int) Bytes.MB;
 
-    private static boolean OPTIMIZE_SERIALIZE = true;
-
-    @SuppressWarnings("rawtypes")
-```
-
-### FieldMayBeFinal
-Field `elements` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/system/DeleteExpiredElementJob.java`
-#### Snippet
-```java
-    private static final String JOB_TYPE = "delete_expired_element";
-
-    private Set<HugeElement> elements;
-
-    public DeleteExpiredElementJob(Set<HugeElement> elements) {
-```
-
-### FieldMayBeFinal
-Field `enablePartition` may be 'final'
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseStore.java`
-#### Snippet
-```java
-
-    public static class HbaseGraphStore extends HbaseStore {
-        private boolean enablePartition;
-        public HbaseGraphStore(HugeConfig config, BackendStoreProvider provider,
-                               String namespace, String store) {
-```
-
-### FieldMayBeFinal
-Field `globalStresses` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/cent/StressCentralityAlgorithmV2.java`
-#### Snippet
-```java
-    private static class Traverser extends BfsTraverser<StressNode> {
-
-        private Map<Id, MutableLong> globalStresses;
-
-        private Traverser(UserJob<Object> job) {
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/HugePermission.java`
-#### Snippet
-```java
-
-    private byte code;
-    private String name;
-
-    static {
-```
-
-### FieldMayBeFinal
-Field `code` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/HugePermission.java`
-#### Snippet
-```java
-    ANY(0x7f, "any");
-
-    private byte code;
-    private String name;
-
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/task/TaskStatus.java`
-#### Snippet
-```java
-
-    private byte status;
-    private String name;
-
-    static {
-```
-
-### FieldMayBeFinal
-Field `status` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/task/TaskStatus.java`
-#### Snippet
-```java
-           TaskStatus.SUCCESS, TaskStatus.CANCELLED, TaskStatus.FAILED);
-
-    private byte status;
-    private String name;
-
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/type/HugeType.java`
-#### Snippet
-```java
-
-    private byte type = 0;
-    private String name;
-
-    private static final Map<String, HugeType> ALL_NAME = new HashMap<>();
-```
-
-### FieldMayBeFinal
-Field `id` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/task/HugeServerInfo.java`
-#### Snippet
-```java
-                              TaskManager.SCHEDULE_PERIOD * 10;
-
-    private Id id;
-    private NodeRole role;
-    private int maxLoad;
+    private CassandraSessionPool.Session session;
+    private String keyspace;
+    private String table;
 ```
 
 ### FieldMayBeFinal
 Field `table` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/util/LockUtil.java`
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraShard.java`
 #### Snippet
 ```java
-    public static class LocksTable {
+    private CassandraSessionPool.Session session;
+    private String keyspace;
+    private String table;
 
-        private Map<String, Set<Id>> table;
-        private Locks locks;
-
+    private IPartitioner partitioner;
 ```
 
 ### FieldMayBeFinal
-Field `locks` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/util/LockUtil.java`
+Field `keyspace` may be 'final'
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraShard.java`
 #### Snippet
 ```java
 
-        private Map<String, Set<Id>> table;
-        private Locks locks;
+    private CassandraSessionPool.Session session;
+    private String keyspace;
+    private String table;
 
-        public LocksTable(String graph) {
-```
-
-### FieldMayBeFinal
-Field `indexFields` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/IndexLabel.java`
-#### Snippet
-```java
-    private Id baseValue;
-    private IndexType indexType;
-    private List<Id> indexFields;
-
-    public IndexLabel(final HugeGraph graph, Id id, String name) {
-```
-
-### FieldMayBeFinal
-Field `sortKeys` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/EdgeLabel.java`
-#### Snippet
-```java
-    private Id targetLabel = NONE_ID;
-    private Frequency frequency;
-    private List<Id> sortKeys;
-
-    public EdgeLabel(final HugeGraph graph, Id id, String name) {
-```
-
-### FieldMayBeFinal
-Field `primaryKeys` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/VertexLabel.java`
-#### Snippet
-```java
-
-    private IdStrategy idStrategy;
-    private List<Id> primaryKeys;
-
-    public VertexLabel(final HugeGraph graph, Id id, String name) {
-```
-
-### FieldMayBeFinal
-Field `task` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/SchemaElement.java`
-#### Snippet
-```java
-
-        private SchemaElement schemaElement;
-        private Id task;
-
-        public TaskWithSchema(SchemaElement schemaElement, Id task) {
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/PropertyKeyBuilder.java`
-#### Snippet
-```java
-
-    private Id id;
-    private String name;
-    private DataType dataType;
-    private Cardinality cardinality;
-```
-
-### FieldMayBeFinal
-Field `userdata` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/PropertyKeyBuilder.java`
-#### Snippet
-```java
-    private WriteType writeType;
-    private boolean checkExist;
-    private Userdata userdata;
-
-    public PropertyKeyBuilder(SchemaTransaction transaction,
-```
-
-### FieldMayBeFinal
-Field `nullableKeys` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/VertexLabelBuilder.java`
-#### Snippet
-```java
-    private Set<String> properties;
-    private List<String> primaryKeys;
-    private Set<String> nullableKeys;
-    private long ttl;
-    private String ttlStartTime;
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/VertexLabelBuilder.java`
-#### Snippet
-```java
-    private String name;
-    private IdStrategy idStrategy;
-    private Set<String> properties;
-    private List<String> primaryKeys;
-    private Set<String> nullableKeys;
-```
-
-### FieldMayBeFinal
-Field `primaryKeys` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/VertexLabelBuilder.java`
-#### Snippet
-```java
-    private IdStrategy idStrategy;
-    private Set<String> properties;
-    private List<String> primaryKeys;
-    private Set<String> nullableKeys;
-    private long ttl;
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/VertexLabelBuilder.java`
-#### Snippet
-```java
-
-    private Id id;
-    private String name;
-    private IdStrategy idStrategy;
-    private Set<String> properties;
-```
-
-### FieldMayBeFinal
-Field `userdata` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/VertexLabelBuilder.java`
-#### Snippet
-```java
-    private String ttlStartTime;
-    private Boolean enableLabelIndex;
-    private Userdata userdata;
-    private boolean checkExist;
-
-```
-
-### FieldMayBeFinal
-Field `userdata` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelBuilder.java`
-#### Snippet
-```java
-    private IndexType indexType;
-    private List<String> indexFields;
-    private Userdata userdata;
-    private boolean checkExist;
-    private boolean rebuild;
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelBuilder.java`
-#### Snippet
-```java
-
-    private Id id;
-    private String name;
-    private HugeType baseType;
-    private String baseValue;
-```
-
-### FieldMayBeFinal
-Field `indexFields` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelBuilder.java`
-#### Snippet
-```java
-    private String baseValue;
-    private IndexType indexType;
-    private List<String> indexFields;
-    private Userdata userdata;
-    private boolean checkExist;
-```
-
-### FieldMayBeFinal
-Field `nullableKeys` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/EdgeLabelBuilder.java`
-#### Snippet
-```java
-    private Set<String> properties;
-    private List<String> sortKeys;
-    private Set<String> nullableKeys;
-    private long ttl;
-    private String ttlStartTime;
-```
-
-### FieldMayBeFinal
-Field `properties` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/EdgeLabelBuilder.java`
-#### Snippet
-```java
-    private String targetLabel;
-    private Frequency frequency;
-    private Set<String> properties;
-    private List<String> sortKeys;
-    private Set<String> nullableKeys;
-```
-
-### FieldMayBeFinal
-Field `userdata` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/EdgeLabelBuilder.java`
-#### Snippet
-```java
-    private String ttlStartTime;
-    private Boolean enableLabelIndex;
-    private Userdata userdata;
-    private boolean checkExist;
-
-```
-
-### FieldMayBeFinal
-Field `name` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/EdgeLabelBuilder.java`
-#### Snippet
-```java
-
-    private Id id;
-    private String name;
-    private String sourceLabel;
-    private String targetLabel;
-```
-
-### FieldMayBeFinal
-Field `sortKeys` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/EdgeLabelBuilder.java`
-#### Snippet
-```java
-    private Frequency frequency;
-    private Set<String> properties;
-    private List<String> sortKeys;
-    private Set<String> nullableKeys;
-    private long ttl;
-```
-
-### FieldMayBeFinal
-Field `hashCode` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/CachedBackendStore.java`
-#### Snippet
-```java
-
-        private String query;
-        private int hashCode;
-
-        public QueryId(Query q) {
-```
-
-### FieldMayBeFinal
-Field `query` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/CachedBackendStore.java`
-#### Snippet
-```java
-    static class QueryId implements Id {
-
-        private String query;
-        private int hashCode;
-
-```
-
-### FieldMayBeFinal
-Field `providers` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendProviderFactory.java`
-#### Snippet
-```java
-    private static final Logger LOG = Log.logger(BackendProviderFactory.class);
-
-    private static Map<String, Class<? extends BackendStoreProvider>> providers;
-
-    static {
-```
-
-### FieldMayBeFinal
-Field `endKey` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendTable.java`
-#### Snippet
-```java
-
-            private byte[] startKey;
-            private byte[] endKey;
-
-            public Range(byte[] startKey, byte[] endKey) {
-```
-
-### FieldMayBeFinal
-Field `startKey` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendTable.java`
-#### Snippet
-```java
-        public static class Range {
-
-            private byte[] startKey;
-            private byte[] endKey;
-
-```
-
-### FieldMayBeFinal
-Field `indexLabels` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
-#### Snippet
-```java
-
-        private SchemaLabel schemaLabel;
-        private Set<IndexLabel> indexLabels;
-
-        public MatchedIndex(SchemaLabel schemaLabel,
-```
-
-### FieldMayBeFinal
-Field `schemaLabel` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
-#### Snippet
-```java
-    private static class MatchedIndex {
-
-        private SchemaLabel schemaLabel;
-        private Set<IndexLabel> indexLabels;
-
-```
-
-### FieldMayBeFinal
-Field `leftIndexes` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
-#### Snippet
-```java
-        private final HugeElement element;
-        private GraphIndexTransaction tx;
-        private Set<ConditionQuery.LeftIndex> leftIndexes;
-
-        private RemoveLeftIndexJob(ConditionQuery query, HugeElement element) {
-```
-
-### FieldMayBeFinal
-Field `increment` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStore.java`
-#### Snippet
-```java
-
-        private HugeType type;
-        private long increment;
-
-        public IncrCounter(HugeType type, long increment) {
-```
-
-### FieldMayBeFinal
-Field `type` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStore.java`
-#### Snippet
-```java
-    protected static final class IncrCounter {
-
-        private HugeType type;
-        private long increment;
-
-```
-
-### FieldMayBeFinal
-Field `id` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeIndex.java`
-#### Snippet
-```java
-    public static class IdWithExpiredTime {
-
-        private Id id;
-        private long expiredTime;
-
-```
-
-### FieldMayBeFinal
-Field `expiredTime` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeIndex.java`
-#### Snippet
-```java
-
-        private Id id;
-        private long expiredTime;
-
-        public IdWithExpiredTime(Id id, long expiredTime) {
-```
-
-### FieldMayBeFinal
-Field `indexLabel` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeIndex.java`
-#### Snippet
-```java
-    private final HugeGraph graph;
-    private Object fieldValues;
-    private IndexLabel indexLabel;
-    private Set<IdWithExpiredTime> elementIds;
-
-```
-
-### FieldMayBeFinal
-Field `findingNodes` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SingleSourceShortestPathTraverser.java`
-#### Snippet
-```java
-    private class Traverser {
-
-        private WeightedPaths findingNodes = new WeightedPaths();
-        private WeightedPaths foundNodes = new WeightedPaths();
-        private Set<NodeWithWeight> sources;
-```
-
-### FieldMayBeFinal
-Field `source` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SingleSourceShortestPathTraverser.java`
-#### Snippet
-```java
-        private WeightedPaths foundNodes = new WeightedPaths();
-        private Set<NodeWithWeight> sources;
-        private Id source;
-        private final Directions direction;
-        private final Id label;
-```
-
-### FieldMayBeFinal
-Field `size` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SingleSourceShortestPathTraverser.java`
-#### Snippet
-```java
-        private final long capacity;
-        private final long limit;
-        private long size;
-        private boolean done = false;
-
-```
-
-### FieldMayBeFinal
-Field `foundNodes` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SingleSourceShortestPathTraverser.java`
-#### Snippet
-```java
-
-        private WeightedPaths findingNodes = new WeightedPaths();
-        private WeightedPaths foundNodes = new WeightedPaths();
-        private Set<NodeWithWeight> sources;
-        private Id source;
-```
-
-### FieldMayBeFinal
-Field `graph` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/HugeTraverser.java`
-#### Snippet
-```java
-    protected static final Logger LOG = Log.logger(HugeTraverser.class);
-
-    private HugeGraph graph;
-
-    private static CollectionFactory collectionFactory;
-```
-
-### FieldMayBeFinal
-Field `paths` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizedCrosspointsTraverser.java`
-#### Snippet
-```java
-
-        private Set<Id> crosspoints;
-        private List<Path> paths;
-
-        public CrosspointsPaths(Set<Id> crosspoints, List<Path> paths) {
-```
-
-### FieldMayBeFinal
-Field `crosspoints` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizedCrosspointsTraverser.java`
-#### Snippet
-```java
-        );
-
-        private Set<Id> crosspoints;
-        private List<Path> paths;
-
-```
-
-### FieldMayBeFinal
-Field `steps` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizedCrosspointsTraverser.java`
-#### Snippet
-```java
-    public static class PathPattern {
-
-        private List<Step> steps;
-
-        public PathPattern() {
-```
-
-### FieldMayBeFinal
-Field `accessedVertices` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SubGraphTraverser.java`
-#### Snippet
-```java
-        private final Id source;
-        private MultivaluedMap<Id, Node> sources = newMultivalueMap();
-        private Set<Id> accessedVertices = newIdSet();
-
-        private final Id label;
-```
-
-### FieldMayBeFinal
-Field `weights` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizePathsTraverser.java`
-#### Snippet
-```java
-    public static class WeightPath extends Path {
-
-        private List<Double> weights;
-        private double totalWeight;
-
-```
-
-### FieldMayBeFinal
-Field `weight` may be 'final'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizePathsTraverser.java`
-#### Snippet
-```java
-    public static class WeightNode extends Node {
-
-        private double weight;
-
-        public WeightNode(Id id, Node parent, double weight) {
-```
-
-### FieldMayBeFinal
-Field `hugegraph` may be 'final'
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExampleBase.java`
-#### Snippet
-```java
-
-    protected static class GraphManager {
-        private HugeGraph hugegraph;
-        private Cache<Id, Object> cache = CacheManager.instance()
-                                                      .cache("perf-test");
-```
-
-### FieldMayBeFinal
-Field `cache` may be 'final'
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExampleBase.java`
-#### Snippet
-```java
-    protected static class GraphManager {
-        private HugeGraph hugegraph;
-        private Cache<Id, Object> cache = CacheManager.instance()
-                                                      .cache("perf-test");
-
-```
-
-### FieldMayBeFinal
-Field `builder` may be 'final'
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/WhereBuilder.java`
-#### Snippet
-```java
-public class WhereBuilder {
-
-    private StringBuilder builder;
-
-    public WhereBuilder() {
-```
-
-### FieldMayBeFinal
-Field `database` may be 'final'
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlSessions.java`
-#### Snippet
-```java
-
-    private HugeConfig config;
-    private String database;
-    private volatile boolean opened;
-
-```
-
-### FieldMayBeFinal
-Field `config` may be 'final'
-in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlSessions.java`
-#### Snippet
-```java
-    private static final int DROP_DB_TIMEOUT = 10000;
-
-    private HugeConfig config;
-    private String database;
-    private volatile boolean opened;
 ```
 
 ### FieldMayBeFinal
@@ -16886,27 +16202,15 @@ in `hugegraph-palo/src/main/java/org/apache/hugegraph/backend/store/palo/PaloLoa
 ```
 
 ### FieldMayBeFinal
-Field `systemMetrics` may be 'final'
-in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
+Field `pkId` may be 'final'
+in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTables.java`
 #### Snippet
 ```java
-    private static final Logger LOG = Log.logger(MetricsAPI.class);
+        public static final String TABLE = HugeType.OLAP.string();
 
-    private SystemMetrics systemMetrics;
+        private Id pkId;
 
-    static {
-```
-
-### FieldMayBeFinal
-Field `roles` may be 'final'
-in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeAuthenticator.java`
-#### Snippet
-```java
-
-        @JsonProperty("roles") // graph -> action -> resource
-        private Map<String, Map<HugePermission, Object>> roles;
-
-        public RolePerm() {
+        public Olap(String store, Id id) {
 ```
 
 ### FieldMayBeFinal
@@ -16923,14 +16227,14 @@ public class PropertyKeyApiTest extends BaseApiTest {
 
 ### FieldMayBeFinal
 Field `path` may be 'final'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/EdgeApiTest.java`
 #### Snippet
 ```java
-public class MetricsApiTest extends BaseApiTest {
+public class EdgeApiTest extends BaseApiTest {
 
-    private static String path = "/metrics";
+    private static String path = "/graphs/hugegraph/graph/edges/";
 
-    @Test
+    @Before
 ```
 
 ### FieldMayBeFinal
@@ -16971,30 +16275,6 @@ public class SchemaApiTest extends BaseApiTest {
 
 ### FieldMayBeFinal
 Field `path` may be 'final'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/EdgeApiTest.java`
-#### Snippet
-```java
-public class EdgeApiTest extends BaseApiTest {
-
-    private static String path = "/graphs/hugegraph/graph/edges/";
-
-    @Before
-```
-
-### FieldMayBeFinal
-Field `INSTANCE` may be 'final'
-in `hugegraph-api/src/main/java/org/apache/hugegraph/serializer/JsonSerializer.java`
-#### Snippet
-```java
-    private static final int LBUF_SIZE = 1024;
-
-    private static JsonSerializer INSTANCE = new JsonSerializer();
-
-    private JsonSerializer() {
-```
-
-### FieldMayBeFinal
-Field `path` may be 'final'
 in `hugegraph-test/src/main/java/org/apache/hugegraph/api/VertexApiTest.java`
 #### Snippet
 ```java
@@ -17015,6 +16295,18 @@ public class IndexLabelApiTest extends BaseApiTest {
     private static String path = "/graphs/hugegraph/schema/indexlabels/";
 
     @Before
+```
+
+### FieldMayBeFinal
+Field `path` may be 'final'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/MetricsApiTest.java`
+#### Snippet
+```java
+public class MetricsApiTest extends BaseApiTest {
+
+    private static String path = "/metrics";
+
+    @Test
 ```
 
 ### FieldMayBeFinal
@@ -17090,6 +16382,18 @@ public class RowLockTest extends BaseUnitTest {
 ```
 
 ### FieldMayBeFinal
+Field `pageWithSpace` may be 'final'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/PageStateTest.java`
+#### Snippet
+```java
+                                          "opcAKpklipAAQAAAAAAAAAAQ==";
+
+    private String pageWithSpace = "AAAAADsyABwAEAqI546LS6WW57unBgAEAAAAAP" +
+                                   "B//// 8H////4alhxAZS8va6opcAKpklipAAQA" +
+                                   "AAAAAAAAAQ==";
+```
+
+### FieldMayBeFinal
 Field `pageWith3Base64Chars` may be 'final'
 in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/PageStateTest.java`
 #### Snippet
@@ -17111,18 +16415,6 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/LocksTableTest.j
     private static String GRAPH = "graph";
 
     @BeforeClass
-```
-
-### FieldMayBeFinal
-Field `pageWithSpace` may be 'final'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/PageStateTest.java`
-#### Snippet
-```java
-                                          "opcAKpklipAAQAAAAAAAAAAQ==";
-
-    private String pageWithSpace = "AAAAADsyABwAEAqI546LS6WW57unBgAEAAAAAP" +
-                                   "B//// 8H////4alhxAZS8va6opcAKpklipAAQA" +
-                                   "AAAAAAAAAQ==";
 ```
 
 ### FieldMayBeFinal
@@ -17150,54 +16442,6 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/util/collection/Objec
 ```
 
 ### FieldMayBeFinal
-Field `label` may be 'final'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
-#### Snippet
-```java
-    public static class FakeEdge {
-
-        private String label;
-        private Vertex outVertex;
-        private Vertex inVertex;
-```
-
-### FieldMayBeFinal
-Field `inVertex` may be 'final'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
-#### Snippet
-```java
-        private String label;
-        private Vertex outVertex;
-        private Vertex inVertex;
-        private Map<String, Object> values;
-
-```
-
-### FieldMayBeFinal
-Field `label` may be 'final'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
-#### Snippet
-```java
-    public static class FakeVertex {
-
-        private String label;
-        private Map<String, Object> values;
-
-```
-
-### FieldMayBeFinal
-Field `values` may be 'final'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
-#### Snippet
-```java
-
-        private String label;
-        private Map<String, Object> values;
-
-        public FakeVertex(Object... keyValues) {
-```
-
-### FieldMayBeFinal
 Field `values` may be 'final'
 in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
 #### Snippet
@@ -17222,27 +16466,51 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
 ```
 
 ### FieldMayBeFinal
-Field `batch` may be 'final'
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraSessionPool.java`
+Field `label` may be 'final'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
 #### Snippet
 ```java
+    public static class FakeVertex {
 
-        private com.datastax.driver.core.Session session;
-        private BatchStatement batch;
+        private String label;
+        private Map<String, Object> values;
 
-        public Session() {
 ```
 
 ### FieldMayBeFinal
-Field `graphs` may be 'final'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
+Field `inVertex` may be 'final'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
+#### Snippet
+```java
+        private String label;
+        private Vertex outVertex;
+        private Vertex inVertex;
+        private Map<String, Object> values;
+
+```
+
+### FieldMayBeFinal
+Field `values` may be 'final'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
 #### Snippet
 ```java
 
-    private Map<String, String> blackMethods = new HashMap<>();
-    private Map<String, TestGraph> graphs = new HashMap<>();
-    private final String suite;
+        private String label;
+        private Map<String, Object> values;
 
+        public FakeVertex(Object... keyValues) {
+```
+
+### FieldMayBeFinal
+Field `label` may be 'final'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/testutil/FakeObjects.java`
+#### Snippet
+```java
+    public static class FakeEdge {
+
+        private String label;
+        private Vertex outVertex;
+        private Vertex inVertex;
 ```
 
 ### FieldMayBeFinal
@@ -17258,63 +16526,75 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvide
 ```
 
 ### FieldMayBeFinal
-Field `session` may be 'final'
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraShard.java`
-#### Snippet
-```java
-    private static final int MIN_SHARD_SIZE = (int) Bytes.MB;
-
-    private CassandraSessionPool.Session session;
-    private String keyspace;
-    private String table;
-```
-
-### FieldMayBeFinal
-Field `keyspace` may be 'final'
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraShard.java`
+Field `graphs` may be 'final'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
 #### Snippet
 ```java
 
-    private CassandraSessionPool.Session session;
-    private String keyspace;
-    private String table;
+    private Map<String, String> blackMethods = new HashMap<>();
+    private Map<String, TestGraph> graphs = new HashMap<>();
+    private final String suite;
 
 ```
 
 ### FieldMayBeFinal
-Field `table` may be 'final'
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraShard.java`
+Field `database` may be 'final'
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlSessions.java`
 #### Snippet
 ```java
-    private CassandraSessionPool.Session session;
-    private String keyspace;
-    private String table;
 
-    private IPartitioner partitioner;
+    private HugeConfig config;
+    private String database;
+    private volatile boolean opened;
+
 ```
 
 ### FieldMayBeFinal
-Field `partitioner` may be 'final'
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraShard.java`
+Field `config` may be 'final'
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/MysqlSessions.java`
 #### Snippet
 ```java
-    private String table;
+    private static final int DROP_DB_TIMEOUT = 10000;
 
-    private IPartitioner partitioner;
-
-    public CassandraShard(CassandraSessionPool.Session session,
+    private HugeConfig config;
+    private String database;
+    private volatile boolean opened;
 ```
 
 ### FieldMayBeFinal
-Field `pkId` may be 'final'
-in `hugegraph-cassandra/src/main/java/org/apache/hugegraph/backend/store/cassandra/CassandraTables.java`
+Field `builder` may be 'final'
+in `hugegraph-mysql/src/main/java/org/apache/hugegraph/backend/store/mysql/WhereBuilder.java`
 #### Snippet
 ```java
-        public static final String TABLE = HugeType.OLAP.string();
+public class WhereBuilder {
 
-        private Id pkId;
+    private StringBuilder builder;
 
-        public Olap(String store, Id id) {
+    public WhereBuilder() {
+```
+
+### FieldMayBeFinal
+Field `cache` may be 'final'
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExampleBase.java`
+#### Snippet
+```java
+    protected static class GraphManager {
+        private HugeGraph hugegraph;
+        private Cache<Id, Object> cache = CacheManager.instance()
+                                                      .cache("perf-test");
+
+```
+
+### FieldMayBeFinal
+Field `hugegraph` may be 'final'
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/PerfExampleBase.java`
+#### Snippet
+```java
+
+    protected static class GraphManager {
+        private HugeGraph hugegraph;
+        private Cache<Id, Object> cache = CacheManager.instance()
+                                                      .cache("perf-test");
 ```
 
 ### FieldMayBeFinal
@@ -17327,6 +16607,738 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraph.java`
     private HugeGraph graph;
     private String loadedGraph = null;
     private boolean initedBackend = false;
+```
+
+### FieldMayBeFinal
+Field `schemaSerializer` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/io/HugeGryoModule.java`
+#### Snippet
+```java
+public class HugeGryoModule {
+
+    private static GraphSONSchemaSerializer schemaSerializer =
+                   new GraphSONSchemaSerializer();
+
+```
+
+### FieldMayBeFinal
+Field `OPTIMIZE_SERIALIZE` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/io/HugeGraphSONModule.java`
+#### Snippet
+```java
+    private static final String TYPE_NAMESPACE = "hugegraph";
+
+    private static boolean OPTIMIZE_SERIALIZE = true;
+
+    @SuppressWarnings("rawtypes")
+```
+
+### FieldMayBeFinal
+Field `elements` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/system/DeleteExpiredElementJob.java`
+#### Snippet
+```java
+    private static final String JOB_TYPE = "delete_expired_element";
+
+    private Set<HugeElement> elements;
+
+    public DeleteExpiredElementJob(Set<HugeElement> elements) {
+```
+
+### FieldMayBeFinal
+Field `globalStresses` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/job/algorithm/cent/StressCentralityAlgorithmV2.java`
+#### Snippet
+```java
+    private static class Traverser extends BfsTraverser<StressNode> {
+
+        private Map<Id, MutableLong> globalStresses;
+
+        private Traverser(UserJob<Object> job) {
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/HugePermission.java`
+#### Snippet
+```java
+
+    private byte code;
+    private String name;
+
+    static {
+```
+
+### FieldMayBeFinal
+Field `code` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/auth/HugePermission.java`
+#### Snippet
+```java
+    ANY(0x7f, "any");
+
+    private byte code;
+    private String name;
+
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/task/TaskStatus.java`
+#### Snippet
+```java
+
+    private byte status;
+    private String name;
+
+    static {
+```
+
+### FieldMayBeFinal
+Field `status` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/task/TaskStatus.java`
+#### Snippet
+```java
+           TaskStatus.SUCCESS, TaskStatus.CANCELLED, TaskStatus.FAILED);
+
+    private byte status;
+    private String name;
+
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/task/HugeServerInfo.java`
+#### Snippet
+```java
+                              TaskManager.SCHEDULE_PERIOD * 10;
+
+    private Id id;
+    private NodeRole role;
+    private int maxLoad;
+```
+
+### FieldMayBeFinal
+Field `queueWeakReference` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/task/EphemeralJobQueue.java`
+#### Snippet
+```java
+        private static final long MAX_CONSUME_COUNT = 2 * PAGE_SIZE;
+
+        private WeakReference<EphemeralJobQueue> queueWeakReference;
+
+        public BatchEphemeralJob(EphemeralJobQueue queue) {
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/type/HugeType.java`
+#### Snippet
+```java
+
+    private byte type = 0;
+    private String name;
+
+    private static final Map<String, HugeType> ALL_NAME = new HashMap<>();
+```
+
+### FieldMayBeFinal
+Field `table` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/util/LockUtil.java`
+#### Snippet
+```java
+    public static class LocksTable {
+
+        private Map<String, Set<Id>> table;
+        private Locks locks;
+
+```
+
+### FieldMayBeFinal
+Field `locks` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/util/LockUtil.java`
+#### Snippet
+```java
+
+        private Map<String, Set<Id>> table;
+        private Locks locks;
+
+        public LocksTable(String graph) {
+```
+
+### FieldMayBeFinal
+Field `primaryKeys` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/VertexLabel.java`
+#### Snippet
+```java
+
+    private IdStrategy idStrategy;
+    private List<Id> primaryKeys;
+
+    public VertexLabel(final HugeGraph graph, Id id, String name) {
+```
+
+### FieldMayBeFinal
+Field `indexFields` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/IndexLabel.java`
+#### Snippet
+```java
+    private Id baseValue;
+    private IndexType indexType;
+    private List<Id> indexFields;
+
+    public IndexLabel(final HugeGraph graph, Id id, String name) {
+```
+
+### FieldMayBeFinal
+Field `sortKeys` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/EdgeLabel.java`
+#### Snippet
+```java
+    private Id targetLabel = NONE_ID;
+    private Frequency frequency;
+    private List<Id> sortKeys;
+
+    public EdgeLabel(final HugeGraph graph, Id id, String name) {
+```
+
+### FieldMayBeFinal
+Field `task` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/SchemaElement.java`
+#### Snippet
+```java
+
+        private SchemaElement schemaElement;
+        private Id task;
+
+        public TaskWithSchema(SchemaElement schemaElement, Id task) {
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/PropertyKeyBuilder.java`
+#### Snippet
+```java
+
+    private Id id;
+    private String name;
+    private DataType dataType;
+    private Cardinality cardinality;
+```
+
+### FieldMayBeFinal
+Field `userdata` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/PropertyKeyBuilder.java`
+#### Snippet
+```java
+    private WriteType writeType;
+    private boolean checkExist;
+    private Userdata userdata;
+
+    public PropertyKeyBuilder(SchemaTransaction transaction,
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/VertexLabelBuilder.java`
+#### Snippet
+```java
+    private String name;
+    private IdStrategy idStrategy;
+    private Set<String> properties;
+    private List<String> primaryKeys;
+    private Set<String> nullableKeys;
+```
+
+### FieldMayBeFinal
+Field `nullableKeys` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/VertexLabelBuilder.java`
+#### Snippet
+```java
+    private Set<String> properties;
+    private List<String> primaryKeys;
+    private Set<String> nullableKeys;
+    private long ttl;
+    private String ttlStartTime;
+```
+
+### FieldMayBeFinal
+Field `primaryKeys` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/VertexLabelBuilder.java`
+#### Snippet
+```java
+    private IdStrategy idStrategy;
+    private Set<String> properties;
+    private List<String> primaryKeys;
+    private Set<String> nullableKeys;
+    private long ttl;
+```
+
+### FieldMayBeFinal
+Field `userdata` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/VertexLabelBuilder.java`
+#### Snippet
+```java
+    private String ttlStartTime;
+    private Boolean enableLabelIndex;
+    private Userdata userdata;
+    private boolean checkExist;
+
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/VertexLabelBuilder.java`
+#### Snippet
+```java
+
+    private Id id;
+    private String name;
+    private IdStrategy idStrategy;
+    private Set<String> properties;
+```
+
+### FieldMayBeFinal
+Field `nullableKeys` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/EdgeLabelBuilder.java`
+#### Snippet
+```java
+    private Set<String> properties;
+    private List<String> sortKeys;
+    private Set<String> nullableKeys;
+    private long ttl;
+    private String ttlStartTime;
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/EdgeLabelBuilder.java`
+#### Snippet
+```java
+
+    private Id id;
+    private String name;
+    private String sourceLabel;
+    private String targetLabel;
+```
+
+### FieldMayBeFinal
+Field `userdata` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/EdgeLabelBuilder.java`
+#### Snippet
+```java
+    private String ttlStartTime;
+    private Boolean enableLabelIndex;
+    private Userdata userdata;
+    private boolean checkExist;
+
+```
+
+### FieldMayBeFinal
+Field `sortKeys` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/EdgeLabelBuilder.java`
+#### Snippet
+```java
+    private Frequency frequency;
+    private Set<String> properties;
+    private List<String> sortKeys;
+    private Set<String> nullableKeys;
+    private long ttl;
+```
+
+### FieldMayBeFinal
+Field `properties` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/EdgeLabelBuilder.java`
+#### Snippet
+```java
+    private String targetLabel;
+    private Frequency frequency;
+    private Set<String> properties;
+    private List<String> sortKeys;
+    private Set<String> nullableKeys;
+```
+
+### FieldMayBeFinal
+Field `userdata` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelBuilder.java`
+#### Snippet
+```java
+    private IndexType indexType;
+    private List<String> indexFields;
+    private Userdata userdata;
+    private boolean checkExist;
+    private boolean rebuild;
+```
+
+### FieldMayBeFinal
+Field `indexFields` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelBuilder.java`
+#### Snippet
+```java
+    private String baseValue;
+    private IndexType indexType;
+    private List<String> indexFields;
+    private Userdata userdata;
+    private boolean checkExist;
+```
+
+### FieldMayBeFinal
+Field `name` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/schema/builder/IndexLabelBuilder.java`
+#### Snippet
+```java
+
+    private Id id;
+    private String name;
+    private HugeType baseType;
+    private String baseValue;
+```
+
+### FieldMayBeFinal
+Field `hashCode` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/CachedBackendStore.java`
+#### Snippet
+```java
+
+        private String query;
+        private int hashCode;
+
+        public QueryId(Query q) {
+```
+
+### FieldMayBeFinal
+Field `query` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/cache/CachedBackendStore.java`
+#### Snippet
+```java
+    static class QueryId implements Id {
+
+        private String query;
+        private int hashCode;
+
+```
+
+### FieldMayBeFinal
+Field `providers` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendProviderFactory.java`
+#### Snippet
+```java
+    private static final Logger LOG = Log.logger(BackendProviderFactory.class);
+
+    private static Map<String, Class<? extends BackendStoreProvider>> providers;
+
+    static {
+```
+
+### FieldMayBeFinal
+Field `startKey` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendTable.java`
+#### Snippet
+```java
+        public static class Range {
+
+            private byte[] startKey;
+            private byte[] endKey;
+
+```
+
+### FieldMayBeFinal
+Field `endKey` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendTable.java`
+#### Snippet
+```java
+
+            private byte[] startKey;
+            private byte[] endKey;
+
+            public Range(byte[] startKey, byte[] endKey) {
+```
+
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStore.java`
+#### Snippet
+```java
+    protected static final class IncrCounter {
+
+        private HugeType type;
+        private long increment;
+
+```
+
+### FieldMayBeFinal
+Field `increment` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftBackendStore.java`
+#### Snippet
+```java
+
+        private HugeType type;
+        private long increment;
+
+        public IncrCounter(HugeType type, long increment) {
+```
+
+### FieldMayBeFinal
+Field `leftIndexes` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+#### Snippet
+```java
+        private final HugeElement element;
+        private GraphIndexTransaction tx;
+        private Set<ConditionQuery.LeftIndex> leftIndexes;
+
+        private RemoveLeftIndexJob(ConditionQuery query, HugeElement element) {
+```
+
+### FieldMayBeFinal
+Field `schemaLabel` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+#### Snippet
+```java
+    private static class MatchedIndex {
+
+        private SchemaLabel schemaLabel;
+        private Set<IndexLabel> indexLabels;
+
+```
+
+### FieldMayBeFinal
+Field `indexLabels` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+#### Snippet
+```java
+
+        private SchemaLabel schemaLabel;
+        private Set<IndexLabel> indexLabels;
+
+        public MatchedIndex(SchemaLabel schemaLabel,
+```
+
+### FieldMayBeFinal
+Field `expiredTime` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeIndex.java`
+#### Snippet
+```java
+
+        private Id id;
+        private long expiredTime;
+
+        public IdWithExpiredTime(Id id, long expiredTime) {
+```
+
+### FieldMayBeFinal
+Field `id` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeIndex.java`
+#### Snippet
+```java
+    public static class IdWithExpiredTime {
+
+        private Id id;
+        private long expiredTime;
+
+```
+
+### FieldMayBeFinal
+Field `indexLabel` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/structure/HugeIndex.java`
+#### Snippet
+```java
+    private final HugeGraph graph;
+    private Object fieldValues;
+    private IndexLabel indexLabel;
+    private Set<IdWithExpiredTime> elementIds;
+
+```
+
+### FieldMayBeFinal
+Field `findingNodes` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SingleSourceShortestPathTraverser.java`
+#### Snippet
+```java
+    private class Traverser {
+
+        private WeightedPaths findingNodes = new WeightedPaths();
+        private WeightedPaths foundNodes = new WeightedPaths();
+        private Set<NodeWithWeight> sources;
+```
+
+### FieldMayBeFinal
+Field `size` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SingleSourceShortestPathTraverser.java`
+#### Snippet
+```java
+        private final long capacity;
+        private final long limit;
+        private long size;
+        private boolean done = false;
+
+```
+
+### FieldMayBeFinal
+Field `source` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SingleSourceShortestPathTraverser.java`
+#### Snippet
+```java
+        private WeightedPaths foundNodes = new WeightedPaths();
+        private Set<NodeWithWeight> sources;
+        private Id source;
+        private final Directions direction;
+        private final Id label;
+```
+
+### FieldMayBeFinal
+Field `foundNodes` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SingleSourceShortestPathTraverser.java`
+#### Snippet
+```java
+
+        private WeightedPaths findingNodes = new WeightedPaths();
+        private WeightedPaths foundNodes = new WeightedPaths();
+        private Set<NodeWithWeight> sources;
+        private Id source;
+```
+
+### FieldMayBeFinal
+Field `paths` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizedCrosspointsTraverser.java`
+#### Snippet
+```java
+
+        private Set<Id> crosspoints;
+        private List<Path> paths;
+
+        public CrosspointsPaths(Set<Id> crosspoints, List<Path> paths) {
+```
+
+### FieldMayBeFinal
+Field `crosspoints` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizedCrosspointsTraverser.java`
+#### Snippet
+```java
+        );
+
+        private Set<Id> crosspoints;
+        private List<Path> paths;
+
+```
+
+### FieldMayBeFinal
+Field `steps` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizedCrosspointsTraverser.java`
+#### Snippet
+```java
+    public static class PathPattern {
+
+        private List<Step> steps;
+
+        public PathPattern() {
+```
+
+### FieldMayBeFinal
+Field `graph` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/HugeTraverser.java`
+#### Snippet
+```java
+    protected static final Logger LOG = Log.logger(HugeTraverser.class);
+
+    private HugeGraph graph;
+
+    private static CollectionFactory collectionFactory;
+```
+
+### FieldMayBeFinal
+Field `accessedVertices` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/SubGraphTraverser.java`
+#### Snippet
+```java
+        private final Id source;
+        private MultivaluedMap<Id, Node> sources = newMultivalueMap();
+        private Set<Id> accessedVertices = newIdSet();
+
+        private final Id label;
+```
+
+### FieldMayBeFinal
+Field `weights` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizePathsTraverser.java`
+#### Snippet
+```java
+    public static class WeightPath extends Path {
+
+        private List<Double> weights;
+        private double totalWeight;
+
+```
+
+### FieldMayBeFinal
+Field `weight` may be 'final'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/traversal/algorithm/CustomizePathsTraverser.java`
+#### Snippet
+```java
+    public static class WeightNode extends Node {
+
+        private double weight;
+
+        public WeightNode(Id id, Node parent, double weight) {
+```
+
+### FieldMayBeFinal
+Field `enablePartition` may be 'final'
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseFeatures.java`
+#### Snippet
+```java
+public class HbaseFeatures implements BackendFeatures {
+
+    private boolean enablePartition;
+
+    public HbaseFeatures(boolean enablePartition) {
+```
+
+### FieldMayBeFinal
+Field `enablePartition` may be 'final'
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseStore.java`
+#### Snippet
+```java
+
+    public static class HbaseGraphStore extends HbaseStore {
+        private boolean enablePartition;
+        public HbaseGraphStore(HugeConfig config, BackendStoreProvider provider,
+                               String namespace, String store) {
+```
+
+### FieldMayBeFinal
+Field `systemMetrics` may be 'final'
+in `hugegraph-api/src/main/java/org/apache/hugegraph/api/metrics/MetricsAPI.java`
+#### Snippet
+```java
+    private static final Logger LOG = Log.logger(MetricsAPI.class);
+
+    private SystemMetrics systemMetrics;
+
+    static {
+```
+
+### FieldMayBeFinal
+Field `roles` may be 'final'
+in `hugegraph-api/src/main/java/org/apache/hugegraph/auth/HugeAuthenticator.java`
+#### Snippet
+```java
+
+        @JsonProperty("roles") // graph -> action -> resource
+        private Map<String, Map<HugePermission, Object>> roles;
+
+        public RolePerm() {
+```
+
+### FieldMayBeFinal
+Field `INSTANCE` may be 'final'
+in `hugegraph-api/src/main/java/org/apache/hugegraph/serializer/JsonSerializer.java`
+#### Snippet
+```java
+    private static final int LBUF_SIZE = 1024;
+
+    private static JsonSerializer INSTANCE = new JsonSerializer();
+
+    private JsonSerializer() {
 ```
 
 ## RuleId[id=CloneDeclaresCloneNotSupported]
@@ -17373,18 +17385,6 @@ Synchronization on local variable `scheduler`
 in `hugegraph-core/src/main/java/org/apache/hugegraph/task/TaskManager.java`
 #### Snippet
 ```java
-             * after 'graph.close()'.
-             */
-            synchronized (scheduler) {
-                if (scheduler.close()) {
-                    this.schedulers.remove(graph);
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `scheduler`
-in `hugegraph-core/src/main/java/org/apache/hugegraph/task/TaskManager.java`
-#### Snippet
-```java
                 StandardTaskScheduler scheduler = (StandardTaskScheduler) entry;
                 // Maybe other thread close&remove scheduler at the same time
                 synchronized (scheduler) {
@@ -17392,17 +17392,77 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/task/TaskManager.java`
                 }
 ```
 
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `hbaseSession` is redundant
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTable.java`
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `scheduler`
+in `hugegraph-core/src/main/java/org/apache/hugegraph/task/TaskManager.java`
 #### Snippet
 ```java
-        }
+             * after 'graph.close()'.
+             */
+            synchronized (scheduler) {
+                if (scheduler.close()) {
+                    this.schedulers.remove(graph);
+```
 
-        HbaseSessions.HbaseSession<HbaseSessions.RowIterator> hbaseSession = session;
-        return this.newEntryIterator(query, this.query(hbaseSession, query));
+## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `keyFrom` is redundant
+in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStdSessions.java`
+#### Snippet
+```java
+        @Override
+        public void deletePrefix(String table, byte[] key) {
+            byte[] keyFrom = key;
+            byte[] keyTo = Arrays.copyOf(keyFrom, keyFrom.length);
+            BinarySerializer.increaseOne(keyTo);
+```
+
+### UnnecessaryLocalVariable
+Local variable `respBody` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/api/ProjectApiTest.java`
+#### Snippet
+```java
+                                .request()
+                                .get();
+        String respBody = assertResponseStatus(200, resp);
+        return respBody;
     }
+```
+
+### UnnecessaryLocalVariable
+Local variable `any9` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/id/IdTest.java`
+#### Snippet
+```java
+        Assert.assertEquals(id7, id8);
+
+        Object any9 = id1;
+        Id id9 = IdGenerator.of(any9);
+        Assert.assertEquals(any9, id9);
+```
+
+### UnnecessaryLocalVariable
+Local variable `value` is redundant
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBPerfTest.java`
+#### Snippet
+```java
+        int n = 1000;
+        for (int i = 0; i < n; i++) {
+            int value = i;
+            comms.put(i, value);
+            String key = String.format("index:%3d:%d", i, value);
+```
+
+### UnnecessaryLocalVariable
+Local variable `threads` is redundant
+in `hugegraph-example/src/main/java/org/apache/hugegraph/example/ThreadRangePerfTest.java`
+#### Snippet
+```java
+        String[] newargs = new String[4];
+        for (int i = minThread; i <= maxThread; i += threadStep) {
+            int threads = i;
+            newargs[0] = String.valueOf(threads);
+            newargs[1] = String.valueOf(times);
 ```
 
 ### UnnecessaryLocalVariable
@@ -17415,6 +17475,30 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.jav
             int value = UNSAFE.getIntVolatile(this.values, offset);
             return value;
         }
+```
+
+### UnnecessaryLocalVariable
+Local variable `map` is redundant
+in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.java`
+#### Snippet
+```java
+            // volatile get this.maps[index]
+            long offset = (index << SHIFT) + BASE_OFFSET;
+            IntMap map = (IntMap) UNSAFE.getObjectVolatile(this.maps, offset);
+            return map;
+        }
+```
+
+### UnnecessaryLocalVariable
+Local variable `newV` is redundant
+in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.java`
+#### Snippet
+```java
+            long offset = this.offset(key);
+            int oldV = UNSAFE.getIntVolatile(this.values, offset);
+            int newV = value;
+            if (newV == oldV) {
+                return true;
 ```
 
 ### UnnecessaryLocalVariable
@@ -17442,30 +17526,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.jav
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `newV` is redundant
-in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.java`
-#### Snippet
-```java
-            long offset = this.offset(key);
-            int oldV = UNSAFE.getIntVolatile(this.values, offset);
-            int newV = value;
-            if (newV == oldV) {
-                return true;
-```
-
-### UnnecessaryLocalVariable
-Local variable `map` is redundant
-in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntMap.java`
-#### Snippet
-```java
-            // volatile get this.maps[index]
-            long offset = (index << SHIFT) + BASE_OFFSET;
-            IntMap map = (IntMap) UNSAFE.getObjectVolatile(this.maps, offset);
-            return map;
-        }
-```
-
-### UnnecessaryLocalVariable
 Local variable `bitmask` is redundant
 in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntSet.java`
 #### Snippet
@@ -17490,18 +17550,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/util/collection/IntSet.jav
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `indexQueries` is redundant
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
-#### Snippet
-```java
-
-        public static IndexQueries of(ConditionQuery parentQuery) {
-            IndexQueries indexQueries = new IndexQueries(parentQuery);
-            return indexQueries;
-        }
-```
-
-### UnnecessaryLocalVariable
 Local variable `edge` is redundant
 in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransaction.java`
 #### Snippet
@@ -17511,6 +17559,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphTransactio
             Edge edge = edges.get(id);
             return edge;
         });
+```
+
+### UnnecessaryLocalVariable
+Local variable `indexQueries` is redundant
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/tx/GraphIndexTransaction.java`
+#### Snippet
+```java
+
+        public static IndexQueries of(ConditionQuery parentQuery) {
+            IndexQueries indexQueries = new IndexQueries(parentQuery);
+            return indexQueries;
+        }
 ```
 
 ### UnnecessaryLocalVariable
@@ -17550,27 +17610,15 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/variables/HugeVariables.ja
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `keyFrom` is redundant
-in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/RocksDBStdSessions.java`
+Local variable `hbaseSession` is redundant
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseTable.java`
 #### Snippet
 ```java
-        @Override
-        public void deletePrefix(String table, byte[] key) {
-            byte[] keyFrom = key;
-            byte[] keyTo = Arrays.copyOf(keyFrom, keyFrom.length);
-            BinarySerializer.increaseOne(keyTo);
-```
+        }
 
-### UnnecessaryLocalVariable
-Local variable `threads` is redundant
-in `hugegraph-example/src/main/java/org/apache/hugegraph/example/ThreadRangePerfTest.java`
-#### Snippet
-```java
-        String[] newargs = new String[4];
-        for (int i = minThread; i <= maxThread; i += threadStep) {
-            int threads = i;
-            newargs[0] = String.valueOf(threads);
-            newargs[1] = String.valueOf(times);
+        HbaseSessions.HbaseSession<HbaseSessions.RowIterator> hbaseSession = session;
+        return this.newEntryIterator(query, this.query(hbaseSession, query));
+    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -17583,42 +17631,6 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/auth/ProjectAPI.java`
             HugeProject project = new HugeProject(this.name, this.description);
             return project;
         }
-```
-
-### UnnecessaryLocalVariable
-Local variable `respBody` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/api/ProjectApiTest.java`
-#### Snippet
-```java
-                                .request()
-                                .get();
-        String respBody = assertResponseStatus(200, resp);
-        return respBody;
-    }
-```
-
-### UnnecessaryLocalVariable
-Local variable `any9` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/id/IdTest.java`
-#### Snippet
-```java
-        Assert.assertEquals(id7, id8);
-
-        Object any9 = id1;
-        Id id9 = IdGenerator.of(any9);
-        Assert.assertEquals(any9, id9);
-```
-
-### UnnecessaryLocalVariable
-Local variable `value` is redundant
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/rocksdb/RocksDBPerfTest.java`
-#### Snippet
-```java
-        int n = 1000;
-        for (int i = 0; i < n; i++) {
-            int value = i;
-            comms.put(i, value);
-            String key = String.format("index:%3d:%d", i, value);
 ```
 
 ## RuleId[id=UnpredictableBigDecimalConstructorCall]
@@ -17646,19 +17658,32 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
                                  .movePointLeft(307)
 ```
 
-## RuleId[id=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftNode.java`
+## RuleId[id=ArrayHashCode]
+### ArrayHashCode
+`hashCode()` called on array should probably be 'Arrays.hashCode()'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendEntry.java`
 #### Snippet
 ```java
-            });
-            try {
-                Thread.sleep(RaftContext.POLL_INTERVAL);
-            } catch (InterruptedException e) {
-                throw new BackendException("Interrupted while waiting for " +
+
+        public int hashCode() {
+            return this.name.hashCode() ^
+                   this.value.hashCode();
+        }
 ```
 
+### ArrayHashCode
+`hashCode()` called on array should probably be 'Arrays.hashCode()'
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendEntry.java`
+#### Snippet
+```java
+        public int hashCode() {
+            return this.name.hashCode() ^
+                   this.value.hashCode();
+        }
+
+```
+
+## RuleId[id=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/OpenedRocksDB.java`
@@ -17683,29 +17708,16 @@ in `hugegraph-example/src/main/java/org/apache/hugegraph/example/TaskExample.jav
             return 18;
 ```
 
-## RuleId[id=ArrayHashCode]
-### ArrayHashCode
-`hashCode()` called on array should probably be 'Arrays.hashCode()'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendEntry.java`
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/raft/RaftNode.java`
 #### Snippet
 ```java
-
-        public int hashCode() {
-            return this.name.hashCode() ^
-                   this.value.hashCode();
-        }
-```
-
-### ArrayHashCode
-`hashCode()` called on array should probably be 'Arrays.hashCode()'
-in `hugegraph-core/src/main/java/org/apache/hugegraph/backend/store/BackendEntry.java`
-#### Snippet
-```java
-        public int hashCode() {
-            return this.name.hashCode() ^
-                   this.value.hashCode();
-        }
-
+            });
+            try {
+                Thread.sleep(RaftContext.POLL_INTERVAL);
+            } catch (InterruptedException e) {
+                throw new BackendException("Interrupted while waiting for " +
 ```
 
 ## RuleId[id=RedundantFileCreation]
@@ -17752,7 +17764,7 @@ in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/R
 #### Snippet
 ```java
         } catch (RocksDBException e) {
-            throw new BackendException("Failed to create tables %s for '%s'",
+            throw new BackendException("Failed to drop tables %s for '%s'",
                                        e, Arrays.asList(tables), this.store);
         }
     }
@@ -17764,7 +17776,7 @@ in `hugegraph-rocksdb/src/main/java/org/apache/hugegraph/backend/store/rocksdb/R
 #### Snippet
 ```java
         } catch (RocksDBException e) {
-            throw new BackendException("Failed to drop tables %s for '%s'",
+            throw new BackendException("Failed to create tables %s for '%s'",
                                        e, Arrays.asList(tables), this.store);
         }
     }
@@ -17787,8 +17799,8 @@ Call to `asList()` with only one argument
 in `hugegraph-test/src/main/java/org/apache/hugegraph/core/PropertyCoreTest.java`
 #### Snippet
 ```java
-            key = "list_" + key;
-            Edge edge = vertex1.addEdge("transfer", vertex2, "id", 2,
+            key = "set_" + key;
+            Edge edge = vertex1.addEdge("transfer", vertex2, "id", 3,
                                         key, Arrays.asList(values));
             graph.tx().commit();
 
@@ -17799,8 +17811,8 @@ Call to `asList()` with only one argument
 in `hugegraph-test/src/main/java/org/apache/hugegraph/core/PropertyCoreTest.java`
 #### Snippet
 ```java
-            key = "set_" + key;
-            Edge edge = vertex1.addEdge("transfer", vertex2, "id", 3,
+            key = "list_" + key;
+            Edge edge = vertex1.addEdge("transfer", vertex2, "id", 2,
                                         key, Arrays.asList(values));
             graph.tx().commit();
 
@@ -17893,42 +17905,53 @@ in `hugegraph-test/src/main/java/org/apache/hugegraph/core/VertexCoreTest.java`
                       .value("double");
 ```
 
-## RuleId[id=CastCanBeRemovedNarrowingVariableType]
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'c1' to 'Relation'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/ConditionTest.java`
-#### Snippet
-```java
-        Assert.assertFalse(c1.test((Object) null));
-
-        Relation r1 = (Relation) c1;
-        Assert.assertEquals(HugeKeys.ID, r1.key());
-        Assert.assertEquals("123", r1.value());
-```
-
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'c1' to 'Relation'
-in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/ConditionTest.java`
-#### Snippet
-```java
-        Assert.assertFalse(c1.test((Object) null));
-
-        Relation r1 = (Relation) c1;
-        Assert.assertEquals(IdGenerator.of("1"), r1.key());
-        Assert.assertEquals("123", r1.value());
-```
-
 ## RuleId[id=UnstableApiUsage]
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeGraphParams.java`
+'tryAcquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
 #### Snippet
 ```java
-    RateLimiter writeRateLimiter();
 
-    RateLimiter readRateLimiter();
+        // Used for travis ci output log
+        if (LOG_RATE_LIMITER.tryAcquire(1)) {
+            LOG.info("Open graph '{}' for test '{}'", graphName, testMethod);
+        }
+```
 
-    RamTable ramtable();
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
+#### Snippet
+```java
+            VertexPropertyFeatures.FEATURE_STRING_IDS);
+
+    private static final RateLimiter LOG_RATE_LIMITER =
+                         RateLimiter.create(1.0 / 300);
+
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
+#### Snippet
+```java
+
+    private static final RateLimiter LOG_RATE_LIMITER =
+                         RateLimiter.create(1.0 / 300);
+
+    private Map<String, String> blackMethods = new HashMap<>();
+```
+
+### UnstableApiUsage
+'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
+#### Snippet
+```java
+
+    private static final RateLimiter LOG_RATE_LIMITER =
+                         RateLimiter.create(1.0 / 300);
+
+    private Map<String, String> blackMethods = new HashMap<>();
 ```
 
 ### UnstableApiUsage
@@ -17944,27 +17967,15 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeGraphParams.java`
 ```
 
 ### UnstableApiUsage
-'com.google.common.util.concurrent.Futures' is marked unstable with @Beta
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `hugegraph-core/src/main/java/org/apache/hugegraph/HugeGraphParams.java`
 #### Snippet
 ```java
-            } catch (TableNotEnabledException ignored) {
-                // Ignore if it's disabled
-                return Futures.immediateFuture(null);
-            }
-        }
-```
+    RateLimiter writeRateLimiter();
 
-### UnstableApiUsage
-'immediateFuture(@org.checkerframework.checker.nullness.qual.Nullable V)' is declared in unstable class 'com.google.common.util.concurrent.Futures' marked with @Beta
-in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
-#### Snippet
-```java
-            } catch (TableNotEnabledException ignored) {
-                // Ignore if it's disabled
-                return Futures.immediateFuture(null);
-            }
-        }
+    RateLimiter readRateLimiter();
+
+    RamTable ramtable();
 ```
 
 ### UnstableApiUsage
@@ -17972,11 +17983,11 @@ in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/Hbase
 in `hugegraph-core/src/main/java/org/apache/hugegraph/StandardHugeGraph.java`
 #### Snippet
 ```java
-
-        @Override
-        public RateLimiter writeRateLimiter() {
-            return StandardHugeGraph.this.writeRateLimiter;
-        }
+    private final LocalCounter localCounter;
+    private final RateLimiter writeRateLimiter;
+    private final RateLimiter readRateLimiter;
+    private final TaskManager taskManager;
+    private AuthManager authManager;
 ```
 
 ### UnstableApiUsage
@@ -17989,6 +18000,18 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/StandardHugeGraph.java`
     private final RateLimiter writeRateLimiter;
     private final RateLimiter readRateLimiter;
     private final TaskManager taskManager;
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `hugegraph-core/src/main/java/org/apache/hugegraph/StandardHugeGraph.java`
+#### Snippet
+```java
+
+        @Override
+        public RateLimiter writeRateLimiter() {
+            return StandardHugeGraph.this.writeRateLimiter;
+        }
 ```
 
 ### UnstableApiUsage
@@ -18049,18 +18072,6 @@ in `hugegraph-core/src/main/java/org/apache/hugegraph/StandardHugeGraph.java`
         public RateLimiter readRateLimiter() {
             return StandardHugeGraph.this.readRateLimiter;
         }
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `hugegraph-core/src/main/java/org/apache/hugegraph/StandardHugeGraph.java`
-#### Snippet
-```java
-    private final LocalCounter localCounter;
-    private final RateLimiter writeRateLimiter;
-    private final RateLimiter readRateLimiter;
-    private final TaskManager taskManager;
-    private AuthManager authManager;
 ```
 
 ### UnstableApiUsage
@@ -18196,51 +18207,52 @@ in `hugegraph-api/src/main/java/org/apache/hugegraph/api/filter/LoadDetectFilter
 ```
 
 ### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
+'com.google.common.util.concurrent.Futures' is marked unstable with @Beta
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
 #### Snippet
 ```java
-            VertexPropertyFeatures.FEATURE_STRING_IDS);
-
-    private static final RateLimiter LOG_RATE_LIMITER =
-                         RateLimiter.create(1.0 / 300);
-
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
-#### Snippet
-```java
-
-    private static final RateLimiter LOG_RATE_LIMITER =
-                         RateLimiter.create(1.0 / 300);
-
-    private Map<String, String> blackMethods = new HashMap<>();
-```
-
-### UnstableApiUsage
-'create(double)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
-#### Snippet
-```java
-
-    private static final RateLimiter LOG_RATE_LIMITER =
-                         RateLimiter.create(1.0 / 300);
-
-    private Map<String, String> blackMethods = new HashMap<>();
-```
-
-### UnstableApiUsage
-'tryAcquire(int)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `hugegraph-test/src/main/java/org/apache/hugegraph/tinkerpop/TestGraphProvider.java`
-#### Snippet
-```java
-
-        // Used for travis ci output log
-        if (LOG_RATE_LIMITER.tryAcquire(1)) {
-            LOG.info("Open graph '{}' for test '{}'", graphName, testMethod);
+            } catch (TableNotEnabledException ignored) {
+                // Ignore if it's disabled
+                return Futures.immediateFuture(null);
+            }
         }
+```
+
+### UnstableApiUsage
+'immediateFuture(@org.checkerframework.checker.nullness.qual.Nullable V)' is declared in unstable class 'com.google.common.util.concurrent.Futures' marked with @Beta
+in `hugegraph-hbase/src/main/java/org/apache/hugegraph/backend/store/hbase/HbaseSessions.java`
+#### Snippet
+```java
+            } catch (TableNotEnabledException ignored) {
+                // Ignore if it's disabled
+                return Futures.immediateFuture(null);
+            }
+        }
+```
+
+## RuleId[id=CastCanBeRemovedNarrowingVariableType]
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'c1' to 'Relation'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/ConditionTest.java`
+#### Snippet
+```java
+        Assert.assertFalse(c1.test((Object) null));
+
+        Relation r1 = (Relation) c1;
+        Assert.assertEquals(HugeKeys.ID, r1.key());
+        Assert.assertEquals("123", r1.value());
+```
+
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'c1' to 'Relation'
+in `hugegraph-test/src/main/java/org/apache/hugegraph/unit/core/ConditionTest.java`
+#### Snippet
+```java
+        Assert.assertFalse(c1.test((Object) null));
+
+        Relation r1 = (Relation) c1;
+        Assert.assertEquals(IdGenerator.of("1"), r1.key());
+        Assert.assertEquals("123", r1.value());
 ```
 
 ## RuleId[id=AssignmentToCatchBlockParameter]
