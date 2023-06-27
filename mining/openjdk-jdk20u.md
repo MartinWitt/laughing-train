@@ -61,18 +61,6 @@ in `test/jaxp/javax/xml/jaxp/unittest/stream/XMLStreamReaderTest/XMLSchema.xsd`
 ```
 
 ### RegExpSimplifiable
-`[-]` can be simplified to '-'
-in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/Bug6970890_1.xsd`
-#### Snippet
-```java
-<xsd:simpleType name="Regex">
-       <xsd:restriction base="xsd:string">
-           <xsd:pattern value="[-]"/>
-       </xsd:restriction>
-</xsd:simpleType>
-```
-
-### RegExpSimplifiable
 `{0,1}` can be simplified to '?'
 in `test/jaxp/javax/xml/jaxp/unittest/validation/Bug6773084.xsd`
 #### Snippet
@@ -82,6 +70,18 @@ in `test/jaxp/javax/xml/jaxp/unittest/validation/Bug6773084.xsd`
                 <xs:pattern value="[A-Z]{0,1}"/>
             </xs:restriction>
         </xs:simpleType>
+```
+
+### RegExpSimplifiable
+`[-]` can be simplified to '-'
+in `test/jaxp/javax/xml/jaxp/unittest/validation/tck/Bug6970890_1.xsd`
+#### Snippet
+```java
+<xsd:simpleType name="Regex">
+       <xsd:restriction base="xsd:string">
+           <xsd:pattern value="[-]"/>
+       </xsd:restriction>
+</xsd:simpleType>
 ```
 
 ### RegExpSimplifiable
