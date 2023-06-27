@@ -25,10 +25,10 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@e
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/MavenChanges.java`
 #### Snippet
 ```java
-    static final class Action {
+        final String dev;
 
         @Nullable
-        final String issue;
+        final String dueTo;
 
 ```
 
@@ -37,10 +37,10 @@ The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@e
 in `log4j-changelog/src/main/java/org/apache/logging/log4j/changelog/importer/MavenChanges.java`
 #### Snippet
 ```java
-        final String dev;
+    static final class Action {
 
         @Nullable
-        final String dueTo;
+        final String issue;
 
 ```
 
