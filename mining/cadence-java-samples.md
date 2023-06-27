@@ -8,8 +8,8 @@ I found 33 bad smells with 2 repairable:
 | DuplicatedCode | 3 | false |
 | ThrowablePrintedToSystemOut | 3 | false |
 | FieldMayBeFinal | 2 | false |
-| Deprecation | 2 | false |
 | UnnecessaryLocalVariable | 2 | true |
+| Deprecation | 2 | false |
 | DanglingJavadoc | 2 | false |
 | JavadocLinkAsPlainText | 2 | false |
 | UNCHECKED_WARNING | 1 | false |
@@ -67,6 +67,42 @@ in `src/main/java/com/uber/cadence/samples/calculation/Activities.java`
    * @param b
    * @return a*b
    */
+```
+
+### JavadocDeclaration
+`@param values` tag description is missing
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
+#### Snippet
+```java
+     * classes(local activity, heartbeat etc) into binary.
+     *
+     * @param values
+     * @return
+     * @throws DataConverterException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
+#### Snippet
+```java
+     *
+     * @param values
+     * @return
+     * @throws DataConverterException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
+#### Snippet
+```java
+     * @param values
+     * @return
+     * @throws DataConverterException
+     */
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -141,42 +177,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
     @Override
 ```
 
-### JavadocDeclaration
-`@param values` tag description is missing
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
-     * classes(local activity, heartbeat etc) into binary.
-     *
-     * @param values
-     * @return
-     * @throws DataConverterException
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
-     *
-     * @param values
-     * @return
-     * @throws DataConverterException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
-#### Snippet
-```java
-     * @param values
-     * @return
-     * @throws DataConverterException
-     */
-    @Override
-```
-
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (5 lines)
@@ -192,18 +192,6 @@ in `src/main/java/com/uber/cadence/samples/fileprocessing/FileProcessingStarter.
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `scope` may be 'final'
-in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
-#### Snippet
-```java
-class PrometheusScope implements Scope {
-
-  private Scope scope;
-
-  PrometheusScope(Scope scope) {
-```
-
-### FieldMayBeFinal
 Field `LOGGER` may be 'final'
 in `src/main/java/com/uber/cadence/samples/calculation/WorkflowMethodsImpl.java`
 #### Snippet
@@ -213,6 +201,18 @@ public class WorkflowMethodsImpl implements WorkflowMethods {
   private static Logger LOGGER = Workflow.getLogger(WorkflowMethodsImpl.class);
 
   private final ActivityOptions options =
+```
+
+### FieldMayBeFinal
+Field `scope` may be 'final'
+in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
+#### Snippet
+```java
+class PrometheusScope implements Scope {
+
+  private Scope scope;
+
+  PrometheusScope(Scope scope) {
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -280,31 +280,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloConsistentQuery.java`
             .build();
 ```
 
-## RuleId[id=Deprecation]
-### Deprecation
-'com.uber.m3.tally.Buckets' is deprecated
-in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
-#### Snippet
-```java
-
-  @Override
-  public Histogram histogram(final String name, final Buckets buckets) {
-    String newName = fixName(name);
-    return scope.histogram(newName, buckets);
-```
-
-### Deprecation
-'createTempDir()' is deprecated
-in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
-#### Snippet
-```java
-    try {
-      byte[] binary = Resources.toByteArray(url);
-      File destination = new File(Files.createTempDir(), "downloaded");
-      Files.write(binary, destination);
-      System.out.println(
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `newName` is redundant
@@ -330,6 +305,31 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloDataConverter.java`
       }
 ```
 
+## RuleId[id=Deprecation]
+### Deprecation
+'createTempDir()' is deprecated
+in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.java`
+#### Snippet
+```java
+    try {
+      byte[] binary = Resources.toByteArray(url);
+      File destination = new File(Files.createTempDir(), "downloaded");
+      Files.write(binary, destination);
+      System.out.println(
+```
+
+### Deprecation
+'com.uber.m3.tally.Buckets' is deprecated
+in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
+#### Snippet
+```java
+
+  @Override
+  public Histogram histogram(final String name, final Buckets buckets) {
+    String newName = fixName(name);
+    return scope.histogram(newName, buckets);
+```
+
 ## RuleId[id=BusyWait]
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
@@ -346,18 +346,6 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloPeriodic.java`
 ## RuleId[id=DanglingJavadoc]
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `src/main/java/com/uber/cadence/samples/hello/HelloCancellation.java`
-#### Snippet
-```java
-        // This exception is thrown when a cancellation is requested on the current workflow
-      } catch (CancellationException e) {
-        /**
-         * Any call to an activity or a child workflow after the workflow is cancelled is going to
-         * fail immediately with the CancellationException. the DetachedCancellationScope doesn't
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
 in `src/main/java/com/uber/cadence/samples/hello/HelloWorkerSetup.java`
 #### Snippet
 ```java
@@ -368,19 +356,19 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloWorkerSetup.java`
      * are not enough threads to execute currently running workflow tasks.
 ```
 
-## RuleId[id=JavadocLinkAsPlainText]
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
+### DanglingJavadoc
+Dangling Javadoc comment
+in `src/main/java/com/uber/cadence/samples/hello/HelloCancellation.java`
 #### Snippet
 ```java
-/**
- * Hello World Cadence workflow that executes a single activity with emitting metrics to Prometheus.
- * Check http://localhost:9098/ to see the reported metrics for scaping. Requires a local instance
- * the Cadence service to be running.
- */
+        // This exception is thrown when a cancellation is requested on the current workflow
+      } catch (CancellationException e) {
+        /**
+         * Any call to an activity or a child workflow after the workflow is cancelled is going to
+         * fail immediately with the CancellationException. the DetachedCancellationScope doesn't
 ```
 
+## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
 in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
@@ -391,6 +379,18 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
  * in https://prometheus.io/docs/concepts/data_model/
  */
 class PrometheusScope implements Scope {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/uber/cadence/samples/hello/HelloMetric.java`
+#### Snippet
+```java
+/**
+ * Hello World Cadence workflow that executes a single activity with emitting metrics to Prometheus.
+ * Check http://localhost:9098/ to see the reported metrics for scaping. Requires a local instance
+ * the Cadence service to be running.
+ */
 ```
 
 ## RuleId[id=FieldCanBeLocal]
@@ -422,14 +422,14 @@ in `src/main/java/com/uber/cadence/samples/fileprocessing/StoreActivitiesImpl.ja
 ## RuleId[id=ThrowablePrintedToSystemOut]
 ### ThrowablePrintedToSystemOut
 'Throwable' argument `e` to 'System.out.println()' call
-in `src/main/java/com/uber/cadence/samples/hello/HelloCron.java`
+in `src/main/java/com/uber/cadence/samples/shadowing/ShadowTraffic.java`
 #### Snippet
 ```java
-      System.out.println("Cron workflow is terminated");
-    } catch (Exception e) {
-      System.out.println(e);
-    }
-    System.exit(0);
+          } catch (Exception e) {
+            System.out.println("Failed to start shadowing workflow");
+            System.out.println(e);
+            latch.countDown();
+          }
 ```
 
 ### ThrowablePrintedToSystemOut
@@ -446,13 +446,13 @@ in `src/main/java/com/uber/cadence/samples/hello/HelloSearchAttributes.java`
 
 ### ThrowablePrintedToSystemOut
 'Throwable' argument `e` to 'System.out.println()' call
-in `src/main/java/com/uber/cadence/samples/shadowing/ShadowTraffic.java`
+in `src/main/java/com/uber/cadence/samples/hello/HelloCron.java`
 #### Snippet
 ```java
-          } catch (Exception e) {
-            System.out.println("Failed to start shadowing workflow");
-            System.out.println(e);
-            latch.countDown();
-          }
+      System.out.println("Cron workflow is terminated");
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+    System.exit(0);
 ```
 
