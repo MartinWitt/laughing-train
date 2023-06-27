@@ -29,31 +29,6 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
       }
 ```
 
-## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `classData`
-in `src/com/intellij/rt/coverage/data/ProjectData.java`
-#### Snippet
-```java
-      final Map<Object, boolean[]> traces = ourProjectData.myTrace.get();
-      if (traces != null) {
-        synchronized (classData) {
-          final boolean[] trace = ((ClassData) classData).getTraceMask();
-          if (traces.put(classData, trace) == null) {
-```
-
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `classData`
-in `instrumentation/src/com/intellij/rt/coverage/instrumentation/testTracking/TestTrackingClassDataMode.java`
-#### Snippet
-```java
-        boolean[] result = null;
-        if (linesTrace == null) {
-          synchronized (classData) {
-            linesTrace = classData.getTraceMask();
-            if (linesTrace == null) {
-```
-
 ## RuleId[id=DuplicatedCode]
 ### DuplicatedCode
 Duplicated code
@@ -72,6 +47,31 @@ in `instrumentation/src/com/intellij/rt/coverage/instrumentation/filters/classFi
           }
         }
       };
+```
+
+## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `classData`
+in `instrumentation/src/com/intellij/rt/coverage/instrumentation/testTracking/TestTrackingClassDataMode.java`
+#### Snippet
+```java
+        boolean[] result = null;
+        if (linesTrace == null) {
+          synchronized (classData) {
+            linesTrace = classData.getTraceMask();
+            if (linesTrace == null) {
+```
+
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `classData`
+in `src/com/intellij/rt/coverage/data/ProjectData.java`
+#### Snippet
+```java
+      final Map<Object, boolean[]> traces = ourProjectData.myTrace.get();
+      if (traces != null) {
+        synchronized (classData) {
+          final boolean[] trace = ((ClassData) classData).getTraceMask();
+          if (traces.put(classData, trace) == null) {
 ```
 
 ## RuleId[id=DuplicateExpressions]
@@ -165,18 +165,6 @@ in `offline-runtime/src/com/intellij/rt/coverage/offline/RawHitsReport.java`
 
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
-Commented out code (2 lines)
-in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.java`
-#### Snippet
-```java
-
-  private synchronized boolean[] traceLines(String className, boolean[] methodFlags, String[] methodNames) {
-    //System.out.println("Registering " + className);
-    //assert methodFlags.length == methodNames.length;
-    int classId = myNameEnumerator.enumerate(className);
-```
-
-### CommentedOutCode
 Commented out code (3 lines)
 in `util/src/com/intellij/rt/coverage/instrumentation/ExtraFieldInstrumenter.java`
 #### Snippet
@@ -186,6 +174,18 @@ in `util/src/com/intellij/rt/coverage/instrumentation/ExtraFieldInstrumenter.jav
         //interface I {
         //  I DEFAULT = new I ();
         //}
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `test-discovery/src/com/intellij/rt/coverage/data/TestDiscoveryProjectData.java`
+#### Snippet
+```java
+
+  private synchronized boolean[] traceLines(String className, boolean[] methodFlags, String[] methodNames) {
+    //System.out.println("Registering " + className);
+    //assert methodFlags.length == methodNames.length;
+    int classId = myNameEnumerator.enumerate(className);
 ```
 
 ### CommentedOutCode
@@ -232,11 +232,11 @@ Result of `File.mkdirs()` is ignored
 in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
 #### Snippet
 ```java
-
-  public void createHTMLReport(File htmlDir, String title, String charset) throws IOException {
-    htmlDir.mkdirs();
-    final HTMLReportBuilder builder = ReportBuilderFactory.createHTMLReportBuilderForKover();
-    builder.setReportDir(htmlDir);
+    FileOutputStream out = null;
+    try {
+      xmlFile.getParentFile().mkdirs();
+      out = new FileOutputStream(xmlFile);
+      report.write(out, myLoad.getProjectData());
 ```
 
 ### IgnoreResultOfCall
@@ -244,11 +244,11 @@ Result of `File.mkdirs()` is ignored
 in `reporter/src/com/intellij/rt/coverage/report/Reporter.java`
 #### Snippet
 ```java
-    FileOutputStream out = null;
-    try {
-      xmlFile.getParentFile().mkdirs();
-      out = new FileOutputStream(xmlFile);
-      report.write(out, myLoad.getProjectData());
+
+  public void createHTMLReport(File htmlDir, String title, String charset) throws IOException {
+    htmlDir.mkdirs();
+    final HTMLReportBuilder builder = ReportBuilderFactory.createHTMLReportBuilderForKover();
+    builder.setReportDir(htmlDir);
 ```
 
 ### IgnoreResultOfCall
@@ -265,14 +265,14 @@ in `src/com/intellij/rt/coverage/util/TestTrackingIOUtil.java`
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `src/com/intellij/rt/coverage/data/ProjectData.java`
+in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
 #### Snippet
 ```java
-    final File result = new File(dataFile.getParent(), dirName);
-    if (!result.exists()) {
-      result.mkdirs();
+      myLock = new File(target.getParentFile(), target.getName() + ".lck");
+      if (myLock.getParentFile() != null) {
+        myLock.getParentFile().mkdirs();
+      }
     }
-    return result;
 ```
 
 ### IgnoreResultOfCall
@@ -301,14 +301,14 @@ in `src/com/intellij/rt/coverage/data/ProjectData.java`
 
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
-in `common/src/com/intellij/rt/coverage/util/CoverageIOUtil.java`
+in `src/com/intellij/rt/coverage/data/ProjectData.java`
 #### Snippet
 ```java
-      myLock = new File(target.getParentFile(), target.getName() + ".lck");
-      if (myLock.getParentFile() != null) {
-        myLock.getParentFile().mkdirs();
-      }
+    final File result = new File(dataFile.getParent(), dirName);
+    if (!result.exists()) {
+      result.mkdirs();
     }
+    return result;
 ```
 
 ### IgnoreResultOfCall
