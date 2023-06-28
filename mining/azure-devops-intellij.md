@@ -251,18 +251,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/checkout/TfvcCheckoutModel.
 
 ### EmptyStatementBody
 `if` statement has empty body
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutPageController.java`
-#### Snippet
-```java
-            model.signOut();
-            super.requestFocus(page);
-        } else if (CheckoutForm.CMD_REPO_FILTER_CHANGED.equals(e.getActionCommand())) {
-            // No action needed here. We updated the model above which should filter the list automatically.
-        } else if (LoginForm.CMD_CREATE_ACCOUNT.equals(e.getActionCommand())) {
-```
-
-### EmptyStatementBody
-`if` statement has empty body
 in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
 #### Snippet
 ```java
@@ -271,6 +259,18 @@ in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
             if (context != null && setAsActiveContext) {
                 //nothing to do
                 //context is already added to the manager if it is valid
+```
+
+### EmptyStatementBody
+`if` statement has empty body
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutPageController.java`
+#### Snippet
+```java
+            model.signOut();
+            super.requestFocus(page);
+        } else if (CheckoutForm.CMD_REPO_FILTER_CHANGED.equals(e.getActionCommand())) {
+            // No action needed here. We updated the model above which should filter the list automatically.
+        } else if (LoginForm.CMD_CREATE_ACCOUNT.equals(e.getActionCommand())) {
 ```
 
 ### EmptyStatementBody
@@ -395,6 +395,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSUpdateEnvironment.java
 ```
 
 ### CommentedOutCode
+Commented out code (46 lines)
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
+#### Snippet
+```java
+    public RefreshableOnComponent createAdditionalOptionsPanel(final CheckinProjectPanel checkinProjectPanel,
+                                                               PairConsumer<Object, Object> additionalDataConsumer) {
+//        boolean isAffected = false;
+//        for (File file : checkinProjectPanel.getFiles()) {
+//            if (TFSVcs.isUnderTFS(VcsUtil.getFilePath(file), checkinProjectPanel.getProject())) {
+```
+
+### CommentedOutCode
 Commented out code (21 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
 #### Snippet
@@ -416,18 +428,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.jav
 //    // TODO refactor this class
 //    private class TFSAdditionalOptionsPanel implements CheckinChangeListSpecificComponent {
 //        private final JComponent myPanel;
-```
-
-### CommentedOutCode
-Commented out code (46 lines)
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
-#### Snippet
-```java
-    public RefreshableOnComponent createAdditionalOptionsPanel(final CheckinProjectPanel checkinProjectPanel,
-                                                               PairConsumer<Object, Object> additionalDataConsumer) {
-//        boolean isAffected = false;
-//        for (File file : checkinProjectPanel.getFiles()) {
-//            if (TFSVcs.isUnderTFS(VcsUtil.getFilePath(file), checkinProjectPanel.getProject())) {
 ```
 
 ### CommentedOutCode
@@ -467,27 +467,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/MergeNameDialog.jav
 ```
 
 ### CommentedOutCode
-Commented out code (25 lines)
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSRollbackEnvironment.java`
-#### Snippet
-```java
-                                                RollbackProgressListener listener) {
-//TODO: implement once we have server workspace where you can checkout files for edit
-//    try {
-//      WorkstationHelper.processByWorkspaces(TfsFileUtil.getFilePaths(files), false, project, new WorkstationHelper.VoidProcessDelegate() {
-//        public void executeRequest(final WorkspaceInfo workspace, final List<ItemPath> paths) throws TfsException {
-```
-
-### CommentedOutCode
-Commented out code (10 lines)
+Commented out code (24 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 #### Snippet
 ```java
+    }
 
-    private boolean canFinish() {
-//        ChangesType changesType = (ChangesType) changesTypeCombo.getSelectedItem();
-//        if (changesType == ChangesType.SELECTED) {
-//            if (myChangesetsTable.getSelectedRowCount() == 0) {
+//  @Nullable
+//  public VersionSpecBase getFromVersion() {
+//    ChangesType changesType = (ChangesType)changesTypeCombo.getSelectedItem();
 ```
 
 ### CommentedOutCode
@@ -515,15 +503,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 ```
 
 ### CommentedOutCode
-Commented out code (24 lines)
+Commented out code (15 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 #### Snippet
 ```java
-    }
 
-//  @Nullable
-//  public VersionSpecBase getFromVersion() {
-//    ChangesType changesType = (ChangesType)changesTypeCombo.getSelectedItem();
+    private void updateChangesetsTable() {
+//    List<Changeset> changesets = new ArrayList<Changeset>();
+//    if (targetCombo.getSelectedIndex() != -1) {
+//      try {
 ```
 
 ### CommentedOutCode
@@ -539,15 +527,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 ```
 
 ### CommentedOutCode
-Commented out code (15 lines)
+Commented out code (10 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 #### Snippet
 ```java
 
-    private void updateChangesetsTable() {
-//    List<Changeset> changesets = new ArrayList<Changeset>();
-//    if (targetCombo.getSelectedIndex() != -1) {
-//      try {
+    private boolean canFinish() {
+//        ChangesType changesType = (ChangesType) changesTypeCombo.getSelectedItem();
+//        if (changesType == ChangesType.SELECTED) {
+//            if (myChangesetsTable.getSelectedRowCount() == 0) {
+```
+
+### CommentedOutCode
+Commented out code (25 lines)
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSRollbackEnvironment.java`
+#### Snippet
+```java
+                                                RollbackProgressListener listener) {
+//TODO: implement once we have server workspace where you can checkout files for edit
+//    try {
+//      WorkstationHelper.processByWorkspaces(TfsFileUtil.getFilePaths(files), false, project, new WorkstationHelper.VoidProcessDelegate() {
+//        public void executeRequest(final WorkspaceInfo workspace, final List<ItemPath> paths) throws TfsException {
 ```
 
 ### CommentedOutCode
@@ -587,18 +587,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/BranchAction.java`
 ```
 
 ### CommentedOutCode
-Commented out code (22 lines)
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/ApplyLabelForm.java`
-#### Snippet
-```java
-    }
-
-//    private void removeItems() {
-//        final List<LabelItemSpecWithItems> removalSpecs = new ArrayList<LabelItemSpecWithItems>(itemsTable.getSelectedRows().length);
-//        for (int selectedRow : itemsTable.getSelectedRows()) {
-```
-
-### CommentedOutCode
 Commented out code (15 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/ApplyLabelForm.java`
 #### Snippet
@@ -608,6 +596,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/ApplyLabelForm.java`
 //        itemsTable.getColumnModel().getColumn(LabelItemsTableModel.Column.Item.ordinal()).setCellRenderer(new DefaultTableCellRenderer() {
 //            @Override
 //            public Component getTableCellRendererComponent(final JTable table,
+```
+
+### CommentedOutCode
+Commented out code (22 lines)
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/ApplyLabelForm.java`
+#### Snippet
+```java
+    }
+
+//    private void removeItems() {
+//        final List<LabelItemSpecWithItems> removalSpecs = new ArrayList<LabelItemSpecWithItems>(itemsTable.getSelectedRows().length);
+//        for (int selectedRow : itemsTable.getSelectedRows()) {
 ```
 
 ### CommentedOutCode
@@ -671,18 +671,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/settings/ProjectConfigurabl
 ```
 
 ### CommentedOutCode
-Commented out code (4 lines)
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSProjectConfigurable.java`
-#### Snippet
-```java
-        form.apply();
-        // TODO: move this all to the component apply() method once needed
-//    TFSConfigurationManager.getInstance().setUseIdeaHttpProxy(myComponent.useProxy());
-//    TFSConfigurationManager.getInstance().setSupportTfsCheckinPolicies(myComponent.supportTfsCheckinPolicies());
-//    TFSConfigurationManager.getInstance().setSupportStatefulCheckinPolicies(myComponent.supportStatefulCheckinPolicies());
-```
-
-### CommentedOutCode
 Commented out code (5 lines)
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSProjectConfigurable.java`
 #### Snippet
@@ -692,6 +680,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSProjectConfigurable.ja
 //    if (TFSConfigurationManager.getInstance().useIdeaHttpProxy() != myComponent.useProxy()) return true;
 //    TfsCheckinPoliciesCompatibility c = TFSConfigurationManager.getInstance().getCheckinPoliciesCompatibility();
 //    if (c.teamExplorer != myComponent.supportTfsCheckinPolicies()) return true;
+```
+
+### CommentedOutCode
+Commented out code (4 lines)
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSProjectConfigurable.java`
+#### Snippet
+```java
+        form.apply();
+        // TODO: move this all to the component apply() method once needed
+//    TFSConfigurationManager.getInstance().setUseIdeaHttpProxy(myComponent.useProxy());
+//    TFSConfigurationManager.getInstance().setSupportTfsCheckinPolicies(myComponent.supportTfsCheckinPolicies());
+//    TFSConfigurationManager.getInstance().setSupportStatefulCheckinPolicies(myComponent.supportStatefulCheckinPolicies());
 ```
 
 ### CommentedOutCode
@@ -895,27 +895,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspaces
 ```
 
 ### Deprecation
-'processUnversionedFile(com.intellij.openapi.vfs.VirtualFile)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ChangelistBuilderStatusVisitor.java`
+'java.util.Observable' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabControllerImpl.java`
 #### Snippet
 ```java
-                changelistBuilder.processLocallyDeletedFile(localPath);
-            } else {
-                changelistBuilder.processUnversionedFile(filePath);
-            }
-        }
-```
 
-### Deprecation
-'com.intellij.ide.util.treeView.AbstractTreeBuilder' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.java`
-#### Snippet
-```java
-import java.util.Comparator;
-
-public class TfsTreeBuilder extends AbstractTreeBuilder {
-    private static final Logger LOG = Logger.getInstance(TfsTreeBuilder.class.getName());
-
+    @Override
+    public void update(final Observable observable, final Object arg) {
+        if (arg == null || TabModel.PROP_TAB_STATUS.equals(arg)) {
+            tab.setStatus(model.getTabStatus());
 ```
 
 ### Deprecation
@@ -931,15 +919,39 @@ public abstract class TabControllerImpl<T extends TabModel> implements TabContro
 ```
 
 ### Deprecation
-'java.util.Observable' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabControllerImpl.java`
+'com.intellij.ide.util.treeView.AbstractTreeBuilder' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.java`
 #### Snippet
 ```java
+import java.util.Comparator;
 
-    @Override
-    public void update(final Observable observable, final Object arg) {
-        if (arg == null || TabModel.PROP_TAB_STATUS.equals(arg)) {
-            tab.setStatus(model.getTabStatus());
+public class TfsTreeBuilder extends AbstractTreeBuilder {
+    private static final Logger LOG = Logger.getInstance(TfsTreeBuilder.class.getName());
+
+```
+
+### Deprecation
+'processUnversionedFile(com.intellij.openapi.vfs.VirtualFile)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ChangelistBuilderStatusVisitor.java`
+#### Snippet
+```java
+                changelistBuilder.processLocallyDeletedFile(localPath);
+            } else {
+                changelistBuilder.processUnversionedFile(filePath);
+            }
+        }
+```
+
+### Deprecation
+'EmptyIcon(int, int)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
+#### Snippet
+```java
+    public static final DataKey<TfsTreeForm> KEY = DataKey.create("TfsTreeForm");
+    public static final String POPUP_ACTION_GROUP = "TfvcTreePopupMenu";
+    public static final Icon EMPTY_ICON = new EmptyIcon(0, UIUtil.getBalloonWarningIcon().getIconHeight());
+
+    private JComponent contentPane;
 ```
 
 ### Deprecation
@@ -955,15 +967,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java
 ```
 
 ### Deprecation
-'EmptyIcon(int, int)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
+'java.util.Observable' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesController.java`
 #### Snippet
 ```java
-    public static final DataKey<TfsTreeForm> KEY = DataKey.create("TfsTreeForm");
-    public static final String POPUP_ACTION_GROUP = "TfvcTreePopupMenu";
-    public static final Icon EMPTY_ICON = new EmptyIcon(0, UIUtil.getBalloonWarningIcon().getIconHeight());
 
-    private JComponent contentPane;
+    @Override
+    public void update(final Observable o, final Object arg) {
+        if (ManageWorkspacesModel.REFRESH_SERVER.equals(arg)) {
+            dialog.updateControls(dialog.getSelectedServer());
+```
+
+### Deprecation
+'java.util.Observer' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesController.java`
+#### Snippet
+```java
+ * Controller for the ManageWorkspaces dialog
+ */
+public class ManageWorkspacesController implements Observer, ActionListener {
+    private final ManageWorkspacesDialog dialog;
+    private final ManageWorkspacesModel model;
 ```
 
 ### Deprecation
@@ -992,50 +1016,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceDialog.j
 
 ### Deprecation
 'java.util.Observable' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesController.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutController.java`
 #### Snippet
 ```java
 
     @Override
     public void update(final Observable o, final Object arg) {
-        if (ManageWorkspacesModel.REFRESH_SERVER.equals(arg)) {
-            dialog.updateControls(dialog.getSelectedServer());
-```
-
-### Deprecation
-'java.util.Observer' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesController.java`
-#### Snippet
-```java
- * Controller for the ManageWorkspaces dialog
- */
-public class ManageWorkspacesController implements Observer, ActionListener {
-    private final ManageWorkspacesDialog dialog;
-    private final ManageWorkspacesModel model;
-```
-
-### Deprecation
-'java.util.Observer' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
-#### Snippet
-```java
- * The controller for the WorkspaceDialog
- */
-public class WorkspaceController implements Observer, ActionListener {
-    private final WorkspaceDialog dialog;
-    private final WorkspaceModel model;
-```
-
-### Deprecation
-'java.util.Observable' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
-#### Snippet
-```java
-
-    @Override
-    public void update(final Observable o, final Object arg) {
-        if (suspendEvents) {
-            return;
+        if (CheckoutModel.PROP_CLONE_ENABLED.equals(arg)) {
+            dialog.setOkEnabled(model.isCloneEnabled());
 ```
 
 ### Deprecation
@@ -1048,18 +1036,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutControll
 public class CheckoutController implements Observer {
     private final BaseDialog dialog;
     private final CheckoutModel model;
-```
-
-### Deprecation
-'java.util.Observable' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutController.java`
-#### Snippet
-```java
-
-    @Override
-    public void update(final Observable o, final Object arg) {
-        if (CheckoutModel.PROP_CLONE_ENABLED.equals(arg)) {
-            dialog.setOkEnabled(model.isCloneEnabled());
 ```
 
 ### Deprecation
@@ -1087,6 +1063,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ToolbarToggleButto
 ```
 
 ### Deprecation
+'java.util.Observer' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
+#### Snippet
+```java
+ * The controller for the WorkspaceDialog
+ */
+public class WorkspaceController implements Observer, ActionListener {
+    private final WorkspaceDialog dialog;
+    private final WorkspaceModel model;
+```
+
+### Deprecation
+'java.util.Observable' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
+#### Snippet
+```java
+
+    @Override
+    public void update(final Observable o, final Object arg) {
+        if (suspendEvents) {
+            return;
+```
+
+### Deprecation
 'NotificationGroup(java.lang.String, com.intellij.notification.NotificationDisplayType, boolean)' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFVCNotifications.java`
 #### Snippet
@@ -1096,66 +1096,6 @@ public class TFVCNotifications {
     private static final NotificationGroup TFS_NOTIFICATIONS = new NotificationGroup(
             TfPluginBundle.message(TfPluginBundle.KEY_TFVC_NOTIFICATIONS),
             NotificationDisplayType.BALLOON,
-```
-
-### Deprecation
-'java.util.Observable' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/AbstractModel.java`
-#### Snippet
-```java
- * It provides one additional method on to of Observable that combines setChanged and Notify.
- */
-public class AbstractModel extends Observable {
-
-    protected void setChangedAndNotify(final String propertyName) {
-```
-
-### Deprecation
-Overrides deprecated method in 'com.intellij.openapi.vcs.AbstractVcs'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
-#### Snippet
-```java
-    }
-
-    public boolean fileIsUnderVcs(final FilePath filePath) {
-        return isVersionedDirectory(filePath.getVirtualFile());
-    }
-```
-
-### Deprecation
-'isVersionedDirectory(com.intellij.openapi.vfs.VirtualFile)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
-#### Snippet
-```java
-
-    public boolean fileIsUnderVcs(final FilePath filePath) {
-        return isVersionedDirectory(filePath.getVirtualFile());
-    }
-
-```
-
-### Deprecation
-'notifyImportantWarning(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
-#### Snippet
-```java
-                            logger.info("Notifying the user of the min version problem.");
-                            // Notify the user that they should upgrade their version of the TF command line
-                            VcsNotifier.getInstance(getProject()).notifyImportantWarning(
-                                    TfPluginBundle.message(TfPluginBundle.KEY_TFVC_TF_VERSION_WARNING_TITLE),
-                                    error, new NotificationListener.Adapter() {
-```
-
-### Deprecation
-'getService(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
-#### Snippet
-```java
-    public void enableIntegration() {
-        BackgroundTaskUtil.executeOnPooledThread(myProject, () -> {
-            Collection<VcsRoot> roots = ServiceManager.getService(myProject, VcsRootDetector.class).detect();
-            new TfvcIntegrationEnabler(this).enable(roots);
-        });
 ```
 
 ### Deprecation
@@ -1184,6 +1124,66 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSDiffProvider.java`
 
 ### Deprecation
 'java.util.Observable' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/AbstractModel.java`
+#### Snippet
+```java
+ * It provides one additional method on to of Observable that combines setChanged and Notify.
+ */
+public class AbstractModel extends Observable {
+
+    protected void setChangedAndNotify(final String propertyName) {
+```
+
+### Deprecation
+'notifyImportantWarning(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
+#### Snippet
+```java
+                            logger.info("Notifying the user of the min version problem.");
+                            // Notify the user that they should upgrade their version of the TF command line
+                            VcsNotifier.getInstance(getProject()).notifyImportantWarning(
+                                    TfPluginBundle.message(TfPluginBundle.KEY_TFVC_TF_VERSION_WARNING_TITLE),
+                                    error, new NotificationListener.Adapter() {
+```
+
+### Deprecation
+'getService(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
+#### Snippet
+```java
+    public void enableIntegration() {
+        BackgroundTaskUtil.executeOnPooledThread(myProject, () -> {
+            Collection<VcsRoot> roots = ServiceManager.getService(myProject, VcsRootDetector.class).detect();
+            new TfvcIntegrationEnabler(this).enable(roots);
+        });
+```
+
+### Deprecation
+Overrides deprecated method in 'com.intellij.openapi.vcs.AbstractVcs'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
+#### Snippet
+```java
+    }
+
+    public boolean fileIsUnderVcs(final FilePath filePath) {
+        return isVersionedDirectory(filePath.getVirtualFile());
+    }
+```
+
+### Deprecation
+'isVersionedDirectory(com.intellij.openapi.vfs.VirtualFile)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSVcs.java`
+#### Snippet
+```java
+
+    public boolean fileIsUnderVcs(final FilePath filePath) {
+        return isVersionedDirectory(filePath.getVirtualFile());
+    }
+
+```
+
+### Deprecation
+'java.util.Observable' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/settings/TeamServicesSettingsController.java`
 #### Snippet
 ```java
@@ -1192,6 +1192,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/settings/TeamServicesSett
     public void update(final Observable o, final Object arg) {
         if (arg == null) {
             form.setContextTable(model.getTableModel(), model.getTableSelectionModel());
+```
+
+### Deprecation
+Overrides deprecated method in 'com.intellij.openapi.vcs.checkin.CheckinEnvironment'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
+#### Snippet
+```java
+
+    @Nullable
+    public RefreshableOnComponent createAdditionalOptionsPanel(final CheckinProjectPanel checkinProjectPanel,
+                                                               PairConsumer<Object, Object> additionalDataConsumer) {
+//        boolean isAffected = false;
 ```
 
 ### Deprecation
@@ -1216,18 +1228,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.jav
                 VcsNotifier.getInstance(myVcs.getProject()).notifyImportantInfo(TfPluginBundle.message(TfPluginBundle.KEY_TFVC_CHECKIN_SUCCESSFUL_TITLE),
                         TfPluginBundle.message(TfPluginBundle.KEY_TFVC_CHECKIN_SUCCESSFUL_MSG, changesetLink), (notification, hyperlinkEvent) -> BrowserUtil.browse(hyperlinkEvent.getURL()));
             }
-```
-
-### Deprecation
-Overrides deprecated method in 'com.intellij.openapi.vcs.checkin.CheckinEnvironment'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
-#### Snippet
-```java
-
-    @Nullable
-    public RefreshableOnComponent createAdditionalOptionsPanel(final CheckinProjectPanel checkinProjectPanel,
-                                                               PairConsumer<Object, Object> additionalDataConsumer) {
-//        boolean isAffected = false;
 ```
 
 ### Deprecation
@@ -1267,18 +1267,6 @@ public class ImportController implements Observer {
 ```
 
 ### Deprecation
-'java.util.Observer' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/AbstractController.java`
-#### Snippet
-```java
-import java.util.Observer;
-
-public abstract class AbstractController implements Observer, ActionListener {
-    @Override
-    public abstract void update(final Observable o, final Object arg);
-```
-
-### Deprecation
 'java.util.Observable' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/AbstractController.java`
 #### Snippet
@@ -1288,6 +1276,18 @@ public abstract class AbstractController implements Observer, ActionListener {
     public abstract void update(final Observable o, final Object arg);
 
     @Override
+```
+
+### Deprecation
+'java.util.Observer' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/AbstractController.java`
+#### Snippet
+```java
+import java.util.Observer;
+
+public abstract class AbstractController implements Observer, ActionListener {
+    @Override
+    public abstract void update(final Observable o, final Object arg);
 ```
 
 ### Deprecation
@@ -1315,42 +1315,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/checkout/GitCheckoutModel.ja
 ```
 
 ### Deprecation
-'getModifiers()' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsForm.java`
-#### Snippet
-```java
-                if (mouseEvent.getClickCount() == 2) {
-                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
-                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
-                    //right click, show pop up
-                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
-```
-
-### Deprecation
-'BUTTON3_MASK' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsForm.java`
-#### Snippet
-```java
-                if (mouseEvent.getClickCount() == 2) {
-                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
-                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
-                    //right click, show pop up
-                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
-```
-
-### Deprecation
-'BUTTON3_MASK' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsForm.java`
-#### Snippet
-```java
-                if (mouseEvent.getClickCount() == 2) {
-                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
-                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
-                    //right click, show pop up
-                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
-```
-
-### Deprecation
 'getBestAuthenticationInfo(java.lang.String, boolean)' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/authentication/TfsAuthenticationProvider.java`
 #### Snippet
@@ -1360,42 +1324,6 @@ in `plugin/src/com/microsoft/alm/plugin/authentication/TfsAuthenticationProvider
         return ServerContextManager.getInstance().getBestAuthenticationInfo(TFS_LAST_USED_URL, false);
     }
 
-```
-
-### Deprecation
-'getModifiers()' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsForm.java`
-#### Snippet
-```java
-                if (mouseEvent.getClickCount() == 2) {
-                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
-                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
-                    //right click, show pop up
-                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
-```
-
-### Deprecation
-'BUTTON3_MASK' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsForm.java`
-#### Snippet
-```java
-                if (mouseEvent.getClickCount() == 2) {
-                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
-                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
-                    //right click, show pop up
-                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
-```
-
-### Deprecation
-'BUTTON3_MASK' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsForm.java`
-#### Snippet
-```java
-                if (mouseEvent.getClickCount() == 2) {
-                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
-                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
-                    //right click, show pop up
-                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
 ```
 
 ### Deprecation
@@ -1423,6 +1351,78 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 ```
 
 ### Deprecation
+'getModifiers()' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsForm.java`
+#### Snippet
+```java
+                if (mouseEvent.getClickCount() == 2) {
+                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
+                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
+                    //right click, show pop up
+                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
+```
+
+### Deprecation
+'BUTTON3_MASK' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsForm.java`
+#### Snippet
+```java
+                if (mouseEvent.getClickCount() == 2) {
+                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
+                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
+                    //right click, show pop up
+                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
+```
+
+### Deprecation
+'BUTTON3_MASK' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsForm.java`
+#### Snippet
+```java
+                if (mouseEvent.getClickCount() == 2) {
+                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
+                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
+                    //right click, show pop up
+                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
+```
+
+### Deprecation
+'getModifiers()' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsForm.java`
+#### Snippet
+```java
+                if (mouseEvent.getClickCount() == 2) {
+                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
+                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
+                    //right click, show pop up
+                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
+```
+
+### Deprecation
+'BUTTON3_MASK' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsForm.java`
+#### Snippet
+```java
+                if (mouseEvent.getClickCount() == 2) {
+                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
+                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
+                    //right click, show pop up
+                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
+```
+
+### Deprecation
+'BUTTON3_MASK' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/VcsPullRequestsForm.java`
+#### Snippet
+```java
+                if (mouseEvent.getClickCount() == 2) {
+                    triggerEvent(CMD_OPEN_SELECTED_ITEM_IN_BROWSER);
+                } else if (mouseEvent.isPopupTrigger() || ((mouseEvent.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK)) {
+                    //right click, show pop up
+                    showPopupMenu(mouseEvent.getComponent(), mouseEvent.getX(), mouseEvent.getY(), listener);
+```
+
+### Deprecation
 'runOrInvokeAndWait(java.lang.@org.jetbrains.annotations.NotNull Runnable)' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 #### Snippet
@@ -1443,7 +1443,7 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
         try {
             GuiUtils.runOrInvokeAndWait(new Runnable() {
                 public void run() {
-                    try {
+                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
 ```
 
 ### Deprecation
@@ -1455,7 +1455,7 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
         try {
             GuiUtils.runOrInvokeAndWait(new Runnable() {
                 public void run() {
-                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                    try {
 ```
 
 ### Deprecation
@@ -1471,15 +1471,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 ```
 
 ### Deprecation
-'assertNotNull(@org.jetbrains.annotations.Nullable T)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfIgnoreUtil.java`
+'loadFromStream(java.io.@org.jetbrains.annotations.NotNull InputStream)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSTmpFileStore.java`
 #### Snippet
 ```java
-        VirtualFile virtualTfIgnoreFile = LocalFileSystem.getInstance().findFileByIoFile(tfIgnore);
-        if (virtualTfIgnoreFile == null) {
-            VirtualFile parentDir = ObjectUtils.assertNotNull( // should never be null because of the way we work with .tfignore
-                    LocalFileSystem.getInstance().findFileByIoFile(tfIgnore.getParentFile()));
-            virtualTfIgnoreFile = parentDir.createChildData(requestor, TFIGNORE_FILE_NAME);
+        try {
+            fileStream = new FileInputStream(myTmpFile);
+            return StreamUtil.loadFromStream(fileStream);
+        } finally {
+            if (fileStream != null) {
 ```
 
 ### Deprecation
@@ -1495,15 +1495,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfIgnoreUtil.java`
 ```
 
 ### Deprecation
-'loadFromStream(java.io.@org.jetbrains.annotations.NotNull InputStream)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSTmpFileStore.java`
+'assertNotNull(@org.jetbrains.annotations.Nullable T)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfIgnoreUtil.java`
 #### Snippet
 ```java
-        try {
-            fileStream = new FileInputStream(myTmpFile);
-            return StreamUtil.loadFromStream(fileStream);
-        } finally {
-            if (fileStream != null) {
+        VirtualFile virtualTfIgnoreFile = LocalFileSystem.getInstance().findFileByIoFile(tfIgnore);
+        if (virtualTfIgnoreFile == null) {
+            VirtualFile parentDir = ObjectUtils.assertNotNull( // should never be null because of the way we work with .tfignore
+                    LocalFileSystem.getInstance().findFileByIoFile(tfIgnore.getParentFile()));
+            virtualTfIgnoreFile = parentDir.createChildData(requestor, TFIGNORE_FILE_NAME);
 ```
 
 ### Deprecation
@@ -1579,6 +1579,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutPageCont
 ```
 
 ### Deprecation
+'java.util.Observable' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchController.java`
+#### Snippet
+```java
+
+    @Override
+    public void update(final Observable o, final Object arg) {
+        if (arg == null || CreateBranchModel.PROP_BRANCH_NAME.equals(arg)) {
+            dialog.setBranchName(model.getBranchName());
+```
+
+### Deprecation
+'java.util.Observer' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchController.java`
+#### Snippet
+```java
+ * Controller for creating a new branch from an existing remote branch
+ */
+public class CreateBranchController implements Observer, ActionListener {
+    private static final Logger logger = LoggerFactory.getLogger(CreateBranchController.class);
+
+```
+
+### Deprecation
 'com.intellij.openapi.application.ApplicationStarterEx' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/common/starters/ApplicationStarterBase.java`
 #### Snippet
@@ -1627,51 +1651,63 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsC
 ```
 
 ### Deprecation
-'java.util.Observable' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchController.java`
+'getAuthenticationInfo(java.lang.String, boolean)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
 #### Snippet
 ```java
-
-    @Override
-    public void update(final Observable o, final Object arg) {
-        if (arg == null || CreateBranchModel.PROP_BRANCH_NAME.equals(arg)) {
-            dialog.setBranchName(model.getBranchName());
+            // if auth error occurs it most likely is because the workspace is a server workspace so pass credentials with the call
+            logger.warn("Authentication failed while trying to get the partial workspace. Trying again with credentials");
+            final AuthenticationInfo authInfo = ServerContextManager.getInstance().getAuthenticationInfo(serverName, true);
+            return CommandUtils.getPartialWorkspace(serverName, workspaceName, authInfo);
+        }
 ```
 
 ### Deprecation
-'java.util.Observer' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchController.java`
+'getAuthenticationInfo(java.lang.String, boolean)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
 #### Snippet
 ```java
- * Controller for creating a new branch from an existing remote branch
- */
-public class CreateBranchController implements Observer, ActionListener {
-    private static final Logger logger = LoggerFactory.getLogger(CreateBranchController.class);
-
+        try {
+            // get auth info for the server
+            final AuthenticationInfo authInfo = ServerContextManager.getInstance().getAuthenticationInfo(selectedServer.getName(), true);
+            if (authInfo != null) {
+                // will refresh the cache which populates the menu
 ```
 
 ### Deprecation
-'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
+'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
 #### Snippet
 ```java
-                // Notify the user of success and provide a link to sync the workspace
-                // (It doesn't make sense to tell the user we are done here if there is another thread still doing work)
-                VcsNotifier.getInstance(project).notifyImportantInfo(
-                        TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_TITLE),
-                        TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_MESSAGE),
+
+        try {
+            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
+                public void run() throws VcsException {
+                    editWorkspace(selectedWorkspace, update);
 ```
 
 ### Deprecation
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
+'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
 #### Snippet
 ```java
-        } catch (final Throwable t) {
-            //TODO on failure we could provide a link that reopened the dialog with the values they tried to save
-            VcsNotifier.getInstance(project).notifyError(
-                    TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_FAILURE_TITLE),
-                    LocalizationServiceImpl.getInstance().getExceptionMessage(t));
+
+        try {
+            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
+                public void run() throws VcsException {
+                    reloadWorkspaces(selectedServer);
+```
+
+### Deprecation
+'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+
+        try {
+            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
+                public void run() throws VcsException {
+                    deleteWorkspace(selectedWorkspace);
 ```
 
 ### Deprecation
@@ -1699,63 +1735,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.ja
 ```
 
 ### Deprecation
-'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
 #### Snippet
 ```java
-
-        try {
-            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
-                public void run() throws VcsException {
-                    editWorkspace(selectedWorkspace, update);
+                // Notify the user of success and provide a link to sync the workspace
+                // (It doesn't make sense to tell the user we are done here if there is another thread still doing work)
+                VcsNotifier.getInstance(project).notifyImportantInfo(
+                        TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_TITLE),
+                        TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_MESSAGE),
 ```
 
 ### Deprecation
-'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
 #### Snippet
 ```java
-
-        try {
-            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
-                public void run() throws VcsException {
-                    deleteWorkspace(selectedWorkspace);
-```
-
-### Deprecation
-'getAuthenticationInfo(java.lang.String, boolean)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-        try {
-            // get auth info for the server
-            final AuthenticationInfo authInfo = ServerContextManager.getInstance().getAuthenticationInfo(selectedServer.getName(), true);
-            if (authInfo != null) {
-                // will refresh the cache which populates the menu
-```
-
-### Deprecation
-'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-
-        try {
-            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
-                public void run() throws VcsException {
-                    reloadWorkspaces(selectedServer);
-```
-
-### Deprecation
-'getAuthenticationInfo(java.lang.String, boolean)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-            // if auth error occurs it most likely is because the workspace is a server workspace so pass credentials with the call
-            logger.warn("Authentication failed while trying to get the partial workspace. Trying again with credentials");
-            final AuthenticationInfo authInfo = ServerContextManager.getInstance().getAuthenticationInfo(serverName, true);
-            return CommandUtils.getPartialWorkspace(serverName, workspaceName, authInfo);
-        }
+        } catch (final Throwable t) {
+            //TODO on failure we could provide a link that reopened the dialog with the values they tried to save
+            VcsNotifier.getInstance(project).notifyError(
+                    TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_FAILURE_TITLE),
+                    LocalizationServiceImpl.getInstance().getExceptionMessage(t));
 ```
 
 ### Deprecation
@@ -1768,30 +1768,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabModel.java
     void addObserver(final Observer observer);
 
     boolean isTeamServicesRepository();
-```
-
-### Deprecation
-'VcsVFSListener(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, com.intellij.openapi.vcs.@org.jetbrains.annotations.NotNull AbstractVcs)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
-#### Snippet
-```java
-
-    public TFSFileListener(Project project, TFSVcs vcs) {
-        super(project, vcs);
-    }
-
-```
-
-### Deprecation
-'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
-#### Snippet
-```java
-    private String sourceBranchHash;
-    private String targetBranchHash;
-    private GitCommitCompareInfo gitCommitCompareInfo;
-    private GitRepository gitRepository;
-
 ```
 
 ### Deprecation
@@ -1831,6 +1807,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContai
 ```
 
 ### Deprecation
+'git4idea.util.GitCommitCompareInfo' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
+#### Snippet
+```java
+    private String sourceBranchHash;
+    private String targetBranchHash;
+    private GitCommitCompareInfo gitCommitCompareInfo;
+    private GitRepository gitRepository;
+
+```
+
+### Deprecation
 'DIRECTORY_CLOSED_ICON' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeNode.java`
 #### Snippet
@@ -1840,6 +1828,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeNode.java
                 presentation.setIcon(PlatformIcons.DIRECTORY_CLOSED_ICON);
             } else {
                 presentation.setIcon(FileTypeManager.getInstance().getFileTypeByFileName(getFileName()).getIcon());
+```
+
+### Deprecation
+'VcsVFSListener(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, com.intellij.openapi.vcs.@org.jetbrains.annotations.NotNull AbstractVcs)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
+#### Snippet
+```java
+
+    public TFSFileListener(Project project, TFSVcs vcs) {
+        super(project, vcs);
+    }
+
 ```
 
 ### Deprecation
@@ -1927,18 +1927,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/IdeaHelper.java`
 ```
 
 ### Deprecation
-'getService(java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ClassicTfvcClient.java`
-#### Snippet
-```java
-
-    public static ClassicTfvcClient getInstance() {
-        return ServiceManager.getService(ClassicTfvcClient.class);
-    }
-
-```
-
-### Deprecation
 'is32Bit' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/external/visualstudio/VisualStudioTfvcClient.java`
 #### Snippet
@@ -1948,6 +1936,18 @@ in `plugin/src/com/microsoft/alm/plugin/external/visualstudio/VisualStudioTfvcCl
         String programFilesPath = SystemInfo.is32Bit ? System.getenv("ProgramFiles") : System.getenv("ProgramFiles(x86)");
         if (StringUtils.isEmpty(programFilesPath))
             programFilesPath = "C:\\Program Files (x86)";
+```
+
+### Deprecation
+'getService(java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ClassicTfvcClient.java`
+#### Snippet
+```java
+
+    public static ClassicTfvcClient getInstance() {
+        return ServiceManager.getService(ClassicTfvcClient.class);
+    }
+
 ```
 
 ### Deprecation
@@ -2011,66 +2011,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/extensions/GitCheckoutProvider.
 ```
 
 ### Deprecation
-'getService(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
-#### Snippet
-```java
-                    manager.addInitializationRequest(VcsInitObject.AFTER_COMMON, new DumbAwareRunnable() {
-                        public void run() {
-                            final GitRepositoryManager gitRepositoryManager = ServiceManager.getService(lastOpenedProject, GitRepositoryManager.class);
-                            ArgumentHelper.checkNotNull(gitRepositoryManager, "GitRepositoryManager");
-                            ArgumentHelper.checkNotNullOrEmpty(gitRepositoryManager.getRepositories(), "gitRepositoryManager.getRepositories()");
-```
-
-### Deprecation
-'getRemoteBranches()' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
-#### Snippet
-```java
-
-                            // find remote red name from given name
-                            for (final GitRemoteBranch remoteBranch : gitRepository.getInfo().getRemoteBranches()) {
-                                final String remoteBranchName = remoteBranch.getName().replaceFirst(remoteBranch.getRemote().getName() + "/", StringUtils.EMPTY);
-                                if (ref.equals(remoteBranchName)) {
-```
-
-### Deprecation
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
-#### Snippet
-```java
-                    if (context == null) {
-                        logger.warn("No context could be found");
-                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_ERRORS_AUTHENTICATION_FAILED_TITLE), TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitUrl));
-                        return;
-                    }
-```
-
-### Deprecation
-'getService(java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
-#### Snippet
-```java
-
-                    final String gitRepositoryStr = context.getUsableGitUrl();
-                    final Git git = ServiceManager.getService(Git.class);
-                    logger.info("Cloning repo " + gitRepositoryStr);
-                    cloneResult.set(git4idea.checkout.GitCheckoutProvider.doClone(project, git, getDirectoryName(), getParentDirectory(), gitRepositoryStr));
-```
-
-### Deprecation
-'getService(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
-#### Snippet
-```java
-                                    public void run() {
-                                        logger.info("Checking out branch " + remoteRef);
-                                        final GitBrancher brancher = ServiceManager.getService(lastOpenedProject, GitBrancher.class);
-                                        brancher.checkoutNewBranchStartingFrom(ref, remoteRef,
-                                                Collections.singletonList(gitRepository), null);
-```
-
-### Deprecation
 'git4idea.actions.BasicAction' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/git/actions/ImportAction.java`
 #### Snippet
@@ -2104,6 +2044,66 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/actions/ImportAction.java`
             VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_ACTIONS_IMPORT),
                     TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ERRORS_UNEXPECTED, t.getMessage()));
         }
+```
+
+### Deprecation
+'getService(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
+#### Snippet
+```java
+                                    public void run() {
+                                        logger.info("Checking out branch " + remoteRef);
+                                        final GitBrancher brancher = ServiceManager.getService(lastOpenedProject, GitBrancher.class);
+                                        brancher.checkoutNewBranchStartingFrom(ref, remoteRef,
+                                                Collections.singletonList(gitRepository), null);
+```
+
+### Deprecation
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
+#### Snippet
+```java
+                    if (context == null) {
+                        logger.warn("No context could be found");
+                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_ERRORS_AUTHENTICATION_FAILED_TITLE), TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitUrl));
+                        return;
+                    }
+```
+
+### Deprecation
+'getService(java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
+#### Snippet
+```java
+
+                    final String gitRepositoryStr = context.getUsableGitUrl();
+                    final Git git = ServiceManager.getService(Git.class);
+                    logger.info("Cloning repo " + gitRepositoryStr);
+                    cloneResult.set(git4idea.checkout.GitCheckoutProvider.doClone(project, git, getDirectoryName(), getParentDirectory(), gitRepositoryStr));
+```
+
+### Deprecation
+'getService(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
+#### Snippet
+```java
+                    manager.addInitializationRequest(VcsInitObject.AFTER_COMMON, new DumbAwareRunnable() {
+                        public void run() {
+                            final GitRepositoryManager gitRepositoryManager = ServiceManager.getService(lastOpenedProject, GitRepositoryManager.class);
+                            ArgumentHelper.checkNotNull(gitRepositoryManager, "GitRepositoryManager");
+                            ArgumentHelper.checkNotNullOrEmpty(gitRepositoryManager.getRepositories(), "gitRepositoryManager.getRepositories()");
+```
+
+### Deprecation
+'getRemoteBranches()' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
+#### Snippet
+```java
+
+                            // find remote red name from given name
+                            for (final GitRemoteBranch remoteBranch : gitRepository.getInfo().getRemoteBranches()) {
+                                final String remoteBranchName = remoteBranch.getName().replaceFirst(remoteBranch.getRemote().getName() + "/", StringUtils.EMPTY);
+                                if (ref.equals(remoteBranchName)) {
 ```
 
 ### Deprecation
@@ -2143,18 +2143,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/AddFileToTfIgnoreActio
 ```
 
 ### Deprecation
-Overrides deprecated method in 'com.intellij.openapi.project.ProjectManagerListener'
-in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ProjectRepoEventManager.java`
-#### Snippet
-```java
-
-        @Override
-        public boolean canCloseProject(final Project project) {
-            return true;
-        }
-```
-
-### Deprecation
 'addProjectManagerListener(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull ProjectManagerListener)' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ProjectRepoEventManager.java`
 #### Snippet
@@ -2164,6 +2152,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ProjectRepoEventManage
             ProjectManager.getInstance().addProjectManagerListener(projectEventListener);
         }
     }
+```
+
+### Deprecation
+Overrides deprecated method in 'com.intellij.openapi.project.ProjectManagerListener'
+in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ProjectRepoEventManager.java`
+#### Snippet
+```java
+
+        @Override
+        public boolean canCloseProject(final Project project) {
+            return true;
+        }
 ```
 
 ### Deprecation
@@ -2287,18 +2287,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/reactive/ReactiveTfvcClientHold
 ```
 
 ### Deprecation
-'java.util.Observable' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutController.java`
-#### Snippet
-```java
-
-    @Override
-    public void update(final Observable o, final Object arg) {
-        if (arg == null || arg.equals(SimpleCheckoutModel.PROP_DIRECTORY_NAME)) {
-            dialog.setDirectoryName(model.getDirectoryName());
-```
-
-### Deprecation
 'java.util.Observer' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutController.java`
 #### Snippet
@@ -2311,51 +2299,15 @@ public class SimpleCheckoutController implements Observer, ActionListener {
 ```
 
 ### Deprecation
-'runOrInvokeAndWait(java.lang.@org.jetbrains.annotations.NotNull Runnable)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/BranchAction.java`
-#### Snippet
-```java
-        final Ref<VirtualFile> selectedFile = Ref.create();
-        try {
-            GuiUtils.runOrInvokeAndWait(new Runnable() {
-                @Override
-                public void run() {
-```
-
-### Deprecation
-'getService(java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
+'java.util.Observable' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutController.java`
 #### Snippet
 ```java
 
-    public static TeamServicesSecrets getInstance() {
-        return ServiceManager.getService(TeamServicesSecrets.class);
-    }
-
-```
-
-### Deprecation
-'storePassword(com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project, java.lang.@org.jetbrains.annotations.NotNull Class, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.@org.jetbrains.annotations.Nullable String)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
-#### Snippet
-```java
-    private static void writePasswordOldWay(final String key, final String value) {
-        try {
-            PasswordSafe.getInstance().storePassword(null, TeamServicesSecrets.class, key, value);
-        } catch (PasswordSafeException e) {
-            logger.warn("Failed to write password", e);
-```
-
-### Deprecation
-'com.intellij.ide.passwordSafe.PasswordSafeException' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
-#### Snippet
-```java
-        try {
-            PasswordSafe.getInstance().storePassword(null, TeamServicesSecrets.class, key, value);
-        } catch (PasswordSafeException e) {
-            logger.warn("Failed to write password", e);
-        } catch (Throwable t) {
+    @Override
+    public void update(final Observable o, final Object arg) {
+        if (arg == null || arg.equals(SimpleCheckoutModel.PROP_DIRECTORY_NAME)) {
+            dialog.setDirectoryName(model.getDirectoryName());
 ```
 
 ### Deprecation
@@ -2383,15 +2335,51 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets
 ```
 
 ### Deprecation
-'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsModel.java`
+'storePassword(com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project, java.lang.@org.jetbrains.annotations.NotNull Class, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.@org.jetbrains.annotations.Nullable String)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
 #### Snippet
 ```java
-                }
-            };
-            VcsUtil.runVcsProcessWithProgress(resolveRunnable, TfPluginBundle.message(TfPluginBundle.KEY_TFVC_CONFLICT_LOADING_PROGRESS_BAR), false, project);
-        } catch (VcsException e) {
-            logger.error("Error while loading conflicts: " + e.getMessage());
+    private static void writePasswordOldWay(final String key, final String value) {
+        try {
+            PasswordSafe.getInstance().storePassword(null, TeamServicesSecrets.class, key, value);
+        } catch (PasswordSafeException e) {
+            logger.warn("Failed to write password", e);
+```
+
+### Deprecation
+'com.intellij.ide.passwordSafe.PasswordSafeException' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
+#### Snippet
+```java
+        try {
+            PasswordSafe.getInstance().storePassword(null, TeamServicesSecrets.class, key, value);
+        } catch (PasswordSafeException e) {
+            logger.warn("Failed to write password", e);
+        } catch (Throwable t) {
+```
+
+### Deprecation
+'getService(java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
+#### Snippet
+```java
+
+    public static TeamServicesSecrets getInstance() {
+        return ServiceManager.getService(TeamServicesSecrets.class);
+    }
+
+```
+
+### Deprecation
+'runOrInvokeAndWait(java.lang.@org.jetbrains.annotations.NotNull Runnable)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/BranchAction.java`
+#### Snippet
+```java
+        final Ref<VirtualFile> selectedFile = Ref.create();
+        try {
+            GuiUtils.runOrInvokeAndWait(new Runnable() {
+                @Override
+                public void run() {
 ```
 
 ### Deprecation
@@ -2407,15 +2395,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsCont
 ```
 
 ### Deprecation
-'getBestAuthenticationInfo(java.lang.String, boolean)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/authentication/VsoAuthenticationProvider.java`
+'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsModel.java`
 #### Snippet
 ```java
-    public AuthenticationInfo getAuthenticationInfo(final String serverUri) {
-        final AuthenticationInfo authenticationInfo =
-                ServerContextManager.getInstance().getBestAuthenticationInfo(serverUri, false);
-
-        return authenticationInfo;
+                }
+            };
+            VcsUtil.runVcsProcessWithProgress(resolveRunnable, TfPluginBundle.message(TfPluginBundle.KEY_TFVC_CONFLICT_LOADING_PROGRESS_BAR), false, project);
+        } catch (VcsException e) {
+            logger.error("Error while loading conflicts: " + e.getMessage());
 ```
 
 ### Deprecation
@@ -2428,6 +2416,18 @@ in `plugin/src/com/microsoft/alm/plugin/authentication/VsoAuthenticationProvider
         return ServiceManager.getService(VsoAuthenticationProvider.class);
     }
 
+```
+
+### Deprecation
+'getBestAuthenticationInfo(java.lang.String, boolean)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/authentication/VsoAuthenticationProvider.java`
+#### Snippet
+```java
+    public AuthenticationInfo getAuthenticationInfo(final String serverUri) {
+        final AuthenticationInfo authenticationInfo =
+                ServerContextManager.getInstance().getBestAuthenticationInfo(serverUri, false);
+
+        return authenticationInfo;
 ```
 
 ### Deprecation
@@ -2491,87 +2491,39 @@ in `plugin/src/com/microsoft/alm/plugin/context/RepositoryContextManager.java`
 ```
 
 ### Deprecation
-'getBaseDir()' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsModel.java`
 #### Snippet
 ```java
-            // either none or multiple repositories were found
-            // try to find repository for project root
-            repo = repositoryManager.getRepositoryForFile(project.getBaseDir());
-        }
-        return repo;
+                                    UrlHelper.getSpecificWorkItemURI(context.getTeamProjectURI(), workItem.getId()), String.valueOf(workItem.getId()), UrlHelper.getBranchURI(context.getUri(), branchName), branchName);
+
+                            VcsNotifier.getInstance(project).notifyImportantInfo(TfPluginBundle.message(wasWorkItemAssociated ? TfPluginBundle.KEY_WIT_ASSOCIATION_SUCCESSFUL_TITLE : TfPluginBundle.KEY_WIT_ASSOCIATION_FAILED_TITLE),
+                                    notificationMsg, new NotificationListener() {
+                                        @Override
 ```
 
 ### Deprecation
-'retrieveUntrackedFiles()' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+'java.util.Observable' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageController.java`
 #### Snippet
 ```java
-                final ProjectLevelVcsManager vcsManager = ProjectLevelVcsManager.getInstance(project);
-                final List<VirtualFile> trackedFiles = changeListManager.getAffectedFiles();
-                final Collection<VirtualFile> untrackedFiles = ContainerUtil.filter(localRepository.getUntrackedFilesHolder().retrieveUntrackedFiles(),
-                        new Condition<VirtualFile>() {
-                            @Override
+
+    @Override
+    public void update(final Observable o, final Object arg) {
+        if (arg == null || arg.equals(LoginPageModel.PROP_CONNECTED)) {
+            page.setLoginShowing(!pageModel.isConnected());
 ```
 
 ### Deprecation
-'git4idea.commands.GitSimpleHandler' is deprecated
+'getService(java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
 ```java
-                GitFileUtils.addFiles(project, rootVirtualFile, filesToCommit);
-                if (filesToCommit.size() > 0) {
-                    final GitSimpleHandler hCommit = new GitSimpleHandler(project, rootVirtualFile, GitCommand.COMMIT);
-                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-```
-
-### Deprecation
-'git4idea.commands.GitSimpleHandler' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
-#### Snippet
-```java
-                GitFileUtils.addFiles(project, rootVirtualFile, filesToCommit);
-                if (filesToCommit.size() > 0) {
-                    final GitSimpleHandler hCommit = new GitSimpleHandler(project, rootVirtualFile, GitCommand.COMMIT);
-                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-```
-
-### Deprecation
-'git4idea.commands.GitHandlerUtil' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
-#### Snippet
-```java
-                    final GitSimpleHandler hCommit = new GitSimpleHandler(project, rootVirtualFile, GitCommand.COMMIT);
-                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-                    if (hCommit.getExitCode() != 0) {
-                        //unable to commit
-```
-
-### Deprecation
-'runInCurrentThread(git4idea.commands.@org.jetbrains.annotations.NotNull GitHandler, com.intellij.openapi.progress.@org.jetbrains.annotations.Nullable ProgressIndicator, boolean, java.lang.@org.jetbrains.annotations.Nullable @org.jetbrains.annotations.Nls String)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
-#### Snippet
-```java
-                    final GitSimpleHandler hCommit = new GitSimpleHandler(project, rootVirtualFile, GitCommand.COMMIT);
-                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-                    if (hCommit.getExitCode() != 0) {
-                        //unable to commit
-```
-
-### Deprecation
-'getExitCode()' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
-#### Snippet
-```java
-                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-                    if (hCommit.getExitCode() != 0) {
-                        //unable to commit
-                        logger.error("doFirstCommitIfRequired: git commit failed for project: {}, repoRoot: {} with error: {}",
+        //push all branches in local Git repo to remote
+        indicator.setText(TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_GIT_PUSH));
+        final Git git = ServiceManager.getService(Git.class);
+        final GitCommandResult result = git.push(localRepository, REMOTE_ORIGIN, remoteGitUrl, "*", true);
+        if (!result.success()) {
 ```
 
 ### Deprecation
@@ -2647,15 +2599,75 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 ```
 
 ### Deprecation
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is deprecated
+'retrieveUntrackedFiles()' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
 ```java
+                final ProjectLevelVcsManager vcsManager = ProjectLevelVcsManager.getInstance(project);
+                final List<VirtualFile> trackedFiles = changeListManager.getAffectedFiles();
+                final Collection<VirtualFile> untrackedFiles = ContainerUtil.filter(localRepository.getUntrackedFilesHolder().retrieveUntrackedFiles(),
+                        new Condition<VirtualFile>() {
+                            @Override
+```
 
-    private void notifyImportError(final Project project, final String message) {
-        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_FAILED), message, NotificationListener.URL_OPENING_LISTENER);
-    }
+### Deprecation
+'git4idea.commands.GitSimpleHandler' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+#### Snippet
+```java
+                GitFileUtils.addFiles(project, rootVirtualFile, filesToCommit);
+                if (filesToCommit.size() > 0) {
+                    final GitSimpleHandler hCommit = new GitSimpleHandler(project, rootVirtualFile, GitCommand.COMMIT);
+                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+```
 
+### Deprecation
+'git4idea.commands.GitSimpleHandler' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+#### Snippet
+```java
+                GitFileUtils.addFiles(project, rootVirtualFile, filesToCommit);
+                if (filesToCommit.size() > 0) {
+                    final GitSimpleHandler hCommit = new GitSimpleHandler(project, rootVirtualFile, GitCommand.COMMIT);
+                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+```
+
+### Deprecation
+'git4idea.commands.GitHandlerUtil' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+#### Snippet
+```java
+                    final GitSimpleHandler hCommit = new GitSimpleHandler(project, rootVirtualFile, GitCommand.COMMIT);
+                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+                    if (hCommit.getExitCode() != 0) {
+                        //unable to commit
+```
+
+### Deprecation
+'runInCurrentThread(git4idea.commands.@org.jetbrains.annotations.NotNull GitHandler, com.intellij.openapi.progress.@org.jetbrains.annotations.Nullable ProgressIndicator, boolean, java.lang.@org.jetbrains.annotations.Nullable @org.jetbrains.annotations.Nls String)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+#### Snippet
+```java
+                    final GitSimpleHandler hCommit = new GitSimpleHandler(project, rootVirtualFile, GitCommand.COMMIT);
+                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+                    if (hCommit.getExitCode() != 0) {
+                        //unable to commit
+```
+
+### Deprecation
+'getExitCode()' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+#### Snippet
+```java
+                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+                    if (hCommit.getExitCode() != 0) {
+                        //unable to commit
+                        logger.error("doFirstCommitIfRequired: git commit failed for project: {}, repoRoot: {} with error: {}",
 ```
 
 ### Deprecation
@@ -2707,15 +2719,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 ```
 
 ### Deprecation
-'getService(java.lang.@org.jetbrains.annotations.NotNull Class)' is deprecated
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is deprecated
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
 ```java
-        //push all branches in local Git repo to remote
-        indicator.setText(TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_GIT_PUSH));
-        final Git git = ServiceManager.getService(Git.class);
-        final GitCommandResult result = git.push(localRepository, REMOTE_ORIGIN, remoteGitUrl, "*", true);
-        if (!result.success()) {
+
+    private void notifyImportError(final Project project, final String message) {
+        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_FAILED), message, NotificationListener.URL_OPENING_LISTENER);
+    }
+
 ```
 
 ### Deprecation
@@ -2743,39 +2755,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 ```
 
 ### Deprecation
-'message(java.util.@org.jetbrains.annotations.NotNull ResourceBundle, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.Object @org.jetbrains.annotations.NotNull ...)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/resources/TfPluginBundle.java`
+'getBaseDir()' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
 ```java
-    public static String message(@NotNull @PropertyKey(resourceBundle = BUNDLE_NAME) String key,
-                                 @NotNull Object... params) {
-        return CommonBundle.message(getBundle(), key, params);
-    }
-
-```
-
-### Deprecation
-'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsModel.java`
-#### Snippet
-```java
-                                    UrlHelper.getSpecificWorkItemURI(context.getTeamProjectURI(), workItem.getId()), String.valueOf(workItem.getId()), UrlHelper.getBranchURI(context.getUri(), branchName), branchName);
-
-                            VcsNotifier.getInstance(project).notifyImportantInfo(TfPluginBundle.message(wasWorkItemAssociated ? TfPluginBundle.KEY_WIT_ASSOCIATION_SUCCESSFUL_TITLE : TfPluginBundle.KEY_WIT_ASSOCIATION_FAILED_TITLE),
-                                    notificationMsg, new NotificationListener() {
-                                        @Override
-```
-
-### Deprecation
-'java.util.Observable' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageController.java`
-#### Snippet
-```java
-
-    @Override
-    public void update(final Observable o, final Object arg) {
-        if (arg == null || arg.equals(LoginPageModel.PROP_CONNECTED)) {
-            page.setLoginShowing(!pageModel.isConnected());
+            // either none or multiple repositories were found
+            // try to find repository for project root
+            repo = repositoryManager.getRepositoryForFile(project.getBaseDir());
+        }
+        return repo;
 ```
 
 ### Deprecation
@@ -2788,6 +2776,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
         sortedRemoteBranches.addAll(Collections2.filter(getInfo().getRemoteBranches(),
                 remoteBranch -> {
                     /* two conditions:
+```
+
+### Deprecation
+'git4idea.util.GitCommitCompareInfo' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+    private GitChangesContainer localBranchChanges;
+
+    private final LoadingCache<Pair<String, String>, GitCommitCompareInfo> diffCache;
+
+    /* Executor service for running diff calculating Futures */
 ```
 
 ### Deprecation
@@ -2812,78 +2812,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
             VcsNotifier.getInstance(project).notifyError(title, "");
         }
     }
-```
-
-### Deprecation
-'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-
-        try {
-            GitCommitCompareInfo changes
-                    = this.diffCache.get(new Pair<String, String>(currBranchHash, remoteBranchHash));
-
-```
-
-### Deprecation
-'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-        this.diffCache = CacheBuilder.newBuilder().maximumSize(20)
-                .build(
-                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
-                            @Override
-                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
-```
-
-### Deprecation
-'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-    private GitChangesContainer localBranchChanges;
-
-    private final LoadingCache<Pair<String, String>, GitCommitCompareInfo> diffCache;
-
-    /* Executor service for running diff calculating Futures */
-```
-
-### Deprecation
-'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
-                            @Override
-                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
-                                // if we missed the cache, then show the loading spinner, otherwise
-                                // just switch to the diff we have to avoid flickering the screen
-```
-
-### Deprecation
-'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-                                setLoading(false);
-
-                                final GitCommitCompareInfo compareInfo = changesContainer.getGitCommitCompareInfo();
-                                if (compareInfo != null) {
-                                    List<GitCommit> commits
-```
-
-### Deprecation
-'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-
-    private void notifySuccess(final Project project, final String title, final String message) {
-        VcsNotifier.getInstance(project).notifyImportantInfo(title, message, new NotificationListener() {
-            @Override
-            public void hyperlinkUpdate(@NotNull final Notification n, @NotNull final HyperlinkEvent e) {
 ```
 
 ### Deprecation
@@ -2912,38 +2840,86 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 
 ### Deprecation
 'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
 ```java
+                                setLoading(false);
 
-    private JComponent createCommitsListPane(final Project project, final GitRepository gitRepository,
-                                             final GitCommitCompareInfo compareInfo) {
-        return new GitCommitListWithDiffPanel(project, compareInfo.getBranchToHeadCommits(gitRepository));
-    }
+                                final GitCommitCompareInfo compareInfo = changesContainer.getGitCommitCompareInfo();
+                                if (compareInfo != null) {
+                                    List<GitCommit> commits
 ```
 
 ### Deprecation
 'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
 ```java
-                                              @NotNull final String sourceBranchBeingCompared,
-                                              @NotNull final String targetBranchBeingCompared,
-                                              @NotNull final GitCommitCompareInfo myCompareInfo) {
-        final GitRemoteBranch gitRemoteBranch = this.getSelectedRemoteBranch();
-        final String currBranch = this.sourceBranch.getText();
+
+        try {
+            GitCommitCompareInfo changes
+                    = this.diffCache.get(new Pair<String, String>(currBranchHash, remoteBranchHash));
+
+```
+
+### Deprecation
+'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+
+    private void notifySuccess(final Project project, final String title, final String message) {
+        VcsNotifier.getInstance(project).notifyImportantInfo(title, message, new NotificationListener() {
+            @Override
+            public void hyperlinkUpdate(@NotNull final Notification n, @NotNull final HyperlinkEvent e) {
 ```
 
 ### Deprecation
 'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
 ```java
-    }
+                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
+                            @Override
+                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
+                                // if we missed the cache, then show the loading spinner, otherwise
+                                // just switch to the diff we have to avoid flickering the screen
+```
 
-    private JComponent createDiffPaneBrowser(final Project project, final GitCommitCompareInfo compareInfo) {
-        List<Change> diff = compareInfo.getTotalDiff();
-        final SimpleChangesBrowser changesBrowser = new  SimpleChangesBrowser(project,diff);
+### Deprecation
+'git4idea.util.GitCommitCompareInfo' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+        this.diffCache = CacheBuilder.newBuilder().maximumSize(20)
+                .build(
+                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
+                            @Override
+                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
+```
+
+### Deprecation
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+
+                    if (context == null) {
+                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(
+                                        TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_AUTHENTICATION_FAILED_TITLE),
+                                TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
+```
+
+### Deprecation
+Overrides deprecated method in 'com.intellij.openapi.progress.ProgressIndicator'
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+
+            @Override
+            public void finishNonCancelableSection() {
+            }
+
 ```
 
 ### Deprecation
@@ -3037,7 +3013,7 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.jav
 ```java
 
             @Override
-            public void finishNonCancelableSection() {
+            public void startNonCancelableSection() {
             }
 
 ```
@@ -3055,27 +3031,51 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.jav
 ```
 
 ### Deprecation
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+'setHyperlinkText(java.lang.@com.intellij.openapi.util.NlsContexts.LinkLabel String, java.lang.@com.intellij.openapi.util.NlsContexts.LinkLabel String, java.lang.@com.intellij.openapi.util.NlsContexts.LinkLabel String)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/settings/ProjectConfigurableForm.java`
 #### Snippet
 ```java
-
-                    if (context == null) {
-                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(
-                                        TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_AUTHENTICATION_FAILED_TITLE),
-                                TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
+        noteLabel.setVisible(false);
+        downloadLinkPane.setVisible(false);
+        downloadLink.setHyperlinkText(
+                TfPluginBundle.message(TfPluginBundle.KEY_TFVC_SETTINGS_LINK_LABEL),
+                TfPluginBundle.message(TfPluginBundle.KEY_TFVC_SETTINGS_LINK_TEXT), "");
 ```
 
 ### Deprecation
-Overrides deprecated method in 'com.intellij.openapi.progress.ProgressIndicator'
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+'git4idea.util.GitCommitCompareInfo' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
 #### Snippet
 ```java
 
-            @Override
-            public void startNonCancelableSection() {
-            }
+    private JComponent createCommitsListPane(final Project project, final GitRepository gitRepository,
+                                             final GitCommitCompareInfo compareInfo) {
+        return new GitCommitListWithDiffPanel(project, compareInfo.getBranchToHeadCommits(gitRepository));
+    }
+```
 
+### Deprecation
+'git4idea.util.GitCommitCompareInfo' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+#### Snippet
+```java
+    }
+
+    private JComponent createDiffPaneBrowser(final Project project, final GitCommitCompareInfo compareInfo) {
+        List<Change> diff = compareInfo.getTotalDiff();
+        final SimpleChangesBrowser changesBrowser = new  SimpleChangesBrowser(project,diff);
+```
+
+### Deprecation
+'git4idea.util.GitCommitCompareInfo' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+#### Snippet
+```java
+                                              @NotNull final String sourceBranchBeingCompared,
+                                              @NotNull final String targetBranchBeingCompared,
+                                              @NotNull final GitCommitCompareInfo myCompareInfo) {
+        final GitRemoteBranch gitRemoteBranch = this.getSelectedRemoteBranch();
+        final String currBranch = this.sourceBranch.getText();
 ```
 
 ### Deprecation
@@ -3088,18 +3088,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/resources/Icons.java`
         return IconLoader.getIcon(path);
     }
 
-```
-
-### Deprecation
-'setHyperlinkText(java.lang.@com.intellij.openapi.util.NlsContexts.LinkLabel String, java.lang.@com.intellij.openapi.util.NlsContexts.LinkLabel String, java.lang.@com.intellij.openapi.util.NlsContexts.LinkLabel String)' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/settings/ProjectConfigurableForm.java`
-#### Snippet
-```java
-        noteLabel.setVisible(false);
-        downloadLinkPane.setVisible(false);
-        downloadLink.setHyperlinkText(
-                TfPluginBundle.message(TfPluginBundle.KEY_TFVC_SETTINGS_LINK_LABEL),
-                TfPluginBundle.message(TfPluginBundle.KEY_TFVC_SETTINGS_LINK_TEXT), "");
 ```
 
 ### Deprecation
@@ -3124,6 +3112,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/BuildWidget.java`
     public WidgetPresentation getPresentation(@NotNull final PlatformType type) {
         // This class implements the WidgetPresentation needed here
         return this;
+```
+
+### Deprecation
+'message(java.util.@org.jetbrains.annotations.NotNull ResourceBundle, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.Object @org.jetbrains.annotations.NotNull ...)' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/resources/TfPluginBundle.java`
+#### Snippet
+```java
+    public static String message(@NotNull @PropertyKey(resourceBundle = BUNDLE_NAME) String key,
+                                 @NotNull Object... params) {
+        return CommonBundle.message(getBundle(), key, params);
+    }
+
 ```
 
 ### Deprecation
@@ -3175,6 +3175,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/ServerBrowserDia
 ```
 
 ### Deprecation
+'com.intellij.util.containers.HashMap' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
+#### Snippet
+```java
+     */
+    protected void cacheIdeLocation(final File vstsDirectory, final String currentLocation) {
+        final Map<String, String> locationEntries = new HashMap<String, String>();
+        final File locationsFile = new File(vstsDirectory, LOCATION_FILE);
+        final String ideName = ApplicationNamesInfo.getInstance().getProductName().toLowerCase();
+```
+
+### Deprecation
+'com.intellij.openapi.components.ApplicationComponent' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
+#### Snippet
+```java
+ * Initializes and configures plugin at startup
+ */
+public class ApplicationStartup implements ApplicationComponent {
+    private static final Logger logger = LoggerFactory.getLogger(ApplicationStartup.class);
+    private static final String CLASS_EXTENSION = ".class";
+```
+
+### Deprecation
 Overrides deprecated method in 'com.intellij.openapi.components.BaseComponent'
 in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
 #### Snippet
@@ -3199,27 +3223,51 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.jav
 ```
 
 ### Deprecation
-'com.intellij.util.containers.HashMap' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
+'git4idea.util.GitCommitCompareInfo' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
 #### Snippet
 ```java
-     */
-    protected void cacheIdeLocation(final File vstsDirectory, final String currentLocation) {
-        final Map<String, String> locationEntries = new HashMap<String, String>();
-        final File locationsFile = new File(vstsDirectory, LOCATION_FILE);
-        final String ideName = ApplicationNamesInfo.getInstance().getProductName().toLowerCase();
+    }
+
+    private GitCommitCompareInfo getCompareInfo(final Project project, final GitRepository gitRepository,
+                                                final String source, final String target)
+            throws VcsException {
 ```
 
 ### Deprecation
-'com.intellij.openapi.components.ApplicationComponent' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
+'git4idea.util.GitCommitCompareInfo' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
 #### Snippet
 ```java
- * Initializes and configures plugin at startup
- */
-public class ApplicationStartup implements ApplicationComponent {
-    private static final Logger logger = LoggerFactory.getLogger(ApplicationStartup.class);
-    private static final String CLASS_EXTENSION = ".class";
+
+        final Collection<Change> diff = getUtilWrapper().getDiff(project, root, target, source);
+        final GitCommitCompareInfo info = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+
+        info.put(gitRepository, diff);
+```
+
+### Deprecation
+'git4idea.util.GitCommitCompareInfo' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+
+        final Collection<Change> diff = getUtilWrapper().getDiff(project, root, target, source);
+        final GitCommitCompareInfo info = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+
+        info.put(gitRepository, diff);
+```
+
+### Deprecation
+'git4idea.util.GitCommitCompareInfo' is deprecated
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+
+        final Collection<Change> diff = getUtilWrapper().getDiff(project, root, target, source);
+        final GitCommitCompareInfo info = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+
+        info.put(gitRepository, diff);
 ```
 
 ### Deprecation
@@ -3277,54 +3325,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoP
 ```java
     }
 
-    private GitCommitCompareInfo getCompareInfo(final Project project, final GitRepository gitRepository,
-                                                final String source, final String target)
-            throws VcsException {
-```
-
-### Deprecation
-'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-
-        final Collection<Change> diff = getUtilWrapper().getDiff(project, root, target, source);
-        final GitCommitCompareInfo info = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-
-        info.put(gitRepository, diff);
-```
-
-### Deprecation
-'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-
-        final Collection<Change> diff = getUtilWrapper().getDiff(project, root, target, source);
-        final GitCommitCompareInfo info = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-
-        info.put(gitRepository, diff);
-```
-
-### Deprecation
-'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-
-        final Collection<Change> diff = getUtilWrapper().getDiff(project, root, target, source);
-        final GitCommitCompareInfo info = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-
-        info.put(gitRepository, diff);
-```
-
-### Deprecation
-'git4idea.util.GitCommitCompareInfo' is deprecated
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-    }
-
     public GitCommitCompareInfo getBranchCompareInfo(final Project project, final GitRepository gitRepository,
                                                      final String source, final String target)
             throws VcsException {
@@ -3360,30 +3360,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/starters/SimpleCheckoutStarter.
 in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 #### Snippet
 ```java
-     * (file/folder), false if not.
-     */
-    public final static boolean isValidPathCharacter(final char c) {
-        final char[] invalidCharacters = {
-                '"',
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
-#### Snippet
-```java
-     * @throws ServerPathFormatException when the path cannot be cleaned up.
-     */
-    public final static String canonicalize(String serverPath, boolean checkForIllegalDollar) throws ServerPathFormatException {
-        ArgumentHelper.checkNotNull(serverPath, "serverPath");
-
-```
-
-### FinalStaticMethod
-'static' method declared `final`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
-#### Snippet
-```java
      * @return Stripped {@link StringBuilder} (may be empty)
      */
     private final static StringBuilder cleanupComponent(final StringBuilder s) {
@@ -3408,21 +3384,33 @@ in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 #### Snippet
 ```java
-     * @return true if possibleChild is a child of parentPath.
+     * (file/folder), false if not.
      */
-    public final static boolean isChild(String parentPath, String possibleChild, boolean checkForIllegalDollar) throws ServerPathFormatException {
-        ArgumentHelper.checkNotNull(parentPath, "parentPath");
-        ArgumentHelper.checkNotNull(possibleChild, "possibleChild");
+    public final static boolean isValidPathCharacter(final char c) {
+        final char[] invalidCharacters = {
+                '"',
 ```
 
 ### FinalStaticMethod
 'static' method declared `final`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 #### Snippet
 ```java
-     * (including I/O errors accessing either path).
+     * @throws ServerPathFormatException when the path cannot be cleaned up.
      */
-    public final static boolean isChild(final String parentPath, final String possibleChild) {
+    public final static String canonicalize(String serverPath, boolean checkForIllegalDollar) throws ServerPathFormatException {
+        ArgumentHelper.checkNotNull(serverPath, "serverPath");
+
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
+#### Snippet
+```java
+     * @return true if possibleChild is a child of parentPath.
+     */
+    public final static boolean isChild(String parentPath, String possibleChild, boolean checkForIllegalDollar) throws ServerPathFormatException {
         ArgumentHelper.checkNotNull(parentPath, "parentPath");
         ArgumentHelper.checkNotNull(possibleChild, "possibleChild");
 ```
@@ -3437,6 +3425,18 @@ in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
     public final static String combine(final String parent, final String relative) {
         ArgumentHelper.checkNotNull(parent, "parent");
         ArgumentHelper.checkNotNull(relative, "relative");
+```
+
+### FinalStaticMethod
+'static' method declared `final`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/LocalPath.java`
+#### Snippet
+```java
+     * (including I/O errors accessing either path).
+     */
+    public final static boolean isChild(final String parentPath, final String possibleChild) {
+        ArgumentHelper.checkNotNull(parentPath, "parentPath");
+        ArgumentHelper.checkNotNull(possibleChild, "possibleChild");
 ```
 
 ## RuleId[id=SimplifiableConditionalExpression]
@@ -3759,6 +3759,18 @@ Not annotated parameter overrides @NotNull parameter
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.java`
 #### Snippet
 ```java
+        return new TfsTreeBuilder(tree, treeModel, new SimpleTreeStructure.Impl(root) {
+            @Override
+            public boolean isToBuildChildrenInBackground(Object element) {
+                return true;
+            }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.java`
+#### Snippet
+```java
 
             @Override
             public boolean isAlwaysLeaf(Object element) {
@@ -3768,13 +3780,37 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.j
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeBuilder.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
 #### Snippet
 ```java
-        return new TfsTreeBuilder(tree, treeModel, new SimpleTreeStructure.Impl(root) {
+
+    @Override
+    public Object getData(@NonNls final String dataId) {
+        if (KEY.is(dataId)) {
+            return this;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeProvider.java`
+#### Snippet
+```java
+    }
+
+    public void doCleanup(final List<VirtualFile> files) {
+    }
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
+#### Snippet
+```java
+                TfPluginBundle.message(refreshTooltip), AllIcons.Actions.Refresh) {
             @Override
-            public boolean isToBuildChildrenInBackground(Object element) {
-                return true;
+            public void actionPerformed(AnActionEvent anActionEvent) {
+                listenerContainer.triggerEvent(this, CMD_REFRESH);
             }
 ```
 
@@ -3792,50 +3828,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.j
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
-#### Snippet
-```java
-                TfPluginBundle.message(refreshTooltip), AllIcons.Actions.Refresh) {
-            @Override
-            public void actionPerformed(AnActionEvent anActionEvent) {
-                listenerContainer.triggerEvent(this, CMD_REFRESH);
-            }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeProvider.java`
-#### Snippet
-```java
-    }
-
-    public void doCleanup(final List<VirtualFile> files) {
-    }
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
-#### Snippet
-```java
-
-    @Override
-    public Object getData(@NonNls final String dataId) {
-        if (KEY.is(dataId)) {
-            return this;
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ToolbarToggleButton.java`
 #### Snippet
 ```java
 
     @Override
-    public boolean isSelected(final AnActionEvent e) {
-        return checked;
-    }
+    public void setSelected(final AnActionEvent e, final boolean state) {
+        if (checked != state) {
+            checked = state;
 ```
 
 ### NullableProblems
@@ -3881,9 +3881,9 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ToolbarToggleButto
 ```java
 
     @Override
-    public void setSelected(final AnActionEvent e, final boolean state) {
-        if (checked != state) {
-            checked = state;
+    public boolean isSelected(final AnActionEvent e) {
+        return checked;
+    }
 ```
 
 ### NullableProblems
@@ -3927,35 +3927,11 @@ Not annotated parameter overrides @NotNull parameter
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
 #### Snippet
 ```java
-    @Nullable
-    public List<VcsException> commit(List<? extends Change> changes,
-                                     String preparedComment,
-                                     @NotNull NullableFunction<Object, Object> parametersHolder,
-                                     Set<? super String> feedback) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
-#### Snippet
-```java
-                                     String preparedComment,
-                                     @NotNull NullableFunction<Object, Object> parametersHolder,
-                                     Set<? super String> feedback) {
-        final List<VcsException> errors = new ArrayList<>();
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
-#### Snippet
-```java
 
     @Nullable
-    public String getDefaultMessageFor(final FilePath[] filesToCheckin) {
-        return null;
-    }
+    public List<VcsException> scheduleUnversionedFilesForAddition(final List<? extends VirtualFile> files) {
+        final List<VcsException> exceptions = new ArrayList<>();
+        try {
 ```
 
 ### NullableProblems
@@ -4011,11 +3987,35 @@ Not annotated parameter overrides @NotNull parameter
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
 #### Snippet
 ```java
+    @Nullable
+    public List<VcsException> commit(List<? extends Change> changes,
+                                     String preparedComment,
+                                     @NotNull NullableFunction<Object, Object> parametersHolder,
+                                     Set<? super String> feedback) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
+#### Snippet
+```java
+                                     String preparedComment,
+                                     @NotNull NullableFunction<Object, Object> parametersHolder,
+                                     Set<? super String> feedback) {
+        final List<VcsException> errors = new ArrayList<>();
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCheckinEnvironment.java`
+#### Snippet
+```java
 
     @Nullable
-    public List<VcsException> scheduleUnversionedFilesForAddition(final List<? extends VirtualFile> files) {
-        final List<VcsException> exceptions = new ArrayList<>();
-        try {
+    public String getDefaultMessageFor(final FilePath[] filesToCheckin) {
+        return null;
+    }
 ```
 
 ### NullableProblems
@@ -4043,66 +4043,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/settings/TeamServicesSett
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileSystemListener.java`
-#### Snippet
-```java
-
-    @Override
-    public boolean rename(final VirtualFile virtualFile, final String s) throws IOException {
-        ourLogger.info(String.format("Renaming file %s to %s", virtualFile.getName(), s));
-        return renameOrMove(virtualFile, Path.combine(virtualFile.getParent().getPath(), s));
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileSystemListener.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public File copy(final VirtualFile virtualFile, final VirtualFile virtualFile1, final String s) {
-        return null;
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileSystemListener.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public File copy(final VirtualFile virtualFile, final VirtualFile virtualFile1, final String s) {
-        return null;
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileSystemListener.java`
-#### Snippet
-```java
-    @Nullable
-    @Override
-    public File copy(final VirtualFile virtualFile, final VirtualFile virtualFile1, final String s) {
-        return null;
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileSystemListener.java`
-#### Snippet
-```java
-
-    @Override
-    public void afterDone(final ThrowableConsumer<LocalFileOperationsHandler, IOException> throwableConsumer) {
-        // nothing to do
-    }
-```
-
-### NullableProblems
 Primitive type members cannot be annotated
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentRevision.java`
 #### Snippet
@@ -4119,6 +4059,18 @@ Primitive type members cannot be annotated
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentRevision.java`
 #### Snippet
 ```java
+    private final Project project;
+
+    @Nullable
+    private byte[] myContent;
+
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentRevision.java`
+#### Snippet
+```java
     }
 
     @Nullable
@@ -4127,15 +4079,63 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentRevisi
 ```
 
 ### NullableProblems
-Primitive type members cannot be annotated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentRevision.java`
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileSystemListener.java`
 #### Snippet
 ```java
-    private final Project project;
 
+    @Override
+    public boolean rename(final VirtualFile virtualFile, final String s) throws IOException {
+        ourLogger.info(String.format("Renaming file %s to %s", virtualFile.getName(), s));
+        return renameOrMove(virtualFile, Path.combine(virtualFile.getParent().getPath(), s));
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileSystemListener.java`
+#### Snippet
+```java
+
+    @Override
+    public void afterDone(final ThrowableConsumer<LocalFileOperationsHandler, IOException> throwableConsumer) {
+        // nothing to do
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileSystemListener.java`
+#### Snippet
+```java
     @Nullable
-    private byte[] myContent;
+    @Override
+    public File copy(final VirtualFile virtualFile, final VirtualFile virtualFile1, final String s) {
+        return null;
+    }
+```
 
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileSystemListener.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public File copy(final VirtualFile virtualFile, final VirtualFile virtualFile1, final String s) {
+        return null;
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileSystemListener.java`
+#### Snippet
+```java
+    @Nullable
+    @Override
+    public File copy(final VirtualFile virtualFile, final VirtualFile virtualFile1, final String s) {
+        return null;
+    }
 ```
 
 ### NullableProblems
@@ -4175,18 +4175,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeNode.java
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeNode.java`
-#### Snippet
-```java
-    @NotNull
-    @Override
-    public Object[] getEqualityObjects() {
-        return new Object[]{path};
-    }
-```
-
-### NullableProblems
 Not annotated parameter overrides @NotNull parameter
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeNode.java`
 #### Snippet
@@ -4196,6 +4184,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeNode.java
     protected void update(final PresentationData presentation) {
         if (isRoot()) {
             //noinspection ConstantConditions
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeNode.java`
+#### Snippet
+```java
+    @NotNull
+    @Override
+    public Object[] getEqualityObjects() {
+        return new Object[]{path};
+    }
 ```
 
 ### NullableProblems
@@ -4253,6 +4253,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ProjectRepoEventManage
 ```java
 
         @Override
+        public void projectClosed(final Project project) {
+            // nothing to do here
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ProjectRepoEventManager.java`
+#### Snippet
+```java
+
+        @Override
         public boolean canCloseProject(final Project project) {
             return true;
         }
@@ -4267,18 +4279,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ProjectRepoEventManage
         @Override
         public void projectClosing(final Project project) {
             ProjectRepoEventManager.getInstance().triggerServerEvents(EventContextHelper.SENDER_PROJECT_CLOSING, project, null);
-        }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ProjectRepoEventManager.java`
-#### Snippet
-```java
-
-        @Override
-        public void projectClosed(final Project project) {
-            // nothing to do here
         }
 ```
 
@@ -4403,14 +4403,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsRevisionNumber.jav
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/FormattedTable.java`
 #### Snippet
 ```java
-                }
 
-                public void onFailure(final Throwable thrown) {
-                    logger.warn("onFailure in loadDiff", thrown);
+    @Override
+    public void setModel(final TableModel model) {
+        super.setModel(model);
 
 ```
 
@@ -4431,23 +4431,23 @@ Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
 ```java
+                }
+
+                public void onFailure(final Throwable thrown) {
+                    logger.warn("onFailure in loadDiff", thrown);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @ParametersAreNonnullByDefault parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
                         new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
                             @Override
                             public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
                                 // if we missed the cache, then show the loading spinner, otherwise
                                 // just switch to the diff we have to avoid flickering the screen
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/FormattedTable.java`
-#### Snippet
-```java
-
-    @Override
-    public void setModel(final TableModel model) {
-        super.setModel(model);
-
 ```
 
 ### NullableProblems
@@ -4475,18 +4475,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/ServerStatus.java`
 ```
 
 ### NullableProblems
-Primitive type members cannot be annotated
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TfsFileRevision.java`
-#### Snippet
-```java
-    }
-
-    @Nullable
-    @Override
-    public byte[] getContent() throws IOException, VcsException {
-```
-
-### NullableProblems
 Not annotated method overrides method annotated with @NotNull
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TfsFileRevision.java`
 #### Snippet
@@ -4499,51 +4487,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TfsFileRevision.
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
-#### Snippet
-```java
-
-    @Override
-    public RepositoryLocation getForNonLocal(VirtualFile file) {
-        return null;
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
+Primitive type members cannot be annotated
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TfsFileRevision.java`
 #### Snippet
 ```java
     }
-
-    public void writeChangeList(final DataOutput stream, final TFSChangeList list) throws IOException {
-        list.writeToStream(stream);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
-#### Snippet
-```java
 
     @Nullable
-    public VcsCommittedViewAuxiliary createActions(final DecoratorManager manager, final RepositoryLocation location) {
-        return null;
-    }
+    @Override
+    public byte[] getContent() throws IOException, VcsException {
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NotNull
+Not annotated parameter overrides @NotNull parameter
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
 #### Snippet
 ```java
     }
 
-    public ChangeListColumn<?>[] getColumns() {
-        return new ChangeListColumn<?>[]{new ChangeListColumn.ChangeListNumberColumn(
-                TfPluginBundle.message(TfPluginBundle.KEY_TFVC_REPOSITORY_VIEW_COLUMN_REVISION)), ChangeListColumn.NAME,
+    public Collection<FilePath> getIncomingFiles(final RepositoryLocation location) {
+        return null;
+    }
 ```
 
 ### NullableProblems
@@ -4599,47 +4563,11 @@ Not annotated method overrides method annotated with @NotNull
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
 #### Snippet
 ```java
-    }
 
-    public TFSChangeList readChangeList(final RepositoryLocation location, final DataInput stream) {
-        return new TFSChangeList(vcs, stream);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
-#### Snippet
-```java
-    }
-
-    public TFSChangeList readChangeList(final RepositoryLocation location, final DataInput stream) {
-        return new TFSChangeList(vcs, stream);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
-#### Snippet
-```java
-    }
-
-    public TFSChangeList readChangeList(final RepositoryLocation location, final DataInput stream) {
-        return new TFSChangeList(vcs, stream);
-    }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
-#### Snippet
-```java
     @Override
-    @Nullable
-    public RepositoryLocation getLocationFor(final FilePath root) {
-        if (!TFVCUtil.isFileUnderTFVCMapping(project, root)) {
-            return null;
+    public List<TFSChangeList> getCommittedChanges(final ChangeBrowserSettings settings,
+                                                   final RepositoryLocation location,
+                                                   final int maxCount) {
 ```
 
 ### NullableProblems
@@ -4647,9 +4575,9 @@ Not annotated parameter overrides @NotNull parameter
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
 #### Snippet
 ```java
-    }
 
-    public Collection<FilePath> getIncomingFiles(final RepositoryLocation location) {
+    @Override
+    public RepositoryLocation getForNonLocal(VirtualFile file) {
         return null;
     }
 ```
@@ -4659,11 +4587,35 @@ Not annotated method overrides method annotated with @NotNull
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
 #### Snippet
 ```java
+    }
 
-    @Override
-    public List<TFSChangeList> getCommittedChanges(final ChangeBrowserSettings settings,
-                                                   final RepositoryLocation location,
-                                                   final int maxCount) {
+    public TFSChangeList readChangeList(final RepositoryLocation location, final DataInput stream) {
+        return new TFSChangeList(vcs, stream);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
+#### Snippet
+```java
+    }
+
+    public TFSChangeList readChangeList(final RepositoryLocation location, final DataInput stream) {
+        return new TFSChangeList(vcs, stream);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
+#### Snippet
+```java
+    }
+
+    public TFSChangeList readChangeList(final RepositoryLocation location, final DataInput stream) {
+        return new TFSChangeList(vcs, stream);
+    }
 ```
 
 ### NullableProblems
@@ -4688,6 +4640,66 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvid
                                      final AsynchConsumer<? super CommittedChangeList> consumer) {
         // TODO: (JetBrains) if revision and date filters are both set, which one should have priority?
         VersionSpec versionFrom = VersionSpec.create(1);
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
+#### Snippet
+```java
+    }
+
+    public ChangeListColumn<?>[] getColumns() {
+        return new ChangeListColumn<?>[]{new ChangeListColumn.ChangeListNumberColumn(
+                TfPluginBundle.message(TfPluginBundle.KEY_TFVC_REPOSITORY_VIEW_COLUMN_REVISION)), ChangeListColumn.NAME,
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
+#### Snippet
+```java
+    }
+
+    public void writeChangeList(final DataOutput stream, final TFSChangeList list) throws IOException {
+        list.writeToStream(stream);
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
+#### Snippet
+```java
+
+    @Nullable
+    public VcsCommittedViewAuxiliary createActions(final DecoratorManager manager, final RepositoryLocation location) {
+        return null;
+    }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
+#### Snippet
+```java
+    @Override
+    @Nullable
+    public RepositoryLocation getLocationFor(final FilePath root) {
+        if (!TFVCUtil.isFileUnderTFVCMapping(project, root)) {
+            return null;
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/TFSVersionFilterComponent.java`
+#### Snippet
+```java
+    }
+
+    protected void initValues(final ChangeBrowserSettings settings) {
+        super.initValues(settings);
+        useAuthorFilter.setSelected(settings.USE_USER_FILTER);
 ```
 
 ### NullableProblems
@@ -4724,18 +4736,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/TFSVersionFilterComponent.j
     protected void installCheckBoxListener(final ActionListener filterListener) {
         super.installCheckBoxListener(filterListener);
         useAuthorFilter.addActionListener(filterListener);
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/TFSVersionFilterComponent.java`
-#### Snippet
-```java
-    }
-
-    protected void initValues(final ChangeBrowserSettings settings) {
-        super.initValues(settings);
-        useAuthorFilter.setSelected(settings.USE_USER_FILTER);
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
@@ -4922,18 +4922,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/MergeNameDialog.jav
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
-#### Snippet
-```java
-    private JPanel changesToMergePanel;
-    private final Project project;
-    private final ServerContext serverContext;
-    //private final SelectRevisionForm mySelectRevisionForm;
-    //private final JTable myChangesetsTable;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
 in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
 #### Snippet
 ```java
@@ -4954,6 +4942,18 @@ in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
     private final String TFS2015_NEW_SERVICE = "distributedtask";
 
     private Map<String, ServerContext> contextMap = new HashMap<String, ServerContext>();
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
+#### Snippet
+```java
+    private JPanel changesToMergePanel;
+    private final Project project;
+    private final ServerContext serverContext;
+    //private final SelectRevisionForm mySelectRevisionForm;
+    //private final JTable myChangesetsTable;
 ```
 
 ### FieldCanBeLocal
@@ -4997,11 +4997,11 @@ Field can be converted to a local variable
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LoginPageImpl.java`
 #### Snippet
 ```java
+
 public class LoginPageImpl extends JPanel implements LoginPage {
     private final String DATA_FORM = "dataForm";
     private final String LOGIN_FORM = "loginForm";
     private final BasicForm dataForm;
-    private final LoginForm loginForm;
 ```
 
 ### FieldCanBeLocal
@@ -5009,11 +5009,11 @@ Field can be converted to a local variable
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/LoginPageImpl.java`
 #### Snippet
 ```java
-
 public class LoginPageImpl extends JPanel implements LoginPage {
     private final String DATA_FORM = "dataForm";
     private final String LOGIN_FORM = "loginForm";
     private final BasicForm dataForm;
+    private final LoginForm loginForm;
 ```
 
 ### FieldCanBeLocal
@@ -5066,18 +5066,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/IdeaHelper.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdir()` is ignored
-in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
-#### Snippet
-```java
-        final File vstsDirectory = new File(parent, VSTS_DIR);
-        if (!vstsDirectory.exists()) {
-            vstsDirectory.mkdir();
-        }
-        return vstsDirectory;
-```
-
-### IgnoreResultOfCall
 Result of `File.createNewFile()` is ignored
 in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
 #### Snippet
@@ -5089,19 +5077,19 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.jav
                 String line;
 ```
 
-## RuleId[id=RedundantMethodOverride]
-### RedundantMethodOverride
-Method `onAfterBatch()` is identical to its super method
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSRepositoryLocation.java`
+### IgnoreResultOfCall
+Result of `File.mkdir()` is ignored
+in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
 #### Snippet
 ```java
-
-    @Override
-    public void onAfterBatch() {
-    }
-
+        final File vstsDirectory = new File(parent, VSTS_DIR);
+        if (!vstsDirectory.exists()) {
+            vstsDirectory.mkdir();
+        }
+        return vstsDirectory;
 ```
 
+## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
 Method `onBeforeBatch()` is identical to its super method
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSRepositoryLocation.java`
@@ -5110,6 +5098,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSRepositoryLocation.jav
 
     @Override
     public void onBeforeBatch() throws VcsException {
+    }
+
+```
+
+### RedundantMethodOverride
+Method `onAfterBatch()` is identical to its super method
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSRepositoryLocation.java`
+#### Snippet
+```java
+
+    @Override
+    public void onAfterBatch() {
     }
 
 ```
@@ -5163,14 +5163,14 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckou
 ```
 
 ### RedundantMethodOverride
-Method `isMaxCountSupported()` is identical to its super method
+Method `getZipper()` is identical to its super method
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
 #### Snippet
 ```java
-    }
 
-    public boolean isMaxCountSupported() {
-        return true;
+    @Nullable
+    public VcsCommittedListsZipper getZipper() {
+        return null;
     }
 ```
 
@@ -5187,6 +5187,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvid
 ```
 
 ### RedundantMethodOverride
+Method `isMaxCountSupported()` is identical to its super method
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
+#### Snippet
+```java
+    }
+
+    public boolean isMaxCountSupported() {
+        return true;
+    }
+```
+
+### RedundantMethodOverride
 Method `refreshCacheByNumber()` is identical to its super method
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
 #### Snippet
@@ -5195,18 +5207,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvid
 
     public boolean refreshCacheByNumber() {
         return true;
-    }
-```
-
-### RedundantMethodOverride
-Method `getZipper()` is identical to its super method
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSCommittedChangesProvider.java`
-#### Snippet
-```java
-
-    @Nullable
-    public VcsCommittedListsZipper getZipper() {
-        return null;
     }
 ```
 
@@ -5228,10 +5228,10 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
 #### Snippet
 ```java
-}
+import com.microsoft.tfs.core.clients.versioncontrol.events.VersionControlEventEngine
 
-fun VersionControlEventEngine.withNewPendingChangeListener(
-    listener: NewPendingChangeListener,
+fun VersionControlEventEngine.withUndonePendingChangeListener(
+    listener: UndonePendingChangeListener,
     action: () -> Unit) {
 ```
 
@@ -5240,10 +5240,10 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
 #### Snippet
 ```java
-import com.microsoft.tfs.core.clients.versioncontrol.events.VersionControlEventEngine
+}
 
-fun VersionControlEventEngine.withUndonePendingChangeListener(
-    listener: UndonePendingChangeListener,
+fun VersionControlEventEngine.withNewPendingChangeListener(
+    listener: NewPendingChangeListener,
     action: () -> Unit) {
 ```
 
@@ -5264,18 +5264,6 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-    get() = if (itemType == ItemType.FILE) encodingName else null
-
-private val ExtendedItem.lockStatus
-    get() = lockLevel.toUIString()
-
-```
-
-### UnusedReceiverParameter
-Receiver parameter is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
     get() = itemType.toUIString()
 
 private val ExtendedItem.checkinDateString
@@ -5288,10 +5276,10 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-        else pendingChange.toUIString(false, this)
+    get() = if (itemType == ItemType.FILE) encodingName else null
 
-private val ExtendedItem.itemTypeName
-    get() = itemType.toUIString()
+private val ExtendedItem.lockStatus
+    get() = lockLevel.toUIString()
 
 ```
 
@@ -5300,11 +5288,23 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-    get() = checkinDate?.time?.let(isoDateFormat::format)
+    )
 
-private val ExtendedItem.encodingName
-    get() =
-        if (encoding == FileEncoding(VersionControlConstants.ENCODING_UNCHANGED)) null
+fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
+    TfsExtendedItemInfo(
+        lockStatus,
+```
+
+### UnusedReceiverParameter
+Receiver parameter is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+}
+
+fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
+    ItemSpec(toCanonicalPathString(), recursionType)
+
 ```
 
 ### UnusedReceiverParameter
@@ -5336,11 +5336,11 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-}
+    get() = checkinDate?.time?.let(isoDateFormat::format)
 
-fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
-    ItemSpec(toCanonicalPathString(), recursionType)
-
+private val ExtendedItem.encodingName
+    get() =
+        if (encoding == FileEncoding(VersionControlConstants.ENCODING_UNCHANGED)) null
 ```
 
 ### UnusedReceiverParameter
@@ -5348,11 +5348,11 @@ Receiver parameter is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-    )
+        else pendingChange.toUIString(false, this)
 
-fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
-    TfsExtendedItemInfo(
-        lockStatus,
+private val ExtendedItem.itemTypeName
+    get() = itemType.toUIString()
+
 ```
 
 ### UnusedReceiverParameter
@@ -5505,6 +5505,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
 ```
 
 ### ConstantValue
+Condition `context != null` is always `false` when reached
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+                !StringUtils.equalsIgnoreCase(context.getTeamProjectReference().getName(), teamProjectName)) {
+            context = null;
+            logger.info("createContextFromTfvcServerUrl context fully populated: " + (context != null));
+        }
+
+```
+
+### ConstantValue
+Value `prompt` is always 'true'
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+                        logger.info("createContextFromTfvcServerUrl: refreshing creds");
+                        updateAuthenticationInfo(tfvcServerUrlString);
+                        final AuthenticationInfo authenticationInfoRefreshed = getAuthenticationInfo(tfvcServerUrl, prompt);
+                        final ServerContext contextToValidateRefreshed = new ServerContextBuilder()
+                                .type(type).uri(tfvcServerUrl).authentication(authenticationInfoRefreshed)
+```
+
+### ConstantValue
 Condition `authenticatedContexts == null` is always `false`
 in `plugin/src/com/microsoft/alm/plugin/operations/Operation.java`
 #### Snippet
@@ -5553,30 +5577,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 ```
 
 ### ConstantValue
-Condition `context != null` is always `false` when reached
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-                !StringUtils.equalsIgnoreCase(context.getTeamProjectReference().getName(), teamProjectName)) {
-            context = null;
-            logger.info("createContextFromTfvcServerUrl context fully populated: " + (context != null));
-        }
-
-```
-
-### ConstantValue
-Value `prompt` is always 'true'
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-                        logger.info("createContextFromTfvcServerUrl: refreshing creds");
-                        updateAuthenticationInfo(tfvcServerUrlString);
-                        final AuthenticationInfo authenticationInfoRefreshed = getAuthenticationInfo(tfvcServerUrl, prompt);
-                        final ServerContext contextToValidateRefreshed = new ServerContextBuilder()
-                                .type(type).uri(tfvcServerUrl).authentication(authenticationInfoRefreshed)
-```
-
-### ConstantValue
 Condition `uri == null` is always `false`
 in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 #### Snippet
@@ -5601,18 +5601,6 @@ in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 ```
 
 ### ConstantValue
-Condition `serverItem.length() > 2` is always `true`
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
-#### Snippet
-```java
-
-        // The path is not legal if it ends with a separator character.
-        if (serverItem.length() > 2 && serverItem.charAt(serverItem.length() - 1) == PREFERRED_SEPARATOR_CHARACTER) {
-            return false;
-        }
-```
-
-### ConstantValue
 Condition `catalogDataOrganizationRoot == null` is always `false`
 in `plugin/src/com/microsoft/alm/plugin/context/soap/CatalogServiceImpl.java`
 #### Snippet
@@ -5622,6 +5610,18 @@ in `plugin/src/com/microsoft/alm/plugin/context/soap/CatalogServiceImpl.java`
         if (catalogDataOrganizationRoot == null) {
             logger.warn("getProjectCollections catalogDataOrganizationRoot is null");
             throw new TeamServicesException(TeamServicesException.KEY_TFS_AUTH_FAILED);
+```
+
+### ConstantValue
+Condition `serverItem.length() > 2` is always `true`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
+#### Snippet
+```java
+
+        // The path is not legal if it ends with a separator character.
+        if (serverItem.length() > 2 && serverItem.charAt(serverItem.length() - 1) == PREFERRED_SEPARATOR_CHARACTER) {
+            return false;
+        }
 ```
 
 ### ConstantValue
@@ -5721,6 +5721,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsMode
 ```
 
 ### ConstantValue
+Condition `getInfo() != null` is always `true`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+    @Nullable
+    public GitLocalBranch getSourceBranch() {
+        return getInfo() != null ? getInfo().getCurrentBranch() : null;
+    }
+
+```
+
+### ConstantValue
 Condition `commits != null` is always `true`
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
@@ -5754,18 +5766,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
                                             && targetBranch.getNameForRemoteOperations() != null) {
                                         final String defaultTitle = pullRequestHelper.createDefaultTitle(commits,
                                                 sourceBranch.getName(),
-```
-
-### ConstantValue
-Condition `getInfo() != null` is always `true`
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-    @Nullable
-    public GitLocalBranch getSourceBranch() {
-        return getInfo() != null ? getInfo().getCurrentBranch() : null;
-    }
-
 ```
 
 ### ConstantValue
@@ -5810,10 +5810,10 @@ String concatenation as argument to `StringBuilder.append()` call
 in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 #### Snippet
 ```java
-                        }
-
-                        stdout.append(line + "\n");
-                        listener.progress(line, OUTPUT_TYPE_INFO, 50);
+                    public void processStandardError(final String line) {
+                        logger.info("ERROR: " + line);
+                        stderr.append(line + "\n");
+                        listener.progress(line, OUTPUT_TYPE_ERROR, 50);
                     }
 ```
 
@@ -5822,26 +5822,14 @@ String concatenation as argument to `StringBuilder.append()` call
 in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 #### Snippet
 ```java
-                    public void processStandardError(final String line) {
-                        logger.info("ERROR: " + line);
-                        stderr.append(line + "\n");
-                        listener.progress(line, OUTPUT_TYPE_ERROR, 50);
+                        }
+
+                        stdout.append(line + "\n");
+                        listener.progress(line, OUTPUT_TYPE_INFO, 50);
                     }
 ```
 
 ## RuleId[id=SuspiciousNameCombination]
-### SuspiciousNameCombination
-'refreshButtonHeight' should probably not be passed as parameter 'width'
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsForm.java`
-#### Snippet
-```java
-            // Also change the refresh button width so that the button is a perfect square
-            final int refreshButtonHeight = (int) refreshButton.getMinimumSize().getHeight();
-            final Dimension size = new Dimension(refreshButtonHeight, refreshButtonHeight);
-            refreshButton.setMinimumSize(size);
-            refreshButton.setPreferredSize(size);
-```
-
 ### SuspiciousNameCombination
 'refreshButtonHeight' should probably not be passed as parameter 'width'
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportForm.java`
@@ -5857,6 +5845,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportForm.java`
 ### SuspiciousNameCombination
 'refreshButtonHeight' should probably not be passed as parameter 'width'
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutForm.java`
+#### Snippet
+```java
+            // Also change the refresh button width so that the button is a perfect square
+            final int refreshButtonHeight = (int) refreshButton.getMinimumSize().getHeight();
+            final Dimension size = new Dimension(refreshButtonHeight, refreshButtonHeight);
+            refreshButton.setMinimumSize(size);
+            refreshButton.setPreferredSize(size);
+```
+
+### SuspiciousNameCombination
+'refreshButtonHeight' should probably not be passed as parameter 'width'
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/SelectWorkItemsForm.java`
 #### Snippet
 ```java
             // Also change the refresh button width so that the button is a perfect square
@@ -6025,18 +6025,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/settings/TeamServicesSett
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'addElement(E)' as a member of raw type 'javax.swing.DefaultComboBoxModel'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
-#### Snippet
-```java
-            ((DefaultComboBoxModel) targetCombo.getModel()).removeAllElements();
-            for (final String targetBranch : targetBranches) {
-                ((DefaultComboBoxModel) targetCombo.getModel()).addElement(targetBranch);
-            }
-            //mySelectRevisionForm.init(project, myWorkspace, sourceText.getText(), mySourceIsDirectory);
-```
-
-### UNCHECKED_WARNING
 Unchecked call to 'setModel(ComboBoxModel)' as a member of raw type 'javax.swing.JComboBox'
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 #### Snippet
@@ -6070,6 +6058,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
         changesTypeCombo.setModel(new DefaultComboBoxModel(ChangesType.values()));
 
         changesTypeCombo.addActionListener(new ActionListener() {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'addElement(E)' as a member of raw type 'javax.swing.DefaultComboBoxModel'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
+#### Snippet
+```java
+            ((DefaultComboBoxModel) targetCombo.getModel()).removeAllElements();
+            for (final String targetBranch : targetBranches) {
+                ((DefaultComboBoxModel) targetCombo.getModel()).addElement(targetBranch);
+            }
+            //mySelectRevisionForm.init(project, myWorkspace, sourceText.getText(), mySourceIsDirectory);
 ```
 
 ### UNCHECKED_WARNING
@@ -6125,18 +6125,6 @@ Unchecked call to 'addItem(E)' as a member of raw type 'javax.swing.JComboBox'
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceForm.java`
 #### Snippet
 ```java
-            computer.setText(loadingMessage);
-            location.setEnabled(false); // always disabled
-            location.addItem(loadingMessage);
-        } else {
-            name.setEnabled(true);
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'addItem(E)' as a member of raw type 'javax.swing.JComboBox'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceForm.java`
-#### Snippet
-```java
     public void setLocation(final Workspace.Location locationOption) {
         this.location.removeAllItems(); // clear previous item since we only have one item in there with it disabled
         this.location.addItem(locationOption);
@@ -6145,15 +6133,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceForm.jav
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'ComboBox(ComboBoxModel, int)' as a member of raw type 'com.intellij.openapi.ui.ComboBox'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappingsTableEditor.java`
+Unchecked call to 'addItem(E)' as a member of raw type 'javax.swing.JComboBox'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceForm.java`
 #### Snippet
 ```java
-                    final ComboBoxModel model = new EnumComboBoxModel<MappingType>(MappingType.class);
-                    model.setSelectedItem(value);
-                    myCombo = new ComboBox(model, getWidth(table));
-                    return myCombo;
-                }
+            computer.setText(loadingMessage);
+            location.setEnabled(false); // always disabled
+            location.addItem(loadingMessage);
+        } else {
+            name.setEnabled(true);
 ```
 
 ### UNCHECKED_WARNING
@@ -6166,6 +6154,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappings
             setModel(new ColumnInfo[]{new MappingTypeColumn(), new ServerPathColumn(project, serverContext), new LocalPathColumn(project)}, rows);
         }
     }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ComboBox(ComboBoxModel, int)' as a member of raw type 'com.intellij.openapi.ui.ComboBox'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceMappingsTableEditor.java`
+#### Snippet
+```java
+                    final ComboBoxModel model = new EnumComboBoxModel<MappingType>(MappingType.class);
+                    model.setSelectedItem(value);
+                    myCombo = new ComboBox(model, getWidth(table));
+                    return myCombo;
+                }
 ```
 
 ## RuleId[id=ManualArrayToCollectionCopy]
@@ -6292,18 +6292,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 ```
 
 ### DataFlowIssue
-Method invocation `getFile` may produce `NullPointerException`
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSRollbackEnvironment.java`
-#### Snippet
-```java
-        for (final Change change : changes) {
-            final ContentRevision revision = change.getType() == Change.Type.DELETED ? change.getBeforeRevision() : change.getAfterRevision();
-            localPaths.add(revision.getFile());
-        }
-
-```
-
-### DataFlowIssue
 Method invocation `toString` may produce `NullPointerException`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
 #### Snippet
@@ -6313,6 +6301,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
                 ((CardLayout) changesetsPanel.getLayout()).show(changesetsPanel, changesTypeCombo.getSelectedItem().toString());
                 fireStateChanged();
             }
+```
+
+### DataFlowIssue
+Method invocation `getFile` may produce `NullPointerException`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSRollbackEnvironment.java`
+#### Snippet
+```java
+        for (final Change change : changes) {
+            final ContentRevision revision = change.getType() == Change.Type.DELETED ? change.getBeforeRevision() : change.getAfterRevision();
+            localPaths.add(revision.getFile());
+        }
+
 ```
 
 ### DataFlowIssue
@@ -6349,6 +6349,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/WorkItemQueryDro
                         newContext = ServerContextManager.getInstance().createContextFromGitRemoteUrl(repositoryContext.getUrl(), false);
                     } else {
                         newContext = null;
+```
+
+### DataFlowIssue
+Method invocation `concat` may produce `NullPointerException`
+in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
+#### Snippet
+```java
+
+    public static URI getFileURI(final String remoteUrl, final String filePath, final String gitRemoteBranchName) {
+        String uri = getHttpsGitUrlFromSshUrl(remoteUrl).concat(URL_PATH_SEGMENT).concat(filePath);
+
+        if (uri == null) {
 ```
 
 ### DataFlowIssue
@@ -6397,18 +6409,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
                         serverChanges = TFSContentRevision.create(project, localPath, serverChange.getIdAsInt(), serverChange.getDate()).getContent();
                     }
                 }
-```
-
-### DataFlowIssue
-Method invocation `concat` may produce `NullPointerException`
-in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
-#### Snippet
-```java
-
-    public static URI getFileURI(final String remoteUrl, final String filePath, final String gitRemoteBranchName) {
-        String uri = getHttpsGitUrlFromSshUrl(remoteUrl).concat(URL_PATH_SEGMENT).concat(filePath);
-
-        if (uri == null) {
 ```
 
 ### DataFlowIssue
@@ -6510,14 +6510,26 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 ```
 
 ### DataFlowIssue
-Argument `localPathFromTfsRepresentation(localPath)` might be null
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/VersionControlPath.java`
+Argument `gitRemoteUrl` might be null
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
 #### Snippet
 ```java
-    @Nullable
-    public static VirtualFile getVirtualFile(@NotNull String localPath) {
-        return VcsUtil.getVirtualFile(localPathFromTfsRepresentation(localPath));
-    }
+                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(
+                                        TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_AUTHENTICATION_FAILED_TITLE),
+                                TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
+                        return;
+                    }
+```
+
+### DataFlowIssue
+`null` is returned by the method declared as @NotNull
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+#### Snippet
+```java
+            @Override
+            public ModalityState getModalityState() {
+                return null;
+            }
 
 ```
 
@@ -6539,34 +6551,22 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/VersionControlPath.ja
 #### Snippet
 ```java
     @Nullable
-    public static FilePath getFilePath(@Nullable String localPath, boolean isDirectory) {
-        return localPath != null ? VcsUtil.getFilePath(localPathFromTfsRepresentation(localPath), isDirectory) : null;
+    public static VirtualFile getVirtualFile(@NotNull String localPath) {
+        return VcsUtil.getVirtualFile(localPathFromTfsRepresentation(localPath));
     }
 
 ```
 
 ### DataFlowIssue
-`null` is returned by the method declared as @NotNull
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+Argument `localPathFromTfsRepresentation(localPath)` might be null
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/VersionControlPath.java`
 #### Snippet
 ```java
-            @Override
-            public ModalityState getModalityState() {
-                return null;
-            }
+    @Nullable
+    public static FilePath getFilePath(@Nullable String localPath, boolean isDirectory) {
+        return localPath != null ? VcsUtil.getFilePath(localPathFromTfsRepresentation(localPath), isDirectory) : null;
+    }
 
-```
-
-### DataFlowIssue
-Argument `gitRemoteUrl` might be null
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
-#### Snippet
-```java
-                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(
-                                        TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_AUTHENTICATION_FAILED_TITLE),
-                                TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
-                        return;
-                    }
 ```
 
 ### DataFlowIssue
@@ -6682,18 +6682,6 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 ```
 
 ### KotlinConstantConditions
-Condition 'serverUri == null' is always false
-in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
-#### Snippet
-```java
-            val serverUri = workspaceInfo.serverURI
-            val workspaceName = workspaceInfo.name.orEmpty()
-            if (serverUri == null) {
-                logger.warn { "Server URI is null for workspace ${workspaceName}; no mappings will be available." }
-                return emptyList()
-```
-
-### KotlinConstantConditions
 Condition 'changedItems == 1' is always false
 in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
 #### Snippet
@@ -6703,6 +6691,18 @@ in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
         return changedItems == 1
     }
 }
+```
+
+### KotlinConstantConditions
+Condition 'serverUri == null' is always false
+in `client/backend/src/main/kotlin/com/microsoft/tfs/TfsClient.kt`
+#### Snippet
+```java
+            val serverUri = workspaceInfo.serverURI
+            val workspaceName = workspaceInfo.name.orEmpty()
+            if (serverUri == null) {
+                logger.warn { "Server URI is null for workspace ${workspaceName}; no mappings will be available." }
+                return emptyList()
 ```
 
 ### KotlinConstantConditions
@@ -7413,6 +7413,18 @@ in `plugin/src/com/microsoft/alm/plugin/operations/WorkItemLookupOperation.java`
 ## RuleId[id=TrivialIf]
 ### TrivialIf
 `if` statement can be simplified
+in `plugin/src/com/microsoft/alm/common/utils/FileHelper.java`
+#### Snippet
+```java
+        } else if (System.getProperty(FORCE_HONOR_CASE_SYSPROP) != null) {
+            fileSystemIgnoresCase = false;
+        } else if (Platform.isWindows() || Platform.isMac()) {
+            fileSystemIgnoresCase = true;
+        } else {
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
@@ -7431,30 +7443,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/models/Workspace.java`
             return false;
         }
         if (!StringUtils.equals(this.server, workspace.server)) {
-            return false;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `plugin/src/com/microsoft/alm/common/utils/FileHelper.java`
-#### Snippet
-```java
-        } else if (System.getProperty(FORCE_HONOR_CASE_SYSPROP) != null) {
-            fileSystemIgnoresCase = false;
-        } else if (Platform.isWindows() || Platform.isMac()) {
-            fileSystemIgnoresCase = true;
-        } else {
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `plugin/src/com/microsoft/alm/common/artifact/ArtifactID.java`
-#### Snippet
-```java
-         * must be non-zero length
-         */
-        if ((tool.indexOf('\\') != -1) || (tool.indexOf(URI_SEPARATOR) != -1) || (tool.indexOf('.') != -1)) {
             return false;
         }
 ```
@@ -7485,6 +7473,18 @@ in `plugin/src/com/microsoft/alm/common/artifact/ArtifactID.java`
 
 ### TrivialIf
 `if` statement can be simplified
+in `plugin/src/com/microsoft/alm/common/artifact/ArtifactID.java`
+#### Snippet
+```java
+         * must be non-zero length
+         */
+        if ((tool.indexOf('\\') != -1) || (tool.indexOf(URI_SEPARATOR) != -1) || (tool.indexOf('.') != -1)) {
+            return false;
+        }
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
 #### Snippet
 ```java
@@ -7505,6 +7505,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PullRequestsTree
         if (StringUtils.containsIgnoreCase(pr.getTitle(), filter) ||
                 StringUtils.containsIgnoreCase(pr.getCreatedBy().getDisplayName(), filter) ||
                 StringUtils.containsIgnoreCase(String.valueOf(pr.getPullRequestId()), filter) ||
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
+#### Snippet
+```java
+        if (uri != null && uri.getHost() != null) {
+            final String host = uri.getHost().toLowerCase();
+            if (StringUtils.endsWith(host, HOST_VSO) ||
+                    StringUtils.endsWith(host, HOST_TFS_ALL_IN) ||
+                    UrlHelper.isOrganizationHost(host)) {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
+#### Snippet
+```java
+            // ssh://account@organization.visualstudio.com:22/Collection/_git/Repo
+            // account@organization.visualstudio.com:22/Collection/_git/Repo
+            if (StringUtils.contains(gitRemoteUrl, "@")) {
+                return true;
+            }
 ```
 
 ### TrivialIf
@@ -7545,26 +7569,14 @@ in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
 
 ### TrivialIf
 `if` statement can be simplified
-in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/LockItemsTableModel.java`
 #### Snippet
 ```java
-            // ssh://account@organization.visualstudio.com:22/Collection/_git/Repo
-            // account@organization.visualstudio.com:22/Collection/_git/Repo
-            if (StringUtils.contains(gitRemoteUrl, "@")) {
-                return true;
-            }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `plugin/src/com/microsoft/alm/common/utils/UrlHelper.java`
-#### Snippet
-```java
-        if (uri != null && uri.getHost() != null) {
-            final String host = uri.getHost().toLowerCase();
-            if (StringUtils.endsWith(host, HOST_VSO) ||
-                    StringUtils.endsWith(host, HOST_TFS_ALL_IN) ||
-                    UrlHelper.isOrganizationHost(host)) {
+                if (currentLevel == LockCommand.LockLevel.NONE && selectIfNone) {
+                    item.selected = true;
+                } else if (currentLevel != LockCommand.LockLevel.NONE && !selectIfNone) {
+                    item.selected = true;
+                } else {
 ```
 
 ### TrivialIf
@@ -7584,18 +7596,6 @@ in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 #### Snippet
 ```java
-
-        // Check the last path part.
-        if (!isCanonicalizedPathPart(serverItem, serverItem.length(), pathPartLength)) {
-            return false;
-        }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
-#### Snippet
-```java
             // compare,
             // then it is a child.
             if (ServerPath.isSeparator(possibleChild.charAt(parentPath.length()))) {
@@ -7605,14 +7605,14 @@ in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 
 ### TrivialIf
 `if` statement can be simplified
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/LockItemsTableModel.java`
+in `plugin/src/com/microsoft/alm/plugin/versioncontrol/path/ServerPath.java`
 #### Snippet
 ```java
-                if (currentLevel == LockCommand.LockLevel.NONE && selectIfNone) {
-                    item.selected = true;
-                } else if (currentLevel != LockCommand.LockLevel.NONE && !selectIfNone) {
-                    item.selected = true;
-                } else {
+
+        // Check the last path part.
+        if (!isCanonicalizedPathPart(serverItem, serverItem.length(), pathPartLength)) {
+            return false;
+        }
 ```
 
 ### TrivialIf
@@ -7668,11 +7668,11 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
 #### Snippet
 ```java
+    public static boolean isDeviceFlowEnvSetTrue() {
+        final String property = System.getProperty(DEVICE_FLOW_PROPERTY, StringUtils.EMPTY);
+        if (StringUtils.isNotEmpty(property) && StringUtils.equals(ENABLE_DEVICE_FLOW_VALUE, property)) {
+            return true;
         }
-
-        if (throwable != null && throwable.getCause() != null && (throwable.getCause() instanceof NotAuthorizedException ||
-                (throwable.getCause() instanceof VssServiceResponseException &&
-                        (StringUtils.containsIgnoreCase(throwable.getMessage(), "unauthorized"))))) {
 ```
 
 ### TrivialIf
@@ -7680,11 +7680,11 @@ in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
 in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
 #### Snippet
 ```java
-    public static boolean isDeviceFlowEnvSetTrue() {
-        final String property = System.getProperty(DEVICE_FLOW_PROPERTY, StringUtils.EMPTY);
-        if (StringUtils.isNotEmpty(property) && StringUtils.equals(ENABLE_DEVICE_FLOW_VALUE, property)) {
-            return true;
         }
+
+        if (throwable != null && throwable.getCause() != null && (throwable.getCause() instanceof NotAuthorizedException ||
+                (throwable.getCause() instanceof VssServiceResponseException &&
+                        (StringUtils.containsIgnoreCase(throwable.getMessage(), "unauthorized"))))) {
 ```
 
 ### TrivialIf
@@ -7825,6 +7825,18 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
+`@param e` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabControllerImpl.java`
+#### Snippet
+```java
+     * Perform action based on event
+     *
+     * @param e
+     */
+    protected void performAction(final ActionEvent e) {
+```
+
+### JavadocDeclaration
 `@param localPath` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ChangelistBuilderStatusVisitor.java`
 #### Snippet
@@ -7861,63 +7873,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/ChangelistBuilderStatusVi
 ```
 
 ### JavadocDeclaration
-`@param modelView` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
+`@param cellRenderer` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/treetable/CustomTreeTable.java`
 #### Snippet
 ```java
-     * Sets the view model that is used for the tab
-     *
-     * @param modelView
+    /**
+     * @param columns      first one will be used as tree-style
+     * @param cellRenderer
      */
-    public abstract void setModelForView(final T modelView);
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
-#### Snippet
-```java
-     * Create and return the tab panel
-     *
-     * @return
-     */
-    public JComponent getPanel() {
-```
-
-### JavadocDeclaration
-`@param component` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
-#### Snippet
-```java
-     * Display popup menu on the view
-     *
-     * @param component
-     * @param x
-     * @param y
-```
-
-### JavadocDeclaration
-`@param x` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
-#### Snippet
-```java
-     *
-     * @param component
-     * @param x
-     * @param y
-     * @param listener
-```
-
-### JavadocDeclaration
-`@param y` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
-#### Snippet
-```java
-     * @param component
-     * @param x
-     * @param y
-     * @param listener
-     */
+    public CustomTreeTable(final List<? extends TreeTableColumn<T>> columns,
 ```
 
 ### JavadocDeclaration
@@ -7925,47 +7889,11 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.j
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
 #### Snippet
 ```java
-     * @param x
-     * @param y
+     * Creates and returns the menu items to be shown in the popup menu
+     *
      * @param listener
+     * @return list of menu items
      */
-    protected void showPopupMenu(final Component component, final int x, final int y, final ActionListener listener) {
-```
-
-### JavadocDeclaration
-`@param status` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
-#### Snippet
-```java
-     * Set the tab's status in the toolbar
-     *
-     * @param status
-     */
-    public void setStatus(final VcsTabStatus status) {
-```
-
-### JavadocDeclaration
-`@param actions` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
-#### Snippet
-```java
-     * Creates the toolbar for top of the tab
-     *
-     * @param actions
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
-#### Snippet
-```java
-     *
-     * @param actions
-     * @return
-     */
-    protected ActionToolbar createToolbar(DefaultActionGroup actions) {
 ```
 
 ### JavadocDeclaration
@@ -8017,39 +7945,183 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.j
 ```
 
 ### JavadocDeclaration
+`@param status` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
+#### Snippet
+```java
+     * Set the tab's status in the toolbar
+     *
+     * @param status
+     */
+    public void setStatus(final VcsTabStatus status) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
+#### Snippet
+```java
+     * Create and return the tab panel
+     *
+     * @return
+     */
+    public JComponent getPanel() {
+```
+
+### JavadocDeclaration
+`@param modelView` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
+#### Snippet
+```java
+     * Sets the view model that is used for the tab
+     *
+     * @param modelView
+     */
+    public abstract void setModelForView(final T modelView);
+```
+
+### JavadocDeclaration
+`@param component` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
+#### Snippet
+```java
+     * Display popup menu on the view
+     *
+     * @param component
+     * @param x
+     * @param y
+```
+
+### JavadocDeclaration
+`@param x` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
+#### Snippet
+```java
+     *
+     * @param component
+     * @param x
+     * @param y
+     * @param listener
+```
+
+### JavadocDeclaration
+`@param y` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
+#### Snippet
+```java
+     * @param component
+     * @param x
+     * @param y
+     * @param listener
+     */
+```
+
+### JavadocDeclaration
 `@param listener` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
 #### Snippet
 ```java
-     * Creates and returns the menu items to be shown in the popup menu
-     *
+     * @param x
+     * @param y
      * @param listener
-     * @return list of menu items
      */
+    protected void showPopupMenu(final Component component, final int x, final int y, final ActionListener listener) {
 ```
 
 ### JavadocDeclaration
-`@param e` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabControllerImpl.java`
+`@param actions` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
 #### Snippet
 ```java
-     * Perform action based on event
+     * Creates the toolbar for top of the tab
      *
-     * @param e
+     * @param actions
+     * @return
      */
-    protected void performAction(final ActionEvent e) {
 ```
 
 ### JavadocDeclaration
-`@param cellRenderer` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/treetable/CustomTreeTable.java`
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/tabs/TabFormImpl.java`
 #### Snippet
 ```java
-    /**
-     * @param columns      first one will be used as tree-style
-     * @param cellRenderer
+     *
+     * @param actions
+     * @return
      */
-    public CustomTreeTable(final List<? extends TreeTableColumn<T>> columns,
+    protected ActionToolbar createToolbar(DefaultActionGroup actions) {
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * Deletes a list of files
+     *
+     * @param context
+     * @param filePaths
+     * @param workingFolder
+```
+
+### JavadocDeclaration
+`@param filePaths` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     *
+     * @param context
+     * @param filePaths
+     * @param workingFolder
+     * @param recursive
+```
+
+### JavadocDeclaration
+`@param workingFolder` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param context
+     * @param filePaths
+     * @param workingFolder
+     * @param recursive
+     * @return
+```
+
+### JavadocDeclaration
+`@param recursive` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param filePaths
+     * @param workingFolder
+     * @param recursive
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param workingFolder
+     * @param recursive
+     * @return
+     */
+    public static TfvcDeleteResult deleteFiles(final ServerContext context, final List<String> filePaths,
+```
+
+### JavadocDeclaration
+`@param workspaceName` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param collectionName the name of the collection (if it contains spaces, then they should be passed as spaces,
+     *                       not "%20").
+     * @param workspaceName
+     * @param authInfo
+     * @return
 ```
 
 ### JavadocDeclaration
@@ -8057,23 +8129,95 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/treetable/CustomTr
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-     * This method refreshes the cache for a server to pull in any remote changes
-     *
+     *                       not "%20").
+     * @param workspaceName
      * @param authInfo
-     * @param serverUrl
+     * @return
      */
 ```
 
 ### JavadocDeclaration
-`@param serverUrl` tag description is missing
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param workspaceName
+     * @param authInfo
+     * @return
+     */
+    public static Workspace getDetailedWorkspace(final String collectionName, final String workspaceName, final AuthenticationInfo authInfo) {
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * Resolves conflicts with the given resolution type
+     *
+     * @param context
+     * @param conflicts
+     * @param type
+```
+
+### JavadocDeclaration
+`@param conflicts` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
      *
-     * @param authInfo
-     * @param serverUrl
+     * @param context
+     * @param conflicts
+     * @param type
+     * @return
+```
+
+### JavadocDeclaration
+`@param type` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param context
+     * @param conflicts
+     * @param type
+     * @return
      */
-    public static void refreshWorkspacesForServer(final AuthenticationInfo authInfo, final String serverUrl) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param conflicts
+     * @param type
+     * @return
+     */
+    public static List<Conflict> resolveConflictsByPath(final ServerContext context, final List<String> conflicts, final ResolveConflictsCommand.AutoResolveType type) {
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * This method forces the Get of a file from the server
+     *
+     * @param context
+     * @param filePath
+     */
+```
+
+### JavadocDeclaration
+`@param filePath` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     *
+     * @param context
+     * @param filePath
+     */
+    public static void forceGetFile(final ServerContext context, final String filePath) {
 ```
 
 ### JavadocDeclaration
@@ -8137,37 +8281,25 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 ```
 
 ### JavadocDeclaration
-`@param context` tag description is missing
+`@param changeSets` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-     * Resolves conflicts with the given resolution type
+     * Checks that a changeset in the list contains a change
      *
-     * @param context
-     * @param conflicts
-     * @param type
-```
-
-### JavadocDeclaration
-`@param conflicts` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @param conflicts
-     * @param type
+     * @param changeSets
+     * @param index
      * @return
 ```
 
 ### JavadocDeclaration
-`@param type` tag description is missing
+`@param index` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-     * @param context
-     * @param conflicts
-     * @param type
+     *
+     * @param changeSets
+     * @param index
      * @return
      */
 ```
@@ -8177,11 +8309,11 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-     * @param conflicts
-     * @param type
+     * @param changeSets
+     * @param index
      * @return
      */
-    public static List<Conflict> resolveConflictsByPath(final ServerContext context, final List<String> conflicts, final ResolveConflictsCommand.AutoResolveType type) {
+    private static boolean doesChangeSetHaveChanges(final List<ChangeSet> changeSets, final int index) {
 ```
 
 ### JavadocDeclaration
@@ -8189,21 +8321,45 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-     * Get the status for a list of files
+     * Note: this method does NOT sync the workspace.
      *
      * @param context
-     * @param files
-     * @return
+     * @param oldWorkspace
+     * @param newWorkspace
 ```
 
 ### JavadocDeclaration
-`@param files` tag description is missing
+`@param oldWorkspace` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
      *
      * @param context
-     * @param files
+     * @param oldWorkspace
+     * @param newWorkspace
+     */
+```
+
+### JavadocDeclaration
+`@param newWorkspace` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param context
+     * @param oldWorkspace
+     * @param newWorkspace
+     */
+    public static String updateWorkspace(final ServerContext context, final Workspace oldWorkspace, final Workspace newWorkspace) {
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * This method returns a list of server that have workspaces locally
+     *
+     * @param context
      * @return
      */
 ```
@@ -8213,155 +8369,11 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-     * @param context
-     * @param files
-     * @return
-     */
-    public static List<PendingChange> getStatusForFiles(
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * Checks in the list of files
      *
      * @param context
-     * @param files
-     * @param preparedComment
-```
-
-### JavadocDeclaration
-`@param files` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @param files
-     * @param preparedComment
-     * @return
-```
-
-### JavadocDeclaration
-`@param preparedComment` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param context
-     * @param files
-     * @param preparedComment
      * @return
      */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param files
-     * @param preparedComment
-     * @return
-     */
-    public static String checkinFiles(final ServerContext context, final List<String> files,
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * Calls the get branches command and returns the list of branched items associated with the source item.
-     *
-     * @param context
-     * @param sourceItem
-     * @return
-```
-
-### JavadocDeclaration
-`@param sourceItem` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @param sourceItem
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param context
-     * @param sourceItem
-     * @return
-     */
-    public static List<String> getBranches(final ServerContext context, final String workingFolder,
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * This method forces the Get of a file from the server
-     *
-     * @param context
-     * @param filePath
-     */
-```
-
-### JavadocDeclaration
-`@param filePath` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @param filePath
-     */
-    public static void forceGetFile(final ServerContext context, final String filePath) {
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * This method determines the workspace name from the project and then calls getWorkspace with the name.
-     *
-     * @param context
-     * @param project
-     * @return
-```
-
-### JavadocDeclaration
-`@param project` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @param project
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param context
-     * @param project
-     * @return
-     */
-
+    public static List<Server> getAllWorkspaces(final ServerContext context) {
 ```
 
 ### JavadocDeclaration
@@ -8465,275 +8477,35 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-     * Returns a list of labels from the server.
+     * Renames a file
      *
      * @param context
-     * @param workingFolder
-     * @param nameFilter
+     * @param oldName
+     * @param newName
 ```
 
 ### JavadocDeclaration
-`@param workingFolder` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @param workingFolder
-     * @param nameFilter
-     * @return
-```
-
-### JavadocDeclaration
-`@param nameFilter` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param context
-     * @param workingFolder
-     * @param nameFilter
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param workingFolder
-     * @param nameFilter
-     * @return
-     */
-    public static List<TfvcLabel> getLabels(final ServerContext context, final String workingFolder, final String nameFilter) {
-```
-
-### JavadocDeclaration
-`@param workspaceName` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param collectionName the name of the collection (if it contains spaces, then they should be passed as spaces,
-     *                       not "%20").
-     * @param workspaceName
-     * @param authInfo
-     * @return
-```
-
-### JavadocDeclaration
-`@param authInfo` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *                       not "%20").
-     * @param workspaceName
-     * @param authInfo
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param workspaceName
-     * @param authInfo
-     * @return
-     */
-    public static Workspace getDetailedWorkspace(final String collectionName, final String workspaceName, final AuthenticationInfo authInfo) {
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * Adds the given files to the repo
-     *
-     * @param context
-     * @param filesToAddPaths
-     * @return
-```
-
-### JavadocDeclaration
-`@param filesToAddPaths` tag description is missing
+`@param oldName` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
      *
      * @param context
-     * @param filesToAddPaths
-     * @return
+     * @param oldName
+     * @param newName
      */
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
+`@param newName` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
      * @param context
-     * @param filesToAddPaths
-     * @return
+     * @param oldName
+     * @param newName
      */
-    public static List<String> addFiles(final ServerContext context, final List<String> filesToAddPaths) {
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * This method returns the fully filled out Workspace object.
-     *
-     * @param context
-     * @param workspaceName
-     * @return
-```
-
-### JavadocDeclaration
-`@param object` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/models/Workspace.java`
-#### Snippet
-```java
-     * The comment and mappings don't make the workspace unique
-     *
-     * @param object
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/models/Workspace.java`
-#### Snippet
-```java
-     *
-     * @param object
-     * @return
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@param workspaceName` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @param workspaceName
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param context
-     * @param workspaceName
-     * @return
-     */
-    public static Workspace getWorkspace(final ServerContext context, final String workspaceName) {
-```
-
-### JavadocDeclaration
-`@param changeSets` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * Checks that a changeset in the list contains a change
-     *
-     * @param changeSets
-     * @param index
-     * @return
-```
-
-### JavadocDeclaration
-`@param index` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param changeSets
-     * @param index
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param changeSets
-     * @param index
-     * @return
-     */
-    private static boolean doesChangeSetHaveChanges(final List<ChangeSet> changeSets, final int index) {
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * Lock::None is how you unlock a file (cannot unlock errors are ignored)
-     *
-     * @param context
-     * @param workingFolder
-     * @param lockLevel
-```
-
-### JavadocDeclaration
-`@param workingFolder` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @param workingFolder
-     * @param lockLevel
-     * @param recursive
-```
-
-### JavadocDeclaration
-`@param lockLevel` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param context
-     * @param workingFolder
-     * @param lockLevel
-     * @param recursive
-     * @param itemSpecs
-```
-
-### JavadocDeclaration
-`@param recursive` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param workingFolder
-     * @param lockLevel
-     * @param recursive
-     * @param itemSpecs
-     */
-```
-
-### JavadocDeclaration
-`@param itemSpecs` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param lockLevel
-     * @param recursive
-     * @param itemSpecs
-     */
-    public static void lock(final ServerContext context, final String workingFolder, final LockCommand.LockLevel lockLevel,
+    public static void renameFile(final ServerContext context, final String oldName, final String newName) {
 ```
 
 ### JavadocDeclaration
@@ -8837,35 +8609,287 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-     * Note: this method does NOT sync the workspace.
+     * This method determines the workspace name from the project and then calls getWorkspace with the name.
      *
      * @param context
-     * @param oldWorkspace
-     * @param newWorkspace
+     * @param project
+     * @return
 ```
 
 ### JavadocDeclaration
-`@param oldWorkspace` tag description is missing
+`@param project` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
      *
      * @param context
-     * @param oldWorkspace
-     * @param newWorkspace
+     * @param project
+     * @return
      */
 ```
 
 ### JavadocDeclaration
-`@param newWorkspace` tag description is missing
+`@return` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
      * @param context
-     * @param oldWorkspace
-     * @param newWorkspace
+     * @param project
+     * @return
      */
-    public static String updateWorkspace(final ServerContext context, final Workspace oldWorkspace, final Workspace newWorkspace) {
+
+```
+
+### JavadocDeclaration
+`@param authInfo` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * This method refreshes the cache for a server to pull in any remote changes
+     *
+     * @param authInfo
+     * @param serverUrl
+     */
+```
+
+### JavadocDeclaration
+`@param serverUrl` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     *
+     * @param authInfo
+     * @param serverUrl
+     */
+    public static void refreshWorkspacesForServer(final AuthenticationInfo authInfo, final String serverUrl) {
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * Checks in the list of files
+     *
+     * @param context
+     * @param files
+     * @param preparedComment
+```
+
+### JavadocDeclaration
+`@param files` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     *
+     * @param context
+     * @param files
+     * @param preparedComment
+     * @return
+```
+
+### JavadocDeclaration
+`@param preparedComment` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param context
+     * @param files
+     * @param preparedComment
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param files
+     * @param preparedComment
+     * @return
+     */
+    public static String checkinFiles(final ServerContext context, final List<String> files,
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * Get the status for a list of files
+     *
+     * @param context
+     * @param files
+     * @return
+```
+
+### JavadocDeclaration
+`@param files` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     *
+     * @param context
+     * @param files
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param context
+     * @param files
+     * @return
+     */
+    public static List<PendingChange> getStatusForFiles(
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * Adds the given files to the repo
+     *
+     * @param context
+     * @param filesToAddPaths
+     * @return
+```
+
+### JavadocDeclaration
+`@param filesToAddPaths` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     *
+     * @param context
+     * @param filesToAddPaths
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param context
+     * @param filesToAddPaths
+     * @return
+     */
+    public static List<String> addFiles(final ServerContext context, final List<String> filesToAddPaths) {
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * Returns a list of labels from the server.
+     *
+     * @param context
+     * @param workingFolder
+     * @param nameFilter
+```
+
+### JavadocDeclaration
+`@param workingFolder` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     *
+     * @param context
+     * @param workingFolder
+     * @param nameFilter
+     * @return
+```
+
+### JavadocDeclaration
+`@param nameFilter` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param context
+     * @param workingFolder
+     * @param nameFilter
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param workingFolder
+     * @param nameFilter
+     * @return
+     */
+    public static List<TfvcLabel> getLabels(final ServerContext context, final String workingFolder, final String nameFilter) {
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * Lock::None is how you unlock a file (cannot unlock errors are ignored)
+     *
+     * @param context
+     * @param workingFolder
+     * @param lockLevel
+```
+
+### JavadocDeclaration
+`@param workingFolder` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     *
+     * @param context
+     * @param workingFolder
+     * @param lockLevel
+     * @param recursive
+```
+
+### JavadocDeclaration
+`@param lockLevel` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param context
+     * @param workingFolder
+     * @param lockLevel
+     * @param recursive
+     * @param itemSpecs
+```
+
+### JavadocDeclaration
+`@param recursive` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param workingFolder
+     * @param lockLevel
+     * @param recursive
+     * @param itemSpecs
+     */
+```
+
+### JavadocDeclaration
+`@param itemSpecs` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param lockLevel
+     * @param recursive
+     * @param itemSpecs
+     */
+    public static void lock(final ServerContext context, final String workingFolder, final LockCommand.LockLevel lockLevel,
 ```
 
 ### JavadocDeclaration
@@ -8921,126 +8945,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-     * Deletes a list of files
-     *
-     * @param context
-     * @param filePaths
-     * @param workingFolder
-```
-
-### JavadocDeclaration
-`@param filePaths` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @param filePaths
-     * @param workingFolder
-     * @param recursive
-```
-
-### JavadocDeclaration
-`@param workingFolder` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param context
-     * @param filePaths
-     * @param workingFolder
-     * @param recursive
-     * @return
-```
-
-### JavadocDeclaration
-`@param recursive` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param filePaths
-     * @param workingFolder
-     * @param recursive
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param workingFolder
-     * @param recursive
-     * @return
-     */
-    public static TfvcDeleteResult deleteFiles(final ServerContext context, final List<String> filePaths,
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * Renames a file
-     *
-     * @param context
-     * @param oldName
-     * @param newName
-```
-
-### JavadocDeclaration
-`@param oldName` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @param oldName
-     * @param newName
-     */
-```
-
-### JavadocDeclaration
-`@param newName` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * @param context
-     * @param oldName
-     * @param newName
-     */
-    public static void renameFile(final ServerContext context, final String oldName, final String newName) {
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     * This method returns a list of server that have workspaces locally
-     *
-     * @param context
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
-     *
-     * @param context
-     * @return
-     */
-    public static List<Server> getAllWorkspaces(final ServerContext context) {
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
-#### Snippet
-```java
      * Finds the conflicts under a given directory
      *
      * @param context
@@ -9073,15 +8977,15 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 ```
 
 ### JavadocDeclaration
-`@param stderr` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/FindWorkspaceCommand.java`
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
-     * Check specifically to see if an authentication exception is thrown
+     * Calls the get branches command and returns the list of branched items associated with the source item.
      *
-     * @param stderr
-     */
-    @Override
+     * @param context
+     * @param sourceItem
+     * @return
 ```
 
 ### JavadocDeclaration
@@ -9109,63 +9013,99 @@ in `plugin/src/com/microsoft/alm/plugin/external/ToolRunnerCache.java`
 ```
 
 ### JavadocDeclaration
-`@param project` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
-#### Snippet
-```java
-     * the workspace path.
-     *
-     * @param project
-     * @param repositoryContext
-     * @param workspaceName
-```
-
-### JavadocDeclaration
-`@param repositoryContext` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
+`@param sourceItem` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
      *
-     * @param project
-     * @param repositoryContext
-     * @param workspaceName
-     */
-```
-
-### JavadocDeclaration
-`@param workspaceName` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
-#### Snippet
-```java
-     * @param project
-     * @param repositoryContext
-     * @param workspaceName
-     */
-    public WorkspaceController(final Project project, final RepositoryContext repositoryContext, final ServerContext serverContext, final String workspaceName) {
-```
-
-### JavadocDeclaration
-`@param autoSaveWorkspace` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
-#### Snippet
-```java
-     * If you choose not to auto save the workspace, you should call saveWorkspace if this method returns true.
-     *
-     * @param autoSaveWorkspace
+     * @param context
+     * @param sourceItem
      * @return
      */
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param context
+     * @param sourceItem
+     * @return
+     */
+    public static List<String> getBranches(final ServerContext context, final String workingFolder,
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * This method returns the fully filled out Workspace object.
+     *
+     * @param context
+     * @param workspaceName
+     * @return
+```
+
+### JavadocDeclaration
+`@param workspaceName` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
 #### Snippet
 ```java
      *
-     * @param autoSaveWorkspace
+     * @param context
+     * @param workspaceName
      * @return
      */
-    public boolean showModalDialog(final boolean autoSaveWorkspace) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/CommandUtils.java`
+#### Snippet
+```java
+     * @param context
+     * @param workspaceName
+     * @return
+     */
+    public static Workspace getWorkspace(final ServerContext context, final String workspaceName) {
+```
+
+### JavadocDeclaration
+`@param object` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/models/Workspace.java`
+#### Snippet
+```java
+     * The comment and mappings don't make the workspace unique
+     *
+     * @param object
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/models/Workspace.java`
+#### Snippet
+```java
+     *
+     * @param object
+     * @return
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@param stderr` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/FindWorkspaceCommand.java`
+#### Snippet
+```java
+     * Check specifically to see if an authentication exception is thrown
+     *
+     * @param stderr
+     */
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -9209,11 +9149,71 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceControll
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
 #### Snippet
 ```java
+     * the workspace path.
+     *
+     * @param project
+     * @param repositoryContext
+     * @param workspaceName
+```
+
+### JavadocDeclaration
+`@param repositoryContext` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
+#### Snippet
+```java
+     *
+     * @param project
+     * @param repositoryContext
+     * @param workspaceName
+     */
+```
+
+### JavadocDeclaration
+`@param workspaceName` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
+#### Snippet
+```java
+     * @param project
+     * @param repositoryContext
+     * @param workspaceName
+     */
+    public WorkspaceController(final Project project, final RepositoryContext repositoryContext, final ServerContext serverContext, final String workspaceName) {
+```
+
+### JavadocDeclaration
+`@param project` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
+#### Snippet
+```java
      * Use this constructor to edit the workspace for the current project.
      *
      * @param project
      */
     public WorkspaceController(final Project project, final ServerContext serverContext) {
+```
+
+### JavadocDeclaration
+`@param autoSaveWorkspace` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
+#### Snippet
+```java
+     * If you choose not to auto save the workspace, you should call saveWorkspace if this method returns true.
+     *
+     * @param autoSaveWorkspace
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceController.java`
+#### Snippet
+```java
+     *
+     * @param autoSaveWorkspace
+     * @return
+     */
+    public boolean showModalDialog(final boolean autoSaveWorkspace) {
 ```
 
 ### JavadocDeclaration
@@ -9253,6 +9253,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TfvcWorkspaceLocator.java
 ```
 
 ### JavadocDeclaration
+`@throws` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
+#### Snippet
+```java
+         * This method forces the thread to end by interrupting it and joining with the calling thread.
+         *
+         * @throws InterruptedException
+         */
+        public void cleanUp() throws InterruptedException {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
+#### Snippet
+```java
+         * This method forces the thread to end by interrupting it and joining with the calling thread.
+         *
+         * @throws InterruptedException
+         */
+        public void cleanUp() throws InterruptedException {
+```
+
+### JavadocDeclaration
 `@param toolSpecifiedId` tag description is missing
 in `plugin/src/com/microsoft/alm/common/artifact/GitRefArtifactID.java`
 #### Snippet
@@ -9286,54 +9310,6 @@ in `plugin/src/com/microsoft/alm/common/artifact/GitRefArtifactID.java`
      * @return
      */
     private String decodeRefName(final String refName) {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
-#### Snippet
-```java
-         * This method forces the thread to end by interrupting it and joining with the calling thread.
-         *
-         * @throws InterruptedException
-         */
-        public void cleanUp() throws InterruptedException {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
-#### Snippet
-```java
-         * This method forces the thread to end by interrupting it and joining with the calling thread.
-         *
-         * @throws InterruptedException
-         */
-        public void cleanUp() throws InterruptedException {
-```
-
-### JavadocDeclaration
-`@param returnCode` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/FindConflictsCommand.java`
-#### Snippet
-```java
-     * This occurs in the case where resolve is in preview and not completed
-     *
-     * @param returnCode
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/FindConflictsCommand.java`
-#### Snippet
-```java
-     *
-     * @param returnCode
-     * @return
-     */
-    @Override
 ```
 
 ### JavadocDeclaration
@@ -9373,27 +9349,51 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/FindConflictsCommand.j
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsDialog.java`
+`@param returnCode` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/FindConflictsCommand.java`
 #### Snippet
 ```java
-     * Override so only OK action is created and not Cancel
+     * This occurs in the case where resolve is in preview and not completed
      *
+     * @param returnCode
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/FindConflictsCommand.java`
+#### Snippet
+```java
+     *
+     * @param returnCode
      * @return
      */
     @Override
 ```
 
 ### JavadocDeclaration
-`@param icon` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/IconPanel.java`
+`@param serverURI` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
 #### Snippet
 ```java
-     * Create the IconPanel. The preferred size and min size are derived from the width and height of the icon.
-     *
-     * @param icon
+    /**
+     * Sets the proxy URI for the server URI provided. The Property service is used as the backing store.
+     * @param serverURI
+     * @param proxyURI
      */
-    public IconPanel(Icon icon) {
+```
+
+### JavadocDeclaration
+`@param proxyURI` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
+#### Snippet
+```java
+     * Sets the proxy URI for the server URI provided. The Property service is used as the backing store.
+     * @param serverURI
+     * @param proxyURI
+     */
+    public static void setProxyServer(final String serverURI, final String proxyURI) {
 ```
 
 ### JavadocDeclaration
@@ -9457,30 +9457,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
 ```
 
 ### JavadocDeclaration
-`@param serverURI` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
-#### Snippet
-```java
-    /**
-     * Sets the proxy URI for the server URI provided. The Property service is used as the backing store.
-     * @param serverURI
-     * @param proxyURI
-     */
-```
-
-### JavadocDeclaration
-`@param proxyURI` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
-#### Snippet
-```java
-     * Sets the proxy URI for the server URI provided. The Property service is used as the backing store.
-     * @param serverURI
-     * @param proxyURI
-     */
-    public static void setProxyServer(final String serverURI, final String proxyURI) {
-```
-
-### JavadocDeclaration
 `@return` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
 #### Snippet
@@ -9541,6 +9517,18 @@ in `plugin/src/com/microsoft/alm/plugin/external/utils/WorkspaceHelper.java`
 ```
 
 ### JavadocDeclaration
+`@param icon` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/IconPanel.java`
+#### Snippet
+```java
+     * Create the IconPanel. The preferred size and min size are derived from the width and height of the icon.
+     *
+     * @param icon
+     */
+    public IconPanel(Icon icon) {
+```
+
+### JavadocDeclaration
 `@param stdout` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/commands/GetDetailedWorkspaceCommand.java`
 #### Snippet
@@ -9578,14 +9566,14 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/GetDetailedWorkspaceCo
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsDialog.java`
 #### Snippet
 ```java
-     * Try to find the tf command by checking common places based on the OS
+     * Override so only OK action is created and not Cancel
      *
      * @return
      */
-    public static String tryDetectTf() {
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -9598,6 +9586,42 @@ in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
      * @return
      */
     private static String getExeFromPath(final String[] exeNames) {
+```
+
+### JavadocDeclaration
+`@param paths` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
+#### Snippet
+```java
+     * Search thru given directories to find one of the given acceptable tf commands
+     *
+     * @param paths
+     * @param exeNames
+     * @return
+```
+
+### JavadocDeclaration
+`@param exeNames` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
+#### Snippet
+```java
+     *
+     * @param paths
+     * @param exeNames
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
+#### Snippet
+```java
+     * @param paths
+     * @param exeNames
+     * @return
+     */
+    private static String searchDirectories(final File[] paths, final String[] exeNames) {
 ```
 
 ### JavadocDeclaration
@@ -9637,39 +9661,15 @@ in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
 ```
 
 ### JavadocDeclaration
-`@param paths` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
-#### Snippet
-```java
-     * Search thru given directories to find one of the given acceptable tf commands
-     *
-     * @param paths
-     * @param exeNames
-     * @return
-```
-
-### JavadocDeclaration
-`@param exeNames` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
-#### Snippet
-```java
-     *
-     * @param paths
-     * @param exeNames
-     * @return
-     */
-```
-
-### JavadocDeclaration
 `@return` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
 #### Snippet
 ```java
-     * @param paths
-     * @param exeNames
+     * Try to find the tf command by checking common places based on the OS
+     *
      * @return
      */
-    private static String searchDirectories(final File[] paths, final String[] exeNames) {
+    public static String tryDetectTf() {
 ```
 
 ### JavadocDeclaration
@@ -9718,54 +9718,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSDiffProvider.java`
      * @return
      */
     private List<Workspace.Mapping> getUpdatedMappings() {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
-#### Snippet
-```java
-     * is what JetBrains did as well so it doesn't differ from their experience.
-     *
-     * @return
-     */
-    public Collection<Change> getChanges() {
-```
-
-### JavadocDeclaration
-`@param stream` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
-#### Snippet
-```java
-     * Reading cached changelist values from the stream and repopulating the data into the changelist
-     *
-     * @param stream
-     */
-    private void readFromStream(final DataInput stream) {
-```
-
-### JavadocDeclaration
-`@param stream` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
-#### Snippet
-```java
-     * Save object to stream so it can be cached
-     *
-     * @param stream
-     * @throws IOException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
-#### Snippet
-```java
-     *
-     * @param stream
-     * @throws IOException
-     */
-    void writeToStream(final DataOutput stream) throws IOException {
 ```
 
 ### JavadocDeclaration
@@ -9841,6 +9793,66 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/MergeCommand.java`
 ```
 
 ### JavadocDeclaration
+`@param stream` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
+#### Snippet
+```java
+     * Reading cached changelist values from the stream and repopulating the data into the changelist
+     *
+     * @param stream
+     */
+    private void readFromStream(final DataInput stream) {
+```
+
+### JavadocDeclaration
+`@param stream` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
+#### Snippet
+```java
+     * Save object to stream so it can be cached
+     *
+     * @param stream
+     * @throws IOException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
+#### Snippet
+```java
+     *
+     * @param stream
+     * @throws IOException
+     */
+    void writeToStream(final DataOutput stream) throws IOException {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
+#### Snippet
+```java
+     * is what JetBrains did as well so it doesn't differ from their experience.
+     *
+     * @return
+     */
+    public Collection<Change> getChanges() {
+```
+
+### JavadocDeclaration
+`@param pendingChange` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/StatusProvider.java`
+#### Snippet
+```java
+     * Determine which state the change is in so we know how to handle it
+     *
+     * @param pendingChange
+     * @return ServerState
+     */
+```
+
+### JavadocDeclaration
 `@param statusVisitor` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/StatusProvider.java`
 #### Snippet
@@ -9865,15 +9877,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/StatusProvider.java`
 ```
 
 ### JavadocDeclaration
-`@param pendingChange` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/StatusProvider.java`
+`@param authInfo` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/GetAllWorkspacesCommand.java`
 #### Snippet
 ```java
-     * Determine which state the change is in so we know how to handle it
+     * from a specific server using a server call but don't have a server context
      *
-     * @param pendingChange
-     * @return ServerState
+     * @param authInfo
+     * @param serverUrl
      */
+```
+
+### JavadocDeclaration
+`@param serverUrl` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/GetAllWorkspacesCommand.java`
+#### Snippet
+```java
+     *
+     * @param authInfo
+     * @param serverUrl
+     */
+    public GetAllWorkspacesCommand(final AuthenticationInfo authInfo, final String serverUrl) {
 ```
 
 ### JavadocDeclaration
@@ -9925,30 +9949,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/GetAllWorkspacesComman
 ```
 
 ### JavadocDeclaration
-`@param authInfo` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/GetAllWorkspacesCommand.java`
-#### Snippet
-```java
-     * from a specific server using a server call but don't have a server context
-     *
-     * @param authInfo
-     * @param serverUrl
-     */
-```
-
-### JavadocDeclaration
-`@param serverUrl` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/GetAllWorkspacesCommand.java`
-#### Snippet
-```java
-     *
-     * @param authInfo
-     * @param serverUrl
-     */
-    public GetAllWorkspacesCommand(final AuthenticationInfo authInfo, final String serverUrl) {
-```
-
-### JavadocDeclaration
 `@param repositoryContext` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/operations/Operation.java`
 #### Snippet
@@ -9970,6 +9970,210 @@ in `plugin/src/com/microsoft/alm/plugin/operations/Operation.java`
      * @return
      */
     protected static ServerContext getServerContext(final RepositoryContext repositoryContext, final boolean forcePrompt, final boolean allowPrompt, final Logger logger) {
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     * Validates a provided server context and if validation succeeds saves a server context with the user's team foundation Id
+     *
+     * @param context
+     */
+    public ServerContext validateServerConnection(final ServerContext context) {
+```
+
+### JavadocDeclaration
+`@param gitRemoteUrl` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     * Note that this will require server calls and should be done on a background thread.
+     *
+     * @param gitRemoteUrl
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     *
+     * @param gitRemoteUrl
+     * @return
+     */
+    public ServerContext createContextFromGitRemoteUrl(final String gitRemoteUrl) {
+```
+
+### JavadocDeclaration
+`@param parseResult` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+         * If some call fails we simply return false and ignore the results.
+         *
+         * @param parseResult
+         * @return
+         */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+         *
+         * @param parseResult
+         * @return
+         */
+        @Override
+```
+
+### JavadocDeclaration
+`@param contexts` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     * other contexts that share that auth info and removes the old contexts from use
+     *
+     * @param contexts
+     * @return
+     */
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     *
+     * @param contexts
+     * @return
+     */
+    public void updateServerContextsAuthInfo(final List<ServerContext> contexts) {
+```
+
+### JavadocDeclaration
+`@param collectionUrl` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+         * This method queries the server with the given TFVC URL for collection information
+         *
+         * @param collectionUrl
+         * @param teamProjectName
+         * @param possibleCollectionName
+```
+
+### JavadocDeclaration
+`@param teamProjectName` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+         *
+         * @param collectionUrl
+         * @param teamProjectName
+         * @param possibleCollectionName
+         * @return true if server information is determined
+```
+
+### JavadocDeclaration
+`@param possibleCollectionName` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+         * @param collectionUrl
+         * @param teamProjectName
+         * @param possibleCollectionName
+         * @return true if server information is determined
+         */
+```
+
+### JavadocDeclaration
+`@param url` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     * Use this method to get the appropriate AuthenticationProvider based on an url.
+     *
+     * @param url
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     *
+     * @param url
+     * @return
+     */
+    public AuthenticationProvider getAuthenticationProvider(final String url) {
+```
+
+### JavadocDeclaration
+`@param remoteUrl` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     * Has to be called on a background thread, will hang if called on UI thread
+     *
+     * @param remoteUrl
+     */
+    public ServerContext updateAuthenticationInfo(final String remoteUrl) {
+```
+
+### JavadocDeclaration
+`@param collectionUrl` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+         * 1: the collection name (no slashes)
+         *
+         * @param collectionUrl
+         * @return
+         */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+         *
+         * @param collectionUrl
+         * @return
+         */
+        private String[] splitTfvcCollectionUrl(final String collectionUrl) {
+```
+
+### JavadocDeclaration
+`@param gitRemoteUrl` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+         * If unable to get the info, it parses the Git remote url and tries to verify it by querying the server again
+         *
+         * @param gitRemoteUrl
+         * @return true if server information is determined
+         */
+```
+
+### JavadocDeclaration
+`@param remoteUrl` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+     * TODO: so we can specifically retry on that and remove the bad cached creds
+     *
+     * @param remoteUrl
+     * @return context
+     */
 ```
 
 ### JavadocDeclaration
@@ -10009,6 +10213,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
 ```
 
 ### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/settings/TeamServicesSettingsModel.java`
+#### Snippet
+```java
+     * Check if any changes have been made to the page
+     *
+     * @return
+     */
+    public boolean isModified() {
+```
+
+### JavadocDeclaration
 `@param returnCode` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/commands/SyncCommand.java`
 #### Snippet
@@ -10027,42 +10243,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/SyncCommand.java`
 ```java
      *
      * @param returnCode
-     * @return
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@param stdout` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/SyncCommand.java`
-#### Snippet
-```java
-     * Conflict D:\tmp\test\test_renamed.txt - Unable to perform the get operation because you have a conflicting rename, edit
-     *
-     * @param stdout
-     * @param stderr
-     * @return
-```
-
-### JavadocDeclaration
-`@param stderr` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/SyncCommand.java`
-#### Snippet
-```java
-     *
-     * @param stdout
-     * @param stderr
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/SyncCommand.java`
-#### Snippet
-```java
-     * @param stdout
-     * @param stderr
      * @return
      */
     @Override
@@ -10105,15 +10285,39 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/SyncCommand.java`
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/settings/TeamServicesSettingsModel.java`
+`@param stdout` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/SyncCommand.java`
 #### Snippet
 ```java
-     * Check if any changes have been made to the page
+     * Conflict D:\tmp\test\test_renamed.txt - Unable to perform the get operation because you have a conflicting rename, edit
      *
+     * @param stdout
+     * @param stderr
+     * @return
+```
+
+### JavadocDeclaration
+`@param stderr` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/SyncCommand.java`
+#### Snippet
+```java
+     *
+     * @param stdout
+     * @param stderr
      * @return
      */
-    public boolean isModified() {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/SyncCommand.java`
+#### Snippet
+```java
+     * @param stdout
+     * @param stderr
+     * @return
+     */
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -10189,207 +10393,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentRevisi
 ```
 
 ### JavadocDeclaration
-`@param parseResult` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+`@param stderr` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/CreateWorkspaceCommand.java`
 #### Snippet
 ```java
-         * If some call fails we simply return false and ignore the results.
-         *
-         * @param parseResult
-         * @return
-         */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-         *
-         * @param parseResult
-         * @return
-         */
-        @Override
-```
-
-### JavadocDeclaration
-`@param collectionUrl` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-         * 1: the collection name (no slashes)
-         *
-         * @param collectionUrl
-         * @return
-         */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-         *
-         * @param collectionUrl
-         * @return
-         */
-        private String[] splitTfvcCollectionUrl(final String collectionUrl) {
-```
-
-### JavadocDeclaration
-`@param collectionUrl` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-         * This method queries the server with the given TFVC URL for collection information
-         *
-         * @param collectionUrl
-         * @param teamProjectName
-         * @param possibleCollectionName
-```
-
-### JavadocDeclaration
-`@param teamProjectName` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-         *
-         * @param collectionUrl
-         * @param teamProjectName
-         * @param possibleCollectionName
-         * @return true if server information is determined
-```
-
-### JavadocDeclaration
-`@param possibleCollectionName` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-         * @param collectionUrl
-         * @param teamProjectName
-         * @param possibleCollectionName
-         * @return true if server information is determined
-         */
-```
-
-### JavadocDeclaration
-`@param gitRemoteUrl` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-         * If unable to get the info, it parses the Git remote url and tries to verify it by querying the server again
-         *
-         * @param gitRemoteUrl
-         * @return true if server information is determined
-         */
-```
-
-### JavadocDeclaration
-`@param gitRemoteUrl` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     * Note that this will require server calls and should be done on a background thread.
+     * Parse for specific error messages from CreateWorkspace command
      *
-     * @param gitRemoteUrl
-     * @return
+     * @param stderr
      */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     *
-     * @param gitRemoteUrl
-     * @return
-     */
-    public ServerContext createContextFromGitRemoteUrl(final String gitRemoteUrl) {
-```
-
-### JavadocDeclaration
-`@param contexts` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     * other contexts that share that auth info and removes the old contexts from use
-     *
-     * @param contexts
-     * @return
-     */
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     *
-     * @param contexts
-     * @return
-     */
-    public void updateServerContextsAuthInfo(final List<ServerContext> contexts) {
-```
-
-### JavadocDeclaration
-`@param remoteUrl` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     * Has to be called on a background thread, will hang if called on UI thread
-     *
-     * @param remoteUrl
-     */
-    public ServerContext updateAuthenticationInfo(final String remoteUrl) {
-```
-
-### JavadocDeclaration
-`@param remoteUrl` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     * TODO: so we can specifically retry on that and remove the bad cached creds
-     *
-     * @param remoteUrl
-     * @return context
-     */
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     * Validates a provided server context and if validation succeeds saves a server context with the user's team foundation Id
-     *
-     * @param context
-     */
-    public ServerContext validateServerConnection(final ServerContext context) {
-```
-
-### JavadocDeclaration
-`@param url` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     * Use this method to get the appropriate AuthenticationProvider based on an url.
-     *
-     * @param url
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-     *
-     * @param url
-     * @return
-     */
-    public AuthenticationProvider getAuthenticationProvider(final String url) {
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -10453,30 +10465,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/starters/ApplicationStarterB
 ```
 
 ### JavadocDeclaration
-`@param stderr` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/CreateWorkspaceCommand.java`
-#### Snippet
-```java
-     * Parse for specific error messages from CreateWorkspace command
-     *
-     * @param stderr
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@param uri` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/starters/VstsStarter.java`
-#### Snippet
-```java
-     * Parse URI to find the given key-value attributes it contains
-     *
-     * @param uri
-     * @return Map of the key-value attributes contained in the URI
-     */
-```
-
-### JavadocDeclaration
 `@param repositoryContext` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/WorkItemsTabLookupListener.java`
 #### Snippet
@@ -10489,123 +10477,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/WorkItemsTabLook
 ```
 
 ### JavadocDeclaration
-`@param selectedWorkspace` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+`@param uri` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/starters/VstsStarter.java`
 #### Snippet
 ```java
-     * Open the edit workspace dialog with given workspace info
+     * Parse URI to find the given key-value attributes it contains
      *
-     * @param selectedWorkspace
-     * @param update
+     * @param uri
+     * @return Map of the key-value attributes contained in the URI
      */
-```
-
-### JavadocDeclaration
-`@param update` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-     *
-     * @param selectedWorkspace
-     * @param update
-     */
-    protected void editWorkspace(final Workspace selectedWorkspace, final Runnable update) throws VcsException {
-```
-
-### JavadocDeclaration
-`@param selectedServer` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-     * Open the proxy dialog for editing
-     *
-     * @param selectedServer
-     */
-    public void editProxy(final Server selectedServer) {
-```
-
-### JavadocDeclaration
-`@param server` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-     * Save the proxy settings
-     *
-     * @param server
-     * @param newProxy
-     */
-```
-
-### JavadocDeclaration
-`@param newProxy` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-     *
-     * @param server
-     * @param newProxy
-     */
-    private void setProxy(final Server server, final String newProxy) {
-```
-
-### JavadocDeclaration
-`@param server` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-     * Get the proxy settings for the given server
-     *
-     * @param server
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-     *
-     * @param server
-     * @return
-     */
-    private String getProxy(final Server server) {
-```
-
-### JavadocDeclaration
-`@param selectedServer` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-     * Reload the workspaces for the given server
-     *
-     * @param selectedServer
-     * @throws VcsException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-     *
-     * @param selectedServer
-     * @throws VcsException
-     */
-    protected void reloadWorkspaces(final Server selectedServer) throws VcsException {
-```
-
-### JavadocDeclaration
-`@param selectedWorkspace` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-     * Delete the given workspace
-     *
-     * @param selectedWorkspace
-     */
-    protected void deleteWorkspace(final Workspace selectedWorkspace) throws VcsException {
 ```
 
 ### JavadocDeclaration
@@ -10642,6 +10522,126 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspaces
      * @return
      */
     protected Workspace getPartialWorkspace(final String serverName, final String workspaceName) {
+```
+
+### JavadocDeclaration
+`@param selectedServer` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+     * Reload the workspaces for the given server
+     *
+     * @param selectedServer
+     * @throws VcsException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+     *
+     * @param selectedServer
+     * @throws VcsException
+     */
+    protected void reloadWorkspaces(final Server selectedServer) throws VcsException {
+```
+
+### JavadocDeclaration
+`@param server` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+     * Get the proxy settings for the given server
+     *
+     * @param server
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+     *
+     * @param server
+     * @return
+     */
+    private String getProxy(final Server server) {
+```
+
+### JavadocDeclaration
+`@param selectedWorkspace` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+     * Open the edit workspace dialog with given workspace info
+     *
+     * @param selectedWorkspace
+     * @param update
+     */
+```
+
+### JavadocDeclaration
+`@param update` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+     *
+     * @param selectedWorkspace
+     * @param update
+     */
+    protected void editWorkspace(final Workspace selectedWorkspace, final Runnable update) throws VcsException {
+```
+
+### JavadocDeclaration
+`@param selectedWorkspace` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+     * Delete the given workspace
+     *
+     * @param selectedWorkspace
+     */
+    protected void deleteWorkspace(final Workspace selectedWorkspace) throws VcsException {
+```
+
+### JavadocDeclaration
+`@param server` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+     * Save the proxy settings
+     *
+     * @param server
+     * @param newProxy
+     */
+```
+
+### JavadocDeclaration
+`@param newProxy` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+     *
+     * @param server
+     * @param newProxy
+     */
+    private void setProxy(final Server server, final String newProxy) {
+```
+
+### JavadocDeclaration
+`@param selectedServer` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+     * Open the proxy dialog for editing
+     *
+     * @param selectedServer
+     */
+    public void editProxy(final Server selectedServer) {
 ```
 
 ### JavadocDeclaration
@@ -10729,6 +10729,138 @@ in `plugin/src/com/microsoft/alm/plugin/external/models/ServerStatusType.java`
 ```
 
 ### JavadocDeclaration
+`@param conflicts` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     * Resolve the conflicts based on auto resolve type and then refresh the table model to update the list of conflicts
+     *
+     * @param conflicts
+     * @param type
+     */
+```
+
+### JavadocDeclaration
+`@param type` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     *
+     * @param conflicts
+     * @param type
+     */
+    public void acceptChangeAsync(final List<Conflict> conflicts, final ResolveConflictsCommand.AutoResolveType type, final ResolveConflictsModel model) {
+```
+
+### JavadocDeclaration
+`@param conflict` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     * Process a conflict that has both rename and content conflicts
+     *
+     * @param conflict
+     * @param context
+     * @param model
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     *
+     * @param conflict
+     * @param context
+     * @param model
+     * @param conflictPath
+```
+
+### JavadocDeclaration
+`@param model` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     * @param conflict
+     * @param context
+     * @param model
+     * @param conflictPath
+     * @param contentTriplet
+```
+
+### JavadocDeclaration
+`@param conflictPath` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     * @param context
+     * @param model
+     * @param conflictPath
+     * @param contentTriplet
+     * @throws VcsException
+```
+
+### JavadocDeclaration
+`@param contentTriplet` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     * @param model
+     * @param conflictPath
+     * @param contentTriplet
+     * @throws VcsException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     * @param conflictPath
+     * @param contentTriplet
+     * @throws VcsException
+     */
+    @VisibleForTesting
+```
+
+### JavadocDeclaration
+`@param conflict` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     * Determines which type of merge conflict is present (content or name) and then gives the user the ability to resolve the issue
+     *
+     * @param conflict
+     * @param model
+     * @throws VcsException
+```
+
+### JavadocDeclaration
+`@param model` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     *
+     * @param conflict
+     * @param model
+     * @throws VcsException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     * @param conflict
+     * @param model
+     * @throws VcsException
+     */
+    public void acceptMerge(final @NotNull Conflict conflict, final ResolveConflictsModel model) throws VcsException {
+```
+
+### JavadocDeclaration
 `@param conflict` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
@@ -10774,126 +10906,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
      * @throws VcsException
      */
     @VisibleForTesting
-```
-
-### JavadocDeclaration
-`@param localPath` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     * then reload the conflicts
-     *
-     * @param localPath
-     * @param updatedPath
-     * @param type
-```
-
-### JavadocDeclaration
-`@param updatedPath` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     *
-     * @param localPath
-     * @param updatedPath
-     * @param type
-     * @param context
-```
-
-### JavadocDeclaration
-`@param type` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     * @param localPath
-     * @param updatedPath
-     * @param type
-     * @param context
-     * @param model
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     * @param updatedPath
-     * @param type
-     * @param context
-     * @param model
-     * @param updateFiles
-```
-
-### JavadocDeclaration
-`@param model` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     * @param type
-     * @param context
-     * @param model
-     * @param updateFiles
-     * @throws VcsException
-```
-
-### JavadocDeclaration
-`@param updateFiles` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     * @param context
-     * @param model
-     * @param updateFiles
-     * @throws VcsException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     * @param model
-     * @param updateFiles
-     * @throws VcsException
-     */
-    @VisibleForTesting
-```
-
-### JavadocDeclaration
-`@param conflict` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     * Determines which type of merge conflict is present (content or name) and then gives the user the ability to resolve the issue
-     *
-     * @param conflict
-     * @param model
-     * @throws VcsException
-```
-
-### JavadocDeclaration
-`@param model` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     *
-     * @param conflict
-     * @param model
-     * @throws VcsException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     * @param conflict
-     * @param model
-     * @throws VcsException
-     */
-    public void acceptMerge(final @NotNull Conflict conflict, final ResolveConflictsModel model) throws VcsException {
 ```
 
 ### JavadocDeclaration
@@ -11029,15 +11041,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
 ```
 
 ### JavadocDeclaration
-`@param conflicts` tag description is missing
+`@param localPath` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
-     * Resolve the conflicts based on auto resolve type and then refresh the table model to update the list of conflicts
+     * then reload the conflicts
      *
-     * @param conflicts
+     * @param localPath
+     * @param updatedPath
      * @param type
-     */
+```
+
+### JavadocDeclaration
+`@param updatedPath` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+     *
+     * @param localPath
+     * @param updatedPath
+     * @param type
+     * @param context
 ```
 
 ### JavadocDeclaration
@@ -11045,21 +11069,9 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
-     *
-     * @param conflicts
+     * @param localPath
+     * @param updatedPath
      * @param type
-     */
-    public void acceptChangeAsync(final List<Conflict> conflicts, final ResolveConflictsCommand.AutoResolveType type, final ResolveConflictsModel model) {
-```
-
-### JavadocDeclaration
-`@param conflict` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     * Process a conflict that has both rename and content conflicts
-     *
-     * @param conflict
      * @param context
      * @param model
 ```
@@ -11069,11 +11081,11 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
-     *
-     * @param conflict
+     * @param updatedPath
+     * @param type
      * @param context
      * @param model
-     * @param conflictPath
+     * @param updateFiles
 ```
 
 ### JavadocDeclaration
@@ -11081,33 +11093,21 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
-     * @param conflict
+     * @param type
      * @param context
      * @param model
-     * @param conflictPath
-     * @param contentTriplet
-```
-
-### JavadocDeclaration
-`@param conflictPath` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
-     * @param context
-     * @param model
-     * @param conflictPath
-     * @param contentTriplet
+     * @param updateFiles
      * @throws VcsException
 ```
 
 ### JavadocDeclaration
-`@param contentTriplet` tag description is missing
+`@param updateFiles` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
+     * @param context
      * @param model
-     * @param conflictPath
-     * @param contentTriplet
+     * @param updateFiles
      * @throws VcsException
      */
 ```
@@ -11117,11 +11117,23 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
-     * @param conflictPath
-     * @param contentTriplet
+     * @param model
+     * @param updateFiles
      * @throws VcsException
      */
     @VisibleForTesting
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/IdeaHelper.java`
+#### Snippet
+```java
+     * Checks if the IDE is Rider
+     *
+     * @return
+     */
+    public static boolean isRider() {
 ```
 
 ### JavadocDeclaration
@@ -11134,6 +11146,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/IdeaHelper.java`
      * @throws UnsupportedEncodingException
      */
     public static String getResourcePath(final URL resourceUrl, final String resourceName, final String directory) throws UnsupportedEncodingException {
+```
+
+### JavadocDeclaration
+`@param runnable` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/IdeaHelper.java`
+#### Snippet
+```java
+     * Runs a task async in IntelliJ (shows no status so not for user actions that need to show progress)
+     *
+     * @param runnable
+     */
+    public static void executeOnPooledThread(final Runnable runnable) {
 ```
 
 ### JavadocDeclaration
@@ -11170,30 +11194,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/IdeaHelper.java`
      * @param message
      */
     public static void showErrorDialog(@NotNull final Project project, @NotNull final String message) {
-```
-
-### JavadocDeclaration
-`@param runnable` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/IdeaHelper.java`
-#### Snippet
-```java
-     * Runs a task async in IntelliJ (shows no status so not for user actions that need to show progress)
-     *
-     * @param runnable
-     */
-    public static void executeOnPooledThread(final Runnable runnable) {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/IdeaHelper.java`
-#### Snippet
-```java
-     * Checks if the IDE is Rider
-     *
-     * @return
-     */
-    public static boolean isRider() {
 ```
 
 ### JavadocDeclaration
@@ -11269,6 +11269,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
 ```
 
 ### JavadocDeclaration
+`@param project` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
+#### Snippet
+```java
+     * Find the VCS type of the given project
+     *
+     * @param project
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
+#### Snippet
+```java
+     *
+     * @param project
+     * @return
+     */
+    public static String getVcsType(final Project project) {
+```
+
+### JavadocDeclaration
 `@param serverPath` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
 #### Snippet
@@ -11297,6 +11321,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
 in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
 #### Snippet
 ```java
+     * Returns the Git repository object for the project or null if this is not a Git repo project.
+     *
+     * @param project
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
+#### Snippet
+```java
+     *
+     * @param project
+     * @return
+     */
+    public static GitRepository getGitRepository(final Project project) {
+```
+
+### JavadocDeclaration
+`@param project` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
+#### Snippet
+```java
      * Use this method to check if the given project is a VSTS/TFS project
      *
      * @param project
@@ -11314,30 +11362,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
      * @return
      */
     public static boolean isVstsRepo(final Project project) {
-```
-
-### JavadocDeclaration
-`@param project` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
-#### Snippet
-```java
-     * Find the VCS type of the given project
-     *
-     * @param project
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
-#### Snippet
-```java
-     *
-     * @param project
-     * @return
-     */
-    public static String getVcsType(final Project project) {
 ```
 
 ### JavadocDeclaration
@@ -11362,30 +11386,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
      * @return
      */
     public static TFSVcs getTFSVcsByPath(final VirtualFile file) {
-```
-
-### JavadocDeclaration
-`@param project` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
-#### Snippet
-```java
-     * Returns the Git repository object for the project or null if this is not a Git repo project.
-     *
-     * @param project
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/VcsHelper.java`
-#### Snippet
-```java
-     *
-     * @param project
-     * @return
-     */
-    public static GitRepository getGitRepository(final Project project) {
 ```
 
 ### JavadocDeclaration
@@ -11425,15 +11425,39 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/utils/TfGitHelper.java`
 ```
 
 ### JavadocDeclaration
-`@param context` tag description is missing
+`@param project` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.java`
 #### Snippet
 ```java
-     * This method shows the errors in the VCS error window.
+     * This method enables the action if one or more items are selected.
      *
-     * @param context
+     * @param project
+     * @param files
+     * @return
+```
+
+### JavadocDeclaration
+`@param files` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.java`
+#### Snippet
+```java
+     *
+     * @param project
+     * @param files
+     * @return
      */
-    protected void showErrors(final MultipleItemActionContext context) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.java`
+#### Snippet
+```java
+     * @param project
+     * @param files
+     * @return
+     */
+    protected boolean isEnabled(final Project project, final VirtualFile[] files) {
 ```
 
 ### JavadocDeclaration
@@ -11473,42 +11497,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.jav
 ```
 
 ### JavadocDeclaration
-`@param project` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.java`
-#### Snippet
-```java
-     * This method enables the action if one or more items are selected.
-     *
-     * @param project
-     * @param files
-     * @return
-```
-
-### JavadocDeclaration
-`@param files` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.java`
-#### Snippet
-```java
-     *
-     * @param project
-     * @param files
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.java`
-#### Snippet
-```java
-     * @param project
-     * @param files
-     * @return
-     */
-    protected boolean isEnabled(final Project project, final VirtualFile[] files) {
-```
-
-### JavadocDeclaration
 `@param actionContext` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.java`
 #### Snippet
@@ -11518,6 +11506,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.jav
      * @param actionContext
      */
     protected abstract void execute(final @NotNull MultipleItemActionContext actionContext);
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/actions/MultipleItemAction.java`
+#### Snippet
+```java
+     * This method shows the errors in the VCS error window.
+     *
+     * @param context
+     */
+    protected void showErrors(final MultipleItemActionContext context) {
 ```
 
 ### JavadocDeclaration
@@ -11573,35 +11573,11 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/NameMerger.
 in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
 #### Snippet
 ```java
-     * If that doesn't exist it will fall back to the old way which doesn't store multiple passwords and is deprecated
+     * Old way to read passwords which is deprecated and should only be used in older version of IDEA
      *
      * @param key
-     * @param value
      */
-```
-
-### JavadocDeclaration
-`@param value` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
-#### Snippet
-```java
-     *
-     * @param key
-     * @param value
-     */
-    private static void writePassword(final String key, final String value) {
-```
-
-### JavadocDeclaration
-`@param key` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
-#### Snippet
-```java
-     * If that doesn't exist it will fall back to the old way which is deprecated
-     *
-     * @param key
-     * @return unencrypted password or and empty string if no password is found
-     */
+    private static String readPasswordOldWay(final String key) {
 ```
 
 ### JavadocDeclaration
@@ -11633,11 +11609,35 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets
 in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
 #### Snippet
 ```java
-     * Old way to read passwords which is deprecated and should only be used in older version of IDEA
+     * If that doesn't exist it will fall back to the old way which doesn't store multiple passwords and is deprecated
      *
      * @param key
+     * @param value
      */
-    private static String readPasswordOldWay(final String key) {
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
+#### Snippet
+```java
+     *
+     * @param key
+     * @param value
+     */
+    private static void writePassword(final String key, final String value) {
+```
+
+### JavadocDeclaration
+`@param key` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/settings/TeamServicesSecrets.java`
+#### Snippet
+```java
+     * If that doesn't exist it will fall back to the old way which is deprecated
+     *
+     * @param key
+     * @return unencrypted password or and empty string if no password is found
+     */
 ```
 
 ### JavadocDeclaration
@@ -11693,11 +11693,23 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/ServerPathCellEditor.java`
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsModel.java`
 #### Snippet
 ```java
-     * Accept server changes
+     * Find the values of the selected rows
      *
      * @param rows
+     * @return
      */
-    public void acceptTheirs(final int[] rows) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsModel.java`
+#### Snippet
+```java
+     *
+     * @param rows
+     * @return
+     */
+    private List<Conflict> getSelectedConflicts(final int[] rows) {
 ```
 
 ### JavadocDeclaration
@@ -11717,23 +11729,11 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsMod
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsModel.java`
 #### Snippet
 ```java
-     * Find the values of the selected rows
+     * Accept server changes
      *
      * @param rows
-     * @return
      */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsModel.java`
-#### Snippet
-```java
-     *
-     * @param rows
-     * @return
-     */
-    private List<Conflict> getSelectedConflicts(final int[] rows) {
+    public void acceptTheirs(final int[] rows) {
 ```
 
 ### JavadocDeclaration
@@ -11809,30 +11809,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/utils/BackCompatibleUtils.ja
 ```
 
 ### JavadocDeclaration
-`@param titleLabelText` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/FilterDropDown.java`
-#### Snippet
-```java
-     * Setup the UI components for the menu
-     *
-     * @param titleLabelText
-     * @param pickerLabel
-     */
-```
-
-### JavadocDeclaration
-`@param pickerLabel` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/FilterDropDown.java`
-#### Snippet
-```java
-     *
-     * @param titleLabelText
-     * @param pickerLabel
-     */
-    protected void initializeUI(final String titleLabelText, final JLabel pickerLabel) {
-```
-
-### JavadocDeclaration
 `@param client` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/context/rest/VstsHttpClient.java`
 #### Snippet
@@ -11881,6 +11857,138 @@ in `plugin/src/com/microsoft/alm/plugin/context/rest/VstsHttpClient.java`
 ```
 
 ### JavadocDeclaration
+`@param titleLabelText` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/FilterDropDown.java`
+#### Snippet
+```java
+     * Setup the UI components for the menu
+     *
+     * @param titleLabelText
+     * @param pickerLabel
+     */
+```
+
+### JavadocDeclaration
+`@param pickerLabel` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/FilterDropDown.java`
+#### Snippet
+```java
+     *
+     * @param titleLabelText
+     * @param pickerLabel
+     */
+    protected void initializeUI(final String titleLabelText, final JLabel pickerLabel) {
+```
+
+### JavadocDeclaration
+`@param stdout` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/GetBaseVersionCommand.java`
+#### Snippet
+```java
+     * Note: the changeset we return is in the first column and the last row
+     *
+     * @param stdout
+     * @param stderr
+     * @return
+```
+
+### JavadocDeclaration
+`@param stderr` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/GetBaseVersionCommand.java`
+#### Snippet
+```java
+     *
+     * @param stdout
+     * @param stderr
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/GetBaseVersionCommand.java`
+#### Snippet
+```java
+     * @param stdout
+     * @param stderr
+     * @return
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@param listener` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
+#### Snippet
+```java
+     * when the command process finishes.
+     *
+     * @param listener
+     */
+    public void run(final Listener<T> listener) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
+#### Snippet
+```java
+     * more specific message or we want the IDE to handle the error differently so subclasses can override this
+     *
+     * @return
+     */
+    protected boolean shouldThrowBadExitCode() {
+```
+
+### JavadocDeclaration
+`@param buffer` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
+#### Snippet
+```java
+     * This method is used by Checkin and CreateBranch to parse out the changeset number.
+     *
+     * @param buffer
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
+#### Snippet
+```java
+     *
+     * @param buffer
+     * @return
+     */
+    protected String getChangesetNumber(final String buffer) {
+```
+
+### JavadocDeclaration
+`@param result` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
+#### Snippet
+```java
+         * set, the result parameter may be null.
+         *
+         * @param result
+         * @param error
+         */
+```
+
+### JavadocDeclaration
+`@param error` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
+#### Snippet
+```java
+         *
+         * @param result
+         * @param error
+         */
+        void completed(final T result, final Throwable error);
+```
+
+### JavadocDeclaration
 `@param output` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 #### Snippet
@@ -11902,18 +12010,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
      * @return
      */
     @VisibleForTesting
-```
-
-### JavadocDeclaration
-`@param returnCode` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
-#### Snippet
-```java
-     * Default method for parsing return code that can be overridden if need be
-     *
-     * @param returnCode
-     * @return returnCode
-     */
 ```
 
 ### JavadocDeclaration
@@ -11953,30 +12049,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 ```
 
 ### JavadocDeclaration
-`@param buffer` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
-#### Snippet
-```java
-     * This method is used by Checkin and CreateBranch to parse out the changeset number.
-     *
-     * @param buffer
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
-#### Snippet
-```java
-     *
-     * @param buffer
-     * @return
-     */
-    protected String getChangesetNumber(final String buffer) {
-```
-
-### JavadocDeclaration
 `@return` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 #### Snippet
@@ -11989,87 +12061,15 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
+`@param returnCode` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
 #### Snippet
 ```java
-     * more specific message or we want the IDE to handle the error differently so subclasses can override this
+     * Default method for parsing return code that can be overridden if need be
      *
-     * @return
+     * @param returnCode
+     * @return returnCode
      */
-    protected boolean shouldThrowBadExitCode() {
-```
-
-### JavadocDeclaration
-`@param listener` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
-#### Snippet
-```java
-     * when the command process finishes.
-     *
-     * @param listener
-     */
-    public void run(final Listener<T> listener) {
-```
-
-### JavadocDeclaration
-`@param result` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
-#### Snippet
-```java
-         * set, the result parameter may be null.
-         *
-         * @param result
-         * @param error
-         */
-```
-
-### JavadocDeclaration
-`@param error` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/Command.java`
-#### Snippet
-```java
-         *
-         * @param result
-         * @param error
-         */
-        void completed(final T result, final Throwable error);
-```
-
-### JavadocDeclaration
-`@param stdout` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/GetBaseVersionCommand.java`
-#### Snippet
-```java
-     * Note: the changeset we return is in the first column and the last row
-     *
-     * @param stdout
-     * @param stderr
-     * @return
-```
-
-### JavadocDeclaration
-`@param stderr` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/GetBaseVersionCommand.java`
-#### Snippet
-```java
-     *
-     * @param stdout
-     * @param stderr
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/GetBaseVersionCommand.java`
-#### Snippet
-```java
-     * @param stdout
-     * @param stderr
-     * @return
-     */
-    @Override
 ```
 
 ### JavadocDeclaration
@@ -12133,42 +12133,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 ```
 
 ### JavadocDeclaration
-`@param stdout` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/ResolveConflictsCommand.java`
-#### Snippet
-```java
-     * Resolved /Users/leantk/tfvc-tfs/tfsTest_01/addFold/testHere2 as KeepYours
-     *
-     * @param stdout
-     * @param stderr
-     * @return
-```
-
-### JavadocDeclaration
-`@param stderr` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/ResolveConflictsCommand.java`
-#### Snippet
-```java
-     *
-     * @param stdout
-     * @param stderr
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/external/commands/ResolveConflictsCommand.java`
-#### Snippet
-```java
-     * @param stdout
-     * @param stderr
-     * @return
-     */
-    @Override
-```
-
-### JavadocDeclaration
 `@param localVer` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/ServerStatus.java`
 #### Snippet
@@ -12217,6 +12181,42 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/ServerStatus.java`
 ```
 
 ### JavadocDeclaration
+`@param stdout` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/ResolveConflictsCommand.java`
+#### Snippet
+```java
+     * Resolved /Users/leantk/tfvc-tfs/tfsTest_01/addFold/testHere2 as KeepYours
+     *
+     * @param stdout
+     * @param stderr
+     * @return
+```
+
+### JavadocDeclaration
+`@param stderr` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/ResolveConflictsCommand.java`
+#### Snippet
+```java
+     *
+     * @param stdout
+     * @param stderr
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/external/commands/ResolveConflictsCommand.java`
+#### Snippet
+```java
+     * @param stdout
+     * @param stderr
+     * @return
+     */
+    @Override
+```
+
+### JavadocDeclaration
 `@return` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentStoreFactory.java`
 #### Snippet
@@ -12238,42 +12238,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/revision/TFSContentStoreF
      * @throws IOException
      */
     public static TFSContentStore findOrCreate(final String localPath, final int revision, final String actualPath, final Project project) throws IOException {
-```
-
-### JavadocDeclaration
-`@param userName` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
-#### Snippet
-```java
-     * Returns an NTCredentials object for given username and password
-     *
-     * @param userName
-     * @param password
-     * @return
-```
-
-### JavadocDeclaration
-`@param password` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
-#### Snippet
-```java
-     *
-     * @param userName
-     * @param password
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
-#### Snippet
-```java
-     * @param userName
-     * @param password
-     * @return
-     */
-    public static NTCredentials getNTCredentials(final String userName, final String password) {
 ```
 
 ### JavadocDeclaration
@@ -12313,6 +12277,42 @@ in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
 ```
 
 ### JavadocDeclaration
+`@param userName` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
+#### Snippet
+```java
+     * Returns an NTCredentials object for given username and password
+     *
+     * @param userName
+     * @param password
+     * @return
+```
+
+### JavadocDeclaration
+`@param password` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
+#### Snippet
+```java
+     *
+     * @param userName
+     * @param password
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
+#### Snippet
+```java
+     * @param userName
+     * @param password
+     * @return
+     */
+    public static NTCredentials getNTCredentials(final String userName, final String password) {
+```
+
+### JavadocDeclaration
 `@param query` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/operations/WorkItemLookupOperation.java`
 #### Snippet
@@ -12349,18 +12349,6 @@ in `plugin/src/com/microsoft/alm/plugin/operations/WorkItemLookupOperation.java`
 ```
 
 ### JavadocDeclaration
-`@param parentDirectory` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
-#### Snippet
-```java
-     * Create .vsts directory in user's home directory if not already there
-     *
-     * @param parentDirectory
-     * @return the vsts directory
-     */
-```
-
-### JavadocDeclaration
 `@param vstsDirectory` tag description is missing
 in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
 #### Snippet
@@ -12382,6 +12370,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.jav
      * @param currentLocation
      */
     protected void cacheIdeLocation(final File vstsDirectory, final String currentLocation) {
+```
+
+### JavadocDeclaration
+`@param parentDirectory` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/common/setup/ApplicationStartup.java`
+#### Snippet
+```java
+     * Create .vsts directory in user's home directory if not already there
+     *
+     * @param parentDirectory
+     * @return the vsts directory
+     */
 ```
 
 ### JavadocDeclaration
@@ -12469,6 +12469,18 @@ in `plugin/src/com/microsoft/alm/common/utils/SystemHelper.java`
 ```
 
 ### JavadocDeclaration
+`@return` tag description is missing
+in `plugin/src/com/microsoft/alm/common/utils/SystemHelper.java`
+#### Snippet
+```java
+    /**
+     * Convert a string value into an integer or a default value.
+     * @return
+     */
+    public static int toInt(final String value, final int defaultValue) {
+```
+
+### JavadocDeclaration
 `@param path1` tag description is missing
 in `plugin/src/com/microsoft/alm/common/utils/SystemHelper.java`
 #### Snippet
@@ -12505,18 +12517,6 @@ in `plugin/src/com/microsoft/alm/common/utils/SystemHelper.java`
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `plugin/src/com/microsoft/alm/common/utils/SystemHelper.java`
-#### Snippet
-```java
-    /**
-     * Convert a string value into an integer or a default value.
-     * @return
-     */
-    public static int toInt(final String value, final int defaultValue) {
-```
-
-### JavadocDeclaration
 `@param path` tag description is missing
 in `plugin/src/com/microsoft/alm/common/utils/SystemHelper.java`
 #### Snippet
@@ -12526,18 +12526,6 @@ in `plugin/src/com/microsoft/alm/common/utils/SystemHelper.java`
      * @param path
      * @return path with forward slashes
      */
-```
-
-### JavadocDeclaration
-`@param gitUrl` tag description is missing
-in `plugin/src/com/microsoft/alm/plugin/idea/git/starters/SimpleCheckoutStarter.java`
-#### Snippet
-```java
-     * Private constructor so that Git Url can be checked as a precaution
-     *
-     * @param gitUrl
-     */
-    private SimpleCheckoutStarter(final String gitUrl, final String ref) {
 ```
 
 ### JavadocDeclaration
@@ -12600,6 +12588,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/starters/SimpleCheckoutStarter.
     public static SimpleCheckoutStarter createWithUriAttributes(Map<String, String> args) throws RuntimeException, UnsupportedEncodingException {
 ```
 
+### JavadocDeclaration
+`@param gitUrl` tag description is missing
+in `plugin/src/com/microsoft/alm/plugin/idea/git/starters/SimpleCheckoutStarter.java`
+#### Snippet
+```java
+     * Private constructor so that Git Url can be checked as a precaution
+     *
+     * @param gitUrl
+     */
+    private SimpleCheckoutStarter(final String gitUrl, final String ref) {
+```
+
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `eventDispatcher` may be 'final'
@@ -12638,15 +12638,15 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/CreateBranchCommand.ja
 ```
 
 ### FieldMayBeFinal
-Field `value` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/context/rest/VersionControlRecursionTypeCaseSensitive.java`
+Field `listenerProxy` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
 #### Snippet
 ```java
-    FULL(120),;
+    private StreamProcessor standardOutProcessor;
+    private ProcessWaiter processWaiter;
+    private ListenerProxy listenerProxy;
 
-    private int value;
-
-    private VersionControlRecursionTypeCaseSensitive(final int value) {
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -12662,18 +12662,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
 ```
 
 ### FieldMayBeFinal
-Field `listenerProxy` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
-#### Snippet
-```java
-    private StreamProcessor standardOutProcessor;
-    private ProcessWaiter processWaiter;
-    private ListenerProxy listenerProxy;
-
-    /**
-```
-
-### FieldMayBeFinal
 Field `arguments` may be 'final'
 in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
 #### Snippet
@@ -12683,6 +12671,18 @@ in `plugin/src/com/microsoft/alm/plugin/external/ToolRunner.java`
         private List<String> arguments = new ArrayList<String>(5);
         private Set<Integer> secretArgumentIndexes = new HashSet<Integer>(5);
         private String workingDirectory;
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/context/rest/VersionControlRecursionTypeCaseSensitive.java`
+#### Snippet
+```java
+    FULL(120),;
+
+    private int value;
+
+    private VersionControlRecursionTypeCaseSensitive(final int value) {
 ```
 
 ### FieldMayBeFinal
@@ -12698,18 +12698,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/tools/TfTool.java`
 ```
 
 ### FieldMayBeFinal
-Field `listenerContainer` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/BaseDialogImpl.java`
-#### Snippet
-```java
-public class BaseDialogImpl extends DialogWrapper implements BaseDialog {
-    private JTabbedPane tabPanel;
-    private ActionListenerContainer listenerContainer = new ActionListenerContainer();
-    private ValidationListenerContainer validationListenerContainer = new ValidationListenerContainer();
-    private final Project project;
-```
-
-### FieldMayBeFinal
 Field `validationListenerContainer` may be 'final'
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/BaseDialogImpl.java`
 #### Snippet
@@ -12722,15 +12710,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/BaseDialogImpl.jav
 ```
 
 ### FieldMayBeFinal
-Field `myVcs` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
+Field `listenerContainer` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/BaseDialogImpl.java`
 #### Snippet
 ```java
-    private static final SimpleDateFormat TFVC_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-
-    private TFSVcs myVcs;
-    private int changeSetId;
-    private String author;
+public class BaseDialogImpl extends DialogWrapper implements BaseDialog {
+    private JTabbedPane tabPanel;
+    private ActionListenerContainer listenerContainer = new ActionListenerContainer();
+    private ValidationListenerContainer validationListenerContainer = new ValidationListenerContainer();
+    private final Project project;
 ```
 
 ### FieldMayBeFinal
@@ -12746,15 +12734,27 @@ public class VsoImportPageModel extends ImportPageModelImpl {
 ```
 
 ### FieldMayBeFinal
-Field `myConflicts` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ConflictsTableModel.java`
+Field `myVcs` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSChangeList.java`
 #### Snippet
 ```java
-    }
+    private static final SimpleDateFormat TFVC_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
-    private List<Conflict> myConflicts = new ArrayList<Conflict>();
+    private TFSVcs myVcs;
+    private int changeSetId;
+    private String author;
+```
 
-    @Override
+### FieldMayBeFinal
+Field `timer` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/BusySpinnerPanel.java`
+#### Snippet
+```java
+public class BusySpinnerPanel extends JPanel implements Disposable {
+    private int rotationAngle = 0;
+    private Timer timer;
+
+    public BusySpinnerPanel() {
 ```
 
 ### FieldMayBeFinal
@@ -12770,15 +12770,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/BusySpinnerPanel
 ```
 
 ### FieldMayBeFinal
-Field `timer` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/controls/BusySpinnerPanel.java`
+Field `myConflicts` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ConflictsTableModel.java`
 #### Snippet
 ```java
-public class BusySpinnerPanel extends JPanel implements Disposable {
-    private int rotationAngle = 0;
-    private Timer timer;
+    }
 
-    public BusySpinnerPanel() {
+    private List<Conflict> myConflicts = new ArrayList<Conflict>();
+
+    @Override
+```
+
+### FieldMayBeFinal
+Field `contextMap` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
+#### Snippet
+```java
+    private final String TFS2015_NEW_SERVICE = "distributedtask";
+
+    private Map<String, ServerContext> contextMap = new HashMap<String, ServerContext>();
+
+    private static class Holder {
 ```
 
 ### FieldMayBeFinal
@@ -12818,18 +12830,6 @@ public class TeamServicesException extends RuntimeException implements Localized
 ```
 
 ### FieldMayBeFinal
-Field `contextMap` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
-#### Snippet
-```java
-    private final String TFS2015_NEW_SERVICE = "distributedtask";
-
-    private Map<String, ServerContext> contextMap = new HashMap<String, ServerContext>();
-
-    private static class Holder {
-```
-
-### FieldMayBeFinal
 Field `selectionModel` may be 'final'
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PullRequestsTreeModel.java`
 #### Snippet
@@ -12842,18 +12842,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/PullRequestsTree
 ```
 
 ### FieldMayBeFinal
-Field `rows` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/WorkItemsTableModel.java`
-#### Snippet
-```java
-
-    private ListSelectionModel selectionModel = new DefaultListSelectionModel();
-    private List<WorkItem> rows = new ArrayList<WorkItem>(100);
-    private List<WorkItem> filteredRows = null;
-    private String filter;
-```
-
-### FieldMayBeFinal
 Field `selectionModel` may be 'final'
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/WorkItemsTableModel.java`
 #### Snippet
@@ -12863,6 +12851,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/WorkItemsTableMo
     private ListSelectionModel selectionModel = new DefaultListSelectionModel();
     private List<WorkItem> rows = new ArrayList<WorkItem>(100);
     private List<WorkItem> filteredRows = null;
+```
+
+### FieldMayBeFinal
+Field `rows` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/WorkItemsTableModel.java`
+#### Snippet
+```java
+
+    private ListSelectionModel selectionModel = new DefaultListSelectionModel();
+    private List<WorkItem> rows = new ArrayList<WorkItem>(100);
+    private List<WorkItem> filteredRows = null;
+    private String filter;
 ```
 
 ### FieldMayBeFinal
@@ -12914,18 +12914,6 @@ public class ToolException extends RuntimeException implements LocalizedExceptio
 ```
 
 ### FieldMayBeFinal
-Field `rows` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
-
-    private ListSelectionModel selectionModel = new DefaultListSelectionModel();
-    private List<ServerContext> rows = new ArrayList<ServerContext>(1000);
-    private List<ServerContext> filteredRows = null;
-    private String filter;
-```
-
-### FieldMayBeFinal
 Field `selectionModel` may be 'final'
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
 #### Snippet
@@ -12935,6 +12923,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTable
     private ListSelectionModel selectionModel = new DefaultListSelectionModel();
     private List<ServerContext> rows = new ArrayList<ServerContext>(1000);
     private List<ServerContext> filteredRows = null;
+```
+
+### FieldMayBeFinal
+Field `rows` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
+#### Snippet
+```java
+
+    private ListSelectionModel selectionModel = new DefaultListSelectionModel();
+    private List<ServerContext> rows = new ArrayList<ServerContext>(1000);
+    private List<ServerContext> filteredRows = null;
+    private String filter;
 ```
 
 ### FieldMayBeFinal
@@ -12998,6 +12998,18 @@ public class ProjectConfigurableForm {
 ```
 
 ### FieldMayBeFinal
+Field `ENABLE_DEVICE_FLOW_VALUE` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
+#### Snippet
+```java
+
+    private static String DEVICE_FLOW_PROPERTY = "userAgentProvider";
+    private static String ENABLE_DEVICE_FLOW_VALUE = "none";
+
+    /**
+```
+
+### FieldMayBeFinal
 Field `DEVICE_FLOW_PROPERTY` may be 'final'
 in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
 #### Snippet
@@ -13010,15 +13022,15 @@ in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
 ```
 
 ### FieldMayBeFinal
-Field `ENABLE_DEVICE_FLOW_VALUE` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/authentication/AuthHelper.java`
+Field `repositoryType` may be 'final'
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutForm.java`
 #### Snippet
 ```java
+    private JCheckBox serverWorkspaceCheckBox;
+    private boolean initialized = false;
+    private RepositoryContext.Type repositoryType;
+    private Timer timer;
 
-    private static String DEVICE_FLOW_PROPERTY = "userAgentProvider";
-    private static String ENABLE_DEVICE_FLOW_VALUE = "none";
-
-    /**
 ```
 
 ### FieldMayBeFinal
@@ -13057,31 +13069,7 @@ public class SystemHelper {
 
 ```
 
-### FieldMayBeFinal
-Field `repositoryType` may be 'final'
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/checkout/CheckoutForm.java`
-#### Snippet
-```java
-    private JCheckBox serverWorkspaceCheckBox;
-    private boolean initialized = false;
-    private RepositoryContext.Type repositoryType;
-    private Timer timer;
-
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `builder` is redundant
-in `plugin/src/com/microsoft/alm/plugin/external/commands/GetWorkspaceCommand.java`
-#### Snippet
-```java
-    @Override
-    public ToolRunner.ArgumentBuilder getArgumentBuilder() {
-        final ToolRunner.ArgumentBuilder builder = super.getArgumentBuilder()
-                .add(workspaceName)
-                .addSwitch("format", "xml");
-```
-
 ### UnnecessaryLocalVariable
 Local variable `workspace` is redundant
 in `plugin/src/com/microsoft/alm/plugin/external/commands/GetWorkspaceCommand.java`
@@ -13092,6 +13080,18 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/GetWorkspaceCommand.ja
             final Workspace workspace = new Workspace(
                     getXPathAttributeValue(workspaceAttributes, "server"),
                     getXPathAttributeValue(workspaceAttributes, "name"),
+```
+
+### UnnecessaryLocalVariable
+Local variable `builder` is redundant
+in `plugin/src/com/microsoft/alm/plugin/external/commands/GetWorkspaceCommand.java`
+#### Snippet
+```java
+    @Override
+    public ToolRunner.ArgumentBuilder getArgumentBuilder() {
+        final ToolRunner.ArgumentBuilder builder = super.getArgumentBuilder()
+                .add(workspaceName)
+                .addSwitch("format", "xml");
 ```
 
 ### UnnecessaryLocalVariable
@@ -13107,26 +13107,14 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/TfVersionCommand.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `tfvcHttpClient` is redundant
+Local variable `collectionURI` is redundant
 in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
-        final URI collectionUri = getCollectionURI();
-        if (collectionUri != null) {
-            final TfvcHttpClientEx tfvcHttpClient = new TfvcHttpClientEx(getClient(), collectionUri);
-            return tfvcHttpClient;
-        }
-```
-
-### UnnecessaryLocalVariable
-Local variable `gitClient` is redundant
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
-#### Snippet
-```java
-        final URI collectionUri = getCollectionURI();
-        if (collectionUri != null) {
-            final GitHttpClientEx gitClient = new GitHttpClientEx(getClient(), collectionUri);
-            return gitClient;
+    public URI getCollectionURI() {
+        if (teamProjectCollectionReference != null) {
+            final URI collectionURI = UrlHelper.getCollectionURI(serverUri, teamProjectCollectionReference.getName());
+            return collectionURI;
         }
 ```
 
@@ -13143,26 +13131,14 @@ in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `collectionURI` is redundant
+Local variable `gitClient` is redundant
 in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
-    public URI getCollectionURI() {
-        if (teamProjectCollectionReference != null) {
-            final URI collectionURI = UrlHelper.getCollectionURI(serverUri, teamProjectCollectionReference.getName());
-            return collectionURI;
-        }
-```
-
-### UnnecessaryLocalVariable
-Local variable `teamProjectURI` is redundant
-in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
-#### Snippet
-```java
-    public URI getTeamProjectURI() {
-        if (teamProjectCollectionReference != null && teamProjectReference != null) {
-            final URI teamProjectURI = UrlHelper.getTeamProjectURI(serverUri, teamProjectCollectionReference.getName(), teamProjectReference.getName());
-            return teamProjectURI;
+        final URI collectionUri = getCollectionURI();
+        if (collectionUri != null) {
+            final GitHttpClientEx gitClient = new GitHttpClientEx(getClient(), collectionUri);
+            return gitClient;
         }
 ```
 
@@ -13179,27 +13155,27 @@ in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `localPath` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+Local variable `teamProjectURI` is redundant
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
-
-        if (foundMapping != null) {
-            final String localPath = foundMapping.isCloaked() ? null :
-                    ServerPath.makeLocal(serverPath, foundMapping.getServerPath(), foundMapping.getLocalPath(), checkForIllegalDollar);
-            return localPath;
+    public URI getTeamProjectURI() {
+        if (teamProjectCollectionReference != null && teamProjectReference != null) {
+            final URI teamProjectURI = UrlHelper.getTeamProjectURI(serverUri, teamProjectCollectionReference.getName(), teamProjectReference.getName());
+            return teamProjectURI;
+        }
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `targetBranch` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
+Local variable `tfvcHttpClient` is redundant
+in `plugin/src/com/microsoft/alm/plugin/context/ServerContext.java`
 #### Snippet
 ```java
-
-    public String getTargetPath() {
-        final String targetBranch = (String) targetCombo.getSelectedItem();
-        return targetBranch;
-    }
+        final URI collectionUri = getCollectionURI();
+        if (collectionUri != null) {
+            final TfvcHttpClientEx tfvcHttpClient = new TfvcHttpClientEx(getClient(), collectionUri);
+            return tfvcHttpClient;
+        }
 ```
 
 ### UnnecessaryLocalVariable
@@ -13223,6 +13199,30 @@ in `plugin/src/com/microsoft/alm/plugin/context/ServerContextManager.java`
     public synchronized ServerContext getLastUsedContext() {
         final ServerContext context = get(getLastUsedContextKey());
         return context;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `localPath` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
+#### Snippet
+```java
+
+        if (foundMapping != null) {
+            final String localPath = foundMapping.isCloaked() ? null :
+                    ServerPath.makeLocal(serverPath, foundMapping.getServerPath(), foundMapping.getLocalPath(), checkForIllegalDollar);
+            return localPath;
+```
+
+### UnnecessaryLocalVariable
+Local variable `targetBranch` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/MergeBranchForm.java`
+#### Snippet
+```java
+
+    public String getTargetPath() {
+        final String targetBranch = (String) targetCombo.getSelectedItem();
+        return targetBranch;
     }
 ```
 
@@ -13311,18 +13311,6 @@ in `plugin/src/com/microsoft/alm/plugin/external/commands/DeleteWorkspaceCommand
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `selectedContext` is redundant
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
-#### Snippet
-```java
-
-    public ServerContext getSelectedContext() {
-        final ServerContext selectedContext = getServerContext(getSelectedIndex());
-        return selectedContext;
-    }
-```
-
-### UnnecessaryLocalVariable
 Local variable `selectedIndex` is redundant
 in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
 #### Snippet
@@ -13331,6 +13319,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTable
         }
         final int selectedIndex = getSelectionConverter().convertRowIndexToModel(viewSelectedIndex);
         return selectedIndex;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `selectedContext` is redundant
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/common/ServerContextTableModel.java`
+#### Snippet
+```java
+
+    public ServerContext getSelectedContext() {
+        final ServerContext selectedContext = getServerContext(getSelectedIndex());
+        return selectedContext;
     }
 ```
 
@@ -13400,18 +13400,6 @@ Call to `asList()` with only one argument
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
 #### Snippet
 ```java
-
-        try {
-            final List<Conflict> resolvedConflicts = CommandUtils.resolveConflictsByPath(context, Arrays.asList(localPath), type);
-            if (resolvedConflicts.size() == 1 && nameMergerResolution != null) {
-                // Use the local path returned by the Resolve command for future needs.
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
-#### Snippet
-```java
             try {
                 progressIndicator.setText(TfPluginBundle.message(TfPluginBundle.KEY_TFVC_CONFLICT_RESOLVING_STATUS, conflict.getLocalPath()));
                 final List<Conflict> resolved = CommandUtils.resolveConflictsByConflict(TFSVcs.getInstance(project).getServerContext(false), Arrays.asList(conflict), type);
@@ -13429,6 +13417,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConf
                     skip(Arrays.asList(conflict));
                 }
             } catch (Exception e) {
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/conflicts/ResolveConflictHelper.java`
+#### Snippet
+```java
+
+        try {
+            final List<Conflict> resolvedConflicts = CommandUtils.resolveConflictsByPath(context, Arrays.asList(localPath), type);
+            if (resolvedConflicts.size() == 1 && nameMergerResolution != null) {
+                // Use the local path returned by the Resolve command for future needs.
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -13519,18 +13519,6 @@ fun VersionControlEventEngine.withNonFatalErrorListener(
 ```
 
 ### UnusedSymbol
-Function "withNewPendingChangeListener" is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
-#### Snippet
-```java
-}
-
-fun VersionControlEventEngine.withNewPendingChangeListener(
-    listener: NewPendingChangeListener,
-    action: () -> Unit) {
-```
-
-### UnusedSymbol
 Function "withUndonePendingChangeListener" is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
 #### Snippet
@@ -13539,6 +13527,18 @@ import com.microsoft.tfs.core.clients.versioncontrol.events.VersionControlEventE
 
 fun VersionControlEventEngine.withUndonePendingChangeListener(
     listener: UndonePendingChangeListener,
+    action: () -> Unit) {
+```
+
+### UnusedSymbol
+Function "withNewPendingChangeListener" is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/sdk/VersionControlEventEngineEx.kt`
+#### Snippet
+```java
+}
+
+fun VersionControlEventEngine.withNewPendingChangeListener(
+    listener: NewPendingChangeListener,
     action: () -> Unit) {
 ```
 
@@ -13555,18 +13555,6 @@ fun VersionControlClient.tryGetWorkspace(path: TfsPath): Workspace? = when(path)
 ```
 
 ### UnusedSymbol
-Property "lockStatus" is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    get() = if (itemType == ItemType.FILE) encodingName else null
-
-private val ExtendedItem.lockStatus
-    get() = lockLevel.toUIString()
-
-```
-
-### UnusedSymbol
 Property "checkinDateString" is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
@@ -13579,62 +13567,38 @@ private val ExtendedItem.checkinDateString
 ```
 
 ### UnusedSymbol
-Function "toCanonicalPathString" is never used
+Property "lockStatus" is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
+    get() = if (itemType == ItemType.FILE) encodingName else null
 
-fun TfsPath.toCanonicalPathString(): String = when (this) {
-    is TfsLocalPath -> LocalPath.canonicalize(path)
-    is TfsServerPath -> path
-```
-
-### UnusedSymbol
-Property "itemTypeName" is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-        else pendingChange.toUIString(false, this)
-
-private val ExtendedItem.itemTypeName
-    get() = itemType.toUIString()
-
-```
-
-### UnusedSymbol
-Property "encodingName" is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
-    get() = checkinDate?.time?.let(isoDateFormat::format)
-
-private val ExtendedItem.encodingName
-    get() =
-        if (encoding == FileEncoding(VersionControlConstants.ENCODING_UNCHANGED)) null
-```
-
-### UnusedSymbol
-Function "toLocalItemInfo" is never used
-in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
-#### Snippet
-```java
+private val ExtendedItem.lockStatus
     get() = lockLevel.toUIString()
 
-fun ExtendedItem.toLocalItemInfo(): TfsLocalItemInfo =
-    TfsLocalItemInfo(
-        targetServerItem,
 ```
 
 ### UnusedSymbol
-Property "fileEncodingName" is never used
+Function "toExtendedItemInfo" is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-        else encoding?.name
+    )
 
-private val ExtendedItem.fileEncodingName
-    get() = if (itemType == ItemType.FILE) encodingName else null
+fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
+    TfsExtendedItemInfo(
+        lockStatus,
+```
+
+### UnusedSymbol
+Function "toCanonicalPathItemSpec" is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+}
+
+fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
+    ItemSpec(toCanonicalPathString(), recursionType)
 
 ```
 
@@ -13651,27 +13615,63 @@ private val ExtendedItem.changeTypeName
 ```
 
 ### UnusedSymbol
-Function "toCanonicalPathItemSpec" is never used
+Function "toLocalItemInfo" is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-}
+    get() = lockLevel.toUIString()
 
-fun TfsPath.toCanonicalPathItemSpec(recursionType: RecursionType): ItemSpec =
-    ItemSpec(toCanonicalPathString(), recursionType)
+fun ExtendedItem.toLocalItemInfo(): TfsLocalItemInfo =
+    TfsLocalItemInfo(
+        targetServerItem,
+```
+
+### UnusedSymbol
+Function "toCanonicalPathString" is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+            + pendingSet.candidatePendingChanges.orEmpty().map { toPendingChange(pendingSet, it) }).asIterable()
+
+fun TfsPath.toCanonicalPathString(): String = when (this) {
+    is TfsLocalPath -> LocalPath.canonicalize(path)
+    is TfsServerPath -> path
+```
+
+### UnusedSymbol
+Property "fileEncodingName" is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+        else encoding?.name
+
+private val ExtendedItem.fileEncodingName
+    get() = if (itemType == ItemType.FILE) encodingName else null
 
 ```
 
 ### UnusedSymbol
-Function "toExtendedItemInfo" is never used
+Property "encodingName" is never used
 in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
 #### Snippet
 ```java
-    )
+    get() = checkinDate?.time?.let(isoDateFormat::format)
 
-fun ExtendedItem.toExtendedItemInfo(): TfsExtendedItemInfo =
-    TfsExtendedItemInfo(
-        lockStatus,
+private val ExtendedItem.encodingName
+    get() =
+        if (encoding == FileEncoding(VersionControlConstants.ENCODING_UNCHANGED)) null
+```
+
+### UnusedSymbol
+Property "itemTypeName" is never used
+in `client/backend/src/main/kotlin/com/microsoft/tfs/DataConversion.kt`
+#### Snippet
+```java
+        else pendingChange.toUIString(false, this)
+
+private val ExtendedItem.itemTypeName
+    get() = itemType.toUIString()
+
 ```
 
 ### UnusedSymbol
@@ -13796,18 +13796,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java
 ```
 
 ### UnstableApiUsage
-'installPopupHandler(javax.swing.@org.jetbrains.annotations.NotNull JComponent, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.@org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2022.1
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
-#### Snippet
-```java
-            }
-        });
-        PopupHandler.installPopupHandler(tree, POPUP_ACTION_GROUP, ActionPlaces.REMOTE_HOST_DIALOG_POPUP);
-        setMessage(null, false);
-    }
-```
-
-### UnstableApiUsage
 'getSelectedElements()' is declared in class 'com.intellij.ide.util.treeView.AbstractTreeBuilder' scheduled for removal in version 2020.3
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
 #### Snippet
@@ -13852,6 +13840,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java
         if (selection != null) {
             treeBuider.select(selection);
         }
+    }
+```
+
+### UnstableApiUsage
+'installPopupHandler(javax.swing.@org.jetbrains.annotations.NotNull JComponent, java.lang.@org.jetbrains.annotations.NotNull String, java.lang.@org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2022.1
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/servertree/TfsTreeForm.java`
+#### Snippet
+```java
+            }
+        });
+        PopupHandler.installPopupHandler(tree, POPUP_ACTION_GROUP, ActionPlaces.REMOTE_HOST_DIALOG_POPUP);
+        setMessage(null, false);
     }
 ```
 
@@ -13924,7 +13924,7 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
         try {
             GuiUtils.runOrInvokeAndWait(new Runnable() {
                 public void run() {
-                    try {
+                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
 ```
 
 ### UnstableApiUsage
@@ -13936,7 +13936,7 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/tfs/TfsFileUtil.java`
         try {
             GuiUtils.runOrInvokeAndWait(new Runnable() {
                 public void run() {
-                    ApplicationManager.getApplication().runWriteAction(new Runnable() {
+                    try {
 ```
 
 ### UnstableApiUsage
@@ -13988,6 +13988,66 @@ public abstract class ApplicationStarterBase extends ApplicationStarterEx {
 ```
 
 ### UnstableApiUsage
+'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+
+        try {
+            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
+                public void run() throws VcsException {
+                    editWorkspace(selectedWorkspace, update);
+```
+
+### UnstableApiUsage
+'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+
+        try {
+            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
+                public void run() throws VcsException {
+                    reloadWorkspaces(selectedServer);
+```
+
+### UnstableApiUsage
+'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
+#### Snippet
+```java
+
+        try {
+            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
+                public void run() throws VcsException {
+                    deleteWorkspace(selectedWorkspace);
+```
+
+### UnstableApiUsage
+'notifySuccess(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
+#### Snippet
+```java
+
+                    // Notify the user of a successful sync
+                    VcsNotifier.getInstance(project).notifySuccess(
+                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_TITLE),
+                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_SYNC_MESSAGE));
+```
+
+### UnstableApiUsage
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
+#### Snippet
+```java
+                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_SYNC_MESSAGE));
+                } catch (final Throwable t) {
+                    VcsNotifier.getInstance(project).notifyError(
+                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_FAILURE_TITLE),
+                            LocalizationServiceImpl.getInstance().getExceptionMessage(t));
+```
+
+### UnstableApiUsage
 'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
 in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
 #### Snippet
@@ -14009,90 +14069,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.ja
             VcsNotifier.getInstance(project).notifyError(
                     TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_FAILURE_TITLE),
                     LocalizationServiceImpl.getInstance().getExceptionMessage(t));
-```
-
-### UnstableApiUsage
-'notifySuccess(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
-#### Snippet
-```java
-
-                    // Notify the user of a successful sync
-                    VcsNotifier.getInstance(project).notifySuccess(
-                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_TITLE),
-                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_SYNC_MESSAGE));
-```
-
-### UnstableApiUsage
-'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-
-        try {
-            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
-                public void run() throws VcsException {
-                    editWorkspace(selectedWorkspace, update);
-```
-
-### UnstableApiUsage
-'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-
-        try {
-            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
-                public void run() throws VcsException {
-                    deleteWorkspace(selectedWorkspace);
-```
-
-### UnstableApiUsage
-'runVcsProcessWithProgress(com.intellij.vcsUtil.@org.jetbrains.annotations.NotNull VcsRunnable, java.lang.@org.jetbrains.annotations.NotNull @com.intellij.openapi.util.NlsContexts.ProgressTitle String, boolean, com.intellij.openapi.project.@org.jetbrains.annotations.Nullable Project)' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/management/ManageWorkspacesModel.java`
-#### Snippet
-```java
-
-        try {
-            VcsUtil.runVcsProcessWithProgress(new VcsRunnable() {
-                public void run() throws VcsException {
-                    reloadWorkspaces(selectedServer);
-```
-
-### UnstableApiUsage
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/workspace/WorkspaceModel.java`
-#### Snippet
-```java
-                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_SUCCESS_SYNC_MESSAGE));
-                } catch (final Throwable t) {
-                    VcsNotifier.getInstance(project).notifyError(
-                            TfPluginBundle.message(TfPluginBundle.KEY_WORKSPACE_DIALOG_NOTIFY_FAILURE_TITLE),
-                            LocalizationServiceImpl.getInstance().getExceptionMessage(t));
-```
-
-### UnstableApiUsage
-'VcsVFSListener(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, com.intellij.openapi.vcs.@org.jetbrains.annotations.NotNull AbstractVcs)' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
-#### Snippet
-```java
-
-    public TFSFileListener(Project project, TFSVcs vcs) {
-        super(project, vcs);
-    }
-
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
-#### Snippet
-```java
-    private String sourceBranchHash;
-    private String targetBranchHash;
-    private GitCommitCompareInfo gitCommitCompareInfo;
-    private GitRepository gitRepository;
-
 ```
 
 ### UnstableApiUsage
@@ -14129,6 +14105,30 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContai
     public GitCommitCompareInfo getGitCommitCompareInfo() {
         return gitCommitCompareInfo;
     }
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/GitChangesContainer.java`
+#### Snippet
+```java
+    private String sourceBranchHash;
+    private String targetBranchHash;
+    private GitCommitCompareInfo gitCommitCompareInfo;
+    private GitRepository gitRepository;
+
+```
+
+### UnstableApiUsage
+'VcsVFSListener(com.intellij.openapi.project.@org.jetbrains.annotations.NotNull Project, com.intellij.openapi.vcs.@org.jetbrains.annotations.NotNull AbstractVcs)' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/core/TFSFileListener.java`
+#### Snippet
+```java
+
+    public TFSFileListener(Project project, TFSVcs vcs) {
+        super(project, vcs);
+    }
+
 ```
 
 ### UnstableApiUsage
@@ -14241,18 +14241,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/extensions/GitCheckoutProvider.
 
 ### UnstableApiUsage
 'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
-#### Snippet
-```java
-                    if (context == null) {
-                        logger.warn("No context could be found");
-                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_ERRORS_AUTHENTICATION_FAILED_TITLE), TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitUrl));
-                        return;
-                    }
-```
-
-### UnstableApiUsage
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
 in `plugin/src/com/microsoft/alm/plugin/idea/git/actions/ImportAction.java`
 #### Snippet
 ```java
@@ -14261,6 +14249,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/actions/ImportAction.java`
             VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_ACTIONS_IMPORT),
                     TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ERRORS_UNEXPECTED, t.getMessage()));
         }
+```
+
+### UnstableApiUsage
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/simplecheckout/SimpleCheckoutModel.java`
+#### Snippet
+```java
+                    if (context == null) {
+                        logger.warn("No context could be found");
+                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_ERRORS_AUTHENTICATION_FAILED_TITLE), TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitUrl));
+                        return;
+                    }
 ```
 
 ### UnstableApiUsage
@@ -14276,18 +14276,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/actions/SelectWorkItemsActio
 ```
 
 ### UnstableApiUsage
-'removeWidget(java.lang.@org.jetbrains.annotations.NonNls @org.jetbrains.annotations.NotNull String)' is marked unstable with @ApiStatus.Internal
-in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/StatusBarManager.java`
-#### Snippet
-```java
-            // Remove build widget
-            if (statusBar.getWidget(BuildWidget.getID()) != null) {
-                statusBar.removeWidget(BuildWidget.getID());
-            }
-        }
-```
-
-### UnstableApiUsage
 'addWidget(com.intellij.openapi.wm.@org.jetbrains.annotations.NotNull StatusBarWidget, com.intellij.openapi.@org.jetbrains.annotations.NotNull Disposable)' is marked unstable with @ApiStatus.Internal
 in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/StatusBarManager.java`
 #### Snippet
@@ -14297,6 +14285,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/StatusBarManager.j
             statusBar.addWidget(buildWidget, project);
         }
         // Attempt to get the current repository context (if none, then the status stays as it was)
+```
+
+### UnstableApiUsage
+'removeWidget(java.lang.@org.jetbrains.annotations.NonNls @org.jetbrains.annotations.NotNull String)' is marked unstable with @ApiStatus.Internal
+in `plugin/src/com/microsoft/alm/plugin/idea/common/statusBar/StatusBarManager.java`
+#### Snippet
+```java
+            // Remove build widget
+            if (statusBar.getWidget(BuildWidget.getID()) != null) {
+                statusBar.removeWidget(BuildWidget.getID());
+            }
+        }
 ```
 
 ### UnstableApiUsage
@@ -14384,27 +14384,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/ui/resolve/ResolveConflictsMod
 ```
 
 ### UnstableApiUsage
-'retrieveUntrackedFiles()' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsModel.java`
 #### Snippet
 ```java
-                final ProjectLevelVcsManager vcsManager = ProjectLevelVcsManager.getInstance(project);
-                final List<VirtualFile> trackedFiles = changeListManager.getAffectedFiles();
-                final Collection<VirtualFile> untrackedFiles = ContainerUtil.filter(localRepository.getUntrackedFilesHolder().retrieveUntrackedFiles(),
-                        new Condition<VirtualFile>() {
-                            @Override
-```
+                                    UrlHelper.getSpecificWorkItemURI(context.getTeamProjectURI(), workItem.getId()), String.valueOf(workItem.getId()), UrlHelper.getBranchURI(context.getUri(), branchName), branchName);
 
-### UnstableApiUsage
-'getExitCode()' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
-#### Snippet
-```java
-                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
-                    if (hCommit.getExitCode() != 0) {
-                        //unable to commit
-                        logger.error("doFirstCommitIfRequired: git commit failed for project: {}, repoRoot: {} with error: {}",
+                            VcsNotifier.getInstance(project).notifyImportantInfo(TfPluginBundle.message(wasWorkItemAssociated ? TfPluginBundle.KEY_WIT_ASSOCIATION_SUCCESSFUL_TITLE : TfPluginBundle.KEY_WIT_ASSOCIATION_FAILED_TITLE),
+                                    notificationMsg, new NotificationListener() {
+                                        @Override
 ```
 
 ### UnstableApiUsage
@@ -14432,15 +14420,27 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 ```
 
 ### UnstableApiUsage
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
+'retrieveUntrackedFiles()' is scheduled for removal in version 2021.3
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
 ```java
+                final ProjectLevelVcsManager vcsManager = ProjectLevelVcsManager.getInstance(project);
+                final List<VirtualFile> trackedFiles = changeListManager.getAffectedFiles();
+                final Collection<VirtualFile> untrackedFiles = ContainerUtil.filter(localRepository.getUntrackedFilesHolder().retrieveUntrackedFiles(),
+                        new Condition<VirtualFile>() {
+                            @Override
+```
 
-    private void notifyImportError(final Project project, final String message) {
-        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_FAILED), message, NotificationListener.URL_OPENING_LISTENER);
-    }
-
+### UnstableApiUsage
+'getExitCode()' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+#### Snippet
+```java
+                    hCommit.addParameters("-m", TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+                    GitHandlerUtil.runInCurrentThread(hCommit, null, true, TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_ADDING_FILES, project.getName()));
+                    if (hCommit.getExitCode() != 0) {
+                        //unable to commit
+                        logger.error("doFirstCommitIfRequired: git commit failed for project: {}, repoRoot: {} with error: {}",
 ```
 
 ### UnstableApiUsage
@@ -14468,6 +14468,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 ```
 
 ### UnstableApiUsage
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
+#### Snippet
+```java
+
+    private void notifyImportError(final Project project, final String message) {
+        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_IMPORT_FAILED), message, NotificationListener.URL_OPENING_LISTENER);
+    }
+
+```
+
+### UnstableApiUsage
 'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImpl.java`
 #### Snippet
@@ -14480,15 +14492,15 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/vcsimport/ImportPageModelImp
 ```
 
 ### UnstableApiUsage
-'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/common/ui/workitem/VcsWorkItemsModel.java`
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
 ```java
-                                    UrlHelper.getSpecificWorkItemURI(context.getTeamProjectURI(), workItem.getId()), String.valueOf(workItem.getId()), UrlHelper.getBranchURI(context.getUri(), branchName), branchName);
+    private GitChangesContainer localBranchChanges;
 
-                            VcsNotifier.getInstance(project).notifyImportantInfo(TfPluginBundle.message(wasWorkItemAssociated ? TfPluginBundle.KEY_WIT_ASSOCIATION_SUCCESSFUL_TITLE : TfPluginBundle.KEY_WIT_ASSOCIATION_FAILED_TITLE),
-                                    notificationMsg, new NotificationListener() {
-                                        @Override
+    private final LoadingCache<Pair<String, String>, GitCommitCompareInfo> diffCache;
+
+    /* Executor service for running diff calculating Futures */
 ```
 
 ### UnstableApiUsage
@@ -14520,54 +14532,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
 ```java
-
-        try {
-            GitCommitCompareInfo changes
-                    = this.diffCache.get(new Pair<String, String>(currBranchHash, remoteBranchHash));
-
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-        this.diffCache = CacheBuilder.newBuilder().maximumSize(20)
-                .build(
-                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
-                            @Override
-                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-    private GitChangesContainer localBranchChanges;
-
-    private final LoadingCache<Pair<String, String>, GitCommitCompareInfo> diffCache;
-
-    /* Executor service for running diff calculating Futures */
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
-                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
-                            @Override
-                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
-                                // if we missed the cache, then show the loading spinner, otherwise
-                                // just switch to the diff we have to avoid flickering the screen
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
-#### Snippet
-```java
                                 setLoading(false);
 
                                 final GitCommitCompareInfo compareInfo = changesContainer.getGitCommitCompareInfo();
@@ -14588,6 +14552,18 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 ```
 
 ### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
+#### Snippet
+```java
+
+        try {
+            GitCommitCompareInfo changes
+                    = this.diffCache.get(new Pair<String, String>(currBranchHash, remoteBranchHash));
+
+```
+
+### UnstableApiUsage
 'notifyImportantInfo(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String, com.intellij.notification.@org.jetbrains.annotations.Nullable NotificationListener)' is scheduled for removal in version 2020.4
 in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
@@ -14601,50 +14577,38 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullReques
 
 ### UnstableApiUsage
 'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
 ```java
-
-    private JComponent createCommitsListPane(final Project project, final GitRepository gitRepository,
-                                             final GitCommitCompareInfo compareInfo) {
-        return new GitCommitListWithDiffPanel(project, compareInfo.getBranchToHeadCommits(gitRepository));
-    }
-```
-
-### UnstableApiUsage
-'getBranchToHeadCommits(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
-#### Snippet
-```java
-    private JComponent createCommitsListPane(final Project project, final GitRepository gitRepository,
-                                             final GitCommitCompareInfo compareInfo) {
-        return new GitCommitListWithDiffPanel(project, compareInfo.getBranchToHeadCommits(gitRepository));
-    }
-
+                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
+                            @Override
+                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
+                                // if we missed the cache, then show the loading spinner, otherwise
+                                // just switch to the diff we have to avoid flickering the screen
 ```
 
 ### UnstableApiUsage
 'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestModel.java`
 #### Snippet
 ```java
-                                              @NotNull final String sourceBranchBeingCompared,
-                                              @NotNull final String targetBranchBeingCompared,
-                                              @NotNull final GitCommitCompareInfo myCompareInfo) {
-        final GitRemoteBranch gitRemoteBranch = this.getSelectedRemoteBranch();
-        final String currBranch = this.sourceBranch.getText();
+        this.diffCache = CacheBuilder.newBuilder().maximumSize(20)
+                .build(
+                        new CacheLoader<Pair<String, String>, GitCommitCompareInfo>() {
+                            @Override
+                            public GitCommitCompareInfo load(Pair<String, String> key) throws Exception {
 ```
 
 ### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
 #### Snippet
 ```java
-    }
 
-    private JComponent createDiffPaneBrowser(final Project project, final GitCommitCompareInfo compareInfo) {
-        List<Change> diff = compareInfo.getTotalDiff();
-        final SimpleChangesBrowser changesBrowser = new  SimpleChangesBrowser(project,diff);
+                    if (context == null) {
+                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(
+                                        TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_AUTHENTICATION_FAILED_TITLE),
+                                TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
 ```
 
 ### UnstableApiUsage
@@ -14684,15 +14648,51 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.jav
 ```
 
 ### UnstableApiUsage
-'notifyError(java.lang.@com.intellij.openapi.util.NlsContexts.NotificationTitle @org.jetbrains.annotations.NotNull String, java.lang.@com.intellij.openapi.util.NlsContexts.NotificationContent @org.jetbrains.annotations.NotNull String)' is scheduled for removal in version 2020.4
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/branch/CreateBranchModel.java`
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
 #### Snippet
 ```java
 
-                    if (context == null) {
-                        VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(
-                                        TfPluginBundle.KEY_CREATE_BRANCH_ERRORS_AUTHENTICATION_FAILED_TITLE),
-                                TfPluginBundle.message(TfPluginBundle.KEY_ERRORS_AUTH_NOT_SUCCESSFUL, gitRemoteUrl));
+    private JComponent createCommitsListPane(final Project project, final GitRepository gitRepository,
+                                             final GitCommitCompareInfo compareInfo) {
+        return new GitCommitListWithDiffPanel(project, compareInfo.getBranchToHeadCommits(gitRepository));
+    }
+```
+
+### UnstableApiUsage
+'getBranchToHeadCommits(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+#### Snippet
+```java
+    private JComponent createCommitsListPane(final Project project, final GitRepository gitRepository,
+                                             final GitCommitCompareInfo compareInfo) {
+        return new GitCommitListWithDiffPanel(project, compareInfo.getBranchToHeadCommits(gitRepository));
+    }
+
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+#### Snippet
+```java
+    }
+
+    private JComponent createDiffPaneBrowser(final Project project, final GitCommitCompareInfo compareInfo) {
+        List<Change> diff = compareInfo.getTotalDiff();
+        final SimpleChangesBrowser changesBrowser = new  SimpleChangesBrowser(project,diff);
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/CreatePullRequestForm.java`
+#### Snippet
+```java
+                                              @NotNull final String sourceBranchBeingCompared,
+                                              @NotNull final String targetBranchBeingCompared,
+                                              @NotNull final GitCommitCompareInfo myCompareInfo) {
+        final GitRemoteBranch gitRemoteBranch = this.getSelectedRemoteBranch();
+        final String currBranch = this.sourceBranch.getText();
 ```
 
 ### UnstableApiUsage
@@ -14729,114 +14729,6 @@ in `plugin/src/com/microsoft/alm/plugin/idea/tfvc/extensions/TfvcCheckoutProvide
             VcsNotifier.getInstance(project).notifyError(TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_DIALOG_TITLE),
                     TfPluginBundle.message(TfPluginBundle.KEY_CHECKOUT_ERRORS_UNEXPECTED, t.getMessage()));
         }
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     * @return compare info which contains empty commits and diff lists
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'GitCommitCompareInfo(git4idea.util.GitCommitCompareInfo.@org.jetbrains.annotations.NotNull InfoType)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'git4idea.util.GitCommitCompareInfo.InfoType' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'BRANCH_TO_HEAD' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-     */
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-```
-
-### UnstableApiUsage
-'put(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository, com.intellij.openapi.util.@org.jetbrains.annotations.NotNull Pair,java.util.List\>)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
-        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-        emptyCompareInfo.put(gitRepository, Collections.<Change>emptyList());
-```
-
-### UnstableApiUsage
-'put(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository, java.util.@org.jetbrains.annotations.NotNull Collection)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
-in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
-#### Snippet
-```java
-        emptyCompareInfo.put(gitRepository,
-                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
-        emptyCompareInfo.put(gitRepository, Collections.<Change>emptyList());
-
-        return emptyCompareInfo;
 ```
 
 ### UnstableApiUsage
@@ -14945,6 +14837,114 @@ in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoP
         info.put(gitRepository, new Pair<List<GitCommit>, List<GitCommit>>(commits1, commits2));
 
         return info;
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     * @return compare info which contains empty commits and diff lists
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'GitCommitCompareInfo(git4idea.util.GitCommitCompareInfo.@org.jetbrains.annotations.NotNull InfoType)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo' is scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'git4idea.util.GitCommitCompareInfo.InfoType' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'BRANCH_TO_HEAD' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+     */
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+```
+
+### UnstableApiUsage
+'put(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository, com.intellij.openapi.util.@org.jetbrains.annotations.NotNull Pair,java.util.List\>)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+    public GitCommitCompareInfo getEmptyDiff(final GitRepository gitRepository) {
+        final GitCommitCompareInfo emptyCompareInfo = new GitCommitCompareInfo(GitCommitCompareInfo.InfoType.BRANCH_TO_HEAD);
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+        emptyCompareInfo.put(gitRepository, Collections.<Change>emptyList());
+```
+
+### UnstableApiUsage
+'put(git4idea.repo.@org.jetbrains.annotations.NotNull GitRepository, java.util.@org.jetbrains.annotations.NotNull Collection)' is declared in class 'git4idea.util.GitCommitCompareInfo' scheduled for removal in version 2021.3
+in `plugin/src/com/microsoft/alm/plugin/idea/git/ui/pullrequest/DiffCompareInfoProvider.java`
+#### Snippet
+```java
+        emptyCompareInfo.put(gitRepository,
+                new Pair<List<GitCommit>, List<GitCommit>>(Collections.<GitCommit>emptyList(), Collections.<GitCommit>emptyList()));
+        emptyCompareInfo.put(gitRepository, Collections.<Change>emptyList());
+
+        return emptyCompareInfo;
 ```
 
 ### UnstableApiUsage
