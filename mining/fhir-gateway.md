@@ -127,31 +127,6 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
     final String keyAlgorithm = "RSA";
 ```
 
-## RuleId[id=MismatchedCollectionQueryUpdate]
-### MismatchedCollectionQueryUpdate
-Contents of collection `queryParams` are queried, but never updated
-in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
-#### Snippet
-```java
-    // Case in-sensitive Http request type allowed by the config.
-    private String requestType;
-    private Map<String, String> queryParams;
-    // If true, this means other parameters not listed in `queryParams` are allowed too.
-    private boolean allowExtraParams;
-```
-
-### MismatchedCollectionQueryUpdate
-Contents of collection `accessCheckerFactories` are queried, but never updated
-in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
-#### Snippet
-```java
-  //   But this implicitly means that the wrapper executable code (or container) should enable
-  //   Spring's automatic scanning.
-  @Autowired private Map<String, AccessCheckerFactory> accessCheckerFactories;
-
-  static boolean isDevMode() {
-```
-
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
@@ -201,17 +176,29 @@ in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
    * (and opens the door to other Spring goodies too).
 ```
 
-## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+## RuleId[id=MismatchedCollectionQueryUpdate]
+### MismatchedCollectionQueryUpdate
+Contents of collection `queryParams` are queried, but never updated
+in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
 #### Snippet
 ```java
-  private static final Pattern VALID_SCOPE_PATTERN =
-      Pattern.compile(
-          "(\\buser|patient|system\\b)(\\/((\\*)|([a-zA-Z]+)))(\\.((\\*)|([cruds]+)|(\\bread|write\\b)))");
-  static final String ALL_RESOURCE_TYPES_WILDCARD = "*";
-  private static final String ALL_RESOURCE_PERMISSIONS_WILDCARD = "*";
+    // Case in-sensitive Http request type allowed by the config.
+    private String requestType;
+    private Map<String, String> queryParams;
+    // If true, this means other parameters not listed in `queryParams` are allowed too.
+    private boolean allowExtraParams;
+```
+
+### MismatchedCollectionQueryUpdate
+Contents of collection `accessCheckerFactories` are queried, but never updated
+in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
+#### Snippet
+```java
+  //   But this implicitly means that the wrapper executable code (or container) should enable
+  //   Spring's automatic scanning.
+  @Autowired private Map<String, AccessCheckerFactory> accessCheckerFactories;
+
+  static boolean isDevMode() {
 ```
 
 ## RuleId[id=FieldCanBeLocal]
@@ -220,11 +207,11 @@ Field can be converted to a local variable
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
-
   private final Principal principal;
   private final String resourceType;
   private final Set<Permission> permissions;
 
+  private SmartFhirScope(
 ```
 
 ### FieldCanBeLocal
@@ -244,11 +231,11 @@ Field can be converted to a local variable
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
+
   private final Principal principal;
   private final String resourceType;
   private final Set<Permission> permissions;
 
-  private SmartFhirScope(
 ```
 
 ### FieldCanBeLocal
@@ -256,11 +243,11 @@ Field can be converted to a local variable
 in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
 ```java
+public class BundlePatients {
 
   private final ImmutableList<ImmutableSet<String>> referencedPatients;
   private final ImmutableSet<String> updatedPatients;
   private final boolean patientsToCreate;
-
 ```
 
 ### FieldCanBeLocal
@@ -280,11 +267,24 @@ Field can be converted to a local variable
 in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
 #### Snippet
 ```java
-public class BundlePatients {
 
   private final ImmutableList<ImmutableSet<String>> referencedPatients;
   private final ImmutableSet<String> updatedPatients;
   private final boolean patientsToCreate;
+
+```
+
+## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+  private static final Pattern VALID_SCOPE_PATTERN =
+      Pattern.compile(
+          "(\\buser|patient|system\\b)(\\/((\\*)|([a-zA-Z]+)))(\\.((\\*)|([cruds]+)|(\\bread|write\\b)))");
+  static final String ALL_RESOURCE_TYPES_WILDCARD = "*";
+  private static final String ALL_RESOURCE_PERMISSIONS_WILDCARD = "*";
 ```
 
 ## RuleId[id=UnstableApiUsage]
