@@ -237,11 +237,11 @@ Method invocation `spliterator` may produce `NullPointerException`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
 ```java
-                                                                                          .map(extractor -> extractor.apply(objectToExtractValueFrom))
-                                                                                          .toArray());
-    List<Tuple> tuples = stream(actual.spliterator(), false).map(tupleExtractor).collect(toList());
-    return newListAssertInstanceForMethodsChangingElementType(tuples);
-  }
+  protected AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtractingForProxy(Function<? super ELEMENT, ?>[] extractors) {
+    if (actual == null) throwAssertionError(shouldNotBeNull());
+    Stream<? extends ELEMENT> actualStream = stream(actual.spliterator(), false);
+    List<Object> result = actualStream.flatMap(element -> Stream.of(extractors).map(extractor -> extractor.apply(element)))
+                                      .collect(toList());
 ```
 
 ### DataFlowIssue
@@ -249,11 +249,11 @@ Method invocation `spliterator` may produce `NullPointerException`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
 ```java
-  protected AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtractingForProxy(Function<? super ELEMENT, ?>[] extractors) {
-    if (actual == null) throwAssertionError(shouldNotBeNull());
-    Stream<? extends ELEMENT> actualStream = stream(actual.spliterator(), false);
-    List<Object> result = actualStream.flatMap(element -> Stream.of(extractors).map(extractor -> extractor.apply(element)))
-                                      .collect(toList());
+                                                                                          .map(extractor -> extractor.apply(objectToExtractValueFrom))
+                                                                                          .toArray());
+    List<Tuple> tuples = stream(actual.spliterator(), false).map(tupleExtractor).collect(toList());
+    return newListAssertInstanceForMethodsChangingElementType(tuples);
+  }
 ```
 
 ### DataFlowIssue
@@ -285,9 +285,9 @@ Immutable object is modified
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/DualValueDeque.java`
 #### Snippet
 ```java
-  public void add(int index, DualValue dualKey) {
-    if (shouldIgnore(dualKey)) return;
-    super.add(index, dualKey);
+  public boolean add(DualValue dualKey) {
+    if (shouldIgnore(dualKey)) return false;
+    return super.add(dualKey);
   }
 
 ```
@@ -297,9 +297,9 @@ Immutable object is modified
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/DualValueDeque.java`
 #### Snippet
 ```java
-  public boolean add(DualValue dualKey) {
-    if (shouldIgnore(dualKey)) return false;
-    return super.add(dualKey);
+  public void add(int index, DualValue dualKey) {
+    if (shouldIgnore(dualKey)) return;
+    super.add(index, dualKey);
   }
 
 ```
@@ -392,18 +392,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOffsetDateTimeAssert
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'isEqualToIgnoringMinutes' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateTimeAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isEqualToIgnoringMinutes(LocalDateTime other) {
-    Objects.instance().assertNotNull(info, actual);
-    assertLocalDateTimeParameterIsNotNull(other);
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'isEqualToIgnoringHours' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateTimeAssert.java`
 #### Snippet
@@ -411,6 +399,18 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateTimeAssert.
    */
   @Deprecated
   public SELF isEqualToIgnoringHours(LocalDateTime other) {
+    Objects.instance().assertNotNull(info, actual);
+    assertLocalDateTimeParameterIsNotNull(other);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isEqualToIgnoringMinutes' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractLocalDateTimeAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToIgnoringMinutes(LocalDateTime other) {
     Objects.instance().assertNotNull(info, actual);
     assertLocalDateTimeParameterIsNotNull(other);
 ```
@@ -425,42 +425,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/Java6JUnitSoftAssertions.jav
 public class Java6JUnitSoftAssertions extends AbstractSoftAssertions
     implements Java6StandardSoftAssertionsProvider, SoftAssertionsRule {
 
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hasNotFailed' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF hasNotFailed() {
-    isNotNull();
-    if (actual.isCompletedExceptionally() && !actual.isCancelled()) throwAssertionError(shouldNotHaveFailed(actual));
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hasFailed' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF hasFailed() {
-    isNotNull();
-    if (!(actual.isCompletedExceptionally() && !actual.isCancelled())) throwAssertionError(shouldHaveFailed(actual));
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'hasFailedWithThrowableThat' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public AbstractThrowableAssert<?, ? extends Throwable> hasFailedWithThrowableThat() {
-    hasFailed();
-    try {
 ```
 
 ### DeprecatedIsStillUsed
@@ -488,18 +452,6 @@ public class Java6Assertions {
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'isEqualToIgnoringMinutes' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
-#### Snippet
-```java
-   * this is the right way to compare with a given precision.
-   */
-  public SELF isEqualToIgnoringMinutes(ZonedDateTime other) {
-    Objects.instance().assertNotNull(info, actual);
-    assertDateTimeParameterIsNotNull(other);
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'isEqualToIgnoringHours' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
 #### Snippet
@@ -512,15 +464,15 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'isXmlEqualTo' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
+Deprecated member 'isEqualToIgnoringMinutes' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractZonedDateTimeAssert.java`
 #### Snippet
 ```java
+   * this is the right way to compare with a given precision.
    */
-  @Deprecated
-  public SELF isXmlEqualTo(CharSequence expectedXml) {
-    strings.assertXmlEqualsTo(info, actual, expectedXml);
-    return myself;
+  public SELF isEqualToIgnoringMinutes(ZonedDateTime other) {
+    Objects.instance().assertNotNull(info, actual);
+    assertDateTimeParameterIsNotNull(other);
 ```
 
 ### DeprecatedIsStillUsed
@@ -532,18 +484,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.j
   @Deprecated
   public SELF isNotJavaBlank() {
     strings.assertNotJavaBlank(info, actual);
-    return myself;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isJavaBlank' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isJavaBlank() {
-    strings.assertJavaBlank(info, actual);
     return myself;
 ```
 
@@ -560,6 +500,30 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.j
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'isXmlEqualTo' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isXmlEqualTo(CharSequence expectedXml) {
+    strings.assertXmlEqualsTo(info, actual, expectedXml);
+    return myself;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isJavaBlank' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCharSequenceAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isJavaBlank() {
+    strings.assertJavaBlank(info, actual);
+    return myself;
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'temporaryFolder' is still used
 in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
 #### Snippet
@@ -569,54 +533,6 @@ in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
   public static File temporaryFolder() {
     File temp = new File(temporaryFolderPath());
     if (!temp.isDirectory()) {
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isEqualToComparingFieldByFieldRecursively' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isEqualToComparingFieldByFieldRecursively(Object other) {
-    objects.assertIsEqualToComparingFieldByFieldRecursively(info, actual, other, comparatorsByPropertyOrField,
-                                                            getComparatorsByType());
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isEqualToIgnoringNullFields' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isEqualToIgnoringNullFields(Object other) {
-    objects.assertIsEqualToIgnoringNullFields(info, actual, other, comparatorsByPropertyOrField, getComparatorsByType());
-    return myself;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isEqualToComparingOnlyGivenFields' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isEqualToComparingOnlyGivenFields(Object other, String... propertiesOrFieldsUsedInComparison) {
-    objects.assertIsEqualToComparingOnlyGivenFields(info, actual, other, comparatorsByPropertyOrField, getComparatorsByType(),
-                                                    propertiesOrFieldsUsedInComparison);
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isEqualToIgnoringGivenFields' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isEqualToIgnoringGivenFields(Object other, String... propertiesOrFieldsToIgnore) {
-    objects.assertIsEqualToIgnoringGivenFields(info, actual, other, comparatorsByPropertyOrField, getComparatorsByType(),
-                                               propertiesOrFieldsToIgnore);
 ```
 
 ### DeprecatedIsStillUsed
@@ -632,6 +548,114 @@ public class SoftlyExtension implements AfterTestExecutionCallback, TestInstance
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'hasFailedWithThrowableThat' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public AbstractThrowableAssert<?, ? extends Throwable> hasFailedWithThrowableThat() {
+    hasFailed();
+    try {
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hasNotFailed' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF hasNotFailed() {
+    isNotNull();
+    if (actual.isCompletedExceptionally() && !actual.isCancelled()) throwAssertionError(shouldNotHaveFailed(actual));
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'hasFailed' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractCompletableFutureAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF hasFailed() {
+    isNotNull();
+    if (!(actual.isCompletedExceptionally() && !actual.isCancelled())) throwAssertionError(shouldHaveFailed(actual));
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isEqualToIgnoringNullFields' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToIgnoringNullFields(Object other) {
+    objects.assertIsEqualToIgnoringNullFields(info, actual, other, comparatorsByPropertyOrField, getComparatorsByType());
+    return myself;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isEqualToComparingFieldByFieldRecursively' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToComparingFieldByFieldRecursively(Object other) {
+    objects.assertIsEqualToComparingFieldByFieldRecursively(info, actual, other, comparatorsByPropertyOrField,
+                                                            getComparatorsByType());
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isEqualToIgnoringGivenFields' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToIgnoringGivenFields(Object other, String... propertiesOrFieldsToIgnore) {
+    objects.assertIsEqualToIgnoringGivenFields(info, actual, other, comparatorsByPropertyOrField, getComparatorsByType(),
+                                               propertiesOrFieldsToIgnore);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isEqualToComparingOnlyGivenFields' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToComparingOnlyGivenFields(Object other, String... propertiesOrFieldsUsedInComparison) {
+    objects.assertIsEqualToComparingOnlyGivenFields(info, actual, other, comparatorsByPropertyOrField, getComparatorsByType(),
+                                                    propertiesOrFieldsUsedInComparison);
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isInSameSecondAs' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isInSameSecondAs(String dateAsString) {
+    return isInSameSecondAs(parse(dateAsString));
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isInSameHourAs' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isInSameHourAs(Date other) {
+    dates.assertIsInSameHourAs(info, actual, other);
+    return myself;
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'isEqualToIgnoringHours' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 #### Snippet
@@ -644,6 +668,30 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'isInSameMinuteAs' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isInSameMinuteAs(String dateAsString) {
+    return isInSameMinuteAs(parse(dateAsString));
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isInSameSecondAs' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isInSameSecondAs(Date other) {
+    dates.assertIsInSameSecondAs(info, actual, other);
+    return myself;
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'isEqualToIgnoringHours' is still used
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 #### Snippet
@@ -653,6 +701,18 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
   public SELF isEqualToIgnoringHours(Date date) {
     dates.assertIsEqualWithPrecision(info, actual, date, HOURS);
     return myself;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isEqualToIgnoringHours' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToIgnoringHours(Instant instant) {
+    return isEqualToIgnoringHours(Date.from(instant));
+  }
 ```
 
 ### DeprecatedIsStillUsed
@@ -674,69 +734,9 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 ```java
    */
   @Deprecated
-  public SELF isEqualToIgnoringMinutes(String dateAsString) {
-    return isEqualToIgnoringMinutes(parse(dateAsString));
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isEqualToIgnoringHours' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isEqualToIgnoringHours(Instant instant) {
-    return isEqualToIgnoringHours(Date.from(instant));
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isInSameMinuteAs' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isInSameMinuteAs(String dateAsString) {
-    return isInSameMinuteAs(parse(dateAsString));
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isInSameHourAs' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isInSameHourAs(Date other) {
-    dates.assertIsInSameHourAs(info, actual, other);
-    return myself;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isEqualToIgnoringMinutes' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
   public SELF isEqualToIgnoringMinutes(Instant instant) {
     return isEqualToIgnoringMinutes(Date.from(instant));
   }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isInSameSecondAs' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isInSameSecondAs(Date other) {
-    dates.assertIsInSameSecondAs(info, actual, other);
-    return myself;
 ```
 
 ### DeprecatedIsStillUsed
@@ -749,6 +749,42 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
   public SELF isInSameMinuteAs(Date other) {
     dates.assertIsInSameMinuteAs(info, actual, other);
     return myself;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isEqualToIgnoringMillis' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToIgnoringMillis(Date date) {
+    dates.assertIsEqualWithPrecision(info, actual, date, MILLISECONDS);
+    return myself;
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isEqualToIgnoringMinutes' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToIgnoringMinutes(String dateAsString) {
+    return isEqualToIgnoringMinutes(parse(dateAsString));
+  }
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'isEqualToIgnoringMillis' is still used
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
+#### Snippet
+```java
+   */
+  @Deprecated
+  public SELF isEqualToIgnoringMillis(String dateAsString) {
+    return isEqualToIgnoringMillis(parse(dateAsString));
+  }
 ```
 
 ### DeprecatedIsStillUsed
@@ -770,60 +806,12 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
 ```java
    */
   @Deprecated
-  public SELF isEqualToIgnoringMillis(Date date) {
-    dates.assertIsEqualWithPrecision(info, actual, date, MILLISECONDS);
-    return myself;
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isEqualToIgnoringMillis' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
   public SELF isEqualToIgnoringMillis(Instant instant) {
     return isEqualToIgnoringMillis(Date.from(instant));
   }
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'isEqualToIgnoringMillis' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isEqualToIgnoringMillis(String dateAsString) {
-    return isEqualToIgnoringMillis(parse(dateAsString));
-  }
-```
-
-### DeprecatedIsStillUsed
-Deprecated member 'isInSameSecondAs' is still used
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractDateAssert.java`
-#### Snippet
-```java
-   */
-  @Deprecated
-  public SELF isInSameSecondAs(String dateAsString) {
-    return isInSameSecondAs(parse(dateAsString));
-  }
-```
-
 ## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
-#### Snippet
-```java
-  // - \] represents ] in a regex
-  // - $ represents the end of the string in a regex
-  private static final String TOP_LEVEL_ELEMENT_PATTERN = "^\\[\\d+\\]$";
-  private static final String FIELD = "field/property '%s'";
-  private static final String TOP_LEVEL_OBJECTS = "Top level actual and expected objects";
-```
-
 ### RegExpRedundantEscape
 Redundant character escape `\\]` in RegExp
 in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
@@ -834,6 +822,18 @@ in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/Compari
     return index.replaceFirst("\\]", "");
   }
 
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
+#### Snippet
+```java
+  // - \] represents ] in a regex
+  // - $ represents the end of the string in a regex
+  private static final String TOP_LEVEL_ELEMENT_PATTERN = "^\\[\\d+\\]$";
+  private static final String FIELD = "field/property '%s'";
+  private static final String TOP_LEVEL_OBJECTS = "Top level actual and expected objects";
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -847,6 +847,19 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Dates.java`
       break;
     default:
       break;
+```
+
+## RuleId[id=NonFinalFieldInEnum]
+### NonFinalFieldInEnum
+Non-final field `description` in enum 'GroupType'
+in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
+#### Snippet
+```java
+    ITERABLE("iterable"), ARRAY("array");
+
+    private String description;
+
+    GroupType(String value) {
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -1044,19 +1057,6 @@ in `assertj-core/src/main/javadoc/assertj-javadoc.css`
  */
 ```
 
-## RuleId[id=NonFinalFieldInEnum]
-### NonFinalFieldInEnum
-Non-final field `description` in enum 'GroupType'
-in `assertj-core/src/main/java/org/assertj/core/presentation/StandardRepresentation.java`
-#### Snippet
-```java
-    ITERABLE("iterable"), ARRAY("array");
-
-    private String description;
-
-    GroupType(String value) {
-```
-
 ## RuleId[id=ProtectedMemberInFinalClass]
 ### ProtectedMemberInFinalClass
 Class member declared `protected` in 'final' class
@@ -1219,18 +1219,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 
 ### Deprecation
 'isAccessible()' is deprecated
-in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldUtils.java`
-#### Snippet
-```java
-  private static Object readField(Field field, Object target, boolean forceAccess) throws IllegalAccessException {
-    checkArgument(field != null, "The field must not be null");
-    if (forceAccess && !field.isAccessible()) {
-      field.setAccessible(true);
-    } else {
-```
-
-### Deprecation
-'isAccessible()' is deprecated
 in `assertj-core/src/main/java/org/assertj/core/util/introspection/MemberUtils.java`
 #### Snippet
 ```java
@@ -1239,6 +1227,18 @@ in `assertj-core/src/main/java/org/assertj/core/util/introspection/MemberUtils.j
         if (o == null || o.isAccessible()) {
             return;
         }
+```
+
+### Deprecation
+'isAccessible()' is deprecated
+in `assertj-core/src/main/java/org/assertj/core/util/introspection/FieldUtils.java`
+#### Snippet
+```java
+  private static Object readField(Field field, Object target, boolean forceAccess) throws IllegalAccessException {
+    checkArgument(field != null, "The field must not be null");
+    if (forceAccess && !field.isAccessible()) {
+      field.setAccessible(true);
+    } else {
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -1343,18 +1343,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForInterfaceTypes.java`
-#### Snippet
-```java
- * <p>
- * This why {@link Assertions} have been split in {@link AssertionsForClassTypes} and {@link AssertionsForInterfaceTypes}
- * (see http://stackoverflow.com/questions/29499847/ambiguous-method-in-java-8-why).
- *
- * @author Alex Ruiz
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
 ```java
@@ -1363,6 +1351,18 @@ in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java
  * (see http://stackoverflow.com/questions/29499847/ambiguous-method-in-java-8-why).
  */
 @CheckReturnValue
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForInterfaceTypes.java`
+#### Snippet
+```java
+ * <p>
+ * This why {@link Assertions} have been split in {@link AssertionsForClassTypes} and {@link AssertionsForInterfaceTypes}
+ * (see http://stackoverflow.com/questions/29499847/ambiguous-method-in-java-8-why).
+ *
+ * @author Alex Ruiz
 ```
 
 ### JavadocLinkAsPlainText
@@ -1391,6 +1391,18 @@ in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
+in `assertj-core/src/main/java/org/assertj/core/util/diff/DeltaComparator.java`
+#### Snippet
+```java
+
+/**
+ * Copy from https://code.google.com/p/java-diff-utils/.
+ * <p>
+ * @author mksenzov
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `assertj-core/src/main/java/org/assertj/core/util/diff/InsertDelta.java`
 #### Snippet
 ```java
@@ -1399,6 +1411,18 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/InsertDelta.java`
  * Initially copied from https://code.google.com/p/java-diff-utils/.
  * <p>
  * Describes the add-delta between original and revised texts.
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffAlgorithm.java`
+#### Snippet
+```java
+
+/**
+ * Copy from https://code.google.com/p/java-diff-utils/.
+ * <p>
+ * The general interface for computing diffs between two lists of elements of type T. 
 ```
 
 ### JavadocLinkAsPlainText
@@ -1427,30 +1451,6 @@ in `assertj-core/src/main/java/org/assertj/core/util/xml/XmlStringPrettyFormatte
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `assertj-core/src/main/java/org/assertj/core/util/diff/DeltaComparator.java`
-#### Snippet
-```java
-
-/**
- * Copy from https://code.google.com/p/java-diff-utils/.
- * <p>
- * @author mksenzov
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffAlgorithm.java`
-#### Snippet
-```java
-
-/**
- * Copy from https://code.google.com/p/java-diff-utils/.
- * <p>
- * The general interface for computing diffs between two lists of elements of type T. 
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `assertj-core/src/main/java/org/assertj/core/util/diff/ChangeDelta.java`
 #### Snippet
 ```java
@@ -1475,6 +1475,18 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/Patch.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
+in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/DiffNode.java`
+#### Snippet
+```java
+
+/**
+ * Copy from https://code.google.com/p/java-diff-utils/.
+ * <p>
+ * A diffnode in a diffpath.
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `assertj-core/src/main/java/org/assertj/core/util/diff/DeleteDelta.java`
 #### Snippet
 ```java
@@ -1483,18 +1495,6 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/DeleteDelta.java`
  * Initially copied from https://code.google.com/p/java-diff-utils/.
  * <p>
  * Describes the delete-delta between original and revised texts.
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `assertj-core/src/main/java/org/assertj/core/util/diff/Delta.java`
-#### Snippet
-```java
-
-/**
- * Initially copied from https://code.google.com/p/java-diff-utils/.
- * <p>
- * Describes the delta between original and revised texts.
 ```
 
 ### JavadocLinkAsPlainText
@@ -1511,18 +1511,6 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/Snake.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/DiffNode.java`
-#### Snippet
-```java
-
-/**
- * Copy from https://code.google.com/p/java-diff-utils/.
- * <p>
- * A diffnode in a diffpath.
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/Equalizer.java`
 #### Snippet
 ```java
@@ -1531,6 +1519,18 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/Equalizer.java`
  * Copy from https://code.google.com/p/java-diff-utils/.
  * <p>
  * Specifies when two compared elements in the Myers algorithm are equal.
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `assertj-core/src/main/java/org/assertj/core/util/diff/Delta.java`
+#### Snippet
+```java
+
+/**
+ * Initially copied from https://code.google.com/p/java-diff-utils/.
+ * <p>
+ * Describes the delta between original and revised texts.
 ```
 
 ### JavadocLinkAsPlainText
@@ -1559,18 +1559,6 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/PathNode.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
-#### Snippet
-```java
-
-/**
- * Copy from https://code.google.com/p/java-diff-utils/.
- * <p>
- * A clean-room implementation of <a href="http://www.cs.arizona.edu/people/gene/">
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
 #### Snippet
 ```java
@@ -1579,6 +1567,18 @@ in `assertj-core/src/main/java/org/assertj/core/util/diff/DiffUtils.java`
  * Copy from https://code.google.com/p/java-diff-utils/.
  * <p>
  * Implements the difference and patching engine
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `assertj-core/src/main/java/org/assertj/core/util/diff/myers/MyersDiff.java`
+#### Snippet
+```java
+
+/**
+ * Copy from https://code.google.com/p/java-diff-utils/.
+ * <p>
+ * A clean-room implementation of <a href="http://www.cs.arizona.edu/people/gene/">
 ```
 
 ### JavadocLinkAsPlainText
@@ -1624,35 +1624,11 @@ Result of `AbstractIterableAssert.usingElementComparator()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
 ```java
-  public <T> SELF usingComparatorForType(Comparator<T> comparator, Class<T> type) {
-    if (iterables.getComparator() == null) {
-      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
-    }
-
-```
-
-### IgnoreResultOfCall
-Result of `AbstractIterableAssert.usingElementComparator()` is ignored
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
       SortedSet<ELEMENT> sortedSet = (SortedSet<ELEMENT>) actual;
       Comparator<? super ELEMENT> comparator = sortedSet.comparator();
       if (comparator != null) usingElementComparator(sortedSet.comparator());
     }
   }
-```
-
-### IgnoreResultOfCall
-Result of `AbstractIterableAssert.usingDefaultElementComparator()` is ignored
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-      // compatible with extracted values type, example with a SortedSet<Person> using a comparator on the Person's age, after
-      // extracting names we get a List<String> which is mot suitable for the age comparator
-      usingDefaultElementComparator();
-    }
-    return newListAssertInstance(values).withAssertionState(myself);
 ```
 
 ### IgnoreResultOfCall
@@ -1665,6 +1641,30 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
     filterOperator.applyOn(filter);
     return newAbstractIterableAssert(filter.get()).withAssertionState(myself);
   }
+```
+
+### IgnoreResultOfCall
+Result of `AbstractIterableAssert.usingElementComparator()` is ignored
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+  public <T> SELF usingComparatorForType(Comparator<T> comparator, Class<T> type) {
+    if (iterables.getComparator() == null) {
+      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
+    }
+
+```
+
+### IgnoreResultOfCall
+Result of `AbstractIterableAssert.usingDefaultElementComparator()` is ignored
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+      // compatible with extracted values type, example with a SortedSet<Person> using a comparator on the Person's age, after
+      // extracting names we get a List<String> which is mot suitable for the age comparator
+      usingDefaultElementComparator();
+    }
+    return newListAssertInstance(values).withAssertionState(myself);
 ```
 
 ### IgnoreResultOfCall
@@ -1692,18 +1692,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/AtomicReferenceArrayAssert.j
 ```
 
 ### IgnoreResultOfCall
-Result of `AbstractObjectArrayAssert.usingElementComparator()` is ignored
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
-#### Snippet
-```java
-  public <C> SELF usingComparatorForType(Comparator<C> comparator, Class<C> type) {
-    if (arrays.getComparator() == null) {
-      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
-    }
-    getComparatorsForElementPropertyOrFieldTypes().registerComparator(type, comparator);
-```
-
-### IgnoreResultOfCall
 Result of `FilterOperator.applyOn()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
@@ -1716,14 +1704,26 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
 ```
 
 ### IgnoreResultOfCall
+Result of `AbstractObjectArrayAssert.usingElementComparator()` is ignored
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
+#### Snippet
+```java
+  public <C> SELF usingComparatorForType(Comparator<C> comparator, Class<C> type) {
+    if (arrays.getComparator() == null) {
+      usingElementComparator(new ExtendedByTypesComparator(getComparatorsByType()));
+    }
+    getComparatorsForElementPropertyOrFieldTypes().registerComparator(type, comparator);
+```
+
+### IgnoreResultOfCall
 Result of `ListFromStream.initList()` is ignored
 in `assertj-core/src/main/java/org/assertj/core/api/ListAssert.java`
 #### Snippet
 ```java
     @Override
-    public Stream<ELEMENT> stream() {
+    public int size() {
       initList();
-      return list.stream();
+      return list.size();
     }
 ```
 
@@ -1745,9 +1745,9 @@ in `assertj-core/src/main/java/org/assertj/core/api/ListAssert.java`
 #### Snippet
 ```java
     @Override
-    public int size() {
+    public Stream<ELEMENT> stream() {
       initList();
-      return list.size();
+      return list.stream();
     }
 ```
 
@@ -1885,18 +1885,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings("unchecked")
-  public static <VALUE> OptionalAssert<VALUE> assumeThat(Optional<VALUE> actual) {
-    return asAssumption(OptionalAssert.class, Optional.class, actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
 `OptionalInt` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
 #### Snippet
@@ -1917,6 +1905,18 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
    */
   public static OptionalLongAssert assumeThat(OptionalLong actual) {
     return asAssumption(OptionalLongAssert.class, OptionalLong.class, actual);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/Assumptions.java`
+#### Snippet
+```java
+   */
+  @SuppressWarnings("unchecked")
+  public static <VALUE> OptionalAssert<VALUE> assumeThat(Optional<VALUE> actual) {
+    return asAssumption(OptionalAssert.class, Optional.class, actual);
   }
 ```
 
@@ -1957,14 +1957,14 @@ public class OptionalDoubleAssert extends AbstractOptionalDoubleAssert<OptionalD
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'actual'
+`OptionalLong` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
 ```java
    * @return the created assertion object.
    */
-  default OptionalIntAssert assertThat(OptionalInt actual) {
-    return proxy(OptionalIntAssert.class, OptionalInt.class, actual);
+  default OptionalLongAssert assertThat(OptionalLong actual) {
+    return proxy(OptionalLongAssert.class, OptionalLong.class, actual);
   }
 ```
 
@@ -1981,18 +1981,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvid
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
-#### Snippet
-```java
-   * @return the created assertion object.
-   */
-  default OptionalLongAssert assertThat(OptionalLong actual) {
-    return proxy(OptionalLongAssert.class, OptionalLong.class, actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
 #### Snippet
@@ -2001,6 +1989,18 @@ in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvid
   @SuppressWarnings("unchecked")
   default <VALUE> OptionalAssert<VALUE> assertThat(Optional<VALUE> actual) {
     return proxy(OptionalAssert.class, Optional.class, actual);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/StandardSoftAssertionsProvider.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  default OptionalIntAssert assertThat(OptionalInt actual) {
+    return proxy(OptionalIntAssert.class, OptionalInt.class, actual);
   }
 ```
 
@@ -2029,18 +2029,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalDouble` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
-#### Snippet
-```java
-   * @return the created assertion object.
-   */
-  default OptionalDoubleAssert then(OptionalDouble actual) {
-    return proxy(OptionalDoubleAssert.class, OptionalDouble.class, actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
 `OptionalLong` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
 #### Snippet
@@ -2053,26 +2041,14 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.ja
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
-#### Snippet
-```java
-   * @return the created assertion object.
-   */
-  public static OptionalIntAssert assertThat(OptionalInt actual) {
-    return AssertionsForClassTypes.assertThat(actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
 `OptionalDouble` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+in `assertj-core/src/main/java/org/assertj/core/api/BDDSoftAssertionsProvider.java`
 #### Snippet
 ```java
    * @return the created assertion object.
    */
-  public static OptionalDoubleAssert assertThat(OptionalDouble actual) {
-    return AssertionsForClassTypes.assertThat(actual);
+  default OptionalDoubleAssert then(OptionalDouble actual) {
+    return proxy(OptionalDoubleAssert.class, OptionalDouble.class, actual);
   }
 ```
 
@@ -2101,13 +2077,85 @@ in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'actual'
+`OptionalInt` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  public static OptionalIntAssert assertThat(OptionalInt actual) {
+    return AssertionsForClassTypes.assertThat(actual);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalDouble` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  public static OptionalDoubleAssert assertThat(OptionalDouble actual) {
+    return AssertionsForClassTypes.assertThat(actual);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
+#### Snippet
+```java
+   * @since 3.9.0
+   */
+  default <VALUE> OptionalAssert<VALUE> assumeThat(final Optional<VALUE> optional) {
+    return Assumptions.assumeThat(optional);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalDouble` used as type for parameter 'optionalDouble'
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
+#### Snippet
+```java
+   * @since 2.9.0 / 3.9.0
+   */
+  default OptionalDoubleAssert assumeThat(final OptionalDouble optionalDouble) {
+    return Assumptions.assumeThat(optionalDouble);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'optionalInt'
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
+#### Snippet
+```java
+   * @since 2.9.0 / 3.9.0
+   */
+  default OptionalIntAssert assumeThat(final OptionalInt optionalInt) {
+    return Assumptions.assumeThat(optionalInt);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for parameter 'optionalLong'
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
+#### Snippet
+```java
+   * @since 2.9.0 / 3.9.0
+   */
+  default OptionalLongAssert assumeThat(final OptionalLong optionalLong) {
+    return Assumptions.assumeThat(optionalLong);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
 #### Snippet
 ```java
    * @since 3.14.0
    */
-  public static OptionalLongAssert given(OptionalLong actual) {
+  public static <VALUE> OptionalAssert<VALUE> given(Optional<VALUE> actual) {
     return assumeThat(actual);
   }
 ```
@@ -2125,6 +2173,18 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
+#### Snippet
+```java
+   * @since 3.14.0
+   */
+  public static OptionalLongAssert given(OptionalLong actual) {
+    return assumeThat(actual);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `OptionalDouble` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
 #### Snippet
@@ -2137,86 +2197,14 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssumptions.java`
-#### Snippet
-```java
-   * @since 3.14.0
-   */
-  public static <VALUE> OptionalAssert<VALUE> given(Optional<VALUE> actual) {
-    return assumeThat(actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'optionalInt'
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
-#### Snippet
-```java
-   * @since 2.9.0 / 3.9.0
-   */
-  default OptionalIntAssert assumeThat(final OptionalInt optionalInt) {
-    return Assumptions.assumeThat(optionalInt);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalDouble` used as type for parameter 'optionalDouble'
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
-#### Snippet
-```java
-   * @since 2.9.0 / 3.9.0
-   */
-  default OptionalDoubleAssert assumeThat(final OptionalDouble optionalDouble) {
-    return Assumptions.assumeThat(optionalDouble);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'optionalLong'
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
-#### Snippet
-```java
-   * @since 2.9.0 / 3.9.0
-   */
-  default OptionalLongAssert assumeThat(final OptionalLong optionalLong) {
-    return Assumptions.assumeThat(optionalLong);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssumptions.java`
-#### Snippet
-```java
-   * @since 3.9.0
-   */
-  default <VALUE> OptionalAssert<VALUE> assumeThat(final Optional<VALUE> optional) {
-    return Assumptions.assumeThat(optional);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
 `OptionalLong` used as type for parameter 'actual'
-in `assertj-core/src/main/java/org/assertj/core/api/OptionalLongAssert.java`
-#### Snippet
-```java
-public class OptionalLongAssert extends AbstractOptionalLongAssert<OptionalLongAssert> {
-
-  protected OptionalLongAssert(OptionalLong actual) {
-    super(actual, OptionalLongAssert.class);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
 ```java
    * @return the created assertion object.
    */
-  public static <VALUE> OptionalAssert<VALUE> assertThat(Optional<VALUE> actual) {
-    return new OptionalAssert<>(actual);
+  public static OptionalLongAssert assertThat(OptionalLong actual) {
+    return new OptionalLongAssert(actual);
   }
 ```
 
@@ -2245,14 +2233,26 @@ in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'actual'
+`Optional` used as type for parameter 'actual'
 in `assertj-core/src/main/java/org/assertj/core/api/AssertionsForClassTypes.java`
 #### Snippet
 ```java
    * @return the created assertion object.
    */
-  public static OptionalLongAssert assertThat(OptionalLong actual) {
-    return new OptionalLongAssert(actual);
+  public static <VALUE> OptionalAssert<VALUE> assertThat(Optional<VALUE> actual) {
+    return new OptionalAssert<>(actual);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for parameter 'actual'
+in `assertj-core/src/main/java/org/assertj/core/api/OptionalLongAssert.java`
+#### Snippet
+```java
+public class OptionalLongAssert extends AbstractOptionalLongAssert<OptionalLongAssert> {
+
+  protected OptionalLongAssert(OptionalLong actual) {
+    super(actual, OptionalLongAssert.class);
   }
 ```
 
@@ -2264,6 +2264,18 @@ in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
    * @return the created assertion object.
    */
   default OptionalLongAssert assertThat(final OptionalLong optional) {
+    return Assertions.assertThat(optional);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  default <VALUE> OptionalAssert<VALUE> assertThat(final Optional<VALUE> optional) {
     return Assertions.assertThat(optional);
   }
 ```
@@ -2294,48 +2306,12 @@ in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
-#### Snippet
-```java
-   * @return the created assertion object.
-   */
-  default <VALUE> OptionalAssert<VALUE> assertThat(final Optional<VALUE> optional) {
-    return Assertions.assertThat(optional);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'additionalInformation'
-in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
-#### Snippet
-```java
-  final Object actual;
-  final Object expected;
-  final Optional<String> additionalInformation;
-  final String template;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 #### Snippet
 ```java
    * @return the created assertion object.
    */
   public static <VALUE> OptionalAssert<VALUE> then(Optional<VALUE> optional) {
-    return assertThat(optional);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
-#### Snippet
-```java
-   * @return the created assertion object.
-   */
-  public static OptionalIntAssert then(OptionalInt optional) {
     return assertThat(optional);
   }
 ```
@@ -2365,14 +2341,50 @@ in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'optional'
+`OptionalInt` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/api/BDDAssertions.java`
+#### Snippet
+```java
+   * @return the created assertion object.
+   */
+  public static OptionalIntAssert then(OptionalInt optional) {
+    return assertThat(optional);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'additionalInformation'
+in `assertj-core/src/main/java/org/assertj/core/api/recursive/comparison/ComparisonDifference.java`
+#### Snippet
+```java
+  final Object actual;
+  final Object expected;
+  final Optional<String> additionalInformation;
+  final String template;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'currentContext'
+in `assertj-core/src/main/java/org/assertj/core/api/junit/jupiter/SoftlyExtension.java`
+#### Snippet
+```java
+  }
+
+  private static Optional<ExtensionContext> getParent(Optional<ExtensionContext> currentContext) {
+    return currentContext.flatMap(ExtensionContext::getParent);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
 ```java
    * @return a error message factory.
    */
-  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalLong optional) {
-    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsLong());
+  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalInt optional) {
+    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsInt());
   }
 ```
 
@@ -2389,6 +2401,18 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
+#### Snippet
+```java
+   * @return a error message factory.
+   */
+  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalLong optional) {
+    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsLong());
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
 `OptionalDouble` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -2397,18 +2421,6 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
    */
   public static OptionalShouldBeEmpty shouldBeEmpty(OptionalDouble optional) {
     return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsDouble());
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
-#### Snippet
-```java
-   * @return a error message factory.
-   */
-  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalInt optional) {
-    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsInt());
   }
 ```
 
@@ -2449,18 +2461,6 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'optional'
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
-#### Snippet
-```java
-   * @return a error message factory
-   */
-  public static OptionalShouldContain shouldContain(OptionalInt optional, int expectedValue) {
-    return optional.isPresent()
-        ? new OptionalShouldContain(EXPECTING_TO_CONTAIN, optional, expectedValue)
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'optional'
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
 #### Snippet
@@ -2482,6 +2482,18 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java
   public static <VALUE> OptionalShouldContain shouldContainSame(Optional<VALUE> optional, VALUE expectedValue) {
     return optional.isPresent()
         ? new OptionalShouldContain(EXPECTING_TO_CONTAIN_SAME, optional, expectedValue)
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'optional'
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldContain.java`
+#### Snippet
+```java
+   * @return a error message factory
+   */
+  public static OptionalShouldContain shouldContain(OptionalInt optional, int expectedValue) {
+    return optional.isPresent()
+        ? new OptionalShouldContain(EXPECTING_TO_CONTAIN, optional, expectedValue)
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2518,18 +2530,6 @@ public class OptionalDoubleShouldHaveValueCloseToOffset extends BasicErrorMessag
   private OptionalDoubleShouldHaveValueCloseToOffset(OptionalDouble actual, double expected, Offset<Double> offset,
                                                      double difference) {
     super("%nExpecting actual:%n  %s%nto be close to:%n  %s%n" +
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'currentContext'
-in `assertj-core/src/main/java/org/assertj/core/api/junit/jupiter/SoftlyExtension.java`
-#### Snippet
-```java
-  }
-
-  private static Optional<ExtensionContext> getParent(Optional<ExtensionContext> currentContext) {
-    return currentContext.flatMap(ExtensionContext::getParent);
-  }
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2735,11 +2735,11 @@ Javadoc pointing to itself
 in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
 #### Snippet
 ```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
    * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
    * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
    * <li>{@link #registerCustomDateFormat(String)}</li>
    * </ul>
-   * <p>
 ```
 
 ### JavadocDeclaration
@@ -2747,11 +2747,11 @@ Javadoc pointing to itself
 in `assertj-core/src/main/java/org/assertj/core/api/Assertions.java`
 #### Snippet
 ```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
    * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
    * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
    * <li>{@link #registerCustomDateFormat(String)}</li>
    * </ul>
+   * <p>
 ```
 
 ### JavadocDeclaration
@@ -2783,11 +2783,11 @@ Javadoc pointing to itself
 in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
 #### Snippet
 ```java
+   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
    * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
    * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
    * <li>{@link #registerCustomDateFormat(String)}</li>
    * </ul>
-   * <p>
 ```
 
 ### JavadocDeclaration
@@ -2795,11 +2795,11 @@ Javadoc pointing to itself
 in `assertj-core/src/main/java/org/assertj/core/api/WithAssertions.java`
 #### Snippet
 ```java
-   * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(String)}</li>
    * <li>{@link org.assertj.core.api.AbstractDateAssert#withDateFormat(java.text.DateFormat)}</li>
    * <li>{@link #registerCustomDateFormat(java.text.DateFormat)}</li>
    * <li>{@link #registerCustomDateFormat(String)}</li>
    * </ul>
+   * <p>
 ```
 
 ### JavadocDeclaration
@@ -2948,18 +2948,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/IterableSizeAssert.java`
 ```
 
 ### FieldMayBeFinal
-Field `assertionErrorCreator` may be 'final'
-in `assertj-core/src/main/java/org/assertj/core/api/JUnitJupiterSoftAssertions.java`
-#### Snippet
-```java
-    implements StandardSoftAssertionsProvider, AfterEachCallback {
-
-  private AssertionErrorCreator assertionErrorCreator = new AssertionErrorCreator();
-
-  @Override
-```
-
-### FieldMayBeFinal
 Field `collectedAssertionErrors` may be 'final'
 in `assertj-core/src/main/java/org/assertj/core/api/DefaultAssertionErrorCollector.java`
 #### Snippet
@@ -2969,6 +2957,18 @@ in `assertj-core/src/main/java/org/assertj/core/api/DefaultAssertionErrorCollect
   private List<AssertionError> collectedAssertionErrors = synchronizedList(new ArrayList<>());
 
   private AfterAssertionErrorCollected callback = this;
+```
+
+### FieldMayBeFinal
+Field `assertionErrorCreator` may be 'final'
+in `assertj-core/src/main/java/org/assertj/core/api/JUnitJupiterSoftAssertions.java`
+#### Snippet
+```java
+    implements StandardSoftAssertionsProvider, AfterEachCallback {
+
+  private AssertionErrorCreator assertionErrorCreator = new AssertionErrorCreator();
+
+  @Override
 ```
 
 ### FieldMayBeFinal
@@ -3032,18 +3032,6 @@ in `assertj-core/src/main/java/org/assertj/core/api/ErrorCollector.java`
 ```
 
 ### FieldMayBeFinal
-Field `soft` may be 'final'
-in `assertj-core/src/main/java/org/assertj/core/api/SoftAssertionsStatement.java`
-#### Snippet
-```java
-class SoftAssertionsStatement {
-
-  private SoftAssertionsProvider soft;
-  private AssertionErrorCreator assertionErrorCreator = new AssertionErrorCreator();
-
-```
-
-### FieldMayBeFinal
 Field `assertionErrorCreator` may be 'final'
 in `assertj-core/src/main/java/org/assertj/core/api/SoftAssertionsStatement.java`
 #### Snippet
@@ -3053,6 +3041,18 @@ in `assertj-core/src/main/java/org/assertj/core/api/SoftAssertionsStatement.java
   private AssertionErrorCreator assertionErrorCreator = new AssertionErrorCreator();
 
   private SoftAssertionsStatement(SoftAssertionsProvider soft) {
+```
+
+### FieldMayBeFinal
+Field `soft` may be 'final'
+in `assertj-core/src/main/java/org/assertj/core/api/SoftAssertionsStatement.java`
+#### Snippet
+```java
+class SoftAssertionsStatement {
+
+  private SoftAssertionsProvider soft;
+  private AssertionErrorCreator assertionErrorCreator = new AssertionErrorCreator();
+
 ```
 
 ### FieldMayBeFinal
@@ -3212,18 +3212,6 @@ in `assertj-core/src/main/java/org/assertj/core/error/ShouldBeEqual.java`
 ```
 
 ### FieldMayBeFinal
-Field `groupTypeName` may be 'final'
-in `assertj-core/src/main/java/org/assertj/core/error/GroupTypeDescription.java`
-#### Snippet
-```java
-public class GroupTypeDescription {
-  private static final int SPLITERATORS_CLASS_STACK_TRACE_NUM = 5;
-  private String groupTypeName;
-  private String elementTypeName;
-
-```
-
-### FieldMayBeFinal
 Field `elementTypeName` may be 'final'
 in `assertj-core/src/main/java/org/assertj/core/error/GroupTypeDescription.java`
 #### Snippet
@@ -3236,14 +3224,14 @@ in `assertj-core/src/main/java/org/assertj/core/error/GroupTypeDescription.java`
 ```
 
 ### FieldMayBeFinal
-Field `configuration` may be 'final'
-in `assertj-core/src/main/java/org/assertj/core/internal/ConfigurableRecursiveFieldByFieldComparator.java`
+Field `groupTypeName` may be 'final'
+in `assertj-core/src/main/java/org/assertj/core/error/GroupTypeDescription.java`
 #### Snippet
 ```java
-public class ConfigurableRecursiveFieldByFieldComparator implements Comparator<Object> {
-
-  private RecursiveComparisonConfiguration configuration;
-  private RecursiveComparisonDifferenceCalculator recursiveComparisonDifferenceCalculator;
+public class GroupTypeDescription {
+  private static final int SPLITERATORS_CLASS_STACK_TRACE_NUM = 5;
+  private String groupTypeName;
+  private String elementTypeName;
 
 ```
 
@@ -3257,6 +3245,18 @@ in `assertj-core/src/main/java/org/assertj/core/internal/ConfigurableRecursiveFi
   private RecursiveComparisonDifferenceCalculator recursiveComparisonDifferenceCalculator;
 
   // for testing
+```
+
+### FieldMayBeFinal
+Field `configuration` may be 'final'
+in `assertj-core/src/main/java/org/assertj/core/internal/ConfigurableRecursiveFieldByFieldComparator.java`
+#### Snippet
+```java
+public class ConfigurableRecursiveFieldByFieldComparator implements Comparator<Object> {
+
+  private RecursiveComparisonConfiguration configuration;
+  private RecursiveComparisonDifferenceCalculator recursiveComparisonDifferenceCalculator;
+
 ```
 
 ### FieldMayBeFinal
@@ -3284,27 +3284,15 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Failures.java`
 ```
 
 ### FieldMayBeFinal
-Field `failures` may be 'final'
-in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
-#### Snippet
-```java
-  }
-
-  private Failures failures = Failures.instance();
-  private ComparisonStrategy comparisonStrategy = StandardComparisonStrategy.instance();
-
-```
-
-### FieldMayBeFinal
-Field `comparisonStrategy` may be 'final'
-in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
+Field `mapping` may be 'final'
+in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
 #### Snippet
 ```java
 
-  private Failures failures = Failures.instance();
-  private ComparisonStrategy comparisonStrategy = StandardComparisonStrategy.instance();
+  private Condition<TO> condition;
+  private Function<FROM, TO> mapping;
+  private String mappingDescription;
 
-  /**
 ```
 
 ### FieldMayBeFinal
@@ -3317,18 +3305,6 @@ in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
   private String mappingDescription;
 
   /**
-```
-
-### FieldMayBeFinal
-Field `mapping` may be 'final'
-in `assertj-core/src/main/java/org/assertj/core/condition/MappedCondition.java`
-#### Snippet
-```java
-
-  private Condition<TO> condition;
-  private Function<FROM, TO> mapping;
-  private String mappingDescription;
-
 ```
 
 ### FieldMayBeFinal
@@ -3368,6 +3344,30 @@ in `assertj-core/src/main/java/org/assertj/core/condition/VerboseCondition.java`
 ```
 
 ### FieldMayBeFinal
+Field `comparisonStrategy` may be 'final'
+in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
+#### Snippet
+```java
+
+  private Failures failures = Failures.instance();
+  private ComparisonStrategy comparisonStrategy = StandardComparisonStrategy.instance();
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `failures` may be 'final'
+in `assertj-core/src/main/java/org/assertj/core/internal/Classes.java`
+#### Snippet
+```java
+  }
+
+  private Failures failures = Failures.instance();
+  private ComparisonStrategy comparisonStrategy = StandardComparisonStrategy.instance();
+
+```
+
+### FieldMayBeFinal
 Field `descriptionSupplier` may be 'final'
 in `assertj-core/src/main/java/org/assertj/core/description/LazyTextDescription.java`
 #### Snippet
@@ -3380,18 +3380,6 @@ public class LazyTextDescription extends Description {
 ```
 
 ### FieldMayBeFinal
-Field `binaryGroupPattern` may be 'final'
-in `assertj-core/src/main/java/org/assertj/core/presentation/NumberGrouping.java`
-#### Snippet
-```java
-  private static final String UNDERSCORE_SEPARATOR = "_";
-  private static Pattern hexGroupPattern = Pattern.compile("([0-9|A-Z]{4})");
-  private static Pattern binaryGroupPattern = Pattern.compile("([0-1]{8})");
-
-  static String toHexLiteral(String value) {
-```
-
-### FieldMayBeFinal
 Field `hexGroupPattern` may be 'final'
 in `assertj-core/src/main/java/org/assertj/core/presentation/NumberGrouping.java`
 #### Snippet
@@ -3401,6 +3389,18 @@ in `assertj-core/src/main/java/org/assertj/core/presentation/NumberGrouping.java
   private static Pattern hexGroupPattern = Pattern.compile("([0-9|A-Z]{4})");
   private static Pattern binaryGroupPattern = Pattern.compile("([0-1]{8})");
 
+```
+
+### FieldMayBeFinal
+Field `binaryGroupPattern` may be 'final'
+in `assertj-core/src/main/java/org/assertj/core/presentation/NumberGrouping.java`
+#### Snippet
+```java
+  private static final String UNDERSCORE_SEPARATOR = "_";
+  private static Pattern hexGroupPattern = Pattern.compile("([0-9|A-Z]{4})");
+  private static Pattern binaryGroupPattern = Pattern.compile("([0-1]{8})");
+
+  static String toHexLiteral(String value) {
 ```
 
 ### FieldMayBeFinal
@@ -3716,10 +3716,70 @@ Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 #### Snippet
 ```java
+   */
+  @CheckReturnValue
+  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extractingResultOf(String method) {
+    // can't refactor by calling extractingResultOf(method, Object.class) as SoftAssertion would fail
+    List<Object> values = FieldsOrPropertiesExtractor.extract(actual, resultOf(method));
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+  @CheckReturnValue
+  @SafeVarargs
+  public final <EXCEPTION extends Exception> AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatMap(ThrowingExtractor<? super ELEMENT, ?, EXCEPTION>... mappers) {
+    return flatExtractingForProxy(mappers);
+  }
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+  // The public method for it (the one not ending with "ForProxy") is marked as final and annotated with @SafeVarargs
+  // in order to avoid compiler warning in user code
+  protected AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtractingForProxy(Function<? super ELEMENT, ?>[] extractors) {
+    if (actual == null) throwAssertionError(shouldNotBeNull());
+    Stream<? extends ELEMENT> actualStream = stream(actual.spliterator(), false);
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
   @CheckReturnValue
   @SafeVarargs
   public final AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatMap(Function<? super ELEMENT, ?>... mappers) {
     return flatExtractingForProxy(mappers);
+  }
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+   */
+  @CheckReturnValue
+  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extracting(String propertyOrField) {
+    List<Object> values = FieldsOrPropertiesExtractor.extract(actual, byName(propertyOrField));
+    String extractedDescription = extractedDescriptionOf(propertyOrField);
+```
+
+### TypeParameterExtendsObject
+Wildcard type argument `?` explicitly extends 'java.lang.Object'
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
+#### Snippet
+```java
+  @CheckReturnValue
+  @SafeVarargs
+  public final <EXCEPTION extends Exception> AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtracting(ThrowingExtractor<? super ELEMENT, ?, EXCEPTION>... extractors) {
+    return flatExtractingForProxy(extractors);
   }
 ```
 
@@ -3742,45 +3802,9 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 ```java
    */
   @CheckReturnValue
-  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extractingResultOf(String method) {
-    // can't refactor by calling extractingResultOf(method, Object.class) as SoftAssertion would fail
-    List<Object> values = FieldsOrPropertiesExtractor.extract(actual, resultOf(method));
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-   */
-  @CheckReturnValue
-  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extracting(String propertyOrField) {
-    List<Object> values = FieldsOrPropertiesExtractor.extract(actual, byName(propertyOrField));
-    String extractedDescription = extractedDescriptionOf(propertyOrField);
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-   */
-  @CheckReturnValue
   public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtracting(String fieldOrPropertyName) {
     List<Object> extractedValues = newArrayList();
     List<?> extractedGroups = FieldsOrPropertiesExtractor.extract(actual, byName(fieldOrPropertyName));
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-  // The public method for it (the one not ending with "ForProxy") is marked as final and annotated with @SafeVarargs
-  // in order to avoid compiler warning in user code
-  protected AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtractingForProxy(Function<? super ELEMENT, ?>[] extractors) {
-    if (actual == null) throwAssertionError(shouldNotBeNull());
-    Stream<? extends ELEMENT> actualStream = stream(actual.spliterator(), false);
 ```
 
 ### TypeParameterExtendsObject
@@ -3797,38 +3821,14 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
 
 ### TypeParameterExtendsObject
 Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-  @CheckReturnValue
-  @SafeVarargs
-  public final <EXCEPTION extends Exception> AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatMap(ThrowingExtractor<? super ELEMENT, ?, EXCEPTION>... mappers) {
-    return flatExtractingForProxy(mappers);
-  }
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractIterableAssert.java`
-#### Snippet
-```java
-  @CheckReturnValue
-  @SafeVarargs
-  public final <EXCEPTION extends Exception> AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtracting(ThrowingExtractor<? super ELEMENT, ?, EXCEPTION>... extractors) {
-    return flatExtractingForProxy(extractors);
-  }
-```
-
-### TypeParameterExtendsObject
-Wildcard type argument `?` explicitly extends 'java.lang.Object'
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.java`
 #### Snippet
 ```java
    */
   @CheckReturnValue
-  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtracting(String propertyName) {
-    List<Object> extractedValues = newArrayList();
-    List<?> extractedGroups = FieldsOrPropertiesExtractor.extract(Arrays.asList(actual), byName(propertyName));
+  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extracting(String fieldOrProperty) {
+    Object[] values = FieldsOrPropertiesExtractor.extract(actual, byName(fieldOrProperty));
+    String extractedDescription = extractedDescriptionOf(fieldOrProperty);
 ```
 
 ### TypeParameterExtendsObject
@@ -3850,9 +3850,9 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractObjectArrayAssert.ja
 ```java
    */
   @CheckReturnValue
-  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> extracting(String fieldOrProperty) {
-    Object[] values = FieldsOrPropertiesExtractor.extract(actual, byName(fieldOrProperty));
-    String extractedDescription = extractedDescriptionOf(fieldOrProperty);
+  public AbstractListAssert<?, List<? extends Object>, Object, ObjectAssert<Object>> flatExtracting(String propertyName) {
+    List<Object> extractedValues = newArrayList();
+    List<?> extractedGroups = FieldsOrPropertiesExtractor.extract(Arrays.asList(actual), byName(propertyName));
 ```
 
 ## RuleId[id=UseBulkOperation]
@@ -3930,18 +3930,6 @@ in `assertj-core/src/main/java/org/assertj/core/util/Files.java`
 ```
 
 ### ConstantValue
-Condition `stackTrace != null` is always `true`
-in `assertj-core/src/main/java/org/assertj/core/internal/Throwables.java`
-#### Snippet
-```java
-    assertNotNull(info, actual);
-    String stackTrace = org.assertj.core.util.Throwables.getStackTrace(actual);
-    if (stackTrace != null && stackTrace.contains(description)) return;
-    throw failures.failure(info, shouldContain(stackTrace, description));
-  }
-```
-
-### ConstantValue
 Value `rootCause` is always 'null'
 in `assertj-core/src/main/java/org/assertj/core/internal/Throwables.java`
 #### Snippet
@@ -3951,6 +3939,18 @@ in `assertj-core/src/main/java/org/assertj/core/internal/Throwables.java`
     if (null == rootCause) throw failures.failure(info, shouldHaveRootCauseWithMessage(actual, rootCause, expectedMessage));
     if (java.util.Objects.equals(rootCause.getMessage(), expectedMessage)) return;
     throw failures.failure(info, shouldHaveRootCauseWithMessage(actual, rootCause, expectedMessage), rootCause.getMessage(),
+```
+
+### ConstantValue
+Condition `stackTrace != null` is always `true`
+in `assertj-core/src/main/java/org/assertj/core/internal/Throwables.java`
+#### Snippet
+```java
+    assertNotNull(info, actual);
+    String stackTrace = org.assertj.core.util.Throwables.getStackTrace(actual);
+    if (stackTrace != null && stackTrace.contains(description)) return;
+    throw failures.failure(info, shouldContain(stackTrace, description));
+  }
 ```
 
 ### ConstantValue
@@ -4055,11 +4055,11 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
 ```java
-  public SELF hasValueSatisfying(Condition<? super VALUE> condition) {
-    assertValueIsPresent();
-    conditions.assertIs(info, actual.get(), condition);
+    checkNotNull(expectedValue);
+    if (!actual.isPresent()) throwAssertionError(shouldContain(expectedValue));
+    if (!optionalValueComparisonStrategy.areEqual(actual.get(), expectedValue))
+      throw Failures.instance().failure(info, shouldContain(actual, expectedValue), actual.get(), expectedValue);
     return myself;
-  }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4079,23 +4079,11 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 #### Snippet
 ```java
-  private AbstractObjectAssert<?, VALUE> internalGet() {
-    isPresent();
-    return assertThat(actual.get()).withAssertionState(myself);
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
-#### Snippet
-```java
-    checkNotNull(expectedValue);
-    if (!actual.isPresent()) throwAssertionError(shouldContain(expectedValue));
-    if (!optionalValueComparisonStrategy.areEqual(actual.get(), expectedValue))
-      throw Failures.instance().failure(info, shouldContain(actual, expectedValue), actual.get(), expectedValue);
+  public SELF hasValueSatisfying(Condition<? super VALUE> condition) {
+    assertValueIsPresent();
+    conditions.assertIs(info, actual.get(), condition);
     return myself;
+  }
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4111,15 +4099,27 @@ in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
 ```
 
 ### OptionalGetWithoutIsPresent
-`OptionalLong.getAsLong()` without 'isPresent()' check
+`Optional.get()` without 'isPresent()' check
+in `assertj-core/src/main/java/org/assertj/core/api/AbstractOptionalAssert.java`
+#### Snippet
+```java
+  private AbstractObjectAssert<?, VALUE> internalGet() {
+    isPresent();
+    return assertThat(actual.get()).withAssertionState(myself);
+  }
+
+```
+
+### OptionalGetWithoutIsPresent
+`OptionalInt.getAsInt()` without 'isPresent()' check
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
 ```java
    */
-  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalLong optional) {
-    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsLong());
+  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalInt optional) {
+    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsInt());
   }
-}
+
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4135,6 +4135,18 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
 ```
 
 ### OptionalGetWithoutIsPresent
+`OptionalLong.getAsLong()` without 'isPresent()' check
+in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
+#### Snippet
+```java
+   */
+  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalLong optional) {
+    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsLong());
+  }
+}
+```
+
+### OptionalGetWithoutIsPresent
 `OptionalDouble.getAsDouble()` without 'isPresent()' check
 in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
 #### Snippet
@@ -4142,18 +4154,6 @@ in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java
    */
   public static OptionalShouldBeEmpty shouldBeEmpty(OptionalDouble optional) {
     return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsDouble());
-  }
-
-```
-
-### OptionalGetWithoutIsPresent
-`OptionalInt.getAsInt()` without 'isPresent()' check
-in `assertj-core/src/main/java/org/assertj/core/error/OptionalShouldBeEmpty.java`
-#### Snippet
-```java
-   */
-  public static OptionalShouldBeEmpty shouldBeEmpty(OptionalInt optional) {
-    return new OptionalShouldBeEmpty(optional.getClass(), optional.getAsInt());
   }
 
 ```
