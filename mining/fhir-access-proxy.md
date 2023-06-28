@@ -55,18 +55,6 @@ in `server/src/main/java/com/google/fhir/gateway/AllowedQueriesConfig.java`
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `getTokenValue` may produce `NullPointerException`
-in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
-#### Snippet
-```java
-      ExceptionUtil.throwRuntimeExceptionAndLog(logger, "Cannot get an access token!");
-    }
-    return accessToken.getTokenValue();
-  }
-
-```
-
-### DataFlowIssue
 Method invocation `getIssuer` may produce `NullPointerException`
 in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
@@ -114,20 +102,43 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
       ExceptionUtil.throwRuntimeExceptionAndLog(
 ```
 
-## RuleId[id=ConstantValue]
-### ConstantValue
-Result of `SIGN_ALGORITHM.equals("RS256")` is always 'true'
-in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
+### DataFlowIssue
+Method invocation `getTokenValue` may produce `NullPointerException`
+in `server/src/main/java/com/google/fhir/gateway/GcpFhirClient.java`
 #### Snippet
 ```java
-  private RSAPublicKey fetchAndDecodePublicKey() throws IOException {
-    // Preconditions.checkState(SIGN_ALGORITHM.equals("ES512"));
-    Preconditions.checkState(SIGN_ALGORITHM.equals("RS256"));
-    // final String keyAlgorithm = "EC";
-    final String keyAlgorithm = "RSA";
+      ExceptionUtil.throwRuntimeExceptionAndLog(logger, "Cannot get an access token!");
+    }
+    return accessToken.getTokenValue();
+  }
+
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+   * SMART Permission to specify the kind of permission that is allowed on a Resource. The order of
+   * the Permission is important to us in the way it has been listed here. Please see:
+   * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
+   * The given order of Permissions is how it is expected that permissions will be specified in the
+   * token claim
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+ * This class models the SMART-on-FHIR permission scopes that are meant ot be used for accessing
+ * clinical data. The constraints in this class are according to the official guidelines here:
+ * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
+ */
+@Getter
+```
+
 ### JavadocLinkAsPlainText
 Link specified as plain text
 in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
@@ -152,28 +163,17 @@ in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
    * (and opens the door to other Spring goodies too).
 ```
 
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+## RuleId[id=ConstantValue]
+### ConstantValue
+Result of `SIGN_ALGORITHM.equals("RS256")` is always 'true'
+in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.java`
 #### Snippet
 ```java
-   * SMART Permission to specify the kind of permission that is allowed on a Resource. The order of
-   * the Permission is important to us in the way it has been listed here. Please see:
-   * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
-   * The given order of Permissions is how it is expected that permissions will be specified in the
-   * token claim
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
-#### Snippet
-```java
- * This class models the SMART-on-FHIR permission scopes that are meant ot be used for accessing
- * clinical data. The constraints in this class are according to the official guidelines here:
- * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
- */
-@Getter
+  private RSAPublicKey fetchAndDecodePublicKey() throws IOException {
+    // Preconditions.checkState(SIGN_ALGORITHM.equals("ES512"));
+    Preconditions.checkState(SIGN_ALGORITHM.equals("RS256"));
+    // final String keyAlgorithm = "EC";
+    final String keyAlgorithm = "RSA";
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -256,18 +256,6 @@ Field can be converted to a local variable
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
-  private final Principal principal;
-  private final String resourceType;
-  private final Set<Permission> permissions;
-
-  private SmartFhirScope(
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
-#### Snippet
-```java
   private static final String SMART_V1_WRITE_RESOURCE_PERMISSIONS = "write";
 
   private final Principal principal;
@@ -285,6 +273,18 @@ in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
   private final String resourceType;
   private final Set<Permission> permissions;
 
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+  private final Principal principal;
+  private final String resourceType;
+  private final Set<Permission> permissions;
+
+  private SmartFhirScope(
 ```
 
 ## RuleId[id=UnstableApiUsage]
