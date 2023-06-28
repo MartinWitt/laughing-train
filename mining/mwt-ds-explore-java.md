@@ -40,6 +40,19 @@ import java.util.Random;
 /**
 ```
 
+## RuleId[id=EmptyStatementBody]
+### EmptyStatementBody
+`else` statement has empty body
+in `src/main/java/com/mwt/sample/ExploreOnlySample.java`
+#### Snippet
+```java
+
+      System.out.println(out.toString());
+    } else {
+      // Add error here
+    }
+```
+
 ## RuleId[id=UnnecessaryToStringCall]
 ### UnnecessaryToStringCall
 Unnecessary `toString()` call
@@ -89,44 +102,7 @@ in `src/main/java/com/mwt/sample/ExploreOnlySample.java`
       // Add error here
 ```
 
-## RuleId[id=EmptyStatementBody]
-### EmptyStatementBody
-`else` statement has empty body
-in `src/main/java/com/mwt/sample/ExploreOnlySample.java`
-#### Snippet
-```java
-
-      System.out.println(out.toString());
-    } else {
-      // Add error here
-    }
-```
-
 ## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `chosenAction` initializer `0` is redundant
-in `src/main/java/com/mwt/explorers/TauFirstExplorer.java`
-#### Snippet
-```java
-    PRG random = new PRG(saltedSeed);
-
-    int chosenAction = 0;
-    float actionProbability = 0.0f;
-    boolean logAction;
-```
-
-### UnusedAssignment
-Variable `actionProbability` initializer `0.0f` is redundant
-in `src/main/java/com/mwt/explorers/TauFirstExplorer.java`
-#### Snippet
-```java
-
-    int chosenAction = 0;
-    float actionProbability = 0.0f;
-    boolean logAction;
-
-```
-
 ### UnusedAssignment
 Variable `actionProbability` initializer `0.0f` is redundant
 in `src/main/java/com/mwt/explorers/BootstrapExplorer.java`
@@ -152,6 +128,30 @@ in `src/main/java/com/mwt/explorers/BootstrapExplorer.java`
 ```
 
 ### UnusedAssignment
+Variable `chosenAction` initializer `0` is redundant
+in `src/main/java/com/mwt/explorers/TauFirstExplorer.java`
+#### Snippet
+```java
+    PRG random = new PRG(saltedSeed);
+
+    int chosenAction = 0;
+    float actionProbability = 0.0f;
+    boolean logAction;
+```
+
+### UnusedAssignment
+Variable `actionProbability` initializer `0.0f` is redundant
+in `src/main/java/com/mwt/explorers/TauFirstExplorer.java`
+#### Snippet
+```java
+
+    int chosenAction = 0;
+    float actionProbability = 0.0f;
+    boolean logAction;
+
+```
+
+### UnusedAssignment
 Variable `actionProbability` initializer `0f` is redundant
 in `src/main/java/com/mwt/explorers/EpsilonGreedyExplorer.java`
 #### Snippet
@@ -163,19 +163,20 @@ in `src/main/java/com/mwt/explorers/EpsilonGreedyExplorer.java`
     if (random.uniformUnitInterval() < (1.0f - epsilon)) {
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `id` may be 'final'
+## RuleId[id=EqualsWhichDoesntCheckParameterClass]
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
 in `src/main/java/com/mwt/misc/Feature.java`
 #### Snippet
 ```java
-final public class Feature {
-  private float value;
-  private int id;
 
-  public Feature(int id, float value) {
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null) return false;
 ```
 
+## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `value` may be 'final'
 in `src/main/java/com/mwt/misc/Feature.java`
@@ -189,15 +190,15 @@ final public class Feature {
 ```
 
 ### FieldMayBeFinal
-Field `index` may be 'final'
-in `src/main/java/com/mwt/sample/MyPolicy.java`
+Field `id` may be 'final'
+in `src/main/java/com/mwt/misc/Feature.java`
 #### Snippet
 ```java
- */
-class MyPolicy implements Policy<MyContext> {
-  private int index;
+final public class Feature {
+  private float value;
+  private int id;
 
-  public MyPolicy() {
+  public Feature(int id, float value) {
 ```
 
 ### FieldMayBeFinal
@@ -213,18 +214,6 @@ class MyScorer implements Scorer<MyContext> {
 ```
 
 ### FieldMayBeFinal
-Field `features` may be 'final'
-in `src/main/java/com/mwt/contexts/SimpleContext.java`
-#### Snippet
-```java
- */
-public class SimpleContext {
-  private ArrayList<Feature> features;
-
-  public SimpleContext(ArrayList<Feature> features) {
-```
-
-### FieldMayBeFinal
 Field `interactions` may be 'final'
 in `src/main/java/com/mwt/sample/MyRecorder.java`
 #### Snippet
@@ -237,15 +226,27 @@ class MyRecorder implements Recorder<MyContext> {
 ```
 
 ### FieldMayBeFinal
-Field `numActions` may be 'final'
-in `src/main/java/com/mwt/explorers/TauFirstExplorer.java`
+Field `index` may be 'final'
+in `src/main/java/com/mwt/sample/MyPolicy.java`
 #### Snippet
 ```java
-  private int tau;
-  private boolean explore = true;
-  private int numActions;
+ */
+class MyPolicy implements Policy<MyContext> {
+  private int index;
 
-  /**
+  public MyPolicy() {
+```
+
+### FieldMayBeFinal
+Field `features` may be 'final'
+in `src/main/java/com/mwt/contexts/SimpleContext.java`
+#### Snippet
+```java
+ */
+public class SimpleContext {
+  private ArrayList<Feature> features;
+
+  public SimpleContext(ArrayList<Feature> features) {
 ```
 
 ### FieldMayBeFinal
@@ -286,10 +287,10 @@ in `src/main/java/com/mwt/misc/DecisionTuple.java`
 
 ### FieldMayBeFinal
 Field `numActions` may be 'final'
-in `src/main/java/com/mwt/explorers/EpsilonGreedyExplorer.java`
+in `src/main/java/com/mwt/explorers/TauFirstExplorer.java`
 #### Snippet
 ```java
-  private final float epsilon;
+  private int tau;
   private boolean explore = true;
   private int numActions;
 
@@ -320,17 +321,16 @@ public class MwtExplorer<T> {
 
 ```
 
-## RuleId[id=EqualsWhichDoesntCheckParameterClass]
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
-in `src/main/java/com/mwt/misc/Feature.java`
+### FieldMayBeFinal
+Field `numActions` may be 'final'
+in `src/main/java/com/mwt/explorers/EpsilonGreedyExplorer.java`
 #### Snippet
 ```java
+  private final float epsilon;
+  private boolean explore = true;
+  private int numActions;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null) return false;
+  /**
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
