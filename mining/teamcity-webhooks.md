@@ -16,18 +16,6 @@ I found 32 bad smells with 0 repairable:
 | DeprecatedIsStillUsed | 1 | false |
 ## RuleId[id=SpringJavaInjectionPointsAutowiringInspection]
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'PluginLifecycleEventDispatcher' type found.
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.java`
-#### Snippet
-```java
-    }
-
-    public WebhooksManager(PluginLifecycleEventDispatcher dispatcher,
-                           AsyncEventDispatcher asyncEventDispatcher,
-                           WebhooksEventListener eventListener) {
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'RestApiFacade' type found.
 in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
 #### Snippet
@@ -75,19 +63,19 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventLis
         this.buildServer = buildServer;
 ```
 
-## RuleId[id=NonFinalFieldInEnum]
-### NonFinalFieldInEnum
-Non-final field `restApiUrl` in enum 'EventType'
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'PluginLifecycleEventDispatcher' type found.
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.java`
 #### Snippet
 ```java
-        BUILD(Arrays.asList(BUILD_STARTED, BUILD_FINISHED, BUILD_INTERRUPTED, CHANGES_LOADED, BUILD_TYPE_ADDED_TO_QUEUE, BUILD_REMOVED_FROM_QUEUE, BUILD_PROBLEMS_CHANGED), "/app/rest/builds/promotionId:");
+    }
 
-        private String restApiUrl;
-        private List<String> events;
-
+    public WebhooksManager(PluginLifecycleEventDispatcher dispatcher,
+                           AsyncEventDispatcher asyncEventDispatcher,
+                           WebhooksEventListener eventListener) {
 ```
 
+## RuleId[id=NonFinalFieldInEnum]
 ### NonFinalFieldInEnum
 Non-final field `events` in enum 'EventType'
 in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
@@ -98,6 +86,18 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.
         private List<String> events;
 
         EventType(List<String> events, String restApiUrl) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `restApiUrl` in enum 'EventType'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+        BUILD(Arrays.asList(BUILD_STARTED, BUILD_FINISHED, BUILD_INTERRUPTED, CHANGES_LOADED, BUILD_TYPE_ADDED_TO_QUEUE, BUILD_REMOVED_FROM_QUEUE, BUILD_PROBLEMS_CHANGED), "/app/rest/builds/promotionId:");
+
+        private String restApiUrl;
+        private List<String> events;
+
 ```
 
 ## RuleId[id=SpringXmlAutowireExplicitlyInspection]
@@ -345,43 +345,6 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhookDataProdu
     String getJson(AsyncEvent event, String fields);
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `restApiUrl` may be 'final'
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
-#### Snippet
-```java
-        BUILD(Arrays.asList(BUILD_STARTED, BUILD_FINISHED, BUILD_INTERRUPTED, CHANGES_LOADED, BUILD_TYPE_ADDED_TO_QUEUE, BUILD_REMOVED_FROM_QUEUE, BUILD_PROBLEMS_CHANGED), "/app/rest/builds/promotionId:");
-
-        private String restApiUrl;
-        private List<String> events;
-
-```
-
-### FieldMayBeFinal
-Field `events` may be 'final'
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
-#### Snippet
-```java
-
-        private String restApiUrl;
-        private List<String> events;
-
-        EventType(List<String> events, String restApiUrl) {
-```
-
-### FieldMayBeFinal
-Field `lastErrorCodeMap` may be 'final'
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventListener.java`
-#### Snippet
-```java
-
-    private static final Logger LOG = Logger.getInstance(WebhooksEventListener.class.getName());
-    private ConcurrentHashMap<String, String> lastErrorCodeMap = new ConcurrentHashMap<>();
-
-    private final WebhookDataProducer jsonProducer;
-```
-
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
@@ -406,5 +369,42 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEvent
 public class AsyncEventDispatcher {
 
     private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `events` may be 'final'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+
+        private String restApiUrl;
+        private List<String> events;
+
+        EventType(List<String> events, String restApiUrl) {
+```
+
+### FieldMayBeFinal
+Field `restApiUrl` may be 'final'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+        BUILD(Arrays.asList(BUILD_STARTED, BUILD_FINISHED, BUILD_INTERRUPTED, CHANGES_LOADED, BUILD_TYPE_ADDED_TO_QUEUE, BUILD_REMOVED_FROM_QUEUE, BUILD_PROBLEMS_CHANGED), "/app/rest/builds/promotionId:");
+
+        private String restApiUrl;
+        private List<String> events;
+
+```
+
+### FieldMayBeFinal
+Field `lastErrorCodeMap` may be 'final'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventListener.java`
+#### Snippet
+```java
+
+    private static final Logger LOG = Logger.getInstance(WebhooksEventListener.class.getName());
+    private ConcurrentHashMap<String, String> lastErrorCodeMap = new ConcurrentHashMap<>();
+
+    private final WebhookDataProducer jsonProducer;
 ```
 
