@@ -1,90 +1,66 @@
 # servicecomb-java-chassis 
  
 # Bad smells
-I found 1432 bad smells with 223 repairable:
+I found 553 bad smells with 11 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| ReturnNull | 325 | false |
-| BoundedWildcard | 172 | false |
-| UtilityClassWithoutPrivateConstructor | 157 | true |
-| AssignmentToMethodParameter | 99 | false |
-| RedundantFieldInitialization | 52 | false |
-| NonProtectedConstructorInAbstractClass | 40 | true |
-| FieldAccessedSynchronizedAndUnsynchronized | 37 | false |
-| DataFlowIssue | 37 | false |
-| ClassCanBeRecord | 29 | false |
-| MissingSerialAnnotation | 28 | false |
-| PatternVariableCanBeUsed | 27 | false |
-| UnnecessaryFullyQualifiedName | 27 | false |
-| RedundantSuppression | 26 | false |
-| EnhancedSwitchMigration | 25 | false |
-| ZeroLengthArrayInitialization | 24 | false |
-| RedundantClassCall | 23 | false |
+| JavadocDeclaration | 74 | false |
+| SpringBootApplicationYaml | 50 | false |
+| DuplicatedCode | 49 | false |
+| SpringXmlModelInspection | 33 | false |
+| NullableProblems | 32 | false |
+| MissingSerialAnnotation | 26 | false |
+| DataFlowIssue | 25 | false |
+| RedundantClassCall | 22 | false |
 | IfStatementWithIdenticalBranches | 22 | false |
 | UnusedAssignment | 17 | false |
-| PublicFieldAccessedInSynchronizedContext | 17 | false |
-| TextBlockMigration | 16 | false |
-| SizeReplaceableByIsEmpty | 15 | true |
+| FieldCanBeLocal | 16 | false |
 | ConstantValue | 15 | false |
-| DynamicRegexReplaceableByCompiledPattern | 15 | false |
 | StringConcatenationInsideStringBufferAppend | 14 | false |
-| RedundantMethodOverride | 11 | false |
-| EmptyMethod | 11 | false |
 | SimplifyStreamApiCallChains | 11 | false |
-| AssignmentToStaticFieldFromInstanceMethod | 9 | false |
+| ArraysAsListWithZeroOrOneArgument | 10 | false |
+| TrivialStringConcatenation | 9 | false |
+| JavadocReference | 9 | false |
+| TrivialIf | 9 | false |
+| UnparsedCustomBeanInspection | 8 | false |
+| JavadocLinkAsPlainText | 8 | false |
 | IgnoreResultOfCall | 8 | false |
 | CharsetObjectCanBeUsed | 8 | false |
-| NestedAssignment | 7 | false |
+| RedundantMethodOverride | 7 | false |
 | UnnecessaryLocalVariable | 7 | true |
-| StaticCallOnSubclass | 6 | false |
-| SynchronizeOnThis | 6 | false |
+| FieldMayBeFinal | 6 | false |
 | StringBufferReplaceableByString | 5 | false |
-| StringEqualsEmptyString | 5 | false |
-| NullableProblems | 4 | false |
-| ReplaceAssignmentWithOperatorAssignment | 4 | false |
+| AutoCloseableResource | 5 | false |
 | DuplicateThrows | 4 | false |
-| UnnecessaryQualifierForThis | 3 | false |
 | UnnecessaryReturn | 3 | true |
-| NonSynchronizedMethodOverridesSynchronizedMethod | 3 | false |
-| NonSerializableFieldInSerializableClass | 3 | false |
 | UnstableApiUsage | 3 | false |
 | CommentedOutCode | 2 | false |
 | RegExpRedundantEscape | 2 | false |
-| ObsoleteCollection | 2 | false |
-| ClassNameSameAsAncestorName | 2 | false |
-| UnnecessarySuperQualifier | 2 | false |
 | SimplifyOptionalCallChains | 2 | false |
 | SlowListContainsAll | 2 | false |
-| MethodOverridesStaticMethod | 2 | false |
+| StringConcatenationInLoops | 2 | false |
 | RedundantLengthCheck | 2 | false |
 | DeprecatedIsStillUsed | 2 | false |
-| AssignmentToForLoopParameter | 2 | false |
-| Java9CollectionFactory | 2 | false |
+| RedundantCast | 2 | false |
 | UnnecessaryContinue | 2 | false |
 | SynchronizationOnLocalVariableOrMethodParameter | 2 | false |
 | CastCanBeRemovedNarrowingVariableType | 2 | false |
 | ConditionalBreakInInfiniteLoop | 1 | false |
 | DuplicateBranchesInSwitch | 1 | false |
 | RegExpSimplifiable | 1 | false |
-| AbstractClassNeverImplemented | 1 | false |
+| Deprecation | 1 | false |
+| SimplifiableConditionalExpression | 1 | false |
+| RedundantTypeArguments | 1 | false |
 | FunctionalExpressionCanBeFolded | 1 | false |
 | IntegerMultiplicationImplicitCastToLong | 1 | false |
-| RedundantImplements | 1 | false |
-| ExceptionNameDoesntEndWithException | 1 | false |
-| CallToStringConcatCanBeReplacedByOperator | 1 | false |
 | FuseStreamOperations | 1 | false |
 | OptionalGetWithoutIsPresent | 1 | false |
-| IOResource | 1 | false |
 | RedundantOperationOnEmptyContainer | 1 | false |
-| FieldMayBeStatic | 1 | false |
 | UnnecessarySemicolon | 1 | false |
 | TypeParameterHidesVisibleType | 1 | false |
-| MethodOverloadsParentMethod | 1 | false |
-| Convert2MethodRef | 1 | false |
-| AbstractMethodCallInConstructor | 1 | false |
-| SetReplaceableByEnumSet | 1 | false |
-| UtilityClassWithPublicConstructor | 1 | false |
+| CollectionAddAllCanBeReplacedWithConstructor | 1 | false |
 | NonStrictComparisonCanBeEquality | 1 | true |
+| InstantiationOfUtilityClass | 1 | false |
 ## RuleId[id=ConditionalBreakInInfiniteLoop]
 ### ConditionalBreakInInfiniteLoop
 Conditional break inside loop
@@ -98,80 +74,67 @@ in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/i
       pending = new ArrayList<>();
 ```
 
-## RuleId[id=StaticCallOnSubclass]
-### StaticCallOnSubclass
-Static method `fillProperties()` declared in class 'org.springframework.core.io.support.PropertiesLoaderUtils' but referenced via subclass 'org.apache.servicecomb.foundation.common.config.impl.PaaSPropertiesLoaderUtils'
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/impl/PaaSPropertiesLoaderUtils.java`
-#### Snippet
-```java
-  public static void fillAllProperties(Properties prop, List<Resource> resList) throws IOException {
-    for (Resource res : resList) {
-      PaaSPropertiesLoaderUtils.fillProperties(prop, res);
-    }
-  }
-```
-
-### StaticCallOnSubclass
-Static method `isSuccess()` declared in class 'org.apache.servicecomb.foundation.common.http.HttpStatus' but referenced via subclass 'org.apache.servicecomb.swagger.invocation.context.HttpStatus'
-in `swagger/swagger-invocation/invocation-springmvc/src/main/java/org/apache/servicecomb/swagger/invocation/springmvc/response/SpringmvcProducerResponseMapper.java`
-#### Snippet
-```java
-
-    Response cseResponse = null;
-    if (HttpStatus.isSuccess(responseStatus)) {
-      cseResponse = realMapper.mapResponse(responseStatus, springmvcResponse.getBody());
-    } else {
-```
-
-### StaticCallOnSubclass
-Static method `isSuccess()` declared in class 'org.apache.servicecomb.foundation.common.http.HttpStatus' but referenced via subclass 'org.apache.servicecomb.swagger.invocation.context.HttpStatus'
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/ProtoMethod.java`
-#### Snippet
-```java
-    }
-
-    if (HttpStatus.isSuccess(statusCode)) {
-      return responses.get(Status.OK.getStatusCode());
-    }
-```
-
-### StaticCallOnSubclass
-Static method `isSuccess()` declared in class 'org.apache.servicecomb.foundation.common.http.HttpStatus' but referenced via subclass 'org.apache.servicecomb.swagger.invocation.context.HttpStatus'
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/http/DefaultHttpClientFilter.java`
-#### Snippet
-```java
-              responseEx.getStatusType().getReasonPhrase(),
-              responseEx.getHeader(HttpHeaders.CONTENT_TYPE));
-      if (HttpStatus.isSuccess(responseEx.getStatus())) {
-        return Response.createConsumerFail(
-            new InvocationException(400, responseEx.getStatusType().getReasonPhrase(),
-```
-
-### StaticCallOnSubclass
-Static method `isSuccess()` declared in class 'org.apache.servicecomb.foundation.common.http.HttpStatus' but referenced via subclass 'org.apache.servicecomb.swagger.invocation.context.HttpStatus'
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/response/ResponsesMeta.java`
-#### Snippet
-```java
-    JavaType responseType = responseMap.get(statusCode);
-    if (responseType == null) {
-      if (HttpStatus.isSuccess(statusCode)) {
-        return responseMap.get(Status.OK.getStatusCode());
-      }
-```
-
-### StaticCallOnSubclass
-Static method `isSuccess()` declared in class 'org.apache.servicecomb.foundation.common.http.HttpStatus' but referenced via subclass 'org.apache.servicecomb.swagger.invocation.context.HttpStatus'
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/Response.java`
-#### Snippet
-```java
-
-  public boolean isSucceed() {
-    return HttpStatus.isSuccess(status);
-  }
-
-```
-
 ## RuleId[id=RedundantClassCall]
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
+#### Snippet
+```java
+    if (servlets != null) {
+      for (ServletRegistration servletRegistration : servlets) {
+        if (!Dynamic.class.isInstance(servletRegistration)) {
+          continue;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestParam.java`
+#### Snippet
+```java
+    }
+
+    if (value.getClass().isArray() || Collection.class.isInstance(value)) {
+      return (String[]) paramProcessor.convertValue(value, STRING_ARRAY_TYPE);
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/ExceptionFactory.java`
+#### Snippet
+```java
+  public static InvocationException create(StatusType status,
+      Object exceptionOrErrorData) {
+    if (InvocationException.class.isInstance(exceptionOrErrorData)) {
+      return (InvocationException) exceptionOrErrorData;
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
+#### Snippet
+```java
+    context.runOnContext(v -> readStream.resume());
+
+    if (!AsyncCloseable.class.isInstance(writeStream)) {
+      return readFuture;
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpFromPart.java`
+#### Snippet
+```java
+    CompletableFuture<ReadStream<Buffer>> future = new CompletableFuture<>();
+
+    if (ReadStreamPart.class.isInstance(part)) {
+      future.complete(((ReadStreamPart) part).getReadStream());
+      return future;
+```
+
 ### RedundantClassCall
 Redundant call to `isInstance()`
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/cache/VersionedCache.java`
@@ -246,6 +209,90 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseRequestCallback.java`
+#### Snippet
+```java
+    req.setResponseType(overrideResponseType());
+
+    if (!CseHttpEntity.class.isInstance(requestBody)) {
+      return;
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
+#### Snippet
+```java
+    }
+
+    if (Collection.class.isInstance(value)) {
+      Collection<?> collection = (Collection<?>) value;
+      if (collection.isEmpty()) {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
+#### Snippet
+```java
+        continue;
+      }
+      if (Collection.class.isInstance(value)) {
+        Collection<?> collection = (Collection<?>) value;
+        for (Object part : collection) {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/ThreadPoolMetersInitializer.java`
+#### Snippet
+```java
+      }
+
+      if (GroupExecutor.class.isInstance(executor)) {
+        createThreadPoolMeters(entry.getKey(), (GroupExecutor) executor);
+        continue;
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/ThreadPoolMetersInitializer.java`
+#### Snippet
+```java
+
+  protected void createThreadPoolMeters(String threadPoolName, Executor executor) {
+    if (!ThreadPoolExecutor.class.isInstance(executor)) {
+      return;
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/TagFinder.java`
+#### Snippet
+```java
+public interface TagFinder {
+  static TagFinder build(Object obj) {
+    if (String.class.isInstance(obj)) {
+      return new DefaultTagFinder((String) obj);
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/TagFinder.java`
+#### Snippet
+```java
+    }
+
+    if (TagFinder.class.isInstance(obj)) {
+      return (TagFinder) obj;
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
 in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/ModelResolverExt.java`
 #### Snippet
 ```java
@@ -282,42 +329,6 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
-#### Snippet
-```java
-    context.runOnContext(v -> readStream.resume());
-
-    if (!AsyncCloseable.class.isInstance(writeStream)) {
-      return readFuture;
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpFromPart.java`
-#### Snippet
-```java
-    CompletableFuture<ReadStream<Buffer>> future = new CompletableFuture<>();
-
-    if (ReadStreamPart.class.isInstance(part)) {
-      future.complete(((ReadStreamPart) part).getReadStream());
-      return future;
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestParam.java`
-#### Snippet
-```java
-    }
-
-    if (value.getClass().isArray() || Collection.class.isInstance(value)) {
-      return (String[]) paramProcessor.convertValue(value, STRING_ARRAY_TYPE);
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
 in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/archaius/sources/AbstractConfigLoader.java`
 #### Snippet
 ```java
@@ -326,126 +337,6 @@ in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ar
       if (Integer.class.isInstance(objOrder)) {
         configModel.setOrder((int) objOrder);
       } else {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/TagFinder.java`
-#### Snippet
-```java
-public interface TagFinder {
-  static TagFinder build(Object obj) {
-    if (String.class.isInstance(obj)) {
-      return new DefaultTagFinder((String) obj);
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/TagFinder.java`
-#### Snippet
-```java
-    }
-
-    if (TagFinder.class.isInstance(obj)) {
-      return (TagFinder) obj;
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseRequestCallback.java`
-#### Snippet
-```java
-    req.setResponseType(overrideResponseType());
-
-    if (!CseHttpEntity.class.isInstance(requestBody)) {
-      return;
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRequestCallback.java`
-#### Snippet
-```java
-    }
-
-    if (!CseHttpEntity.class.isInstance(requestBody)) {
-      return;
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/ThreadPoolMetersInitializer.java`
-#### Snippet
-```java
-      }
-
-      if (GroupExecutor.class.isInstance(executor)) {
-        createThreadPoolMeters(entry.getKey(), (GroupExecutor) executor);
-        continue;
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/ThreadPoolMetersInitializer.java`
-#### Snippet
-```java
-
-  protected void createThreadPoolMeters(String threadPoolName, Executor executor) {
-    if (!ThreadPoolExecutor.class.isInstance(executor)) {
-      return;
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-    }
-
-    if (Collection.class.isInstance(value)) {
-      Collection<?> collection = (Collection<?>) value;
-      if (collection.isEmpty()) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-        continue;
-      }
-      if (Collection.class.isInstance(value)) {
-        Collection<?> collection = (Collection<?>) value;
-        for (Object part : collection) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/ExceptionFactory.java`
-#### Snippet
-```java
-  public static InvocationException create(StatusType status,
-      Object exceptionOrErrorData) {
-    if (InvocationException.class.isInstance(exceptionOrErrorData)) {
-      return (InvocationException) exceptionOrErrorData;
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
-#### Snippet
-```java
-    if (servlets != null) {
-      for (ServletRegistration servletRegistration : servlets) {
-        if (!Dynamic.class.isInstance(servletRegistration)) {
-          continue;
-        }
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -473,128 +364,7 @@ public class CoreFilterConfiguration {
 //  public ConsumerFilter loadBalanceFilter() {
 ```
 
-## RuleId[id=AssignmentToStaticFieldFromInstanceMethod]
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `executableValidator` from instance context
-in `swagger/swagger-invocation/invocation-validator/src/main/java/org/apache/servicecomb/swagger/invocation/validator/ParameterValidator.java`
-#### Snippet
-```java
-                .messageInterpolator(messageInterpolator())
-                .buildValidatorFactory();
-        executableValidator = factory.getValidator().forExecutables();
-      }
-      Set<ConstraintViolation<Object>> violations =
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `INSTANCE` from instance context
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-    eventBus.register(this);
-
-    INSTANCE = this;
-
-    producerProviderManager = new ProducerProviderManager(this);
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `EventManager.eventBus` from instance context
-in `core/src/main/java/org/apache/servicecomb/core/bootstrap/SCBEngineForTest.java`
-#### Snippet
-```java
-    ReflectUtils.setField(SCBEngine.class, null, "INSTANCE", null);
-
-    EventManager.eventBus = new SimpleEventBus();
-  }
-}
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `processor` from instance context
-in `core/src/main/java/org/apache/servicecomb/core/exception/Exceptions.java`
-#### Snippet
-```java
-  public void setProcessor(List<ExceptionProcessor> processors) {
-    // never be null, "orElse" just to avoid compile warning
-    processor = processors.stream()
-        .min(Comparator.comparingInt(ExceptionProcessor::getOrder))
-        .orElse(new DefaultExceptionProcessor());
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `pullInstanceTaskOnceInProgress` from instance context
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterDiscovery.java`
-#### Snippet
-```java
-        pullAllInstance();
-      } finally {
-        pullInstanceTaskOnceInProgress = false;
-      }
-    }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `pullInstanceTaskOnceInProgress` from instance context
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterDiscovery.java`
-#### Snippet
-```java
-      return;
-    }
-    pullInstanceTaskOnceInProgress = true;
-    startTask(new PullInstanceOnceTask());
-  }
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `QueryCodecsUtils.queryCodecs` from instance context
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/query/QueryCodecsUtils.java`
-#### Snippet
-```java
-
-  public QueryCodecsUtils(QueryCodecs queryCodecs) {
-    QueryCodecsUtils.queryCodecs = queryCodecs;
-  }
-
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `allHeader` from instance context
-in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterInvokeFilter.java`
-#### Snippet
-```java
-              .getStringProperty(SERVICECOMB_ROUTER_HEADER, null);
-          if (!addAllHeaders(temHeader.get())) {
-            allHeader = new ArrayList<>();
-          }
-        });
-```
-
-### AssignmentToStaticFieldFromInstanceMethod
-Assignment to static field `allHeader` from instance context
-in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterInvokeFilter.java`
-#### Snippet
-```java
-    try {
-      if (CollectionUtils.isEmpty(allHeader)) {
-        allHeader = Arrays.asList(str.split(","));
-      }
-    } catch (Exception e) {
-```
-
 ## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\}` in RegExp
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/inject/PlaceholderResolver.java`
-#### Snippet
-```java
- */
-public class PlaceholderResolver {
-  private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("(?<escape>\\\\)?\\$\\{(?<name>[^{}]+)\\}");
-
-  static class SplitPart {
-```
-
 ### RegExpRedundantEscape
 Redundant character escape `\\:` in RegExp
 in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
@@ -607,29 +377,714 @@ in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/i
 
 ```
 
-## RuleId[id=ObsoleteCollection]
-### ObsoleteCollection
-Obsolete collection type `Stack` used
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/discovery/DiscoveryContext.java`
+### RegExpRedundantEscape
+Redundant character escape `\\}` in RegExp
+in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/inject/PlaceholderResolver.java`
 #### Snippet
 ```java
-  // first try self zone, after other filter(Isolation Filter), no instances are available
-  // then try other zone
-  private final Stack<DiscoveryTreeNode> rerunStack = new Stack<>();
+ */
+public class PlaceholderResolver {
+  private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("(?<escape>\\\\)?\\$\\{(?<name>[^{}]+)\\}");
 
-  private DiscoveryTreeNode currentNode;
+  static class SplitPart {
 ```
 
-### ObsoleteCollection
-Obsolete collection type `Stack<>` used
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/discovery/DiscoveryContext.java`
+## RuleId[id=UnparsedCustomBeanInspection]
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-schema' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
 #### Snippet
 ```java
-  // first try self zone, after other filter(Isolation Filter), no instances are available
-  // then try other zone
-  private final Stack<DiscoveryTreeNode> rerunStack = new Stack<>();
 
-  private DiscoveryTreeNode currentNode;
+  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
+  <cse:rpc-schema schema-id="helloworld.Greeter"
+    implementation="spring:hello"></cse:rpc-schema>
+
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-schema' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+    implementation="spring:hello"></cse:rpc-schema>
+
+  <cse:rpc-schema schema-id="smartcare"
+    implementation="org.apache.servicecomb.demo.pojo.server.SmartCareImpl"></cse:rpc-schema>
+
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-schema' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+    implementation="org.apache.servicecomb.demo.pojo.server.SmartCareImpl"></cse:rpc-schema>
+
+  <cse:rpc-schema schema-id="SchemaInterface" schema-interface="org.apache.servicecomb.demo.pojo.server.SchemaInterface"
+    implementation="org.apache.servicecomb.demo.pojo.server.SchemaInterfaceImpl"></cse:rpc-schema>
+</beans>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-reference' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+
+  <cse:rpc-reference id="smartcare" microservice-name="pojo"
+    schema-id="smartcare" interface="org.apache.servicecomb.demo.smartcare.SmartCare"></cse:rpc-reference>
+
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-reference' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="smartcare" interface="org.apache.servicecomb.demo.smartcare.SmartCare"></cse:rpc-reference>
+
+  <cse:rpc-reference id="server" microservice-name="pojo"
+    schema-id="server" interface="org.apache.servicecomb.demo.server.Test"></cse:rpc-reference>
+
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-reference' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+  </bean>
+
+  <cse:rpc-reference id="codeFirstFromXml" microservice-name="pojo"
+    schema-id="org.apache.servicecomb.demo.CodeFirstPojoIntf"></cse:rpc-reference>
+
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-reference' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-springmvc/springmvc-client/src/main/resources/META-INF/spring/springmvc.client.bean.xml`
+#### Snippet
+```java
+
+  <context:component-scan base-package="org.apache.servicecomb.demo.springmvc.client"/>
+  <cse:rpc-reference id="controller" microservice-name="springmvc"
+    schema-id="controller" interface="org.apache.servicecomb.demo.controller.Controller"></cse:rpc-reference>
+</beans>
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-reference' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-spring-boot-transport/demo-spring-boot-pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+
+  <cse:rpc-reference id="server" microservice-name="pojo"
+    schema-id="server" interface="org.apache.servicecomb.demo.springboot.pojo.server.schema.server.Test"></cse:rpc-reference>
+
+```
+
+## RuleId[id=SpringBootApplicationYaml]
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-timeLimiter'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+servicecomb:
+  matchGroup:
+    demo-timeLimiter: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-governanceCache'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        - apiPath:
+            prefix: "/timeLimiter"
+    demo-governanceCache: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-loadbalance-random'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        - apiPath:
+            prefix: "/governanceCache"
+    demo-loadbalance-random: |
+      matches:
+        - serviceName: "loadrandom"
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-loadbalance-roundRobin'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      matches:
+        - serviceName: "loadrandom"
+    demo-loadbalance-roundRobin: |
+      matches:
+        - serviceName: "loadroundRobin"
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-fallback-returnNull'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      matches:
+        - serviceName: "loadroundRobin"
+    demo-fallback-returnNull: |
+      matches:
+        - serviceName: "returnNull"
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-fallback-ThrowException'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      matches:
+        - serviceName: "returnNull"
+    demo-fallback-ThrowException: |
+      matches:
+        - serviceName: "ThrowException"
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-faultInject-forceClosed'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      matches:
+        - serviceName: "ThrowException"
+    demo-faultInject-forceClosed: |
+      matches:
+        - serviceName: "forceClosed"
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-allOperation'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      matches:
+        - serviceName: "forceClosed"
+    demo-allOperation: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-rateLimiting'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        - apiPath:
+            prefix: "/"
+    demo-rateLimiting: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-rateLimiting-servicename'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        - apiPath:
+            exact: "/hello"
+    demo-rateLimiting-servicename: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.wrong-name-inogred'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+            exact: "/helloServiceName"
+          serviceName: "srcService"
+    wrong-name-inogred: |
+      wrong: some
+    demo-retry: |
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-retry'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+    wrong-name-inogred: |
+      wrong: some
+    demo-retry: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-circuitBreaker'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        - apiPath:
+            exact: "/retry"
+    demo-circuitBreaker: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-bulkhead'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        - apiPath:
+            exact: "/circuitBreaker"
+    demo-bulkhead: |
+      matches:
+        - name: matchPath
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-bulkhead-priority'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+            x-token:
+              exact: token
+    demo-bulkhead-priority: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-bulkhead-other'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        - apiPath:
+          exact: "/bulkhead"
+    demo-bulkhead-other: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-faultInjectDelay'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+          exact: "/bulkhead"
+      services: other:1.0
+    demo-faultInjectDelay: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-faultInjectAbort'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        - apiPath:
+            contains: "/faultInjectDelay"
+    demo-faultInjectAbort: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.matchGroup.demo-mapper'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        - apiPath:
+            contains: "/faultInjectAbort"
+    demo-mapper: |
+      matches:
+        - apiPath:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.rateLimiting.demo-rateLimiting'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+            prefix: "/mapper"
+  rateLimiting:
+    demo-rateLimiting: |
+      rate: 1
+    demo-rateLimiting-servicename: |
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.rateLimiting.demo-rateLimiting-servicename'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+    demo-rateLimiting: |
+      rate: 1
+    demo-rateLimiting-servicename: |
+      rate: 1
+    wrongIngored: |
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.rateLimiting.wrongIngored'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+    demo-rateLimiting-servicename: |
+      rate: 1
+    wrongIngored: |
+      rate: 0
+  identifierRateLimiting:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.identifierRateLimiting.demo-rateLimiting'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      rate: 0
+  identifierRateLimiting:
+    demo-rateLimiting: |
+      rate: 1
+      identifier: test
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.identifierRateLimiting.demo-rateLimiting-servicename'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      rate: 1
+      identifier: test
+    demo-rateLimiting-servicename: |
+      rate: 1
+      identifier: test
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.timeLimiter.demo-timeLimiter'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      identifier: test
+  timeLimiter:
+    demo-timeLimiter: |
+      timeoutDuration: 2000
+      cancelRunningFuture: true
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.timeLimiter.demo-timeLimiter-other'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      timeoutDuration: 2000
+      cancelRunningFuture: true
+    demo-timeLimiter-other: |
+      timeoutDuration: 2000
+      cancelRunningFuture: false
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.cache.demo-governanceCache'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      cancelRunningFuture: false
+  cache:
+    demo-governanceCache: |
+      ttl: 36000000
+      maximumSize: 50000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.cache.demo-governanceCache-other'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      maximumSize: 50000
+      concurrencyLevel: 10
+    demo-governanceCache-other: |
+      ttl: 666666
+      maximumSize: 50000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.retry.demo-retry'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      concurrencyLevel: 15
+  retry:
+    demo-retry: |
+      maxAttempts: 3
+    wrongIngored: |
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.retry.wrongIngored'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+    demo-retry: |
+      maxAttempts: 3
+    wrongIngored: |
+      maxAttempts: -1
+  circuitBreaker:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.circuitBreaker.demo-circuitBreaker'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      maxAttempts: -1
+  circuitBreaker:
+    demo-circuitBreaker: |
+      minimumNumberOfCalls: 2
+      slidingWindowSize: 2
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.circuitBreaker.wrongIngored'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      slidingWindowType: COUNT_BASED
+      services: myself:1.0,other
+    wrongIngored: |
+      rules:
+        match: demo-circuitBreaker.xx
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.bulkhead.demo-bulkhead'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      minimumNumberOfCalls: -1
+  bulkhead:
+    demo-bulkhead: |
+      order: 1
+      maxConcurrentCalls: 1
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.bulkhead.demo-bulkhead-priority'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      maxWaitDuration: 3000
+      services: myself:1.0
+    demo-bulkhead-priority: |
+      order: 0
+      maxConcurrentCalls: 1
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.bulkhead.demo-bulkhead-other'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      maxWaitDuration: 3000
+      services: myself:1.0
+    demo-bulkhead-other: |
+      maxConcurrentCalls: 1
+      maxWaitDuration: 3000
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.bulkhead.wrongIngored'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      maxWaitDuration: 3000
+      services: other:1.0
+    wrongIngored: |
+      rules:
+        match: demo-bulkhead.xx
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.instanceIsolation.demo-allOperation'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      maxWaitDuration: -1
+  instanceIsolation:
+    demo-allOperation: |
+      minimumNumberOfCalls: 2
+      slidingWindowSize: 2
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.instanceBulkhead.demo-allOperation'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      waitDurationInOpenState: 1000
+  instanceBulkhead:
+    demo-allOperation: |
+      maxConcurrentCalls: 2
+      maxWaitDuration: 10
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.faultInjection.demo-fallback-ThrowException'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      maxWaitDuration: 10
+  faultInjection:
+    demo-fallback-ThrowException: |
+      type: abort
+      percentage: 100
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.faultInjection.demo-fallback-returnNull'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      type: abort
+      percentage: 100
+    demo-fallback-returnNull: |
+      fallbackType: ReturnNull
+      type: abort
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.faultInjection.demo-faultInject-forceClosed'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      type: abort
+      percentage: 100
+    demo-faultInject-forceClosed: |
+      forceClosed: true
+      fallbackType: ReturnNull
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.faultInjection.demo-faultInjectDelay'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      forceClosed: true
+      fallbackType: ReturnNull
+    demo-faultInjectDelay: |
+      delayTime: 2S
+      type: delay
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.faultInjection.demo-faultInjectAbort'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      type: delay
+      percentage: 100
+    demo-faultInjectAbort: |
+      type: abort
+      percentage: 50
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.faultInjection.wrongIngored'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      percentage: 50
+      errorCode: 500
+    wrongIngored: |
+      delayTime: -1
+      type: ERROR
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.faultInjection2.demo-fallback-ThrowException'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      type: ERROR
+  faultInjection2:
+    demo-fallback-ThrowException: |
+      type: abort
+      percentage: 100
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.loadbalance.demo-loadbalance-random'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      percentage: 100
+  loadbalance:
+    demo-loadbalance-random: |
+      rule: Random
+    demo-loadbalance-roundRobin: |
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.loadbalance.demo-loadbalance-roundRobin'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+    demo-loadbalance-random: |
+      rule: Random
+    demo-loadbalance-roundRobin: |
+      rule: RoundRobin
+  mapper:
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.mapper.demo-mapper'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+      rule: RoundRobin
+  mapper:
+    demo-mapper: |
+      target:
+        host: 127.0.0.1
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.mapper2.demo-mapper'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        port: 8080
+  mapper2:
+    demo-mapper: |
+      target:
+        host: 127.0.0.1
+```
+
+### SpringBootApplicationYaml
+Cannot resolve configuration property 'servicecomb.routeRule.test_server1'
+in `governance/src/test/resources/application.yaml`
+#### Snippet
+```java
+        port: 9090
+  routeRule:
+    test_server1: |                              # 服务名
+      - precedence: 1                        # 优先级，数字越大，优先级越高。
+        match:                               # 请求匹配规则。0..N个，不配置表示匹配。
 ```
 
 ## RuleId[id=DuplicateBranchesInSwitch]
@@ -645,43 +1100,6 @@ in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/i
         return "string";
 ```
 
-## RuleId[id=UnnecessaryQualifierForThis]
-### UnnecessaryQualifierForThis
-Qualifier `OutputStreamToWriteStream` on 'this' is unnecessary in this context
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/OutputStreamToWriteStream.java`
-#### Snippet
-```java
-        outputStream.write(buffer.getBytes());
-
-        synchronized (OutputStreamToWriteStream.this) {
-          currentBufferCount--;
-          Runnable action = (currentBufferCount == 0 && closedDeferred != null) ? closedDeferred : this::checkDrained;
-```
-
-### UnnecessaryQualifierForThis
-Qualifier `URLMappedEdgeDispatcher` on 'this' is unnecessary in this context
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/URLMappedEdgeDispatcher.java`
-#### Snippet
-```java
-    String pattern = DynamicPropertyFactory.getInstance().getStringProperty(KEY_PATTERN, PATTERN_ANY).get();
-    router.routeWithRegex(pattern).failureHandler(this::onFailure)
-        .handler((PlatformHandler) URLMappedEdgeDispatcher.this::preCheck)
-        .handler(createBodyHandler())
-        .handler(this::onRequest);
-```
-
-### UnnecessaryQualifierForThis
-Qualifier `AbstractTask` on 'this' is unnecessary in this context
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/task/AbstractTask.java`
-#### Snippet
-```java
-  protected AbstractTask(String taskName) {
-    initTaskPool(taskName);
-    Runtime.getRuntime().addShutdownHook(new Thread(AbstractTask.this::stop, taskName + "-shutdown-hook"));
-  }
-
-```
-
 ## RuleId[id=RegExpSimplifiable]
 ### RegExpSimplifiable
 `{1}?` is redundant
@@ -695,188 +1113,32 @@ in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessL
 
 ```
 
-## RuleId[id=SizeReplaceableByIsEmpty]
-### SizeReplaceableByIsEmpty
-`violations.size() > 0` can be replaced with '!violations.isEmpty()'
-in `swagger/swagger-invocation/invocation-validator/src/main/java/org/apache/servicecomb/swagger/invocation/validator/ParameterValidator.java`
+## RuleId[id=Deprecation]
+### Deprecation
+Overrides deprecated method in 'org.apache.servicecomb.foundation.vertx.http.AbstractHttpServletResponse'
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/VertxServerResponseToHttpServletResponse.java`
 #### Snippet
 ```java
-              args,
-              Default.class);
-      if (violations.size() > 0) {
-        LOGGER.warn("Parameter validation failed : " + violations);
-        throw new ConstraintViolationException(violations);
-```
-
-### SizeReplaceableByIsEmpty
-`sb.length() > 0` can be replaced with '!sb.isEmpty()'
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/registry/FrameworkVersions.java`
-#### Snippet
-```java
-    StringBuffer sb = new StringBuffer();
-    frameworkVersions.forEach(version -> version.loadVersion().forEach((key, value) -> sb.append(key).append(":").append(value).append(";")));
-    if (sb.length() > 0) {
-      sb.setLength(sb.length() - 1);
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`violations.size() > 0` can be replaced with '!violations.isEmpty()'
-in `core/src/main/java/org/apache/servicecomb/core/filter/impl/ParameterValidatorFilter.java`
-#### Snippet
-```java
-  public CompletableFuture<Response> onFilter(Invocation invocation, FilterNode nextNode) {
-    Set<ConstraintViolation<Object>> violations = doValidate(invocation);
-    if (violations.size() > 0) {
-      LOGGER.error("Parameter validation failed : " + violations);
-      return AsyncUtils.completeExceptionally(new ConstraintViolationException(violations));
-```
-
-### SizeReplaceableByIsEmpty
-`path.length() > 0` can be replaced with '!path.isEmpty()'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/locator/OperationLocator.java`
-#### Snippet
-```java
-  // Path: /a/b/c -> /a/b/c/
-  static String getStandardPath(String path) {
-    if (path.length() > 0 && !path.endsWith(SLASH)) {
-      path += SLASH;
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`pathPattern.length() > 0` can be replaced with '!pathPattern.isEmpty()'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-      }
-    }
-    if (pathPattern.length() > 0
-        && pathPattern.charAt(pathPattern.length() - 1) != '/') {
-      pathPattern.append('/');
-```
-
-### SizeReplaceableByIsEmpty
-`tmpPath.length() != 0` can be replaced with '!tmpPath.isEmpty()'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/URLPathBuilder.java`
-#### Snippet
-```java
-      char currentChar = rawPath.charAt(idx);
-      if (currentChar == '{') {
-        if (tmpPath.length() != 0) {
-          this.pathParamWriterList.add(new StaticUrlParamWriter(tmpPath.toString()));
-          tmpPath.setLength(0);
-```
-
-### SizeReplaceableByIsEmpty
-`tmpPath.length() == 0` can be replaced with 'tmpPath.isEmpty()'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/URLPathBuilder.java`
-#### Snippet
-```java
-        }
-      } else if (currentChar == '}') {
-        if (tmpPath.length() == 0) {
-          continue;
-        }
-```
-
-### SizeReplaceableByIsEmpty
-`tmpPath.length() != 0` can be replaced with '!tmpPath.isEmpty()'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/URLPathBuilder.java`
-#### Snippet
-```java
-      }
-    }
-    if (tmpPath.length() != 0) {
-      this.pathParamWriterList.add(new StaticUrlParamWriter(tmpPath.toString()));
-    }
-```
-
-### SizeReplaceableByIsEmpty
-`caches.size() == 0` can be replaced with 'caches.isEmpty()'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/AggregateMicroserviceCache.java`
-#### Snippet
-```java
-
-  private void refreshStatus() {
-    if (caches.size() == 0) {
-      status = MicroserviceCacheStatus.SERVICE_NOT_FOUND;
-    } else {
-```
-
-### SizeReplaceableByIsEmpty
-`requestParam.getHeaders().size() > 0` can be replaced with '!requestParam.getHeaders().isEmpty()'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RestClientUtil.java`
-#### Snippet
-```java
-        httpClientRequest.headers().addAll(headers);
-
-        if (requestParam.getHeaders() != null && requestParam.getHeaders().size() > 0) {
-          headers.putAll(requestParam.getHeaders());
-          for (Map.Entry<String, String> header : requestParam.getHeaders().entrySet()) {
-```
-
-### SizeReplaceableByIsEmpty
-`requestParam.getCookies().size() > 0` can be replaced with '!requestParam.getCookies().isEmpty()'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RestClientUtil.java`
-#### Snippet
-```java
-
-        // cookies header
-        if (requestParam.getCookies() != null && requestParam.getCookies().size() > 0) {
-          StringBuilder stringBuilder = new StringBuilder();
-          for (Map.Entry<String, String> cookie : requestParam.getCookies().entrySet()) {
-```
-
-### SizeReplaceableByIsEmpty
-`localConfig.size() > 0` can be replaced with '!localConfig.isEmpty()'
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java`
-#### Snippet
-```java
-    MicroserviceConfigLoader loader = new MicroserviceConfigLoader();
-    loader.loadAndSort();
-    if (localConfig.size() > 0) {
-      ConfigModel model = new ConfigModel();
-      model.setConfig(localConfig);
-```
-
-### SizeReplaceableByIsEmpty
-`stats.size() > 0` can be replaced with '!stats.isEmpty()'
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/WeightedResponseTimeRuleExt.java`
-#### Snippet
-```java
-    List<Double> stats = calculateTotalWeights(servers);
-
-    if (stats.size() > 0) {
-      double finalTotal = stats.get(stats.size() - 1);
-      List<Double> weights = new ArrayList<>(servers.size());
-```
-
-### SizeReplaceableByIsEmpty
-`stats.getServerStats().size() > 0` can be replaced with '!stats.getServerStats().isEmpty()'
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/SessionStickinessRule.java`
-#### Snippet
-```java
-    LoadBalancerStats stats = loadBalancer.getLoadBalancerStats();
-
-    if (stats != null && stats.getServerStats() != null && stats.getServerStats().size() > 0) {
-      ServerStats serverStats = stats.getSingleServerStat(lastServer);
-      int successiveFailedCount = serverStats.getSuccessiveConnectionFailureCount();
-```
-
-### SizeReplaceableByIsEmpty
-`tmpSb.length() != 0` can be replaced with '!tmpSb.isEmpty()'
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
-#### Snippet
-```java
-          interfaceNode.getName());
-    }
-    if (tmpSb.length() != 0) {
-      sb.append(tmpSb);
-    }
+  @Override
+  @Deprecated
+  public void setStatus(int sc, String sm) {
+    serverResponse.setStatusCode(sc);
+    serverResponse.setStatusMessage(sm);
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/model/RbacTokenRequest.java`
+#### Snippet
+```java
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("RbacTokenRequest{");
+    sb.append("name='").append(name).append('\'');
+    sb.append(", password='").append(password).append('\'');
+```
+
 ### StringBufferReplaceableByString
 `StringBuilder permStr` can be replaced with 'String'
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/FilePerm.java`
@@ -887,18 +1149,6 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
     StringBuilder permStr = new StringBuilder();
 
     permStr.append(uCanRead(perm) ? "r" : "-");
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/registry/MicroserviceInstance.java`
-#### Snippet
-```java
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("instanceId=" + instanceId + ";");
-    sb.append("serviceId=" + serviceId + ";");
 ```
 
 ### StringBufferReplaceableByString
@@ -915,14 +1165,14 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
 
 ### StringBufferReplaceableByString
 `StringBuilder sb` can be replaced with 'String'
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/model/RbacTokenRequest.java`
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/registry/MicroserviceInstance.java`
 #### Snippet
 ```java
   @Override
   public String toString() {
-    final StringBuilder sb = new StringBuilder("RbacTokenRequest{");
-    sb.append("name='").append(name).append('\'');
-    sb.append(", password='").append(password).append('\'');
+    StringBuilder sb = new StringBuilder();
+    sb.append("instanceId=" + instanceId + ";");
+    sb.append("serviceId=" + serviceId + ";");
 ```
 
 ### StringBufferReplaceableByString
@@ -956,10 +1206,10 @@ in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ar
 #### Snippet
 ```java
   @Override
-  protected void schedule(Runnable runnable) {
+  public void stop() {
     return;
   }
-
+}
 ```
 
 ### UnnecessaryReturn
@@ -968,2284 +1218,232 @@ in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ar
 #### Snippet
 ```java
   @Override
-  public void stop() {
+  protected void schedule(Runnable runnable) {
     return;
   }
-}
+
 ```
 
-## RuleId[id=TextBlockMigration]
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/SwaggerGeneratorUtils.java`
+## RuleId[id=SimplifiableConditionalExpression]
+### SimplifiableConditionalExpression
+`feature != null ? feature.extJavaClassInVendor : true` can be simplified to 'feature==null \|\| feature.extJavaClassInVendor'
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/SwaggerGeneratorFeature.java`
 #### Snippet
 ```java
-    }
+  public static boolean isLocalExtJavaClassInVendor() {
+    SwaggerGeneratorFeature feature = featureThreadLocal.get();
+    return feature != null ? feature.extJavaClassInVendor : true;
+  }
 
-    String msg = String.format("parameter name is not present, method=%s:%s\n"
-            + "solution:\n"
-            + "  change pom.xml, add compiler argument: -parameters, for example:\n"
 ```
 
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `core/src/main/java/org/apache/servicecomb/core/executor/GroupExecutor.java`
-#### Snippet
-```java
-  public void initConfig() {
-    if (LOG_PRINTED.compareAndSet(false, true)) {
-      LOGGER.info("thread pool rules:\n"
-          + "1.use core threads.\n"
-          + "2.if all core threads are busy, then create new thread.\n"
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/MicroserviceRegisterTask.java`
-#### Snippet
-```java
-      LOGGER.warn(
-          "service center schema and local schema both are different:"
-              + "\n service center schema:\n[{}\n local schema:\n[{}]",
-          scSchemaContent,
-          localSchemaContent);
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/MicroserviceRegisterTask.java`
-#### Snippet
-```java
-      if (ServiceRegistryConfig.INSTANCE.isIgnoreSwaggerDifference()) {
-        LOGGER.warn(
-            "service center schema and local schema both are different:\n service center "
-                + "schema:\n[{}]\n local schema:\n[{}]\nYou have configured to ignore difference "
-                + "check. It's recommended to increment microservice version before deploying when "
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/diagnosis/instance/InstanceCacheChecker.java`
-#### Snippet
-```java
-    String remote = Json.encode(remoteInstances);
-    if (local.equals(remote)) {
-      LOGGER.info("instance cache match. appId={}, microservice={}.\n"
-              + "current cache: {}\n",
-          microserviceVersions.getAppId(),
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/diagnosis/instance/InstanceCacheChecker.java`
-#### Snippet
-```java
-    }
-
-    LOGGER.error("instance cache not match. appId={}, microservice={}.\n"
-            + "local cache: {}\n"
-            + "remote cache: {}",
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `providers/provider-pojo/src/main/java/org/apache/servicecomb/provider/pojo/reference/PojoReferenceMeta.java`
-#### Snippet
-```java
-      throw new ServiceCombException(
-          String.format(
-              "microserviceName=%s, schemaid=%s, \n"
-                  + "do not support implicit interface anymore, \n"
-                  + "because that caused problems:\n"
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
+## RuleId[id=TrivialStringConcatenation]
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/SlowInvocationLogger.java`
 #### Snippet
 ```java
+    RestOperationMeta restOperationMeta = invocation.getOperationMeta().getExtData(RestConst.SWAGGER_REST_OPERATION);
     InvocationStageTrace stageTrace = invocation.getInvocationStageTrace();
     invocation.getTraceIdLogger().warn(LOGGER, ""
             + "slow({} ms) invocation, {}:\n"
             + "  http method: {}\n"
-            + "  url        : {}\n"
 ```
 
-### TextBlockMigration
-Concatenation can be replaced with text block
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/SlowInvocationLogger.java`
 #### Snippet
 ```java
+    RestOperationMeta restOperationMeta = invocation.getOperationMeta().getExtData(RestConst.SWAGGER_REST_OPERATION);
     InvocationStageTrace stageTrace = invocation.getInvocationStageTrace();
     invocation.getTraceIdLogger().warn(LOGGER, ""
             + "slow({} ms) invocation, {}:\n"
             + "  http method: {}\n"
-            + "  url        : {}\n"
 ```
 
-### TextBlockMigration
-Concatenation can be replaced with text block
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/SlowInvocationLogger.java`
 #### Snippet
 ```java
+    RestOperationMeta restOperationMeta = invocation.getOperationMeta().getExtData(RestConst.SWAGGER_REST_OPERATION);
     InvocationStageTrace stageTrace = invocation.getInvocationStageTrace();
     invocation.getTraceIdLogger().warn(LOGGER, ""
             + "slow({} ms) invocation, {}:\n"
             + "  http method: {}\n"
-            + "  url        : {}\n"
 ```
 
-### TextBlockMigration
-Concatenation can be replaced with text block
+### TrivialStringConcatenation
+Empty string used in concatenation
 in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
 #### Snippet
 ```java
-    }
-    sb.append(""
-        + "edge:\n"
-        + " simple:\n"
-        + "  status      tps      latency            ")
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
-#### Snippet
-```java
-  //details
-  private static final String PRODUCER_DETAILS_FORMAT = ""
-      + "        prepare: %-18s queue       : %-18s filtersReq : %-18s handlersReq: %s\n"
-      + "        execute: %-18s handlersResp: %-18s filtersResp: %-18s sendResp   : %s\n";
-
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
-#### Snippet
-```java
-    }
-    sb.append(""
-        + "producer:\n"
-        + " simple:\n"
-        + "  status      tps      latency            ")
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
-#### Snippet
-```java
-
-  private static final String EDGE_DETAILS_FORMAT = ""
-      + "        prepare     : %-18s queue       : %-18s sFiltersReq : %-18s handlersReq : %s\n"
-      + "        cFiltersReq : %-18s sendReq     : %-18s getConnect  : %-18s writeBuf    : %s\n"
-      + "        waitResp    : %-18s wakeConsumer: %-18s cFiltersResp: %-18s handlersResp: %s\n"
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
-#### Snippet
-```java
-
-  private static final String CONSUMER_DETAILS_FORMAT = ""
-      + "        prepare     : %-18s handlersReq : %-18s cFiltersReq: %-18s sendReq     : %s\n"
-      + "        getConnect  : %-18s writeBuf    : %-18s waitResp   : %-18s wakeConsumer: %s\n"
-      + "        cFiltersResp: %-18s handlersResp: %s\n";
-```
-
-### TextBlockMigration
-Concatenation can be replaced with text block
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
-#### Snippet
-```java
+      return;
     }
     sb.append(""
         + "consumer:\n"
         + " simple:\n"
-        + "  status      tps      latency            ")
 ```
 
-## RuleId[id=BoundedWildcard]
-### BoundedWildcard
-Can generalize to `? extends T`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/AsyncUtils.java`
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
 #### Snippet
 ```java
-  }
-
-  public static <T> CompletableFuture<T> tryCatchSupplier(Supplier<T> supplier) {
-    try {
-      T value = supplier.get();
-```
-
-### BoundedWildcard
-Can generalize to `? extends CompletableFuture`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/AsyncUtils.java`
-#### Snippet
-```java
-  }
-
-  public static <T> CompletableFuture<T> tryCatchSupplierFuture(Supplier<CompletableFuture<T>> supplier) {
-    try {
-      return supplier.get();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/BeanUtils.java`
-#### Snippet
-```java
-  }
-
-  public static <T extends SPIOrder & SPIEnabled> void addBeans(Class<T> cls, List<T> exists) {
-    if (context == null) {
       return;
+    }
+    sb.append(""
+        + "edge:\n"
+        + " simple:\n"
 ```
 
-### BoundedWildcard
-Can generalize to `? super Path`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/ResourceUtil.java`
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
 #### Snippet
 ```java
-  }
+      + "        execute: %-18s handlersResp: %-18s filtersResp: %-18s sendResp   : %s\n";
 
-  private static void collectResourcesFromPath(Path path, Predicate<Path> filter, Collection<URI> resources)
-      throws IOException {
-    try (Stream<Path> dirContentTraversalStream = Files.walk(path)) {
+  private static final String CONSUMER_DETAILS_FORMAT = ""
+      + "        prepare     : %-18s handlersReq : %-18s cFiltersReq: %-18s sendReq     : %s\n"
+      + "        getConnect  : %-18s writeBuf    : %-18s waitResp   : %-18s wakeConsumer: %s\n"
 ```
 
-### BoundedWildcard
-Can generalize to `? super URI`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/ResourceUtil.java`
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
 #### Snippet
 ```java
-  }
-
-  private static void collectResourcesFromPath(Path path, Predicate<Path> filter, Collection<URI> resources)
-      throws IOException {
-    try (Stream<Path> dirContentTraversalStream = Files.walk(path)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Resource`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/impl/PaaSPropertiesLoaderUtils.java`
-#### Snippet
-```java
-  }
-
-  public static void fillAllProperties(Properties prop, List<Resource> resList) throws IOException {
-    for (Resource res : resList) {
-      PaaSPropertiesLoaderUtils.fillProperties(prop, res);
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/concurrency/SuppressedRunnableWrapper.java`
-#### Snippet
-```java
-  }
-
-  public SuppressedRunnableWrapper(Runnable runnable, Consumer<Throwable> errorHandler) {
-    this.target = runnable;
-    this.errorHandler = errorHandler;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Resource`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/PaaSResourceUtils.java`
-#### Snippet
-```java
-   * 此时，还分多个，是不合适的
-   */
-  public static void sortResources(List<Resource> resList, String suffix) {
-    resList.sort((o1, o2) -> {
-      try {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/config/AbstractPropertiesLoader.java`
-#### Snippet
-```java
-  }
-
-  private void loadPropertiesFromExtendedClass(Configuration configuration, Map<String, String> propertiesMap) {
-    String extendedPropertyClass = readPropertiesExtendedClass(configuration);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/config/AbstractPropertiesLoader.java`
-#### Snippet
-```java
-  }
-
-  private void loadPropertiesFromExtendedClass(Configuration configuration, Map<String, String> propertiesMap) {
-    String extendedPropertyClass = readPropertiesExtendedClass(configuration);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/config/AbstractPropertiesLoader.java`
-#### Snippet
-```java
-  protected abstract String readPropertiesExtendedClass(Configuration configuration);
-
-  private void loadPropertiesFromConfigMap(Configuration configuration, Map<String, String> propertiesMap) {
-    propertiesMap.putAll(readProperties(configuration));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/config/AbstractPropertiesLoader.java`
-#### Snippet
-```java
-  protected abstract String readPropertiesExtendedClass(Configuration configuration);
-
-  private void loadPropertiesFromConfigMap(Configuration configuration, Map<String, String> propertiesMap) {
-    propertiesMap.putAll(readProperties(configuration));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends MicroserviceInstance`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-  }
-
-  private MergedInstances mergeInstances(List<MicroserviceInstance> pulledInstances,
-      Collection<MicroserviceInstance> inUseInstances) {
-    MergedInstances mergedInstances = new MergedInstances();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MicroserviceInstance`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-
-  private MergedInstances mergeInstances(List<MicroserviceInstance> pulledInstances,
-      Collection<MicroserviceInstance> inUseInstances) {
-    MergedInstances mergedInstances = new MergedInstances();
-    pulledInstances.stream().forEach(mergedInstances::addInstance);
-```
-
-### BoundedWildcard
-Can generalize to `? extends MicroserviceVersion`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersionRule.java`
-#### Snippet
-```java
-  }
-
-  private MicroserviceVersionRuleData createDataByOtherRule(Map<String, MicroserviceVersion> allVersions,
-      Collection<MicroserviceInstance> allInstances) {
-    MicroserviceVersionRuleData data = new MicroserviceVersionRuleData();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MicroserviceInstance`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersionRule.java`
-#### Snippet
-```java
-
-  private MicroserviceVersionRuleData createDataByOtherRule(Map<String, MicroserviceVersion> allVersions,
-      Collection<MicroserviceInstance> allInstances) {
-    MicroserviceVersionRuleData data = new MicroserviceVersionRuleData();
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends MicroserviceVersion`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersionRule.java`
-#### Snippet
-```java
-  }
-
-  private MicroserviceVersion findLatest(Map<String, MicroserviceVersion> allVersions,
-      Collection<MicroserviceInstance> allInstances) {
-    if (allInstances.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MicroserviceInstance`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersionRule.java`
-#### Snippet
-```java
-
-  private MicroserviceVersion findLatest(Map<String, MicroserviceVersion> allVersions,
-      Collection<MicroserviceInstance> allInstances) {
-    if (allInstances.isEmpty()) {
-      return allVersions.isEmpty() ? null : allVersions.values().stream()
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthHeaderProvider`
-in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/ConfigCenterConfigurationSourceImpl.java`
-#### Snippet
-```java
-  }
-
-  private static RequestAuthHeaderProvider getRequestAuthHeaderProvider(List<AuthHeaderProvider> authHeaderProviders) {
-    return signRequest -> {
-      Map<String, String> headers = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/ModelResolverExt.java`
-#### Snippet
-```java
-
-  @VisibleForTesting
-  protected void setType(JavaType type, Map<String, Object> vendorExtensions) {
-    if (SwaggerGeneratorFeature.isLocalExtJavaClassInVendor()) {
-      vendorExtensions.put(SwaggerConst.EXT_JAVA_CLASS, type.toCanonical());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Model`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/SwaggerUtils.java`
-#### Snippet
-```java
-  }
-
-  private static boolean modelNotDuplicate(Swagger swagger, Entry<String, Model> entry) {
-    if (null == swagger.getDefinitions()) {
-      swagger.addDefinition(entry.getKey(), entry.getValue());
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/SwaggerGeneratorUtils.java`
-#### Snippet
-```java
-
-  public static List<Annotation> collectParameterAnnotations(Annotation[] parameterAnnotations,
-      Map<String, List<Annotation>> methodAnnotationMap, String parameterName) {
-    List<Annotation> methodAnnotations = methodAnnotationMap.remove(parameterName);
-    if (methodAnnotations == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Annotation`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/SwaggerGeneratorUtils.java`
-#### Snippet
-```java
-  }
-
-  public static Type collectGenericType(List<Annotation> annotations, Type defaultType) {
-    Type genericType = null;
-    for (Annotation annotation : annotations) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Annotation`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/SwaggerGeneratorUtils.java`
-#### Snippet
-```java
-  }
-
-  public static HttpParameterType collectHttpParameterType(List<Annotation> annotations, Type genericType) {
-    // use the last available type
-    for (int idx = annotations.size() - 1; idx >= 0; idx--) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ParameterGenerator`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/pojo/PojoOperationGenerator.java`
-#### Snippet
-```java
-  }
-
-  private void wrapParametersToBody(List<ParameterGenerator> bodyFields) {
-    String simpleRef = MethodUtils.findSwaggerMethodName(method) + "Body";
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-  }
-
-  private void addSecurityDefinition(Map<String, SecuritySchemeDefinition> definitionMap,
-      String key, SecuritySchemeDefinition definition) {
-    if (StringUtils.isEmpty(key) || definition == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super SecuritySchemeDefinition`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-  }
-
-  private void addSecurityDefinition(Map<String, SecuritySchemeDefinition> definitionMap,
-      String key, SecuritySchemeDefinition definition) {
-    if (StringUtils.isEmpty(key) || definition == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Model`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/AnnotationUtils.java`
-#### Snippet
-```java
-  }
-
-  public static void appendDefinition(Swagger swagger, Map<String, Model> newDefinitions) {
-    if (newDefinitions.isEmpty()) {
       return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ResponseHeaderConfig`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/AnnotationUtils.java`
-#### Snippet
-```java
-
-  private static Map<String, Property> generateResponseHeader(Swagger swagger,
-      List<ResponseHeaderConfig> responseHeaders) {
-    Map<String, Property> headers = new HashMap<>();
-    for (ResponseHeaderConfig config : responseHeaders) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends MatchOperator`
-in `governance/src/main/java/org/apache/servicecomb/governance/marker/RequestProcessor.java`
-#### Snippet
-```java
-  private ApplicationContext applicationContext;
-
-  public RequestProcessor(Map<String, MatchOperator> operatorMap) {
-    this.operatorMap = operatorMap;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
-#### Snippet
-```java
-  }
-
-  private void addMethodAnnotationByParameterName(Map<String, List<Annotation>> methodAnnotations, String name,
-                                                  Annotation annotation) {
-    if (StringUtils.isEmpty(name)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super K`
-in `governance/src/main/java/org/apache/servicecomb/governance/service/GovernanceCacheImpl.java`
-#### Snippet
-```java
-  private final Cache<K, V> cache;
-
-  public GovernanceCacheImpl(Cache<K, V> cache) {
-    this.cache = cache;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `governance/src/main/java/org/apache/servicecomb/governance/processor/injection/Fault.java`
-#### Snippet
-```java
-
-public interface Fault {
-  static <T> CheckedFunction0<T> decorateCheckedSupplier(Fault fault, CheckedFunction0<T> supplier) {
-    return () -> {
-      if (fault.injectFault()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
-#### Snippet
-```java
-
-  private void getProperties(PropertySource<?> propertySource,
-      Set<String> allKeys) {
-    if (propertySource instanceof CompositePropertySource) {
-      // recursively get EnumerablePropertySource
-```
-
-### BoundedWildcard
-Can generalize to `? extends Filter`
-in `core/src/main/java/org/apache/servicecomb/core/filter/FilterChainsManager.java`
-#### Snippet
-```java
-
-  @Autowired
-  public FilterChainsManager addFilters(List<Filter> filters) {
-    for (Filter filter : filters) {
-      if (filter.isEnabledForInvocationType(InvocationType.CONSUMER)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Filter`
-in `core/src/main/java/org/apache/servicecomb/core/filter/FilterNode.java`
-#### Snippet
-```java
-  }
-
-  public static FilterNode buildChain(List<Filter> filters) {
-    List<FilterNode> filterNodes = filters.stream()
-        .map(FilterNode::new).toList();
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/AbstractRouterDistributor.java`
-#### Snippet
-```java
-
-  @Override
-  public void init(Function<T, E> getIns,
-      Function<E, String> getVersion,
-      Function<E, String> getServerName,
-```
-
-### BoundedWildcard
-Can generalize to `? extends E`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/AbstractRouterDistributor.java`
-#### Snippet
-```java
-
-  @Override
-  public void init(Function<T, E> getIns,
-      Function<E, String> getVersion,
-      Function<E, String> getServerName,
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/AbstractRouterDistributor.java`
-#### Snippet
-```java
-  @Override
-  public void init(Function<T, E> getIns,
-      Function<E, String> getVersion,
-      Function<E, String> getServerName,
-      Function<E, Map<String, String>> getProperties) {
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/AbstractRouterDistributor.java`
-#### Snippet
-```java
-  public void init(Function<T, E> getIns,
-      Function<E, String> getVersion,
-      Function<E, String> getServerName,
-      Function<E, Map<String, String>> getProperties) {
-    this.getIns = getIns;
-```
-
-### BoundedWildcard
-Can generalize to `? super E`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/AbstractRouterDistributor.java`
-#### Snippet
-```java
-      Function<E, String> getVersion,
-      Function<E, String> getServerName,
-      Function<E, Map<String, String>> getProperties) {
-    this.getIns = getIns;
-    this.getVersion = getVersion;
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/AbstractRouterDistributor.java`
-#### Snippet
-```java
-      Function<E, String> getVersion,
-      Function<E, String> getServerName,
-      Function<E, Map<String, String>> getProperties) {
-    this.getIns = getIns;
-    this.getVersion = getVersion;
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/AbstractRouterDistributor.java`
-#### Snippet
-```java
-   */
-  private Map<TagItem, List<T>> getDistributList(String serviceName,
-      List<T> list,
-      PolicyRuleItem invokeRule) {
-    String latestV = routerRuleCache.getServiceInfoCacheMap().get(serviceName).getLatestVersionTag()
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/AbstractRouterDistributor.java`
-#### Snippet
-```java
-  }
-
-  public List<T> getLatestVersionList(List<T> list, String targetServiceName) {
-    String latestV = routerRuleCache.getServiceInfoCacheMap().get(targetServiceName)
-        .getLatestVersionTag().getVersion();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/AbstractRouterDistributor.java`
-#### Snippet
-```java
-
-
-  public void initLatestVersion(String serviceName, List<T> list) {
-    String latestVersion = null;
-    for (T server : list) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
-#### Snippet
-```java
-   */
-  private void getProperties(ConfigurableEnvironment environment, PropertySource<?> propertySource,
-      Map<String, Object> configFromSpringBoot) {
-    if (propertySource instanceof CompositePropertySource) {
-      // recursively get EnumerablePropertySource
-```
-
-### BoundedWildcard
-Can generalize to `? extends BootListener`
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-  }
-
-  public void addBootListeners(Collection<BootListener> bootListeners) {
-    this.bootListeners.addAll(bootListeners);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProducerMeta`
-in `core/src/main/java/org/apache/servicecomb/core/provider/producer/ProducerProviderManager.java`
-#### Snippet
-```java
-  }
-
-  private void registerProducerMetas(List<ProducerMeta> producerMetas) {
-    for (ProducerMeta producerMeta : producerMetas) {
-      registerSchema(producerMeta.getSchemaId(), producerMeta.getSchemaInterface(), producerMeta.getInstance());
-```
-
-### BoundedWildcard
-Can generalize to `? extends Endpoint`
-in `core/src/main/java/org/apache/servicecomb/core/filter/impl/SimpleLoadBalanceFilter.java`
-#### Snippet
-```java
     }
-
-    private Endpoint chooseEndpoint(Invocation invocation, String key, List<Endpoint> endpoints) {
-      AtomicInteger index = indexMap.computeIfAbsent(key, name -> {
-        LOGGER.info("Create loadBalancer for {}.", name);
+    sb.append(""
+        + "producer:\n"
+        + " simple:\n"
 ```
 
-### BoundedWildcard
-Can generalize to `? extends MicroserviceInstance`
-in `core/src/main/java/org/apache/servicecomb/core/registry/discovery/OperationInstancesDiscoveryFilter.java`
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
 #### Snippet
 ```java
 
-  protected List<MicroserviceVersion> sortedMicroserviceVersion(Invocation invocation,
-      Map<String, MicroserviceInstance> instances) {
-    OperationMeta latestOperationMeta = invocation.getOperationMeta();
-    MicroserviceMeta latestMicroserviceMeta = latestOperationMeta.getSchemaMeta().getMicroserviceMeta();
+  //details
+  private static final String PRODUCER_DETAILS_FORMAT = ""
+      + "        prepare: %-18s queue       : %-18s filtersReq : %-18s handlersReq: %s\n"
+      + "        execute: %-18s handlersResp: %-18s filtersResp: %-18s sendResp   : %s\n";
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Transport`
-in `core/src/main/java/org/apache/servicecomb/core/transport/TransportManager.java`
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
 #### Snippet
 ```java
-  }
+      + "        cFiltersResp: %-18s handlersResp: %s\n";
 
-  protected void checkTransportGroup(List<Transport> group) {
-    // order value must be different, otherwise, maybe will choose a random transport
-    Map<Integer, Transport> orderMap = new HashMap<>();
+  private static final String EDGE_DETAILS_FORMAT = ""
+      + "        prepare     : %-18s queue       : %-18s sFiltersReq : %-18s handlersReq : %s\n"
+      + "        cFiltersReq : %-18s sendReq     : %-18s getConnect  : %-18s writeBuf    : %s\n"
 ```
 
-### BoundedWildcard
-Can generalize to `? extends Transport`
-in `core/src/main/java/org/apache/servicecomb/core/transport/TransportManager.java`
-#### Snippet
-```java
-  }
-
-  public void addTransportsBeforeInit(List<Transport> transports) {
-    this.transports.addAll(transports);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Transport`
-in `core/src/main/java/org/apache/servicecomb/core/transport/TransportManager.java`
-#### Snippet
-```java
-  }
-
-  protected Transport chooseOneTransport(List<Transport> group) {
-    group.sort(Comparator.comparingInt(Transport::getOrder));
-
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `core/src/main/java/org/apache/servicecomb/core/governance/ServiceCombConfigurationEventAdapter.java`
-#### Snippet
-```java
-  }
-
-  private void addMap(Set<String> keys, Map<String, Object> changed) {
-    if (changed != null) {
-      keys.addAll(changed.keySet());
-```
-
-### BoundedWildcard
-Can generalize to `? extends MicroserviceInstance`
-in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/SchemaDiscovery.java`
-#### Snippet
-```java
-
-  @Override
-  public String getSchema(String microserviceId, Collection<MicroserviceInstance> instances, String schemaId) {
-    if (instances == null || instances.isEmpty()) {
-      return null;
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `foundations/foundation-spi/src/main/java/org/apache/servicecomb/foundation/common/utils/SPIServiceUtils.java`
-#### Snippet
-```java
-  }
-
-  public static <T> Collection<T> getPriorityHighestServices(Function<T, String> keyFunc, Class<T> serviceType) {
-    List<T> services = getOrLoadSortedService(serviceType);
-    if (services.isEmpty()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/StandardHttpServletRequestEx.java`
-#### Snippet
-```java
-  }
-
-  private void mergeParameterMaptoListMap(Map<String, List<String>> listMap) {
-    for (Entry<String, String[]> entry : super.getParameterMap().entrySet()) {
-      List<String> values = listMap.computeIfAbsent(entry.getKey(), k -> new ArrayList<>());
-```
-
-### BoundedWildcard
-Can generalize to `? extends CLIENT_POOL`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/client/ClientPoolManager.java`
-#### Snippet
-```java
-  private final AtomicInteger reactiveNextIndex = new AtomicInteger();
-
-  public ClientPoolManager(Vertx vertx, ClientPoolFactory<CLIENT_POOL> factory) {
-    this.vertx = vertx;
-    this.factory = factory;
-```
-
-### BoundedWildcard
-Can generalize to `? extends TcpData`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/client/tcp/TcpClientConnection.java`
-#### Snippet
-```java
-  }
-
-  private void onLoginResponse(AsyncResult<TcpData> asyncResult) {
-    if (asyncResult.failed()) {
-      LOGGER.error("login failed, address {}", socketAddress.toString(), asyncResult.cause());
-```
-
-### BoundedWildcard
-Can generalize to `? super InetSocketAddress`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/server/TcpServer.java`
-#### Snippet
-```java
-  }
-
-  public void init(Vertx vertx, String sslKey, AsyncResultCallback<InetSocketAddress> callback) {
-    NetServer netServer;
-    if (endpointObject.isSslEnabled()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
-#### Snippet
-```java
-  @SuppressWarnings("unchecked")
-  public CompletableFuture<Void> pump(Context context, ReadStream<Buffer> readStream, WriteStream<Buffer> writeStream,
-      Handler<Throwable> throwableHandler) {
-    CompletableFuture<Void> readFuture = new CompletableFuture<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Buffer`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
-#### Snippet
-```java
-  }
-
-  public <T> CompletableFuture<T> saveAs(Function<Buffer, T> converter) {
-    CompletableFuture<T> future = new CompletableFuture<>();
-    Buffer buffer = Buffer.buffer();
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
-#### Snippet
-```java
-  }
-
-  public <T> CompletableFuture<T> saveAs(Function<Buffer, T> converter) {
-    CompletableFuture<T> future = new CompletableFuture<>();
-    Buffer buffer = Buffer.buffer();
-```
-
-### BoundedWildcard
-Can generalize to `? extends AsyncFile`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
-#### Snippet
-```java
-  }
-
-  protected void onFileOpened(File file, AsyncResult<AsyncFile> ar, CompletableFuture<File> future) {
-    if (ar.failed()) {
-      future.completeExceptionally(ar.cause());
-```
-
-### BoundedWildcard
-Can generalize to `? super File`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
-#### Snippet
-```java
-  }
-
-  protected void onFileOpened(File file, AsyncResult<AsyncFile> ar, CompletableFuture<File> future) {
-    if (ar.failed()) {
-      future.completeExceptionally(ar.cause());
-```
-
-### BoundedWildcard
-Can generalize to `? extends ReadResult`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/InputStreamToReadStream.java`
-#### Snippet
-```java
-  }
-
-  private synchronized void afterReadInEventloop(AsyncResult<ReadResult> ar) {
-    if (ar.failed()) {
-      handleException(ar.cause());
-```
-
-### BoundedWildcard
-Can generalize to `? super ReadResult`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/InputStreamToReadStream.java`
-#### Snippet
-```java
-  }
-
-  private synchronized void readInWorker(Promise<ReadResult> future) {
-    try {
-      ReadResult readResult = new ReadResult();
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthHeaderProvider`
-in `dynamic-config/config-kie/src/main/java/org/apache/servicecomb/config/kie/KieConfigurationSourceImpl.java`
-#### Snippet
-```java
-  }
-
-  private static RequestAuthHeaderProvider getRequestAuthHeaderProvider(List<AuthHeaderProvider> authHeaderProviders) {
-    return signRequest -> {
-      Map<String, String> headers = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends MicroserviceInstance`
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterDiscovery.java`
-#### Snippet
-```java
-  }
-
-  private static String instanceToString(List<MicroserviceInstance> instances) {
-    if (instances == null) {
-      return "";
-```
-
-### BoundedWildcard
-Can generalize to `? extends MicroserviceInstance`
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterDiscovery.java`
-#### Snippet
-```java
-  }
-
-  private void setMicroserviceInfo(List<MicroserviceInstance> instances) {
-    instances.forEach(instance -> {
-      Microservice microservice = microserviceCache
-```
-
-### BoundedWildcard
-Can generalize to `? extends SchemaInfo`
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterRegistration.java`
-#### Snippet
-```java
-  }
-
-  public ServiceCenterRegistration setSchemaInfos(List<SchemaInfo> schemaInfos) {
-    this.schemaInfos = schemaInfos;
-    return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpClientFilter`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/filter/HttpClientFilterBeforeSendRequestExecutor.java`
-#### Snippet
-```java
-  private final CompletableFuture<Void> future = new CompletableFuture<>();
-
-  public HttpClientFilterBeforeSendRequestExecutor(List<HttpClientFilter> httpClientFilters, Invocation invocation,
-      HttpServletRequestEx requestEx) {
-    this.httpClientFilters = httpClientFilters;
-```
-
-### BoundedWildcard
-Can generalize to `? extends HttpServerFilter`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/filter/HttpServerFilterBeforeSendResponseExecutor.java`
-#### Snippet
-```java
-  private final CompletableFuture<Void> future = new CompletableFuture<>();
-
-  public HttpServerFilterBeforeSendResponseExecutor(List<HttpServerFilter> httpServerFilters, Invocation invocation,
-      HttpServletResponseEx responseEx) {
-    this.httpServerFilters = httpServerFilters;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProduceProcessor`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/produce/ProduceProcessorManager.java`
-#### Snippet
-```java
-
-  private static ProduceProcessor cloneNewProduceProcessor(Class<?> serialViewClass,
-      Map<String, ProduceProcessor> produceViewMap) {
-    ProduceProcessor newInstance;
-    try {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RestOperationMeta`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/locator/ServicePathManager.java`
-#### Snippet
-```java
-  }
-
-  private void addProducerPaths(String urlPrefix, Collection<RestOperationMeta> restOperationMetas) {
-    for (RestOperationMeta swaggerRestOperation : restOperationMetas) {
-      RestOperationMeta producerRestOperation = swaggerRestOperation;
-```
-
-### BoundedWildcard
-Can generalize to `? extends OperationGroup`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/locator/OperationLocator.java`
-#### Snippet
-```java
-
-  protected RestOperationMeta locateStaticPathOperation(String path, String httpMethod,
-      Map<String, OperationGroup> staticPathOperations) {
-    OperationGroup group = staticPathOperations.get(path);
-    if (group == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RestOperationMeta`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/locator/OperationLocator.java`
-#### Snippet
-```java
-  }
-
-  protected RestOperationMeta locateDynamicPathOperation(String path, Collection<RestOperationMeta> resourceList,
-      String httpMethod) {
-    for (RestOperationMeta resource : resourceList) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RestOperationMeta`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/locator/MicroservicePaths.java`
-#### Snippet
-```java
-  }
-
-  protected void printPath(Collection<RestOperationMeta> operations) {
-    for (RestOperationMeta operation : operations) {
-      SwaggerProducerOperation producerOperation = operation.getOperationMeta().getSwaggerProducerOperation();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Entry`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/RestClientRequestImpl.java`
-#### Snippet
-```java
-  }
-
-  private void attachFile(String boundary, Iterator<Entry<String, Part>> uploadsIterator) {
-    if (!uploadsIterator.hasNext()) {
-      writeBuffer(boundaryEndInfo(boundary)).onSuccess(v -> request.end()).onFailure(e -> asyncResp.consumerFail(e));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-  // 则addressId取值为456
-  // 即后面的总是覆盖前面的
-  public String match(String path, Map<String, String> varValues) {
-    Matcher matcher = pattern.matcher(path);
-    if (!matcher.matches()) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-  // 则addressId取值为456
-  // 即后面的总是覆盖前面的
-  public String match(String path, Map<String, String> varValues) {
-    Matcher matcher = pattern.matcher(path);
-    if (!matcher.matches()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends BasePath`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/ServiceCenterRegistration.java`
-#### Snippet
-```java
-
-  @Override
-  public void addBasePath(Collection<BasePath> basePaths) {
-    RegistryUtils.executeOnEachServiceRegistry(sr -> sr.getMicroservice().getPaths().addAll(basePaths));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends RestParam`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/URLPathBuilder.java`
-#### Snippet
-```java
-  }
-
-  private void initQueryWriterList(Map<String, RestParam> paramMap) {
-    for (RestParam param : paramMap.values()) {
-      if (!QueryProcessorCreator.PARAMTYPE.equals(param.getParamProcessor().getProcessorType())) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends RestParam`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/URLPathBuilder.java`
-#### Snippet
-```java
-  }
-
-  private void initPathWriterList(String rawPath, Map<String, RestParam> paramMap) {
-    // 去掉末尾'/'
-    if (rawPath.endsWith(SLASH)) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ServiceRegistry`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/RegistryUtils.java`
-#### Snippet
-```java
-  }
-
-  public static void executeOnEachServiceRegistry(Consumer<ServiceRegistry> action) {
-    if (null != getServiceRegistry()) {
-      action.accept(getServiceRegistry());
-```
-
-### BoundedWildcard
-Can generalize to `? super ServiceRegistry`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/RegistryUtils.java`
-#### Snippet
-```java
-  }
-
-  public static <T> T getResultFromFirstValidServiceRegistry(Function<ServiceRegistry, T> action) {
-    Holder<T> resultHolder = new Holder<>();
-    executeOnEachServiceRegistry(sr -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceCenterClient`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/auth/TokenCacheManager.java`
-#### Snippet
-```java
-  }
-
-  public void setServiceCenterClients(Map<String, ServiceCenterClient> serviceCenterClients) {
-    this.serviceCenterClients = serviceCenterClients;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/MicroserviceRegisterTask.java`
-#### Snippet
-```java
-  }
-
-  private Map<String, GetSchemaResponse> convertScSchemaMap(Holder<List<GetSchemaResponse>> scSchemaHolder) {
-    Map<String, GetSchemaResponse> scSchemaMap = new HashMap<>();
-    List<GetSchemaResponse> scSchemaList = scSchemaHolder.getValue();
-```
-
-### BoundedWildcard
-Can generalize to `? extends GetSchemaResponse`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/MicroserviceRegisterTask.java`
-#### Snippet
-```java
-   * or not exist in sc.
-   */
-  private boolean registerSchema(Map<String, GetSchemaResponse> scSchemaMap,
-      Entry<String, String> localSchemaEntry) {
-    GetSchemaResponse scSchema = scSchemaMap.get(localSchemaEntry.getKey());
-```
-
-### BoundedWildcard
-Can generalize to `? super ServiceRegistry`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/config/ServiceRegistryConfig.java`
-#### Snippet
-```java
-
-  public ServiceRegistryConfig setServiceRegistryClientConstructor(
-      Function<ServiceRegistry, ServiceRegistryClient> serviceRegistryClientConstructor) {
-    this.serviceRegistryClientConstructor = serviceRegistryClientConstructor;
-    return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceRegistryClient`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/config/ServiceRegistryConfig.java`
-#### Snippet
-```java
-
-  public ServiceRegistryConfig setServiceRegistryClientConstructor(
-      Function<ServiceRegistry, ServiceRegistryClient> serviceRegistryClientConstructor) {
-    this.serviceRegistryClientConstructor = serviceRegistryClientConstructor;
-    return this;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceRegistry`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/AggregateMicroserviceCache.java`
-#### Snippet
-```java
-  private final Object refreshLock = new Object();
-
-  public AggregateMicroserviceCache(MicroserviceCacheKey key, Collection<ServiceRegistry> serviceRegistries) {
-    this.key = key;
-    this.serviceRegistries = serviceRegistries;
-```
-
-### BoundedWildcard
-Can generalize to `? extends CacheEndpoint`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/refresh/ClassificationAddress.java`
-#### Snippet
-```java
-  }
-
-  private DataCenterInfo findRegion(List<CacheEndpoint> CacheEndpoints) {
-    for (CacheEndpoint cacheEndpoint : CacheEndpoints) {
-      boolean isMatch = cacheEndpoint.getEndpoint().contains(this.defaultIpPort.get(0).getHostOrIp());
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/RefreshableServiceRegistryCache.java`
+## RuleId[id=RedundantTypeArguments]
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/OutputStreamToWriteStream.java`
 #### Snippet
 ```java
   @Override
-  public ServiceRegistryCache setCacheRefreshedWatcher(
-      Consumer<List<MicroserviceCache>> cacheRefreshedWatcher) {
-    this.cacheRefreshedWatcher = cacheRefreshedWatcher;
-    return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super Void`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/WebsocketClientUtil.java`
-#### Snippet
-```java
-  }
-
-  public void open(IpPort ipPort, String url, Handler<Void> onOpen, Handler<Void> onClose,
-      Handler<Buffer> onMessage, Handler<Throwable> onException,
-      Handler<Throwable> onConnectFailed) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Buffer`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/WebsocketClientUtil.java`
-#### Snippet
-```java
-
-  public void open(IpPort ipPort, String url, Handler<Void> onOpen, Handler<Void> onClose,
-      Handler<Buffer> onMessage, Handler<Throwable> onException,
-      Handler<Throwable> onConnectFailed) {
-    HttpClientWithContext vertxHttpClient = websocketClientPool.getClient();
-```
-
-### BoundedWildcard
-Can generalize to `? super Type`
-in `swagger/swagger-generator/generator-spring-data/src/main/java/org/apache/servicecomb/swagger/generator/springdata/SpringDataConcreteTypeRegister.java`
-#### Snippet
-```java
-public class SpringDataConcreteTypeRegister implements ConcreteTypeRegister {
-  @Override
-  public void register(Set<Type> types) {
-    types.add(Page.class);
-    types.add(Pageable.class);
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/WebsocketClientUtil.java`
-#### Snippet
-```java
-
-  public void open(IpPort ipPort, String url, Handler<Void> onOpen, Handler<Void> onClose,
-      Handler<Buffer> onMessage, Handler<Throwable> onException,
-      Handler<Throwable> onConnectFailed) {
-    HttpClientWithContext vertxHttpClient = websocketClientPool.getClient();
-```
-
-### BoundedWildcard
-Can generalize to `? super Throwable`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/WebsocketClientUtil.java`
-#### Snippet
-```java
-  public void open(IpPort ipPort, String url, Handler<Void> onOpen, Handler<Void> onClose,
-      Handler<Buffer> onMessage, Handler<Throwable> onException,
-      Handler<Throwable> onConnectFailed) {
-    HttpClientWithContext vertxHttpClient = websocketClientPool.getClient();
-    vertxHttpClient.runOnContext(client -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super List`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/AggregateServiceRegistryCache.java`
-#### Snippet
-```java
-
-  @Override
-  public ServiceRegistryCache setCacheRefreshedWatcher(Consumer<List<MicroserviceCache>> cacheRefreshedWatcher) {
-    this.cacheRefreshedWatcher = cacheRefreshedWatcher;
-    return this;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigMapping.java`
-#### Snippet
-```java
-  }
-
-  private static void putConfigsToRetMap(Map<String, Object> retMap, Map.Entry<String, Object> entry,
-      Object configValue) {
-    if (configValue != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Boolean`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/DynamicPropertiesImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public boolean getBooleanProperty(String propertyName, Consumer<Boolean> consumer, boolean defaultValue) {
-    DynamicBooleanProperty prop = propertyFactoryInstance().getBooleanProperty(propertyName, defaultValue);
-    prop.addCallback(() -> consumer.accept(prop.get()));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/DynamicPropertiesImpl.java`
-#### Snippet
-```java
-
-  @Override
-  public String getStringProperty(String propertyName, Consumer<String> consumer, String defaultValue) {
-    DynamicStringProperty prop = propertyFactoryInstance().getStringProperty(propertyName, defaultValue);
-    prop.addCallback(() -> consumer.accept(prop.get()));
-```
-
-### BoundedWildcard
-Can generalize to `? super RestResponse`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RestClientUtil.java`
-#### Snippet
-```java
-  }
-
-  public void httpDo(long timeout, RequestContext requestContext, Handler<RestResponse> responseHandler) {
-    HttpClientWithContext vertxHttpClient = httpClientPool.getClient();
-    vertxHttpClient.runOnContext(httpClient -> {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/PriorityProperty.java`
-#### Snippet
-```java
-  private T finalValue;
-
-  public PriorityProperty(PriorityPropertyType<T> propertyType) {
-    this.propertyType = propertyType;
-    this.joinedPriorityKeys = Arrays.toString(propertyType.getPriorityKeys());
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceCombServer`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/RoundRobinRuleExt.java`
-#### Snippet
-```java
-
-  @Override
-  public ServiceCombServer choose(List<ServiceCombServer> servers, Invocation invocation) {
-    if (servers.isEmpty()) {
-      return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceCombServer`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/RandomRuleExt.java`
-#### Snippet
-```java
-public class RandomRuleExt implements RuleExt {
-  @Override
-  public ServiceCombServer choose(List<ServiceCombServer> servers, Invocation invocation) {
-    if (servers.isEmpty()) {
-      return null;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ExtensionsFactory`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/ExtensionsManager.java`
-#### Snippet
-```java
-  private final List<ExtensionsFactory> extensionsFactories;
-
-  public ExtensionsManager(List<ExtensionsFactory> extensionsFactories) {
-    this.extensionsFactories = extensionsFactories;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceCombServer`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/WeightedResponseTimeRuleExt.java`
-#### Snippet
-```java
-  }
-
-  private List<Double> doCalculateTotalWeights(List<ServiceCombServer> servers) {
-    List<Double> stats = new ArrayList<>(servers.size() + 1);
-    double totalWeights = 0;
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProducerResponseMapper`
-in `swagger/swagger-invocation/invocation-springmvc/src/main/java/org/apache/servicecomb/swagger/invocation/springmvc/response/SpringmvcProducerResponseMapperFactory.java`
-#### Snippet
-```java
-
-  @Override
-  public ProducerResponseMapper createResponseMapper(ResponseMapperFactorys<ProducerResponseMapper> factorys,
-      Type producerType) {
-    Type realProducerType = ((ParameterizedType) producerType).getActualTypeArguments()[0];
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceCombServer`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/filterext/ZoneAwareDiscoveryFilter.java`
-#### Snippet
-```java
-
-  @Override
-  public List<ServiceCombServer> getFilteredListOfServers(List<ServiceCombServer> servers,
-      Invocation invocation) {
-    MicroserviceInstance myself = RegistrationManager.INSTANCE.getMicroserviceInstance();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConsumerResponseMapper`
-in `swagger/swagger-invocation/invocation-springmvc/src/main/java/org/apache/servicecomb/swagger/invocation/springmvc/response/SpringmvcConsumerResponseMapperFactory.java`
-#### Snippet
-```java
-
-  @Override
-  public ConsumerResponseMapper createResponseMapper(ResponseMapperFactorys<ConsumerResponseMapper> factorys,
-      Type consumerType) {
-    Type realConsumerType = ((ParameterizedType) consumerType).getActualTypeArguments()[0];
-```
-
-### BoundedWildcard
-Can generalize to `? extends MonitorDataProvider`
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/DataFactory.java`
-#### Snippet
-```java
-  }
-
-  public void setMonitorDataProviders(List<MonitorDataProvider> dataProviders) {
-    this.dataProviders = dataProviders;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AuthHeaderProvider`
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/DefaultMonitorDataPublisher.java`
-#### Snippet
-```java
-  }
-
-  private static RequestAuthHeaderProvider getRequestAuthHeaderProvider(List<AuthHeaderProvider> authHeaderProviders) {
-    return signRequest -> {
-      Map<String, String> headers = new HashMap<>();
-```
-
-### BoundedWildcard
-Can generalize to `? extends BasePath`
-in `service-registry/registry-lightweight/src/main/java/org/apache/servicecomb/registry/lightweight/AbstractLightweightRegistration.java`
-#### Snippet
-```java
-
-  @Override
-  public void addBasePath(Collection<BasePath> basePaths) {
-    self.getMicroservice().getPaths().addAll(basePaths);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/MetricsMonitorDataProvider.java`
-#### Snippet
-```java
-  }
-
-  private void extractEdgeInfo(DefaultPublishModel model, Map<String, InterfaceInfo> combinedResults) {
-    OperationPerfGroups edgePerf = model.getEdge().getOperationPerfGroups();
-    if (edgePerf == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/MetricsMonitorDataProvider.java`
-#### Snippet
-```java
-  }
-
-  private void extractProviderInfo(DefaultPublishModel model, Map<String, InterfaceInfo> combinedResults) {
-    OperationPerfGroups producerPerf = model.getProducer().getOperationPerfGroups();
-    if (producerPerf == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/MetricsMonitorDataProvider.java`
-#### Snippet
-```java
-  }
-
-  private void extractConsumerInfo(DefaultPublishModel model, Map<String, InterfaceInfo> combinedResults) {
-    OperationPerfGroups consumerPerf = model.getConsumer().getOperationPerfGroups();
-    if (consumerPerf == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/ConfigObjectFactory.java`
-#### Snippet
-```java
-  }
-
-  public <T> ConfigObject<T> create(Class<T> cls, Map<String, Object> parameters) {
-    try {
-      return create(cls.getDeclaredConstructor().newInstance(), parameters);
-```
-
-### BoundedWildcard
-Can generalize to `? super Measurement`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/meter/LatencyDistributionMeter.java`
-#### Snippet
-```java
-
-  @Override
-  public void calcMeasurements(List<Measurement> measurements, long msNow, long secondInterval) {
-    latencyScopeMeters.forEach(latencyScopeMeter -> measurements.add(latencyScopeMeter.createMeasurement(msNow)));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super Measurement`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/meter/SimpleTimer.java`
-#### Snippet
-```java
-
-  @Override
-  public void calcMeasurements(List<Measurement> measurements, long msNow, long secondInterval) {
-    long currentCount = count.longValue();
-    long currentTotalTime = totalTime.longValue();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Tag`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/DefaultTagFinder.java`
-#### Snippet
-```java
-
-  @Override
-  public Tag find(Iterable<Tag> tags) {
-    for (Tag tag : tags) {
-      if (tag.key().equals(tagKey)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Meter`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/MeasurementTree.java`
-#### Snippet
-```java
-  //   value: id tag keys
-  // only id name exists in groupConfig will accept, others will be ignored
-  public void from(Iterator<Meter> meters, MeasurementGroupConfig groupConfig) {
-    meters.forEachRemaining(meter -> {
-      Iterable<Measurement> measurements = meter.measure();
-```
-
-### BoundedWildcard
-Can generalize to `? super Promise`
-in `foundations/foundation-test-scaffolding/src/main/java/io/vertx/core/impl/SyncContext.java`
-#### Snippet
-```java
-  }
-
-  private static <T> Future<T> syncExecuteBlocking(Handler<Promise<T>> blockingCodeHandler) {
-    Promise<T> res = Promise.promise();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Promise`
-in `foundations/foundation-test-scaffolding/src/main/java/io/vertx/core/impl/SyncContext.java`
-#### Snippet
-```java
-  }
-
-  public static <T> void syncExecuteBlocking(Handler<Promise<T>> blockingCodeHandler,
-      Handler<AsyncResult<T>> asyncResultHandler) {
-    Promise<T> res = Promise.promise();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/inject/PlaceholderResolver.java`
-#### Snippet
-```java
-  // resolve placeholder and execute cartesian product
-  @SuppressWarnings("unchecked")
-  private void resolve(Row row, List<String> resolvedRows) {
-    List<StringBuilder> stringBuilders = new ArrayList<>();
-    for (int idx = 0; idx < row.cartesianProductCount; idx++) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Row`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/inject/PlaceholderResolver.java`
-#### Snippet
-```java
-
-  private void replaceToRows(String str, Map<String, Object> parameters, List<String> remainRows,
-      List<Row> finalRows) {
-    Row row = parseToRow(str, parameters);
-    if (row.varCount == 0 && row.cartesianProductCount == 1) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ResponseWrapper`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-  // temporary copy from syncHandler
-  // we will use swagger invocation to replace restClientUtil later.
-  private Handler<RestResponse> syncHandlerEx(CountDownLatch countDownLatch, Holder<ResponseWrapper> holder) {
-    return restResponse -> {
-      RequestContext requestContext = restResponse.getRequestContext();
-```
-
-### BoundedWildcard
-Can generalize to `? super Void`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-
-  public void watch(String selfMicroserviceId, AsyncResultCallback<MicroserviceInstanceChangedEvent> callback,
-      AsyncResultCallback<Void> onOpen, AsyncResultCallback<Void> onClose) {
-    Boolean alreadyWatch = watchServices.get(selfMicroserviceId);
-    if (alreadyWatch == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends T`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  @SuppressWarnings("unchecked")
-  public <T> Handler<RestResponse> syncHandler(CountDownLatch countDownLatch, Class<T> cls,
-                                                Holder<T> holder) {
-    return restResponse -> {
-```
-
-### BoundedWildcard
-Can generalize to `? super T`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-  @SuppressWarnings("unchecked")
-  public <T> Handler<RestResponse> syncHandler(CountDownLatch countDownLatch, Class<T> cls,
-                                                Holder<T> holder) {
-    return restResponse -> {
-      RequestContext requestContext = restResponse.getRequestContext();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Parameter`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
-#### Snippet
-```java
-  }
-
-  private void createWrapArgs(String wrapName, List<Parameter> parameters) {
-    Map<String, Object> properties = new LinkedHashMap<>();
-    for (Parameter parameter : parameters) {
-```
-
-### BoundedWildcard
-Can generalize to `? super PRIMITIVE_ARRAY`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/RepeatedPrimitiveWriteSchemas.java`
-#### Snippet
-```java
-
-    public PrimitiveArraySchema(Field protoField, PropertyDescriptor propertyDescriptor,
-        AbstractPrimitiveWriters<PRIMITIVE_ARRAY, PRIMITIVE_WRAPPER> writers) {
-      super(protoField, propertyDescriptor, writers);
-      this.getter = propertyDescriptor.getGetter();
-```
-
-### BoundedWildcard
-Can generalize to `? extends Number`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumNotPackedWriteSchemas.java`
-#### Snippet
-```java
-    }
-
-    private void writeIntCollection(OutputEx output, Collection<Number> collection) throws IOException {
-      for (Number element : collection) {
-        if (element == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Enum`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumNotPackedWriteSchemas.java`
-#### Snippet
-```java
-    }
-
-    private void writeEnumCollection(OutputEx output, Collection<Enum<?>> collection) throws IOException {
-      for (Enum<?> element : collection) {
-        if (element == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Enum`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumPackedWriteSchemas.java`
-#### Snippet
-```java
-    }
-
-    private void writeEnumCollection(OutputEx output, Collection<Enum<?>> collection) throws IOException {
-      for (Enum<?> element : collection) {
-        if (element == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends Number`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumPackedWriteSchemas.java`
-#### Snippet
-```java
-    }
-
-    private void writeIntCollection(OutputEx output, Collection<Number> collection) throws IOException {
-      for (Number element : collection) {
-        if (element == null) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends BasePath`
-in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistration.java`
-#### Snippet
-```java
-
-  @Override
-  public void addBasePath(Collection<BasePath> basePaths) {
-    localRegistrationStore.getSelfMicroservice().getPaths().addAll(basePaths);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends Map`
-in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/RegistryBean.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  private static List<Instance> validInstances(List<Map<String, Object>> instancesConfig) {
-    if (instancesConfig == null) {
-      return Collections.emptyList();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ServiceCombServer`
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/DarklaunchServerListFilter.java`
-#### Snippet
-```java
-  }
-
-  private void divideServerGroup(List<ServiceCombServer> serverList, DarklaunchRule rule,
-      List<ServiceCombServer> defaultGroup) {
-    for (ServiceCombServer server : serverList) {
-```
-
-### BoundedWildcard
-Can generalize to `? super ServiceCombServer`
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/DarklaunchServerListFilter.java`
-#### Snippet
-```java
-
-  private void divideServerGroup(List<ServiceCombServer> serverList, DarklaunchRule rule,
-      List<ServiceCombServer> defaultGroup) {
-    for (ServiceCombServer server : serverList) {
-      boolean hasGroup = false;
-```
-
-### BoundedWildcard
-Can generalize to `? extends RegistryBean`
-in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
-#### Snippet
-```java
-  }
-
-  private void initRegistryFromBeans(List<RegistryBean> beans) {
-    beans.forEach((bean -> {
-      Microservice microservice = new Microservice();
-```
-
-### BoundedWildcard
-Can generalize to `? extends VertxRestAccessLogItemMeta`
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/parser/impl/VertxRestAccessLogPatternParser.java`
-#### Snippet
-```java
-   * </ol>
-   */
-  public static void sortAccessLogItemMeta(List<VertxRestAccessLogItemMeta> accessLogItemMetaList) {
-    accessLogItemMetaList.sort(accessLogItemMetaComparator);
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends AccessLogItemLocation`
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/parser/impl/VertxRestAccessLogPatternParser.java`
-#### Snippet
-```java
-
-  private List<AccessLogItem<RoutingContext>> convertToItemList(String rawPattern,
-      List<AccessLogItemLocation> locationList) {
-    List<AccessLogItem<RoutingContext>> itemList = new ArrayList<>();
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Measurement`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/os/CpuMeter.java`
-#### Snippet
-```java
-  }
-
-  public void calcMeasurements(List<Measurement> measurements, long msNow) {
-    update();
-    measurements.add(new Measurement(allCpuUsage.getId(), msNow, allCpuUsage.getUsage()));
-```
-
-### BoundedWildcard
-Can generalize to `? super Measurement`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/os/net/InterfaceUsage.java`
-#### Snippet
-```java
-  }
-
-  public void calcMeasurements(List<Measurement> measurements, long msNow) {
-    netStats.forEach(netStat -> measurements.add(new Measurement(netStat.getId(), msNow, netStat.getRate())));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super Measurement`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/vertx/ServerEndpointMeter.java`
-#### Snippet
-```java
-
-  @Override
-  public void calcMeasurements(List<Measurement> measurements, long msNow, double secondInterval) {
-    super.calcMeasurements(measurements, msNow, secondInterval);
-
-```
-
-### BoundedWildcard
-Can generalize to `? extends Type`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/SchemaManager.java`
-#### Snippet
-```java
-  }
-
-  private JavaType getParameterType(Map<String, Type> types, String perameterName) {
-
-    if (types.get(perameterName) != null) {
-```
-
-### BoundedWildcard
-Can generalize to `? super Measurement`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/vertx/HttpClientEndpointMeter.java`
-#### Snippet
-```java
-
-  @Override
-  public void calcMeasurements(List<Measurement> measurements, long msNow, double secondInterval) {
-    super.calcMeasurements(measurements, msNow, secondInterval);
-
-```
-
-### BoundedWildcard
-Can generalize to `? super Measurement`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/vertx/EndpointMeter.java`
-#### Snippet
-```java
-  }
-
-  public void calcMeasurements(List<Measurement> measurements, long msNow, double secondInterval) {
-    long connectCount = metric.getConnectCount();
-    long disconnectCount = metric.getDisconnectCount();
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `metrics/metrics-core/src/main/java/com/netflix/spectator/api/patterns/ThreadPoolMonitorPublishModelFactory.java`
-#### Snippet
-```java
-
-  public ThreadPoolMonitorPublishModelFactory(MeasurementTree tree,
-      Map<String, ThreadPoolPublishModel> threadPools) {
-    this.tree = tree;
-    this.threadPools = threadPools;
-```
-
-### BoundedWildcard
-Can generalize to `? extends List`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public CommonToHttpServletRequest(Map<String, String> pathParams, Map<String, List<String>> queryParams,
-      Map<String, List<String>> httpHeaders, Object bodyObject, boolean isFormData, List<String> fileKeys) {
-    setAttribute(RestConst.PATH_PARAMETERS, pathParams);
-```
-
-### BoundedWildcard
-Can generalize to `? super Part`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-  }
-
-  private void filePartListWithForm(List<Part> partList, Map<String, Object> form) {
-    for (String key : fileKeys) {
-      Object value = form.get(key);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/EdgeAddHeaderClientFilter.java`
-#### Snippet
-```java
-  }
-
-  public void addHeaders(Invocation invocation, BiConsumer<String, String> headerAdder) {
-    if (!invocation.isEdge()) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/EdgeAddHeaderClientFilter.java`
-#### Snippet
-```java
-  }
-
-  public void addHeaders(Invocation invocation, BiConsumer<String, String> headerAdder) {
-    if (!invocation.isEdge()) {
-      return;
-```
-
-### BoundedWildcard
-Can generalize to `? extends URLMappedConfigurationItem`
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/URLMappedConfigurationLoader.java`
-#### Snippet
-```java
-  }
-
-  private static void logConfigurations(Map<String, URLMappedConfigurationItem> configurations) {
-    configurations.forEach((key, item) -> LOG.info("config item: key=" + key + ";pattern=" + item.getStringPattern()
-        + ";service=" + item.getMicroserviceName() + ";versionRule=" + item.getVersionRule()));
-```
-
-### BoundedWildcard
-Can generalize to `? extends io.swagger.models.parameters.Parameter`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/engine/SwaggerProducerOperation.java`
-#### Snippet
-```java
-
-  private static io.swagger.models.parameters.Parameter findParameterByName(
-      List<io.swagger.models.parameters.Parameter> swaggerParameters, String name) {
-    for (io.swagger.models.parameters.Parameter p : swaggerParameters) {
-      if (p.getName().equals(name)) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConsumerResponseMapper`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/response/consumer/CompletableFutureConsumerResponseMapperFactory.java`
-#### Snippet
-```java
-
-  @Override
-  public ConsumerResponseMapper createResponseMapper(ResponseMapperFactorys<ConsumerResponseMapper> factorys,
-      Type consumerType) {
-    Type realConsumerType = ((ParameterizedType) consumerType).getActualTypeArguments()[0];
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConsumerResponseMapper`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/response/consumer/OptionalConsumerResponseMapperFactory.java`
-#### Snippet
-```java
-
-  @Override
-  public ConsumerResponseMapper createResponseMapper(ResponseMapperFactorys<ConsumerResponseMapper> factorys,
-      Type consumerType) {
-    Type realConsumerType = ((ParameterizedType) consumerType).getActualTypeArguments()[0];
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProducerResponseMapper`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/response/producer/CompletableFutureProducerResponseMapperFactory.java`
-#### Snippet
-```java
-
-  @Override
-  public ProducerResponseMapper createResponseMapper(ResponseMapperFactorys<ProducerResponseMapper> factorys,
-      Type producerType) {
-    Type realProducerType = ((ParameterizedType) producerType).getActualTypeArguments()[0];
-```
-
-### BoundedWildcard
-Can generalize to `? extends ProducerResponseMapper`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/response/producer/OptionalProducerResponseMapperFactory.java`
-#### Snippet
-```java
-
-  @Override
-  public ProducerResponseMapper createResponseMapper(ResponseMapperFactorys<ProducerResponseMapper> factorys,
-      Type producerType) {
-    Type realProducerType = ((ParameterizedType) producerType).getActualTypeArguments()[0];
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/consumer/ConsumerArgumentSame.java`
-#### Snippet
-```java
-  @Override
-  public void invocationArgumentToSwaggerArguments(SwaggerInvocation swaggerInvocation,
-      Map<String, Object> swaggerArguments,
-      Map<String, Object> invocationArguments) {
-    swaggerArguments.put(swaggerArgumentName, invocationArguments.get(invocationArgumentName));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/producer/AbstractProducerContextArgMapper.java`
-#### Snippet
-```java
-  @Override
-  public void swaggerArgumentToInvocationArguments(SwaggerInvocation invocation,
-      Map<String, Object> swaggerArguments, Map<String, Object> invocationArguments) {
-    Object producerArg = createContextArg(invocation);
-    invocationArguments.put(this.invocationArgumentName, producerArg);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/consumer/ConsumerArgumentToBodyField.java`
-#### Snippet
-```java
-  @Override
-  public void invocationArgumentToSwaggerArguments(SwaggerInvocation swaggerInvocation,
-      Map<String, Object> swaggerArguments,
-      Map<String, Object> invocationArguments) {
-    Object consumerArgument = invocationArguments.get(invocationArgumentName);
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/producer/ProducerArgumentSame.java`
-#### Snippet
-```java
-  @Override
-  public void swaggerArgumentToInvocationArguments(SwaggerInvocation invocation,
-      Map<String, Object> swaggerArguments, Map<String, Object> invocationArguments) {
-    invocationArguments.put(invocationArgumentName, swaggerArguments.get(swaggerArgumentName));
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/producer/SwaggerBodyFieldToProducerArgument.java`
-#### Snippet
-```java
-  @SuppressWarnings("unchecked")
-  public void swaggerArgumentToInvocationArguments(SwaggerInvocation invocation,
-      Map<String, Object> swaggerArguments, Map<String, Object> invocationArguments) {
-    Map<String, Object> body = (Map<String, Object>) swaggerArguments.get(swaggerArgumentName);
-    invocationArguments.put(invocationArgumentName, mapper.convertValue(body.get(parameterName), producerParamType));
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/consumer/ConsumerBeanParamMapper.java`
-#### Snippet
-```java
-  @Override
-  public void invocationArgumentToSwaggerArguments(SwaggerInvocation swaggerInvocation,
-      Map<String, Object> swaggerArguments,
-      Map<String, Object> invocationArguments) {
-    Object consumerArgument = invocationArguments.get(invocationArgumentName);
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArgumentMapper`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/consumer/ArgumentsMapperCommon.java`
-#### Snippet
-```java
-  private final List<ArgumentMapper> mappers;
-
-  public ArgumentsMapperCommon(List<ArgumentMapper> mappers) {
-    this.mappers = mappers;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? super String`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/producer/ProducerBeanParamMapper.java`
-#### Snippet
-```java
-  @Override
-  public void swaggerArgumentToInvocationArguments(SwaggerInvocation invocation,
-      Map<String, Object> swaggerArguments, Map<String, Object> invocationArguments) {
-    try {
-      Object paramInstance = producerParamType.getDeclaredConstructor().newInstance();
-```
-
-### BoundedWildcard
-Can generalize to `? extends ArgumentMapper`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/producer/ProducerArgumentsMapper.java`
-#### Snippet
-```java
-  private final List<ArgumentMapper> producerArgMapperList;
-
-  public ProducerArgumentsMapper(List<ArgumentMapper> producerArgMapperList) {
-    this.producerArgMapperList = producerArgMapperList;
-  }
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConfigurationItem`
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/provider/AccessController.java`
-#### Snippet
-```java
-  }
-
-  private boolean matchFound(Microservice microservice, Map<String, ConfigurationItem> ruleList) {
-    boolean matched = false;
-    for (ConfigurationItem item : ruleList.values()) {
-```
-
-### BoundedWildcard
-Can generalize to `? extends ConfigurationItem`
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/provider/AccessController.java`
-#### Snippet
-```java
-  }
-
-  private void logConfigurations(Map<String, ConfigurationItem> configurations, boolean isWhite) {
-    configurations.forEach((key, item) -> LOG.info((isWhite ? "White list " : "Black list ") + "config item: key=" + key
-            + ";category=" + item.category
-```
-
-## RuleId[id=AbstractClassNeverImplemented]
-### AbstractClassNeverImplemented
-Abstract class `AbstractObjectManager` has no concrete subclass
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/AbstractObjectManager.java`
-#### Snippet
-```java
-import java.util.concurrent.ConcurrentHashMap;
-
-public abstract class AbstractObjectManager<KEY_OWNER, KEY, VALUE> {
-  protected Map<KEY, VALUE> objMap = new ConcurrentHashMap<>();
-
+  public synchronized Future<Void> write(Buffer data) {
+    Promise<Void> result = Promise.<Void>promise();
+    write(data, ar -> {
+      if (ar.failed()) {
 ```
 
 ## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferInputStream.java`
+#### Snippet
+```java
+
+  @Override
+  public int read(byte[] b, int off, int len) {
+    int avail = available();
+    if (len > avail) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferInputStream.java`
+#### Snippet
+```java
+
+  @Override
+  public int read(byte[] b) {
+    return read(b, 0, b.length);
+  }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferOutputStream.java`
+#### Snippet
+```java
+
+  @Override
+  public void write(byte[] b) {
+    write(b, 0, b.length);
+  }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferOutputStream.java`
+#### Snippet
+```java
+
+  @Override
+  public void write(byte[] bytes, int offset, int len) {
+    byteBuf.writeBytes(bytes, offset, len);
+  }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/executor/SinglePoolBlockingExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  public void execute(Runnable command) {
+    SINGLE_POOL.execute(() -> {
+      try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/executor/VertxWorkerExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  public void execute(Runnable command) {
+    Vertx.currentContext().owner().executeBlocking(future -> command.run(),
+        false,
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/executor/VertxContextExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  public void execute(Runnable command) {
+    if (context == Vertx.currentContext()) {
+      command.run();
+```
+
 ### NullableProblems
 Primitive type members cannot be annotated
 in `core/src/main/java/org/apache/servicecomb/core/filter/ConsumerFilter.java`
@@ -3271,14 +1469,158 @@ public interface ProducerFilter extends Filter {
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.springframework.lang.Nullable'
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseResponseEntityResponseExtractor.java`
+Not annotated parameter overrides @NotNull parameter
+in `core/src/main/java/org/apache/servicecomb/core/executor/LinkedBlockingQueueEx.java`
 #### Snippet
 ```java
 
-public class CseResponseEntityResponseExtractor<T> implements ResponseExtractor<ResponseEntity<T>> {
-  @Nullable
-  private final CseHttpMessageConverterExtractor<T> delegate;
+  @Override
+  public boolean offer(Runnable runnable) {
+    // task can come before owner available
+    if (owner == null) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `core/src/main/java/org/apache/servicecomb/core/executor/GroupThreadFactory.java`
+#### Snippet
+```java
+  }
+
+  public Thread newThread(Runnable r) {
+    Thread t = new Thread(group, r,
+        namePrefix + threadNumber.getAndIncrement(),
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `core/src/main/java/org/apache/servicecomb/core/provider/consumer/SyncResponseExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  public void execute(Runnable cmd) {
+    this.cmd = cmd;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `core/src/main/java/org/apache/servicecomb/core/executor/GroupExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  public void execute(Runnable command) {
+    long threadId = Thread.currentThread().getId();
+    Executor executor = threadExecutorMap.computeIfAbsent(threadId, this::chooseExecutor);
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `core/src/main/java/org/apache/servicecomb/core/executor/ThreadPoolExecutorEx.java`
+#### Snippet
+```java
+
+  @Override
+  public void execute(Runnable command) {
+    submittedCount.incrementAndGet();
+    try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `core/src/main/java/org/apache/servicecomb/core/provider/consumer/InvokerUtils.java`
+#### Snippet
+```java
+
+            @Override
+            public Thread newThread(Runnable r) {
+              Thread thread = new Thread(r, "reactive-retry-pool-thread-" + count.getAndIncrement());
+              // avoid block shutdown
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `core/src/main/java/org/apache/servicecomb/core/invocation/endpoint/EndpointCacheUtils.java`
+#### Snippet
+```java
+      .build(new CacheLoader<String, Endpoint>() {
+        @Override
+        public Endpoint load(String uri) {
+          return EndpointCacheUtils.create(uri);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `core/src/main/java/org/apache/servicecomb/core/invocation/endpoint/EndpointCacheUtils.java`
+#### Snippet
+```java
+      .build(new CacheLoader<String, Endpoint>() {
+        @Override
+        public Endpoint load(String uri) {
+          return EndpointCacheUtils.create(uri);
+        }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/NamedThreadFactory.java`
+#### Snippet
+```java
+   */
+  @Override
+  public Thread newThread(Runnable r) {
+    return new Thread(r, prefix + "-" + threadNumber.getAndIncrement());
+  }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/event/SimpleEventBus.java`
+#### Snippet
+```java
+
+  @Override
+  public void register(Object instance) {
+    subscribersMap.computeIfAbsent(instance, this::collectSubscribers);
+    // even ignored cause of duplicate register
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/event/SimpleEventBus.java`
+#### Snippet
+```java
+
+  @Override
+  public void unregister(Object instance) {
+    if (subscribersMap.remove(instance) != null) {
+      subscribersCache = new ConcurrentHashMapEx<>();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `governance/src/main/java/org/apache/servicecomb/governance/handler/DisposableMap.java`
+#### Snippet
+```java
+
+  @Override
+  public Disposable<V> put(String key, Disposable<V> value) {
+    Disposable<V> result = super.put(key, value);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `governance/src/main/java/org/apache/servicecomb/governance/handler/DisposableMap.java`
+#### Snippet
+```java
+
+  @Override
+  public Disposable<V> put(String key, Disposable<V> value) {
+    Disposable<V> result = super.put(key, value);
 
 ```
 
@@ -3294,17 +1636,439 @@ in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/EdgeServerCode
   public boolean isEnabledForInvocationType(InvocationType invocationType) {
 ```
 
-## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/part/FilePart.java`
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/auth/TokenCacheManager.java`
 #### Snippet
 ```java
-  @Override
-  public void delete() throws IOException {
-    file.delete();
+            .build(new CacheLoader<String, String>() {
+              @Override
+              public String load(String key) throws Exception {
+                return createHeaders();
+              }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/auth/TokenCacheManager.java`
+#### Snippet
+```java
+            .build(new CacheLoader<String, String>() {
+              @Override
+              public String load(String key) throws Exception {
+                return createHeaders();
+              }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/auth/TokenCacheManager.java`
+#### Snippet
+```java
+
+              @Override
+              public ListenableFuture<String> reload(String key, String oldValue) throws Exception {
+                return Futures.submit(() -> createHeaders(), executorService);
+              }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/auth/TokenCacheManager.java`
+#### Snippet
+```java
+
+              @Override
+              public ListenableFuture<String> reload(String key, String oldValue) throws Exception {
+                return Futures.submit(() -> createHeaders(), executorService);
+              }
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/auth/TokenCacheManager.java`
+#### Snippet
+```java
+
+              @Override
+              public ListenableFuture<String> reload(String key, String oldValue) throws Exception {
+                return Futures.submit(() -> createHeaders(), executorService);
+              }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/RemoteServiceRegistry.java`
+#### Snippet
+```java
+
+          @Override
+          public Thread newThread(Runnable r) {
+            Thread thread = new Thread(r,
+                RemoteServiceRegistry.super.getName() + " Service Center Task [" + (taskId++) + "]");
+```
+
+### NullableProblems
+Primitive type members cannot be annotated
+in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterAddHeaderFilter.java`
+#### Snippet
+```java
   }
 
+  @Nonnull
+  @Override
+  public boolean isEnabledForInvocationType(InvocationType invocationType) {
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
+#### Snippet
+```java
+  private final LoadingCache<String, Map<String, String>> schemaCache = CacheBuilder.newBuilder()
+      .expireAfterAccess(60, TimeUnit.SECONDS).build(new CacheLoader<String, Map<String, String>>() {
+        public Map<String, String> load(String key) {
+          Holder<List<GetSchemaResponse>> result = getSchemas(key, true, true);
+          Map<String, String> schemas = new HashMap<>();
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
+#### Snippet
+```java
+  private final LoadingCache<String, Map<String, String>> schemaCache = CacheBuilder.newBuilder()
+      .expireAfterAccess(60, TimeUnit.SECONDS).build(new CacheLoader<String, Map<String, String>>() {
+        public Map<String, String> load(String key) {
+          Holder<List<GetSchemaResponse>> result = getSchemas(key, true, true);
+          Map<String, String> schemas = new HashMap<>();
+```
+
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `core/src/main/java/org/apache/servicecomb/core/registry/ThirdServiceRegister.java`
+#### Snippet
+```java
+ * assume a 3rd service:
+ *   1. named svc
+ *   2. have 2 address: https://svc-1 and https://svc-2
+ *   3. have 2 schemas: schema1 and schema2
+ *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `core/src/main/java/org/apache/servicecomb/core/registry/ThirdServiceRegister.java`
+#### Snippet
+```java
+ * assume a 3rd service:
+ *   1. named svc
+ *   2. have 2 address: https://svc-1 and https://svc-2
+ *   3. have 2 schemas: schema1 and schema2
+ *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `core/src/main/java/org/apache/servicecomb/core/invocation/endpoint/EndpointCacheUtils.java`
+#### Snippet
+```java
+
+  /**
+   * @param uri https://www.abc.com:12345
+   * @return endpoint
+   */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `core/src/main/java/org/apache/servicecomb/core/invocation/endpoint/EndpointUtils.java`
+#### Snippet
+```java
+  /**
+   * <pre>
+   *   http://xxx  -> rest://xxx
+   *   https://xxx -> rest://xxx?sslEnabled=true
+   *
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `core/src/main/java/org/apache/servicecomb/core/invocation/endpoint/EndpointUtils.java`
+#### Snippet
+```java
+   * <pre>
+   *   http://xxx  -> rest://xxx
+   *   https://xxx -> rest://xxx?sslEnabled=true
+   *
+   *   h2c://xxx   -> rest://xxx?protocol=http2
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RegistryWatchHttpClientOptionsSPI.java`
+#### Snippet
+```java
+  /**
+   * getIdleTimeoutInSeconds configure watch idle timeout
+   * more information see: https://github.com/apache/servicecomb-java-chassis/issues/2571
+   * @return watch idle timeout in seconds
+   */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/HttpClientRequestFactory.java`
+#### Snippet
+```java
+/**
+ * some service has special domain name rule, eg: k8s<br>
+ * assume k8s domain name is https://k8s.com:1234, and clusterId is my-id<br>
+ * then must send request to https://my-id.k8s.com:1234<br>
+ * <br>
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/HttpClientRequestFactory.java`
+#### Snippet
+```java
+ * some service has special domain name rule, eg: k8s<br>
+ * assume k8s domain name is https://k8s.com:1234, and clusterId is my-id<br>
+ * then must send request to https://my-id.k8s.com:1234<br>
+ * <br>
+ * this interface allowed to modify host by invocation argument, eg:<br>
+```
+
+## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/FormProcessorCreator.java`
+#### Snippet
+```java
+    private final boolean repeatedType;
+
+    private final Type genericParamType;
+
+    private Converter converter;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/BodyProcessorCreator.java`
+#### Snippet
+```java
+    protected Class<?> serialViewClass;
+
+    private final boolean isString;
+
+    protected boolean isRequired;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `transports/transport-rest/transport-rest-vertx/src/main/java/org/apache/servicecomb/transport/rest/vertx/RestServerVerticle.java`
+#### Snippet
+```java
+  private static final String SSL_KEY = "rest.provider";
+
+  private Endpoint endpoint;
+
+  private URIEndpointObject endpointObject;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/server/TcpParser.java`
+#### Snippet
+```java
+
+  // 仅仅是header + body，不包括headerLen本身
+  private int totalLen;
+
+  private int headerLen;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
+#### Snippet
+```java
+  private final Map<String, Object> dynamicData = new ConcurrentHashMap<>();
+
+  private ConfigCenterConfigurationSource configCenterConfigurationSource;
+
+  public ConfigurationSpringInitializer() {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/RSAAuthenticationToken.java`
+#### Snippet
+```java
+  private final long generateTime;
+
+  private final String randomCode;
+
+  private final String sign;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `dynamic-config/config-kie/src/main/java/org/apache/servicecomb/config/kie/KieConfigurationSourceImpl.java`
+#### Snippet
+```java
+  private KieConfigManager kieConfigManager;
+
+  private ConfigConverter configConverter;
+
+  @Override
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/AccessLogGenerator.java`
+#### Snippet
+```java
+  private final AccessLogItem<RoutingContext>[] accessLogItems;
+
+  private final AccessLogPatternParser<RoutingContext> logPatternParser = new VertxRestAccessLogPatternParser();
+
+  @SuppressWarnings("unchecked")
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinProviderDelegate.java`
+#### Snippet
+```java
+  private final HttpTracing httpTracing;
+
+  private final Extractor<Invocation> extractor;
+
+  private final HttpServeRequestWrapper requestWrapper;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinConsumerDelegate.java`
+#### Snippet
+```java
+  private final HttpTracing httpTracing;
+
+  private final Injector<Invocation> injector;
+
+  private final HttpClientResponseWrapper responseWrapper;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
+#### Snippet
+```java
+      + "        sFiltersResp: %-18s sendResp    : %s\n";
+
+  private LatencyDistributionConfig latencyDistributionConfig;
+
+  /**
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/ServiceCenterTask.java`
+#### Snippet
+```java
+  private static final Logger LOGGER = LoggerFactory.getLogger(ServiceCenterTask.class);
+
+  private final EventBus eventBus;
+
+  private final int interval;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/IpPortManager.java`
+#### Snippet
+```java
+  InstanceCacheManager instanceCacheManager;
+
+  private final ArrayList<IpPort> defaultIpPort;
+
+  private boolean autoDiscoveryInited = false;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/AbstractServiceRegistry.java`
+#### Snippet
+```java
+  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractServiceRegistry.class);
+
+  private final MicroserviceFactory microserviceFactory = new MicroserviceFactory();
+
+  protected EventBus eventBus;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/RestTransportClientManager.java`
+#### Snippet
+```java
+
+  // same instance in AbstractTransport. need refactor in future.
+  private final Vertx transportVertx = VertxUtils.getOrCreateVertxByName("transport", null);
+
+  private final RestTransportClient restClient;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java`
+#### Snippet
+```java
+  private static class ServiceCombPropertyUpdateListener implements WatchedUpdateListener {
+
+    private final ConcurrentMapConfiguration injectConfig;
+
+    ServiceCombPropertyUpdateListener(ConcurrentMapConfiguration injectConfig) {
+```
+
+## RuleId[id=IgnoreResultOfCall]
+### IgnoreResultOfCall
+Result of `Collectors.toList()` is ignored
+in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
+#### Snippet
+```java
+    List<MicroserviceInstance> instances = new ArrayList<>();
+
+    Collectors.toList();
+    microserviceInstanceMap.values().forEach(
+        allInstances -> allInstances.values().stream().filter(
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
+#### Snippet
+```java
+
+    if (!dir.exists()) {
+      dir.mkdirs();
+    }
+
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+#### Snippet
+```java
+  public CompletableFuture<File> saveToFile(String fileName) {
+    File file = new File(fileName);
+    file.getParentFile().mkdirs();
+    OpenOptions openOptions = new OpenOptions().setCreateNew(true);
+    return saveToFile(file, openOptions);
 ```
 
 ### IgnoreResultOfCall
@@ -3344,51 +2108,27 @@ in `core/src/main/java/org/apache/servicecomb/core/provider/producer/ProducerBoo
 ```
 
 ### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+Result of `File.delete()` is ignored
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/part/FilePart.java`
 #### Snippet
 ```java
-  public CompletableFuture<File> saveToFile(String fileName) {
-    File file = new File(fileName);
-    file.getParentFile().mkdirs();
-    OpenOptions openOptions = new OpenOptions().setCreateNew(true);
-    return saveToFile(file, openOptions);
+  @Override
+  public void delete() throws IOException {
+    file.delete();
+  }
+
 ```
 
 ### IgnoreResultOfCall
-Result of `Matcher.matches()` is ignored
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseUriTemplateHandler.java`
+Result of `ExecutorService.awaitTermination()` is ignored
+in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/task/AbstractTask.java`
 #### Snippet
 ```java
-
-    Matcher matcher = URI_PATTERN.matcher(uriTemplate);
-    matcher.matches(); // should always be true
-    String scheme = matcher.group(2);
-    String host = matcher.group(6);
-```
-
-### IgnoreResultOfCall
-Result of `Collectors.toList()` is ignored
-in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
-#### Snippet
-```java
-    List<MicroserviceInstance> instances = new ArrayList<>();
-
-    Collectors.toList();
-    microserviceInstanceMap.values().forEach(
-        allInstances -> allInstances.values().stream().filter(
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
-#### Snippet
-```java
-
-    if (!dir.exists()) {
-      dir.mkdirs();
-    }
-
+      running = false;
+      this.taskPool.shutdown();
+      this.taskPool.awaitTermination(10, TimeUnit.SECONDS);
+    } catch (InterruptedException e) {
+      LOGGER.warn("tasks not shutdown in time {}", e.getMessage());
 ```
 
 ## RuleId[id=FunctionalExpressionCanBeFolded]
@@ -3404,53 +2144,16 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
             // ignore, just prevent NPE.
 ```
 
-## RuleId[id=ClassNameSameAsAncestorName]
-### ClassNameSameAsAncestorName
-Class name `HttpStatusManager` is the same as one of its superclass' names
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/context/HttpStatusManager.java`
-#### Snippet
-```java
-package org.apache.servicecomb.swagger.invocation.context;
-
-public class HttpStatusManager extends org.apache.servicecomb.foundation.common.http.HttpStatusManager {
-}
-
-```
-
-### ClassNameSameAsAncestorName
-Class name `HttpStatus` is the same as one of its superclass' names
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/context/HttpStatus.java`
-#### Snippet
-```java
-package org.apache.servicecomb.swagger.invocation.context;
-
-public class HttpStatus extends org.apache.servicecomb.foundation.common.http.HttpStatus {
-  public HttpStatus(int statusCode, String reasonPhrase) {
-    super(statusCode, reasonPhrase);
-```
-
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `get()` only delegates to its super method
-in `governance/src/main/java/org/apache/servicecomb/governance/handler/DisposableMap.java`
+Method `enabled()` is identical to its super method
+in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/DarklaunchServerListFilter.java`
 #### Snippet
 ```java
 
   @Override
-  public Disposable<V> get(Object key) {
-    return super.get(key);
-  }
-```
-
-### RedundantMethodOverride
-Method `authHeaders()` is identical to its super method
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/EmptyAuthHeaderProvider.java`
-#### Snippet
-```java
-public class EmptyAuthHeaderProvider implements AuthHeaderProvider {
-  @Override
-  public Map<String, String> authHeaders() {
-    return new HashMap<>(0);
+  public boolean enabled() {
+    return true;
   }
 ```
 
@@ -3479,18 +2182,6 @@ in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/s
 ```
 
 ### RedundantMethodOverride
-Method `enabled()` is identical to its super method
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/DarklaunchServerListFilter.java`
-#### Snippet
-```java
-
-  @Override
-  public boolean enabled() {
-    return true;
-  }
-```
-
-### RedundantMethodOverride
 Method `hasExpired()` is identical to its super method
 in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/vertx/VertxEndpointsMeter.java`
 #### Snippet
@@ -3515,26 +2206,14 @@ in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter
 ```
 
 ### RedundantMethodOverride
-Method `hasExpired()` only delegates to its super method
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/invocation/AbstractInvocationMeter.java`
+Method `authHeaders()` is identical to its super method
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/EmptyAuthHeaderProvider.java`
 #### Snippet
 ```java
-
+public class EmptyAuthHeaderProvider implements AuthHeaderProvider {
   @Override
-  public boolean hasExpired() {
-    return super.hasExpired();
-  }
-```
-
-### RedundantMethodOverride
-Method `start()` only delegates to its super method
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/EdgeRestServerVerticle.java`
-#### Snippet
-```java
-public class EdgeRestServerVerticle extends RestServerVerticle {
-  @Override
-  public void start() throws Exception {
-    super.start();
+  public Map<String, String> authHeaders() {
+    return new HashMap<>(0);
   }
 ```
 
@@ -3547,18 +2226,6 @@ in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/ser
   @Override
   public CompletableFuture<Void> beforeSendRequestAsync(Invocation invocation, HttpServletRequestEx requestEx) {
     return CompletableFuture.completedFuture(null);
-  }
-```
-
-### RedundantMethodOverride
-Method `enabled()` is identical to its super method
-in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterInvokeFilter.java`
-#### Snippet
-```java
-
-  @Override
-  public boolean enabled() {
-    return true;
   }
 ```
 
@@ -3577,54 +2244,6 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
 
 ## RuleId[id=IfStatementWithIdenticalBranches]
 ### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    session.size += size;
-
-    if (size == 1) {
-      buffer[offset] = (byte) value;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    session.size += totalSize;
-
-    if (tagSize == 1) {
-      buffer[offset++] = (byte) tag;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    session.size += totalSize;
-
-    if (tagSize == 1) {
-      buffer[offset++] = (byte) tag;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    }
-
-    if (size == 1) {
-      buffer[offset] = (byte) value;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
 'if' statement can be collapsed
 in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/FloatWriteSchemas.java`
 #### Snippet
@@ -3634,54 +2253,6 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
     if (Float.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
       return new FloatSchema<>(protoField, propertyDescriptor);
     }
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    this.size += size;
-
-    if (size == 1) {
-      buffer[offset] = (byte) value;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    session.size += totalSize;
-
-    if (tagSize == 1) {
-      buffer[offset++] = (byte) tag;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    session.size += totalSize;
-
-    if (tagSize == 1) {
-      buffer[offset++] = (byte) tag;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    }
-
-    if (size == 1) {
-      buffer[offset] = (byte) value;
-    } else {
 ```
 
 ### IfStatementWithIdenticalBranches
@@ -3746,18 +2317,6 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 
 ### IfStatementWithIdenticalBranches
 'if' statement can be collapsed
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/SFixed64WriteSchemas.java`
-#### Snippet
-```java
-    }
-
-    if (Long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-      return new SFixed64Schema<>(protoField, propertyDescriptor);
-    }
-```
-
-### IfStatementWithIdenticalBranches
-'if' statement can be collapsed
 in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/DoubleWriteSchemas.java`
 #### Snippet
 ```java
@@ -3765,42 +2324,6 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 
     if (Double.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
       return new DoubleSchema<>(protoField, propertyDescriptor);
-    }
-```
-
-### IfStatementWithIdenticalBranches
-'if' statement can be collapsed
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/Fixed32WriteSchemas.java`
-#### Snippet
-```java
-    }
-
-    if (Integer.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-      return new Fixed32Schema<>(protoField, propertyDescriptor);
-    }
-```
-
-### IfStatementWithIdenticalBranches
-'if' statement can be collapsed
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/UInt32WriteSchemas.java`
-#### Snippet
-```java
-    }
-
-    if (Integer.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-      return new UInt32Schema<>(protoField, propertyDescriptor);
-    }
-```
-
-### IfStatementWithIdenticalBranches
-'if' statement can be collapsed
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/BytesWriteSchemas.java`
-#### Snippet
-```java
-public class BytesWriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (byte[].class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-      return new BytesSchema<>(protoField, propertyDescriptor);
     }
 ```
 
@@ -3817,6 +2340,30 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 ```
 
 ### IfStatementWithIdenticalBranches
+'if' statement can be collapsed
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/SFixed64WriteSchemas.java`
+#### Snippet
+```java
+    }
+
+    if (Long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
+      return new SFixed64Schema<>(protoField, propertyDescriptor);
+    }
+```
+
+### IfStatementWithIdenticalBranches
+'if' statement can be collapsed
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/UInt32WriteSchemas.java`
+#### Snippet
+```java
+    }
+
+    if (Integer.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
+      return new UInt32Schema<>(protoField, propertyDescriptor);
+    }
+```
+
+### IfStatementWithIdenticalBranches
 'if' statement can be collapsed with side effect extraction
 in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/EnumWriteSchemas.java`
 #### Snippet
@@ -3825,6 +2372,126 @@ public class EnumWriteSchemas {
   public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
     if (propertyDescriptor.getJavaType().isEnumType()) {
       return new EnumSchema<>(protoField, propertyDescriptor);
+    }
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    session.size += totalSize;
+
+    if (tagSize == 1) {
+      buffer[offset++] = (byte) tag;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+'if' statement can be collapsed
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/BytesWriteSchemas.java`
+#### Snippet
+```java
+public class BytesWriteSchemas {
+  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
+    if (byte[].class.equals(propertyDescriptor.getJavaType().getRawClass())) {
+      return new BytesSchema<>(protoField, propertyDescriptor);
+    }
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    }
+
+    if (size == 1) {
+      buffer[offset] = (byte) value;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    this.size += size;
+
+    if (size == 1) {
+      buffer[offset] = (byte) value;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    session.size += size;
+
+    if (size == 1) {
+      buffer[offset] = (byte) value;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    session.size += totalSize;
+
+    if (tagSize == 1) {
+      buffer[offset++] = (byte) tag;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    session.size += totalSize;
+
+    if (tagSize == 1) {
+      buffer[offset++] = (byte) tag;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    session.size += totalSize;
+
+    if (tagSize == 1) {
+      buffer[offset++] = (byte) tag;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    }
+
+    if (size == 1) {
+      buffer[offset] = (byte) value;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+'if' statement can be collapsed
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/Fixed32WriteSchemas.java`
+#### Snippet
+```java
+    }
+
+    if (Integer.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
+      return new Fixed32Schema<>(protoField, propertyDescriptor);
     }
 ```
 
@@ -3838,31 +2505,6 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
     if (Integer.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
       return new SFixed32Schema<>(protoField, propertyDescriptor);
     }
-```
-
-## RuleId[id=UnnecessarySuperQualifier]
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/archaius/sources/MicroserviceConfigLoader.java`
-#### Snippet
-```java
-          System.getProperty(DEFAULT_FILE_NAME) == null ? DEFAULT_CONFIG_FILE_NAME
-              : System.getProperty(DEFAULT_FILE_NAME);
-      super.load(configFileFromClasspath);
-      loadAdditionalConfig();
-
-```
-
-### UnnecessarySuperQualifier
-Qualifier `super` is unnecessary in this context
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/HighwayServerVerticle.java`
-#### Snippet
-```java
-  public void start(Promise<Void> startPromise) throws Exception {
-    try {
-      super.start();
-      startListen(startPromise);
-    } catch (Throwable e) {
 ```
 
 ## RuleId[id=SimplifyOptionalCallChains]
@@ -3915,1382 +2557,6 @@ in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/c
 
 ```
 
-## RuleId[id=ReplaceAssignmentWithOperatorAssignment]
-### ReplaceAssignmentWithOperatorAssignment
-`url = url + "?withSchema=1"` could be simplified to 'url += "?withSchema=1"'
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
-#### Snippet
-```java
-    String url = "/registry/microservices/" + serviceId + "/schemas";
-    if (withContent) {
-      url = url + "?withSchema=1";
-    }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`totalLength = totalLength + headerLength` could be simplified to 'totalLength += headerLength'
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/HighwayOutputStream.java`
-#### Snippet
-```java
-    if (headerBytes != null) {
-      headerLength = headerBytes.length;
-      totalLength = totalLength + headerLength;
-    }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`totalLength = totalLength + bodyBytes.length` could be simplified to 'totalLength += bodyBytes.length'
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/HighwayOutputStream.java`
-#### Snippet
-```java
-
-    if (bodyBytes != null) {
-      totalLength = totalLength + bodyBytes.length;
-    }
-
-```
-
-### ReplaceAssignmentWithOperatorAssignment
-`rate = rate - Integer.parseInt(item.getPolicyCondition().expected())` could be simplified to 'rate -= Integer.parseInt(item.getPolicyCondition().expected())'
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/DarklaunchServerListFilter.java`
-#### Snippet
-```java
-          return item.getServers();
-        }
-        rate = rate - Integer.parseInt(item.getPolicyCondition().expected());
-      }
-    }
-```
-
-## RuleId[id=NestedAssignment]
-### NestedAssignment
-Result of assignment expression used
-in `core/src/main/java/org/apache/servicecomb/core/Invocation.java`
-#### Snippet
-```java
-      args[i] = this.invocationArguments.get(method.getParameters()[i].getName());
-    }
-    return producerArguments = args;
-  }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ByteArrayInputEx.java`
-#### Snippet
-```java
-    }
-    int result = tmp & 0x7f;
-    if ((tmp = buffer[offset++]) >= 0) {
-      result |= tmp << 7;
-    } else {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ByteArrayInputEx.java`
-#### Snippet
-```java
-    } else {
-      result |= (tmp & 0x7f) << 7;
-      if ((tmp = buffer[offset++]) >= 0) {
-        result |= tmp << 14;
-      } else {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ByteArrayInputEx.java`
-#### Snippet
-```java
-      } else {
-        result |= (tmp & 0x7f) << 14;
-        if ((tmp = buffer[offset++]) >= 0) {
-          result |= tmp << 21;
-        } else {
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ByteArrayInputEx.java`
-#### Snippet
-```java
-        } else {
-          result |= (tmp & 0x7f) << 21;
-          result |= (tmp = buffer[offset++]) << 28;
-          if (tmp < 0) {
-            // Discard upper 32 bits.
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-      lastBuffer.buffer[lastBuffer.offset++] = (byte) tag;
-    } else {
-      tail = lastBuffer = writeRawVarInt32(tag, this, tail);
-    }
-
-```
-
-### NestedAssignment
-Result of assignment expression used
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/oper/LikeCondition.java`
-#### Snippet
-```java
-        regExp.append(Pattern.quote(new String(cs, lastPos, i - lastPos)));
-        regExp.append(".");
-        lastPos = i = 1;
-      }
-    }
-```
-
-## RuleId[id=FieldAccessedSynchronizedAndUnsynchronized]
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `objMap` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/AbstractObjectManager.java`
-#### Snippet
-```java
-
-public abstract class AbstractObjectManager<KEY_OWNER, KEY, VALUE> {
-  protected Map<KEY, VALUE> objMap = new ConcurrentHashMap<>();
-
-  protected final Object lockObj = new Object();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `registerErrorFmt` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/RegisterManager.java`
-#### Snippet
-```java
-  private final String name;
-
-  private String registerErrorFmt = "Not allow register repeat data, name=%s, key=%s";
-
-  private final Map<KEY, VALUE> objMap = new ConcurrentHashMap<>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `port` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/IpPort.java`
-#### Snippet
-```java
-  private String hostOrIp;
-
-  private int port;
-
-  private volatile InetSocketAddress socketAddress;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `hostOrIp` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/IpPort.java`
-#### Snippet
-```java
-
-public class IpPort {
-  private String hostOrIp;
-
-  private int port;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `lambda` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/event/SimpleSubscriber.java`
-#### Snippet
-```java
-
-  // generated from method
-  private Consumer<Object> lambda;
-
-  private Consumer<Object> dispatcher;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `versions` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-
-  // key is service id
-  Map<String, MicroserviceVersion> versions = new ConcurrentHashMapEx<>();
-
-  // key is version rule
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `versionRules` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-
-  // key is version rule
-  Map<String, MicroserviceVersionRule> versionRules = new ConcurrentHashMapEx<>();
-
-  // process pulled instances and create versionRule must be protected by lock
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `instances` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-  //  pulledInstances means all instance
-  //  instances means available instance
-  Collection<MicroserviceInstance> instances;
-
-  // key is service id
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `revision` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-
-  // revision and pulledInstances directly equals to SC's response
-  protected String revision = null;
-
-  private List<MicroserviceInstance> pulledInstances;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `priorityPropertyManager` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-  private ExecutorManager executorManager = new ExecutorManager();
-
-  private PriorityPropertyManager priorityPropertyManager;
-
-  protected List<BootUpInformationCollector> bootUpInformationCollectors = SPIServiceUtils
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `consumerProviderManager` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-  private ProducerProviderManager producerProviderManager;
-
-  private ConsumerProviderManager consumerProviderManager = new ConsumerProviderManager();
-
-  private MicroserviceMeta producerMicroserviceMeta;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `transportManager` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-  private MicroserviceMeta producerMicroserviceMeta;
-
-  private TransportManager transportManager = new TransportManager();
-
-  private final List<BootListener> bootListeners = new ArrayList<>(
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `producerProviderManager` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-  private FilterChainsManager filterChainsManager;
-
-  private ProducerProviderManager producerProviderManager;
-
-  private ConsumerProviderManager consumerProviderManager = new ConsumerProviderManager();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `filterChainsManager` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-  private ApplicationContext applicationContext;
-
-  private FilterChainsManager filterChainsManager;
-
-  private ProducerProviderManager producerProviderManager;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `shutdownHook` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-  private final VendorExtensions vendorExtensions = new VendorExtensions();
-
-  private Thread shutdownHook;
-
-  protected SCBEngine() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `producerMicroserviceMeta` is accessed in both synchronized and unsynchronized contexts
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-  private ConsumerProviderManager consumerProviderManager = new ConsumerProviderManager();
-
-  private MicroserviceMeta producerMicroserviceMeta;
-
-  private TransportManager transportManager = new TransportManager();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `maxBuffers` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/OutputStreamToWriteStream.java`
-#### Snippet
-```java
-  // must >= SMALLEST_MAX_BUFFERS
-  // if < SMALLEST_MAX_BUFFERS, then maxBuffers will be SMALLEST_MAX_BUFFERS
-  private int maxBuffers = DEFAULT_MAX_BUFFERS;
-
-  // if currentBufferCount <= drainMark, will invoke drainHandler to resume readStream
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `currentBufferCount` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/OutputStreamToWriteStream.java`
-#### Snippet
-```java
-  private final Queue<Buffer> buffers = new ConcurrentLinkedQueue<>();
-
-  private int currentBufferCount;
-
-  // just indicate if buffers is full, not control add logic
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `exceptionHandler` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/OutputStreamToWriteStream.java`
-#### Snippet
-```java
-  private final boolean autoCloseOutputStream;
-
-  private Handler<Throwable> exceptionHandler;
-
-  // resume readStream
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `drainMark` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/OutputStreamToWriteStream.java`
-#### Snippet
-```java
-
-  // if currentBufferCount <= drainMark, will invoke drainHandler to resume readStream
-  private int drainMark = maxBuffers / 2;
-
-  public OutputStreamToWriteStream(Context context, OutputStream outputStream,
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `vertxMetrics` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/metrics/DefaultVertxMetricsFactory.java`
-#### Snippet
-```java
- */
-public class DefaultVertxMetricsFactory implements VertxMetricsFactory {
-  private DefaultVertxMetrics vertxMetrics;
-
-  public DefaultVertxMetrics getVertxMetrics() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `closed` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/InputStreamToReadStream.java`
-#### Snippet
-```java
-  private final InputStream inputStream;
-
-  private boolean closed;
-
-  private boolean paused;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `exceptionHandler` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/InputStreamToReadStream.java`
-#### Snippet
-```java
-  private int readBufferSize = DEFAULT_READ_BUFFER_SIZE;
-
-  private Handler<Throwable> exceptionHandler = this::unhandledException;
-
-  private Handler<Buffer> dataHandler;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `endHandler` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/InputStreamToReadStream.java`
-#### Snippet
-```java
-  private Handler<Buffer> dataHandler;
-
-  private Handler<Void> endHandler;
-
-  private final boolean autoCloseInputStream;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `myselfServiceId` is accessed in both synchronized and unsynchronized contexts
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterDiscovery.java`
-#### Snippet
-```java
-  private final EventBus eventBus;
-
-  private String myselfServiceId;
-
-  private final Map<SubscriptionKey, SubscriptionValue> instancesCache = new ConcurrentHashMap<>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `instances` is accessed in both synchronized and unsynchronized contexts
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/AggregateMicroserviceCache.java`
-#### Snippet
-```java
-  private MicroserviceCacheStatus status = MicroserviceCacheStatus.INIT;
-
-  private List<MicroserviceInstance> instances = new ArrayList<>();
-
-  Collection<ServiceRegistry> serviceRegistries;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `revisionId` is accessed in both synchronized and unsynchronized contexts
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/AggregateMicroserviceCache.java`
-#### Snippet
-```java
-  AtomicLong revisionCounter = new AtomicLong();
-
-  private String revisionId = revisionCounter.toString();
-
-  private MicroserviceCacheStatus status = MicroserviceCacheStatus.INIT;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `status` is accessed in both synchronized and unsynchronized contexts
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/AggregateMicroserviceCache.java`
-#### Snippet
-```java
-  private String revisionId = revisionCounter.toString();
-
-  private MicroserviceCacheStatus status = MicroserviceCacheStatus.INIT;
-
-  private List<MicroserviceInstance> instances = new ArrayList<>();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `instances` is accessed in both synchronized and unsynchronized contexts
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/RefreshableMicroserviceCache.java`
-#### Snippet
-```java
-  MicroserviceCacheKey key;
-
-  List<MicroserviceInstance> instances = Collections.unmodifiableList(new ArrayList<>());
-
-  Microservice consumerService;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `key` is accessed in both synchronized and unsynchronized contexts
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/RefreshableMicroserviceCache.java`
-#### Snippet
-```java
-  private static final Logger LOGGER = LoggerFactory.getLogger(RefreshableMicroserviceCache.class);
-
-  MicroserviceCacheKey key;
-
-  List<MicroserviceInstance> instances = Collections.unmodifiableList(new ArrayList<>());
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `revisionId` is accessed in both synchronized and unsynchronized contexts
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/RefreshableMicroserviceCache.java`
-#### Snippet
-```java
-  Microservice consumerService;
-
-  String revisionId;
-
-  ServiceRegistryClient srClient;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `finalValue` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/PriorityProperty.java`
-#### Snippet
-```java
-  private final DynamicProperty[] properties;
-
-  private T finalValue;
-
-  public PriorityProperty(PriorityPropertyType<T> propertyType) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `globalRegistry` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/MetricsBootstrap.java`
-#### Snippet
-```java
-  private static final Logger LOGGER = LoggerFactory.getLogger(MetricsBootstrap.class);
-
-  private GlobalRegistry globalRegistry;
-
-  private EventBus eventBus;
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `eventBus` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/MetricsBootstrap.java`
-#### Snippet
-```java
-  private GlobalRegistry globalRegistry;
-
-  private EventBus eventBus;
-
-  private final MetricsBootstrapConfig config = new MetricsBootstrapConfig();
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `defaultRegistry` is accessed in both synchronized and unsynchronized contexts
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/registry/GlobalRegistry.java`
-#### Snippet
-```java
-  private final List<Registry> registries = new CopyOnWriteArrayList<>();
-
-  private Registry defaultRegistry;
-
-  public GlobalRegistry() {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `consumerMeta` is accessed in both synchronized and unsynchronized contexts
-in `providers/provider-pojo/src/main/java/org/apache/servicecomb/provider/pojo/PojoConsumerMetaRefresher.java`
-#### Snippet
-```java
-  // for highway, codec meta is relate to target instance
-  //  to avoid limit producer to only allow append parameter
-  protected PojoConsumerMeta consumerMeta;
-
-  public PojoConsumerMetaRefresher(String microserviceName, String schemaId, Class<?> consumerIntf) {
-```
-
-### FieldAccessedSynchronizedAndUnsynchronized
-Field `token` is accessed in both synchronized and unsynchronized contexts
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerTokenManager.java`
-#### Snippet
-```java
-  private final Object lock = new Object();
-
-  private RSAAuthenticationToken token;
-
-  public String getToken() {
-```
-
-## RuleId[id=EmptyMethod]
-### EmptyMethod
-All implementations of this method are empty
-in `core/src/main/java/org/apache/servicecomb/core/ConsumerProvider.java`
-#### Snippet
-```java
-  String getName();
-
-  void init();
-}
-
-```
-
-### EmptyMethod
-The method is empty
-in `core/src/main/java/org/apache/servicecomb/core/definition/ServiceRegistryListener.java`
-#### Snippet
-```java
-  @SubscriberOrder(-1000)
-  @Subscribe
-  public void onDestroyMicroservice(DestroyMicroserviceEvent event) {
-
-  }
-```
-
-### EmptyMethod
-Method only calls its super
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/EdgeRestServerVerticle.java`
-#### Snippet
-```java
-public class EdgeRestServerVerticle extends RestServerVerticle {
-  @Override
-  public void start() throws Exception {
-    super.start();
-  }
-```
-
-### EmptyMethod
-Method only calls its super
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/archaius/scheduler/NeverStartPollingScheduler.java`
-#### Snippet
-```java
-public class NeverStartPollingScheduler extends AbstractPollingScheduler {
-  @Override
-  protected void schedule(Runnable runnable) {
-    return;
-  }
-```
-
-### EmptyMethod
-Method only calls its super
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/archaius/scheduler/NeverStartPollingScheduler.java`
-#### Snippet
-```java
-
-  @Override
-  public void stop() {
-    return;
-  }
-```
-
-### EmptyMethod
-The method is empty
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/KeyStoreUtil.java`
-#### Snippet
-```java
-  }
-
-  private static void ignore() {
-  }
-}
-```
-
-### EmptyMethod
-The method is empty
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/SSLOption.java`
-#### Snippet
-```java
-  }
-
-  private void ignore() {
-  }
-
-```
-
-### EmptyMethod
-The method is empty
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/TrustManagerExt.java`
-#### Snippet
-```java
-  }
-
-  private static void ignore() {
-  }
-}
-```
-
-### EmptyMethod
-Method only calls its super
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/invocation/AbstractInvocationMeter.java`
-#### Snippet
-```java
-
-  @Override
-  public boolean hasExpired() {
-    return super.hasExpired();
-  }
-```
-
-### EmptyMethod
-The method is empty
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/invocation/AbstractInvocationMeters.java`
-#### Snippet
-```java
-  protected abstract AbstractInvocationMeter createMeter(Id id);
-
-  public void onInvocationStart(InvocationStartEvent event) {
-  }
-
-```
-
-### EmptyMethod
-All implementations of this method are empty
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/ServiceRegistryClient.java`
-#### Snippet
-```java
-
-public interface ServiceRegistryClient {
-  void init();
-
-  /**
-```
-
-## RuleId[id=RedundantFieldInitialization]
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/base/DynamicEnum.java`
-#### Snippet
-```java
-
-  @JsonIgnore
-  private boolean dynamic = false;
-
-  public DynamicEnum(T value) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/KeyPairUtils.java`
-#### Snippet
-```java
-  private static final Base64.Decoder decoder = Base64.getDecoder();
-
-  private static KeyFactory kf = null;
-
-  static {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-  private long lastPullTime = 0;
-
-  private boolean waitingDelete = false;
-
-  private final VendorExtensions vendorExtensions = new VendorExtensions();
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-  private final Object lock = new Object();
-
-  private long lastPullTime = 0;
-
-  private boolean waitingDelete = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-
-  // revision and pulledInstances directly equals to SC's response
-  protected String revision = null;
-
-  private List<MicroserviceInstance> pulledInstances;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `governance/src/main/java/org/apache/servicecomb/router/model/PolicyRuleItem.java`
-#### Snippet
-```java
-  private Integer total;
-
-  private boolean weightLess = false;
-
-  public PolicyRuleItem() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `governance/src/main/java/org/apache/servicecomb/governance/policy/FaultInjectionPolicy.java`
-#### Snippet
-```java
-  private int errorCode = 500;
-
-  private boolean forceClosed = false;
-
-  private String fallbackType = FaultInjectionConst.FALLBACK_THROWEXCEPTION;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `governance/src/main/java/org/apache/servicecomb/governance/policy/AbstractPolicy.java`
-#### Snippet
-```java
-
-public abstract class AbstractPolicy extends Configurable implements Comparable<AbstractPolicy> {
-  protected int order = 0;
-
-  @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `governance/src/main/java/org/apache/servicecomb/governance/policy/CircuitBreakerPolicy.java`
-#### Snippet
-```java
-
-  //force open this circuit breaker. This parameter is not used by circuit breaker directly
-  private boolean forceOpen = false;
-
-  public CircuitBreakerPolicy() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `governance/src/main/java/org/apache/servicecomb/governance/policy/CircuitBreakerPolicy.java`
-#### Snippet
-```java
-
-  //force close this circuit breaker. This parameter is not used by circuit breaker directly
-  private boolean forceClosed = false;
-
-  //force open this circuit breaker. This parameter is not used by circuit breaker directly
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `governance/src/main/java/org/apache/servicecomb/governance/policy/RetryPolicy.java`
-#### Snippet
-```java
-
-  // if throw an MaxRetriesExceededException if retry condition is based on result
-  private boolean failAfterMaxAttempts = false;
-
-  // if retry on the same instance. This property is not directly used in
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `governance/src/main/java/org/apache/servicecomb/governance/policy/RetryPolicy.java`
-#### Snippet
-```java
-  // if retry on the same instance. This property is not directly used in
-  // RetryHandler, but used for loadbalancers
-  private int retryOnSame = 0;
-
-  public List<String> getRetryOnResponseStatus() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `core/src/main/java/org/apache/servicecomb/core/executor/LinkedBlockingQueueEx.java`
-#### Snippet
-```java
-  private static final long serialVersionUID = -1L;
-
-  private transient volatile ThreadPoolExecutorEx owner = null;
-
-  public LinkedBlockingQueueEx(int capacity) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/SchemaDiscovery.java`
-#### Snippet
-```java
-  public static final String NAME = "schema discovery";
-
-  private SchemaDiscoveryService schemaDiscoveryService = null;
-
-  @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `transports/transport-rest/transport-rest-vertx/src/main/java/org/apache/servicecomb/transport/rest/vertx/RestBodyHandler.java`
-#### Snippet
-```java
-    boolean ended;
-
-    long uploadSize = 0L;
-
-    final boolean isMultipart;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/client/tcp/TcpClientConnection.java`
-#### Snippet
-```java
-  private final InetSocketAddress socketAddress;
-
-  private boolean localSupportLogin = false;
-
-  private final boolean remoteSupportLogin;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `handlers/handler-flowcontrol-qps/src/main/java/org/apache/servicecomb/qps/strategy/LeakyBucketStrategy.java`
-#### Snippet
-```java
-  private volatile long lastTime;
-
-  private long remainder = 0;
-
-  private static final String STRATEGY_NAME = "LeakyBucket";
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterDiscovery.java`
-#### Snippet
-```java
-  private long pollInterval = 15000;
-
-  private boolean started = false;
-
-  private final Object lock = new Object();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterDiscovery.java`
-#### Snippet
-```java
-  private static final String ALL_VERSION = "0+";
-
-  private static volatile boolean pullInstanceTaskOnceInProgress = false;
-
-  public static class SubscriptionKey {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterWatch.java`
-#### Snippet
-```java
-  private String serviceId;
-
-  private int continuousError = 0;
-
-  private final AtomicBoolean reconnecting = new AtomicBoolean(false);
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/AbstractParamProcessor.java`
-#### Snippet
-```java
-  protected Object defaultValue;
-
-  protected boolean required = false;
-
-  public Object getDefaultValue() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/locator/OperationLocator.java`
-#### Snippet
-```java
-  protected Map<String, String> pathVarMap = new HashMap<>();
-
-  protected boolean resourceFound = false;
-
-  public RestOperationMeta getOperation() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-
-  // 带正则表达式的group数
-  protected int groupWithRegExpCount = 0;
-
-  protected final Pattern pattern;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/ServiceCenterTaskMonitor.java`
-#### Snippet
-```java
-  private static final long MAX_TIME_TAKEN = 3000;
-
-  private long beginTime = 0;
-
-  private long lastEndTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/ServiceCenterTaskMonitor.java`
-#### Snippet
-```java
-  private long beginTime = 0;
-
-  private long lastEndTime = 0;
-
-  private int interval = -1;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/ServiceCenterTask.java`
-#### Snippet
-```java
-  private final MicroserviceServiceCenterTask microserviceServiceCenterTask;
-
-  private boolean registerInstanceSuccess = false;
-
-  private final ServiceCenterTaskMonitor serviceCenterTaskMonitor = new ServiceCenterTaskMonitor();
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/IpPortManager.java`
-#### Snippet
-```java
-  private final ArrayList<IpPort> defaultIpPort;
-
-  private boolean autoDiscoveryInited = false;
-
-  private final ServiceRegistryAddressManager addressManger;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RequestContext.java`
-#### Snippet
-```java
-  private RequestParam params;
-
-  private int retryTimes = 0;
-
-  public IpPort getIpPort() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RequestParam.java`
-#### Snippet
-```java
-  private Map<String, Object> formFields;
-
-  private byte[] body = null;
-
-  private Map<String, String> headers;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/RemoteServiceRegistry.java`
-#### Snippet
-```java
-    taskPool = new ScheduledThreadPoolExecutor(3,
-        new ThreadFactory() {
-          private int taskId = 0;
-
-          @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/RefreshableServiceRegistryCache.java`
-#### Snippet
-```java
-  ServiceRegistryClient srClient;
-
-  boolean emptyInstanceProtectionEnabled = false;
-
-  Consumer<List<MicroserviceCache>> cacheRefreshedWatcher;
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/LoadBalanceFilter.java`
-#### Snippet
-```java
-  private final ExtensionsManager extensionsManager;
-
-  private String strategy = null;
-
-  @VisibleForTesting
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/DataFactory.java`
-#### Snippet
-```java
-  private MonitorDataPublisher publisher;
-
-  private ScheduledExecutorService executorService = null;
-
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/SessionStickinessRule.java`
-#### Snippet
-```java
-  private final RuleExt triggerRule;
-
-  private volatile ServiceCombServer lastServer = null;
-
-  private long lastAccessedTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/DataFactory.java`
-#### Snippet
-```java
-  private static final int CORE_SIZE = 1;
-
-  private boolean hasStart = false;
-
-  @Inject
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/SessionStickinessRule.java`
-#### Snippet
-```java
-  private long lastAccessedTime = 0;
-
-  private volatile boolean errorThresholdMet = false;
-
-  private static final int MILLI_COUNT_IN_SECOND = 1000;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/SessionStickinessRule.java`
-#### Snippet
-```java
-  private volatile ServiceCombServer lastServer = null;
-
-  private long lastAccessedTime = 0;
-
-  private volatile boolean errorThresholdMet = false;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/data/CPUMonitorCalc.java`
-#### Snippet
-```java
-  private long preTime = System.nanoTime();
-
-  private long preUsedTime = 0;
-
-  private CPUMonitorCalc() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/MetricsMonitorDataProvider.java`
-#### Snippet
-```java
-  public static final String NAME_CONSUMER = "Consumer.";
-
-  private volatile List<Meter> meters = null;
-
-  public MetricsMonitorDataProvider() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0L` is redundant
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/meter/LatencyScopeMeter.java`
-#### Snippet
-```java
-  private final LongAdder times = new LongAdder();
-
-  private long lastTimes = 0L;
-
-  private final long nanoMin;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/meter/SimpleTimer.java`
-#### Snippet
-```java
-  private long lastCount = 0;
-
-  private long lastTotalTime = 0;
-
-  public SimpleTimer(Id id) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/meter/SimpleTimer.java`
-#### Snippet
-```java
-  private final AtomicDouble max = new AtomicDouble();
-
-  private long lastCount = 0;
-
-  private long lastTotalTime = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/inject/PlaceholderResolver.java`
-#### Snippet
-```java
-    int cartesianProductCount = 1;
-
-    int varCount = 0;
-  }
-
-```
-
-### RedundantFieldInitialization
-Field initialization to `null` is redundant
-in `spring-boot/spring-boot-starters/java-chassis-spring-boot-starter-servlet/src/main/java/org/apache/servicecomb/springboot/starter/servlet/RestServletInitializer.java`
-#### Snippet
-```java
-  private static final Logger LOGGER = LoggerFactory.getLogger(RestServletInitializer.class);
-
-  private AbstractConfigurableWebServerFactory factory = null;
-
-  @Override
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ByteArrayInputEx.java`
-#### Snippet
-```java
-  private final byte[] buffer;
-
-  private int offset, limit, lastTag = 0;
-
-  private int packedLimit = 0;
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ByteArrayInputEx.java`
-#### Snippet
-```java
-  private int offset, limit, lastTag = 0;
-
-  private int packedLimit = 0;
-
-  private ArrayBuilders arrayBuilders;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/MessageReadSchema.java`
-#### Snippet
-```java
-  Map<String, Type> argumentsTypes;
-
-  private boolean argumentsRoot = false;
-
-  @SuppressWarnings("unchecked")
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/EdgeAddHeaderClientFilter.java`
-#### Snippet
-```java
-  private List<String> publicHeaders = new ArrayList<>();
-
-  private boolean enabled = false;
-
-  public EdgeAddHeaderClientFilter() {
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/http/RestClientInvocation.java`
-#### Snippet
-```java
-  private final Handler<Throwable> throwableHandler = this::fail;
-
-  private boolean alreadyFailed = false;
-
-  public RestClientInvocation(HttpClientWithContext httpClientWithContext, List<HttpClientFilter> httpClientFilters) {
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/consumer/ConsumerArgumentsMapperCreator.java`
-#### Snippet
-```java
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConsumerArgumentsMapperCreator.class);
-
-  private int unknownConsumerParams = 0;
-
-  public ConsumerArgumentsMapperCreator(SerializationConfig serializationConfig,
-```
-
-### RedundantFieldInitialization
-Field initialization to `0` is redundant
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/AbstractAddressManager.java`
-#### Snippet
-```java
-  private List<String> addresses = new ArrayList<>();
-
-  private int index = 0;
-
-  private String projectName;
-```
-
-### RedundantFieldInitialization
-Field initialization to `false` is redundant
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/AbstractAddressManager.java`
-#### Snippet
-```java
-  private final List<String> defaultAddress = new ArrayList<>();
-
-  private boolean addressAutoRefreshed = false;
-
-  private final Object lock = new Object();
-```
-
-## RuleId[id=RedundantImplements]
-### RedundantImplements
-Redundant interface declaration `EnvironmentAware`
-in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
-#### Snippet
-```java
- *  Users need to use the same key as what is in config file to override.
- */
-public class ConfigurationSpringInitializer extends PropertySourcesPlaceholderConfigurer implements EnvironmentAware {
-  private static final Logger LOGGER = LoggerFactory.getLogger(ConfigurationSpringInitializer.class);
-
-```
-
-## RuleId[id=ExceptionNameDoesntEndWithException]
-### ExceptionNameDoesntEndWithException
-Exception class name `RuntimeExceptionWithoutStackTrace` does not end with 'Exception'
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/exception/RuntimeExceptionWithoutStackTrace.java`
-#### Snippet
-```java
-package org.apache.servicecomb.foundation.test.scaffolding.exception;
-
-public class RuntimeExceptionWithoutStackTrace extends RuntimeException {
-  private static final long serialVersionUID = -1L;
-
-```
-
-## RuleId[id=CallToStringConcatCanBeReplacedByOperator]
-### CallToStringConcatCanBeReplacedByOperator
-Call to `concat()` can be replaced with '+' expression
-in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java`
-#### Snippet
-```java
-            .trim()
-            .replaceAll("/+$", "")
-            .concat(path));
-  }
-
-```
-
 ## RuleId[id=FuseStreamOperations]
 ### FuseStreamOperations
 Stream may be extended replacing 'sort'
@@ -5302,368 +2568,6 @@ in `core/src/main/java/org/apache/servicecomb/core/filter/InvocationFilterChains
           .collect(Collectors.toList());
       serviceFilters.sort(Comparator.comparingInt(a -> a.getOrder(invocationType, microserviceName)));
       filterNode = FilterNode.buildChain(serviceFilters);
-```
-
-## RuleId[id=SynchronizeOnThis]
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/event/SimpleSubscriber.java`
-#### Snippet
-```java
-
-  private void syncDispatch(Object event) {
-    synchronized (this) {
-      lambda.accept(event);
-    }
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `core/src/main/java/org/apache/servicecomb/core/definition/MicroserviceVersionsMeta.java`
-#### Snippet
-```java
-  public MicroserviceConfig getMicroserviceConfig() {
-    if (microserviceConfig == null) {
-      synchronized (this) {
-        if (microserviceConfig == null) {
-          this.microserviceConfig = scbEngine.getPriorityPropertyManager()
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/OutputStreamToWriteStream.java`
-#### Snippet
-```java
-        outputStream.write(buffer.getBytes());
-
-        synchronized (OutputStreamToWriteStream.this) {
-          currentBufferCount--;
-          Runnable action = (currentBufferCount == 0 && closedDeferred != null) ? closedDeferred : this::checkDrained;
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `providers/provider-pojo/src/main/java/org/apache/servicecomb/provider/pojo/PojoConsumerMetaRefresher.java`
-#### Snippet
-```java
-  private void ensureMetaAvailable() {
-    if (isNeedRefresh()) {
-      synchronized (this) {
-        if (isNeedRefresh()) {
-          this.consumerMeta = refreshMeta();
-```
-
-### SynchronizeOnThis
-Lock operations on a class may have unforeseen side-effects
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-    Boolean alreadyWatch = watchServices.get(selfMicroserviceId);
-    if (alreadyWatch == null) {
-      synchronized (ServiceRegistryClientImpl.class) {
-        alreadyWatch = watchServices.get(selfMicroserviceId);
-        if (alreadyWatch == null) {
-```
-
-### SynchronizeOnThis
-Lock operations on 'this' may have unforeseen side-effects
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/AbstractAddressManager.java`
-#### Snippet
-```java
-
-  private String getCurrentAddress(List<String> addresses) {
-    synchronized (this) {
-      this.index++;
-      if (this.index >= addresses.size()) {
-```
-
-## RuleId[id=ZeroLengthArrayInitialization]
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/KeyStoreUtil.java`
-#### Snippet
-```java
-      is = new FileInputStream(crlfile);
-      Collection c = cf.generateCRLs(is);
-      return (CRL[]) c.toArray(new CRL[0]);
-    } catch (CertificateException e) {
-      throw new IllegalArgumentException("bad cert file.");
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/SSLManager.java`
-#### Snippet
-```java
-    try {
-      String keyStoreName = custom.getFullPath(option.getKeyStore());
-      char[] keyStoreValue = option.getKeyStoreValue() == null ? new char[0] :
-          custom.decode(option.getKeyStoreValue().toCharArray());
-      KeyStore keyStore =
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/SSLManager.java`
-#### Snippet
-```java
-
-      String trustStoreName = custom.getFullPath(option.getTrustStore());
-      char[] trustStoreValue = option.getTrustStoreValue() == null ? new char[0] :
-          custom.decode(option.getTrustStoreValue().toCharArray());
-      KeyStore trustStore =
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/PaaSResourceUtils.java`
-#### Snippet
-```java
-      return resourcePatternResolver.getResources(locationPattern);
-    } catch (IOException e) {
-      return new Resource[0];
-    }
-  }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/parameter/EnumPostProcessor.java`
-#### Snippet
-```java
-  private void processParameterDescription(ParameterGenerator parameterGenerator) {
-    JavaType genericType = parameterGenerator.getGenericType();
-    Annotation[] annotations = parameterGenerator.getAnnotations().toArray(new Annotation[0]);
-    String description = generateDescription(genericType, annotations);
-    if (description != null) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/SwaggerGeneratorUtils.java`
-#### Snippet
-```java
-      Collections.addAll(annotations, propertyDefinition.getSetter().getAnnotated().getAnnotations());
-    }
-    return annotations.toArray(new Annotation[0]);
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/SwaggerGeneratorUtils.java`
-#### Snippet
-```java
-
-    List<Module> modules = SPIServiceUtils.getOrLoadSortedService(Module.class);
-    Json.mapper().registerModules(modules.toArray(new Module[0]));
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
-#### Snippet
-```java
-            .forEach(configModel -> values.putAll(YAMLUtil.retrieveItems("", configModel.getConfig())));
-
-        propertyNames = values.keySet().toArray(new String[0]);
-      }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/StandardHttpServletRequestEx.java`
-#### Snippet
-```java
-    Map<String, String[]> arrayMap = new HashMap<>();
-    for (Entry<String, List<String>> entry : listMap.entrySet()) {
-      arrayMap.put(entry.getKey(), entry.getValue().toArray(new String[0]));
-    }
-    return arrayMap;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/VertxServerRequestToHttpServletRequest.java`
-#### Snippet
-```java
-
-    List<String> paramList = this.vertxRequest.params().getAll(name);
-    return paramList.toArray(new String[0]);
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/VertxServerRequestToHttpServletRequest.java`
-#### Snippet
-```java
-      MultiMap map = this.vertxRequest.params();
-      for (String name : map.names()) {
-        paramMap.put(name, map.getAll(name).toArray(new String[0]));
-      }
-      parameterMap = paramMap;
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/RestObjectMapperFactory.java`
-#### Snippet
-```java
-    // because we need to sort modules, so that customers can override our default module
-    List<Module> modules = SPIServiceUtils.getOrLoadSortedService(Module.class);
-    mapper.registerModules(modules.toArray(new Module[0]));
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/query/QueryCodecWithDelimiter.java`
-#### Snippet
-```java
-  public Object decode(QueryProcessor processor, HttpServletRequest request) {
-    Object value = processor.getAndCheckParameter(request);
-    value = value != null ? value.toString().split(splitDelimiter, -1) : new String[0];
-    return processor.convertValue(value);
-  }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `swagger/swagger-generator/generator-spring-data/src/main/java/org/apache/servicecomb/swagger/generator/springdata/SpringDataModule.java`
-#### Snippet
-```java
-      }
-      SortMixin result = new SortMixin();
-      result.setProperties(properties.toArray(new String[0]));
-      return result;
-    }
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/ConfigObjectFactory.java`
-#### Snippet
-```java
-    }
-
-    return finalKeys.toArray(new String[0]);
-  }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/HighwayOutputStream.java`
-#### Snippet
-```java
-  public void write(RootSerializer headerSerializer, Object header, RootSerializer bodySerializer, Object body)
-      throws Exception {
-    byte[] headerBytes = new byte[0];
-    byte[] bodyBytes = new byte[0];
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/HighwayOutputStream.java`
-#### Snippet
-```java
-      throws Exception {
-    byte[] headerBytes = new byte[0];
-    byte[] bodyBytes = new byte[0];
-
-    if (headerSerializer != null) {
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-    List<String> queryValues = queryParams.get(name);
-    if (queryValues == null || queryValues.isEmpty()) {
-      return new String[0];
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-    }
-
-    return queryValues.toArray(new String[0]);
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-    List<String> strCookies = httpHeaders.get(HttpHeaders.COOKIE);
-    if (strCookies == null) {
-      return new Cookie[] {};
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-    }
-
-    return result.toArray(new Cookie[0]);
-  }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/converter/impl/part/PartListToPartArrayConverter.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    List<Part> partList = (List<Part>) value;
-    return partList.toArray(new Part[0]);
-  }
-}
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestServletInjector.java`
-#### Snippet
-```java
-  private String[] splitUrlPattern(String urlPattern) {
-    if (StringUtils.isEmpty(urlPattern)) {
-      return new String[] {};
-    }
-
-```
-
-### ZeroLengthArrayInitialization
-Allocation of zero length array
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
-#### Snippet
-```java
-    List<ServletRegistration> servlets = findServletRegistrations(servletContext, servletCls);
-    if (servlets.isEmpty()) {
-      return new String[] {};
-    }
-
 ```
 
 ## RuleId[id=DuplicateThrows]
@@ -5715,7 +2619,44 @@ in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/
   }
 ```
 
+## RuleId[id=StringConcatenationInLoops]
+### StringConcatenationInLoops
+String concatenation `+=` in loop
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
+#### Snippet
+```java
+      }
+      header = Strings.padEnd(header, leastLatencyScopeStrLength, ' ');
+      latencyDistributionHeader += header;
+
+      String format = "%-" + (header.length() - 1) + "d ";
+```
+
+### StringConcatenationInLoops
+String concatenation `+=` in loop
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
+#### Snippet
+```java
+
+      String format = "%-" + (header.length() - 1) + "d ";
+      latencyDistributionFormat += format;
+    }
+  }
+```
+
 ## RuleId[id=UnusedAssignment]
+### UnusedAssignment
+Variable `required` initializer `false` is redundant
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/AbstractParamProcessor.java`
+#### Snippet
+```java
+  protected Object defaultValue;
+
+  protected boolean required = false;
+
+  public Object getDefaultValue() {
+```
+
 ### UnusedAssignment
 Variable `value` initializer `0` is redundant
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/Version.java`
@@ -5741,15 +2682,51 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
 ```
 
 ### UnusedAssignment
-Variable `extractionHandlerClass` initializer `null` is redundant
-in `governance/src/main/java/org/apache/servicecomb/governance/marker/RequestProcessor.java`
+Variable `fieldValue` initializer `null` is redundant
+in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/provider/AccessController.java`
 #### Snippet
 ```java
 
-    LOGGER.info("{} {}", customMatcherHandler, infoMessageForCreatingClass);
-    Class<?> extractionHandlerClass = null;
+  private boolean matchMicroserviceField(Microservice microservice, ConfigurationItem item) {
+    Object fieldValue = null;
     try {
-      extractionHandlerClass = Class.forName(customMatcherHandler);
+      fieldValue = new PropertyDescriptor(item.propertyName, Microservice.class).getReadMethod().invoke(microservice);
+```
+
+### UnusedAssignment
+Variable `value` initializer `0` is redundant
+in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionUtil.java`
+#### Snippet
+```java
+   */
+  public static int getFaultInjectionConfig(Invocation invocation, String key) {
+    int value = 0;
+    String config;
+
+```
+
+### UnusedAssignment
+Variable `value` initializer `0` is redundant
+in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionUtil.java`
+#### Snippet
+```java
+   */
+  private static int getConfigValue(String config) {
+    int value = 0;
+    //first need to check in config center map which has high priority.
+    Map<String, AtomicInteger> cfgMap = FaultInjectionUtil.getConfigCenterMap();
+```
+
+### UnusedAssignment
+Variable `fileKeys` initializer `new ArrayList<>()` is redundant
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
+#### Snippet
+```java
+
+  //contains all the file key in the parts
+  private List<String> fileKeys = new ArrayList<>();
+
+  // gen by httpHeaders
 ```
 
 ### UnusedAssignment
@@ -5765,15 +2742,75 @@ in `governance/src/main/java/org/apache/servicecomb/governance/marker/RequestPro
 ```
 
 ### UnusedAssignment
-Variable `required` initializer `false` is redundant
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/AbstractParamProcessor.java`
+Variable `extractionHandlerClass` initializer `null` is redundant
+in `governance/src/main/java/org/apache/servicecomb/governance/marker/RequestProcessor.java`
 #### Snippet
 ```java
-  protected Object defaultValue;
 
-  protected boolean required = false;
+    LOGGER.info("{} {}", customMatcherHandler, infoMessageForCreatingClass);
+    Class<?> extractionHandlerClass = null;
+    try {
+      extractionHandlerClass = Class.forName(customMatcherHandler);
+```
 
-  public Object getDefaultValue() {
+### UnusedAssignment
+Variable `zoneAndRegion` initializer `new HashMap<>()` is redundant
+in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/event/RefreshEndpointEvent.java`
+#### Snippet
+```java
+  private static final String SAME_REGION = "sameRegion";
+
+  private Map<String, List<String>> zoneAndRegion = new HashMap<>();
+
+  private String name;
+```
+
+### UnusedAssignment
+Variable `httpUriRequest` initializer `null` is redundant
+in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/HttpRequest.java`
+#### Snippet
+```java
+  public HttpUriRequest getRealRequest() {
+
+    HttpUriRequest httpUriRequest = null;
+
+    switch (method) {
+```
+
+### UnusedAssignment
+Variable `number` initializer `0` is redundant
+in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/CompatiblePathVersionMapper.java`
+#### Snippet
+```java
+    }
+
+    int number = 0;
+    try {
+      number = Integer.parseInt(pathVersion.substring(1));
+```
+
+### UnusedAssignment
+Variable `configArr` initializer `null` is redundant
+in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/element/impl/ConfigurableDatetimeAccessItem.java`
+#### Snippet
+```java
+   */
+  public ConfigurableDatetimeAccessItem(String config) {
+    String[] configArr = null;
+    if (config.contains("|")) {
+      configArr = splitConfig(config);
+```
+
+### UnusedAssignment
+Variable `executorService` initializer `null` is redundant
+in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/DataFactory.java`
+#### Snippet
+```java
+  private MonitorDataPublisher publisher;
+
+  private ScheduledExecutorService executorService = null;
+
+
 ```
 
 ### UnusedAssignment
@@ -5812,114 +2849,6 @@ in `swagger/swagger-invocation/invocation-springmvc/src/main/java/org/apache/ser
       cseResponse = realMapper.mapResponse(responseStatus, springmvcResponse.getBody());
 ```
 
-### UnusedAssignment
-Variable `executorService` initializer `null` is redundant
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/DataFactory.java`
-#### Snippet
-```java
-  private MonitorDataPublisher publisher;
-
-  private ScheduledExecutorService executorService = null;
-
-
-```
-
-### UnusedAssignment
-Variable `value` initializer `0` is redundant
-in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionUtil.java`
-#### Snippet
-```java
-   */
-  private static int getConfigValue(String config) {
-    int value = 0;
-    //first need to check in config center map which has high priority.
-    Map<String, AtomicInteger> cfgMap = FaultInjectionUtil.getConfigCenterMap();
-```
-
-### UnusedAssignment
-Variable `value` initializer `0` is redundant
-in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionUtil.java`
-#### Snippet
-```java
-   */
-  public static int getFaultInjectionConfig(Invocation invocation, String key) {
-    int value = 0;
-    String config;
-
-```
-
-### UnusedAssignment
-Variable `configArr` initializer `null` is redundant
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/element/impl/ConfigurableDatetimeAccessItem.java`
-#### Snippet
-```java
-   */
-  public ConfigurableDatetimeAccessItem(String config) {
-    String[] configArr = null;
-    if (config.contains("|")) {
-      configArr = splitConfig(config);
-```
-
-### UnusedAssignment
-Variable `fileKeys` initializer `new ArrayList<>()` is redundant
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-
-  //contains all the file key in the parts
-  private List<String> fileKeys = new ArrayList<>();
-
-  // gen by httpHeaders
-```
-
-### UnusedAssignment
-Variable `number` initializer `0` is redundant
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/CompatiblePathVersionMapper.java`
-#### Snippet
-```java
-    }
-
-    int number = 0;
-    try {
-      number = Integer.parseInt(pathVersion.substring(1));
-```
-
-### UnusedAssignment
-Variable `zoneAndRegion` initializer `new HashMap<>()` is redundant
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/event/RefreshEndpointEvent.java`
-#### Snippet
-```java
-  private static final String SAME_REGION = "sameRegion";
-
-  private Map<String, List<String>> zoneAndRegion = new HashMap<>();
-
-  private String name;
-```
-
-### UnusedAssignment
-Variable `httpUriRequest` initializer `null` is redundant
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/HttpRequest.java`
-#### Snippet
-```java
-  public HttpUriRequest getRealRequest() {
-
-    HttpUriRequest httpUriRequest = null;
-
-    switch (method) {
-```
-
-### UnusedAssignment
-Variable `fieldValue` initializer `null` is redundant
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/provider/AccessController.java`
-#### Snippet
-```java
-
-  private boolean matchMicroserviceField(Microservice microservice, ConfigurationItem item) {
-    Object fieldValue = null;
-    try {
-      fieldValue = new PropertyDescriptor(item.propertyName, Microservice.class).getReadMethod().invoke(microservice);
-```
-
 ## RuleId[id=OptionalGetWithoutIsPresent]
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
@@ -5935,6 +2864,18 @@ in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definiti
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
+Value `type` is always 'null'
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationMeta.java`
+#### Snippet
+```java
+    final BodyParameter bodyParameter = (BodyParameter) parameter;
+    if (!(bodyParameter.getSchema() instanceof ModelImpl)) {
+      return type;
+    }
+    final Property additionalProperties = ((ModelImpl) bodyParameter.getSchema()).getAdditionalProperties();
+```
+
+### ConstantValue
 Condition `interfaces != null` is always `true`
 in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/TrustManagerExt.java`
 #### Snippet
@@ -5944,6 +2885,42 @@ in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/s
           if (interfaces != null) {
             while (interfaces.hasMoreElements()) {
               NetworkInterface nif = interfaces.nextElement();
+```
+
+### ConstantValue
+Condition `totalLen == 0` is always `false`
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/server/TcpParser.java`
+#### Snippet
+```java
+        }
+
+        if (totalLen == 0) {
+          onReadOnePackage(null, null);
+          return;
+```
+
+### ConstantValue
+Value `propertySource` is always 'null'
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
+#### Snippet
+```java
+      return;
+    }
+    if (propertySource instanceof EnumerablePropertySource) {
+      EnumerablePropertySource<?> enumerablePropertySource = (EnumerablePropertySource<?>) propertySource;
+      for (String propertyName : enumerablePropertySource.getPropertyNames()) {
+```
+
+### ConstantValue
+Condition `value instanceof Resource` is always `false`
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/PartUtils.java`
+#### Snippet
+```java
+    }
+
+    if (value instanceof Resource) {
+      return new ResourcePart(name, (Resource) value);
+    }
 ```
 
 ### ConstantValue
@@ -5971,87 +2948,27 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
 ```
 
 ### ConstantValue
-Result of `apiOperation.hidden()` is always 'true'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/utils/MethodUtils.java`
+Value `propertySource` is always 'null'
+in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
 #### Snippet
 ```java
-    ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
-    if (apiOperation != null && apiOperation.hidden()) {
-      return apiOperation.hidden();
-    }
-
-```
-
-### ConstantValue
-Condition `genericResponseType instanceof ParameterizedType` is always `true`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/response/DefaultResponseTypeProcessor.java`
-#### Snippet
-```java
-    //   responseRawType is ResponseEntity
-    Type responseRawType = genericResponseType;
-    if (genericResponseType instanceof ParameterizedType) {
-      responseRawType = ((ParameterizedType) genericResponseType).getRawType();
-    }
-```
-
-### ConstantValue
-Result of `apiOperation.hidden()` is always 'true'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
-#### Snippet
-```java
-    ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
-    if (apiOperation != null && apiOperation.hidden()) {
-      return apiOperation.hidden();
-    }
-
-```
-
-### ConstantValue
-Condition `totalLen == 0` is always `false`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/server/TcpParser.java`
-#### Snippet
-```java
-        }
-
-        if (totalLen == 0) {
-          onReadOnePackage(null, null);
-          return;
-```
-
-### ConstantValue
-Value `type` is always 'null'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationMeta.java`
-#### Snippet
-```java
-    final BodyParameter bodyParameter = (BodyParameter) parameter;
-    if (!(bodyParameter.getSchema() instanceof ModelImpl)) {
-      return type;
-    }
-    final Property additionalProperties = ((ModelImpl) bodyParameter.getSchema()).getAdditionalProperties();
-```
-
-### ConstantValue
-Condition `beanCls == null` is always `false`
-in `providers/provider-pojo/src/main/java/org/apache/servicecomb/provider/pojo/schema/PojoProducers.java`
-#### Snippet
-```java
-    // 所以，需要先取出原class，再取标注
-    Class<?> beanCls = BeanUtils.getImplClassFromBean(bean);
-    if (beanCls == null) {
       return;
     }
+    if (propertySource instanceof EnumerablePropertySource) {
+      EnumerablePropertySource<?> enumerablePropertySource = (EnumerablePropertySource<?>) propertySource;
+      Collections.addAll(allKeys, enumerablePropertySource.getPropertyNames());
 ```
 
 ### ConstantValue
-Condition `instance == null` is always `false`
-in `providers/provider-pojo/src/main/java/org/apache/servicecomb/provider/pojo/instance/SpringInstanceFactory.java`
+Condition `printDetail` is always `true`
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/ServerEndpointsLogPublisher.java`
 #### Snippet
 ```java
-  public Object create(String beanId) {
-    Object instance = BeanUtils.getBean(beanId);
-    if (instance == null) {
-      throw new Error("Fail to find bean:" + beanId);
-    }
+
+    for (MeasurementNode address : measurementNode.getChildren().values()) {
+      if (printDetail) {
+        appendLine(sb, "      %-12.0f %-15.0f %-13.0f %-11.0f %-8.0f %-7.0f %-9s %-12s %s",
+            address.findChild(EndpointMeter.CONNECT_COUNT).summary(),
 ```
 
 ### ConstantValue
@@ -6091,52 +3008,39 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 ```
 
 ### ConstantValue
-Condition `printDetail` is always `true`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/ServerEndpointsLogPublisher.java`
+Result of `apiOperation.hidden()` is always 'true'
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/utils/MethodUtils.java`
 #### Snippet
 ```java
+    ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+    if (apiOperation != null && apiOperation.hidden()) {
+      return apiOperation.hidden();
+    }
 
-    for (MeasurementNode address : measurementNode.getChildren().values()) {
-      if (printDetail) {
-        appendLine(sb, "      %-12.0f %-15.0f %-13.0f %-11.0f %-8.0f %-7.0f %-9s %-12s %s",
-            address.findChild(EndpointMeter.CONNECT_COUNT).summary(),
 ```
 
 ### ConstantValue
-Condition `beanCls == null` is always `false`
-in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/RestProducers.java`
+Condition `genericResponseType instanceof ParameterizedType` is always `true`
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/response/DefaultResponseTypeProcessor.java`
 #### Snippet
 ```java
-    // 所以，需要先取出原class，再取标注
-    Class<?> beanCls = BeanUtils.getImplClassFromBean(bean);
-    if (beanCls == null) {
-      return;
+    //   responseRawType is ResponseEntity
+    Type responseRawType = genericResponseType;
+    if (genericResponseType instanceof ParameterizedType) {
+      responseRawType = ((ParameterizedType) genericResponseType).getRawType();
     }
 ```
 
-## RuleId[id=MethodOverridesStaticMethod]
-### MethodOverridesStaticMethod
-Method `isType()` tries to override a static method of a superclass
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/property/ShortProperty.java`
+### ConstantValue
+Result of `apiOperation.hidden()` is always 'true'
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
 #### Snippet
 ```java
-  }
+    ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+    if (apiOperation != null && apiOperation.hidden()) {
+      return apiOperation.hidden();
+    }
 
-  public static boolean isType(String type, String format) {
-    return TYPE.equals(type) && FORMAT.equals(format);
-  }
-```
-
-### MethodOverridesStaticMethod
-Method `isType()` tries to override a static method of a superclass
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/property/ByteProperty.java`
-#### Snippet
-```java
-  }
-
-  public static boolean isType(String type, String format) {
-    return TYPE.equals(type) && FORMAT.equals(format);
-  }
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
@@ -6308,19 +3212,6 @@ in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/in
           }
 ```
 
-## RuleId[id=IOResource]
-### IOResource
-'GroupExecutor' should be opened in front of a 'try' block and closed in the corresponding 'finally' block
-in `core/src/main/java/org/apache/servicecomb/core/bootstrap/SCBEngineForTest.java`
-#### Snippet
-```java
-public class SCBEngineForTest extends SCBEngine {
-  public SCBEngineForTest() {
-    getExecutorManager().registerExecutor(EXECUTOR_GROUP_THREADPOOL, new GroupExecutor().init());
-
-    List<Filter> filters = Arrays.asList(
-```
-
 ## RuleId[id=RedundantOperationOnEmptyContainer]
 ### RedundantOperationOnEmptyContainer
 Collection `Collections.EMPTY_LIST` is always empty
@@ -6332,19 +3223,6 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
     return Collections.EMPTY_LIST.iterator();
   }
 
-```
-
-## RuleId[id=FieldMayBeStatic]
-### FieldMayBeStatic
-Field `loaded` may be 'static'
-in `huawei-cloud/servicestage/src/main/java/org/apache/servicecomb/huaweicloud/servicestage/AKSKAuthHeaderProvider.java`
-#### Snippet
-```java
-  private boolean enabled;
-
-  private final boolean loaded = false;
-
-  public AKSKAuthHeaderProvider() {
 ```
 
 ## RuleId[id=RedundantLengthCheck]
@@ -6372,1940 +3250,129 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
     }
 ```
 
-## RuleId[id=UtilityClassWithoutPrivateConstructor]
-### UtilityClassWithoutPrivateConstructor
-Class `ClientAuth` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/ClientAuth.java`
+## RuleId[id=JavadocReference]
+### JavadocReference
+Cannot resolve symbol `EnumerablePropertySource`
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
 #### Snippet
 ```java
-package org.apache.servicecomb.foundation.ssl;
 
-public final class ClientAuth {
-  public static final String REQUIRED = "REQUIRED";
-
+  /**
+   * Get property names from {@link EnumerablePropertySource}, and get property value from {@link ConfigurableEnvironment#getProperty(String)}
+   */
+  private void getProperties(ConfigurableEnvironment environment, PropertySource<?> propertySource,
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `ClassLoaderScopeContext` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/ClassLoaderScopeContext.java`
+### JavadocReference
+Cannot resolve symbol `ConfigurableEnvironment`
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
 #### Snippet
 ```java
-*
-*/
-public class ClassLoaderScopeContext {
 
-  private static final Map<String, String> CLASS_LOADER_SCOPE_CONTEXT = new HashMap<>();
+  /**
+   * Get property names from {@link EnumerablePropertySource}, and get property value from {@link ConfigurableEnvironment#getProperty(String)}
+   */
+  private void getProperties(ConfigurableEnvironment environment, PropertySource<?> propertySource,
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `IOUtils` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/IOUtils.java`
+### JavadocReference
+Cannot resolve symbol `getProperty(String)`
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
 #### Snippet
 ```java
-import org.apache.commons.lang3.StringUtils;
 
-public class IOUtils {
-  @SuppressWarnings("deprecation")
-  public static void closeQuietly(final Closeable closeable) {
+  /**
+   * Get property names from {@link EnumerablePropertySource}, and get property value from {@link ConfigurableEnvironment#getProperty(String)}
+   */
+  private void getProperties(ConfigurableEnvironment environment, PropertySource<?> propertySource,
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `MimeTypesUtils` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/MimeTypesUtils.java`
+### JavadocReference
+Cannot resolve symbol `Conditional`
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
 #### Snippet
 ```java
-import java.util.regex.Pattern;
-
-public class MimeTypesUtils {
-  private static final Pattern COMMA_SPLITTER = Pattern.compile(" *, *");
-
+  /**
+   * make springboot have a change to add microservice.yaml source earlier<br>
+   * to affect {@link Conditional}
+   * @param environment environment
+   */
 ```
 
-### UtilityClassWithoutPrivateConstructor
-Class `KeyPairUtils` has only 'static' members, and lacks a 'private' constructor
+### JavadocReference
+Cannot resolve symbol `PropertySource`
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
+#### Snippet
+```java
+
+  /**
+   * Traversal all {@link PropertySource} of {@link ConfigurableEnvironment}, and try to get all properties.
+   */
+  private Map<String, Object> getAllProperties(Environment environment) {
+```
+
+### JavadocReference
+Cannot resolve symbol `ConfigurableEnvironment`
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
+#### Snippet
+```java
+
+  /**
+   * Traversal all {@link PropertySource} of {@link ConfigurableEnvironment}, and try to get all properties.
+   */
+  private Map<String, Object> getAllProperties(Environment environment) {
+```
+
+### JavadocReference
+Cannot resolve symbol `org.springframework.aop.framework.AopProxyUtils`
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/BeanUtils.java`
+#### Snippet
+```java
+   * @param bean the instance to get implemented class from
+   * @return the implemented class (if the checked class is proxied, return the ultimate target class)
+   * @see org.springframework.aop.framework.AopProxyUtils#ultimateTargetClass
+   */
+  public static Class<?> getImplClassFromBean(Object bean) {
+```
+
+### JavadocReference
+Cannot resolve symbol `ultimateTargetClass`
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/BeanUtils.java`
+#### Snippet
+```java
+   * @param bean the instance to get implemented class from
+   * @return the implemented class (if the checked class is proxied, return the ultimate target class)
+   * @see org.springframework.aop.framework.AopProxyUtils#ultimateTargetClass
+   */
+  public static Class<?> getImplClassFromBean(Object bean) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Conditional`
+in `spring-boot/spring-boot-starters/java-chassis-spring-boot-starter/src/main/java/org/apache/servicecomb/springboot/starter/ConfigurationSpringBootInitializer.java`
+#### Snippet
+```java
+/**
+ * when run with springboot, add microservice.yaml to Environment earlier<br>
+ * to affect {@link Conditional}<br>
+ */
+public class ConfigurationSpringBootInitializer implements EnvironmentPostProcessor {
+```
+
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/KeyPairUtils.java`
 #### Snippet
 ```java
-import com.netflix.config.DynamicPropertyFactory;
 
-public class KeyPairUtils {
+  private static final String KEY_GENERATOR_ALGORITHM = DynamicPropertyFactory.getInstance()
+      .getStringProperty("servicecomb.publicKey.accessControl.keyGeneratorAlgorithm", "RSA").get();;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(KeyPairUtils.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GenericsUtils` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/GenericsUtils.java`
-#### Snippet
-```java
-import java.lang.reflect.Type;
-
-public final class GenericsUtils {
-  /**
-   * check if XXX.class is generic type. see TestGenericsUtils for details meaning.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TypesUtil` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/TypesUtil.java`
-#### Snippet
-```java
- * common utils to convert java types.
- */
-public class TypesUtil {
-  private static final Map<Class<?>, Class<?>> PRIMITIVE_TO_WRAPPER = new HashMap<>();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Encryptions` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/encrypt/Encryptions.java`
-#### Snippet
-```java
-import com.google.common.annotations.VisibleForTesting;
-
-public class Encryptions {
-  private static Encryption encryption = SPIServiceUtils.getPriorityHighestService(Encryption.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ServiceCenterEventBus` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/event/ServiceCenterEventBus.java`
-#### Snippet
-```java
-import com.google.common.eventbus.EventBus;
-
-public final class ServiceCenterEventBus {
-  private static final EventBus eventBus = new SimpleEventBus();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FrameworkVersions` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/registry/FrameworkVersions.java`
-#### Snippet
-```java
-import org.apache.servicecomb.registry.api.Versions;
-
-public class FrameworkVersions {
-  private static final ServiceLoader<Versions> frameworkVersions = ServiceLoader.load(Versions.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ServiceRegistryCommonConfig` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/config/ServiceRegistryCommonConfig.java`
-#### Snippet
-```java
-import com.netflix.config.DynamicPropertyFactory;
-
-public class ServiceRegistryCommonConfig {
-  private static final String REGISTRY_EMPTY_PROTECTION = "servicecomb.service.registry.instance.empty.protection";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MicroserviceInstanceCache` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/cache/MicroserviceInstanceCache.java`
-#### Snippet
-```java
- *
- */
-public class MicroserviceInstanceCache {
-
-  private static final Logger logger = LoggerFactory.getLogger(MicroserviceInstanceCache.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `VersionUtils` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/version/VersionUtils.java`
-#### Snippet
-```java
-import org.apache.servicecomb.foundation.common.concurrent.ConcurrentHashMapEx;
-
-public final class VersionUtils {
-  private static final Map<String, Version> versionCache = new ConcurrentHashMapEx<>();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `VersionRuleUtils` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/version/VersionRuleUtils.java`
-#### Snippet
-```java
-import org.apache.servicecomb.foundation.common.concurrent.ConcurrentHashMapEx;
-
-public final class VersionRuleUtils {
-  private static final List<VersionRuleParser> parsers = new ArrayList<>();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TransportUtils` has only 'static' members, and lacks a 'private' constructor
-in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/TransportUtils.java`
-#### Snippet
-```java
-import org.apache.servicecomb.http.client.common.HttpConfiguration.SSLProperties;
-
-public class TransportUtils {
-  public static SSLProperties createSSLProperties(boolean sslEnabled, Configuration configuration, String tag) {
-    SSLProperties sslProperties = new SSLProperties();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MethodUtils` has only 'static' members, and lacks a 'private' constructor
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/utils/MethodUtils.java`
-#### Snippet
-```java
-import io.swagger.annotations.ApiOperation;
-
-public class MethodUtils {
-  /**
-   * Get the methods of <code>cls</code> which are valid for generating Swagger schema.
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `VersionCompareUtil` has only 'static' members, and lacks a 'private' constructor
-in `governance/src/main/java/org/apache/servicecomb/router/util/VersionCompareUtil.java`
-#### Snippet
-```java
-import org.apache.servicecomb.foundation.common.Version;
-
-public class VersionCompareUtil {
-  public static int compareVersion(String version1, String version2) {
-    return new Version(version1).compareTo(new Version(version2));
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GovernanceEventManager` has only 'static' members, and lacks a 'private' constructor
-in `governance/src/main/java/org/apache/servicecomb/governance/event/GovernanceEventManager.java`
-#### Snippet
-```java
-import com.google.common.eventbus.EventBus;
-
-public class GovernanceEventManager {
-  private static final EventBus eventBus = new EventBus();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GovernanceUtils` has only 'static' members, and lacks a 'private' constructor
-in `governance/src/main/java/org/apache/servicecomb/governance/utils/GovernanceUtils.java`
-#### Snippet
-```java
-package org.apache.servicecomb.governance.utils;
-
-public final class GovernanceUtils {
-  public static final String DIGIT_REGEX = "-{0,1}[0-9]{1,10}";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FaultInjectionConst` has only 'static' members, and lacks a 'private' constructor
-in `governance/src/main/java/org/apache/servicecomb/governance/processor/injection/FaultInjectionConst.java`
-#### Snippet
-```java
- * Handles the all constant values for fault injection.
- */
-public class FaultInjectionConst {
-
-  public static final int FAULT_INJECTION_DEFAULT_VALUE = -1;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SCBBootstrap` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/servicecomb/core/bootstrap/SCBBootstrap.java`
-#### Snippet
-```java
-import org.apache.servicecomb.registry.RegistrationManager;
-
-public class SCBBootstrap {
-  public static SCBEngine createSCBEngineForTest() {
-    RegistrationManager.INSTANCE.init();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `GovernanceConfiguration` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/servicecomb/core/governance/GovernanceConfiguration.java`
-#### Snippet
-```java
-import com.netflix.config.DynamicPropertyFactory;
-
-public class GovernanceConfiguration {
-  public static final String ROOT = "servicecomb.loadbalance.";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MatchType` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/servicecomb/core/governance/MatchType.java`
-#### Snippet
-```java
-import org.apache.servicecomb.governance.marker.GovernanceRequestExtractor;
-
-public final class MatchType {
-  private static class GovernanceRequestExtractorImpl implements GovernanceRequestExtractor {
-    private final Invocation invocation;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EndpointCacheUtils` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/servicecomb/core/invocation/endpoint/EndpointCacheUtils.java`
-#### Snippet
-```java
-import com.google.common.cache.LoadingCache;
-
-public final class EndpointCacheUtils {
-  private static final LoadingCache<String, Endpoint> CACHE = CacheBuilder.newBuilder()
-      .maximumSize(10000)
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Const` has only 'static' members, and lacks a 'private' constructor
-in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/Const.java`
-#### Snippet
-```java
-package org.apache.servicecomb.schemadiscovery;
-
-public class Const {
-  public static final int SCHEMA_DISCOVERY_ORDER = 200;
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `VertxConst` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/VertxConst.java`
-#### Snippet
-```java
-package org.apache.servicecomb.foundation.vertx;
-
-public final class VertxConst {
-  public static final String PROXY_PRE_NAME = "servicecomb.proxy.";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SharedVertxFactory` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/SharedVertxFactory.java`
-#### Snippet
-```java
-import io.vertx.core.shareddata.Shareable;
-
-public class SharedVertxFactory {
-  static class SharedVertxInfo implements Shareable {
-    public VertxOptions vertxOptions = new VertxOptions();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AddressResolverConfig` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/AddressResolverConfig.java`
-#### Snippet
-```java
-import io.vertx.core.dns.AddressResolverOptions;
-
-public class AddressResolverConfig {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(AddressResolverConfig.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HttpClients` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/client/http/HttpClients.java`
-#### Snippet
-```java
- *  load and manages a set of HttpClient at boot up.
- */
-public class HttpClients {
-  private static final Logger LOGGER = LoggerFactory.getLogger(HttpClients.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TransportUtils` has only 'static' members, and lacks a 'private' constructor
-in `dynamic-config/config-kie/src/main/java/org/apache/servicecomb/config/kie/TransportUtils.java`
-#### Snippet
-```java
-import org.apache.servicecomb.http.client.common.HttpConfiguration.SSLProperties;
-
-public class TransportUtils {
-  public static SSLProperties createSSLProperties(boolean sslEnabled, Configuration configuration, String tag) {
-    SSLProperties sslProperties = new SSLProperties();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ConfigConstants` has only 'static' members, and lacks a 'private' constructor
-in `clients/config-kie-client/src/main/java/org/apache/servicecomb/config/kie/client/model/ConfigConstants.java`
-#### Snippet
-```java
-
-
-public class ConfigConstants {
-
-  public static final String LABEL_ENV = "environment";
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ConfigurationsRequestFactory` has only 'static' members, and lacks a 'private' constructor
-in `clients/config-kie-client/src/main/java/org/apache/servicecomb/config/kie/client/model/ConfigurationsRequestFactory.java`
-#### Snippet
-```java
-import org.apache.servicecomb.http.client.common.HttpUtils;
-
-public class ConfigurationsRequestFactory {
-  private static final String KEY_APP = "app";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Deployment` has only 'static' members, and lacks a 'private' constructor
-in `deployment/src/main/java/org/apache/servicecomb/deployment/Deployment.java`
-#### Snippet
-```java
-import org.apache.servicecomb.foundation.common.utils.SPIServiceUtils;
-
-public class Deployment {
-  private static final List<DeploymentProvider> providerList = SPIServiceUtils.getSortedService(DeploymentProvider.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `InvokerUtils` has only 'static' members, and lacks a 'private' constructor
-in `core/src/main/java/org/apache/servicecomb/core/provider/consumer/InvokerUtils.java`
-#### Snippet
-```java
-import io.vertx.core.Context;
-
-public final class InvokerUtils {
-  private static final Logger LOGGER = LoggerFactory.getLogger(InvokerUtils.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RestObjectMapperFactory` has only 'static' members, and lacks a 'private' constructor
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/RestObjectMapperFactory.java`
-#### Snippet
-```java
- * Manage RestObjectMapper instances. Give users an option to specify custom mappers.
- */
-public class RestObjectMapperFactory {
-  private static AbstractRestObjectMapper defaultMapper = new RestObjectMapper();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `QueryCodecsUtils` has only 'static' members, and lacks a 'private' constructor
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/query/QueryCodecsUtils.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class QueryCodecsUtils {
-  // create a default instance, so that more friendly to UT
-  private static QueryCodecs queryCodecs = QueryCodecs.createForTest();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `REGISTRY_API` has only 'static' members, and lacks a 'private' constructor
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/api/Const.java`
-#### Snippet
-```java
-  }
-
-  public static final class REGISTRY_API {
-    public static final String DOMAIN_NAME = ServiceRegistryConfig.INSTANCE.getDomainName();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ConfigCenterConfigurationSourceLoader` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/spi/ConfigCenterConfigurationSourceLoader.java`
-#### Snippet
-```java
-import org.apache.servicecomb.foundation.common.utils.SPIServiceUtils;
-
-public class ConfigCenterConfigurationSourceLoader {
-  private static final List<ConfigCenterConfigurationSource> configCenterConfigurationSources =
-      SPIServiceUtils.getSortedService(ConfigCenterConfigurationSource.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BootStrapProperties` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/BootStrapProperties.java`
-#### Snippet
-```java
- * through property files or environment variables.
- */
-public class BootStrapProperties {
-  // start of : service definition keys
-  // service definition keys of old version
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ConfigSourceMaker` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/archaius/sources/ConfigSourceMaker.java`
-#### Snippet
-```java
-package org.apache.servicecomb.config.archaius.sources;
-
-public class ConfigSourceMaker {
-
-  public static MicroserviceConfigurationSource yamlConfigSource() {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `TransportUtils` has only 'static' members, and lacks a 'private' constructor
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/TransportUtils.java`
-#### Snippet
-```java
-import org.apache.servicecomb.http.client.common.HttpConfiguration.SSLProperties;
-
-public class TransportUtils {
-  public static SSLProperties createSSLProperties(boolean sslEnabled, Configuration configuration, String tag) {
-    SSLProperties sslProperties = new SSLProperties();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MonitorConstant` has only 'static' members, and lacks a 'private' constructor
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/data/MonitorConstant.java`
-#### Snippet
-```java
-import com.netflix.config.DynamicStringProperty;
-
-public class MonitorConstant {
-  public static final String DOMAIN_NAME = getDomainName();
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FaultInjectionConfig` has only 'static' members, and lacks a 'private' constructor
-in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionConfig.java`
-#### Snippet
-```java
- * center.
- */
-public final class FaultInjectionConfig {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(FaultInjectionConfig.class);
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FaultInjectionConst` has only 'static' members, and lacks a 'private' constructor
-in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionConst.java`
-#### Snippet
-```java
- * Handles the all constant values for fault injection.
- */
-public class FaultInjectionConst {
-
-  public static final int FAULT_INJECTION_DEFAULT_VALUE = -1;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ProtobufManager` has only 'static' members, and lacks a 'private' constructor
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/definition/ProtobufManager.java`
-#### Snippet
-```java
-import com.google.common.annotations.VisibleForTesting;
-
-public final class ProtobufManager {
-  public static final String EXT_ID = "protobuf";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FieldTypeUtils` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/runtime/FieldTypeUtils.java`
-#### Snippet
-```java
-import io.protostuff.compiler.model.ScalarFieldType;
-
-public final class FieldTypeUtils {
-  public static FieldType convert(io.protostuff.compiler.model.FieldType fieldType) {
-    if (fieldType.isEnum()) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FloatWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/FloatWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class FloatWriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (float.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed64WriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/Fixed64WriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed64WriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt32WriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/SInt32WriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt32WriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (int.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/StringWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class StringWriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (char.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt64WriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/UInt64WriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt64WriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int64WriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/Int64WriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int64WriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt64WriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/SInt64WriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt64WriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed64WriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/SFixed64WriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed64WriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DoubleWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/DoubleWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class DoubleWriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (double.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed32WriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/Fixed32WriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed32WriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (int.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt32WriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/UInt32WriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt32WriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (int.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BytesWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/BytesWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BytesWriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (byte[].class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BoolWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/BoolWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BoolWriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (boolean.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EnumWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/EnumWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class EnumWriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (propertyDescriptor.getJavaType().isEnumType()) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed32WriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/SFixed32WriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed32WriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (int.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int32WriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/Int32WriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public final class Int32WriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (int.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RepeatedPrimitiveWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/RepeatedPrimitiveWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class RepeatedPrimitiveWriteSchemas {
-  public static <T, PRIMITIVE_ARRAY, PRIMITIVE_WRAPPER> FieldSchema<T> create(Field protoField,
-      PropertyDescriptor propertyDescriptor,
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AnyRepeatedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/AnyRepeatedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class AnyRepeatedWriteSchemas {
-  private static class AnyWriters<T> extends AbstractWriters<T> {
-    public AnyWriters(Field protoField, FieldSchema<T> anySchema) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringsRepeatedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/StringsRepeatedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class StringsRepeatedWriteSchemas {
-  private static class StringWriters extends AbstractWriters<String> {
-    public StringWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BytesRepeatedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/BytesRepeatedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BytesRepeatedWriteSchemas {
-  private static class BytesWriters extends AbstractWriters<byte[]> {
-    public BytesWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PropertyWrapperRepeatedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/PropertyWrapperRepeatedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class PropertyWrapperRepeatedWriteSchemas {
-  private static class PropertyWrapperWriters extends AbstractWriters<Object> {
-    public PropertyWrapperWriters(Field protoField, SchemaWriter<Object> elementSchema, Class<Object[]> arrayClass) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RepeatedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/RepeatedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class RepeatedWriteSchemas {
-  public static <T, ELE_TYPE> FieldSchema<T> create(Field protoField,
-      PropertyDescriptor propertyDescriptor,
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int32PackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/ints/Int32PackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int32PackedWriteSchemas {
-  private static class Int32PackedWriters extends AbstractPrimitiveWriters<int[], Integer> {
-    public Int32PackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MessagesRepeatedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/MessagesRepeatedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class MessagesRepeatedWriteSchemas {
-  private static class MessageWriters extends AbstractWriters<Object> {
-    @SuppressWarnings("unchecked")
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt32PackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/ints/SInt32PackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt32PackedWriteSchemas {
-  private static class SInt32PackedWriters extends AbstractPrimitiveWriters<int[], Integer> {
-    public SInt32PackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed32NotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/ints/Fixed32NotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed32NotPackedWriteSchemas {
-  private static class Fixed32NotPackedWriters extends AbstractPrimitiveWriters<int[], Integer> {
-    public Fixed32NotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed32PackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/ints/Fixed32PackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed32PackedWriteSchemas {
-  private static class Fixed32PackedWriters extends AbstractPrimitiveWriters<int[], Integer> {
-    public Fixed32PackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int32NotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/ints/Int32NotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int32NotPackedWriteSchemas {
-  private static class Int32NotPackedWriters extends AbstractPrimitiveWriters<int[], Integer> {
-    public Int32NotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt32NotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/ints/UInt32NotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt32NotPackedWriteSchemas {
-  private static class UInt32NotPackedWriters extends AbstractPrimitiveWriters<int[], Integer> {
-    public UInt32NotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt32NotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/ints/SInt32NotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt32NotPackedWriteSchemas {
-  private static class SInt32NotPackedWriters extends AbstractPrimitiveWriters<int[], Integer> {
-    public SInt32NotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BoolNotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/bools/BoolNotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BoolNotPackedWriteSchemas {
-  private static class BoolNotPackedWriters extends AbstractPrimitiveWriters<boolean[], Boolean> {
-    public BoolNotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed32NotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/ints/SFixed32NotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed32NotPackedWriteSchemas {
-  private static class SFixed32NotPackedWriters extends AbstractPrimitiveWriters<int[], Integer> {
-    public SFixed32NotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed64NotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/SFixed64NotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed64NotPackedWriteSchemas {
-  private static class SFixed64NotPackedWriters extends AbstractPrimitiveWriters<long[], Long> {
-    public SFixed64NotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt32PackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/ints/UInt32PackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt32PackedWriteSchemas {
-  private static class UInt32PackedWriters extends AbstractPrimitiveWriters<int[], Integer> {
-    public UInt32PackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed32PackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/ints/SFixed32PackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed32PackedWriteSchemas {
-  private static class SFixed32PackedWriters extends AbstractPrimitiveWriters<int[], Integer> {
-    public SFixed32PackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed64NotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/Fixed64NotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed64NotPackedWriteSchemas {
-  private static class Fixed64NotPackedWriters extends AbstractPrimitiveWriters<long[], Long> {
-    public Fixed64NotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BoolPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/bools/BoolPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BoolPackedWriteSchemas {
-  private static class BoolPackedWriters extends AbstractPrimitiveWriters<boolean[], Boolean> {
-    public BoolPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt64NotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/SInt64NotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt64NotPackedWriteSchemas {
-  private static class SInt64NotPackedWriters extends AbstractPrimitiveWriters<long[], Long> {
-    public SInt64NotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int64PackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/Int64PackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int64PackedWriteSchemas {
-  private static class Int64PackedWriters extends AbstractPrimitiveWriters<long[], Long> {
-    public Int64PackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt64NotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/UInt64NotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt64NotPackedWriteSchemas {
-  private static class UInt64NotPackedWriters extends AbstractPrimitiveWriters<long[], Long> {
-    public UInt64NotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EnumNotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumNotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class EnumNotPackedWriteSchemas {
-  private static class EnumNotPackedWriters extends AbstractWriters<Enum<?>> {
-    private final EnumMeta enumMeta;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EnumPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class EnumPackedWriteSchemas {
-  private static class EnumsPackedWriters extends AbstractWriters<Enum<?>> {
-    private final EnumMeta enumMeta;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed64PackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/SFixed64PackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed64PackedWriteSchemas {
-  private static class SFixed64PackedWriters extends AbstractPrimitiveWriters<long[], Long> {
-    public SFixed64PackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt64PackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/UInt64PackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt64PackedWriteSchemas {
-  private static class UInt64PackedWriters extends AbstractPrimitiveWriters<long[], Long> {
-    public UInt64PackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FloatNotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/floats/FloatNotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class FloatNotPackedWriteSchemas {
-  private static class FloatNotPackedWriters extends AbstractPrimitiveWriters<float[], Float> {
-    public FloatNotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed64PackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/Fixed64PackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed64PackedWriteSchemas {
-  private static class Fixed64PackedWriters extends AbstractPrimitiveWriters<long[], Long> {
-    public Fixed64PackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int64NotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/Int64NotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int64NotPackedWriteSchemas {
-  private static class Int64NotPackedWriters extends AbstractPrimitiveWriters<long[], Long> {
-    public Int64NotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DoubleNotPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/doubles/DoubleNotPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class DoubleNotPackedWriteSchemas {
-  private static class DoubleNotPackedWriters extends AbstractPrimitiveWriters<double[], Double> {
-    public DoubleNotPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DoublePackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/doubles/DoublePackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class DoublePackedWriteSchemas {
-  private static class DoublePackedWriters extends AbstractPrimitiveWriters<double[], Double> {
-    public DoublePackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt64PackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/SInt64PackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt64PackedWriteSchemas {
-  private static class SInt64PackedWriters extends AbstractPrimitiveWriters<long[], Long> {
-    public SInt64PackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt32ReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/SInt32ReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt32ReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed64ReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/Fixed64ReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed64ReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FloatPackedWriteSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/floats/FloatPackedWriteSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class FloatPackedWriteSchemas {
-  private static class FloatPackedWriters extends AbstractPrimitiveWriters<float[], Float> {
-    public FloatPackedWriters(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EnumsReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/EnumsReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class EnumsReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed32ReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/SFixed32ReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed32ReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BoolReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/BoolReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BoolReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BytesReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/BytesReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BytesReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DoubleReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/DoubleReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class DoubleReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt64ReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/UInt64ReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt64ReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed64ReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/SFixed64ReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed64ReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int32ReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/Int32ReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int32ReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed32ReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/Fixed32ReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed32ReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt32ReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/UInt32ReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt32ReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt64ReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/SInt64ReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt64ReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int64ReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/Int64ReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int64ReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/StringReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class StringReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BytesRepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/BytesRepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BytesRepeatedReadSchemas {
-  private static class BytesReaders extends AbstractReaders<byte[]> {
-    public BytesReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `AnyRepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/AnyRepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class AnyRepeatedReadSchemas {
-  private static class MessageReaders extends AbstractReaders<Object> {
-    public MessageReaders(Field protoField, AnyEntrySchema anyEntrySchema) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FloatReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/FloatReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class FloatReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    JavaType javaType = propertyDescriptor.getJavaType();
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `StringRepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/StringRepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class StringRepeatedReadSchemas {
-  private static class StringReaders extends AbstractReaders<String> {
-    public StringReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `MessageRepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/MessageRepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class MessageRepeatedReadSchemas {
-  private static class MessageReaders extends AbstractReaders<Object> {
-    public MessageReaders(Field protoField, SchemaReader<Object> elementSchema) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `PropertyWrapperRepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/PropertyWrapperRepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class PropertyWrapperRepeatedReadSchemas {
-  private static class PropertyWrapperReaders extends AbstractReaders<Object> {
-    public PropertyWrapperReaders(Field protoField, SchemaReader<Object> elementSchema) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed32NotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/impl/Fixed32NotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed32NotPackedReadSchemas {
-  private static class NotPackedReaders extends AbstractPrimitiveReaders<int[], Integer> {
-    public NotPackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt32NotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/impl/UInt32NotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt32NotPackedReadSchemas {
-  private static class UInt32NotPackedReaders extends AbstractPrimitiveReaders<int[], Integer> {
-    public UInt32NotPackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int32PackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/impl/Int32PackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int32PackedReadSchemas {
-  private static class Int32PackedReaders extends AbstractPrimitiveReaders<int[], Integer> {
-    public Int32PackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt32PackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/impl/UInt32PackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt32PackedReadSchemas {
-  private static class UInt32PackedReaders extends AbstractPrimitiveReaders<int[], Integer> {
-    public UInt32PackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed32PackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/impl/Fixed32PackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed32PackedReadSchemas {
-  private static class Fixed32PackedReaders extends AbstractPrimitiveReaders<int[], Integer> {
-    public Fixed32PackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int32NotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/impl/Int32NotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int32NotPackedReadSchemas {
-  private static class Int32NotPackedReaders extends AbstractPrimitiveReaders<int[], Integer> {
-    public Int32NotPackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `RepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/RepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class RepeatedReadSchemas {
-  public static <T, ELE_TYPE> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor,
-      AbstractReaders<ELE_TYPE> readers) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed32NotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/impl/SFixed32NotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed32NotPackedReadSchemas {
-  private static class NotPackedReaders extends AbstractPrimitiveReaders<int[], Integer> {
-    public NotPackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed32PackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/impl/SFixed32PackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed32PackedReadSchemas {
-  private static class SFixed32PackedReaders extends AbstractPrimitiveReaders<int[], Integer> {
-    public SFixed32PackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt32PackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/impl/SInt32PackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt32PackedReadSchemas {
-  private static class SInt32PackedReaders extends AbstractPrimitiveReaders<int[], Integer> {
-    public SInt32PackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt32NotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/impl/SInt32NotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt32NotPackedReadSchemas {
-  private static class SInt32NotPackedReaders extends AbstractPrimitiveReaders<int[], Integer> {
-    public SInt32NotPackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BoolPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/bools/impl/BoolPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BoolPackedReadSchemas {
-  private static class BoolPackedReaders extends AbstractPrimitiveReaders<boolean[], Boolean> {
-    public BoolPackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `IntRepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/ints/IntRepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class IntRepeatedReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor,
-      AbstractPrimitiveReaders<int[], Integer> readers) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BoolNotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/bools/impl/BoolNotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BoolNotPackedReadSchemas {
-  private static class BoolNotPackedReaders extends AbstractPrimitiveReaders<boolean[], Boolean> {
-    public BoolNotPackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EnumNotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/enums/EnumNotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class EnumNotPackedReadSchemas {
-  private static class EnumNotPackedReaders extends AbstractReaders<Enum<?>> {
-    private final EnumMeta enumMeta;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed64NotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/impl/SFixed64NotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed64NotPackedReadSchemas {
-  private static class Readers extends AbstractPrimitiveReaders<long[], Long> {
-    public Readers(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt64NotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/impl/SInt64NotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt64NotPackedReadSchemas {
-  private static class Readers extends AbstractPrimitiveReaders<long[], Long> {
-    public Readers(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `EnumPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/enums/EnumPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class EnumPackedReadSchemas {
-  private static class EnumPackedReaders extends AbstractReaders<Enum<?>> {
-    private final EnumMeta enumMeta;
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed64NotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/impl/Fixed64NotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed64NotPackedReadSchemas {
-  private static class Readers extends AbstractPrimitiveReaders<long[], Long> {
-    public Readers(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SFixed64PackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/impl/SFixed64PackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SFixed64PackedReadSchemas {
-  private static class Readers extends AbstractPrimitiveReaders<long[], Long> {
-    public Readers(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `BoolRepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/bools/BoolRepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class BoolRepeatedReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor,
-      AbstractPrimitiveReaders<boolean[], Boolean> readers) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt64NotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/impl/UInt64NotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt64NotPackedReadSchemas {
-  private static class Readers extends AbstractPrimitiveReaders<long[], Long> {
-    public Readers(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `SInt64PackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/impl/SInt64PackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class SInt64PackedReadSchemas {
-  private static class Readers extends AbstractPrimitiveReaders<long[], Long> {
-    public Readers(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Fixed64PackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/impl/Fixed64PackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Fixed64PackedReadSchemas {
-  private static class Readers extends AbstractPrimitiveReaders<long[], Long> {
-    public Readers(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `UInt64PackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/impl/UInt64PackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class UInt64PackedReadSchemas {
-  private static class Readers extends AbstractPrimitiveReaders<long[], Long> {
-    public Readers(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `LongRepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/LongRepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class LongRepeatedReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor,
-      AbstractPrimitiveReaders<long[], Long> readers) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int64NotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/impl/Int64NotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int64NotPackedReadSchemas {
-  private static class Readers extends AbstractPrimitiveReaders<long[], Long> {
-    public Readers(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FloatPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/floats/impl/FloatPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class FloatPackedReadSchemas {
-  private static class FloatPackedReaders extends AbstractPrimitiveReaders<float[], Float> {
-    public FloatPackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FloatNotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/floats/impl/FloatNotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class FloatNotPackedReadSchemas {
-  private static class FloatNotPackedReaders extends AbstractPrimitiveReaders<float[], Float> {
-    public FloatNotPackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DoubleNotPackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/doubles/impl/DoubleNotPackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class DoubleNotPackedReadSchemas {
-  private static class NotPackedReaders extends AbstractPrimitiveReaders<double[], Double> {
-    public NotPackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Int64PackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/longs/impl/Int64PackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class Int64PackedReadSchemas {
-  private static class Readers extends AbstractPrimitiveReaders<long[], Long> {
-    public Readers(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DoublePackedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/doubles/impl/DoublePackedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class DoublePackedReadSchemas {
-  private static class DoublePackedReaders extends AbstractPrimitiveReaders<double[], Double> {
-    public DoublePackedReaders(Field protoField) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `FloatRepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/floats/FloatRepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class FloatRepeatedReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor,
-      AbstractPrimitiveReaders<float[], Float> readers) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `DoubleRepeatedReadSchemas` has only 'static' members, and lacks a 'private' constructor
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/doubles/DoubleRepeatedReadSchemas.java`
-#### Snippet
-```java
-import io.protostuff.runtime.FieldSchema;
-
-public class DoubleRepeatedReadSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor,
-      AbstractPrimitiveReaders<double[], Double> readers) {
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `Const` has only 'static' members, and lacks a 'private' constructor
-in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/Const.java`
-#### Snippet
-```java
-package org.apache.servicecomb.localregistry;
-
-public class Const {
-  public static final String LOCAL_ENABLED = "servicecomb.local.registry.enabled";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ConditionFactory` has only 'static' members, and lacks a 'private' constructor
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/oper/ConditionFactory.java`
-#### Snippet
-```java
-import org.apache.servicecomb.darklaunch.DarklaunchRule;
-
-public class ConditionFactory {
-  public static final String OP_AND = "&&";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `URLMappedConfigurationLoader` has only 'static' members, and lacks a 'private' constructor
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/URLMappedConfigurationLoader.java`
-#### Snippet
-```java
-import com.netflix.config.DynamicPropertyFactory;
-
-public class URLMappedConfigurationLoader {
-  private static final Logger LOG = LoggerFactory.getLogger(URLMappedConfigurationLoader.class);
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `HttpUtils` has only 'static' members, and lacks a 'private' constructor
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/HttpUtils.java`
-#### Snippet
-```java
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-public final class HttpUtils {
-  private static final String ALGORITHM_HMACSHA256 = "HmacSHA256";
-
-```
-
-### UtilityClassWithoutPrivateConstructor
-Class `ServletUtils` has only 'static' members, and lacks a 'private' constructor
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
-#### Snippet
-```java
-import org.slf4j.LoggerFactory;
-
-public class ServletUtils {
-  private static final Logger LOGGER = LoggerFactory.getLogger(ServletUtils.class);
-
+  private static final String SIGN_ALG = DynamicPropertyFactory.getInstance()
 ```
 
 ## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Method invocation `getReturnType` may produce `NullPointerException`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/LambdaMetafactoryUtils.java`
-#### Snippet
-```java
-      MethodHandle methodHandle = LOOKUP.unreflect(instanceMethod);
-
-      MethodType intfMethodType = MethodType.methodType(intfMethod.getReturnType(), intfMethod.getParameterTypes());
-
-      // the return type of fluent setter is object instead of void, but we can assume the return type is void. it doesn't matter
-```
-
-### DataFlowIssue
-Method invocation `getReturnType` may produce `NullPointerException`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/LambdaMetafactoryUtils.java`
-#### Snippet
-```java
-      MethodHandle methodHandle = LOOKUP.unreflect(instanceMethod);
-
-      MethodType intfMethodType = MethodType.methodType(intfMethod.getReturnType(), intfMethod.getParameterTypes());
-      MethodType instanceMethodType = MethodType
-          .methodType(instanceMethod.getReturnType(), instanceMethod.getParameterTypes());
-```
-
-### DataFlowIssue
-Method invocation `setAccessible` may produce `NullPointerException`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-    Field field = ReflectionUtils.findField(cls, fieldName);
-    try {
-      field.setAccessible(true);
-      field.set(instance, value);
-    } catch (Exception e) {
-```
-
-### DataFlowIssue
-Method invocation `ping` may produce `NullPointerException`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-      inUseInstances.stream().forEach(instance -> {
-        if (!mergedInstances.instanceIdMap.containsKey(instance.getInstanceId())) {
-          if (ping.ping(instance)) {
-            mergedInstances.addInstance(instance);
-          }
-```
-
 ### DataFlowIssue
 Method invocation `getAccessURL` may produce `NullPointerException`
 in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/ConfigCenterConfig.java`
@@ -8331,50 +3398,26 @@ in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/ConfigC
 ```
 
 ### DataFlowIssue
-Method invocation `getMessage` may produce `NullPointerException`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/unittest/UnitTestSwaggerUtils.java`
+Method invocation `getName` will produce `NullPointerException`
+in `core/src/main/java/org/apache/servicecomb/core/filter/impl/JacksonPropertyNodeNameProvider.java`
 #### Snippet
 ```java
-  public static void testException(String expectMsgLevel1, String expectMsgLevel2, Class<?> cls, String... methods) {
-    Throwable exception = getException(cls, methods);
-    Assertions.assertEquals(expectMsgLevel1, exception.getMessage());
-    Assertions.assertEquals(expectMsgLevel2, exception.getCause().getMessage());
+    }
+
+    return property.getName();
   }
+
 ```
 
 ### DataFlowIssue
-Method invocation `getMessage` may produce `NullPointerException`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/unittest/UnitTestSwaggerUtils.java`
+Method invocation `getName` will produce `NullPointerException`
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
 #### Snippet
 ```java
-  public static void testException(String expectMsg, Class<?> cls, String... methods) {
-    Throwable exception = getException(cls, methods);
-    Assertions.assertEquals(expectMsg, exception.getMessage());
+    }
+
+    LOGGER.debug("a none EnumerablePropertySource is ignored, propertySourceName = [{}]", propertySource.getName());
   }
-}
-```
-
-### DataFlowIssue
-Method invocation `getMessage` may produce `NullPointerException`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/unittest/UnitTestSwaggerUtils.java`
-#### Snippet
-```java
-      String... methods) {
-    Throwable exception = getException(cls, methods);
-    Assertions.assertEquals(expectMsgLevel1, exception.getMessage());
-    Assertions.assertEquals(expectMsgLevel2, exception.getCause().getMessage());
-    Assertions.assertEquals(expectMsgLevel3, exception.getCause().getCause().getMessage());
-```
-
-### DataFlowIssue
-Unboxing of `ReflectionUtils.invokeMethod(getOrder, service)` may produce `NullPointerException`
-in `foundations/foundation-spi/src/main/java/org/apache/servicecomb/foundation/common/utils/SPIServiceUtils.java`
-#### Snippet
-```java
-      Method getOrder = ReflectionUtils.findMethod(service.getClass(), "getOrder");
-      if (getOrder != null) {
-        serviceOrder = (int) ReflectionUtils.invokeMethod(getOrder, service);
-      }
 
 ```
 
@@ -8391,193 +3434,145 @@ in `core/src/main/java/org/apache/servicecomb/core/provider/consumer/InvokerUtil
 ```
 
 ### DataFlowIssue
-Casting `Arrays.asList(...).toArray()` to `String[]` will produce `ClassCastException` for any non-null value
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RequestParam.java`
+Argument `fileName` might be null
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/http/HttpUtils.java`
 #### Snippet
 ```java
-      queryParams.put(key, new String[] {value});
-    } else {
-      queryParams.put(key, (String[]) Arrays.asList(queryParams.get(key), value).toArray());
+    fileName = StringUtils.isEmpty(fileName) ? "default" : fileName;
+    fileName = uriDecodePath(fileName);
+    return new File(fileName).getName();
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `getReturnType` may produce `NullPointerException`
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/LambdaMetafactoryUtils.java`
+#### Snippet
+```java
+      MethodHandle methodHandle = LOOKUP.unreflect(instanceMethod);
+
+      MethodType intfMethodType = MethodType.methodType(intfMethod.getReturnType(), intfMethod.getParameterTypes());
+
+      // the return type of fluent setter is object instead of void, but we can assume the return type is void. it doesn't matter
+```
+
+### DataFlowIssue
+Method invocation `getReturnType` may produce `NullPointerException`
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/LambdaMetafactoryUtils.java`
+#### Snippet
+```java
+      MethodHandle methodHandle = LOOKUP.unreflect(instanceMethod);
+
+      MethodType intfMethodType = MethodType.methodType(intfMethod.getReturnType(), intfMethod.getParameterTypes());
+      MethodType instanceMethodType = MethodType
+          .methodType(instanceMethod.getReturnType(), instanceMethod.getParameterTypes());
+```
+
+### DataFlowIssue
+Method invocation `format` may produce `NullPointerException`
+in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerTokenManager.java`
+#### Snippet
+```java
+      return null;
     }
-    return this;
-```
-
-### DataFlowIssue
-Argument `properties` might be null
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/parser/YamlParser.java`
-#### Snippet
-```java
-    yamlFactory.setResources(new ByteArrayResource(content.getBytes(StandardCharsets.UTF_8)));
-    Properties properties = yamlFactory.getObject();
-    return Parser.propertiesToMap(properties, prefix, addPrefix);
-  }
-}
-```
-
-### DataFlowIssue
-Method invocation `invoke` may produce `NullPointerException`
-in `providers/provider-pojo/src/main/java/org/apache/servicecomb/provider/pojo/DefaultMethodMeta.java`
-#### Snippet
-```java
-  protected MethodHandle createForJava11(Object proxy, Method method) throws Exception {
-    Lookup lookup = MethodHandles.lookup();
-    Lookup privateLookup = (Lookup) privateLookupIn.invoke(null, method.getDeclaringClass(), lookup);
-    return privateLookup
-        .unreflectSpecial(method, method.getDeclaringClass())
-```
-
-### DataFlowIssue
-Method invocation `setAccessible` may produce `NullPointerException`
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
-#### Snippet
-```java
-
-  static {
-    FIELD_INSTANCE.setAccessible(true);
-    FIELD_CUSTOM_CONFIGURATION_INSTALLED.setAccessible(true);
-    FIELD_CONFIG.setAccessible(true);
-```
-
-### DataFlowIssue
-Method invocation `setAccessible` may produce `NullPointerException`
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
-#### Snippet
-```java
-  static {
-    FIELD_INSTANCE.setAccessible(true);
-    FIELD_CUSTOM_CONFIGURATION_INSTALLED.setAccessible(true);
-    FIELD_CONFIG.setAccessible(true);
-    FIELD_INITIALIZED_WITH_DEFAULT_CONFIG.setAccessible(true);
-```
-
-### DataFlowIssue
-Method invocation `setAccessible` may produce `NullPointerException`
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
-#### Snippet
-```java
-    FIELD_INSTANCE.setAccessible(true);
-    FIELD_CUSTOM_CONFIGURATION_INSTALLED.setAccessible(true);
-    FIELD_CONFIG.setAccessible(true);
-    FIELD_INITIALIZED_WITH_DEFAULT_CONFIG.setAccessible(true);
-    FIELD_DYNAMIC_PROPERTY_SUPPORTIMPL.setAccessible(true);
-```
-
-### DataFlowIssue
-Method invocation `setAccessible` may produce `NullPointerException`
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
-#### Snippet
-```java
-    FIELD_CUSTOM_CONFIGURATION_INSTALLED.setAccessible(true);
-    FIELD_CONFIG.setAccessible(true);
-    FIELD_INITIALIZED_WITH_DEFAULT_CONFIG.setAccessible(true);
-    FIELD_DYNAMIC_PROPERTY_SUPPORTIMPL.setAccessible(true);
-    FIELD_DYNAMIC_PROPERTY_ALL_PROPS.setAccessible(true);
-```
-
-### DataFlowIssue
-Method invocation `setAccessible` may produce `NullPointerException`
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
-#### Snippet
-```java
-    FIELD_CONFIG.setAccessible(true);
-    FIELD_INITIALIZED_WITH_DEFAULT_CONFIG.setAccessible(true);
-    FIELD_DYNAMIC_PROPERTY_SUPPORTIMPL.setAccessible(true);
-    FIELD_DYNAMIC_PROPERTY_ALL_PROPS.setAccessible(true);
-  }
-```
-
-### DataFlowIssue
-Method invocation `setAccessible` may produce `NullPointerException`
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
-#### Snippet
-```java
-    FIELD_INITIALIZED_WITH_DEFAULT_CONFIG.setAccessible(true);
-    FIELD_DYNAMIC_PROPERTY_SUPPORTIMPL.setAccessible(true);
-    FIELD_DYNAMIC_PROPERTY_ALL_PROPS.setAccessible(true);
+    return token.format();
   }
 
 ```
 
 ### DataFlowIssue
-Argument `FIELD_INSTANCE` might be null
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
+Argument `restControllerCls` might be null
+in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/RestProducers.java`
 #### Snippet
 ```java
-  @SuppressWarnings("unchecked")
-  public static void resetConfig() {
-    ReflectionUtils.setField(FIELD_INSTANCE, null, null);
-    ReflectionUtils.setField(FIELD_CUSTOM_CONFIGURATION_INSTALLED, null, false);
-    ReflectionUtils.setField(FIELD_CONFIG, null, null);
+    }
+
+    if (scanRestController && beanCls.getAnnotation(restControllerCls) != null) {
+      ProducerMeta producerMeta = new ProducerMeta(beanCls.getName(), bean);
+      producerMetaList.add(producerMeta);
 ```
 
 ### DataFlowIssue
-Argument `FIELD_CUSTOM_CONFIGURATION_INSTALLED` might be null
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
+Method invocation `ping` may produce `NullPointerException`
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
 #### Snippet
 ```java
-  public static void resetConfig() {
-    ReflectionUtils.setField(FIELD_INSTANCE, null, null);
-    ReflectionUtils.setField(FIELD_CUSTOM_CONFIGURATION_INSTALLED, null, false);
-    ReflectionUtils.setField(FIELD_CONFIG, null, null);
-    ReflectionUtils.setField(FIELD_INITIALIZED_WITH_DEFAULT_CONFIG, null, false);
+      inUseInstances.stream().forEach(instance -> {
+        if (!mergedInstances.instanceIdMap.containsKey(instance.getInstanceId())) {
+          if (ping.ping(instance)) {
+            mergedInstances.addInstance(instance);
+          }
 ```
 
 ### DataFlowIssue
-Argument `FIELD_CONFIG` might be null
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
+Condition `CseHttpEntity.class.isInstance(requestBody)` is redundant and can be replaced with a null check
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRequestCallback.java`
 #### Snippet
 ```java
-    ReflectionUtils.setField(FIELD_INSTANCE, null, null);
-    ReflectionUtils.setField(FIELD_CUSTOM_CONFIGURATION_INSTALLED, null, false);
-    ReflectionUtils.setField(FIELD_CONFIG, null, null);
-    ReflectionUtils.setField(FIELD_INITIALIZED_WITH_DEFAULT_CONFIG, null, false);
-    ReflectionUtils.setField(FIELD_DYNAMIC_PROPERTY_SUPPORTIMPL, null, null);
+    }
+
+    if (!CseHttpEntity.class.isInstance(requestBody)) {
+      return;
+    }
 ```
 
 ### DataFlowIssue
-Argument `FIELD_INITIALIZED_WITH_DEFAULT_CONFIG` might be null
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
+Method invocation `getName` will produce `NullPointerException`
+in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
 #### Snippet
 ```java
-    ReflectionUtils.setField(FIELD_CUSTOM_CONFIGURATION_INSTALLED, null, false);
-    ReflectionUtils.setField(FIELD_CONFIG, null, null);
-    ReflectionUtils.setField(FIELD_INITIALIZED_WITH_DEFAULT_CONFIG, null, false);
-    ReflectionUtils.setField(FIELD_DYNAMIC_PROPERTY_SUPPORTIMPL, null, null);
-    ((ConcurrentHashMap<String, DynamicProperty>) ReflectionUtils.getField(FIELD_DYNAMIC_PROPERTY_ALL_PROPS, null))
+
+    LOGGER.debug("None EnumerablePropertySource ignored in {}, propertySourceName = [{}]", this.getClass().getName(),
+        propertySource.getName());
+  }
+
 ```
 
 ### DataFlowIssue
-Argument `FIELD_DYNAMIC_PROPERTY_SUPPORTIMPL` might be null
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
+Method invocation `getHost` may produce `NullPointerException`
+in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/AbstractAddressManager.java`
 #### Snippet
 ```java
-    ReflectionUtils.setField(FIELD_CONFIG, null, null);
-    ReflectionUtils.setField(FIELD_INITIALIZED_WITH_DEFAULT_CONFIG, null, false);
-    ReflectionUtils.setField(FIELD_DYNAMIC_PROPERTY_SUPPORTIMPL, null, null);
-    ((ConcurrentHashMap<String, DynamicProperty>) ReflectionUtils.getField(FIELD_DYNAMIC_PROPERTY_ALL_PROPS, null))
-        .clear();
+    URI ipPort = parseIpPortFromURI(address);
+    try (Socket s = new Socket()) {
+      s.connect(new InetSocketAddress(ipPort.getHost(), ipPort.getPort()), 3000);
+      return true;
+    } catch (IOException e) {
 ```
 
 ### DataFlowIssue
-Argument `FIELD_DYNAMIC_PROPERTY_ALL_PROPS` might be null
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
+Method invocation `createLoadBalancerRule` may produce `NullPointerException`
+in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/CommonHttpEdgeDispatcher.java`
 #### Snippet
 ```java
-    ReflectionUtils.setField(FIELD_INITIALIZED_WITH_DEFAULT_CONFIG, null, false);
-    ReflectionUtils.setField(FIELD_DYNAMIC_PROPERTY_SUPPORTIMPL, null, null);
-    ((ConcurrentHashMap<String, DynamicProperty>) ReflectionUtils.getField(FIELD_DYNAMIC_PROPERTY_ALL_PROPS, null))
-        .clear();
+
+  private LoadBalancer createLoadBalancer(String microserviceName) {
+    RuleExt rule = BeanUtils.getBean(ExtensionsManager.class).createLoadBalancerRule(microserviceName);
+    return new LoadBalancer(rule, microserviceName);
   }
 ```
 
 ### DataFlowIssue
-Method invocation `clear` may produce `NullPointerException`
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/config/ArchaiusUtils.java`
+Method invocation `length` may produce `NullPointerException`
+in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/parser/impl/VertxRestAccessLogPatternParser.java`
 #### Snippet
 ```java
-    ReflectionUtils.setField(FIELD_DYNAMIC_PROPERTY_SUPPORTIMPL, null, null);
-    ((ConcurrentHashMap<String, DynamicProperty>) ReflectionUtils.getField(FIELD_DYNAMIC_PROPERTY_ALL_PROPS, null))
-        .clear();
+
+    return rawPattern.substring(
+        accessLogItemLocation.prefixIndex + accessLogItemLocation.getPrefix().length(),
+        accessLogItemLocation.suffixIndex);
+  }
+```
+
+### DataFlowIssue
+Method invocation `trim` may produce `NullPointerException`
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/os/cpu/CpuUtils.java`
+#### Snippet
+```java
+
+  public static String[] readAndSplitFirstLine(File file) throws IOException {
+    return Files.asCharSource(file, StandardCharsets.UTF_8).readFirstLine().trim().split("\\s+");
   }
 
 ```
@@ -8607,75 +3602,15 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 ```
 
 ### DataFlowIssue
-Method invocation `name` may produce `NullPointerException`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncClientHttpRequest.java`
+Casting `Arrays.asList(...).toArray()` to `String[]` will produce `ClassCastException` for any non-null value
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RequestParam.java`
 #### Snippet
 ```java
-  public ListenableFuture<ClientHttpResponse> executeAsync() {
-    this.setPath(findUriPath(this.getURI()));
-    this.setRequestMeta(createRequestMeta(this.getMethod().name(), this.getURI()));
-    QueryStringDecoder queryStringDecoder = new QueryStringDecoder(this.getURI().getRawSchemeSpecificPart());
-    this.setQueryParams(queryStringDecoder.parameters());
-```
-
-### DataFlowIssue
-Method invocation `length` may produce `NullPointerException`
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/parser/impl/VertxRestAccessLogPatternParser.java`
-#### Snippet
-```java
-
-    return rawPattern.substring(
-        accessLogItemLocation.prefixIndex + accessLogItemLocation.getPrefix().length(),
-        accessLogItemLocation.suffixIndex);
-  }
-```
-
-### DataFlowIssue
-Method invocation `trim` may produce `NullPointerException`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/os/cpu/CpuUtils.java`
-#### Snippet
-```java
-
-  public static String[] readAndSplitFirstLine(File file) throws IOException {
-    return Files.asCharSource(file, StandardCharsets.UTF_8).readFirstLine().trim().split("\\s+");
-  }
-
-```
-
-### DataFlowIssue
-Argument `restControllerCls` might be null
-in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/RestProducers.java`
-#### Snippet
-```java
+      queryParams.put(key, new String[] {value});
+    } else {
+      queryParams.put(key, (String[]) Arrays.asList(queryParams.get(key), value).toArray());
     }
-
-    if (scanRestController && beanCls.getAnnotation(restControllerCls) != null) {
-      ProducerMeta producerMeta = new ProducerMeta(beanCls.getName(), bean);
-      producerMetaList.add(producerMeta);
-```
-
-### DataFlowIssue
-Method invocation `createLoadBalancerRule` may produce `NullPointerException`
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/CommonHttpEdgeDispatcher.java`
-#### Snippet
-```java
-
-  private LoadBalancer createLoadBalancer(String microserviceName) {
-    RuleExt rule = BeanUtils.getBean(ExtensionsManager.class).createLoadBalancerRule(microserviceName);
-    return new LoadBalancer(rule, microserviceName);
-  }
-```
-
-### DataFlowIssue
-Method invocation `format` may produce `NullPointerException`
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerTokenManager.java`
-#### Snippet
-```java
-      return null;
-    }
-    return token.format();
-  }
-
+    return this;
 ```
 
 ### DataFlowIssue
@@ -8691,31 +3626,102 @@ in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/R
 ```
 
 ### DataFlowIssue
-Method invocation `getHost` may produce `NullPointerException`
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/AbstractAddressManager.java`
+Method invocation `entrySet` may produce `NullPointerException`
+in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/RestClientEncoder.java`
 #### Snippet
 ```java
-    URI ipPort = parseIpPortFromURI(address);
-    try (Socket s = new Socket()) {
-      s.connect(new InetSocketAddress(ipPort.getHost(), ipPort.getPort()), 3000);
-      return true;
-    } catch (IOException e) {
+
+      StringBuilder builder = new StringBuilder();
+      for (Entry<String, String> entry : cookieMap.entrySet()) {
+        builder.append(entry.getKey())
+            .append('=')
 ```
 
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/KeyPairUtils.java`
+### DataFlowIssue
+Method invocation `getMessage` may produce `NullPointerException`
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/unittest/UnitTestSwaggerUtils.java`
 #### Snippet
 ```java
+  public static void testException(String expectMsgLevel1, String expectMsgLevel2, Class<?> cls, String... methods) {
+    Throwable exception = getException(cls, methods);
+    Assertions.assertEquals(expectMsgLevel1, exception.getMessage());
+    Assertions.assertEquals(expectMsgLevel2, exception.getCause().getMessage());
+  }
+```
 
-  private static final String KEY_GENERATOR_ALGORITHM = DynamicPropertyFactory.getInstance()
-      .getStringProperty("servicecomb.publicKey.accessControl.keyGeneratorAlgorithm", "RSA").get();;
+### DataFlowIssue
+Method invocation `getMessage` may produce `NullPointerException`
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/unittest/UnitTestSwaggerUtils.java`
+#### Snippet
+```java
+      String... methods) {
+    Throwable exception = getException(cls, methods);
+    Assertions.assertEquals(expectMsgLevel1, exception.getMessage());
+    Assertions.assertEquals(expectMsgLevel2, exception.getCause().getMessage());
+    Assertions.assertEquals(expectMsgLevel3, exception.getCause().getCause().getMessage());
+```
 
-  private static final String SIGN_ALG = DynamicPropertyFactory.getInstance()
+### DataFlowIssue
+Method invocation `getMessage` may produce `NullPointerException`
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/unittest/UnitTestSwaggerUtils.java`
+#### Snippet
+```java
+  public static void testException(String expectMsg, Class<?> cls, String... methods) {
+    Throwable exception = getException(cls, methods);
+    Assertions.assertEquals(expectMsg, exception.getMessage());
+  }
+}
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
+### SimplifyStreamApiCallChains
+Can be replaced with 'java.util.ArrayList' constructor
+in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
+#### Snippet
+```java
+
+  public List<Microservice> getAllMicroservices() {
+    return microserviceMap.values().stream().collect(Collectors.toList());
+  }
+
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `clients/config-kie-client/src/main/java/org/apache/servicecomb/config/kie/client/KieClient.java`
+#### Snippet
+```java
+        .filter(doc -> doc.getStatus() == null || ConfigConstants.STATUS_ENABLED.equalsIgnoreCase(doc.getStatus()))
+        .map(this::processValueType)
+        .collect(Collectors.toList())
+        .forEach(resultMap::putAll);
+    return resultMap;
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with '.values().stream()'
+in `core/src/main/java/org/apache/servicecomb/core/filter/InvocationFilterChains.java`
+#### Snippet
+```java
+      List<Filter> serviceFilters = filters.entrySet().stream()
+          .filter(e -> e.getValue().isEnabledForMicroservice(microserviceName))
+          .map(e -> e.getValue())
+          .collect(Collectors.toList());
+      serviceFilters.sort(Comparator.comparingInt(a -> a.getOrder(invocationType, microserviceName)));
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `core/src/main/java/org/apache/servicecomb/core/definition/MicroserviceMeta.java`
+#### Snippet
+```java
+
+    schemaMeta.getOperations().values().stream()
+        .forEach(operationMeta -> operationMetas.put(operationMeta.getMicroserviceQualifiedName(), operationMeta));
+
+    return schemaMeta;
+```
+
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
 in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
@@ -8753,66 +3759,6 @@ in `governance/src/main/java/org/apache/servicecomb/router/model/ServiceInfoCach
 ```
 
 ### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
-#### Snippet
-```java
-    if (parameter instanceof AbstractSerializableParameter) {
-      io.swagger.util.ParameterProcessor.applyAnnotations(swagger, parameter, type, annotations);
-      annotations.stream().forEach(annotation -> {
-        if (NOT_NULL_ANNOTATIONS.contains(annotation.annotationType().getSimpleName())){
-          parameter.setRequired(true);
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
-#### Snippet
-```java
-    for (Annotation annotation : Arrays.stream(method.getAnnotations())
-            .sorted(Comparator.comparing(a -> a.annotationType().getName()))
-            .collect(Collectors.toList())
-    ) {
-      MethodAnnotationProcessor<Annotation> processor = findMethodAnnotationProcessor(annotation.annotationType());
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with '.values().stream()'
-in `core/src/main/java/org/apache/servicecomb/core/filter/InvocationFilterChains.java`
-#### Snippet
-```java
-      List<Filter> serviceFilters = filters.entrySet().stream()
-          .filter(e -> e.getValue().isEnabledForMicroservice(microserviceName))
-          .map(e -> e.getValue())
-          .collect(Collectors.toList());
-      serviceFilters.sort(Comparator.comparingInt(a -> a.getOrder(invocationType, microserviceName)));
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `core/src/main/java/org/apache/servicecomb/core/definition/MicroserviceMeta.java`
-#### Snippet
-```java
-
-    schemaMeta.getOperations().values().stream()
-        .forEach(operationMeta -> operationMetas.put(operationMeta.getMicroserviceQualifiedName(), operationMeta));
-
-    return schemaMeta;
-```
-
-### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `clients/config-kie-client/src/main/java/org/apache/servicecomb/config/kie/client/KieClient.java`
-#### Snippet
-```java
-        .filter(doc -> doc.getStatus() == null || ConfigConstants.STATUS_ENABLED.equalsIgnoreCase(doc.getStatus()))
-        .map(this::processValueType)
-        .collect(Collectors.toList())
-        .forEach(resultMap::putAll);
-    return resultMap;
-```
-
-### SimplifyStreamApiCallChains
 'Arrays.asList().stream()' can be replaced with 'Arrays.stream()'
 in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/MeasurementGroupConfig.java`
 #### Snippet
@@ -8837,28 +3783,160 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
 ```
 
 ### SimplifyStreamApiCallChains
-Can be replaced with 'java.util.ArrayList' constructor
-in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
 #### Snippet
 ```java
+    if (parameter instanceof AbstractSerializableParameter) {
+      io.swagger.util.ParameterProcessor.applyAnnotations(swagger, parameter, type, annotations);
+      annotations.stream().forEach(annotation -> {
+        if (NOT_NULL_ANNOTATIONS.contains(annotation.annotationType().getSimpleName())){
+          parameter.setRequired(true);
+```
 
-  public List<Microservice> getAllMicroservices() {
-    return microserviceMap.values().stream().collect(Collectors.toList());
-  }
-
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
+#### Snippet
+```java
+    for (Annotation annotation : Arrays.stream(method.getAnnotations())
+            .sorted(Comparator.comparing(a -> a.annotationType().getName()))
+            .collect(Collectors.toList())
+    ) {
+      MethodAnnotationProcessor<Annotation> processor = findMethodAnnotationProcessor(annotation.annotationType());
 ```
 
 ## RuleId[id=MissingSerialAnnotation]
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/log/AbstractMarker.java`
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/exception/OperationException.java`
+#### Snippet
+```java
+public class OperationException extends RuntimeException {
+
+  private static final long serialVersionUID = 1L;
+
+  public OperationException() {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/exception/RuntimeExceptionWithoutStackTrace.java`
 #### Snippet
 ```java
 
-public abstract class AbstractMarker implements Marker {
+public class RuntimeExceptionWithoutStackTrace extends RuntimeException {
   private static final long serialVersionUID = -1L;
 
+  public RuntimeExceptionWithoutStackTrace() {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestServlet.java`
+#### Snippet
+```java
+ */
+public class RestServlet extends HttpServlet {
+  private static final long serialVersionUID = 5797523329773923112L;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(RestServlet.class);
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationComparator.java`
+#### Snippet
+```java
+public class RestOperationComparator implements Serializable, Comparator<RestOperationMeta> {
+
+  private static final long serialVersionUID = -2364909265520813678L;
+
   @Override
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `swagger/swagger-generator/generator-spring-data/src/main/java/org/apache/servicecomb/swagger/generator/springdata/SpringDataModule.java`
+#### Snippet
+```java
+
+public class SpringDataModule extends SimpleModule implements SPIOrder {
+  private static final long serialVersionUID = 1L;
+
+  @JsonDeserialize(as = PageImpl.class)
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `clients/config-common/src/main/java/org/apache/servicecomb/config/common/exception/OperationException.java`
+#### Snippet
+```java
+
+public class OperationException extends RuntimeException {
+  private static final long serialVersionUID = 1L;
+
+  public OperationException(String message) {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/producer/codec/ArgWrapperJavaType.java`
+#### Snippet
+```java
+
+public class ArgWrapperJavaType extends SimpleType {
+  private static final long serialVersionUID = 964882360361204479L;
+
+  static class ArgInfo {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/InvocationException.java`
+#### Snippet
+```java
+ */
+public class InvocationException extends RuntimeException {
+  private static final long serialVersionUID = 8027482777502649656L;
+
+  /**
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `core/src/main/java/org/apache/servicecomb/core/executor/LinkedBlockingQueueEx.java`
+#### Snippet
+```java
+
+public class LinkedBlockingQueueEx extends LinkedBlockingQueue<Runnable> {
+  private static final long serialVersionUID = -1L;
+
+  private transient volatile ThreadPoolExecutorEx owner = null;
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `core/src/main/java/org/apache/servicecomb/core/exception/CseException.java`
+#### Snippet
+```java
+public class CseException extends RuntimeException {
+
+  private static final long serialVersionUID = 8027482777502649656L;
+
+  private final String code;
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `service-registry/registry-lightweight/src/main/java/org/apache/servicecomb/registry/lightweight/RegisterException.java`
+#### Snippet
+```java
+
+public class RegisterException extends RuntimeException {
+  private static final long serialVersionUID = 4130899909889771251L;
+
+  public RegisterException(String message) {
 ```
 
 ### MissingSerialAnnotation
@@ -8875,18 +3953,6 @@ public abstract class AbstractRestObjectMapper extends ObjectMapper {
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/json/PartModule.java`
-#### Snippet
-```java
-
-public class PartModule extends SimpleModule implements SPIOrder {
-  private static final long serialVersionUID = 4201325332650814739L;
-
-  public PartModule() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/RestObjectMapper.java`
 #### Snippet
 ```java
@@ -8895,6 +3961,18 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
   private static final long serialVersionUID = -8158869347066287575L;
 
   private static final JavaType STRING_JAVA_TYPE = TypeFactory.defaultInstance().constructType(String.class);
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/json/PartModule.java`
+#### Snippet
+```java
+
+public class PartModule extends SimpleModule implements SPIOrder {
+  private static final long serialVersionUID = 4201325332650814739L;
+
+  public PartModule() {
 ```
 
 ### MissingSerialAnnotation
@@ -8931,30 +4009,6 @@ public class ConcurrentHashMapEx<K, V> extends ConcurrentHashMap<K, V> {
   private static final long serialVersionUID = -7753722464102569902L;
 
   public ConcurrentHashMapEx() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/module/EnumModuleExt.java`
-#### Snippet
-```java
-
-public class EnumModuleExt extends SimpleModule {
-  private static final long serialVersionUID = 2934449381601447264L;
-
-  public EnumModuleExt() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/introspector/JsonPropertyIntrospector.java`
-#### Snippet
-```java
-
-public class JsonPropertyIntrospector extends SwaggerAnnotationIntrospector {
-  private static final long serialVersionUID = 4157263023893695762L;
-
-  @SuppressWarnings("deprecation")
 ```
 
 ### MissingSerialAnnotation
@@ -9019,62 +4073,14 @@ public class FaultInjectionException extends RuntimeException {
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `core/src/main/java/org/apache/servicecomb/core/tracing/ScbMarker.java`
+in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/MessageObjectMapper.java`
 #### Snippet
 ```java
 
-public class ScbMarker extends AbstractMarker {
-  private static final long serialVersionUID = -1L;
+public class MessageObjectMapper extends ObjectMapper {
+  private static final long serialVersionUID = 189026839992490564L;
 
-  private static final String MARKER_NAME = "SERVICECOMB_MARKER";
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `core/src/main/java/org/apache/servicecomb/core/executor/LinkedBlockingQueueEx.java`
-#### Snippet
-```java
-
-public class LinkedBlockingQueueEx extends LinkedBlockingQueue<Runnable> {
-  private static final long serialVersionUID = -1L;
-
-  private transient volatile ThreadPoolExecutorEx owner = null;
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `core/src/main/java/org/apache/servicecomb/core/exception/CseException.java`
-#### Snippet
-```java
-public class CseException extends RuntimeException {
-
-  private static final long serialVersionUID = 8027482777502649656L;
-
-  private final String code;
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/exception/OperationException.java`
-#### Snippet
-```java
-public class OperationException extends RuntimeException {
-
-  private static final long serialVersionUID = 1L;
-
-  public OperationException() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationComparator.java`
-#### Snippet
-```java
-public class RestOperationComparator implements Serializable, Comparator<RestOperationMeta> {
-
-  private static final long serialVersionUID = -2364909265520813678L;
-
-  @Override
+  public MessageObjectMapper() {
 ```
 
 ### MissingSerialAnnotation
@@ -9091,98 +4097,26 @@ public class ClientException extends Exception {
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `swagger/swagger-generator/generator-spring-data/src/main/java/org/apache/servicecomb/swagger/generator/springdata/SpringDataModule.java`
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/module/EnumModuleExt.java`
 #### Snippet
 ```java
 
-public class SpringDataModule extends SimpleModule implements SPIOrder {
-  private static final long serialVersionUID = 1L;
+public class EnumModuleExt extends SimpleModule {
+  private static final long serialVersionUID = 2934449381601447264L;
 
-  @JsonDeserialize(as = PageImpl.class)
+  public EnumModuleExt() {
 ```
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
-in `service-registry/registry-lightweight/src/main/java/org/apache/servicecomb/registry/lightweight/RegisterException.java`
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/introspector/JsonPropertyIntrospector.java`
 #### Snippet
 ```java
 
-public class RegisterException extends RuntimeException {
-  private static final long serialVersionUID = 4130899909889771251L;
+public class JsonPropertyIntrospector extends SwaggerAnnotationIntrospector {
+  private static final long serialVersionUID = 4157263023893695762L;
 
-  public RegisterException(String message) {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/exception/RuntimeExceptionWithoutStackTrace.java`
-#### Snippet
-```java
-
-public class RuntimeExceptionWithoutStackTrace extends RuntimeException {
-  private static final long serialVersionUID = -1L;
-
-  public RuntimeExceptionWithoutStackTrace() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `clients/config-common/src/main/java/org/apache/servicecomb/config/common/exception/OperationException.java`
-#### Snippet
-```java
-
-public class OperationException extends RuntimeException {
-  private static final long serialVersionUID = 1L;
-
-  public OperationException(String message) {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/producer/codec/ArgWrapperJavaType.java`
-#### Snippet
-```java
-
-public class ArgWrapperJavaType extends SimpleType {
-  private static final long serialVersionUID = 964882360361204479L;
-
-  static class ArgInfo {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/InvocationException.java`
-#### Snippet
-```java
- */
-public class InvocationException extends RuntimeException {
-  private static final long serialVersionUID = 8027482777502649656L;
-
-  /**
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/MessageObjectMapper.java`
-#### Snippet
-```java
-
-public class MessageObjectMapper extends ObjectMapper {
-  private static final long serialVersionUID = 189026839992490564L;
-
-  public MessageObjectMapper() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestServlet.java`
-#### Snippet
-```java
- */
-public class RestServlet extends HttpServlet {
-  private static final long serialVersionUID = 5797523329773923112L;
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(RestServlet.class);
+  @SuppressWarnings("deprecation")
 ```
 
 ## RuleId[id=TypeParameterHidesVisibleType]
@@ -9198,32 +4132,7 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
         .computeIfAbsent(dynamicValue.getClass(), this::createPojoFields);
 ```
 
-## RuleId[id=MethodOverloadsParentMethod]
-### MethodOverloadsParentMethod
-Method `convertValue()` overloads a compatible method of a superclass, when overriding might have been intended
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/FormProcessorCreator.java`
-#### Snippet
-```java
-    }
-
-    public Object convertValue(Converter converter, Object value) {
-      if (value == null || converter == null) {
-        return value;
-```
-
 ## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'setStage' is still used
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/registry/MicroserviceInstance.java`
-#### Snippet
-```java
-
-  @Deprecated
-  public void setStage(String stage) {
-    this.stage = stage;
-  }
-```
-
 ### DeprecatedIsStillUsed
 Deprecated member 'getStage' is still used
 in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/registry/MicroserviceInstance.java`
@@ -9236,1386 +4145,1601 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
   }
 ```
 
-## RuleId[id=Convert2MethodRef]
-### Convert2MethodRef
-Lambda can be replaced with method reference
-in `core/src/main/java/org/apache/servicecomb/core/filter/InvocationFilterChains.java`
+### DeprecatedIsStillUsed
+Deprecated member 'setStage' is still used
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/registry/MicroserviceInstance.java`
 #### Snippet
 ```java
-      List<Filter> serviceFilters = filters.entrySet().stream()
-          .filter(e -> e.getValue().isEnabledForMicroservice(microserviceName))
-          .map(e -> e.getValue())
-          .collect(Collectors.toList());
-      serviceFilters.sort(Comparator.comparingInt(a -> a.getOrder(invocationType, microserviceName)));
+
+  @Deprecated
+  public void setStage(String stage) {
+    this.stage = stage;
+  }
 ```
 
-## RuleId[id=PatternVariableCanBeUsed]
-### PatternVariableCanBeUsed
-Variable 'strValue' can be replaced with pattern variable
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/CertificateUtil.java`
+## RuleId[id=SpringXmlModelInspection]
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
 #### Snippet
 ```java
-            if (key instanceof Integer && value instanceof String) {
-              int intKey = (Integer) key;
-              String strValue = (String) value;
-              if (intKey == SUBALTNAME_DNSNAME || intKey == SUBALTNAME_IPADDRESS) {
-                names.add(strValue);
+    schema-id="server" interface="org.apache.servicecomb.demo.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.PojoClient">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
 ```
 
-### PatternVariableCanBeUsed
-Variable 'formParameter' can be replaced with pattern variable
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/SwaggerUtils.java`
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+
+  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
+  <cse:rpc-schema schema-id="helloworld.Greeter"
+    implementation="spring:hello"></cse:rpc-schema>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'servicecomb'
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+
+  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
+  <cse:rpc-schema schema-id="helloworld.Greeter"
+    implementation="spring:hello"></cse:rpc-schema>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'demo'
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+
+  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
+  <cse:rpc-schema schema-id="helloworld.Greeter"
+    implementation="spring:hello"></cse:rpc-schema>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'pojo'
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+
+  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
+  <cse:rpc-schema schema-id="helloworld.Greeter"
+    implementation="spring:hello"></cse:rpc-schema>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'server'
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+
+  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
+  <cse:rpc-schema schema-id="helloworld.Greeter"
+    implementation="spring:hello"></cse:rpc-schema>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'HelloImpl'
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+
+  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
+  <cse:rpc-schema schema-id="helloworld.Greeter"
+    implementation="spring:hello"></cse:rpc-schema>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'servicecomb'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.PojoClient">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'demo'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.PojoClient">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'pojo'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.PojoClient">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.PojoClient">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'PojoClient'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.PojoClient">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'testFromXml'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.PojoClient">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="org.apache.servicecomb.demo.CodeFirstPojoIntf"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.BeanRpcTest" init-method="init">
+  </bean>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'servicecomb'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="org.apache.servicecomb.demo.CodeFirstPojoIntf"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.BeanRpcTest" init-method="init">
+  </bean>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'demo'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="org.apache.servicecomb.demo.CodeFirstPojoIntf"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.BeanRpcTest" init-method="init">
+  </bean>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'pojo'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="org.apache.servicecomb.demo.CodeFirstPojoIntf"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.BeanRpcTest" init-method="init">
+  </bean>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="org.apache.servicecomb.demo.CodeFirstPojoIntf"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.BeanRpcTest" init-method="init">
+  </bean>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'BeanRpcTest'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="org.apache.servicecomb.demo.CodeFirstPojoIntf"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.BeanRpcTest" init-method="init">
+  </bean>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve method 'init'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="org.apache.servicecomb.demo.CodeFirstPojoIntf"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.pojo.client.BeanRpcTest" init-method="init">
+  </bean>
+</beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve package apache
+in `demo/demo-springmvc/springmvc-client/src/main/resources/META-INF/spring/springmvc.client.bean.xml`
+#### Snippet
+```java
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:component-scan base-package="org.apache.servicecomb.demo.springmvc.client"/>
+  <cse:rpc-reference id="controller" microservice-name="springmvc"
+    schema-id="controller" interface="org.apache.servicecomb.demo.controller.Controller"></cse:rpc-reference>
+```
+
+### SpringXmlModelInspection
+Cannot resolve package servicecomb
+in `demo/demo-springmvc/springmvc-client/src/main/resources/META-INF/spring/springmvc.client.bean.xml`
+#### Snippet
+```java
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:component-scan base-package="org.apache.servicecomb.demo.springmvc.client"/>
+  <cse:rpc-reference id="controller" microservice-name="springmvc"
+    schema-id="controller" interface="org.apache.servicecomb.demo.controller.Controller"></cse:rpc-reference>
+```
+
+### SpringXmlModelInspection
+Cannot resolve package demo
+in `demo/demo-springmvc/springmvc-client/src/main/resources/META-INF/spring/springmvc.client.bean.xml`
+#### Snippet
+```java
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:component-scan base-package="org.apache.servicecomb.demo.springmvc.client"/>
+  <cse:rpc-reference id="controller" microservice-name="springmvc"
+    schema-id="controller" interface="org.apache.servicecomb.demo.controller.Controller"></cse:rpc-reference>
+```
+
+### SpringXmlModelInspection
+Cannot resolve package springmvc
+in `demo/demo-springmvc/springmvc-client/src/main/resources/META-INF/spring/springmvc.client.bean.xml`
+#### Snippet
+```java
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:component-scan base-package="org.apache.servicecomb.demo.springmvc.client"/>
+  <cse:rpc-reference id="controller" microservice-name="springmvc"
+    schema-id="controller" interface="org.apache.servicecomb.demo.controller.Controller"></cse:rpc-reference>
+```
+
+### SpringXmlModelInspection
+Cannot resolve package client
+in `demo/demo-springmvc/springmvc-client/src/main/resources/META-INF/spring/springmvc.client.bean.xml`
+#### Snippet
+```java
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <context:component-scan base-package="org.apache.servicecomb.demo.springmvc.client"/>
+  <cse:rpc-reference id="controller" microservice-name="springmvc"
+    schema-id="controller" interface="org.apache.servicecomb.demo.controller.Controller"></cse:rpc-reference>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'apache'
+in `demo/demo-spring-boot-transport/demo-spring-boot-pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.springboot.pojo.server.schema.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.springboot.pojo.client.PojoClientTest">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'servicecomb'
+in `demo/demo-spring-boot-transport/demo-spring-boot-pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.springboot.pojo.server.schema.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.springboot.pojo.client.PojoClientTest">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'demo'
+in `demo/demo-spring-boot-transport/demo-spring-boot-pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.springboot.pojo.server.schema.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.springboot.pojo.client.PojoClientTest">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'springboot'
+in `demo/demo-spring-boot-transport/demo-spring-boot-pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.springboot.pojo.server.schema.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.springboot.pojo.client.PojoClientTest">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'pojo'
+in `demo/demo-spring-boot-transport/demo-spring-boot-pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.springboot.pojo.server.schema.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.springboot.pojo.client.PojoClientTest">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class or package 'client'
+in `demo/demo-spring-boot-transport/demo-spring-boot-pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.springboot.pojo.server.schema.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.springboot.pojo.client.PojoClientTest">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'PojoClientTest'
+in `demo/demo-spring-boot-transport/demo-spring-boot-pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+    schema-id="server" interface="org.apache.servicecomb.demo.springboot.pojo.server.schema.server.Test"></cse:rpc-reference>
+
+  <bean class="org.apache.servicecomb.demo.springboot.pojo.client.PojoClientTest">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+```
+
+### SpringXmlModelInspection
+Cannot resolve property 'testFromXml'
+in `demo/demo-spring-boot-transport/demo-spring-boot-pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+#### Snippet
+```java
+
+  <bean class="org.apache.servicecomb.demo.springboot.pojo.client.PojoClientTest">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
+</beans>
+```
+
+## RuleId[id=DuplicatedCode]
+### DuplicatedCode
+Duplicated code
+in `clients/config-common/src/main/java/org/apache/servicecomb/config/common/ConfigConverter.java`
+#### Snippet
+```java
+    if (properties == null) {
+      return Collections.emptyMap();
+    }
+    Map<String, Object> result = new HashMap<>();
+    Enumeration<String> keys = (Enumeration<String>) properties.propertyNames();
+    while (keys.hasMoreElements()) {
+      String key = keys.nextElement();
+      Object value = properties.getProperty(key);
+      result.put(key, value);
+    }
+    return result;
+```
+
+### DuplicatedCode
+Duplicated code
+in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/URLEndPoint.java`
+#### Snippet
+```java
+    final Map<String, List<String>> queryPairs = new LinkedHashMap<>();
+    List<NameValuePair> pairs = URLEncodedUtils.parse(uri, StandardCharsets.UTF_8);
+    for (NameValuePair pair : pairs) {
+      List<String> list = queryPairs.computeIfAbsent(pair.getName(), name -> new ArrayList<>());
+      list.add(pair.getValue());
+    }
+    return queryPairs;
+```
+
+### DuplicatedCode
+Duplicated code
+in `core/src/main/java/org/apache/servicecomb/core/governance/ServiceCombCircuitBreakerExtension.java`
+#### Snippet
+```java
+    if (!(result instanceof Response)) {
+      return null;
+    }
+    Response resp = (Response) result;
+    if (resp.isFailed()) {
+      if (resp.getResult() instanceof InvocationException) {
+        InvocationException e = resp.getResult();
+        return String.valueOf(e.getStatusCode());
+      }
+    }
+    return String.valueOf(resp.getStatusCode());
+```
+
+### DuplicatedCode
+Duplicated code
+in `dynamic-config/config-apollo/src/main/java/org/apache/servicecomb/config/archaius/sources/ApolloConfigurationSourceImpl.java`
+#### Snippet
+```java
+      if (config == null || config.isEmpty()) {
+        return;
+      }
+      Map<String, Object> configuration = ConfigMapping.getConvertedMap(config);
+      if (CREATE.equals(action)) {
+        valueCache.putAll(configuration);
+
+        updateConfiguration(createIncremental(ImmutableMap.copyOf(configuration),
+            null,
+            null));
+      } else if (SET.equals(action)) {
+        valueCache.putAll(configuration);
+
+        updateConfiguration(createIncremental(null,
+            ImmutableMap.copyOf(configuration),
+            null));
+      } else if (DELETE.equals(action)) {
+        configuration.keySet().forEach(valueCache::remove);
+        updateConfiguration(createIncremental(null,
+            null,
+            ImmutableMap.copyOf(configuration)));
+      } else {
+        LOGGER.error("action: {} is invalid.", action.name());
+        return;
+      }
+      LOGGER.warn("Config value cache changed: action:{}; item:{}", action.name(), configuration.keySet());
+```
+
+### DuplicatedCode
+Duplicated code
+in `dynamic-config/config-apollo/src/main/java/org/apache/servicecomb/config/client/ApolloClient.java`
+#### Snippet
+```java
+      Map<String, Object> itemsCreated = new HashMap<>();
+      Map<String, Object> itemsDeleted = new HashMap<>();
+      Map<String, Object> itemsModified = new HashMap<>();
+      if (before == null || before.isEmpty()) {
+        updateHandler.handle(CREATE, after);
+        return;
+      }
+      if (after == null || after.isEmpty()) {
+        updateHandler.handle(DELETE, before);
+        return;
+      }
+      after.forEach((itemKey, itemValue) -> {
+        if (!before.containsKey(itemKey)) {
+          itemsCreated.put(itemKey, itemValue);
+        } else if (!itemValue.equals(before.get(itemKey))) {
+          itemsModified.put(itemKey, itemValue);
+        }
+      });
+      for (String itemKey : before.keySet()) {
+        if (!after.containsKey(itemKey)) {
+          itemsDeleted.put(itemKey, "");
+        }
+      }
+      updateHandler.handle(CREATE, itemsCreated);
+      updateHandler.handle(SET, itemsModified);
+      updateHandler.handle(DELETE, itemsDeleted);
+```
+
+### DuplicatedCode
+Duplicated code
+in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/ConfigCenterConfig.java`
+#### Snippet
+```java
+    Object property = finalConfig.getProperty(FILE_SOURCE);
+    if (property instanceof String) {
+      return new ArrayList<>(Arrays.asList(((String) property).split(",")));
+    }
+    if (property instanceof List) {
+      return (List<String>) property;
+    }
+    return Collections.EMPTY_LIST;
+```
+
+### DuplicatedCode
+Duplicated code
+in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/ConfigCenterConfigurationSourceImpl.java`
+#### Snippet
+```java
+    LOGGER.info("configuration changed keys, added=[{}], updated=[{}], deleted=[{}]",
+        result.getAdded() == null ? "" : result.getAdded().keySet(),
+        result.getChanged() == null ? "" : result.getChanged().keySet(),
+        result.getDeleted() == null ? "" : result.getDeleted().keySet());
+    for (WatchedUpdateListener l : listeners) {
+      try {
+        l.updateConfiguration(result);
+      } catch (Throwable ex) {
+        LOGGER.error("Error in invoking WatchedUpdateListener", ex);
+      }
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/TransportUtils.java`
+#### Snippet
+```java
+SSLProperties sslProperties = new SSLProperties();
+    sslProperties.setEnabled(sslEnabled);
+
+    if (!sslEnabled) {
+      return sslProperties;
+    }
+
+    SSLOption option = new SSLOption();
+    option.setEngine(getStringProperty(configuration,
+        DEFAULT_OPTION.getEngine(),
+        "ssl." + tag + ".engine",
+        "ssl.engine"));
+    option.setProtocols(
+        getStringProperty(configuration,
+            DEFAULT_OPTION.getProtocols(),
+            "ssl." + tag + ".protocols",
+            "ssl.protocols"));
+    option.setCiphers(
+        getStringProperty(configuration, DEFAULT_OPTION.getCiphers(), "ssl." + tag + ".ciphers", "ssl.ciphers"));
+    option.setAuthPeer(
+        getBooleanProperty(configuration, DEFAULT_OPTION.isAuthPeer(), "ssl." + tag + ".authPeer", "ssl.authPeer"));
+    option.setCheckCNHost(
+        getBooleanProperty(configuration,
+            DEFAULT_OPTION.isCheckCNHost(),
+            "ssl." + tag + ".checkCN.host",
+            "ssl.checkCN.host"));
+    option.setCheckCNWhite(
+        getBooleanProperty(configuration,
+            DEFAULT_OPTION.isCheckCNWhite(),
+            "ssl." + tag + ".checkCN.white",
+            "ssl.checkCN.white"));
+    option.setCheckCNWhiteFile(getStringProperty(configuration,
+        DEFAULT_OPTION.getCiphers(),
+        "ssl." + tag + ".checkCN.white.file",
+        "ssl.checkCN.white.file"));
+    option.setAllowRenegociate(getBooleanProperty(configuration,
+        DEFAULT_OPTION.isAllowRenegociate(),
+        "ssl." + tag + ".allowRenegociate",
+        "ssl.allowRenegociate"));
+    option.setStorePath(
+        getStringProperty(configuration,
+            DEFAULT_OPTION.getStorePath(),
+            "ssl." + tag + ".storePath",
+            "ssl.storePath"));
+    option.setClientAuth(
+        getStringProperty(configuration,
+            DEFAULT_OPTION.getClientAuth(),
+            "ssl." + tag + ".clientAuth",
+            "ssl.clientAuth"));
+    option.setTrustStore(
+        getStringProperty(configuration,
+            DEFAULT_OPTION.getTrustStore(),
+            "ssl." + tag + ".trustStore",
+            "ssl.trustStore"));
+    option.setTrustStoreType(getStringProperty(configuration,
+        DEFAULT_OPTION.getTrustStoreType(),
+        "ssl." + tag + ".trustStoreType",
+        "ssl.trustStoreType"));
+    option.setTrustStoreValue(getStringProperty(configuration,
+        DEFAULT_OPTION.getTrustStoreValue(),
+        "ssl." + tag + ".trustStoreValue",
+        "ssl.trustStoreValue"));
+    option.setKeyStore(
+        getStringProperty(configuration, DEFAULT_OPTION.getKeyStore(), "ssl." + tag + ".keyStore", "ssl.keyStore"));
+    option.setKeyStoreType(
+        getStringProperty(configuration,
+            DEFAULT_OPTION.getKeyStoreType(),
+            "ssl." + tag + ".keyStoreType",
+            "ssl.keyStoreType"));
+    option.setKeyStoreValue(getStringProperty(configuration,
+        DEFAULT_OPTION.getKeyStoreValue(),
+        "ssl." + tag + ".keyStoreValue",
+        "ssl.keyStoreValue"));
+    option.setCrl(getStringProperty(configuration, DEFAULT_OPTION.getCrl(), "ssl." + tag + ".crl", "ssl.crl"));
+    option.setSslCustomClass(
+        getStringProperty(configuration, null, "ssl." + tag + ".sslCustomClass", "ssl.sslCustomClass"));
+
+    sslProperties.setSslOption(option);
+    sslProperties.setSslCustom(SSLCustom.createSSLCustom(option.getSslCustomClass()));
+    return sslProperties;
+```
+
+### DuplicatedCode
+Duplicated code
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/auth/RBACBootStrapService.java`
+#### Snippet
+```java
+SSLOption option = new SSLOption();
+    option.setEngine(getStringProperty(environment,
+        DEFAULT_OPTION.getEngine(),
+        "ssl." + tag + ".engine",
+        "ssl.engine"));
+    option.setProtocols(
+        getStringProperty(environment,
+            DEFAULT_OPTION.getProtocols(),
+            "ssl." + tag + ".protocols",
+            "ssl.protocols"));
+    option.setCiphers(
+        getStringProperty(environment, DEFAULT_OPTION.getCiphers(), "ssl." + tag + ".ciphers", "ssl.ciphers"));
+    option.setAuthPeer(
+        getBooleanProperty(environment, DEFAULT_OPTION.isAuthPeer(), "ssl." + tag + ".authPeer", "ssl.authPeer"));
+    option.setCheckCNHost(
+        getBooleanProperty(environment,
+            DEFAULT_OPTION.isCheckCNHost(),
+            "ssl." + tag + ".checkCN.host",
+            "ssl.checkCN.host"));
+    option.setCheckCNWhite(
+        getBooleanProperty(environment,
+            DEFAULT_OPTION.isCheckCNWhite(),
+            "ssl." + tag + ".checkCN.white",
+            "ssl.checkCN.white"));
+    option.setCheckCNWhiteFile(getStringProperty(environment,
+        DEFAULT_OPTION.getCiphers(),
+        "ssl." + tag + ".checkCN.white.file",
+        "ssl.checkCN.white.file"));
+    option.setAllowRenegociate(getBooleanProperty(environment,
+        DEFAULT_OPTION.isAllowRenegociate(),
+        "ssl." + tag + ".allowRenegociate",
+        "ssl.allowRenegociate"));
+    option.setStorePath(
+        getStringProperty(environment,
+            DEFAULT_OPTION.getStorePath(),
+            "ssl." + tag + ".storePath",
+            "ssl.storePath"));
+    option.setClientAuth(
+        getStringProperty(environment,
+            DEFAULT_OPTION.getClientAuth(),
+            "ssl." + tag + ".clientAuth",
+            "ssl.clientAuth"));
+    option.setTrustStore(
+        getStringProperty(environment,
+            DEFAULT_OPTION.getTrustStore(),
+            "ssl." + tag + ".trustStore",
+            "ssl.trustStore"));
+    option.setTrustStoreType(getStringProperty(environment,
+        DEFAULT_OPTION.getTrustStoreType(),
+        "ssl." + tag + ".trustStoreType",
+        "ssl.trustStoreType"));
+    option.setTrustStoreValue(getStringProperty(environment,
+        DEFAULT_OPTION.getTrustStoreValue(),
+        "ssl." + tag + ".trustStoreValue",
+        "ssl.trustStoreValue"));
+    option.setKeyStore(
+        getStringProperty(environment, DEFAULT_OPTION.getKeyStore(), "ssl." + tag + ".keyStore", "ssl.keyStore"));
+    option.setKeyStoreType(
+        getStringProperty(environment,
+            DEFAULT_OPTION.getKeyStoreType(),
+            "ssl." + tag + ".keyStoreType",
+            "ssl.keyStoreType"));
+    option.setKeyStoreValue(getStringProperty(environment,
+        DEFAULT_OPTION.getKeyStoreValue(),
+        "ssl." + tag + ".keyStoreValue",
+        "ssl.keyStoreValue"));
+    option.setCrl(getStringProperty(environment, DEFAULT_OPTION.getCrl(), "ssl." + tag + ".crl", "ssl.crl"));
+    option.setSslCustomClass(
+        getStringProperty(environment, null, "ssl." + tag + ".sslCustomClass", "ssl.sslCustomClass"));
+
+    sslProperties.setSslOption(option);
+    sslProperties.setSslCustom(SSLCustom.createSSLCustom(option.getSslCustomClass()));
+    return sslProperties;
+```
+
+### DuplicatedCode
+Duplicated code
+in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/CommonHttpEdgeDispatcher.java`
+#### Snippet
+```java
+    ConcurrentCompositeConfiguration config = (ConcurrentCompositeConfiguration) DynamicPropertyFactory
+        .getBackingConfigurationSource();
+    configurations = URLMappedConfigurationLoader.loadConfigurations(config, KEY_MAPPING_PREFIX);
+    config.addConfigurationListener(event -> {
+      if (event.getPropertyName().startsWith(KEY_MAPPING_PREFIX)) {
+        LOG.info("Map rule have been changed. Reload configurations. Event=" + event.getType());
+        configurations = URLMappedConfigurationLoader.loadConfigurations(config, KEY_MAPPING_PREFIX);
+      }
+    });
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigMapping.java`
+#### Snippet
+```java
+    if (configMap == null) {
+      return new LinkedHashMap<>();
+    }
+    Map<String, Object> retMap = new LinkedHashMap<>();
+    configMap.entrySet().forEach(entry -> putConfigsToRetMap(retMap, entry, config.getProperty(entry.getKey())));
+    return retMap;
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/YAMLUtil.java`
+#### Snippet
+```java
+    Map<String, Object> configurations = new LinkedHashMap<>();
+    safeParser().loadAll(input).forEach(data -> {
+      if (data instanceof Map && isValidMap((Map<Object, Object>) data)) {
+        configurations.putAll(retrieveItems("", (Map<String, Object>) data));
+      } else {
+        throw new IllegalArgumentException("input cannot be convert to map");
+      }
+    });
+    return configurations;
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ByteArrayInputEx.java`
+#### Snippet
+```java
+    final byte[] buffer = this.buffer;
+    int offset = this.offset;
+
+    final byte b1 = buffer[offset++];
+    final byte b2 = buffer[offset++];
+    final byte b3 = buffer[offset++];
+    final byte b4 = buffer[offset++];
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    if (lb.offset + size > lb.buffer.length) {
+      lb = new LinkedBuffer(session.nextBufferSize, lb);
+    }
+
+    final byte[] buffer = lb.buffer;
+    int offset = lb.offset;
+    lb.offset += size;
+    session.size += size;
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    if (size == 1) {
+      buffer[offset] = (byte) value;
+    } else {
+      for (int i = 0, last = size - 1; i < last; i++, value >>>= 7) {
+        buffer[offset++] = (byte) ((value & 0x7F) | 0x80);
+      }
+
+      buffer[offset] = (byte) value;
+    }
+
+    return lb;
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    final int totalSize = tagSize + size;
+
+    if (lb.offset + totalSize > lb.buffer.length) {
+      lb = new LinkedBuffer(session.nextBufferSize, lb);
+    }
+
+    final byte[] buffer = lb.buffer;
+    int offset = lb.offset;
+    lb.offset += totalSize;
+    session.size += totalSize;
+
+    if (tagSize == 1) {
+      buffer[offset++] = (byte) tag;
+    } else {
+      for (int i = 0, last = tagSize - 1; i < last; i++, tag >>>= 7) {
+        buffer[offset++] = (byte) ((tag & 0x7F) | 0x80);
+      }
+
+      buffer[offset++] = (byte) tag;
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    if (size == 1) {
+      buffer[offset] = (byte) value;
+    } else {
+      for (int i = 0, last = size - 1; i < last; i++, value >>>= 7) {
+        buffer[offset++] = (byte) (((int) value & 0x7F) | 0x80);
+      }
+
+      buffer[offset] = (byte) value;
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    if (buffer.length - offset < LITTLE_ENDIAN_32_SIZE) {
+      throw new IllegalArgumentException("buffer capacity not enough.");
+    }
+
+    buffer[offset++] = (byte) (value & 0xFF);
+    buffer[offset++] = (byte) (value >> 8 & 0xFF);
+    buffer[offset++] = (byte) (value >> 16 & 0xFF);
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    buffer[offset++] = (byte) (value >> 24 & 0xFF);
+    buffer[offset++] = (byte) (value >> 32 & 0xFF);
+    buffer[offset++] = (byte) (value >> 40 & 0xFF);
+    buffer[offset++] = (byte) (value >> 48 & 0xFF);
+    buffer[offset] = (byte) (value >> 56 & 0xFF);
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    if (tail.offset + size > tail.buffer.length) {
+      tail = new LinkedBuffer(this.nextBufferSize, tail);
+    }
+
+    final byte[] buffer = tail.buffer;
+    int offset = tail.offset;
+    tail.offset += size;
+    this.size += size;
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    final int size = LITTLE_ENDIAN_32_SIZE;
+
+    if (tail.offset + size > tail.buffer.length) {
+      tail = new LinkedBuffer(this.nextBufferSize, tail);
+    }
+
+    final byte[] buffer = tail.buffer;
+    int offset = tail.offset;
+    tail.offset += size;
+    this.size += size;
+
+    buffer[offset++] = (byte) (value & 0xFF);
+    buffer[offset++] = (byte) (value >> 8 & 0xFF);
+    buffer[offset++] = (byte) (value >> 16 & 0xFF);
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/SchemaManager.java`
+#### Snippet
+```java
+    SchemaEx<T> schema = findSchema(cacheKey);
+    if (schema != null) {
+      return schema;
+    }
+
+    schema = newMessageSchema(message, types);
+    canonicalSchemas.put(cacheKey, schema);
+
+    schema.init();
+    return schema;
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/impl/enums/EnumNotPackedReadSchemas.java`
+#### Snippet
+```java
+          Enum<?> enumValue = enumMeta.getEnumByValue(value);
+          if (enumValue == null) {
+            throw new IllegalStateException(
+                String.format("invalid enum value %d for %s, proto field=%s:%s",
+                    value,
+                    javaType.getRawClass().getName(),
+                    ((Type) protoField.getParent()).getCanonicalName(),
+                    protoField.getName()));
+          }
+
+          collection.add(enumValue);
+
+          int fieldNumber = input.readFieldNumber();
+          if (fieldNumber != this.fieldNumber) {
+            return fieldNumber;
+          }
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/bools/BoolPackedWriteSchemas.java`
+#### Snippet
+```java
+      arrayWriter = (o, value) ->
+          o.writeObject(tag, tagSize, value, (output, array) -> {
+            for (Boolean element : array) {
+              if (element != null) {
+                output.writePackedBool(element);
+                continue;
+              }
+
+              ProtoUtils.throwNotSupportNullElement(protoField);
+            }
+          });
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/doubles/DoublePackedWriteSchemas.java`
+#### Snippet
+```java
+      arrayWriter = (o, value) ->
+          o.writeObject(tag, tagSize, value, (output, array) -> {
+            for (Double element : array) {
+              if (element != null) {
+                output.writePackedDouble(element);
+                continue;
+              }
+
+              ProtoUtils.throwNotSupportNullElement(protoField);
+            }
+          });
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumNotPackedWriteSchemas.java`
+#### Snippet
+```java
+        for (Enum<?> element : array) {
+          if (element == null) {
+            ProtoUtils.throwNotSupportNullElement(protoField);
+            return;
+          }
+
+          String name = element.name();
+          Integer enumValue = enumMeta.getValueByName(name);
+          if (enumValue == null) {
+            throw new IllegalStateException(
+                String.format("invalid enum name %s for proto %s, field=%s:%s",
+                    name,
+                    protoField.getTypeName(),
+                    ((Type) protoField.getParent()).getCanonicalName(),
+                    protoField.getName()));
+          }
+
+          output.writeEnum(tag, tagSize, enumValue);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumNotPackedWriteSchemas.java`
+#### Snippet
+```java
+        Object first = collection.iterator().next();
+        if (first.getClass().isEnum()) {
+          writeEnumCollection(output, collection);
+          return;
+        }
+
+        if (first.getClass() == String.class) {
+          writeStringCollection(output, (Collection<String>) (Object) collection);
+          return;
+        }
+
+        writeIntCollection(output, (Collection<Number>) (Object) collection);
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumNotPackedWriteSchemas.java`
+#### Snippet
+```java
+        for (String element : array) {
+          if (element == null) {
+            ProtoUtils.throwNotSupportNullElement(protoField);
+            return;
+          }
+
+          Integer enumValue = enumMeta.getValueByName(element);
+          if (enumValue == null) {
+            throw new IllegalStateException(
+                String.format("invalid enum name %s for proto %s, field=%s:%s",
+                    element,
+                    protoField.getTypeName(),
+                    ((Type) protoField.getParent()).getCanonicalName(),
+                    protoField.getName()));
+          }
+
+          output.writeEnum(tag, tagSize, enumValue);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumPackedWriteSchemas.java`
+#### Snippet
+```java
+        for (Enum<?> element : array) {
+          if (element == null) {
+            ProtoUtils.throwNotSupportNullElement(protoField);
+            return;
+          }
+
+          String name = element.name();
+          Integer enumValue = enumMeta.getValueByName(name);
+          if (enumValue == null) {
+            throw new IllegalStateException(
+                String.format("invalid enum name %s for proto %s, field=%s:%s",
+                    name,
+                    protoField.getTypeName(),
+                    ((Type) protoField.getParent()).getCanonicalName(),
+                    protoField.getName()));
+          }
+
+          output.writePackedEnum(enumValue);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumPackedWriteSchemas.java`
+#### Snippet
+```java
+        for (String element : array) {
+          if (element == null) {
+            ProtoUtils.throwNotSupportNullElement(protoField);
+            return;
+          }
+
+          Integer enumValue = enumMeta.getValueByName(element);
+          if (enumValue == null) {
+            throw new IllegalStateException(
+                String.format("invalid enum name %s for proto %s, field=%s:%s",
+                    element,
+                    protoField.getTypeName(),
+                    ((Type) protoField.getParent()).getCanonicalName(),
+                    protoField.getName()));
+          }
+
+          output.writePackedEnum(enumValue);
+        }
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/floats/FloatPackedWriteSchemas.java`
+#### Snippet
+```java
+      arrayWriter = (o, value) ->
+          o.writeObject(tag, tagSize, value, (output, array) -> {
+            for (Float element : array) {
+              if (element != null) {
+                output.writePackedFloat(element);
+                continue;
+              }
+
+              ProtoUtils.throwNotSupportNullElement(protoField);
+            }
+          });
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/Fixed64PackedWriteSchemas.java`
+#### Snippet
+```java
+      arrayWriter = (o, value) ->
+          o.writeObject(tag, tagSize, value, (output, array) -> {
+            for (Long element : array) {
+              if (element != null) {
+                output.writePackedFixed64(element);
+                continue;
+              }
+
+              ProtoUtils.throwNotSupportNullElement(protoField);
+            }
+          });
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/Int64PackedWriteSchemas.java`
+#### Snippet
+```java
+      arrayWriter = (o, value) ->
+          o.writeObject(tag, tagSize, value, (output, array) -> {
+            for (Long element : array) {
+              if (element != null) {
+                output.writePackedInt64(element);
+                continue;
+              }
+
+              ProtoUtils.throwNotSupportNullElement(protoField);
+            }
+          });
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/SFixed64PackedWriteSchemas.java`
+#### Snippet
+```java
+      arrayWriter = (o, value) ->
+          o.writeObject(tag, tagSize, value, (output, array) -> {
+            for (Long element : array) {
+              if (element != null) {
+                output.writePackedSFixed64(element);
+                continue;
+              }
+
+              ProtoUtils.throwNotSupportNullElement(protoField);
+            }
+          });
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/SInt64PackedWriteSchemas.java`
+#### Snippet
+```java
+      arrayWriter = (o, value) ->
+          o.writeObject(tag, tagSize, value, (output, array) -> {
+            for (Long element : array) {
+              if (element != null) {
+                output.writePackedSInt64(element);
+                continue;
+              }
+
+              ProtoUtils.throwNotSupportNullElement(protoField);
+            }
+          });
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/longs/UInt64PackedWriteSchemas.java`
+#### Snippet
+```java
+      arrayWriter = (o, value) ->
+          o.writeObject(tag, tagSize, value, (output, array) -> {
+            for (Long element : array) {
+              if (element != null) {
+                output.writePackedUInt64(element);
+                continue;
+              }
+
+              ProtoUtils.throwNotSupportNullElement(protoField);
+            }
+          });
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/SSLManager.java`
+#### Snippet
+```java
+    if (option.isAuthPeer() || ClientAuth.REQUIRED.equals(option.getClientAuth())) {
+      engine.setNeedClientAuth(true);
+      return;
+    }
+    if (ClientAuth.NONE.equals(option.getClientAuth())) {
+      engine.setNeedClientAuth(false);
+      engine.setWantClientAuth(false);
+      return;
+    }
+    engine.setWantClientAuth(true);
+```
+
+### DuplicatedCode
+Duplicated code
+in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/TrustManagerExt.java`
+#### Snippet
+```java
+    if (!option.isAuthPeer()) {
+      return;
+    }
+
+    String ip = null;
+    if (socket != null && socket.isConnected()
+        && socket instanceof SSLSocket) {
+      InetAddress inetAddress = socket.getInetAddress();
+      if (inetAddress != null) {
+        ip = inetAddress.getHostAddress();
+      }
+    }
+    checkTrustedCustom(chain, ip);
+```
+
+### DuplicatedCode
+Duplicated code
+in `governance/src/main/java/org/apache/servicecomb/governance/handler/CircuitBreakerHandler.java`
+#### Snippet
+```java
+    CircuitBreakerConfig circuitBreakerConfig = CircuitBreakerConfig.custom()
+        .failureRateThreshold(policy.getFailureRateThreshold())
+        .slowCallRateThreshold(policy.getSlowCallRateThreshold())
+        .waitDurationInOpenState(Duration.parse(policy.getWaitDurationInOpenState()))
+        .slowCallDurationThreshold(Duration.parse(policy.getSlowCallDurationThreshold()))
+        .permittedNumberOfCallsInHalfOpenState(policy.getPermittedNumberOfCallsInHalfOpenState())
+        .minimumNumberOfCalls(policy.getMinimumNumberOfCalls())
+        .slidingWindowType(policy.getSlidingWindowTypeEnum())
+        .slidingWindowSize(Integer.parseInt(policy.getSlidingWindowSize()))
+        .recordException(circuitBreakerExtension::isFailedResult)
+        .recordResult(r -> circuitBreakerExtension.isFailedResult(policy.getRecordFailureStatus(), r))
+        .build();
+    CircuitBreakerRegistry circuitBreakerRegistry = CircuitBreakerRegistry.of(circuitBreakerConfig);
+```
+
+### DuplicatedCode
+Duplicated code
+in `governance/src/main/java/org/apache/servicecomb/governance/handler/IdentifierRateLimitingHandler.java`
+#### Snippet
+```java
+    LOGGER.info("applying new policy {} for {}", key, policy.toString());
+
+    RateLimiterConfig config = RateLimiterConfig.custom()
+        .limitForPeriod(policy.getRate())
+        .limitRefreshPeriod(Duration.parse(policy.getLimitRefreshPeriod()))
+        .timeoutDuration(Duration.parse(policy.getTimeoutDuration()))
+        .build();
+    RateLimiterRegistry rateLimiterRegistry = RateLimiterRegistry.of(config);
+    if (meterRegistry != null) {
+      TaggedRateLimiterMetrics
+          .ofRateLimiterRegistry(RateLimiterMetricNames.custom()
+                  .availablePermissionsMetricName(
+                      this.rateLimitProperties.getConfigKey() + ".available.permissions")
+                  .waitingThreadsMetricName(this.rateLimitProperties.getConfigKey() + ".waiting.threads")
+                  .build(),
+              rateLimiterRegistry)
+          .bindTo(meterRegistry);
+    }
+    return new DisposableRateLimiter(key, rateLimiterRegistry.rateLimiter(key), rateLimiterRegistry);
+```
+
+### DuplicatedCode
+Duplicated code
+in `handlers/handler-governance/src/main/java/org/apache/servicecomb/handler/governance/ConsumerInstanceBulkheadFilter.java`
+#### Snippet
+```java
+    Supplier<CompletionStage<Response>> next = createBusinessCompletionStageSupplier(invocation, nextNode);
+    DecorateCompletionStage<Response> dcs = Decorators.ofCompletionStage(next);
+    GovernanceRequestExtractor request = MatchType.createGovHttpRequest(invocation);
+
+    addBulkhead(dcs, request);
+
+    CompletableFuture<Response> future = new CompletableFuture<>();
+```
+
+### DuplicatedCode
+Duplicated code
+in `handlers/handler-governance/src/main/java/org/apache/servicecomb/handler/governance/ConsumerInstanceIsolationFilter.java`
+#### Snippet
+```java
+    Supplier<CompletionStage<Response>> next = createBusinessCompletionStageSupplier(invocation, nextNode);
+    DecorateCompletionStage<Response> dcs = Decorators.ofCompletionStage(next);
+    GovernanceRequestExtractor request = MatchType.createGovHttpRequest(invocation);
+
+    addCircuitBreaker(dcs, request);
+
+    CompletableFuture<Response> future = new CompletableFuture<>();
+```
+
+### DuplicatedCode
+Duplicated code
+in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/MetricsMonitorDataProvider.java`
+#### Snippet
+```java
+    for (Map<String, OperationPerfGroup> statusMap : producerPerf.getGroups().values()) {
+      for (OperationPerfGroup perfGroup : statusMap.values()) {
+        for (int i = 0; i < perfGroup.getOperationPerfs().size(); i++) {
+          OperationPerf operationPerf = perfGroup.getOperationPerfs().get(i);
+          PerfInfo stageTotal = operationPerf.findStage(MeterInvocationConst.STAGE_TOTAL);
+          String name = NAME_PROVIDER + operationPerf.getOperation();
+          InterfaceInfo interfaceInfo = combinedResults.computeIfAbsent(name,
+              k -> {
+                InterfaceInfo obj = new InterfaceInfo();
+                obj.setName(name);
+                return obj;
+              });
+          // dashboard calculates the latest 10 seconds, different with metrics cycle.
+          interfaceInfo.setTotal(
+              doubleToInt(interfaceInfo.getTotal() + 10 * stageTotal.getTps()));
+          if (perfGroup.getStatus().matches(CODE_SUCCESS)) {
+            interfaceInfo.setQps(stageTotal.getTps());
+            interfaceInfo.setLatency(doubleToInt(stageTotal.calcMsLatency()));
+          } else {
+            interfaceInfo.setFailure(
+                doubleToInt(interfaceInfo.getTotal() + stageTotal.getMsTotalTime() * stageTotal.getTps()));
+            if (perfGroup.getStatus().equals(CODE_TIMEOUT)) {
+              interfaceInfo.setCountTimeout(
+                  doubleToInt(interfaceInfo.getCountTimeout() + stageTotal.getMsTotalTime() * stageTotal.getTps()));
+            }
+          }
+        }
+      }
+    }
+```
+
+### DuplicatedCode
+Duplicated code
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/invocation/ConsumerInvocationMeter.java`
+#### Snippet
+```java
+    super.calcMeasurements(measurements, msNow, secondInterval);
+
+    clientFiltersRequestTimer.calcMeasurements(measurements, msNow, secondInterval);
+    consumerSendRequestTimer.calcMeasurements(measurements, msNow, secondInterval);
+    consumerGetConnectionTimer.calcMeasurements(measurements, msNow, secondInterval);
+    consumerWriteToBufTimer.calcMeasurements(measurements, msNow, secondInterval);
+    consumerWaitResponseTimer.calcMeasurements(measurements, msNow, secondInterval);
+```
+
+### DuplicatedCode
+Duplicated code
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
+#### Snippet
+```java
+      PerfInfo stageTotal = operationPerf.findStage(MeterInvocationConst.STAGE_TOTAL);
+      if (Double.compare(0D, stageTotal.getTps()) == 0) {
+        continue;
+      }
+      prepare = operationPerf.findStage(MeterInvocationConst.STAGE_PREPARE);
+      queue = operationPerf.findStage(MeterInvocationConst.STAGE_EXECUTOR_QUEUE);
+      filtersReq = operationPerf.findStage(MeterInvocationConst.STAGE_SERVER_FILTERS_REQUEST);
+      handlersReq = operationPerf.findStage(MeterInvocationConst.STAGE_HANDLERS_REQUEST);
+```
+
+### DuplicatedCode
+Duplicated code
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
+#### Snippet
+```java
+      handlersReq = operationPerf.findStage(MeterInvocationConst.STAGE_HANDLERS_REQUEST);
+      clientFiltersReq = operationPerf.findStage(MeterInvocationConst.STAGE_CLIENT_FILTERS_REQUEST);
+      sendReq = operationPerf.findStage(MeterInvocationConst.STAGE_CONSUMER_SEND_REQUEST);
+      getConnect = operationPerf.findStage(MeterInvocationConst.STAGE_CONSUMER_GET_CONNECTION);
+      writeBuf = operationPerf.findStage(MeterInvocationConst.STAGE_CONSUMER_WRITE_TO_BUF);
+      waitResp = operationPerf.findStage(MeterInvocationConst.STAGE_CONSUMER_WAIT_RESPONSE);
+      wakeConsumer = operationPerf.findStage(MeterInvocationConst.STAGE_CONSUMER_WAKE_CONSUMER);
+      clientFiltersResp = operationPerf.findStage(MeterInvocationConst.STAGE_CLIENT_FILTERS_RESPONSE);
+      handlersResp = operationPerf.findStage(MeterInvocationConst.STAGE_HANDLERS_RESPONSE);
+```
+
+### DuplicatedCode
+Duplicated code
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
+#### Snippet
+```java
+      clientFiltersReq = operationPerf.findStage(MeterInvocationConst.STAGE_CLIENT_FILTERS_REQUEST);
+      sendReq = operationPerf.findStage(MeterInvocationConst.STAGE_CONSUMER_SEND_REQUEST);
+      getConnect = operationPerf.findStage(MeterInvocationConst.STAGE_CONSUMER_GET_CONNECTION);
+      writeBuf = operationPerf.findStage(MeterInvocationConst.STAGE_CONSUMER_WRITE_TO_BUF);
+      waitResp = operationPerf.findStage(MeterInvocationConst.STAGE_CONSUMER_WAIT_RESPONSE);
+      wakeConsumer = operationPerf.findStage(MeterInvocationConst.STAGE_CONSUMER_WAKE_CONSUMER);
+      clientFiltersResp = operationPerf.findStage(MeterInvocationConst.STAGE_CLIENT_FILTERS_RESPONSE);
+      handlersResp = operationPerf.findStage(MeterInvocationConst.STAGE_HANDLERS_RESPONSE);
+```
+
+### DuplicatedCode
+Duplicated code
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RestClientUtil.java`
+#### Snippet
+```java
+    endpoint.append(url);
+    try {
+      signReq.setEndpoint(new URI(endpoint.toString()));
+    } catch (URISyntaxException e) {
+      LOGGER.error("set uri failed, uri is {}, message: {}", endpoint, e.getMessage());
+    }
+    signReq.setContent((requestParam.getBody() != null && requestParam.getBody().length > 0)
+        ? new ByteArrayInputStream(requestParam.getBody())
+        : null);
+    signReq.setHeaders(headers);
+    signReq.setHttpMethod(method);
+    signReq.setQueryParams(requestParam.getQueryParamsMap());
+    return signReq;
+```
+
+### DuplicatedCode
+Duplicated code
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
+#### Snippet
+```java
+    int modifiers = method.getModifiers();
+    if (Modifier.isStatic(modifiers)) {
+      return true;
+    }
+    // skip bridge method
+    if (method.isBridge()) {
+      return true;
+    }
+
+    ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+    if (apiOperation != null && apiOperation.hidden()) {
+      return apiOperation.hidden();
+    }
+```
+
+## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigMapping.java`
 #### Snippet
 ```java
     }
-
-    FormParameter formParameter = (FormParameter) parameter;
-    if (FileProperty.isType(formParameter.getType(), formParameter.getFormat())) {
-      return true;
+    Map<String, Object> retMap = new LinkedHashMap<>();
+    retMap.putAll(oldMap);
+    configMap.entrySet().forEach(entry -> putConfigsToRetMap(retMap, entry, oldMap.get(entry.getKey())));
+    return retMap;
 ```
 
-### PatternVariableCanBeUsed
-Variable 'tagItem' can be replaced with pattern variable
-in `governance/src/main/java/org/apache/servicecomb/router/model/TagItem.java`
+## RuleId[id=TrivialIf]
+### TrivialIf
+`if` statement can be simplified
+in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/LoadBalancer.java`
 #### Snippet
 ```java
+    }
+    ServiceCombServer server = rule.choose(servers, invocation);
+    if (null == server) {
+      return null;
+    }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/VertxTLSBuilder.java`
+#### Snippet
+```java
+    buildTCPSSLOptions(sslOption, sslCustom, clientOptionsBase);
+
+    if (sslOption.isAuthPeer()) {
+      clientOptionsBase.setTrustAll(false);
+    } else {
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `core/src/main/java/org/apache/servicecomb/core/exception/DefaultExceptionProcessor.java`
+#### Snippet
+```java
+  @Override
+  public boolean isIgnoreLog(@Nonnull Invocation invocation, @Nonnull InvocationException exception) {
+    if (!isPrintRateLimit() && exception.getStatusCode() == TOO_MANY_REQUESTS.getStatusCode()) {
+      return true;
+    }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `governance/src/main/java/org/apache/servicecomb/governance/marker/TrafficMarker.java`
+#### Snippet
+```java
+  @Override
+  public boolean isValid() {
+    if (matches == null || matches.isEmpty()) {
       return false;
     }
-    TagItem tagItem = (TagItem) o;
-    return Objects.equals(getVersion(), tagItem.getVersion()) &&
-        Objects.equals(getParam(), tagItem.getParam());
 ```
 
-### PatternVariableCanBeUsed
-Variable 'compositePropertySource' can be replaced with pattern variable
-in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
+### TrivialIf
+`if` statement can be simplified
+in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/definition/ResponseRootDeserializer.java`
 #### Snippet
 ```java
-    if (propertySource instanceof CompositePropertySource) {
-      // recursively get EnumerablePropertySource
-      CompositePropertySource compositePropertySource = (CompositePropertySource) propertySource;
-      compositePropertySource.getPropertySources().forEach(ps -> getProperties(ps, allKeys));
-      return;
-```
 
-### PatternVariableCanBeUsed
-Variable 'enumerablePropertySource' can be replaced with pattern variable
-in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
-#### Snippet
-```java
-    }
-    if (propertySource instanceof EnumerablePropertySource) {
-      EnumerablePropertySource<?> enumerablePropertySource = (EnumerablePropertySource<?>) propertySource;
-      Collections.addAll(allKeys, enumerablePropertySource.getPropertyNames());
-      return;
-```
-
-### PatternVariableCanBeUsed
-Variable 'configurableEnvironment' can be replaced with pattern variable
-in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
-#### Snippet
-```java
-    }
-
-    ConfigurableEnvironment configurableEnvironment = (ConfigurableEnvironment) environment;
-
-    for (PropertySource<?> propertySource : configurableEnvironment.getPropertySources()) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'ce' can be replaced with pattern variable
-in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
-#### Snippet
-```java
-      return;
-    }
-    ConfigurableEnvironment ce = (ConfigurableEnvironment) environment;
-    if (configCenterConfigurationSource == null) {
-      return;
-```
-
-### PatternVariableCanBeUsed
-Variable 'compositePropertySource' can be replaced with pattern variable
-in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
-#### Snippet
-```java
-    if (propertySource instanceof CompositePropertySource) {
-      // recursively get EnumerablePropertySource
-      CompositePropertySource compositePropertySource = (CompositePropertySource) propertySource;
-      compositePropertySource.getPropertySources().forEach(ps -> getProperties(environment, ps, configFromSpringBoot));
-      return;
-```
-
-### PatternVariableCanBeUsed
-Variable 'enumerablePropertySource' can be replaced with pattern variable
-in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
-#### Snippet
-```java
-    }
-    if (propertySource instanceof EnumerablePropertySource) {
-      EnumerablePropertySource<?> enumerablePropertySource = (EnumerablePropertySource<?>) propertySource;
-      for (String propertyName : enumerablePropertySource.getPropertyNames()) {
-        try {
-```
-
-### PatternVariableCanBeUsed
-Variable 'configurableEnvironment' can be replaced with pattern variable
-in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
-#### Snippet
-```java
-    }
-
-    ConfigurableEnvironment configurableEnvironment = (ConfigurableEnvironment) environment;
-
-    if (ignoreResolveFailure()) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'queue' can be replaced with pattern variable
-in `core/src/main/java/org/apache/servicecomb/core/executor/ThreadPoolExecutorEx.java`
-#### Snippet
-```java
-    } catch (RejectedExecutionException e) {
-      if (getQueue() instanceof LinkedBlockingQueueEx) {
-        final LinkedBlockingQueueEx queue = (LinkedBlockingQueueEx) getQueue();
-        if (!queue.force(command)) {
-          throw new RejectedExecutionException("thread pool queue is full");
-```
-
-### PatternVariableCanBeUsed
-Variable 'invocationException' can be replaced with pattern variable
-in `core/src/main/java/org/apache/servicecomb/core/governance/ServiceCombCircuitBreakerExtension.java`
-#### Snippet
-```java
-  public boolean isFailedResult(Throwable e) {
-    if (e instanceof InvocationException) {
-      InvocationException invocationException = (InvocationException) e;
-      if (invocationException.getStatusCode() == Status.SERVICE_UNAVAILABLE.getStatusCode() ||
-          invocationException.getStatusCode() == Status.BAD_GATEWAY.getStatusCode() ||
-```
-
-### PatternVariableCanBeUsed
-Variable 'resp' can be replaced with pattern variable
-in `core/src/main/java/org/apache/servicecomb/core/governance/ServiceCombCircuitBreakerExtension.java`
-#### Snippet
-```java
-      return null;
-    }
-    Response resp = (Response) result;
-    if (resp.isFailed()) {
-      if (resp.getResult() instanceof InvocationException) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'invocationException' can be replaced with pattern variable
-in `core/src/main/java/org/apache/servicecomb/core/governance/ServiceCombRetryExtension.java`
-#### Snippet
-```java
-  public boolean isFailedResult(Throwable e) {
-    if (e instanceof InvocationException) {
-      InvocationException invocationException = (InvocationException) e;
-      if (invocationException.getStatusCode() == Status.SERVICE_UNAVAILABLE.getStatusCode() ||
-          invocationException.getStatusCode() == Status.BAD_GATEWAY.getStatusCode() ||
-```
-
-### PatternVariableCanBeUsed
-Variable 'resp' can be replaced with pattern variable
-in `core/src/main/java/org/apache/servicecomb/core/governance/ServiceCombRetryExtension.java`
-#### Snippet
-```java
-      return null;
-    }
-    Response resp = (Response) result;
-    if (resp.isFailed()) {
-      if (resp.getResult() instanceof InvocationException) {
-```
-
-### PatternVariableCanBeUsed
-Variable 'contextInternal' can be replaced with pattern variable
-in `transports/transport-rest/transport-rest-vertx/src/main/java/org/apache/servicecomb/transport/rest/vertx/RestBodyHandler.java`
-#### Snippet
-```java
-      }
-      if (context instanceof RoutingContextInternal) {
-        RoutingContextInternal contextInternal = (RoutingContextInternal) context;
-        contextInternal.setBody(body);
+    if (invocationTimeType.getRawClass().isAssignableFrom(obj.getClass())) {
+      if (invocationTimeType.getContentType() == null) {
+        return false;
       }
 ```
 
-### PatternVariableCanBeUsed
-Variable 'invocationException' can be replaced with pattern variable
-in `transports/transport-rest/transport-rest-vertx/src/main/java/org/apache/servicecomb/transport/rest/vertx/VertxRestDispatcher.java`
-#### Snippet
-```java
-  private void sendExceptionByRoutingContext(RoutingContext context, Throwable e) {
-    if (e instanceof InvocationException) {
-      InvocationException invocationException = (InvocationException) e;
-      context.response().putHeader(HttpHeaders.CONTENT_TYPE, MediaType.WILDCARD)
-          .setStatusCode(invocationException.getStatusCode()).setStatusMessage(invocationException.getReasonPhrase())
-```
-
-### PatternVariableCanBeUsed
-Variable 'exception' can be replaced with pattern variable
-in `transports/transport-rest/transport-rest-vertx/src/main/java/org/apache/servicecomb/transport/rest/vertx/RestServerVerticle.java`
-#### Snippet
-```java
-          if (ctx.failure() instanceof InvocationException) {
-            // ServiceComb defined exception
-            InvocationException exception = (InvocationException) ctx.failure();
-            response.setStatusCode(exception.getStatusCode());
-            response.setStatusMessage(exception.getReasonPhrase());
-```
-
-### PatternVariableCanBeUsed
-Variable 'contextInternal' can be replaced with pattern variable
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/VertxServerRequestToHttpServletRequest.java`
-#### Snippet
-```java
-    super.setBodyBuffer(bodyBuffer);
-    if (context instanceof RoutingContextInternal) {
-      RoutingContextInternal contextInternal = (RoutingContextInternal) context;
-      contextInternal.setBody(bodyBuffer);
-    }
-```
-
-### PatternVariableCanBeUsed
-Variable 'bodyParameter' can be replaced with pattern variable
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationMeta.java`
-#### Snippet
-```java
-      return type;
-    }
-    final BodyParameter bodyParameter = (BodyParameter) parameter;
-    if (!(bodyParameter.getSchema() instanceof ModelImpl)) {
-      return type;
-```
-
-### PatternVariableCanBeUsed
-Variable 'configuration' can be replaced with pattern variable
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java`
-#### Snippet
-```java
-  public static Object getProperty(Object config, String key) {
-    if (config instanceof Configuration) {
-      Configuration configuration = (Configuration) config;
-      return configuration.getProperty(key);
-    }
-```
-
-### PatternVariableCanBeUsed
-Variable 'modelImpl' can be replaced with pattern variable
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/ModelAdapter.java`
-#### Snippet
-```java
-  public boolean isJavaLangObject() {
-    if (model instanceof ModelImpl) {
-      ModelImpl modelImpl = (ModelImpl) model;
-      return Objects.equals(ObjectProperty.TYPE, modelImpl.getType())
-          && modelImpl.getProperties() == null
-```
-
-### PatternVariableCanBeUsed
-Variable 'modelImpl' can be replaced with pattern variable
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/BodyParameterAdapter.java`
-#### Snippet
-```java
-  public boolean isJavaLangObject() {
-    if (model instanceof ModelImpl) {
-      ModelImpl modelImpl = (ModelImpl) model;
-      return (ObjectProperty.TYPE.equals(modelImpl.getType())
-          && modelImpl.getProperties() == null
-```
-
-### PatternVariableCanBeUsed
-Variable 'model' can be replaced with pattern variable
+### TrivialIf
+`if` statement can be simplified
 in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
 #### Snippet
 ```java
-  private boolean isDownload(Operation operation) {
+
+  public static boolean isValidEnum(String name) {
+    if (name.contains(".") || name.contains("-")) {
+      return false;
+    }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
+#### Snippet
+```java
     if (operation.getResponses().get("200").getResponseSchema() instanceof ModelImpl) {
       ModelImpl model = (ModelImpl) operation.getResponses().get("200").getResponseSchema();
       if ("file".equals(model.getType())) {
         return true;
+      }
 ```
 
-### PatternVariableCanBeUsed
-Variable 'exception' can be replaced with pattern variable
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/AbstractEdgeDispatcher.java`
+### TrivialIf
+`if` statement can be simplified
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/property/AbstractBaseIntegerProperty.java`
 #### Snippet
 ```java
-
-    if (context.failure() instanceof InvocationException) {
-      InvocationException exception = (InvocationException) context.failure();
-      response.setStatusCode(exception.getStatusCode());
-      response.setStatusMessage(exception.getReasonPhrase());
+    AbstractBaseIntegerProperty<T> other = (AbstractBaseIntegerProperty<T>) obj;
+    if (defaultValue == null) {
+      if (other.defaultValue != null) {
+        return false;
+      }
 ```
 
-### PatternVariableCanBeUsed
-Variable 'serializableParameter' can be replaced with pattern variable
-in `swagger/swagger-generator/generator-jaxrs/src/main/java/org/apache/servicecomb/swagger/generator/jaxrs/JaxrsOperationGenerator.java`
+### TrivialIf
+`if` statement can be simplified
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/property/AbstractBaseIntegerProperty.java`
 #### Snippet
 ```java
-    }
-
-    AbstractSerializableParameter<?> serializableParameter = (AbstractSerializableParameter<?>) parameter;
-    if (serializableParameter.getDefault() == null && !parameter.getRequired()) {
-      serializableParameter.setDefaultValue(String.valueOf(Defaults.defaultValue(type.getRawClass())));
-```
-
-### PatternVariableCanBeUsed
-Variable 'token' can be replaced with pattern variable
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/RSAAuthenticationToken.java`
-#### Snippet
-```java
+        return false;
+      }
+    } else if (!defaultValue.equals(other.defaultValue)) {
       return false;
     }
-    RSAAuthenticationToken token = (RSAAuthenticationToken) obj;
-    if (!token.plainToken().equals(this.plainToken())) {
-      return false;
-```
-
-## RuleId[id=NonSynchronizedMethodOverridesSynchronizedMethod]
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `reset()` overrides synchronized method
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferInputStream.java`
-#### Snippet
-```java
-
-  @Override
-  public void reset() throws IOException {
-    byteBuf.resetReaderIndex();
-  }
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `reset()` overrides synchronized method
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseClientHttpResponse.java`
-#### Snippet
-```java
-
-    @Override
-    public void reset() throws IOException {
-    }
-  };
-```
-
-### NonSynchronizedMethodOverridesSynchronizedMethod
-Unsynchronized method `mark()` overrides synchronized method
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseClientHttpResponse.java`
-#### Snippet
-```java
-
-    @Override
-    public void mark(int readlimit) {
-    }
-
-```
-
-## RuleId[id=AbstractMethodCallInConstructor]
-### AbstractMethodCallInConstructor
-Call to 'abstract' method `getEntityClass()` during object construction
-in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
-#### Snippet
-```java
-    representer.getPropertyUtils().setSkipMissingProperties(true);
-    GovernanceEventManager.register(this);
-    entityClass = getEntityClass();
-  }
-
-```
-
-## RuleId[id=NonSerializableFieldInSerializableClass]
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'faultResponse' in a Serializable class
-in `governance/src/main/java/org/apache/servicecomb/governance/processor/injection/FaultInjectionException.java`
-#### Snippet
-```java
-  private static final long serialVersionUID = 1675558351029273343L;
-
-  private final FaultResponse faultResponse;
-
-  public FaultInjectionException(FaultResponse faultResponse) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'errorData' in a Serializable class
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/InvocationException.java`
-#### Snippet
-```java
-  private final StatusType status;
-
-  private final Object errorData;
-
-  public InvocationException(StatusType status, Object errorData) {
-```
-
-### NonSerializableFieldInSerializableClass
-Non-serializable field 'servletRestServer' in a Serializable class
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestServlet.java`
-#### Snippet
-```java
-  private static final Logger LOGGER = LoggerFactory.getLogger(RestServlet.class);
-
-  private final ServletRestDispatcher servletRestServer = new ServletRestDispatcher();
-
-  @Override
-```
-
-## RuleId[id=EnhancedSwitchMigration]
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `governance/src/main/java/org/apache/servicecomb/governance/marker/operator/CompareOperator.java`
-#### Snippet
-```java
-      throw new IllegalArgsOperatorException("operator " + charStr + numStr + " is illegal.");
-    }
-    switch (charStr) {
-      case ">":
-        return target > result;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
-#### Snippet
-```java
-
-  protected Parameter createParameter(HttpParameterType httpParameterType) {
-    switch (httpParameterType) {
-      case PATH:
-        return new PathParameter();
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `core/src/main/java/org/apache/servicecomb/core/BootListener.java`
-#### Snippet
-```java
-
-  default void onBootEvent(BootEvent event) {
-    switch (event.eventType) {
-      case BEFORE_FILTER:
-        onBeforeFilter(event);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-    for (; ; ) {
-      SCBStatus currentStatus = getStatus();
-      switch (currentStatus) {
-        case DOWN:
-        case FAILED:
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/server/TcpParser.java`
-#### Snippet
-```java
-
-  protected void onParse(Buffer buffer) {
-    switch (status) {
-      case TCP_HEADER:
-        ByteBuf buf = buffer.getByteBuf();
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `handlers/handler-flowcontrol-qps/src/main/java/org/apache/servicecomb/qps/strategy/DefaultStrategyFactory.java`
-#### Snippet
-```java
-
-  public AbstractQpsStrategy createStrategy(String strategyName) {
-    switch (strategyName) {
-      case "TokenBucket":
-        return new TokenBucketStrategy();
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `clients/config-kie-client/src/main/java/org/apache/servicecomb/config/kie/client/KieClient.java`
-#### Snippet
-```java
-    Map<String, Object> kvMap = new HashMap<>();
-    try {
-      switch (valueType) {
-        case yml:
-        case yaml:
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-    for (int i = braceIndex + 1; i < pathLength; i++) {
-      final char c = path.charAt(i);
-      switch (c) {
-        case '{':
-          throw new Exception("A variable must not contain an extra '{' in \""
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-    for (int i = 0; i < pathLength; i++) {
-      final char c = path.charAt(i);
-      switch (c) {
-        case '{':
-          i = processGroup(path, i, pathPattern);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/MicroserviceWatchTask.java`
-#### Snippet
-```java
-
-  private void onMicroserviceInstanceChanged(MicroserviceInstanceChangedEvent changedEvent) {
-    switch (changedEvent.getAction()) {
-      case CREATE:
-        LOGGER.info("microservice {}/{}/{} REGISTERED an instance {}, {}.",
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/RegistryUtils.java`
-#### Snippet
-```java
-  public static MicroserviceInstances convertCacheToMicroserviceInstances(MicroserviceCache microserviceCache) {
-    MicroserviceInstances microserviceInstances = new MicroserviceInstances();
-    switch (microserviceCache.getStatus()) {
-      case SERVICE_NOT_FOUND:
-        microserviceInstances.setMicroserviceNotExist(true);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/parser/Parser.java`
-#### Snippet
-```java
-
-  static Parser findParser(String contentType) {
-    switch (contentType) {
-      case CONTENT_TYPE_YAML:
-        return yamlParser;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/ConfigObjectFactory.java`
-#### Snippet
-```java
-
-    Class<?> fieldCls = field.getType();
-    switch (fieldCls.getName()) {
-      case "int":
-        return createIntProperty(field, keys, 0);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/HighwayServerConnection.java`
-#### Snippet
-```java
-    }
-
-    switch (requestHeader.getMsgType()) {
-      case MsgType.REQUEST:
-        onRequest(msgId, requestHeader, bodyBuffer);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-            try {
-              mInstances.setRevision(response.getHeader("X-Resource-Revision"));
-              switch (response.statusCode()) {
-                case 304:
-                  mInstances.setNeedRefresh(false);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/runtime/FieldTypeUtils.java`
-#### Snippet
-```java
-
-    if (fieldType.isScalar()) {
-      switch ((ScalarFieldType) fieldType) {
-        case INT32:
-          return FieldType.INT32;
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ByteArrayInputEx.java`
-#### Snippet
-```java
-   */
-  public boolean skipField(final int tag) throws IOException {
-    switch (getTagWireType(tag)) {
-      case WIRETYPE_VARINT:
-        readInt32();
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
-#### Snippet
-```java
-  private String findBaseType(String swaggerType, String swaggerFmt) {
-    String key = swaggerType + ":" + swaggerFmt;
-    switch (key) {
-      case "boolean:null":
-        return "bool";
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/SerializerSchemaManager.java`
-#### Snippet
-```java
-    }
-
-    switch ((ScalarFieldType) protoField.getType()) {
-      case INT32:
-        return Int32WriteSchemas.create(protoField, propertyDescriptor);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/SerializerSchemaManager.java`
-#### Snippet
-```java
-
-    if (protoField.getType().isScalar()) {
-      switch ((ScalarFieldType) protoField.getType()) {
-        case INT32:
-          return packed ? Int32PackedWriteSchemas.create(protoField, propertyDescriptor) :
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/DeserializerSchemaManager.java`
-#### Snippet
-```java
-    }
-
-    switch ((ScalarFieldType) protoField.getType()) {
-      case INT32:
-        return Int32ReadSchemas.create(protoField, propertyDescriptor);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/DeserializerSchemaManager.java`
-#### Snippet
-```java
-
-    if (protoField.getType().isScalar()) {
-      switch ((ScalarFieldType) protoField.getType()) {
-        case INT32:
-          return packed ? Int32PackedReadSchemas.create(protoField, propertyDescriptor) :
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/oper/ConditionFactory.java`
-#### Snippet
-```java
-
-  private static Condition buildCondition(int index, String key, String value) {
-    switch (index) {
-      case 0:
-        return new GreaterOrEqualCondition(key, value);
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/element/impl/RequestProtocolAccessItem.java`
-#### Snippet
-```java
-
-  private String getStringVersion(HttpVersion version) {
-    switch (version) {
-      case HTTP_2:
-        return "HTTP/2.0";
-```
-
-### EnhancedSwitchMigration
-Switch statement can be replaced with enhanced 'switch'
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/HttpRequest.java`
-#### Snippet
-```java
-    HttpUriRequest httpUriRequest = null;
-
-    switch (method) {
-      case GET: {
-        httpUriRequest = new HttpGet(url);
-```
-
-## RuleId[id=AssignmentToForLoopParameter]
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-      switch (c) {
-        case '{':
-          i = processGroup(path, i, pathPattern);
-          groupCount++;
-          break;
-```
-
-### AssignmentToForLoopParameter
-Assignment to for-loop parameter `i`
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/oper/LikeCondition.java`
-#### Snippet
-```java
-        regExp.append(Pattern.quote(new String(cs, lastPos, i - lastPos)));
-        regExp.append(".");
-        lastPos = i = 1;
-      }
-    }
-```
-
-## RuleId[id=SetReplaceableByEnumSet]
-### SetReplaceableByEnumSet
-`HashSet<>` can be replaced with 'EnumSet'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/diagnosis/instance/InstanceCacheChecker.java`
-#### Snippet
-```java
-  private final AppManager appManager;
-
-  private final Set<Status> statuses = new HashSet<>();
-
-  private final InstanceCacheSummary instanceCacheSummary = new InstanceCacheSummary();
-```
-
-## RuleId[id=Java9CollectionFactory]
-### Java9CollectionFactory
-Can be replaced with 'Map.of()' call
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/auth/TokenAuthHeaderProvider.java`
-#### Snippet
-```java
-    HashMap<String, String> header = new HashMap<>();
-    header.put("Authorization", "Bearer " + token);
-    return Collections.unmodifiableMap(header);
-  }
-}
-```
-
-### Java9CollectionFactory
-Can be replaced with 'List.copyOf()' call
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/RefreshableMicroserviceCache.java`
-#### Snippet
-```java
-          mergedInstance.getEndpoints());
-    }
-    instances = Collections.unmodifiableList(new ArrayList<>(mergedInstances));
-    revisionId = rev;
-  }
-```
-
-## RuleId[id=StringEqualsEmptyString]
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/locator/OperationLocator.java`
-#### Snippet
-```java
-      String remainPath = resource.getAbsolutePathRegExp().match(path, pathVarMap);
-      // 刚好匹配，不多也不少
-      if ("".equals(remainPath)) {
-        resourceFound = true;
-        if (checkHttpMethod(resource, httpMethod)) {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationMeta.java`
-#### Snippet
-```java
-
-  protected PathRegExp createPathRegExp(String path) {
-    if (path == null || path.equals("")) {
-      throw new Error("null rest url is not supported");
-    }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/MicroserviceRegisterTask.java`
-#### Snippet
-```java
-          localSchemaContent);
-      String diffStringLocal = StringUtils.difference(scSchemaContent, localSchemaContent);
-      if (diffStringLocal.equals("")) {
-        LOGGER.warn("Some APIs are deleted in local schema which are present in service center schema \n");
-      } else {
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `tracing/tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspect.java`
-#### Snippet
-```java
-    Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-    LOG.debug("Generating zipkin span for method {}", method.toString());
-    if ("".equals(spanName)) {
-      spanName = method.getName();
-    }
-```
-
-### StringEqualsEmptyString
-`equals("")` can be replaced with 'isEmpty()'
-in `tracing/tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspect.java`
-#### Snippet
-```java
-      spanName = method.getName();
-    }
-    if ("".equals(callPath)) {
-      callPath = method.toString();
-    }
-```
-
-## RuleId[id=PublicFieldAccessedInSynchronizedContext]
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `objMap` accessed in synchronized context
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/AbstractObjectManager.java`
-#### Snippet
-```java
-    if (value == null) {
-      synchronized (lockObj) {
-        value = objMap.get(key);
-        if (value == null) {
-          value = create(keyOwner);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `objMap` accessed in synchronized context
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/AbstractObjectManager.java`
-#### Snippet
-```java
-            return null;
-          }
-          objMap.put(key, value);
-        }
-      }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `versions` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-  public <T extends MicroserviceVersion> T getVersion(String serviceId) {
-    synchronized (lock) {
-      return (T) versions.get(serviceId);
-    }
-  }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `versions` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-  public void destroy() {
-    synchronized (lock) {
-      for (MicroserviceVersion microserviceVersion : versions.values()) {
-        microserviceVersion.destroy();
-      }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `versions` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-  public Map<String, MicroserviceVersion> getVersions() {
-    synchronized (lock) {
-      return versions;
-    }
-  }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `instances` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-  private void setInstances(List<MicroserviceInstance> pulledInstances, String rev) {
-    synchronized (lock) {
-      MergedInstances mergedInstances = mergeInstances(pulledInstances, instances);
-      instances = mergedInstances.instanceIdMap.values();
-      // clear cache
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `instances` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-    synchronized (lock) {
-      MergedInstances mergedInstances = mergeInstances(pulledInstances, instances);
-      instances = mergedInstances.instanceIdMap.values();
-      // clear cache
-      versions.forEach((key, value) -> value.setInstances(new ArrayList<>()));
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `versions` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-      instances = mergedInstances.instanceIdMap.values();
-      // clear cache
-      versions.forEach((key, value) -> value.setInstances(new ArrayList<>()));
-      for (Entry<String, List<MicroserviceInstance>> entry : mergedInstances.microserviceIdMap.entrySet()) {
-        // always update microservice versions, because we allow microservice info override, like schema info
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `versions` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-        MicroserviceVersion newVersion = createMicroserviceVersion(entry.getKey(), entry.getValue());
-        newVersion.setInstances(entry.getValue());
-        versions.put(entry.getKey(), newVersion);
-      }
-
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `versionRules` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-      }
-
-      for (MicroserviceVersionRule microserviceVersionRule : versionRules.values()) {
-        microserviceVersionRule.update(versions, instances);
-      }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `versions` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-
-      for (MicroserviceVersionRule microserviceVersionRule : versionRules.values()) {
-        microserviceVersionRule.update(versions, instances);
-      }
-      revision = rev;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `instances` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-
-      for (MicroserviceVersionRule microserviceVersionRule : versionRules.values()) {
-        microserviceVersionRule.update(versions, instances);
-      }
-      revision = rev;
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `revision` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-        microserviceVersionRule.update(versions, instances);
-      }
-      revision = rev;
-    }
-  }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `versionRules` accessed in synchronized context
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-    if (microserviceVersionRule == null) {
-      synchronized (lock) {
-        microserviceVersionRule = versionRules.computeIfAbsent(versionRule, this::createAndInitMicroserviceVersionRule);
-      }
-    }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `microserviceConfig` accessed in synchronized context
-in `core/src/main/java/org/apache/servicecomb/core/definition/MicroserviceVersionsMeta.java`
-#### Snippet
-```java
-    if (microserviceConfig == null) {
-      synchronized (this) {
-        if (microserviceConfig == null) {
-          this.microserviceConfig = scbEngine.getPriorityPropertyManager()
-              .createConfigObject(MicroserviceConfig.class, "service", microserviceName);
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.microserviceConfig` accessed in synchronized context
-in `core/src/main/java/org/apache/servicecomb/core/definition/MicroserviceVersionsMeta.java`
-#### Snippet
-```java
-      synchronized (this) {
-        if (microserviceConfig == null) {
-          this.microserviceConfig = scbEngine.getPriorityPropertyManager()
-              .createConfigObject(MicroserviceConfig.class, "service", microserviceName);
-        }
-```
-
-### PublicFieldAccessedInSynchronizedContext
-Non-private field `this.consumerMeta` accessed in synchronized context
-in `providers/provider-pojo/src/main/java/org/apache/servicecomb/provider/pojo/PojoConsumerMetaRefresher.java`
-#### Snippet
-```java
-      synchronized (this) {
-        if (isNeedRefresh()) {
-          this.consumerMeta = refreshMeta();
-        }
-      }
-```
-
-## RuleId[id=RedundantSuppression]
-### RedundantSuppression
-Redundant suppression
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/definition/OperationProtobuf.java`
-#### Snippet
-```java
-
-@SuppressWarnings("rawtypes")
-public class OperationProtobuf {
-  private RequestRootSerializer requestRootSerializer;
-
-```
-
-### RedundantSuppression
-Redundant suppression
-in `core/src/main/java/org/apache/servicecomb/core/invocation/InvocationTimeoutBootListener.java`
-#### Snippet
-```java
-
-@SuppressWarnings({"UnstableApiUsage", "unused"})
-public class InvocationTimeoutBootListener {
-  private static final Logger LOGGER = LoggerFactory.getLogger(InvocationTimeoutBootListener.class);
-
-```
-
-### RedundantSuppression
-Redundant suppression
-in `dynamic-config/config-nacos/src/main/java/org/apache/servicecomb/config/nacos/client/NacosClient.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    void refreshConfig() {
-      Properties properties = new Properties();
-      properties.put("serverAddr", NacosConfig.INSTANCE.getServerAddr());
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/IOUtils.java`
-#### Snippet
-```java
-public class IOUtils {
-  @SuppressWarnings("deprecation")
-  public static void closeQuietly(final Closeable closeable) {
-    org.apache.commons.io.IOUtils.closeQuietly(closeable);
-  }
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/LambdaMetafactoryUtils.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public static Getter<Object, Object> createObjectGetter(Method getMethod) {
-    return createLambda(getMethod, Getter.class);
-  }
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConcurrentMapConfigurationExt.java`
-#### Snippet
-```java
- */
-@SuppressWarnings("unchecked")
-public class ConcurrentMapConfigurationExt extends ConcurrentMapConfiguration {
-  public ConcurrentMapConfigurationExt() {
-    super();
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/DynamicConfigurationExt.java`
-#### Snippet
-```java
- */
-@SuppressWarnings("unchecked")
-public class DynamicConfigurationExt extends DynamicConfiguration {
-  public DynamicConfigurationExt(PolledConfigurationSource source, AbstractPollingScheduler scheduler) {
-    super();
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/DynamicWatchedConfigurationExt.java`
-#### Snippet
-```java
- */
-@SuppressWarnings("unchecked")
-public class DynamicWatchedConfigurationExt extends ConcurrentMapConfiguration implements WatchedUpdateListener {
-
-  private final boolean ignoreDeletesFromSource;
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/RootDeserializer.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public T deserialize(byte[] bytes) throws IOException {
-    InputEx input = new ByteArrayInputEx(bytes);
-    T instance = schema.newMessage();
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/AbstractPrimitiveReaders.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public AbstractPrimitiveReaders(Field protoField) {
-    super(protoField);
-  }
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/AbstractReaders.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public AbstractReaders(Field protoField) {
-    this(protoField, null);
-  }
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/AbstractPrimitiveWriters.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public AbstractPrimitiveWriters(Field protoField) {
-    super(protoField);
-
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/AbstractWriters.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public AbstractWriters(Field protoField) {
-    this(protoField, null);
-  }
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/RepeatedWriteSchemas.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("unchecked")
-    public DynamicSchema(Field protoField, PropertyDescriptor propertyDescriptor,
-        AbstractWriters<ELE_TYPE> writers) {
-      super(protoField, propertyDescriptor.getJavaType());
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/RepeatedWriteSchemas.java`
-#### Snippet
-```java
-    @SuppressWarnings("unchecked")
-    @Override
-    public final void writeTo(OutputEx output, Object value) throws IOException {
-      writers.dynamicWriteTo(output, value);
-    }
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/AnyRepeatedWriteSchemas.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor,
-      FieldSchema<T> anySchema) {
-    return RepeatedWriteSchemas.create(protoField, propertyDescriptor, new AnyWriters<>(protoField, anySchema));
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/BytesRepeatedWriteSchemas.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    return RepeatedWriteSchemas.create(protoField, propertyDescriptor, new BytesWriters(protoField));
-  }
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/MessagesRepeatedWriteSchemas.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor,
-      SchemaWriter<Object> elementSchema) {
-    return RepeatedWriteSchemas.create(protoField, propertyDescriptor, new MessageWriters(protoField, elementSchema));
-```
-
-### RedundantSuppression
-Redundant suppression
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/StringsRepeatedWriteSchemas.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    return RepeatedWriteSchemas.create(protoField, propertyDescriptor, new StringWriters(protoField));
-  }
-```
-
-### RedundantSuppression
-Redundant suppression
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerTokenManager.java`
-#### Snippet
-```java
-    }
-
-    @SuppressWarnings("deprecation")
-    String randomCode = org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric(128);
-    long generateTime = System.currentTimeMillis();
-    try {
-```
-
-### RedundantSuppression
-Redundant suppression
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public CommonToHttpServletRequest(Map<String, String> pathParams, Map<String, List<String>> queryParams,
-      Map<String, List<String>> httpHeaders, Object bodyObject, boolean isFormData) {
-    this(pathParams, queryParams, httpHeaders, bodyObject, isFormData, null);
-```
-
-### RedundantSuppression
-Redundant suppression
-in `service-registry/registry-lightweight/src/main/java/org/apache/servicecomb/registry/lightweight/AbstractLightweightDiscovery.java`
-#### Snippet
-```java
-
-@SuppressWarnings("UnstableApiUsage")
-public abstract class AbstractLightweightDiscovery implements Discovery, InitializingBean {
-  protected EventBus eventBus;
-
-```
-
-### RedundantSuppression
-Redundant suppression
-in `service-registry/registry-lightweight/src/main/java/org/apache/servicecomb/registry/lightweight/AbstractLightweightRegistration.java`
-#### Snippet
-```java
-
-@SuppressWarnings("UnstableApiUsage")
-public abstract class AbstractLightweightRegistration implements Registration {
-  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractLightweightRegistration.class);
-
-```
-
-### RedundantSuppression
-Redundant suppression
-in `service-registry/registry-zero-config/src/main/java/org/apache/servicecomb/zeroconfig/multicast/Multicast.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("UnstableApiUsage")
-  private InetSocketAddress initBindAddress(Config config) {
-    HostAndPort hostAndPort = HostAndPort.fromString(config.getMulticastAddress());
-    return new InetSocketAddress(hostAndPort.getHost(), hostAndPort.getPort());
-```
-
-### RedundantSuppression
-Redundant suppression
-in `service-registry/registry-zero-config/src/main/java/org/apache/servicecomb/zeroconfig/multicast/MulticastRegistration.java`
-#### Snippet
-```java
-
-@SuppressWarnings("UnstableApiUsage")
-public class MulticastRegistration extends AbstractZeroConfigRegistration implements InitializingBean {
-  private static final String NAME = "zero-config-multicast";
-
-```
-
-### RedundantSuppression
-Redundant suppression
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public AbstractSwaggerGenerator(Class<?> cls) {
-    this.swagger = new Swagger();
-    this.cls = cls;
-```
-
-## RuleId[id=UtilityClassWithPublicConstructor]
-### UtilityClassWithPublicConstructor
-Class `QueryCodecsUtils` has only 'static' members, and a 'public' constructor
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/query/QueryCodecsUtils.java`
-#### Snippet
-```java
-import javax.annotation.Nullable;
-
-public class QueryCodecsUtils {
-  // create a default instance, so that more friendly to UT
-  private static QueryCodecs queryCodecs = QueryCodecs.createForTest();
 ```
 
 ## RuleId[id=NonStrictComparisonCanBeEquality]
@@ -10634,14 +5758,14 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `huawei-cloud/servicestage/src/main/java/org/apache/servicecomb/huaweicloud/servicestage/AKSKAuthHeaderProvider.java`
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
 #### Snippet
 ```java
-    }
-    try {
-      return URLEncoder.encode(project, "UTF-8");
-    } catch (UnsupportedEncodingException e) {
-      return project;
+      headers.put("X-ConsumerId", consumerId);
+      HttpResponse response = httpClient
+          .getHttpRequest("/registry/instances?appId=" + URLEncoder.encode(appId, "UTF-8")
+                  + "&serviceName=" + HttpUtils.encodeURLParam(serviceName)
+                  + "&version=" + HttpUtils.encodeURLParam(versionRule)
 ```
 
 ### CharsetObjectCanBeUsed
@@ -10658,18 +5782,6 @@ public interface QueryCodec extends Ordered {
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
-#### Snippet
-```java
-      headers.put("X-ConsumerId", consumerId);
-      HttpResponse response = httpClient
-          .getHttpRequest("/registry/instances?appId=" + URLEncoder.encode(appId, "UTF-8")
-                  + "&serviceName=" + HttpUtils.encodeURLParam(serviceName)
-                  + "&version=" + HttpUtils.encodeURLParam(versionRule)
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
 in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/RestClientRequestImpl.java`
 #### Snippet
 ```java
@@ -10678,6 +5790,18 @@ in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/pa
           value = URLEncoder.encode(value, StandardCharsets.UTF_8.name());
           output.write(value.getBytes(StandardCharsets.UTF_8));
         }
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/HttpUtils.java`
+#### Snippet
+```java
+      return "";
+    }
+    return URLEncoder.encode(value, "UTF-8");
+  }
+
 ```
 
 ### CharsetObjectCanBeUsed
@@ -10718,2205 +5842,1078 @@ in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/ser
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/HttpUtils.java`
-#### Snippet
-```java
-      return "";
-    }
-    return URLEncoder.encode(value, "UTF-8");
-  }
-
-```
-
-## RuleId[id=DynamicRegexReplaceableByCompiledPattern]
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/TrustManagerExt.java`
-#### Snippet
-```java
-        char[] buffer = new char[WHITE_SIZE];
-        int len = reader.read(buffer);
-        String[] cns = new String(buffer, 0, len).split("\\s+");
-        X509Certificate owner = CertificateUtil.findOwner(chain);
-        Set<String> certCN = CertificateUtil.getCN(owner);
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `governance/src/main/java/org/apache/servicecomb/governance/policy/AbstractPolicy.java`
-#### Snippet
-```java
-      return defaultValue;
-    }
-    if (time.matches(GovernanceUtils.DIGIT_REGEX)) {
-      if (Long.parseLong(time) < 0) {
-        throw new RuntimeException("The value of time should not be less than 0.");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `governance/src/main/java/org/apache/servicecomb/governance/policy/CircuitBreakerPolicy.java`
-#### Snippet
-```java
-      return DEFAULT_SLIDING_WINDOW_SIZE;
-    }
-    if (slidingWindowSize.matches(GovernanceUtils.DIGIT_REGEX)) {
-      if (Long.parseLong(slidingWindowSize) < 0) {
-        throw new RuntimeException("The value should be more than 0.");
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `core/src/main/java/org/apache/servicecomb/core/governance/MatchType.java`
-#### Snippet
-```java
-  private static String concatAbsolutePath(String basePath, String operationPath) {
-    return ("/" + nonNullify(basePath) + "/" + nonNullify(operationPath))
-        .replaceAll("/{2,}", "/");
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java`
-#### Snippet
-```java
-                DEFAULT_TRACING_COLLECTOR_ADDRESS)
-            .trim()
-            .replaceAll("/+$", "")
-            .concat(path));
-  }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationMeta.java`
-#### Snippet
-```java
-  private String concatPath(String basePath, String operationPath) {
-    return ("/" + nonNullify(basePath) + "/" + nonNullify(operationPath) + "/")
-        .replaceAll("/{2,}", "/");
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/MetricsMonitorDataProvider.java`
-#### Snippet
-```java
-          interfaceInfo.setTotal(
-              doubleToInt(interfaceInfo.getTotal() + 10 * stageTotal.getTps()));
-          if (perfGroup.getStatus().matches(CODE_SUCCESS)) {
-            interfaceInfo.setQps(stageTotal.getTps());
-            interfaceInfo.setLatency(doubleToInt(stageTotal.calcMsLatency()));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/MetricsMonitorDataProvider.java`
-#### Snippet
-```java
-          interfaceInfo.setTotal(
-              doubleToInt(interfaceInfo.getTotal() + 10 * stageTotal.getTps()));
-          if (perfGroup.getStatus().matches(CODE_SUCCESS)) {
-            interfaceInfo.setQps(stageTotal.getTps());
-            interfaceInfo.setLatency(doubleToInt(stageTotal.calcMsLatency()));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`matches()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/MetricsMonitorDataProvider.java`
-#### Snippet
-```java
-          interfaceInfo.setTotal(
-              doubleToInt(interfaceInfo.getTotal() + 10 * stageTotal.getTps()));
-          if (perfGroup.getStatus().matches(CODE_SUCCESS)) {
-            interfaceInfo.setQps(stageTotal.getTps());
-            interfaceInfo.setLatency(doubleToInt(stageTotal.calcMsLatency()));
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/meter/LatencyDistributionConfig.java`
+in `huawei-cloud/servicestage/src/main/java/org/apache/servicecomb/huaweicloud/servicestage/AKSKAuthHeaderProvider.java`
 #### Snippet
 ```java
     }
-    config = config.trim() + "," + Long.MAX_VALUE;
-    String[] array = config.split("\\s*,+\\s*");
     try {
-      for (int idx = 0; idx < array.length - 1; idx++) {
+      return URLEncoder.encode(project, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      return project;
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
+## RuleId[id=AutoCloseableResource]
+### AutoCloseableResource
+'SSLSocket' used without 'try'-with-resources statement
+in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/SSLManager.java`
+#### Snippet
+```java
+    option.setCiphers(sslOption.getCiphers());
+    SSLCustom custom = SSLCustom.defaultSSLCustom();
+    SSLSocket socket = createSSLSocket(option, custom);
+    return socket.getEnabledCipherSuites();
+  }
+```
+
+### AutoCloseableResource
+'ValidatorFactory' used without 'try'-with-resources statement
+in `core/src/main/java/org/apache/servicecomb/core/filter/impl/ParameterValidatorFilter.java`
+#### Snippet
+```java
+  @Override
+  public void afterPropertiesSet() {
+    validator = createValidatorFactory()
+        .getValidator().forExecutables();
+  }
+```
+
+### AutoCloseableResource
+'GroupExecutor' used without 'try'-with-resources statement
+in `core/src/main/java/org/apache/servicecomb/core/bootstrap/SCBEngineForTest.java`
+#### Snippet
+```java
+public class SCBEngineForTest extends SCBEngine {
+  public SCBEngineForTest() {
+    getExecutorManager().registerExecutor(EXECUTOR_GROUP_THREADPOOL, new GroupExecutor().init());
+
+    List<Filter> filters = Arrays.asList(
+```
+
+### AutoCloseableResource
+'Tracing' used without 'try'-with-resources statement
+in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinTracingFilter.java`
 #### Snippet
 ```java
 
-  public static String escapePackageName(String name) {
-    return name.replaceAll("[\\-\\:]", "_");
+    Span span = tracing.createSpan(invocation);
+    try (SpanInScope scope = tracing.tracer().tracer().withSpanInScope(span)) {
+      return nextNode.onFilter(invocation)
+          .whenComplete((response, exception) -> tracing.onResponse(span, response, Exceptions.unwrap(exception)));
+```
+
+### AutoCloseableResource
+'ValidatorFactory' used without 'try'-with-resources statement
+in `swagger/swagger-invocation/invocation-validator/src/main/java/org/apache/servicecomb/swagger/invocation/validator/ParameterValidator.java`
+#### Snippet
+```java
+                .parameterNameProvider(new DefaultParameterNameProvider())
+                .messageInterpolator(messageInterpolator())
+                .buildValidatorFactory();
+        executableValidator = factory.getValidator().forExecutables();
+      }
+```
+
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `this.getExtData(...)` to `SwaggerProducerOperation` is redundant
+in `core/src/main/java/org/apache/servicecomb/core/definition/OperationMeta.java`
+#### Snippet
+```java
+
+  public SwaggerProducerOperation getSwaggerProducerOperation() {
+    return (SwaggerProducerOperation) this.getExtData(Const.PRODUCER_OPERATION);
   }
 
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`replaceAll()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
+### RedundantCast
+Casting `bodyObject` to `Map` is redundant
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
 #### Snippet
 ```java
-
-  public static String escapeMessageName(String name) {
-    return name.replaceAll("\\.", "_");
-  }
-
+    this.fileKeys = fileKeys;
+    if (isFormData) {
+      setAttribute(RestConst.FORM_PARAMETERS, (Map<String, Object>) bodyObject);
+    } else {
+      setAttribute(RestConst.BODY_PARAMETER, bodyObject);
 ```
 
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/element/impl/ConfigurableDatetimeAccessItem.java`
+## RuleId[id=JavadocDeclaration]
+### JavadocDeclaration
+`@throws` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
 #### Snippet
 ```java
-
-  private String[] splitConfig(String config) {
-    return config.split("\\|{1}?", -1);
-  }
-
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/os/net/InterfaceUsage.java`
-#### Snippet
-```java
-
-  public void update(String interfaceData, long secondInterval) {
-    String[] netInfo = interfaceData.trim().split("\\s+");
-    netStats.forEach(netStat -> netStat.update(netInfo, secondInterval));
-  }
-```
-
-### DynamicRegexReplaceableByCompiledPattern
-`split()` could be replaced with compiled 'java.util.regex.Pattern' construct
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/os/cpu/CpuUtils.java`
-#### Snippet
-```java
-
-  public static String[] readAndSplitFirstLine(File file) throws IOException {
-    return Files.asCharSource(file, StandardCharsets.UTF_8).readFirstLine().trim().split("\\s+");
-  }
-
-```
-
-## RuleId[id=UnnecessaryFullyQualifiedName]
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.aop.framework` is unnecessary and can be removed
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/BeanUtils.java`
-#### Snippet
-```java
-   * @param bean the instance to get implemented class from
-   * @return the implemented class (if the checked class is proxied, return the ultimate target class)
-   * @see org.springframework.aop.framework.AopProxyUtils#ultimateTargetClass
+   * Get schemas list of service
+   *
+   * @throws OperationException
    */
-  public static Class<?> getImplClassFromBean(Object bean) {
+   List<SchemaInfo> getServiceSchemasList(String serviceId, boolean withContent);
 ```
 
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.core.io.support` is unnecessary, and can be replaced with an import
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/impl/PaaSPropertiesLoaderUtils.java`
+### JavadocDeclaration
+`@throws` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
 #### Snippet
 ```java
-
-
-public class PaaSPropertiesLoaderUtils extends org.springframework.core.io.support.PropertiesLoaderUtils {
-
-  /**
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.util` is unnecessary, and can be replaced with an import
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/PaaSResourceUtils.java`
-#### Snippet
-```java
-
-
-public class PaaSResourceUtils extends org.springframework.util.ResourceUtils {
-  public static final String PROPERTIES_SUFFIX = ".properties";
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.swagger.annotations` is unnecessary and can be removed
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-  }
-
-  private Scheme convertScheme(io.swagger.annotations.SwaggerDefinition.Scheme annotationScheme) {
-    if (SwaggerDefinition.Scheme.DEFAULT.equals(annotationScheme)) {
-      return Scheme.HTTP;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.servicecomb.foundation.vertx.http` is unnecessary and can be removed
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
-#### Snippet
-```java
- * extend from AbstractPart just because want to make it be Part type,
- * so that can be sent by
- * {@link org.apache.servicecomb.foundation.vertx.http.VertxServerResponseToHttpServletResponse#sendPart(Part) VertxServerResponseToHttpServletResponse.sendPart}
- */
-public class ReadStreamPart extends AbstractPart {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.servicecomb.serviceregistry` is unnecessary and can be removed
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/ServiceRegistry.java`
-#### Snippet
-```java
-   * <p>
-   *    if connect to normal ServiceCenter, same with the method
-   *    {@linkplain org.apache.servicecomb.serviceregistry.ServiceRegistry#getRemoteMicroservice(String)}  }
-   *    if connect to ServiceCenter Aggregator, not only contain the target ServiceCenter but also other ServiceCenter clusters
-   * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.servicecomb.serviceregistry.client` is unnecessary and can be removed
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/ServiceRegistryClient.java`
-#### Snippet
-```java
-   * <p>
-   *    if connect to normal ServiceCenter, same with the method
-   *    {@linkplain org.apache.servicecomb.serviceregistry.client.ServiceRegistryClient#getSchema(String, String)}
-   *    if connect to ServiceCenter Aggregator, not only contain the target ServiceCenter but also other ServiceCenter clusters
-   * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.servicecomb.serviceregistry.client` is unnecessary and can be removed
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/ServiceRegistryClient.java`
-#### Snippet
-```java
-   * <p>
-   *    if connect to normal ServiceCenter, same with the method
-   *    {@linkplain org.apache.servicecomb.serviceregistry.client.ServiceRegistryClient#getMicroservice(String)}
-   *    if connect to ServiceCenter Aggregator, not only contain the target ServiceCenter but also other ServiceCenter clusters
-   * </p>
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.web.util` is unnecessary, and can be replaced with an import
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseUriTemplateHandler.java`
-#### Snippet
-```java
-@SuppressWarnings("deprecation")
-// TODO : upgrade to spring 5 will having warning's , we'll fix it later
-public class CseUriTemplateHandler extends org.springframework.web.util.DefaultUriTemplateHandler {
-  private static final String SCHEME_PATTERN = "([^:/?#]+):";
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.http.client` is unnecessary, and can be replaced with an import
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncClientHttpRequestFactory.java`
-#### Snippet
-```java
-public class CseAsyncClientHttpRequestFactory implements org.springframework.http.client.AsyncClientHttpRequestFactory {
-  @Override
-  public org.springframework.http.client.AsyncClientHttpRequest createAsyncRequest(URI uri, HttpMethod httpMethod) {
-    return new CseAsyncClientHttpRequest(uri, httpMethod);
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.http.client` is unnecessary, and can be replaced with an import
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncClientHttpRequestFactory.java`
-#### Snippet
-```java
-@SuppressWarnings("deprecation")
-// TODO : upgrade to spring 5 will having warning's , we'll fix it later
-public class CseAsyncClientHttpRequestFactory implements org.springframework.http.client.AsyncClientHttpRequestFactory {
-  @Override
-  public org.springframework.http.client.AsyncClientHttpRequest createAsyncRequest(URI uri, HttpMethod httpMethod) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.web.client` is unnecessary, and can be replaced with an import
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRestTemplate.java`
-#### Snippet
-```java
-
-  @Override
-  protected <T> org.springframework.web.client.AsyncRequestCallback httpEntityCallback(HttpEntity<T> requestBody,
-      Type responseType) {
-    return new CseAsyncRequestCallback<>(requestBody);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.web.client` is unnecessary, and can be replaced with an import
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRestTemplate.java`
-#### Snippet
-```java
-// AsyncRestTemplate is deprecated by spring 5, using RPC with CompletableFuture instead.
-// Keep this function is only for compatibility, and maybe removed in future.
-public class CseAsyncRestTemplate extends org.springframework.web.client.AsyncRestTemplate {
-  public CseAsyncRestTemplate() {
-    super(createSimpleClientHttpRequestFactory(), createRestTemplate());
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.web.client` is unnecessary, and can be replaced with an import
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRestTemplate.java`
-#### Snippet
-```java
-
-  @Override
-  protected <T> org.springframework.web.client.AsyncRequestCallback httpEntityCallback(HttpEntity<T> requestBody) {
-    return new CseAsyncRequestCallback<>(requestBody);
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.http.client` is unnecessary, and can be replaced with an import
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRequestCallback.java`
-#### Snippet
-```java
-  @SuppressWarnings("deprecation")
-// TODO : upgrade to spring 5 will having warning's , we'll fix it later
-  public void doWithRequest(org.springframework.http.client.AsyncClientHttpRequest request) {
-    CseAsyncClientHttpRequest cseAsyncClientHttpRequest = (CseAsyncClientHttpRequest) request;
-    if (requestBody != null) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.web.client` is unnecessary, and can be replaced with an import
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRequestCallback.java`
-#### Snippet
-```java
-@SuppressWarnings("deprecation")
-// TODO : upgrade to spring 5 will having warning's , we'll fix it later
-public class CseAsyncRequestCallback<T> implements org.springframework.web.client.AsyncRequestCallback {
-  private final HttpEntity<T> requestBody;
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.springframework.http.client` is unnecessary, and can be replaced with an import
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncClientHttpRequest.java`
-#### Snippet
-```java
-// TODO : upgrade to spring 5 will having warning's , we'll fix it later
-public class CseAsyncClientHttpRequest extends CseClientHttpRequest implements
-    org.springframework.http.client.AsyncClientHttpRequest {
-
-  CseAsyncClientHttpRequest() {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.netflix.spectator.servo` is unnecessary, and can be replaced with an import
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/DefaultRegistryInitializer.java`
-#### Snippet
-```java
-
-    System.setProperty(SERVO_POLLERS, String.valueOf(config.getMsPollInterval()));
-    registry = new com.netflix.spectator.servo.ServoRegistry();
-    globalRegistry.add(registry);
-  }
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `com.netflix.spectator.servo` is unnecessary, and can be replaced with an import
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/DefaultRegistryInitializer.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("deprecation")
-  private com.netflix.spectator.servo.ServoRegistry registry;
-
-  // create registry before init meters
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.swagger.models.parameters` is unnecessary, and can be replaced with an import
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/engine/SwaggerProducerOperation.java`
-#### Snippet
-```java
-  }
-
-  private static io.swagger.models.parameters.Parameter findParameterByName(
-      List<io.swagger.models.parameters.Parameter> swaggerParameters, String name) {
-    for (io.swagger.models.parameters.Parameter p : swaggerParameters) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.swagger.models.parameters` is unnecessary, and can be replaced with an import
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/engine/SwaggerProducerOperation.java`
-#### Snippet
-```java
-
-  private static io.swagger.models.parameters.Parameter findParameterByName(
-      List<io.swagger.models.parameters.Parameter> swaggerParameters, String name) {
-    for (io.swagger.models.parameters.Parameter p : swaggerParameters) {
-      if (p.getName().equals(name)) {
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `io.swagger.models.parameters` is unnecessary, and can be replaced with an import
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/engine/SwaggerProducerOperation.java`
-#### Snippet
-```java
-  private static io.swagger.models.parameters.Parameter findParameterByName(
-      List<io.swagger.models.parameters.Parameter> swaggerParameters, String name) {
-    for (io.swagger.models.parameters.Parameter p : swaggerParameters) {
-      if (p.getName().equals(name)) {
-        return p;
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.servicecomb.core` is unnecessary and can be removed
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/http/RestClientInvocation.java`
-#### Snippet
-```java
-      this.clientRequest = clientRequest;
-
-      clientRequest.putHeader(org.apache.servicecomb.core.Const.TARGET_MICROSERVICE, invocation.getMicroserviceName());
-      RestClientRequestImpl restClientRequest =
-          new RestClientRequestImpl(clientRequest, httpClientWithContext.context(), asyncResp, throwableHandler);
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.servicecomb.core` is unnecessary and can be removed
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/http/RestClientInvocation.java`
-#### Snippet
-```java
-
-  private static final String[] INTERNAL_HEADERS = new String[] {
-      org.apache.servicecomb.core.Const.CSE_CONTEXT,
-      org.apache.servicecomb.core.Const.TARGET_MICROSERVICE
-  };
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.servicecomb.core` is unnecessary and can be removed
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/http/RestClientInvocation.java`
-#### Snippet
-```java
-  private static final String[] INTERNAL_HEADERS = new String[] {
-      org.apache.servicecomb.core.Const.CSE_CONTEXT,
-      org.apache.servicecomb.core.Const.TARGET_MICROSERVICE
-  };
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.servicecomb.core` is unnecessary, and can be replaced with an import
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletRestTransport.java`
-#### Snippet
-```java
-  @Override
-  public String getName() {
-    return org.apache.servicecomb.core.Const.RESTFUL;
-  }
-
-```
-
-### UnnecessaryFullyQualifiedName
-Qualifier `org.apache.commons.lang3` is unnecessary, and can be replaced with an import
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerTokenManager.java`
-#### Snippet
-```java
-
-    @SuppressWarnings("deprecation")
-    String randomCode = org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric(128);
-    long generateTime = System.currentTimeMillis();
-    try {
-```
-
-## RuleId[id=NonProtectedConstructorInAbstractClass]
-### NonProtectedConstructorInAbstractClass
-Constructor `DynamicEnum()` of an abstract class should not be declared 'public'
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/base/DynamicEnum.java`
-#### Snippet
-```java
-  private boolean dynamic = false;
-
-  public DynamicEnum(T value) {
-    this.value = value;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractRestObjectMapper()` of an abstract class should not be declared 'public'
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/AbstractRestObjectMapper.java`
-#### Snippet
-```java
-  }
-
-  public AbstractRestObjectMapper(RestObjectMapper src) {
-    super(src);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractRestObjectMapper()` of an abstract class should not be declared 'public'
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/AbstractRestObjectMapper.java`
-#### Snippet
-```java
-  private static final long serialVersionUID = 189026839992490564L;
-
-  public AbstractRestObjectMapper() {
-    super();
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractLoader()` of an abstract class should not be declared 'public'
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/impl/AbstractLoader.java`
-#### Snippet
-```java
-  protected List<String> locationPatternList;
-
-  public AbstractLoader(List<String> locationPatternList) {
-    this.locationPatternList = locationPatternList;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `VersionRule()` of an abstract class should not be declared 'public'
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/version/VersionRule.java`
-#### Snippet
-```java
-  private final String versionRule;
-
-  public VersionRule(String versionRule) {
-    this.versionRule = versionRule;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractBaseIntegerProperty()` of an abstract class should not be declared 'public'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/property/AbstractBaseIntegerProperty.java`
-#### Snippet
-```java
-  protected List<T> enumNames;
-
-  public AbstractBaseIntegerProperty(String format) {
-    super(format);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractSwaggerGenerator()` of an abstract class should not be declared 'public'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public AbstractSwaggerGenerator(Class<?> cls) {
-    this.swagger = new Swagger();
-    this.cls = cls;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RestSwaggerGenerator()` of an abstract class should not be declared 'public'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/rest/RestSwaggerGenerator.java`
-#### Snippet
-```java
-
-public abstract class RestSwaggerGenerator extends AbstractSwaggerGenerator {
-  public RestSwaggerGenerator(Class<?> cls) {
-    super(cls);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `RestOperationGenerator()` of an abstract class should not be declared 'public'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/rest/RestOperationGenerator.java`
-#### Snippet
-```java
-
-public abstract class RestOperationGenerator extends AbstractOperationGenerator {
-  public RestOperationGenerator(AbstractSwaggerGenerator swaggerGenerator, Method method) {
-    super(swaggerGenerator, method);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractOperationGenerator()` of an abstract class should not be declared 'public'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
-#### Snippet
-```java
-  private static final List<String> NOT_NULL_ANNOTATIONS = Arrays.asList("NotBlank", "NotEmpty");
-
-  public AbstractOperationGenerator(AbstractSwaggerGenerator swaggerGenerator, Method method) {
-    this.swaggerGenerator = swaggerGenerator;
-    this.swagger = swaggerGenerator.getSwagger();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractFault()` of an abstract class should not be declared 'public'
-in `governance/src/main/java/org/apache/servicecomb/governance/processor/injection/AbstractFault.java`
-#### Snippet
-```java
-  protected FaultInjectionPolicy policy;
-
-  public AbstractFault(String key, FaultInjectionPolicy policy) {
-    this.key = key;
-    this.policy = policy;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ThirdServiceRegister()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/servicecomb/core/registry/ThirdServiceRegister.java`
-#### Snippet
-```java
-  protected final Map<String, Class<?>> schemaByIdMap = new HashMap<>();
-
-  public ThirdServiceRegister(String microserviceName) {
-    this.microserviceName = microserviceName;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ProducerInvocationFlow()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/servicecomb/core/invocation/ProducerInvocationFlow.java`
-#### Snippet
-```java
-  }
-
-  public ProducerInvocationFlow(InvocationCreator invocationCreator,
-      HttpServletRequestEx requestEx, HttpServletResponseEx responseEx) {
-    this.invocationCreator = invocationCreator;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ProducerInvocationFlow()` of an abstract class should not be declared 'public'
-in `core/src/main/java/org/apache/servicecomb/core/invocation/ProducerInvocationFlow.java`
-#### Snippet
-```java
-  protected final HttpServletResponseEx responseEx;
-
-  public ProducerInvocationFlow(InvocationCreator invocationCreator) {
-    this(invocationCreator, null, null);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractTcpClientPoolFactory()` of an abstract class should not be declared 'public'
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/client/tcp/AbstractTcpClientPoolFactory.java`
-#### Snippet
-```java
-  protected TcpClientConfig sslClientConfig;
-
-  public AbstractTcpClientPoolFactory(TcpClientConfig normalClientConfig, TcpClientConfig sslClientConfig) {
-    this.normalClientConfig = normalClientConfig;
-    this.sslClientConfig = sslClientConfig;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractTcpClientConnectionPool()` of an abstract class should not be declared 'public'
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/client/tcp/AbstractTcpClientConnectionPool.java`
-#### Snippet
-```java
-  protected Map<String, T> tcpClientMap = new ConcurrentHashMapEx<>();
-
-  public AbstractTcpClientConnectionPool(Context context,
-      NetClientWrapper netClientWrapper) {
-    this.context = context;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractParamProcessor()` of an abstract class should not be declared 'public'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/AbstractParamProcessor.java`
-#### Snippet
-```java
-  }
-
-  public AbstractParamProcessor(String paramPath, JavaType targetType, Object defaultValue, boolean required) {
-    this.paramPath = paramPath;
-    this.targetType = targetType;
+   * Delete a microservice instance
+   *
+   * @throws OperationException
+   */
+  void deleteMicroserviceInstance(String serviceId, String instanceId);
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `RestProducerInvocationCreator()` of an abstract class should not be declared 'public'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/RestProducerInvocationCreator.java`
+### JavadocDeclaration
+`@param heartbeatsRequest` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
 #### Snippet
 ```java
-  protected ProduceProcessor produceProcessor;
-
-  public RestProducerInvocationCreator(MicroserviceMeta microserviceMeta, Endpoint endpoint,
-      @Nonnull HttpServletRequestEx requestEx, @Nonnull HttpServletResponseEx responseEx) {
-    this.microserviceMeta = microserviceMeta;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractQueryCodec()` of an abstract class should not be declared 'public'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/query/AbstractQueryCodec.java`
-#### Snippet
-```java
-  private final String codecName;
-
-  public AbstractQueryCodec(String codecName) {
-    this.codecName = codecName;
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractTask()` of an abstract class should not be declared 'public'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/AbstractTask.java`
-#### Snippet
-```java
-  protected Microservice microservice;
-
-  public AbstractTask(EventBus eventBus, ServiceRegistryClient srClient, Microservice microservice) {
-    this.eventBus = eventBus;
-    this.srClient = srClient;
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractRegisterTask()` of an abstract class should not be declared 'public'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/AbstractRegisterTask.java`
-#### Snippet
-```java
-  protected boolean registered;
-
-  public AbstractRegisterTask(EventBus eventBus, ServiceRegistryClient srClient, Microservice microservice) {
-    super(eventBus, srClient, microservice);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractServiceRegistry()` of an abstract class should not be declared 'public'
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/AbstractServiceRegistry.java`
-#### Snippet
-```java
-  private String name;
-
-  public AbstractServiceRegistry(EventBus eventBus, ServiceRegistryConfig serviceRegistryConfig,
-      Configuration configuration) {
-    setName(serviceRegistryConfig.getRegistryName());
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `ThirdServiceWithInvokerRegister()` of an abstract class should not be declared 'public'
-in `providers/provider-pojo/src/main/java/org/apache/servicecomb/provider/pojo/registry/ThirdServiceWithInvokerRegister.java`
-#### Snippet
-```java
- */
-public abstract class ThirdServiceWithInvokerRegister extends ThirdServiceRegister implements BeanFactoryPostProcessor {
-  public ThirdServiceWithInvokerRegister(String microserviceName) {
-    super(microserviceName);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `FieldSchema()` of an abstract class should not be declared 'public'
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/runtime/FieldSchema.java`
-#### Snippet
-```java
-  protected final boolean primitive;
-
-  public FieldSchema(Field protoField, JavaType javaType) {
-    this.protoField = protoField;
-    this.name = protoField.getName();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractPrimitiveWriters()` of an abstract class should not be declared 'public'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/AbstractPrimitiveWriters.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public AbstractPrimitiveWriters(Field protoField) {
-    super(protoField);
-
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractWriters()` of an abstract class should not be declared 'public'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/AbstractWriters.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public AbstractWriters(Field protoField) {
-    this(protoField, null);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractWriters()` of an abstract class should not be declared 'public'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/AbstractWriters.java`
-#### Snippet
-```java
-  }
-
-  public AbstractWriters(Field protoField, Class<T[]> arrayClass) {
-    this.protoField = protoField;
-    int wireType = ProtoUtils.isPacked(protoField) && protoField.isRepeated() ? WireFormat.WIRETYPE_LENGTH_DELIMITED
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractIntSchema()` of an abstract class should not be declared 'public'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/AbstractScalarReadSchemas.java`
-#### Snippet
-```java
-    protected final Setter<T, Object> setter;
-
-    public AbstractIntSchema(Field protoField, PropertyDescriptor propertyDescriptor) {
-      super(protoField, propertyDescriptor.getJavaType());
-      this.setter = propertyDescriptor.getSetter();
+   * Batch send heartbeats to service-center
+   *
+   * @param heartbeatsRequest
+   * @return
+   * @throws OperationException
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractLongSchema()` of an abstract class should not be declared 'public'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/AbstractScalarReadSchemas.java`
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
 #### Snippet
 ```java
-    protected final Setter<T, Object> setter;
-
-    public AbstractLongSchema(Field protoField, PropertyDescriptor propertyDescriptor) {
-      super(protoField, propertyDescriptor.getJavaType());
-      this.setter = propertyDescriptor.getSetter();
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractPrimitiveReaders()` of an abstract class should not be declared 'public'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/AbstractPrimitiveReaders.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public AbstractPrimitiveReaders(Field protoField) {
-    super(protoField);
-  }
-```
-
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractReaders()` of an abstract class should not be declared 'public'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/AbstractReaders.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  public AbstractReaders(Field protoField) {
-    this(protoField, null);
-  }
+   *
+   * @param heartbeatsRequest
+   * @return
+   * @throws OperationException
+   */
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractReaders()` of an abstract class should not be declared 'public'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/AbstractReaders.java`
+### JavadocDeclaration
+`@throws` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
 #### Snippet
 ```java
-  }
-
-  public AbstractReaders(Field protoField, Class<T[]> arrayClass) {
-    this.protoField = protoField;
-    this.fieldNumber = protoField.getTag();
+   * @param heartbeatsRequest
+   * @return
+   * @throws OperationException
+   */
+  void sendHeartBeats(HeartbeatsRequest heartbeatsRequest);
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractCondition()` of an abstract class should not be declared 'public'
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/oper/AbstractCondition.java`
+### JavadocDeclaration
+`@param serviceId` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
 #### Snippet
 ```java
-  private SupportedType type = SupportedType.UNKNOWN;
-
-  public AbstractCondition(String key, String expected) {
-    assertValueNotNull(key, expected);
-    this.key = key;
+   * Get one schema context of service
+   *
+   * @param serviceId
+   * @param schemaId
+   * @return
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractCpuUsage()` of an abstract class should not be declared 'public'
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/os/cpu/AbstractCpuUsage.java`
+### JavadocDeclaration
+`@param schemaId` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
 #### Snippet
 ```java
-  }
-
-  public AbstractCpuUsage(Id id) {
-    this.id = id;
-  }
+   *
+   * @param serviceId
+   * @param schemaId
+   * @return
+   * @throws OperationException
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `SchemaManager()` of an abstract class should not be declared 'public'
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/SchemaManager.java`
+### JavadocDeclaration
+`@return` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
 #### Snippet
 ```java
-  protected final Map<String, SchemaEx<?>> canonicalSchemas = new ConcurrentHashMapEx<>();
-
-  public SchemaManager(ProtoMapper protoMapper) {
-    this.protoMapper = protoMapper;
-    this.proto = protoMapper.getProto();
+   * @param serviceId
+   * @param schemaId
+   * @return
+   * @throws OperationException
+   */
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractInvocationMeters()` of an abstract class should not be declared 'public'
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/invocation/AbstractInvocationMeters.java`
+### JavadocDeclaration
+`@throws` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
 #### Snippet
 ```java
-  private int maxKeyLen = 64;
-
-  public AbstractInvocationMeters(Registry registry) {
-    this.registry = registry;
-  }
+   * @param schemaId
+   * @return
+   * @throws OperationException
+   */
+  public String getServiceSchemaContext(String serviceId, String schemaId) {
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractMeasurementNodeLogPublisher()` of an abstract class should not be declared 'public'
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/AbstractMeasurementNodeLogPublisher.java`
+### JavadocDeclaration
+`@throws` tag description is missing
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/BodyProcessorCreator.java`
 #### Snippet
 ```java
-  private final boolean exists;
-
-  public AbstractMeasurementNodeLogPublisher(MeasurementTree tree, StringBuilder sb, String... childNames) {
-    this.sb = sb;
-    measurementNode = tree.findChild(childNames);
+     * @param arg body param object
+     * @return the deserialized body buffer
+     * @throws IOException
+     */
+    private Buffer createBodyBuffer(String contentType, Object arg) throws IOException {
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractInvocationMeter()` of an abstract class should not be declared 'public'
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/invocation/AbstractInvocationMeter.java`
+### JavadocDeclaration
+`@return` tag description is missing
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/context/ContextUtils.java`
 #### Snippet
 ```java
-  private final LatencyDistributionMeter latencyDistributionMeter;
-
-  public AbstractInvocationMeter(Id id) {
-    this.id = id;
-    latencyDistributionMeter = createLatencyDistribution(MeterInvocationConst.TAG_LATENCY_DISTRIBUTION);
+   *
+   * @param future must be InvocationContextCompletableFuture, that is returned from consumer api
+   * @return
+   */
+  public static InvocationContext getFromCompletableFuture(CompletableFuture<?> future) {
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractArgumentsMapperCreator()` of an abstract class should not be declared 'public'
+### JavadocDeclaration
+`@param providerParamIdx` tag description is missing
 in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
 #### Snippet
 ```java
-  protected Set<String> processedSwaggerParamters;
-
-  public AbstractArgumentsMapperCreator(SerializationConfig serializationConfig,
-      Map<Class<?>, ContextArgumentMapperFactory> contextFactorys, Class<?> providerClass,
-      Method providerMethod, SwaggerOperation swaggerOperation) {
+  /**
+   *
+   * @param providerParamIdx
+   * @param providerParameter processing provider parameter
+   */
 ```
 
-### NonProtectedConstructorInAbstractClass
-Constructor `AbstractProducerContextArgMapper()` of an abstract class should not be declared 'public'
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/producer/AbstractProducerContextArgMapper.java`
+### JavadocDeclaration
+`@param providerParamIdx` tag description is missing
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
 #### Snippet
 ```java
-  protected String swaggerArgumentName;
-
-  public AbstractProducerContextArgMapper(String invocationArgumentName, String swaggerArgumentName) {
-    this.invocationArgumentName = invocationArgumentName;
-    this.swaggerArgumentName = swaggerArgumentName;
+  /**
+   *
+   * @param providerParamIdx
+   * @param providerParameter processing provider parameter
+   * @param parameterName
 ```
 
-## RuleId[id=AssignmentToMethodParameter]
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/config/ConfigurePropertyUtils.java`
+### JavadocDeclaration
+`@param parameterName` tag description is missing
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
 #### Snippet
 ```java
-    if (StringUtils.isNotEmpty(prefix)) {
-      if (!path.startsWith(prefix)) {
-        path = prefix + path;
-      }
-    }
+   * @param providerParamIdx
+   * @param providerParameter processing provider parameter
+   * @param parameterName
+   * @return true means processed
+   */
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `strVersionRule`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/version/VersionRuleUtils.java`
+### JavadocDeclaration
+`@param file` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param file
+   * @param openOptions
+   * @return future of save to file, future complete means write to file finished
+```
+
+### JavadocDeclaration
+`@param openOptions` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+#### Snippet
+```java
+   *
+   * @param file
+   * @param openOptions
+   * @return future of save to file, future complete means write to file finished
+   */
+```
+
+### JavadocDeclaration
+`@param fileName` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param fileName
+   * @return future of save to file, future complete means write to file finished
+   */
+```
+
+### JavadocDeclaration
+`@param writeStream` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param writeStream
+   * @return future of save action<br>
+   *
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param context
+   * @param readStream
+   * @param writeStream
+```
+
+### JavadocDeclaration
+`@param readStream` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
+#### Snippet
+```java
+   *
+   * @param context
+   * @param readStream
+   * @param writeStream
+   * @return future of save action<br>
+```
+
+### JavadocDeclaration
+`@param writeStream` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
+#### Snippet
+```java
+   * @param context
+   * @param readStream
+   * @param writeStream
+   * @return future of save action<br>
+   * <p>important:
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
+#### Snippet
+```java
+   * @param microserviceName hortName, or appId:shortName when invoke cross app
+   * @param versionRule if is empty, then use configuration value
+   * @return
+   */
+  public MicroserviceReferenceConfig createMicroserviceReferenceConfig(String microserviceName, String versionRule) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
+#### Snippet
+```java
+   * for normal consumers
+   * @param microserviceName shortName, or appId:shortName when invoke cross app
+   * @return
+   */
+  public MicroserviceReferenceConfig createMicroserviceReferenceConfig(String microserviceName) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
+#### Snippet
+```java
+   * @param microserviceName hortName, or appId:shortName when invoke cross app
+   * @param versionRule if is empty, then use configuration value
+   * @return
+   */
+  public CompletableFuture<MicroserviceReferenceConfig> createMicroserviceReferenceConfigAsync(String microserviceName,
+```
+
+### JavadocDeclaration
+Tag `param` is not allowed here
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/base/DynamicEnumCache.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param cls
+   */
+  private final Constructor<T> constructor;
+```
+
+### JavadocDeclaration
+`@param eventClass` tag description is missing
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/event/SimpleEventBus.java`
+#### Snippet
+```java
+   * subscribersMap almost stable<br>
+   * so we not care for performance of collectSubscriberForEvent
+   * @param eventClass
+   */
+  private List<SimpleSubscriber> collectSubscriberForEvent(Class<?> eventClass) {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/KeyPairUtils.java`
+#### Snippet
+```java
+   * @param content original content
+   * @return verify result
+   * @throws NoSuchAlgorithmException
+   * @throws InvalidKeySpecException
+   * @throws InvalidKeyException
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/KeyPairUtils.java`
+#### Snippet
+```java
+   * @return verify result
+   * @throws NoSuchAlgorithmException
+   * @throws InvalidKeySpecException
+   * @throws InvalidKeyException
+   * @throws SignatureException
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/KeyPairUtils.java`
+#### Snippet
+```java
+   * @throws NoSuchAlgorithmException
+   * @throws InvalidKeySpecException
+   * @throws InvalidKeyException
+   * @throws SignatureException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/KeyPairUtils.java`
+#### Snippet
+```java
+   * @throws InvalidKeySpecException
+   * @throws InvalidKeyException
+   * @throws SignatureException
+   */
+  public static boolean verify(String publicKey, String sign, String content)
+```
+
+### JavadocDeclaration
+`@param key` tag description is missing
+in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionUtil.java`
+#### Snippet
+```java
+  /**
+   * Sets the value for given config parameter.
+   * @param key
+   * @param value
+   */
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionUtil.java`
+#### Snippet
+```java
+   * Sets the value for given config parameter.
+   * @param key
+   * @param value
+   */
+  public static void setConfigCenterValue(String key, AtomicInteger value) {
+```
+
+### JavadocDeclaration
+`@param instance` tag description is missing
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceInstancePing.java`
+#### Snippet
+```java
+  /**
+   * check if this instance if valid to use
+   * @param instance
+   * @return
+   */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceInstancePing.java`
+#### Snippet
+```java
+   * check if this instance if valid to use
+   * @param instance
+   * @return
+   */
+  boolean ping(MicroserviceInstance instance);
+```
+
+### JavadocDeclaration
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/model/RouteItem.java`
 #### Snippet
 ```java
 
-  public static VersionRule create(String strVersionRule) {
-    strVersionRule = strVersionRule.trim();
-    for (VersionRuleParser parser : parsers) {
-      VersionRule versionRule = parser.parse(strVersionRule);
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `parent`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/discovery/DiscoveryTree.java`
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/model/RouteItem.java`
 #### Snippet
 ```java
-        DiscoveryTreeNode rerunNode = context.popRerunFilter();
-        if (rerunNode != null) {
-          parent = rerunNode;
-          idx = parent.level();
-          continue;
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public class RouteItem implements Comparable<RouteItem> {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `parent`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/discovery/DiscoveryTree.java`
+### JavadocDeclaration
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/model/Matcher.java`
 #### Snippet
 ```java
-      }
 
-      parent = child;
-      idx++;
-    }
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `allInstances`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersionRule.java`
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/model/Matcher.java`
 #### Snippet
 ```java
-  public void update(Map<String, MicroserviceVersion> allVersions, Collection<MicroserviceInstance> allInstances) {
-    if (allInstances == null) {
-      allInstances = Collections.emptyList();
-    }
-
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public class Matcher {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `genericResponseType`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/response/DefaultResponseTypeProcessor.java`
+### JavadocDeclaration
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/exception/RouterIllegalParamException.java`
 #### Snippet
 ```java
-      Type genericResponseType) {
-    if (extractActualType) {
-      genericResponseType = ((ParameterizedType) genericResponseType).getActualTypeArguments()[0];
-    }
 
+/**
+ * @Author GuoYl123
+ * @Date 2019/11/4
+ **/
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/SwaggerGeneratorUtils.java`
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/exception/RouterIllegalParamException.java`
 #### Snippet
 ```java
-  public static <SWAGGER_PARAMETER, ANNOTATION> ParameterProcessor<SWAGGER_PARAMETER, ANNOTATION> findParameterProcessors(
-      Type type) {
-    type = TypeFactory.defaultInstance().constructType(type);
-    return (ParameterProcessor<SWAGGER_PARAMETER, ANNOTATION>) parameterProcessors.get(type);
-  }
+/**
+ * @Author GuoYl123
+ * @Date 2019/11/4
+ **/
+public class RouterIllegalParamException extends RuntimeException {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `basePath`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
+### JavadocDeclaration
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/model/ServiceInfoCache.java`
 #### Snippet
 ```java
-  @Override
-  public void setBasePath(String basePath) {
-    basePath = new PlaceholderResolver().replaceFirst(basePath);
-    swagger.setBasePath(basePath);
-  }
+
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `str`
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/model/ServiceInfoCache.java`
+#### Snippet
+```java
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public class ServiceInfoCache {
+```
+
+### JavadocDeclaration
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/distribute/RouterDistributor.java`
+#### Snippet
+```java
+
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+```
+
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/distribute/RouterDistributor.java`
+#### Snippet
+```java
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public interface RouterDistributor<INSTANCE> {
+```
+
+### JavadocDeclaration
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/model/PolicyRuleItem.java`
+#### Snippet
+```java
+
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+```
+
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/model/PolicyRuleItem.java`
+#### Snippet
+```java
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public class PolicyRuleItem implements Comparable<PolicyRuleItem> {
+```
+
+### JavadocDeclaration
+`@param latestVersionTag` tag description is missing
+in `governance/src/main/java/org/apache/servicecomb/router/model/PolicyRuleItem.java`
+#### Snippet
+```java
+   * if weight is less than 100, fill with minimum version
+   *
+   * @param latestVersionTag
+   */
+  public void check(TagItem latestVersionTag) {
+```
+
+### JavadocDeclaration
+Wrong tag `Author`
 in `governance/src/main/java/org/apache/servicecomb/router/model/HeaderRule.java`
 #### Snippet
 ```java
-    }
-    if (caseInsensitive) {
-      str = str.toLowerCase();
-      exact = exact == null ? null : exact.toLowerCase();
-      regex = regex == null ? null : regex.toLowerCase();
+
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `format`
-in `inspector/src/main/java/org/apache/servicecomb/inspector/internal/InspectorImpl.java`
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/model/HeaderRule.java`
+#### Snippet
+```java
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public class HeaderRule {
+```
+
+### JavadocDeclaration
+`@param item` tag description is missing
+in `governance/src/main/java/org/apache/servicecomb/router/model/TagItem.java`
+#### Snippet
+```java
+   * return match num
+   *
+   * @param item
+   * @return
+   */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `governance/src/main/java/org/apache/servicecomb/router/model/TagItem.java`
+#### Snippet
+```java
+   *
+   * @param item
+   * @return
+   */
+  public int matchNum(TagItem item) {
+```
+
+### JavadocDeclaration
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/model/TagItem.java`
 #### Snippet
 ```java
 
-    if (format == null) {
-      format = SchemaFormat.SWAGGER;
-    }
-
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `format`
-in `inspector/src/main/java/org/apache/servicecomb/inspector/internal/InspectorImpl.java`
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/model/TagItem.java`
 #### Snippet
 ```java
-  public Response downloadSchemas(@QueryParam("format") SchemaFormat format) {
-    if (format == null) {
-      format = SchemaFormat.SWAGGER;
-    }
-
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public class TagItem {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
+### JavadocDeclaration
+`@param targetStr` tag description is missing
+in `governance/src/main/java/org/apache/servicecomb/governance/marker/operator/CompareOperator.java`
 #### Snippet
 ```java
+   * 支持 > < = >= <= ! 后面加数字
+   *
+   * @param targetStr
+   * @param patternStr
+   * @return
+```
+
+### JavadocDeclaration
+`@param patternStr` tag description is missing
+in `governance/src/main/java/org/apache/servicecomb/governance/marker/operator/CompareOperator.java`
+#### Snippet
+```java
+   *
+   * @param targetStr
+   * @param patternStr
+   * @return
+   */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `governance/src/main/java/org/apache/servicecomb/governance/marker/operator/CompareOperator.java`
+#### Snippet
+```java
+   * @param targetStr
+   * @param patternStr
+   * @return
+   */
   @Override
-  public void setPath(String path) {
-    path = new PlaceholderResolver().replaceFirst(path);
-    if (!path.startsWith("/")) {
-      path = "/" + path;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
+### JavadocDeclaration
+Wrong tag `created`
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/InputEx.java`
 #### Snippet
 ```java
-    path = new PlaceholderResolver().replaceFirst(path);
-    if (!path.startsWith("/")) {
-      path = "/" + path;
-    }
-    this.path = path;
+ *
+ * @author David Yu
+ * @created Nov 9, 2009
+ */
+public interface InputEx {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `throwableToSearchIn`
-in `governance/src/main/java/org/apache/servicecomb/governance/handler/ext/FailurePredictor.java`
+### JavadocDeclaration
+Wrong tag `created`
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/SchemaEx.java`
 #### Snippet
 ```java
-        }
-      }
-      throwableToSearchIn = throwableToSearchIn.getCause();
-    }
-    return false;
+ *
+ * @author David Yu
+ * @created Nov 9, 2009
+ */
+public interface SchemaEx<T> extends SchemaWriter<T>, SchemaReader<T> {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `transport`
-in `core/src/main/java/org/apache/servicecomb/core/provider/consumer/MicroserviceReferenceConfig.java`
+### JavadocDeclaration
+Wrong tag `created`
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/OutputEx.java`
 #### Snippet
 ```java
-  public ReferenceConfig createReferenceConfig(String transport, OperationMeta operationMeta) {
-    if (transport == null) {
-      transport = operationMeta.getConfig().getTransport();
-    }
-    final ReferenceConfig referenceConfig = new ReferenceConfig(transport, versionRule);
+ *
+ * @author David Yu
+ * @created Nov 9, 2009
+ */
+public interface OutputEx {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `transport`
-in `core/src/main/java/org/apache/servicecomb/core/definition/OperationConfig.java`
+### JavadocDeclaration
+`@param output` tag description is missing
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/runtime/FieldSchema.java`
 #### Snippet
 ```java
-  public void setTransport(String transport) {
-    if (transport == null) {
-      transport = Const.ANY_TRANSPORT;
-    }
-    this.transport = transport;
+   * write from map
+   *
+   * @param output
+   * @param value field value, will not be null
+   * @throws IOException
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `throwable`
-in `core/src/main/java/org/apache/servicecomb/core/invocation/ProducerInvocationFlow.java`
+### JavadocDeclaration
+`@throws` tag description is missing
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/runtime/FieldSchema.java`
 #### Snippet
 ```java
-    }
-
-    throwable = Exceptions.unwrap(throwable);
-    if (requestEx == null) {
-      logException(invocation, throwable);
+   * @param output
+   * @param value field value, will not be null
+   * @throws IOException
+   */
+  public void writeTo(OutputEx output, Object value) throws IOException {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `addressWithoutSchema`
-in `core/src/main/java/org/apache/servicecomb/core/transport/AbstractTransport.java`
+### JavadocDeclaration
+`@param protoField` tag description is missing
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/ProtoUtils.java`
 #### Snippet
 ```java
-    int idx = addressWithoutSchema.indexOf('?');
-    if (idx == -1) {
-      addressWithoutSchema += "?";
-    } else {
-      addressWithoutSchema += "&";
+  /**
+   * all supported type, default to packed
+   * @param protoField
+   * @return
+   */
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `addressWithoutSchema`
-in `core/src/main/java/org/apache/servicecomb/core/transport/AbstractTransport.java`
+### JavadocDeclaration
+`@return` tag description is missing
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/ProtoUtils.java`
 #### Snippet
 ```java
-      addressWithoutSchema += "?";
-    } else {
-      addressWithoutSchema += "&";
-    }
-
+   * all supported type, default to packed
+   * @param protoField
+   * @return
+   */
+  public static boolean isSupportPacked(Field protoField) {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `addressWithoutSchema`
-in `core/src/main/java/org/apache/servicecomb/core/transport/AbstractTransport.java`
-#### Snippet
-```java
-    String encodedQuery = URLEncodedUtils.format(pairs.entrySet().stream().map(entry -> new BasicNameValuePair(entry.getKey(), entry.getValue())).collect(Collectors.toList()), StandardCharsets.UTF_8.name());
-
-    addressWithoutSchema += encodedQuery;
-
-    return addressWithoutSchema;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `addressWithoutSchema`
-in `core/src/main/java/org/apache/servicecomb/core/transport/AbstractTransport.java`
-#### Snippet
-```java
-  protected void setListenAddressWithoutSchema(String addressWithoutSchema,
-      Map<String, String> pairs) {
-    addressWithoutSchema = genAddressWithoutSchema(addressWithoutSchema, pairs);
-
-    this.endpoint = new Endpoint(this, NetUtils.getRealListenAddress(getName(), addressWithoutSchema));
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `configSource`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/AddressResolverConfig.java`
-#### Snippet
-```java
-
-  private static int getPositiveIntProperty(Configuration configSource, int defaultValue, String... keys) {
-    configSource = guardConfigSource(configSource);
-    if (configSource == null) {
-      return defaultValue;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `configSource`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/AddressResolverConfig.java`
-#### Snippet
-```java
-  private static boolean getBooleanProperty(Configuration configSource, boolean defaultValue,
-      String... keys) {
-    configSource = guardConfigSource(configSource);
-    if (configSource == null) {
-      return defaultValue;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `configSource`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/AddressResolverConfig.java`
-#### Snippet
-```java
-  private static List<String> getStringListProperty(Configuration configSource,
-      List<String> defaultValue, String... keys) {
-    configSource = guardConfigSource(configSource);
-    if (configSource == null) {
-      return defaultValue;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `configSource`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/AddressResolverConfig.java`
-#### Snippet
-```java
-  private static Configuration guardConfigSource(Configuration configSource) {
-    if (configSource == null && DynamicPropertyFactory.getBackingConfigurationSource() != null) {
-      configSource = (Configuration) DynamicPropertyFactory.getBackingConfigurationSource();
-    }
-    return configSource;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `vertxOptions`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/VertxUtils.java`
-#### Snippet
-```java
-  public static Vertx init(String name, VertxOptions vertxOptions) {
-    if (vertxOptions == null) {
-      vertxOptions = new VertxOptions();
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `len`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferInputStream.java`
-#### Snippet
-```java
-    int avail = available();
-    if (len > avail) {
-      len = avail;
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `strategyName`
-in `handlers/handler-flowcontrol-qps/src/main/java/org/apache/servicecomb/qps/QpsControllerManager.java`
-#### Snippet
-```java
-      String strategyName) {
-    if (StringUtils.isEmpty(strategyName)) {
-      strategyName = "FixedWindow";
-    }
-    AbstractQpsStrategy strategy = null;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `genericParamType`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/FormProcessorCreator.java`
-#### Snippet
-```java
-    private void initRepeatedConverter(Type genericParamType) {
-      if (genericParamType instanceof JavaType) {
-        genericParamType = Types.newParameterizedType(((JavaType) genericParamType).getRawClass(),
-            ((JavaType) genericParamType).getContentType());
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `genericParamType`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/FormProcessorCreator.java`
-#### Snippet
-```java
-    private void initNormalConverter(Type genericParamType) {
-      if (genericParamType instanceof JavaType) {
-        genericParamType = ((JavaType) genericParamType).getRawClass();
-      }
-      converter = partToTargetConverters.get(genericParamType);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `headers`
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterRawClient.java`
-#### Snippet
-```java
-    String formatUrl = addressManager.formatUrl(url, absoluteUrl, address);
-    if (headers == null) {
-      headers = new HashMap<>();
-    }
-    headers.put(HEADER_TENANT_NAME, tenantName);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/resource/StaticResourceHandler.java`
-#### Snippet
-```java
-
-  public Response handle(String path) {
-    path = URI.create(webRoot + path).normalize().getPath();
-    if (!path.startsWith(webRoot)) {
-      // maybe request of attack, just return 404
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `path`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/locator/OperationLocator.java`
-#### Snippet
-```java
-  static String getStandardPath(String path) {
-    if (path.length() > 0 && !path.endsWith(SLASH)) {
-      path += SLASH;
-    }
-    return path;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-  private int processLineBreak(int state) {
-    if (state == NAME_READ) {
-      state = NAME_READ_READY;
-    } else if (state == REGEXP_READ) {
-      state = REGEXP_READ_READY;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-      state = NAME_READ_READY;
-    } else if (state == REGEXP_READ) {
-      state = REGEXP_READ_READY;
-    }
-    return state;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-    }
-    if (state == NAME_READ || state == NAME_READ_READY) {
-      state = REGEXP_READ_START;
-    }
-    return state;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-      final StringBuilder regExp, int state, int i, final char c) throws Exception {
-    if (state == NAME_READ_START) {
-      state = NAME_READ;
-      varName.append(c);
-    } else if (state == NAME_READ) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `state`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-      varName.append(c);
-    } else if (state == REGEXP_READ_START) {
-      state = REGEXP_READ;
-      regExp.append(c);
-    } else if (state == REGEXP_READ) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `type`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationMeta.java`
-#### Snippet
-```java
-    final Property additionalProperties = ((ModelImpl) bodyParameter.getSchema()).getAdditionalProperties();
-    if (additionalProperties instanceof StringProperty) {
-      type = RestObjectMapperFactory.getRestObjectMapper().getTypeFactory()
-          .constructMapType(Map.class, String.class, String.class);
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `rawPath`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/URLPathBuilder.java`
-#### Snippet
-```java
-    // 去掉末尾'/'
-    if (rawPath.endsWith(SLASH)) {
-      rawPath = rawPath.substring(0, rawPath.length() - 1);
-    }
-    // 首部加上'/'
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `rawPath`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/URLPathBuilder.java`
-#### Snippet
-```java
-    // 首部加上'/'
-    if (!rawPath.startsWith(SLASH)) {
-      rawPath = SLASH + rawPath;
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `eventBus`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/ServiceRegistryFactory.java`
-#### Snippet
-```java
-      Configuration configuration) {
-    if (null == eventBus) {
-      eventBus = new SimpleEventBus();
-    }
-    return new RemoteServiceRegistry(eventBus, serviceRegistryConfig, configuration);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `prefix`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/YAMLUtil.java`
-#### Snippet
-```java
-    Map<String, Object> result = new LinkedHashMap<>();
-    if (!prefix.isEmpty()) {
-      prefix += ".";
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/filter/PriorityInstancePropertyDiscoveryFilter.java`
-#### Snippet
-```java
-      propertyKey = key;
-      if (Objects.isNull(value)) {
-        value = StringUtils.EMPTY;
-      }
-      if (value.length() > MAX_LENGTH) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `defaultValue`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/ConfigObjectFactory.java`
-#### Snippet
-```java
-    if (injectProperty != null) {
-      if (!injectProperty.defaultValue().isEmpty()) {
-        defaultValue = Integer.parseInt(injectProperty.defaultValue());
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `defaultValue`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/ConfigObjectFactory.java`
-#### Snippet
-```java
-    if (injectProperty != null) {
-      if (!injectProperty.defaultValue().isEmpty()) {
-        defaultValue = Boolean.parseBoolean(injectProperty.defaultValue());
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `defaultValue`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/ConfigObjectFactory.java`
-#### Snippet
-```java
-    if (injectProperty != null) {
-      if (!injectProperty.defaultValue().isEmpty()) {
-        defaultValue = Long.parseLong(injectProperty.defaultValue());
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `defaultValue`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/ConfigObjectFactory.java`
-#### Snippet
-```java
-    if (injectProperty != null) {
-      if (!injectProperty.defaultValue().isEmpty()) {
-        defaultValue = Double.parseDouble(injectProperty.defaultValue());
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `defaultValue`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/ConfigObjectFactory.java`
-#### Snippet
-```java
-    if (injectProperty != null) {
-      if (!injectProperty.defaultValue().isEmpty()) {
-        defaultValue = Float.parseFloat(injectProperty.defaultValue());
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `config`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/meter/LatencyDistributionConfig.java`
-#### Snippet
-```java
-      return;
-    }
-    config = config.trim() + "," + Long.MAX_VALUE;
-    String[] array = config.split("\\s*,+\\s*");
-    try {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
+### JavadocDeclaration
+Wrong tag `created`
 in `foundations/foundation-protobuf/src/main/java/io/protostuff/ByteArrayInputEx.java`
 #### Snippet
 ```java
-
-    if (value == null) {
-      value = schema.newMessage();
-    }
-    schema.mergeFrom(this, value);
+ *
+ * @author David Yu
+ * @created Jun 22, 2010
+ */
+public final class ByteArrayInputEx implements InputEx {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
+### JavadocDeclaration
+`@param output` tag description is missing
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/any/AnyEntrySchema.java`
+#### Snippet
+```java
+   * so message will be serialized with json schema
+   * </pre>
+   * @param output
+   * @param value
+   * @throws IOException
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/any/AnyEntrySchema.java`
+#### Snippet
+```java
+   * </pre>
+   * @param output
+   * @param value
+   * @throws IOException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/any/AnyEntrySchema.java`
+#### Snippet
+```java
+   * @param output
+   * @param value
+   * @throws IOException
+   */
+  @Override
+```
+
+### JavadocDeclaration
+`@param protoField` tag description is missing
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/SchemaManager.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param protoField
+   * @param propertyDescriptor provide getter/setter/javaType
+   * @return
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/SchemaManager.java`
+#### Snippet
+```java
+   * @param protoField
+   * @param propertyDescriptor provide getter/setter/javaType
+   * @return
+   */
+  protected abstract <T> FieldSchema<T> createScalarField(Field protoField, PropertyDescriptor propertyDescriptor);
+```
+
+### JavadocDeclaration
+Wrong tag `created`
 in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
 #### Snippet
 ```java
-    }
-
-    buffer[offset++] = (byte) (value & 0xFF);
-    buffer[offset++] = (byte) (value >> 8 & 0xFF);
-    buffer[offset++] = (byte) (value >> 16 & 0xFF);
+ *
+ * @author David Yu
+ * @created May 18, 2010
+ */
+public final class ProtobufOutputEx extends WriteSession implements OutputEx {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+### JavadocDeclaration
+`@param swaggerGenerator` tag description is missing
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/ResponseTypeProcessor.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param swaggerGenerator
+   * @param operationGenerator
+   * @param genericResponseType
+```
+
+### JavadocDeclaration
+`@param operationGenerator` tag description is missing
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/ResponseTypeProcessor.java`
+#### Snippet
+```java
+   *
+   * @param swaggerGenerator
+   * @param operationGenerator
+   * @param genericResponseType
+   * @return if genericResponseType is CompletableFuture&lt;String&gt;, then return String
+```
+
+### JavadocDeclaration
+`@param genericResponseType` tag description is missing
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/ResponseTypeProcessor.java`
+#### Snippet
+```java
+   * @param swaggerGenerator
+   * @param operationGenerator
+   * @param genericResponseType
+   * @return if genericResponseType is CompletableFuture&lt;String&gt;, then return String
+   */
+```
+
+### JavadocDeclaration
+`@param basePath` tag description is missing
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/SwaggerGenerator.java`
+#### Snippet
+```java
+  /**
+   * support placeholder
+   * @param basePath
+   */
+  void setBasePath(String basePath);
+```
+
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `timeoutExceptionConverter` may be 'final'
+in `core/src/main/java/org/apache/servicecomb/core/exception/converter/ServiceCombExceptionConverter.java`
+#### Snippet
+```java
+  public static final int ORDER = Byte.MAX_VALUE;
+
+  private TimeoutExceptionConverter timeoutExceptionConverter = new TimeoutExceptionConverter();
+
+  @Override
+```
+
+### FieldMayBeFinal
+Field `retryExtension` may be 'final'
+in `core/src/main/java/org/apache/servicecomb/core/governance/ServiceCombInstanceIsolationExtension.java`
 #### Snippet
 ```java
 
-    buffer[offset++] = (byte) (value & 0xFF);
-    buffer[offset++] = (byte) (value >> 8 & 0xFF);
-    buffer[offset++] = (byte) (value >> 16 & 0xFF);
-    buffer[offset] = (byte) (value >> 24 & 0xFF);
+public class ServiceCombInstanceIsolationExtension extends AbstractInstanceIsolationExtension {
+  private ServiceCombRetryExtension retryExtension = new ServiceCombRetryExtension();
+
+  @Override
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    buffer[offset++] = (byte) (value & 0xFF);
-    buffer[offset++] = (byte) (value >> 8 & 0xFF);
-    buffer[offset++] = (byte) (value >> 16 & 0xFF);
-    buffer[offset] = (byte) (value >> 24 & 0xFF);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lb`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+### FieldMayBeFinal
+Field `allInterfaceAddresses` may be 'final'
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
 #### Snippet
 ```java
 
-    if (lb.offset + size > lb.buffer.length) {
-      lb = new LinkedBuffer(session.nextBufferSize, lb);
-    }
+  // key is network interface name and type
+  private static Map<String, InetAddress> allInterfaceAddresses = new HashMap<>();
 
+  private static String hostName;
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-      buffer[offset] = (byte) value;
-    } else {
-      for (int i = 0, last = size - 1; i < last; i++, value >>>= 7) {
-        buffer[offset++] = (byte) ((value & 0x7F) | 0x80);
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-        return;
-      } else {
-        buf[offset++] = (byte) ((value & 0x7F) | 0x80);
-        value >>>= 7;
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-      } else {
-        buf[offset++] = (byte) ((value & 0x7F) | 0x80);
-        value >>>= 7;
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lb`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+### FieldMayBeFinal
+Field `authenticationTokenManager` may be 'final'
+in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerAuthFilter.java`
 #### Snippet
 ```java
 
-    if (lb.offset + totalSize > lb.buffer.length) {
-      lb = new LinkedBuffer(session.nextBufferSize, lb);
-    }
+public class ConsumerAuthFilter implements ConsumerFilter {
+  private ConsumerTokenManager authenticationTokenManager = new ConsumerTokenManager();
 
+  @Override
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `tag`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-      buffer[offset++] = (byte) tag;
-    } else {
-      for (int i = 0, last = tagSize - 1; i < last; i++, tag >>>= 7) {
-        buffer[offset++] = (byte) ((tag & 0x7F) | 0x80);
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lb`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+### FieldMayBeFinal
+Field `matchersService` may be 'final'
+in `governance/src/main/java/org/apache/servicecomb/governance/MatchersManager.java`
 #### Snippet
 ```java
 
-    if (lb.offset + totalSize > lb.buffer.length) {
-      lb = new LinkedBuffer(session.nextBufferSize, lb);
-    }
+public class MatchersManager {
+  private MatchersService matchersService;
 
+  public MatchersManager(MatchersService matchersService) {
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `tag`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+### FieldMayBeFinal
+Field `projectName` may be 'final'
+in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/AbstractAddressManager.java`
 #### Snippet
 ```java
-      buffer[offset++] = (byte) tag;
-    } else {
-      for (int i = 0, last = tagSize - 1; i < last; i++, tag >>>= 7) {
-        buffer[offset++] = (byte) ((tag & 0x7F) | 0x80);
-      }
+  private int index = 0;
+
+  private String projectName;
+
+  // if address in same zone will be true; others will be false.
 ```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+## RuleId[id=InstantiationOfUtilityClass]
+### InstantiationOfUtilityClass
+Instantiation of utility class `QueryCodecsUtils`
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/CommonRestConfiguration.java`
 #### Snippet
 ```java
-      buffer[offset] = (byte) value;
-    } else {
-      for (int i = 0, last = size - 1; i < last; i++, value >>>= 7) {
-        buffer[offset++] = (byte) (((int) value & 0x7F) | 0x80);
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-      buffer[offset] = (byte) value;
-    } else {
-      for (int i = 0, last = size - 1; i < last; i++, value >>>= 7) {
-        buffer[offset++] = (byte) (((int) value & 0x7F) | 0x80);
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lb`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    }
-
-    lb = writeTagAndRawVarInt32(tag, tagSize, valueLen, session, lb);
-
-    session.size += valueLen;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lb`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-
-      // grow
-      lb = new LinkedBuffer(session.nextBufferSize, lb);
-
-      final int leftover = valueLen - available;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    }
-
-    buffer[offset++] = (byte) (value & 0xFF);
-    buffer[offset++] = (byte) (value >> 8 & 0xFF);
-    buffer[offset++] = (byte) (value >> 16 & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-
-    buffer[offset++] = (byte) (value & 0xFF);
-    buffer[offset++] = (byte) (value >> 8 & 0xFF);
-    buffer[offset++] = (byte) (value >> 16 & 0xFF);
-    buffer[offset++] = (byte) (value >> 24 & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    buffer[offset++] = (byte) (value & 0xFF);
-    buffer[offset++] = (byte) (value >> 8 & 0xFF);
-    buffer[offset++] = (byte) (value >> 16 & 0xFF);
-    buffer[offset++] = (byte) (value >> 24 & 0xFF);
-    buffer[offset++] = (byte) (value >> 32 & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    buffer[offset++] = (byte) (value >> 8 & 0xFF);
-    buffer[offset++] = (byte) (value >> 16 & 0xFF);
-    buffer[offset++] = (byte) (value >> 24 & 0xFF);
-    buffer[offset++] = (byte) (value >> 32 & 0xFF);
-    buffer[offset++] = (byte) (value >> 40 & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    buffer[offset++] = (byte) (value >> 16 & 0xFF);
-    buffer[offset++] = (byte) (value >> 24 & 0xFF);
-    buffer[offset++] = (byte) (value >> 32 & 0xFF);
-    buffer[offset++] = (byte) (value >> 40 & 0xFF);
-    buffer[offset++] = (byte) (value >> 48 & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    buffer[offset++] = (byte) (value >> 24 & 0xFF);
-    buffer[offset++] = (byte) (value >> 32 & 0xFF);
-    buffer[offset++] = (byte) (value >> 40 & 0xFF);
-    buffer[offset++] = (byte) (value >> 48 & 0xFF);
-    buffer[offset] = (byte) (value >> 56 & 0xFF);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `offset`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    buffer[offset++] = (byte) (value >> 32 & 0xFF);
-    buffer[offset++] = (byte) (value >> 40 & 0xFF);
-    buffer[offset++] = (byte) (value >> 48 & 0xFF);
-    buffer[offset] = (byte) (value >> 56 & 0xFF);
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lb`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-
-    if (lb.offset + totalSize > lb.buffer.length) {
-      lb = new LinkedBuffer(session.nextBufferSize, lb);
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `tag`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-      buffer[offset++] = (byte) tag;
-    } else {
-      for (int i = 0, last = tagSize - 1; i < last; i++, tag >>>= 7) {
-        buffer[offset++] = (byte) ((tag & 0x7F) | 0x80);
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `lb`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-
-    if (lb.offset + totalSize > lb.buffer.length) {
-      lb = new LinkedBuffer(session.nextBufferSize, lb);
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `tag`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-      buffer[offset++] = (byte) tag;
-    } else {
-      for (int i = 0, last = tagSize - 1; i < last; i++, tag >>>= 7) {
-        buffer[offset++] = (byte) ((tag & 0x7F) | 0x80);
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-      buffer[offset] = (byte) value;
-    } else {
-      for (int i = 0, last = size - 1; i < last; i++, value >>>= 7) {
-        buffer[offset++] = (byte) ((value & 0x7F) | 0x80);
-      }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `arrayClass`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/AbstractWriters.java`
-#### Snippet
-```java
-
-    if (arrayClass == null) {
-      arrayClass = getFieldArgument(this.getClass(), "arrayWriter");
-    }
-    this.arrayClass = arrayClass;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `arrayClass`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/AbstractReaders.java`
-#### Snippet
-```java
-
-    if (arrayClass == null) {
-      arrayClass = getFieldArgument(this.getClass(), "arrayClass");
-    }
-    this.arrayClass = arrayClass;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `javaType`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/MessageReadSchema.java`
-#### Snippet
-```java
-    this.javaType = javaType;
-    if (javaType.isJavaLangObject() || Map.class.isAssignableFrom(javaType.getRawClass())) {
-      javaType = ProtoConst.MAP_TYPE;
-    }
-    this.instantiator = RuntimeEnv.newInstantiator((Class<T>) javaType.getRawClass());
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `javaType`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/DeserializerSchemaManager.java`
-#### Snippet
-```java
-      Field protoField = message.getField(1);
-      if (javaType.isJavaLangObject()) {
-        javaType =
-            protoField.isRepeated() && !protoField.isMap() ? ProtoConst.LIST_TYPE
-                : ProtoConst.MAP_TYPE;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `javaType`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/DeserializerSchemaManager.java`
-#### Snippet
-```java
-
-      if (javaType.isPrimitive()) {
-        javaType = TypeFactory.defaultInstance()
-            .constructParametricType(PropertyWrapper.class, TypesUtil.primitiveJavaTypeToWrapper(javaType));
-      } else {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `javaType`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/DeserializerSchemaManager.java`
-#### Snippet
-```java
-            .constructParametricType(PropertyWrapper.class, TypesUtil.primitiveJavaTypeToWrapper(javaType));
-      } else {
-        javaType = TypeFactory.defaultInstance().constructParametricType(PropertyWrapper.class, javaType);
-      }
-    }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `javaType`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/DeserializerSchemaManager.java`
-#### Snippet
-```java
-
-    if (javaType.isJavaLangObject()) {
-      javaType = ProtoConst.MAP_TYPE;
-    }
-
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `value`
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/oper/ConditionFactory.java`
-#### Snippet
-```java
-
-  private static Condition buildCondition(int index, String key, String value, boolean caseInsensitive) {
-    value = caseInsensitive ? value.toLowerCase() : value;
-    Condition condition = buildCondition(index, key, value);
-    if (caseInsensitive) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `actual`
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/oper/CaseInsensitiveCondition.java`
-#### Snippet
-```java
-      return;
-    }
-    actual = actual.toString().toLowerCase();
-    condition.setActual(key, actual);
+  @Bean
+  public QueryCodecsUtils queryCodecsUtils(QueryCodecs queryCodecs) {
+    return new QueryCodecsUtils(queryCodecs);
   }
-```
 
-### AssignmentToMethodParameter
-Assignment to method parameter `id`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/os/net/InterfaceUsage.java`
-#### Snippet
-```java
-  public InterfaceUsage(Id id, String name) {
-    this.name = name;
-    id = id.withTag(INTERFACE, name);
-    init(id);
-  }
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `id`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/vertx/EndpointMeter.java`
-#### Snippet
-```java
-
-  public EndpointMeter(Id id, DefaultEndpointMetric metric) {
-    id = id.withTag(ADDRESS, metric.getAddress());
-    this.id = id;
-    idConnect = id.withTag(STATISTIC, CONNECT_COUNT);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `swagger`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/engine/SwaggerEnvironment.java`
-#### Snippet
-```java
-  private Swagger checkAndGenerateSwagger(Class<?> swaggerClass, Swagger swagger) {
-    if (swagger == null) {
-      swagger = SwaggerGenerator.generate(swaggerClass);
-    }
-    return swagger;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `swagger`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/engine/SwaggerEnvironment.java`
-#### Snippet
-```java
-    Class<?> producerCls = targetSwaggerClass(producerInstance, schemaInterface);
-
-    swagger = checkAndGenerateSwagger(producerCls, swagger);
-
-    Map<Class<?>, ContextArgumentMapperFactory> contextFactories = SPIServiceUtils
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `result`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/Response.java`
-#### Snippet
-```java
-    Response response = Response.status(status);
-    if (response.isFailed()) {
-      result = ExceptionFactory.create(status, result);
-    }
-    return response.entity(result);
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `e`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/ExceptionFactory.java`
-#### Snippet
-```java
-  private static InvocationException convertException(int statusCode, String reasonPhrase, Throwable e,
-                                                      String errorMsg) {
-    e = unwrap(e);
-
-    if (e instanceof InvocationException) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `throwable`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/ExceptionFactory.java`
-#### Snippet
-```java
-  public static <T extends Throwable> T unwrap(Throwable throwable) {
-    if (throwable instanceof InvocationTargetException) {
-      throwable = ((InvocationTargetException) throwable).getTargetException();
-    }
-    if (throwable instanceof CompletionException) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `throwable`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/ExceptionFactory.java`
-#### Snippet
-```java
-    }
-    if (throwable instanceof CompletionException) {
-      throwable = throwable.getCause();
-    }
-    if (throwable instanceof ExecutionException) {
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `throwable`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/ExceptionFactory.java`
-#### Snippet
-```java
-    }
-    if (throwable instanceof ExecutionException) {
-      throwable = throwable.getCause();
-    }
-    return (T) throwable;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `throwable`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/ExceptionFactory.java`
-#### Snippet
-```java
-
-  public static Throwable unwrapIncludeInvocationException(Throwable throwable) {
-    throwable = unwrap(throwable);
-    if (throwable instanceof InvocationException) {
-      throwable = throwable.getCause();
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `throwable`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/ExceptionFactory.java`
-#### Snippet
-```java
-    throwable = unwrap(throwable);
-    if (throwable instanceof InvocationException) {
-      throwable = throwable.getCause();
-    }
-    return throwable;
-```
-
-### AssignmentToMethodParameter
-Assignment to method parameter `headers`
-in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterServerListFilter.java`
-#### Snippet
-```java
-    for (RouterHeaderFilterExt filterExt : filters) {
-      if (filterExt.enabled()) {
-        headers = filterExt.doFilter(headers);
-      }
-    }
 ```
 
 ## RuleId[id=UnnecessaryContinue]
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
-in `core/src/main/java/org/apache/servicecomb/core/transport/TransportManager.java`
-#### Snippet
-```java
-          RegistrationManager.INSTANCE.addEndpoint(endpoint.getEndpoint());
-        }
-        continue;
-      }
-    }
-```
-
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
 in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/SchemaDiscovery.java`
@@ -12929,19 +6926,19 @@ in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicec
       }
 ```
 
-## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on method parameter `parent`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/discovery/AbstractDiscoveryFilter.java`
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `core/src/main/java/org/apache/servicecomb/core/transport/TransportManager.java`
 #### Snippet
 ```java
-  public DiscoveryTreeNode discovery(DiscoveryContext context, DiscoveryTreeNode parent) {
-    if (!parent.childrenInited()) {
-      synchronized (parent) {
-        if (!parent.childrenInited()) {
-          init(context, parent);
+          RegistrationManager.INSTANCE.addEndpoint(endpoint.getEndpoint());
+        }
+        continue;
+      }
+    }
 ```
 
+## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on local variable `requestEx`
 in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestAsyncListener.java`
@@ -12954,3908 +6951,31 @@ in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/se
       if (!response.isCommitted()) {
 ```
 
-## RuleId[id=ReturnNull]
-### ReturnNull
-Return of `null`
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/TrustAllManager.java`
-#### Snippet
-```java
-  @Override
-  public X509Certificate[] getAcceptedIssuers() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/SSLCustom.java`
-#### Snippet
-```java
-
-  public String getHost() {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/SSLOptionFactory.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/KeyStoreUtil.java`
-#### Snippet
-```java
-      char[] storeValue) {
-    if (storeName == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/KeyStoreUtil.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/AbstractObjectManager.java`
-#### Snippet
-```java
-          if (value == null) {
-            // 创建失败，下次重新创建
-            return null;
-          }
-          objMap.put(key, value);
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/URIEndpointObject.java`
-#### Snippet
-```java
-    // it's impossible that values is not null and size is 0
-    if (values == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/base/DynamicEnumCache.java`
-#### Snippet
-```java
-  public T fromValue(Object value) {
-    if (value == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/base/DynamicEnumCache.java`
-#### Snippet
-```java
-    } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-      LOGGER.error("failed to create enum, class={}, value={}.", cls.getName(), value);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/http/HttpUtils.java`
-#### Snippet
-```java
-  public static String parseParamFromHeaderValue(String headerValue, String paramName) {
-    if (StringUtils.isEmpty(headerValue)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/http/HttpUtils.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/http/HttpUtils.java`
-#### Snippet
-```java
-  public static String getCharsetFromContentType(String contentType) {
-    if (contentType == null) {
-      return null;
-    }
-    int start = contentType.indexOf("charset=");
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/http/HttpUtils.java`
-#### Snippet
-```java
-    int start = contentType.indexOf("charset=");
-    if (start < 0) {
-      return null;
-    }
-    String encoding = contentType.substring(start + 8);
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/http/HttpUtils.java`
-#### Snippet
-```java
-  public static String uriDecodePath(String path) {
-    if (path == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
-#### Snippet
-```java
-  public static IpPort parseIpPortFromURI(String uriAddress) {
-    if (uriAddress == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
-#### Snippet
-```java
-      return parseIpPort(new URI(uriAddress));
-    } catch (URISyntaxException e) {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
-#### Snippet
-```java
-  public static String getRealListenAddress(String schema, String address) {
-    if (address == null) {
-      return null;
-    }
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
-#### Snippet
-```java
-    } catch (URISyntaxException e) {
-      LOGGER.error("address {} is not valid.", address);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
-#### Snippet
-```java
-  public static IpPort parseIpPort(String address) {
-    if (address == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
-#### Snippet
-```java
-  public static IpPort parseIpPort(String scheme, String authority) {
-    if (authority == null) {
-      return null;
-    }
-    return parseIpPort(URI.create(scheme + "://" + authority));
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/JvmUtils.java`
-#### Snippet
-```java
-    if (StringUtils.isEmpty(mainClass)) {
-      LOGGER.info("Can't found main class by stackTrace.");
-      return null;
-    }
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/JvmUtils.java`
-#### Snippet
-```java
-    } catch (Throwable e) {
-      LOGGER.warn("\"{}\" is not a valid class.", mainClass, e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/JvmUtils.java`
-#### Snippet
-```java
-    if (StringUtils.isEmpty(mainClass)) {
-      LOGGER.info("Can't found main class by manifest.");
-      return null;
-    }
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/JvmUtils.java`
-#### Snippet
-```java
-    } catch (Throwable e) {
-      LOGGER.warn("\"{}\" is not a valid class.", mainClass, e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/JvmUtils.java`
-#### Snippet
-```java
-    } catch (Throwable e) {
-      LOGGER.warn("Failed to read Main-Class from \"{}\".", manifestUri, e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/BeanUtils.java`
-#### Snippet
-```java
-    if (context == null) {
-      // for some test case
-      return null;
-    }
-    return context.getBean(type);
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/LambdaMetafactoryUtils.java`
-#### Snippet
-```java
-    if (Modifier.isNative(instanceMethod.getModifiers())) {
-      // fix "Failed to create lambda from public final native java.lang.Class java.lang.Object.getClass()"
-      return null;
-    }
-    try {
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/LambdaMetafactoryUtils.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/PartUtils.java`
-#### Snippet
-```java
-  public static Part getSinglePart(String name, Object value) {
-    if (value == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-        return classLoader.loadClass(clsName);
-      } catch (ClassNotFoundException e1) {
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/ReflectUtils.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/RestObjectMapper.java`
-#### Snippet
-```java
-    // not necessary and will cause some trouble in some user applications that depend on this)
-    if (fromValue == null) {
-      return null;
-    } else {
-      Class<?> targetType = toValueType.getRawClass();
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/encrypt/Encryptions.java`
-#### Snippet
-```java
-  public static String decode(String encrypted, String tags) {
-    if (encrypted == null) {
-      return null;
-    }
-    char[] result = decode(encrypted.toCharArray(), tags);
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/encrypt/Encryptions.java`
-#### Snippet
-```java
-    char[] result = decode(encrypted.toCharArray(), tags);
-    if (result == null) {
-      return null;
-    }
-    return new String(result);
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/encrypt/Encryptions.java`
-#### Snippet
-```java
-  public static String encode(String plain, String tags) {
-    if (plain == null) {
-      return null;
-    }
-    char[] result = encode(plain.toCharArray(), tags);
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/encrypt/Encryptions.java`
-#### Snippet
-```java
-    char[] result = encode(plain.toCharArray(), tags);
-    if (result == null) {
-      return null;
-    }
-    return new String(result);
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/Discovery.java`
-#### Snippet
-```java
-   */
-  default MicroserviceInstances findServiceInstances(String appId, String serviceName, String versionRule) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/DiscoveryManager.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/DiscoveryManager.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/DiscoveryManager.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/cache/MicroserviceInstanceCache.java`
-#### Snippet
-```java
-      logger.error("get microservice instance from cache failed, {}, {}", String.format("%s@%s", serviceId, instanceId),
-          e.getMessage());
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/cache/MicroserviceInstanceCache.java`
-#### Snippet
-```java
-    } catch (ExecutionException | UncheckedExecutionException e) {
-      logger.error("get microservice from cache failed, {}, {}", serviceId, e.getMessage());
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/version/VersionRuleLatestParser.java`
-#### Snippet
-```java
-  public VersionRule parse(String strVersionRule) {
-    if (!DefinitionConst.VERSION_RULE_LATEST.equals(strVersionRule)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/version/VersionRuleRangeParser.java`
-#### Snippet
-```java
-    int pos = strVersionRule.indexOf('-');
-    if (pos <= 0 || pos == strVersionRule.length() - 1) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/version/VersionRuleStartFromParser.java`
-#### Snippet
-```java
-    int pos = strVersionRule.indexOf('+');
-    if (pos <= 0 || pos != strVersionRule.length() - 1) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/discovery/DiscoveryContext.java`
-#### Snippet
-```java
-  public DiscoveryTreeNode popRerunFilter() {
-    if (rerunStack.isEmpty()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/swagger/SwaggerLoader.java`
-#### Snippet
-```java
-    URL url = JvmUtils.findClassLoader().getResource(path);
-    if (url == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/swagger/SwaggerLoader.java`
-#### Snippet
-```java
-        schemaId);
-
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/RegistrationManager.java`
-#### Snippet
-```java
-      if (ipPort == null) {
-        LOGGER.warn("address {} not valid.", address);
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/RegistrationManager.java`
-#### Snippet
-```java
-    } catch (URISyntaxException e) {
-      LOGGER.warn("address {} not valid.", address);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-zero-config/src/main/java/org/apache/servicecomb/zeroconfig/multicast/MulticastServer.java`
-#### Snippet
-```java
-      return multicast.recv();
-    } catch (SocketTimeoutException ignore) {
-      return null;
-    } catch (Exception e) {
-      LOGGER.error("failed to receive or decode message.", e);
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-zero-config/src/main/java/org/apache/servicecomb/zeroconfig/multicast/MulticastServer.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      LOGGER.error("failed to receive or decode message.", e);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/collect/ConfigCenterDefaultDeploymentProvider.java`
-#### Snippet
-```java
-  public SystemBootstrapInfo getSystemBootStrapInfo(String systemKey) {
-    if (!systemKey.equals(SYSTEM_KEY_CONFIG_CENTER)) {
-      return null;
-    }
-    List<String> ccAddresses = ConfigUtil
-```
-
-### ReturnNull
-Return of `null`
-in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/collect/ConfigCenterDefaultDeploymentProvider.java`
-#### Snippet
-```java
-        .parseArrayValue(configuration.getString("servicecomb.config.client.serverUri"));
-    if (ccAddresses.isEmpty()) {
-      return null;
-    }
-    SystemBootstrapInfo cc = new SystemBootstrapInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/SwaggerEnum.java`
-#### Snippet
-```java
-  private <T extends Annotation> T findAnnotation(Annotation[] annotations, Class<T> cls) {
-    if (annotations == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersionRule.java`
-#### Snippet
-```java
-      Collection<MicroserviceInstance> allInstances) {
-    if (allInstances.isEmpty()) {
-      return allVersions.isEmpty() ? null : allVersions.values().stream()
-          .max(Comparator.comparing(MicroserviceVersion::getVersion))
-          .get();
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/ParameterProcessor.java`
-#### Snippet
-```java
-
-  default Type getGenericType(ANNOTATION parameterAnnotation) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/ModelResolverExt.java`
-#### Snippet
-```java
-    // property is not a model
-    if (propertyCreatorMap.containsKey(type.getRawClass())) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/extend/ModelResolverExt.java`
-#### Snippet
-```java
-    Model model = super.resolve(type, context, next);
-    if (model == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/model/HttpParameterType.java`
-#### Snippet
-```java
-  public static HttpParameterType parse(String value) {
-    if (StringUtils.isEmpty(value)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/parameter/ApiParamProcessor.java`
-#### Snippet
-```java
-  @Override
-  public HttpParameterType getHttpParameterType(ApiParam parameterAnnotation) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/response/DefaultResponseTypeProcessor.java`
-#### Snippet
-```java
-    Type responseType = extractResponseType(swaggerGenerator, operationGenerator, genericResponseType);
-    if (responseType == null || ReflectionUtils.isVoid(responseType)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/response/DefaultResponseTypeProcessor.java`
-#### Snippet
-```java
-  public Type getProcessType() {
-    // not care for this.
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/SwaggerUtils.java`
-#### Snippet
-```java
-  public static Map<String, Property> getBodyProperties(Swagger swagger, Parameter parameter) {
-    if (!(parameter instanceof BodyParameter)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/SwaggerUtils.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/SwaggerUtils.java`
-#### Snippet
-```java
-    Info info = swagger.getInfo();
-    if (info == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/SwaggerUtils.java`
-#### Snippet
-```java
-    String name = getInterfaceName(info.getVendorExtensions());
-    if (StringUtils.isEmpty(name)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/SwaggerUtils.java`
-#### Snippet
-```java
-  public static <T> T getVendorExtension(Map<String, Object> vendorExtensions, String key) {
-    if (vendorExtensions == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/SwaggerUtils.java`
-#### Snippet
-```java
-
-    if (!(model instanceof RefModel)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/SwaggerUtils.java`
-#### Snippet
-```java
-    String simpleRef = ((RefModel) model).getSimpleRef();
-    Model targetModel = swagger.getDefinitions().get(simpleRef);
-    return targetModel instanceof ModelImpl ? (ModelImpl) targetModel : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/unittest/UnitTestSwaggerUtils.java`
-#### Snippet
-```java
-    // 不允许成功
-    Assertions.assertEquals("not allowed run to here", "run to here");
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/parameter/EnumPostProcessor.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/parameter/JsonViewProcessor.java`
-#### Snippet
-```java
-  @Override
-  public HttpParameterType getHttpParameterType(Annotation parameterAnnotation) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/parameter/JsonViewProcessor.java`
-#### Snippet
-```java
-  @Override
-  public String getParameterName(Annotation parameterAnnotation) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/parameter/ApiImplicitParamProcessor.java`
-#### Snippet
-```java
-    if (ReflectionUtils.isVoid(dataTypeClass)) {
-      if (StringUtils.isEmpty(apiImplicitParam.dataType())) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/parameter/PartProcessor.java`
-#### Snippet
-```java
-  @Override
-  public String getParameterName(Annotation parameterAnnotation) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/SwaggerGeneratorUtils.java`
-#### Snippet
-```java
-    ParameterProcessor<Parameter, Annotation> processor = findParameterProcessors(type);
-    if (processor == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/parameter/PartArrayProcessor.java`
-#### Snippet
-```java
-  @Override
-  public String getParameterName(Annotation parameterAnnotation) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/parameter/RawJsonRequestBodyProcessor.java`
-#### Snippet
-```java
-      return rawJsonRequestBody.name();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-springmvc/src/main/java/org/apache/servicecomb/swagger/generator/springmvc/processor/annotation/RequestBodyAnnotationProcessor.java`
-#### Snippet
-```java
-  @Override
-  public String getParameterName(RequestBody parameterAnnotation) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-springmvc/src/main/java/org/apache/servicecomb/swagger/generator/springmvc/processor/annotation/RequestAttributeAnnotationProcessor.java`
-#### Snippet
-```java
-  @Override
-  protected String pureReadDefaultValue(RequestAttribute requestAttribute) {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-springmvc/src/main/java/org/apache/servicecomb/swagger/generator/springmvc/processor/annotation/RequestPartAnnotationProcessor.java`
-#### Snippet
-```java
-  @Override
-  protected String pureReadDefaultValue(RequestPart requestPart) {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-        && definition.getTokenUrl() == null
-        && definition.getScopes() == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-        .forEach(annotation -> addSecurityDefinition(definitionMap, annotation.key(), convertBasicAuth(annotation)));
-
-    return definitionMap.isEmpty() ? null : definitionMap;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-  private Info convertInfo(io.swagger.annotations.Info infoAnnotation) {
-    if (infoAnnotation == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-
-  private String emptyAsNull(@Nonnull String value) {
-    return value.isEmpty() ? null : value;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-
-    if (StringUtils.isEmpty(externalDocs.getUrl()) && StringUtils.isEmpty(externalDocs.getDescription())) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-  private List<Tag> convertTags(io.swagger.annotations.Tag[] tagArray) {
-    if (tagArray == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-        .map(this::convertTag)
-        .collect(Collectors.toList());
-    return tags.isEmpty() ? null : tags;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-  private SecuritySchemeDefinition convertApiKey(io.swagger.annotations.ApiKeyAuthDefinition annotation) {
-    if (StringUtils.isEmpty(annotation.name())) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-
-    if (StringUtils.isEmpty(license.getName()) && StringUtils.isEmpty(license.getUrl())) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-  private List<Scheme> convertSchemes(SwaggerDefinition.Scheme[] schemeArray) {
-    if (schemeArray == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-        StringUtils.isEmpty(contact.getUrl()) &&
-        StringUtils.isEmpty(contact.getEmail())) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/SwaggerDefinitionProcessor.java`
-#### Snippet
-```java
-  private SecuritySchemeDefinition convertBasicAuth(io.swagger.annotations.BasicAuthDefinition annotation) {
-    if (annotation.description().isEmpty()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/AnnotationUtils.java`
-#### Snippet
-```java
-  public static ResponseHeaderConfig convert(ResponseHeader responseHeader) {
-    if (StringUtils.isEmpty(responseHeader.name())) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/processor/annotation/AnnotationUtils.java`
-#### Snippet
-```java
-    Class<?> responseClass = config.getResponseClass();
-    if (responseClass == null || ReflectionUtils.isVoid(responseClass)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/router/match/RouterRuleMatcher.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/MatchersManager.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/marker/RequestProcessor.java`
-#### Snippet
-```java
-      return (CustomMatch) extractObject;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/handler/AbstractGovernanceHandler.java`
-#### Snippet
-```java
-    POLICY policy = matchPolicy(requestExtractor);
-    if (policy == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/handler/AbstractGovernanceHandler.java`
-#### Snippet
-```java
-    String key = createKey(requestExtractor, policy);
-    if (key == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
-#### Snippet
-```java
-            .getType();
-    if (ReflectionUtils.isVoid(responseType)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/handler/IdentifierRateLimitingHandler.java`
-#### Snippet
-```java
-        StringUtils.isEmpty(requestExtractor.header(policy.getIdentifier()))) {
-      LOGGER.info("identifier rate limiting is not properly configured, identifier is empty.");
-      return null;
-    }
-    return this.rateLimitProperties.getConfigKey()
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/handler/InstanceBulkheadHandler.java`
-#### Snippet
-```java
-        requestExtractor.instanceId())) {
-      LOGGER.info("Instance bulkhead is not properly configured, service id or instance id is empty.");
-      return null;
-    }
-    return matchersManager.match(requestExtractor, bulkheadProperties.getParsedEntity());
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/handler/InstanceIsolationHandler.java`
-#### Snippet
-```java
-        requestExtractor.instanceId())) {
-      LOGGER.debug("Isolation is not properly configured, service id or instance id is empty.");
-      return null;
-    }
-    return matchersManager.match(requestExtractor, instanceIsolationProperties.getParsedEntity());
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/service/GovernanceCacheImpl.java`
-#### Snippet
-```java
-    } catch (Exception exception) {
-      LOG.warn("Failed to get a value from Cache", exception);
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/processor/injection/Fault.java`
-#### Snippet
-```java
-              FaultResponse.createFail(fault.getPolicy().getErrorCode(), AbortFault.ABORTED_ERROR_MSG));
-        } else {
-          return null;
-        }
-      }
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
-#### Snippet
-```java
-  protected T parseEntityItem(String key, String value) {
-    if (StringUtils.isEmpty(value)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
-#### Snippet
-```java
-      if (!result.isValid()) {
-        LOGGER.warn("Entity configuration is not valid and ignored. Key [{}], value [{}]", key, value);
-        return null;
-      }
-      if (!servicesMatch(result.getServices())) {
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
-#### Snippet
-```java
-      if (!servicesMatch(result.getServices())) {
-        LOGGER.info("Configuration belongs to other service is ignored. Key [{}]", key);
-        return null;
-      }
-      return result;
-```
-
-### ReturnNull
-Return of `null`
-in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
-#### Snippet
-```java
-      LOGGER.error("governance config yaml is illegal : {}", e.getMessage());
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/bootup/FilterChainCollector.java`
-#### Snippet
-```java
-  @Override
-  public String collect() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/executor/ExecutorManager.java`
-#### Snippet
-```java
-    String id = DynamicPropertyFactory.getInstance().getStringProperty(configKey, null).get();
-    if (id == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/registry/discovery/EndpointDiscoveryFilter.java`
-#### Snippet
-```java
-    if (transport == null) {
-      LOGGER.info("not deployed transport {}, ignore {}.", transportName, endpoint);
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/definition/MicroserviceMeta.java`
-#### Snippet
-```java
-    List<SchemaMeta> schemaList = intfSchemaMetas.get(schemaIntf);
-    if (schemaList == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/Invocation.java`
-#### Snippet
-```java
-  public String getTransportName() {
-    if (endpoint == null || endpoint.getTransport() == null) {
-      return null;
-    }
-    return endpoint.getTransport().getName();
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/governance/ServiceCombCircuitBreakerExtension.java`
-#### Snippet
-```java
-  protected String extractStatusCode(Object result) {
-    if (!(result instanceof Response)) {
-      return null;
-    }
-    Response resp = (Response) result;
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/governance/MatchType.java`
-#### Snippet
-```java
-        }
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/governance/MatchType.java`
-#### Snippet
-```java
-        return invocation.getMicroserviceName();
-      }
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/governance/MatchType.java`
-#### Snippet
-```java
-      }
-
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/governance/ServiceCombRetryExtension.java`
-#### Snippet
-```java
-  protected String extractStatusCode(Object result) {
-    if (!(result instanceof Response)) {
-      return null;
-    }
-    Response resp = (Response) result;
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/invocation/endpoint/EndpointUtils.java`
-#### Snippet
-```java
-    String path = builder.getPath();
-    if (path == null) {
-      return null;
-    }
-    if (path.startsWith("/")) {
-```
-
-### ReturnNull
-Return of `null`
-in `core/src/main/java/org/apache/servicecomb/core/transport/AbstractTransport.java`
-#### Snippet
-```java
-  public Object parseAddress(String address) {
-    if (address == null) {
-      return null;
-    }
-    return new URIEndpointObject(address);
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/SchemaDiscovery.java`
-#### Snippet
-```java
-  @Override
-  public Microservice getMicroservice(String microserviceId) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/SchemaDiscovery.java`
-#### Snippet
-```java
-  public String getSchema(String microserviceId, Collection<MicroserviceInstance> instances, String schemaId) {
-    if (instances == null || instances.isEmpty()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/SchemaDiscovery.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/SchemaDiscovery.java`
-#### Snippet
-```java
-  @Override
-  public List<Microservice> getAllMicroservices() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/SchemaDiscovery.java`
-#### Snippet
-```java
-  @Override
-  public MicroserviceInstance getMicroserviceInstance(String serviceId, String instanceId) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-spi/src/main/java/org/apache/servicecomb/foundation/common/utils/SPIServiceUtils.java`
-#### Snippet
-```java
-    if (services.isEmpty()) {
-      LOGGER.info("Can not find SPI service for {}", serviceType.getName());
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-spi/src/main/java/org/apache/servicecomb/foundation/common/utils/SPIServiceUtils.java`
-#### Snippet
-```java
-    if (services.isEmpty()) {
-      LOGGER.info("Can not find SPI service for {}", serviceType.getName());
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-spi/src/main/java/org/apache/servicecomb/foundation/common/utils/SPIServiceUtils.java`
-#### Snippet
-```java
-    if (services.isEmpty()) {
-      LOGGER.info("Can not find SPI service for {}", serviceType.getName());
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/EmptyAsyncContext.java`
-#### Snippet
-```java
-  @Override
-  public ServletRequest getRequest() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/EmptyAsyncContext.java`
-#### Snippet
-```java
-  @Override
-  public <T extends AsyncListener> T createListener(Class<T> clazz) throws ServletException {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/EmptyAsyncContext.java`
-#### Snippet
-```java
-  @Override
-  public ServletResponse getResponse() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/StandardHttpServletRequestEx.java`
-#### Snippet
-```java
-  public String getParameter(String name) {
-    String[] values = getParameterMap().get(name);
-    return values == null ? null : values[0];
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/VertxServerRequestToHttpServletRequest.java`
-#### Snippet
-```java
-    }
-    if (context.body().buffer() == null) {
-      return null;
-    }
-    inputStream = new BufferInputStream(context.body().buffer().getByteBuf());
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/VertxServerRequestToHttpServletRequest.java`
-#### Snippet
-```java
-    if (parameterMap != null) {
-      String[] values = parameterMap.get(name);
-      return values == null ? null : values[0];
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/VertxServerRequestToHttpServletRequest.java`
-#### Snippet
-```java
-    if (!upload.isPresent()) {
-      LOGGER.debug("No such file with name: {}.", name);
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/client/http/HttpClients.java`
-#### Snippet
-```java
-    if (poolManager == null) {
-      LOGGER.error("client name [{}] not exists, should only happen in tests.", clientName);
-      return null;
-    }
-    return poolManager.findClientPool(sync, targetContext);
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/client/tcp/TcpClientConnection.java`
-#### Snippet
-```java
-
-  protected TcpOutputStream createLogin() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dynamic-config/config-kie/src/main/java/org/apache/servicecomb/config/kie/collect/KieCenterDefaultDeploymentProvider.java`
-#### Snippet
-```java
-  public SystemBootstrapInfo getSystemBootStrapInfo(String systemKey) {
-    if (!systemKey.equals(SYSTEM_KEY_KIE_CENTER)) {
-      return null;
-    }
-    List<String> kieAddresses = ConfigUtil
-```
-
-### ReturnNull
-Return of `null`
-in `dynamic-config/config-kie/src/main/java/org/apache/servicecomb/config/kie/collect/KieCenterDefaultDeploymentProvider.java`
-#### Snippet
-```java
-        .parseArrayValue(configuration.getString("servicecomb.kie.serverUri"));
-    if (kieAddresses.isEmpty()) {
-      return null;
-    }
-    SystemBootstrapInfo kie = new SystemBootstrapInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-flowcontrol-qps/src/main/java/org/apache/servicecomb/qps/strategy/DefaultStrategyFactory.java`
-#### Snippet
-```java
-        return new FixedWindowStrategy();
-      default:
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `deployment/src/main/java/org/apache/servicecomb/deployment/Deployment.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-flowcontrol-qps/src/main/java/org/apache/servicecomb/qps/QpsControllerManager.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `dynamic-config/config-nacos/src/main/java/org/apache/servicecomb/config/nacos/client/NacosClient.java`
-#### Snippet
-```java
-              @Override
-              public Executor getExecutor() {
-                return null;
-              }
-            });
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/RestProducerInvocationFlow.java`
-#### Snippet
-```java
-
-    flushResponse("UNKNOWN_OPERATION");
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/PathProcessorCreator.java`
-#### Snippet
-```java
-      Map<String, String> pathVarMap = (Map<String, String>) request.getAttribute(RestConst.PATH_PARAMETERS);
-      if (pathVarMap == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/PathProcessorCreator.java`
-#### Snippet
-```java
-      String value = pathVarMap.get(paramPath);
-      if (value == null) {
-        return null;
-      }
-      return convertValue(StringUtils.uriDecode(value, StandardCharsets.UTF_8), targetType);
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/ParamValueProcessor.java`
-#### Snippet
-```java
-
-  default Class<?> getSerialViewClass() {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/QueryProcessorCreator.java`
-#### Snippet
-```java
-      }
-
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/HeaderProcessorCreator.java`
-#### Snippet
-```java
-        if (headerValues == null) {
-          //Even if the paramPath does not exist, headerValues won't be null at now
-          return null;
-        }
-        return convertValue(Collections.list(headerValues), targetType);
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/query/QueryCodecJson.java`
-#### Snippet
-```java
-    Object value = processor.getAndCheckParameter(request);
-    if (value == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/produce/ProduceProcessor.java`
-#### Snippet
-```java
-  default Buffer encodeResponse(Object result) throws Exception {
-    if (null == result) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/produce/ProduceProcessor.java`
-#### Snippet
-```java
-  default Object decodeResponse(Buffer buffer, JavaType type) throws Exception {
-    if (buffer.length() == 0) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/query/QueryCodecWithDelimiter.java`
-#### Snippet
-```java
-    }
-
-    return hasValue ? QueryCodec.encodeValue(joiner.toString()) : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
-#### Snippet
-```java
-          .getMessage()
-          + "; content = " + response.getContent());
-      return null;
-    } catch (IOException e) {
-      throw new OperationException(
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/BodyProcessorCreator.java`
-#### Snippet
-```java
-      InputStream inputStream = request.getInputStream();
-      if (inputStream == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/BodyProcessorCreator.java`
-#### Snippet
-```java
-      InputStream inputStream = request.getInputStream();
-      if (inputStream == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/BodyProcessorCreator.java`
-#### Snippet
-```java
-        if (!isRequired && e.getMessage().contains("No content to map due to end-of-input")) {
-          LOGGER.info("Empty content and required is false, taken as null");
-          return null;
-        }
-        throw e;
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/filter/inner/ClientRestArgsFilter.java`
-#### Snippet
-```java
-  @Override
-  public Response afterReceiveResponse(Invocation invocation, HttpServletResponseEx responseEx) {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/filter/inner/ServerRestArgsFilter.java`
-#### Snippet
-```java
-    Map<String, Object> swaggerArguments = RestCodec.restToArgs(requestEx, restOperationMeta);
-    invocation.setSwaggerArguments(swaggerArguments);
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/produce/ProduceProcessorManager.java`
-#### Snippet
-```java
-    Map<String, ProduceProcessor> viewMap = findValue(acceptType);
-    if (CollectionUtils.isEmpty(viewMap)) {
-      return null;
-    }
-    if (serialViewClass == null) {
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/resource/ClassPathStaticResourceHandler.java`
-#### Snippet
-```java
-    URL url = this.getClass().getClassLoader().getResource(path);
-    if (url == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/locator/OperationLocator.java`
-#### Snippet
-```java
-    OperationGroup group = staticPathOperations.get(path);
-    if (group == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/locator/OperationLocator.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestParam.java`
-#### Snippet
-```java
-    Object value = args.get(paramName);
-    if (value == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/path/PathRegExp.java`
-#### Snippet
-```java
-    Matcher matcher = pattern.matcher(path);
-    if (!matcher.matches()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationMeta.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationMeta.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      LOGGER.error(e.getMessage());
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/RegistryUtils.java`
-#### Snippet
-```java
-        return microserviceInstances;
-      default:
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/RegistryUtils.java`
-#### Snippet
-```java
-    );
-    return MicroserviceCacheStatus.SERVICE_NOT_FOUND.equals(serviceCache.getStatus()) ?
-        null : serviceCache.getInstances();
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/auth/TokenCacheManager.java`
-#### Snippet
-```java
-    public String getToken() {
-      if (!enabled()) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/auth/TokenCacheManager.java`
-#### Snippet
-```java
-      } catch (Exception e) {
-        LOGGER.error("failed to create token", e);
-        return null;
-      }
-    }
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RegistryHttpClientOptionsSPI.java`
-#### Snippet
-```java
-  @Override
-  public ConcurrentCompositeConfiguration getConfigReader() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/collect/ServiceCenterDefaultDeploymentProvider.java`
-#### Snippet
-```java
-  public SystemBootstrapInfo getSystemBootStrapInfo(String systemKey) {
-    if (!systemKey.equals(SYSTEM_KEY_SERVICE_CENTER)) {
-      return null;
-    }
-    SystemBootstrapInfo sc = new SystemBootstrapInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/refresh/ClassificationAddress.java`
-#### Snippet
-```java
-    } else {
-      if (kieCaches.getInstanceMap().size() <= 0) {
-        return null;
-      }
-      cacheEndpoints = kieCaches.getOrCreateTransportMap().get(defaultTransport);
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/refresh/ClassificationAddress.java`
-#### Snippet
-```java
-    MicroserviceInstance myself = RegistrationManager.INSTANCE.getMicroserviceInstance();
-    if (myself.getDataCenterInfo() == null) {
-      return null;
-    }
-    return myself.getDataCenterInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/AbstractServiceRegistry.java`
-#### Snippet
-```java
-    MicroserviceInstances instances = findServiceInstances(appId, serviceName, versionRule);
-    if (instances == null || instances.isMicroserviceNotExist()) {
-      return null;
-    }
-    return instances.getInstancesResponse().getInstances();
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/BootStrapProperties.java`
-#### Snippet
-```java
-
-    if (null == descriptionArray || descriptionArray.length < 1) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/PriorityProperty.java`
-#### Snippet
-```java
-
-    if (Objects.equals(lastValue, value)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/RoundRobinRuleExt.java`
-#### Snippet
-```java
-  public ServiceCombServer choose(List<ServiceCombServer> servers, Invocation invocation) {
-    if (servers.isEmpty()) {
-      return null;
-    }
-    int index = Math.abs(counter.getAndIncrement()) % servers.size();
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/ExtensionsFactory.java`
-#### Snippet
-```java
-
-  default RuleExt createLoadBalancerRule(String ruleName) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/ExtensionsFactory.java`
-#### Snippet
-```java
-
-  default ServerListFilterExt createServerListFilter(String key, String value, Object... args) {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/RandomRuleExt.java`
-#### Snippet
-```java
-  public ServiceCombServer choose(List<ServiceCombServer> servers, Invocation invocation) {
-    if (servers.isEmpty()) {
-      return null;
-    }
-    int index = Math.abs(ThreadLocalRandom.current().nextInt()) % servers.size();
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java`
-#### Snippet
-```java
-    if (ConfigurationManager.isConfigurationInstalled()) {
-      LOGGER.warn("Configuration installed by others, will ignore this configuration.");
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java`
-#### Snippet
-```java
-    if (null == configCenterConfigurationSource) {
-      LOGGER.info("none of config center source enabled.");
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java`
-#### Snippet
-```java
-      return configuration.getProperty(key);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/LoadBalancer.java`
-#### Snippet
-```java
-    ServiceCombServer server = rule.choose(servers, invocation);
-    if (null == server) {
-      return null;
-    }
-    return server;
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/filter/ServerDiscoveryFilter.java`
-#### Snippet
-```java
-    if (transport == null) {
-      LOGGER.info("not deployed transport {}, ignore {}.", transportName, endpoint);
-      return null;
-    }
-    Invocation invocation = context.getInputParameters();
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-springmvc/src/main/java/org/apache/servicecomb/swagger/invocation/converter/PartListToMultipartListConverter.java`
-#### Snippet
-```java
-  public Object convert(Object value) {
-    if (value == null) {
-      return null;
-    }
-    @SuppressWarnings("unchecked")
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-springmvc/src/main/java/org/apache/servicecomb/swagger/invocation/converter/PartToMultipartConverter.java`
-#### Snippet
-```java
-  public Object convert(Object value) {
-    if (value == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-springmvc/src/main/java/org/apache/servicecomb/swagger/invocation/converter/PartListToMultipartArrayConverter.java`
-#### Snippet
-```java
-  public Object convert(Object value) {
-    if (value == null) {
-      return null;
-    }
-    @SuppressWarnings("unchecked")
-```
-
-### ReturnNull
-Return of `null`
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/MonitorDefaultDeploymentProvider.java`
-#### Snippet
-```java
-  public SystemBootstrapInfo getSystemBootStrapInfo(String systemKey) {
-    if (!systemKey.equals(MonitorConstant.SYSTEM_KEY_DASHBOARD_SERVICE)) {
-      return null;
-    }
-    List<String> msAddresses = ConfigUtil.parseArrayValue(configuration.getString(MonitorConstant.MONITOR_URI));
-```
-
-### ReturnNull
-Return of `null`
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/MonitorDefaultDeploymentProvider.java`
-#### Snippet
-```java
-    List<String> msAddresses = ConfigUtil.parseArrayValue(configuration.getString(MonitorConstant.MONITOR_URI));
-    if (msAddresses.isEmpty()) {
-      return null;
-    }
-    SystemBootstrapInfo ms = new SystemBootstrapInfo();
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-lightweight/src/main/java/org/apache/servicecomb/registry/lightweight/store/Store.java`
-#### Snippet
-```java
-    MicroserviceStore microserviceStore = findMicroserviceStore(serviceId);
-    if (microserviceStore == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/DefaultTagFinder.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/registry/GlobalRegistry.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/MeasurementNode.java`
-#### Snippet
-```java
-  public MeasurementNode findChild(String childName) {
-    if (children == null) {
-      return null;
-    }
-    return children.get(childName);
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/MeasurementNode.java`
-#### Snippet
-```java
-    for (String childName : childNames) {
-      if (node == null) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/time/MockClock.java`
-#### Snippet
-```java
-  @Override
-  public Instant instant() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/time/MockClock.java`
-#### Snippet
-```java
-  @Override
-  public ZoneId getZone() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/time/MockClock.java`
-#### Snippet
-```java
-  @Override
-  public Clock withZone(ZoneId zone) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/HighwayProducerInvocationFlow.java`
-#### Snippet
-```java
-  protected Invocation sendCreateInvocationException(Throwable throwable) {
-    logException(throwable);
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/HighwayServerConnection.java`
-#### Snippet
-```java
-
-      netSocket.close();
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/ModelAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SerializableParameterAdapter.java`
-#### Snippet
-```java
-  @Override
-  public Property getMapItem() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/ModelAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SerializableParameterAdapter.java`
-#### Snippet
-```java
-  @Override
-  public String getRefType() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/ModelAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SerializableParameterAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/ModelAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/ModelAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/message/Headers.java`
-#### Snippet
-```java
-  public Object getFirst(String name) {
-    if (headerMap == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/message/Headers.java`
-#### Snippet
-```java
-    List<Object> values = headerMap.get(name);
-    if (values == null || values.isEmpty()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-highway/src/main/java/org/apache/servicecomb/transport/highway/message/Headers.java`
-#### Snippet
-```java
-  public List<Object> getHeader(String name) {
-    if (headerMap == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/PropertyAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/PropertyAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/PropertyAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-      LOGGER.error("query servicecenter version info failed.", e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-    MicroserviceInstances instances = findServiceInstances(consumerId, appId, serviceName, versionRule, null);
-    if (instances == null) {
-      return null;
-    }
-    return instances.getInstancesResponse().getInstances();
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-      LOGGER.error("query microservice instances {} failed", providerId, e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-      LOGGER.error("register microservice instance {} failed", instance.getServiceId(), e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-          e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/BodyParameterAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-      LOGGER.error("query microservice {} failed", microserviceId, e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-          e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/BodyParameterAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-          e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/BodyParameterAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-      }
-      if (microserviceInstances.getInstancesResponse() == null) {
-        return null; // error
-      }
-      List<MicroserviceInstance> list = microserviceInstances.getInstancesResponse().getInstances();
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/BodyParameterAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-          e);
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/BodyParameterAdapter.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-        return holder.value.getInstance();
-      }
-      return null;
-    } catch (Exception e) {
-      LOGGER.error("get instance from sc failed");
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      LOGGER.error("get instance from sc failed");
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/definition/HighwayJsonUtils.java`
-#### Snippet
-```java
-  public static <T> T convertValue(Object fromValue, JavaType toValueType) {
-    if (fromValue == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/definition/ResponseRootDeserializer.java`
-#### Snippet
-```java
-    if (empty) {
-      rootDeserializer.deserialize(bytes); // read buffers if possible.
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/SchemaReader.java`
-#### Snippet
-```java
-   */
-  default T newMessage() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/runtime/ArrayFieldMapEx.java`
-#### Snippet
-```java
-  @Override
-  public FieldSchema<T> getFieldByNumber(int n) {
-    return n < fieldsByNumber.length ? fieldsByNumber[n] : null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/bean/BeanDescriptor.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/bean/BeanDescriptor.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/ProtoMapper.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/any/AnyEntrySchema.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
-#### Snippet
-```java
-      return enumName;
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
-#### Snippet
-```java
-        throw new IllegalStateException("not support swagger type: " + swaggerType);
-      default:
-        return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/SerializerSchemaManager.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportWrite(protoField, propertyDescriptor.getJavaType().getRawClass());
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/SInt32ReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/Fixed64ReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/EnumsReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/SFixed32ReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/BoolReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/BytesReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/DoubleReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/UInt64ReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/SFixed64ReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/Int32ReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/Fixed32ReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/UInt32ReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/SInt64ReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/StringReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/scalar/FloatReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/repeated/RepeatedReadSchemas.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportMerge(protoField, javaType);
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/deserializer/DeserializerSchemaManager.java`
-#### Snippet
-```java
-    }
-    ProtoUtils.throwNotSupportMerge(protoField, propertyDescriptor.getJavaType());
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseRequestCallback.java`
-#### Snippet
-```java
-      //    .postForObject("/testListObjectParam", request, List.class);
-      // will using server schema type to deserialize
-      return null;
-    }
-    // code: MyObject response = .postForObject("/testListObjectParam", request, MyObject.class);
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncClientHttpRequest.java`
-#### Snippet
-```java
-  @Override
-  public OutputStream getBody() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/DarklaunchRule.java`
-#### Snippet
-```java
-  public static DarklaunchRule parse(String ruleStr) {
-    if (StringUtils.isEmpty(ruleStr)) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/DarklaunchRule.java`
-#### Snippet
-```java
-      LOG.warn("Invalid configuration: rule={},message={}", ruleStr, e.getMessage());
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/DarklaunchServerListFilter.java`
-#### Snippet
-```java
-      return item.getServers();
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
-#### Snippet
-```java
-    Microservice microservice = microserviceMap.get(microserviceId);
-    if (microservice == null) {
-      return null;
-    }
-    return microserviceMap.get(microserviceId).getSchemaMap().get(schemaId);
-```
-
-### ReturnNull
-Return of `null`
-in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
-#### Snippet
-```java
-    Map<String, MicroserviceInstance> microserviceInstance = microserviceInstanceMap.get(serviceId);
-    if (microserviceInstance == null) {
-      return null;
-    }
-    return microserviceInstanceMap.get(serviceId).get(instanceId);
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseClientHttpRequest.java`
-#### Snippet
-```java
-  @Override
-  public OutputStream getBody() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/element/impl/InvocationContextAccessItem.java`
-#### Snippet
-```java
-    Map<String, Object> data = accessLogEvent.getRoutingContext().data();
-    if (null == data || null == data.get(RestConst.REST_INVOCATION_CONTEXT)) {
-      return null;
-    }
-    return ((Invocation) data.get(RestConst.REST_INVOCATION_CONTEXT)).getContext(varName);
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/parser/impl/VertxRestAccessLogPatternParser.java`
-#### Snippet
-```java
-    public String getPrefix() {
-      if (null == accessLogItemMeta) {
-        return null;
-      }
-      return accessLogItemMeta.getPrefix();
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/parser/impl/VertxRestAccessLogPatternParser.java`
-#### Snippet
-```java
-    public String getSuffix() {
-      if (null == accessLogItemMeta) {
-        return null;
-      }
-      return accessLogItemMeta.getSuffix();
-```
-
-### ReturnNull
-Return of `null`
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/parser/impl/VertxRestAccessLogPatternParser.java`
-#### Snippet
-```java
-    if (null == accessLogItemLocation.getSuffix()) {
-      // simple AccessLogItem
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/SchemaManager.java`
-#### Snippet
-```java
-
-    ProtoUtils.throwNotSupportWrite(protoField, propertyDescriptor.getJavaType().getRawClass());
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/PublishModelFactory.java`
-#### Snippet
-```java
-    MeasurementNode node = tree.findChild(MeterInvocationConst.INVOCATION_NAME, invocationTypeName);
-    if (node == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-  @Override
-  public ServletInputStream getInputStream() throws IOException {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-    Object value = form.get(name);
-    if (value == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-      Collection<?> collection = (Collection<?>) value;
-      if (collection.isEmpty()) {
-        return null;
-      }
-
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-    List<String> queryValues = queryParams.get(name);
-    if (queryValues == null || queryValues.isEmpty()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-    List<String> headerValues = httpHeaders.get(name);
-    if (headerValues == null || headerValues.isEmpty()) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/RestClientDecoder.java`
-#### Snippet
-```java
-    String contentType = response.getHeader(HttpHeaders.CONTENT_TYPE);
-    if (contentType == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/HttpTransportHttpClientOptionsSPI.java`
-#### Snippet
-```java
-  @Override
-  public String getProxyPassword() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/HttpTransportHttpClientOptionsSPI.java`
-#### Snippet
-```java
-  @Override
-  public String getProxyHost() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/HttpTransportHttpClientOptionsSPI.java`
-#### Snippet
-```java
-  @Override
-  public String getProxyUsername() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/HttpTransportHttpClientOptionsSPI.java`
-#### Snippet
-```java
-  @Override
-  public ConcurrentCompositeConfiguration getConfigReader() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/http/DefaultHttpClientFilter.java`
-#### Snippet
-```java
-    String contentType = responseEx.getHeader(HttpHeaders.CONTENT_TYPE);
-    if (contentType == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/EdgeAddHeaderClientFilter.java`
-#### Snippet
-```java
-  @Override
-  public Response afterReceiveResponse(Invocation invocation, HttpServletResponseEx responseEx) {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/RestProducerProvider.java`
-#### Snippet
-```java
-    // for some UT case, there is no spring context
-    if (BeanUtils.getContext() == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/URLMappedEdgeDispatcher.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/engine/SwaggerConsumer.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/CommonHttpEdgeDispatcher.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/InvocationToHttpServletRequest.java`
-#### Snippet
-```java
-  @Override
-  public String getCharacterEncoding() {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/InvocationToHttpServletRequest.java`
-#### Snippet
-```java
-  @Override
-  public String getContentType() {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/InvocationToHttpServletRequest.java`
-#### Snippet
-```java
-    RestParam param = swaggerOperation.getParamByName(name);
-    if (param == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/InvocationToHttpServletRequest.java`
-#### Snippet
-```java
-    RestParam param = swaggerOperation.getParamByName(name);
-    if (param == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/InvocationToHttpServletRequest.java`
-#### Snippet
-```java
-    Object value = param.getValue(invocation.getSwaggerArguments());
-    if (value == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/context/ContextUtils.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/Response.java`
-#### Snippet
-```java
-  public List<String> getHeaders(String name) {
-    if (headers == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/Response.java`
-#### Snippet
-```java
-  public String getHeader(String name) {
-    if (headers == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
-#### Snippet
-```java
-    }
-
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/converter/impl/part/PartListToPartArrayConverter.java`
-#### Snippet
-```java
-  public Object convert(Object value) {
-    if (value == null) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/DefaultExceptionToProducerResponseConverter.java`
-#### Snippet
-```java
-  public Class<Throwable> getExceptionClass() {
-    // default logic, not bind to special class
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/generator/ScbResponseProcessor.java`
-#### Snippet
-```java
-  public Type extractResponseType(SwaggerGenerator swaggerGenerator, OperationGenerator operationGenerator,
-      Type genericResponseType) {
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `swagger/swagger-generator/generator-jaxrs/src/main/java/org/apache/servicecomb/swagger/generator/jaxrs/processor/response/JaxrsResponseProcessor.java`
-#### Snippet
-```java
-  @Override
-  public Type extractResponseType(Type genericResponseType) {
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/HttpResponse.java`
-#### Snippet
-```java
-  public String getHeader(String key) {
-    if (headers == null) {
-      return null;
-    }
-    for (Header header : headers) {
-```
-
-### ReturnNull
-Return of `null`
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/HttpResponse.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-}
-```
-
-### ReturnNull
-Return of `null`
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/URLEndPoint.java`
-#### Snippet
-```java
-    List<String> values = querys.get(key);
-    if (values == null) {
-      return null;
-    }
-    return values.get(0);
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestServletInjector.java`
-#### Snippet
-```java
-    if (urlPatterns.length == 0) {
-      LOGGER.warn("urlPattern is empty, ignore register {}.", SERVLET_NAME);
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestServletInjector.java`
-#### Snippet
-```java
-    if (!ServletUtils.canPublishEndpoint(listenAddress)) {
-      LOGGER.warn("ignore register {}.", SERVLET_NAME);
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterInvokeFilter.java`
-#### Snippet
-```java
-      HttpServletRequestEx httpServletRequestEx) {
-    if (!StringUtils.isEmpty(invocation.getContext(RouterServerListFilter.ROUTER_HEADER))) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterInvokeFilter.java`
-#### Snippet
-```java
-
-    if (!isHaveHeadersRule()) {
-      return null;
-    }
-    if (loadHeaders()) {
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterInvokeFilter.java`
-#### Snippet
-```java
-      }
-    }
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
-#### Snippet
-```java
-    String[] urlPatterns = collectUrlPatterns(servletContext, servletCls);
-    if (urlPatterns.length == 0) {
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
-#### Snippet
-```java
-      Class<?> servletCls) {
-    if (servletContext == null) {
-      return null;
-    }
-    return servletContext.getServletRegistrations()
-```
-
-### ReturnNull
-Return of `null`
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/HttpTransportImpl.java`
-#### Snippet
-```java
-  private static SignRequest createSignRequest() {
-    // Now the implementations do not process SignRequest, so return null. Maybe future will use it.
-    return null;
-  }
-
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/RSAAuthenticationToken.java`
-#### Snippet
-```java
-    String[] tokenArr = token.split("@");
-    if (tokenArr.length != 5) {
-      return null;
-    }
-    return new RSAAuthenticationToken(tokenArr[0], tokenArr[1],
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerTokenManager.java`
-#### Snippet
-```java
-    if (instanceId == null || serviceId == null) {
-      LOGGER.error("service not ready when create token.");
-      return null;
-    }
-
-```
-
-### ReturnNull
-Return of `null`
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerTokenManager.java`
-#### Snippet
-```java
-    } catch (Exception e) {
-      LOGGER.error("create token error", e);
-      return null;
-    }
-    return token.format();
-```
-
-### ReturnNull
-Return of `null`
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/AbstractAddressManager.java`
-#### Snippet
-```java
-      return new URI(uri);
-    } catch (URISyntaxException e) {
-      return null;
-    }
-  }
-```
-
-### ReturnNull
-Return of `null`
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/AbstractAddressManager.java`
-#### Snippet
-```java
-  private String getInitAddress() {
-    if (addresses.isEmpty()) {
-      return null;
-    }
-    return getCurrentAddress(addresses);
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on method parameter `parent`
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/discovery/AbstractDiscoveryFilter.java`
+#### Snippet
+```java
+  public DiscoveryTreeNode discovery(DiscoveryContext context, DiscoveryTreeNode parent) {
+    if (!parent.childrenInited()) {
+      synchronized (parent) {
+        if (!parent.childrenInited()) {
+          init(context, parent);
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
+### UnnecessaryLocalVariable
+Local variable `api` is redundant
+in `dynamic-config/config-apollo/src/main/java/org/apache/servicecomb/config/client/ApolloClient.java`
+#### Snippet
+```java
+
+    private String composeAPI() {
+      String api = serviceUri + "/openapi/v1/envs/" + env +
+          "/apps/" + serviceName +
+          "/clusters/" + clusters +
+```
+
 ### UnnecessaryLocalVariable
 Local variable `custom` is redundant
 in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/SSLCustom.java`
@@ -16878,42 +6998,6 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
           InetSocketAddress tmpSocketAddress = new InetSocketAddress(hostOrIp, port);
           socketAddress = tmpSocketAddress;
         }
-```
-
-### UnnecessaryLocalVariable
-Local variable `loadBalance` is redundant
-in `governance/src/main/java/org/apache/servicecomb/governance/processor/loadbanlance/LoadBalance.java`
-#### Snippet
-```java
-
-  static LoadBalance getLoadBalance(String key, LoadBalancerPolicy policy) {
-    LoadBalance loadBalance = new LoadBalanceImpl(policy.getRule());
-    return loadBalance;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `api` is redundant
-in `dynamic-config/config-apollo/src/main/java/org/apache/servicecomb/config/client/ApolloClient.java`
-#### Snippet
-```java
-
-    private String composeAPI() {
-      String api = serviceUri + "/openapi/v1/envs/" + env +
-          "/apps/" + serviceName +
-          "/clusters/" + clusters +
-```
-
-### UnnecessaryLocalVariable
-Local variable `config` is redundant
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java`
-#### Snippet
-```java
-    }
-
-    ConcurrentCompositeConfiguration config = ConfigUtil.createLocalConfig(loader.getConfigModels());
-    return config;
-  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -16940,378 +7024,149 @@ in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/s
   }
 ```
 
-## RuleId[id=ClassCanBeRecord]
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/KeyPairEntry.java`
-#### Snippet
-```java
-import java.security.PublicKey;
-
-public final class KeyPairEntry {
-
-  private final PrivateKey privateKey;
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/event/CreateMicroserviceEvent.java`
-#### Snippet
-```java
-import org.apache.servicecomb.registry.consumer.MicroserviceVersions;
-
-public class CreateMicroserviceEvent {
-  private final MicroserviceVersions microserviceVersions;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/event/DestroyMicroserviceEvent.java`
-#### Snippet
-```java
-import org.apache.servicecomb.registry.consumer.MicroserviceVersions;
-
-public class DestroyMicroserviceEvent {
-  private final MicroserviceVersions microserviceVersions;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/event/CreateMicroserviceVersionEvent.java`
-#### Snippet
-```java
-import org.apache.servicecomb.registry.consumer.MicroserviceVersion;
-
-public class CreateMicroserviceVersionEvent {
-  private final MicroserviceVersion microserviceVersion;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/event/MicroserviceInstanceRegisteredEvent.java`
-#### Snippet
-```java
- * when registration is ready, should post this event.
- */
-public class MicroserviceInstanceRegisteredEvent {
-  private final String registrationName;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/event/DestroyMicroserviceVersionEvent.java`
-#### Snippet
-```java
-import org.apache.servicecomb.registry.consumer.MicroserviceVersion;
-
-public class DestroyMicroserviceVersionEvent {
-  private final MicroserviceVersion microserviceVersion;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/cache/CacheEndpoint.java`
-#### Snippet
-```java
-import org.apache.servicecomb.registry.api.registry.MicroserviceInstance;
-
-public class CacheEndpoint {
-  // 所属的服务实例
-  private final MicroserviceInstance instance;
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `governance/src/main/java/org/apache/servicecomb/governance/event/GovernanceConfigurationChangedEvent.java`
-#### Snippet
-```java
-import java.util.Set;
-
-public class GovernanceConfigurationChangedEvent {
-  private final Set<String> changedConfigurations;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `governance/src/main/java/org/apache/servicecomb/governance/processor/loadbanlance/LoadBalanceImpl.java`
-#### Snippet
-```java
-package org.apache.servicecomb.governance.processor.loadbanlance;
-
-public class LoadBalanceImpl implements LoadBalance {
-  private final String rule;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `core/src/main/java/org/apache/servicecomb/core/governance/MatchType.java`
+### UnnecessaryLocalVariable
+Local variable `loadBalance` is redundant
+in `governance/src/main/java/org/apache/servicecomb/governance/processor/loadbanlance/LoadBalance.java`
 #### Snippet
 ```java
 
-public final class MatchType {
-  private static class GovernanceRequestExtractorImpl implements GovernanceRequestExtractor {
-    private final Invocation invocation;
-
+  static LoadBalance getLoadBalance(String key, LoadBalancerPolicy policy) {
+    LoadBalance loadBalance = new LoadBalanceImpl(policy.getRule());
+    return loadBalance;
+  }
 ```
 
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/client/http/HttpClientWithContext.java`
-#### Snippet
-```java
-import io.vertx.core.http.HttpClient;
-
-public class HttpClientWithContext {
-  public interface RunHandler {
-    void run(HttpClient httpClient);
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/metrics/DefaultHttpServerMetrics.java`
-#### Snippet
-```java
- * important: not singleton, every HttpServer instance relate to an HttpServerMetrics instance
- */
-public class DefaultHttpServerMetrics implements
-    HttpServerMetrics<DefaultRequestMetric, Object, DefaultTcpSocketMetric> {
-  private final DefaultServerEndpointMetric endpointMetric;
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/metrics/DefaultClientMetrics.java`
-#### Snippet
-```java
-import io.vertx.core.spi.observability.HttpResponse;
-
-public class DefaultClientMetrics implements
-    ClientMetrics<DefaultRequestMetric, DefaultClientTaskMetric, HttpRequest, HttpResponse> {
-  private final DefaultClientEndpointMetric clientEndpointMetric;
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/metrics/DefaultTcpServerMetrics.java`
-#### Snippet
-```java
- * important: not singleton, every NetServer instance relate to a TcpServerMetrics instance
- */
-public class DefaultTcpServerMetrics implements TCPMetrics<DefaultTcpSocketMetric> {
-  private final DefaultServerEndpointMetric endpointMetric;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/event/ExceptionEvent.java`
-#### Snippet
-```java
-package org.apache.servicecomb.serviceregistry.event;
-
-public class ExceptionEvent {
-  private final Throwable throwable;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/registry/cache/MicroserviceCacheRefreshedEvent.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class MicroserviceCacheRefreshedEvent {
-  private final List<MicroserviceCache> microserviceCaches;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/event/RefreshGovernanceConfigurationEvent.java`
-#### Snippet
-```java
-import com.netflix.config.WatchedUpdateResult;
-
-public class RefreshGovernanceConfigurationEvent {
-  private final WatchedUpdateResult event;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/event/DynamicConfigurationChangedEvent.java`
-#### Snippet
-```java
-import com.netflix.config.WatchedUpdateResult;
-
-public class DynamicConfigurationChangedEvent {
-  private final WatchedUpdateResult event;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/archaius/sources/MicroserviceConfigurationSource.java`
-#### Snippet
-```java
-import com.netflix.config.PolledConfigurationSource;
-
-public class MicroserviceConfigurationSource implements PolledConfigurationSource {
-  private final List<ConfigModel> configModels;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/PriorityPropertyType.java`
-#### Snippet
-```java
-import java.util.Objects;
-
-public class PriorityPropertyType<T> {
-  private final Type type;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/ConfigObject.java`
-#### Snippet
-```java
-import java.util.List;
-
-public class ConfigObject<T> {
-  private final T instance;
-
-```
-
-### ClassCanBeRecord
-Class can be a record
+### UnnecessaryLocalVariable
+Local variable `config` is redundant
 in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java`
 #### Snippet
 ```java
+    }
+
+    ConcurrentCompositeConfiguration config = ConfigUtil.createLocalConfig(loader.getConfigModels());
+    return config;
+  }
+```
+
+## RuleId[id=ArraysAsListWithZeroOrOneArgument]
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `core/src/main/java/org/apache/servicecomb/core/bootstrap/SCBEngineForTest.java`
+#### Snippet
+```java
+    getExecutorManager().registerExecutor(EXECUTOR_GROUP_THREADPOOL, new GroupExecutor().init());
+
+    List<Filter> filters = Arrays.asList(
+        new EmptyFilter()
+    );
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/PaaSResourceUtils.java`
+#### Snippet
+```java
+
+  public static Properties loadMergedProperties(String locationPattern) throws Exception {
+    PropertiesLoader loader = new PropertiesLoader(Arrays.asList(locationPattern));
+    return loader.load();
+  }
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/PaaSResourceUtils.java`
+#### Snippet
+```java
+    for (String locationPattern : locationPatterns) {
+      Resource[] resArr = getResources(locationPattern);
+      ret.addAll(Arrays.asList(resArr));
+    }
+
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRestTemplate.java`
+#### Snippet
+```java
+  public CseAsyncRestTemplate() {
+    super(createSimpleClientHttpRequestFactory(), createRestTemplate());
+    setMessageConverters(Arrays.asList(new CseHttpMessageConverter()));
+    setAsyncRequestFactory(new CseAsyncClientHttpRequestFactory());
+    setUriTemplateHandler(new CseUriTemplateHandler());
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseRestTemplate.java`
+#### Snippet
+```java
+public class CseRestTemplate extends AcceptableRestTemplate {
+  public CseRestTemplate() {
+    setMessageConverters(Arrays.asList(new CseHttpMessageConverter()));
+    setRequestFactory(new CseClientHttpRequestFactory());
+    setUriTemplateHandler(new CseUriTemplateHandler());
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
+#### Snippet
+```java
+  @Override
+  public void setHeader(String name, String value) {
+    httpHeaders.put(name, Arrays.asList(value));
   }
 
-  private static class ServiceCombPropertyUpdateListener implements WatchedUpdateListener {
-
-    private final ConcurrentMapConfiguration injectConfig;
 ```
 
-### ClassCanBeRecord
-Class can be a record
-in `service-registry/registry-lightweight/src/main/java/org/apache/servicecomb/registry/lightweight/SchemaChangedEvent.java`
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/MessageWriteSchema.java`
 #### Snippet
 ```java
-import org.apache.servicecomb.registry.api.registry.Microservice;
-
-public class SchemaChangedEvent {
-  private final Microservice microservice;
+    FieldSchema<T> fieldSchema = protoMapper.getSerializerSchemaManager()
+        .createSchemaField(protoField, propertyDescriptor);
+    return FieldMapEx.createFieldMap(Arrays.asList(fieldSchema));
+  }
 
 ```
 
-### ClassCanBeRecord
-Class can be a record
-in `service-registry/registry-lightweight/src/main/java/org/apache/servicecomb/registry/lightweight/RegisterInstanceEvent.java`
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/collect/ServiceCenterDefaultDeploymentProvider.java`
 #### Snippet
 ```java
- * currently, only "zero config" need this
- */
-public class RegisterInstanceEvent {
-  private final Microservice microservice;
-
+    List<String> urls = ConfigUtil.parseArrayValue(configuration.getString("servicecomb.service.registry.address"));
+    if (urls.isEmpty()) {
+      urls = Arrays.asList("http://127.0.0.1:30100");
+    }
+    sc.setAccessURL(urls);
 ```
 
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/priority/ConfigObjectFactory.java`
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
 #### Snippet
 ```java
- * so this wrapper mechanism will not throw exception even can not find value by placeholder
- */
-public class ConfigObjectFactory {
-  private final PriorityPropertyFactory propertyFactory;
-
+    List<String> produces = swagger.getProduces();
+    if (produces == null || produces.isEmpty()) {
+      produces = Arrays.asList(MediaType.APPLICATION_JSON);
+      swagger.setProduces(produces);
+    }
 ```
 
-### ClassCanBeRecord
-Class can be a record
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/meter/LatencyScopeConfig.java`
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
 #### Snippet
 ```java
-package org.apache.servicecomb.foundation.metrics.meter;
-
-public class LatencyScopeConfig {
-  // [min, max)
-  // even max equals Long.MAX_VALUE, still not include it
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/element/impl/ResponseHeaderAccessItem.java`
-#### Snippet
-```java
-import io.vertx.ext.web.RoutingContext;
-
-public class ResponseHeaderAccessItem implements AccessLogItem<RoutingContext> {
-
-  public static final String RESULT_NOT_FOUND = "-";
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/element/impl/CookieAccessItem.java`
-#### Snippet
-```java
-import io.vertx.ext.web.RoutingContext;
-
-public class CookieAccessItem implements AccessLogItem<RoutingContext> {
-
-  public static final String RESULT_NOT_FOUND = "-";
-```
-
-### ClassCanBeRecord
-Class can be a record
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/element/impl/RequestHeaderAccessItem.java`
-#### Snippet
-```java
-import io.vertx.ext.web.RoutingContext;
-
-public class RequestHeaderAccessItem implements AccessLogItem<RoutingContext> {
-  public static final String RESULT_NOT_FOUND = "-";
-
-```
-
-## RuleId[id=CastCanBeRemovedNarrowingVariableType]
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'value' to 'String'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/QueryProcessorCreator.java`
-#### Snippet
-```java
-      Object value = request.getParameter(paramPath);
-      // make some old systems happy
-      if (emptyAsNull && StringUtils.isEmpty((String) value)) {
-        value = null;
-      }
-```
-
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'requestEx' to 'StandardHttpServletRequestEx'
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletRestDispatcher.java`
-#### Snippet
-```java
-    HttpServletResponseEx responseEx = new StandardHttpServletResponseEx(response);
-
-    ((StandardHttpServletRequestEx) requestEx).setCacheRequest(true);
-    InvocationCreator creator = new RestServletProducerInvocationCreator(microserviceMeta, transport.getEndpoint(),
-        requestEx, responseEx);
+    List<String> consumes = swagger.getConsumes();
+    if (consumes == null || consumes.isEmpty()) {
+      consumes = Arrays.asList(MediaType.APPLICATION_JSON);
+      swagger.setConsumes(consumes);
+    }
 ```
 
 ## RuleId[id=UnstableApiUsage]
@@ -17349,5 +7204,30 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
     return Hashing.sha256().newHasher().putString(schemaContent, Charsets.UTF_8).hash().toString();
   }
 
+```
+
+## RuleId[id=CastCanBeRemovedNarrowingVariableType]
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'requestEx' to 'StandardHttpServletRequestEx'
+in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletRestDispatcher.java`
+#### Snippet
+```java
+    HttpServletResponseEx responseEx = new StandardHttpServletResponseEx(response);
+
+    ((StandardHttpServletRequestEx) requestEx).setCacheRequest(true);
+    InvocationCreator creator = new RestServletProducerInvocationCreator(microserviceMeta, transport.getEndpoint(),
+        requestEx, responseEx);
+```
+
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'value' to 'String'
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/QueryProcessorCreator.java`
+#### Snippet
+```java
+      Object value = request.getParameter(paramPath);
+      // make some old systems happy
+      if (emptyAsNull && StringUtils.isEmpty((String) value)) {
+        value = null;
+      }
 ```
 
