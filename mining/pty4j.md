@@ -21,6 +21,19 @@ I found 85 bad smells with 0 repairable:
 | UnusedAssignment | 1 | false |
 | FieldCanBeLocal | 1 | false |
 | TrivialIf | 1 | false |
+## RuleId[id=ConditionalBreakInInfiniteLoop]
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/com/pty4j/unix/Pty.java`
+#### Snippet
+```java
+    // each {int, short, short} structure is represented by two ints
+    int[] poll_fds = new int[]{pipeFd, JTermios.POLLIN, fd, JTermios.POLLIN};
+    while (true) {
+      if (JTermios.poll(poll_fds, 2, -1) > 0) break;
+
+```
+
 ## RuleId[id=IntegerMultiplicationImplicitCastToLong]
 ### IntegerMultiplicationImplicitCastToLong
 Native.WCHAR_SIZE \* bufferLength: integer multiplication implicitly cast to long
@@ -46,56 +59,7 @@ in `src/com/pty4j/windows/WinPty.java`
     try {
 ```
 
-## RuleId[id=ConditionalBreakInInfiniteLoop]
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/com/pty4j/unix/Pty.java`
-#### Snippet
-```java
-    // each {int, short, short} structure is represented by two ints
-    int[] poll_fds = new int[]{pipeFd, JTermios.POLLIN, fd, JTermios.POLLIN};
-    while (true) {
-      if (JTermios.poll(poll_fds, 2, -1) > 0) break;
-
-```
-
 ## RuleId[id=MarkedForRemoval]
-### MarkedForRemoval
-'java.lang.SecurityManager' is deprecated and marked for removal
-in `src/com/pty4j/windows/conpty/WinConPtyProcess.java`
-#### Snippet
-```java
-  private static void checkExec(@NotNull List<String> command) {
-    String exec = command.size() > 0 ? command.get(0) : null;
-    SecurityManager s = System.getSecurityManager();
-    if (s != null && exec != null) {
-      s.checkExec(exec);
-```
-
-### MarkedForRemoval
-'getSecurityManager()' is deprecated and marked for removal
-in `src/com/pty4j/windows/conpty/WinConPtyProcess.java`
-#### Snippet
-```java
-  private static void checkExec(@NotNull List<String> command) {
-    String exec = command.size() > 0 ? command.get(0) : null;
-    SecurityManager s = System.getSecurityManager();
-    if (s != null && exec != null) {
-      s.checkExec(exec);
-```
-
-### MarkedForRemoval
-'java.lang.SecurityManager' is deprecated and marked for removal
-in `src/com/pty4j/windows/conpty/WinConPtyProcess.java`
-#### Snippet
-```java
-    SecurityManager s = System.getSecurityManager();
-    if (s != null && exec != null) {
-      s.checkExec(exec);
-    }
-  }
-```
-
 ### MarkedForRemoval
 'java.lang.SecurityManager' is deprecated and marked for removal
 in `src/com/pty4j/unix/UnixPtyProcess.java`
@@ -130,6 +94,42 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
       s.checkExec(cmd);
     }
     if (environment == null) {
+```
+
+### MarkedForRemoval
+'java.lang.SecurityManager' is deprecated and marked for removal
+in `src/com/pty4j/windows/conpty/WinConPtyProcess.java`
+#### Snippet
+```java
+  private static void checkExec(@NotNull List<String> command) {
+    String exec = command.size() > 0 ? command.get(0) : null;
+    SecurityManager s = System.getSecurityManager();
+    if (s != null && exec != null) {
+      s.checkExec(exec);
+```
+
+### MarkedForRemoval
+'getSecurityManager()' is deprecated and marked for removal
+in `src/com/pty4j/windows/conpty/WinConPtyProcess.java`
+#### Snippet
+```java
+  private static void checkExec(@NotNull List<String> command) {
+    String exec = command.size() > 0 ? command.get(0) : null;
+    SecurityManager s = System.getSecurityManager();
+    if (s != null && exec != null) {
+      s.checkExec(exec);
+```
+
+### MarkedForRemoval
+'java.lang.SecurityManager' is deprecated and marked for removal
+in `src/com/pty4j/windows/conpty/WinConPtyProcess.java`
+#### Snippet
+```java
+    SecurityManager s = System.getSecurityManager();
+    if (s != null && exec != null) {
+      s.checkExec(exec);
+    }
+  }
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -183,6 +183,43 @@ in `src/com/pty4j/unix/PtyHelpers.java`
 //    term.c_cc[VMIN] = 1;
 ```
 
+## RuleId[id=CStyleArrayDeclaration]
+### CStyleArrayDeclaration
+C-style array declaration of local variable `b`
+in `src/com/pty4j/windows/CygwinPTYInputStream.java`
+#### Snippet
+```java
+  @Override
+  public int read() throws IOException {
+    byte b[] = new byte[1];
+    if (1 != read(b, 0, 1)) {
+      return -1;
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of local variable `b`
+in `src/com/pty4j/unix/PTYInputStream.java`
+#### Snippet
+```java
+  @Override
+  public int read() throws IOException {
+    byte b[] = new byte[1];
+    if (1 != read(b, 0, 1)) {
+      return -1;
+```
+
+### CStyleArrayDeclaration
+C-style array declaration of local variable `b`
+in `src/com/pty4j/windows/WinPTYInputStream.java`
+#### Snippet
+```java
+  @Override
+  public int read() throws IOException {
+    byte b[] = new byte[1];
+    if (1 != read(b, 0, 1)) {
+      return -1;
+```
+
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `myVersionValue` may be 'final'
@@ -197,50 +234,14 @@ in `src/com/pty4j/windows/WindowsVersion.java`
 ```
 
 ### FieldMayBeFinal
-Field `writeOver` may be 'final'
+Field `myHandle` may be 'final'
 in `src/com/pty4j/windows/NamedPipe.java`
 #### Snippet
 ```java
 
-  private WinNT.OVERLAPPED readOver = new WinNT.OVERLAPPED();
-  private WinNT.OVERLAPPED writeOver = new WinNT.OVERLAPPED();
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `writeWaitHandles` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-
-  private WinNT.HANDLE[] readWaitHandles;
-  private WinNT.HANDLE[] writeWaitHandles;
-
-  private IntByReference readActual = new IntByReference();
-```
-
-### FieldMayBeFinal
-Field `writeEvent` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-
-  private WinNT.HANDLE readEvent;
-  private WinNT.HANDLE writeEvent;
-
-  private WinNT.HANDLE[] readWaitHandles;
-```
-
-### FieldMayBeFinal
-Field `readLock` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-  private volatile boolean myFinalizedFlag = false;
-
-  private ReentrantLock readLock = new ReentrantLock();
-  private ReentrantLock writeLock = new ReentrantLock();
+public class NamedPipe {
+  private WinNT.HANDLE myHandle;
+  boolean myCloseHandleOnFinalize;
 
 ```
 
@@ -257,27 +258,15 @@ in `src/com/pty4j/windows/NamedPipe.java`
 ```
 
 ### FieldMayBeFinal
-Field `writeLock` may be 'final'
+Field `readActual` may be 'final'
 in `src/com/pty4j/windows/NamedPipe.java`
 #### Snippet
 ```java
-
-  private ReentrantLock readLock = new ReentrantLock();
-  private ReentrantLock writeLock = new ReentrantLock();
-
-  private Memory readBuffer = new Memory(16 * 1024);
-```
-
-### FieldMayBeFinal
-Field `writeActual` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
+  private WinNT.HANDLE[] writeWaitHandles;
 
   private IntByReference readActual = new IntByReference();
   private IntByReference writeActual = new IntByReference();
   private IntByReference peekActual = new IntByReference();
-
 ```
 
 ### FieldMayBeFinal
@@ -293,15 +282,63 @@ in `src/com/pty4j/windows/NamedPipe.java`
 ```
 
 ### FieldMayBeFinal
-Field `readEvent` may be 'final'
+Field `writeLock` may be 'final'
 in `src/com/pty4j/windows/NamedPipe.java`
 #### Snippet
 ```java
-  private Memory writeBuffer = new Memory(16 * 1024);
+
+  private ReentrantLock readLock = new ReentrantLock();
+  private ReentrantLock writeLock = new ReentrantLock();
+
+  private Memory readBuffer = new Memory(16 * 1024);
+```
+
+### FieldMayBeFinal
+Field `readLock` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+  private volatile boolean myFinalizedFlag = false;
+
+  private ReentrantLock readLock = new ReentrantLock();
+  private ReentrantLock writeLock = new ReentrantLock();
+
+```
+
+### FieldMayBeFinal
+Field `writeOver` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+
+  private WinNT.OVERLAPPED readOver = new WinNT.OVERLAPPED();
+  private WinNT.OVERLAPPED writeOver = new WinNT.OVERLAPPED();
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `writeActual` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+
+  private IntByReference readActual = new IntByReference();
+  private IntByReference writeActual = new IntByReference();
+  private IntByReference peekActual = new IntByReference();
+
+```
+
+### FieldMayBeFinal
+Field `writeEvent` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
 
   private WinNT.HANDLE readEvent;
   private WinNT.HANDLE writeEvent;
 
+  private WinNT.HANDLE[] readWaitHandles;
 ```
 
 ### FieldMayBeFinal
@@ -317,6 +354,30 @@ in `src/com/pty4j/windows/NamedPipe.java`
 ```
 
 ### FieldMayBeFinal
+Field `writeWaitHandles` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+
+  private WinNT.HANDLE[] readWaitHandles;
+  private WinNT.HANDLE[] writeWaitHandles;
+
+  private IntByReference readActual = new IntByReference();
+```
+
+### FieldMayBeFinal
+Field `readEvent` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+  private Memory writeBuffer = new Memory(16 * 1024);
+
+  private WinNT.HANDLE readEvent;
+  private WinNT.HANDLE writeEvent;
+
+```
+
+### FieldMayBeFinal
 Field `readOver` may be 'final'
 in `src/com/pty4j/windows/NamedPipe.java`
 #### Snippet
@@ -326,66 +387,6 @@ in `src/com/pty4j/windows/NamedPipe.java`
   private WinNT.OVERLAPPED readOver = new WinNT.OVERLAPPED();
   private WinNT.OVERLAPPED writeOver = new WinNT.OVERLAPPED();
 
-```
-
-### FieldMayBeFinal
-Field `readActual` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-  private WinNT.HANDLE[] writeWaitHandles;
-
-  private IntByReference readActual = new IntByReference();
-  private IntByReference writeActual = new IntByReference();
-  private IntByReference peekActual = new IntByReference();
-```
-
-### FieldMayBeFinal
-Field `myHandle` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-
-public class NamedPipe {
-  private WinNT.HANDLE myHandle;
-  boolean myCloseHandleOnFinalize;
-
-```
-
-### FieldMayBeFinal
-Field `myConerrPipe` may be 'final'
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  private NamedPipe myConinPipe;
-  private NamedPipe myConoutPipe;
-  private NamedPipe myConerrPipe;
-
-  private boolean myChildExited = false;
-```
-
-### FieldMayBeFinal
-Field `myConinPipe` may be 'final'
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-
-  private WinNT.HANDLE myProcess;
-  private NamedPipe myConinPipe;
-  private NamedPipe myConoutPipe;
-  private NamedPipe myConerrPipe;
-```
-
-### FieldMayBeFinal
-Field `INSTANCE` may be 'final'
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  }
-
-  private static WinPtyLib INSTANCE = Native.loadLibrary(getLibraryPath(), WinPtyLib.class);
-
-  private static String getLibraryPath() {
 ```
 
 ### FieldMayBeFinal
@@ -413,27 +414,39 @@ in `src/com/pty4j/windows/WinPty.java`
 ```
 
 ### FieldMayBeFinal
-Field `myErrSlaveName` may be 'final'
-in `src/com/pty4j/unix/UnixPtyProcess.java`
+Field `myConinPipe` may be 'final'
+in `src/com/pty4j/windows/WinPty.java`
 #### Snippet
 ```java
-    private String mySlaveName;
-    private int myMasterFD;
-    private String myErrSlaveName;
-    private int myErrMasterFD;
-    private boolean myConsole;
+
+  private WinNT.HANDLE myProcess;
+  private NamedPipe myConinPipe;
+  private NamedPipe myConoutPipe;
+  private NamedPipe myConerrPipe;
 ```
 
 ### FieldMayBeFinal
-Field `myMasterFD` may be 'final'
-in `src/com/pty4j/unix/UnixPtyProcess.java`
+Field `myConerrPipe` may be 'final'
+in `src/com/pty4j/windows/WinPty.java`
 #### Snippet
 ```java
-    private String myDir;
-    private String mySlaveName;
-    private int myMasterFD;
-    private String myErrSlaveName;
-    private int myErrMasterFD;
+  private NamedPipe myConinPipe;
+  private NamedPipe myConoutPipe;
+  private NamedPipe myConerrPipe;
+
+  private boolean myChildExited = false;
+```
+
+### FieldMayBeFinal
+Field `INSTANCE` may be 'final'
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  }
+
+  private static WinPtyLib INSTANCE = Native.loadLibrary(getLibraryPath(), WinPtyLib.class);
+
+  private static String getLibraryPath() {
 ```
 
 ### FieldMayBeFinal
@@ -473,15 +486,27 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
 ```
 
 ### FieldMayBeFinal
-Field `myDir` may be 'final'
+Field `myErrSlaveName` may be 'final'
 in `src/com/pty4j/unix/UnixPtyProcess.java`
 #### Snippet
 ```java
-    private String[] myCommand;
-    private String[] myEnv;
+    private String mySlaveName;
+    private int myMasterFD;
+    private String myErrSlaveName;
+    private int myErrMasterFD;
+    private boolean myConsole;
+```
+
+### FieldMayBeFinal
+Field `myMasterFD` may be 'final'
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
     private String myDir;
     private String mySlaveName;
     private int myMasterFD;
+    private String myErrSlaveName;
+    private int myErrMasterFD;
 ```
 
 ### FieldMayBeFinal
@@ -497,6 +522,18 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
 ```
 
 ### FieldMayBeFinal
+Field `myDir` may be 'final'
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+    private String[] myCommand;
+    private String[] myEnv;
+    private String myDir;
+    private String mySlaveName;
+    private int myMasterFD;
+```
+
+### FieldMayBeFinal
 Field `mySlaveName` may be 'final'
 in `src/com/pty4j/unix/UnixPtyProcess.java`
 #### Snippet
@@ -506,43 +543,6 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
     private String mySlaveName;
     private int myMasterFD;
     private String myErrSlaveName;
-```
-
-## RuleId[id=CStyleArrayDeclaration]
-### CStyleArrayDeclaration
-C-style array declaration of local variable `b`
-in `src/com/pty4j/windows/CygwinPTYInputStream.java`
-#### Snippet
-```java
-  @Override
-  public int read() throws IOException {
-    byte b[] = new byte[1];
-    if (1 != read(b, 0, 1)) {
-      return -1;
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `b`
-in `src/com/pty4j/windows/WinPTYInputStream.java`
-#### Snippet
-```java
-  @Override
-  public int read() throws IOException {
-    byte b[] = new byte[1];
-    if (1 != read(b, 0, 1)) {
-      return -1;
-```
-
-### CStyleArrayDeclaration
-C-style array declaration of local variable `b`
-in `src/com/pty4j/unix/PTYInputStream.java`
-#### Snippet
-```java
-  @Override
-  public int read() throws IOException {
-    byte b[] = new byte[1];
-    if (1 != read(b, 0, 1)) {
-      return -1;
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -575,42 +575,6 @@ in `src/com/pty4j/unix/PtyHelpers.java`
 ```
 
 ## RuleId[id=CatchMayIgnoreException]
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/com/pty4j/windows/WinPtyProcess.java`
-#### Snippet
-```java
-            try {
-                myInputStream.close();
-            } catch (IOException e) { }
-        }
-        if (!myUsedOutputStream) {
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/com/pty4j/windows/WinPtyProcess.java`
-#### Snippet
-```java
-            try {
-                myOutputStream.close();
-            } catch (IOException e) { }
-        }
-        if (!myUsedErrorStream) {
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/com/pty4j/windows/WinPtyProcess.java`
-#### Snippet
-```java
-            try {
-                myErrorStream.close();
-            } catch (IOException e) { }
-        }
-    }
-```
-
 ### CatchMayIgnoreException
 Empty `catch` block
 in `src/com/pty4j/windows/WinPty.java`
@@ -659,6 +623,42 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
   }
 ```
 
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/com/pty4j/windows/WinPtyProcess.java`
+#### Snippet
+```java
+            try {
+                myInputStream.close();
+            } catch (IOException e) { }
+        }
+        if (!myUsedOutputStream) {
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/com/pty4j/windows/WinPtyProcess.java`
+#### Snippet
+```java
+            try {
+                myOutputStream.close();
+            } catch (IOException e) { }
+        }
+        if (!myUsedErrorStream) {
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/com/pty4j/windows/WinPtyProcess.java`
+#### Snippet
+```java
+            try {
+                myErrorStream.close();
+            } catch (IOException e) { }
+        }
+    }
+```
+
 ## RuleId[id=Deprecation]
 ### Deprecation
 Overrides deprecated method in 'java.lang.Object'
@@ -686,18 +686,30 @@ in `src/com/pty4j/windows/CygwinPTYInputStream.java`
 
 ### Deprecation
 'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
-in `src/com/pty4j/unix/freebsd/OSFacadeImpl.java`
+in `src/com/pty4j/unix/linux/OSFacadeImpl.java`
 #### Snippet
 ```java
+  private static final C_lib m_Clib = Native.loadLibrary("c", C_lib.class);
 
-  private static final FreeBSD_C_lib m_Clib = Native.loadLibrary("c", FreeBSD_C_lib.class);
-  private static final FreeBSD_Util_lib m_Utillib = Native.loadLibrary("util", FreeBSD_Util_lib.class);
+  private static final Linux_Util_lib m_Utillib = Native.loadLibrary("util", Linux_Util_lib.class);
 
   // CONSTUCTORS
 ```
 
 ### Deprecation
 'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
+in `src/com/pty4j/unix/linux/OSFacadeImpl.java`
+#### Snippet
+```java
+  }
+
+  private static final C_lib m_Clib = Native.loadLibrary("c", C_lib.class);
+
+  private static final Linux_Util_lib m_Utillib = Native.loadLibrary("util", Linux_Util_lib.class);
+```
+
+### Deprecation
+'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
 in `src/com/pty4j/unix/freebsd/OSFacadeImpl.java`
 #### Snippet
 ```java
@@ -710,24 +722,12 @@ in `src/com/pty4j/unix/freebsd/OSFacadeImpl.java`
 
 ### Deprecation
 'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
-in `src/com/pty4j/unix/linux/OSFacadeImpl.java`
+in `src/com/pty4j/unix/freebsd/OSFacadeImpl.java`
 #### Snippet
 ```java
-  }
 
-  private static final C_lib m_Clib = Native.loadLibrary("c", C_lib.class);
-
-  private static final Linux_Util_lib m_Utillib = Native.loadLibrary("util", Linux_Util_lib.class);
-```
-
-### Deprecation
-'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
-in `src/com/pty4j/unix/linux/OSFacadeImpl.java`
-#### Snippet
-```java
-  private static final C_lib m_Clib = Native.loadLibrary("c", C_lib.class);
-
-  private static final Linux_Util_lib m_Utillib = Native.loadLibrary("util", Linux_Util_lib.class);
+  private static final FreeBSD_C_lib m_Clib = Native.loadLibrary("c", FreeBSD_C_lib.class);
+  private static final FreeBSD_Util_lib m_Utillib = Native.loadLibrary("util", FreeBSD_Util_lib.class);
 
   // CONSTUCTORS
 ```
@@ -769,30 +769,6 @@ in `src/com/pty4j/windows/NamedPipe.java`
 ```
 
 ### Deprecation
-'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
-in `src/com/pty4j/unix/openbsd/OSFacadeImpl.java`
-#### Snippet
-```java
-  // VARIABLES
-
-  private static final OpenBSD_C_lib m_Clib = Native.loadLibrary("c", OpenBSD_C_lib.class);
-  private static final OpenBSD_Util_lib m_Utillib = Native.loadLibrary("util", OpenBSD_Util_lib.class);
-
-```
-
-### Deprecation
-'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
-in `src/com/pty4j/unix/openbsd/OSFacadeImpl.java`
-#### Snippet
-```java
-
-  private static final OpenBSD_C_lib m_Clib = Native.loadLibrary("c", OpenBSD_C_lib.class);
-  private static final OpenBSD_Util_lib m_Utillib = Native.loadLibrary("util", OpenBSD_Util_lib.class);
-
-  // CONSTUCTORS
-```
-
-### Deprecation
 Overrides deprecated method in 'java.lang.Object'
 in `src/com/pty4j/unix/Pty.java`
 #### Snippet
@@ -811,6 +787,102 @@ in `src/com/pty4j/unix/Pty.java`
 ```java
   protected void finalize() throws Throwable {
     close();
+    super.finalize();
+  }
+
+```
+
+### Deprecation
+'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
+in `src/com/pty4j/unix/openbsd/OSFacadeImpl.java`
+#### Snippet
+```java
+
+  private static final OpenBSD_C_lib m_Clib = Native.loadLibrary("c", OpenBSD_C_lib.class);
+  private static final OpenBSD_Util_lib m_Utillib = Native.loadLibrary("util", OpenBSD_Util_lib.class);
+
+  // CONSTUCTORS
+```
+
+### Deprecation
+'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
+in `src/com/pty4j/unix/openbsd/OSFacadeImpl.java`
+#### Snippet
+```java
+  // VARIABLES
+
+  private static final OpenBSD_C_lib m_Clib = Native.loadLibrary("c", OpenBSD_C_lib.class);
+  private static final OpenBSD_Util_lib m_Utillib = Native.loadLibrary("util", OpenBSD_Util_lib.class);
+
+```
+
+### Deprecation
+'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  }
+
+  static final Kern32 KERNEL32 = Native.loadLibrary("kernel32", Kern32.class);
+
+  interface Kern32 extends Library {
+```
+
+### Deprecation
+Overrides deprecated method in 'java.lang.Object'
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+
+  @Override
+  protected void finalize() throws Throwable {
+    close();
+    super.finalize();
+```
+
+### Deprecation
+'finalize()' is deprecated
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  protected void finalize() throws Throwable {
+    close();
+    super.finalize();
+  }
+
+```
+
+### Deprecation
+'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  }
+
+  private static WinPtyLib INSTANCE = Native.loadLibrary(getLibraryPath(), WinPtyLib.class);
+
+  private static String getLibraryPath() {
+```
+
+### Deprecation
+Overrides deprecated method in 'java.lang.Object'
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+
+  @Override
+  protected void finalize() throws Throwable {
+    closeUnusedStreams();
+    super.finalize();
+```
+
+### Deprecation
+'finalize()' is deprecated
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+  protected void finalize() throws Throwable {
+    closeUnusedStreams();
     super.finalize();
   }
 
@@ -838,78 +910,6 @@ in `src/com/pty4j/windows/CygwinPTYOutputStream.java`
     super.finalize();
   }
 }
-```
-
-### Deprecation
-'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  }
-
-  static final Kern32 KERNEL32 = Native.loadLibrary("kernel32", Kern32.class);
-
-  interface Kern32 extends Library {
-```
-
-### Deprecation
-'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  }
-
-  private static WinPtyLib INSTANCE = Native.loadLibrary(getLibraryPath(), WinPtyLib.class);
-
-  private static String getLibraryPath() {
-```
-
-### Deprecation
-Overrides deprecated method in 'java.lang.Object'
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-
-  @Override
-  protected void finalize() throws Throwable {
-    close();
-    super.finalize();
-```
-
-### Deprecation
-'finalize()' is deprecated
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  protected void finalize() throws Throwable {
-    close();
-    super.finalize();
-  }
-
-```
-
-### Deprecation
-Overrides deprecated method in 'java.lang.Object'
-in `src/com/pty4j/unix/UnixPtyProcess.java`
-#### Snippet
-```java
-
-  @Override
-  protected void finalize() throws Throwable {
-    closeUnusedStreams();
-    super.finalize();
-```
-
-### Deprecation
-'finalize()' is deprecated
-in `src/com/pty4j/unix/UnixPtyProcess.java`
-#### Snippet
-```java
-  protected void finalize() throws Throwable {
-    closeUnusedStreams();
-    super.finalize();
-  }
-
 ```
 
 ## RuleId[id=RedundantTypeArguments]
@@ -953,14 +953,14 @@ in `src/com/pty4j/windows/CygwinPTYInputStream.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/com/pty4j/windows/WinPTYInputStream.java`
+in `src/com/pty4j/unix/PTYInputStream.java`
 #### Snippet
 ```java
 
   @Override
   public int read(byte[] buf, int off, int len) throws IOException {
-    return myNamedPipe.read(buf, off, len);
-  }
+    if (buf == null) {
+      throw new NullPointerException();
 ```
 
 ### NullableProblems
@@ -977,14 +977,26 @@ in `src/com/pty4j/windows/WinPTYOutputStream.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `src/com/pty4j/unix/PTYInputStream.java`
+in `src/com/pty4j/unix/PTYOutputStream.java`
+#### Snippet
+```java
+  }
+
+  @Override public void write(byte[] b, int off, int len) throws IOException {
+    if (b == null) {
+      throw new NullPointerException();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/com/pty4j/windows/WinPTYInputStream.java`
 #### Snippet
 ```java
 
   @Override
   public int read(byte[] buf, int off, int len) throws IOException {
-    if (buf == null) {
-      throw new NullPointerException();
+    return myNamedPipe.read(buf, off, len);
+  }
 ```
 
 ### NullableProblems
@@ -999,31 +1011,7 @@ in `src/com/pty4j/windows/CygwinPTYOutputStream.java`
       return;
 ```
 
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/com/pty4j/unix/PTYOutputStream.java`
-#### Snippet
-```java
-  }
-
-  @Override public void write(byte[] b, int off, int len) throws IOException {
-    if (b == null) {
-      throw new NullPointerException();
-```
-
 ## RuleId[id=ConstantValue]
-### ConstantValue
-Condition `isUTF8` is always `true`
-in `src/com/pty4j/unix/PtyHelpers.java`
-#### Snippet
-```java
-
-    boolean isUTF8 = true;
-    term.c_iflag = JTermios.ICRNL | JTermios.IXON | JTermios.IXANY | IMAXBEL | JTermios.BRKINT | (isUTF8 ? IUTF8 : 0);
-    term.c_oflag = JTermios.OPOST | ONLCR;
-    term.c_cflag = JTermios.CREAD | JTermios.CS8 | HUPCL;
-```
-
 ### ConstantValue
 Value `myClosed` is always 'true'
 in `src/com/pty4j/windows/WinPty.java`
@@ -1034,6 +1022,18 @@ in `src/com/pty4j/windows/WinPty.java`
       throw new IOException("Unable to set window size: closed=" + myClosed + ", winSize=" + winSize);
     }
     boolean result = INSTANCE.winpty_set_size(myWinpty, winSize.getColumns(), winSize.getRows(), null);
+```
+
+### ConstantValue
+Condition `isUTF8` is always `true`
+in `src/com/pty4j/unix/PtyHelpers.java`
+#### Snippet
+```java
+
+    boolean isUTF8 = true;
+    term.c_iflag = JTermios.ICRNL | JTermios.IXON | JTermios.IXANY | IMAXBEL | JTermios.BRKINT | (isUTF8 ? IUTF8 : 0);
+    term.c_oflag = JTermios.OPOST | ONLCR;
+    term.c_cflag = JTermios.CREAD | JTermios.CS8 | HUPCL;
 ```
 
 ## RuleId[id=FieldCanBeLocal]
