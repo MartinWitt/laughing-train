@@ -24,18 +24,6 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `gitVersion` is redundant
-in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
-#### Snippet
-```java
-        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
-        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
-        String gitVersion = versionDetailsMap
-                .computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs))
-                .getVersion();
-```
-
-### UnnecessaryLocalVariable
 Local variable `versionDetails` is redundant
 in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
 #### Snippet
@@ -47,19 +35,19 @@ in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
         return versionDetails;
 ```
 
-## RuleId[id=DataFlowIssue]
-### DataFlowIssue
-Argument `description()` might be null
-in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+### UnnecessaryLocalVariable
+Local variable `gitVersion` is redundant
+in `src/main/java/com/palantir/gradle/gitversion/GitVersionCacheService.java`
 #### Snippet
 ```java
-        }
-
-        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
-        return match.matches() ? match.group(1) : null;
-    }
+        GitVersionArgs gitVersionArgs = GitVersionArgs.fromGroovyClosure(args);
+        String key = gitDir.toPath() + "|" + gitVersionArgs.getPrefix();
+        String gitVersion = versionDetailsMap
+                .computeIfAbsent(key, _k -> createVersionDetails(gitDir, gitVersionArgs))
+                .getVersion();
 ```
 
+## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `description()` might be null
 in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
@@ -70,6 +58,18 @@ in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
         Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
         Preconditions.checkState(match.matches(), "Cannot get commit distance for description: '%s'", description());
         return Integer.parseInt(match.group(2));
+```
+
+### DataFlowIssue
+Argument `description()` might be null
+in `src/main/java/com/palantir/gradle/gitversion/VersionDetailsImpl.java`
+#### Snippet
+```java
+        }
+
+        Matcher match = Pattern.compile("(.*)-([0-9]+)-g.?[0-9a-fA-F]{3,}").matcher(description());
+        return match.matches() ? match.group(1) : null;
+    }
 ```
 
 ## RuleId[id=UnusedAssignment]
