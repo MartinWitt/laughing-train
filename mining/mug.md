@@ -1,12 +1,11 @@
 # mug 
  
 # Bad smells
-I found 156 bad smells with 9 repairable:
+I found 138 bad smells with 9 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | JavadocReference | 25 | false |
 | OptionalUsedAsFieldOrParameterType | 21 | false |
-| UnstableApiUsage | 18 | false |
 | AutoCloseableResource | 17 | false |
 | JavadocDeclaration | 9 | false |
 | UnnecessaryModifier | 7 | true |
@@ -33,24 +32,24 @@ I found 156 bad smells with 9 repairable:
 ## RuleId[id=OptionalIsPresent]
 ### OptionalIsPresent
 Can be replaced with single expression in functional style
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   */
-  public static <T> Set<T> asSet(Optional<? extends T> optional) {
-    return optional.isPresent() ? Collections.singleton(optional.get()) : Collections.emptySet();
-  }
-
-```
-
-### OptionalIsPresent
-Can be replaced with single expression in functional style
 in `mug/src/main/java/com/google/mu/util/BiOptional.java`
 #### Snippet
 ```java
    */
   public static <T> BiOptional<T, T> from(Optional<T> optional) {
     return optional.isPresent() ? of(optional.get(), optional.get()) : empty();
+  }
+
+```
+
+### OptionalIsPresent
+Can be replaced with single expression in functional style
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   */
+  public static <T> Set<T> asSet(Optional<? extends T> optional) {
+    return optional.isPresent() ? Collections.singleton(optional.get()) : Collections.emptySet();
   }
 
 ```
@@ -78,6 +77,42 @@ in `mug/src/main/java/com/google/mu/util/Selection.java`
   static final class Parser {
     private final Substring.Pattern delimiter;
 
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `mug/src/main/java/com/google/mu/util/Both.java`
+#### Snippet
+```java
+   * @since 5.8
+   */
+  public static <A, B> Both<A, B> of(A a, B b) {
+    return new BiOptional.Present<>(a, b);
+  }
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `mug/src/main/java/com/google/mu/util/CharPredicate.java`
+#### Snippet
+```java
+
+  /** Equivalent to the {@code [a-zA-Z0-9_]} character class. */
+  static CharPredicate WORD = ALPHA .orRange('0', '9').or('_');
+
+  /** Corresponds to the ASCII characters. */
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `mug/src/main/java/com/google/mu/util/CharPredicate.java`
+#### Snippet
+```java
+
+  /** Corresponds to the ASCII characters. */
+  static CharPredicate ASCII = new CharPredicate() {
+    @Override public boolean test(char c) {
+      return c <= '\u007f';
 ```
 
 ### UnnecessaryModifier
@@ -110,49 +145,49 @@ in `mug/src/main/java/com/google/mu/util/CharPredicate.java`
 #### Snippet
 ```java
 
-  /** Corresponds to the ASCII characters. */
-  static CharPredicate ASCII = new CharPredicate() {
-    @Override public boolean test(char c) {
-      return c <= '\u007f';
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `mug/src/main/java/com/google/mu/util/CharPredicate.java`
-#### Snippet
-```java
-
   /** Corresponds to no characters. */
   static CharPredicate NONE = new CharPredicate() {
     @Override public boolean test(char c) {
       return false;
 ```
 
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `mug/src/main/java/com/google/mu/util/CharPredicate.java`
-#### Snippet
-```java
-
-  /** Equivalent to the {@code [a-zA-Z0-9_]} character class. */
-  static CharPredicate WORD = ALPHA .orRange('0', '9').or('_');
-
-  /** Corresponds to the ASCII characters. */
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `mug/src/main/java/com/google/mu/util/Both.java`
-#### Snippet
-```java
-   * @since 5.8
-   */
-  public static <A, B> Both<A, B> of(A a, B b) {
-    return new BiOptional.Present<>(a, b);
-  }
-```
-
 ## RuleId[id=JavadocReference]
+### JavadocReference
+Symbol `ordinal` is inaccessible from here
+in `mug/src/main/java/com/google/mu/util/Ordinal.java`
+#### Snippet
+```java
+   * Returns instance corresponding to the ordinal of the Enum object {@code e}.
+   *
+   * <p>Note that given {@link Enum#ordinal} is 0-based, an enum with {@code ordinal() == 0}
+   * maps to {@link #first}, or {@code of(1)}.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `NULL`
+in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/MoreValues.java`
+#### Snippet
+```java
+  /**
+   * Returns {@link ListValue} wrapping {@code values}.
+   * Null structs are converted to {@link NULL}.
+   */
+  public static ListValue listValueOf(@Nullable Struct... values) {
+```
+
+### JavadocReference
+Cannot resolve symbol `NULL`
+in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/MoreValues.java`
+#### Snippet
+```java
+  /**
+   * Returns {@link ListValue} wrapping {@code values}.
+   * Null strings are converted to {@link NULL}.
+   */
+  public static ListValue listValueOf(@Nullable String... values) {
+```
+
 ### JavadocReference
 Symbol `com.google.common.collect.Ordering` is inaccessible from here
 in `mug/src/main/java/com/google/mu/util/MoreIterables.java`
@@ -178,27 +213,27 @@ in `mug/src/main/java/com/google/mu/util/MoreIterables.java`
 ```
 
 ### JavadocReference
-Symbol `ordinal` is inaccessible from here
-in `mug/src/main/java/com/google/mu/util/Ordinal.java`
+Cannot resolve symbol `Strings`
+in `mug/src/main/java/com/google/mu/util/BiOptional.java`
 #### Snippet
 ```java
-   * Returns instance corresponding to the ordinal of the Enum object {@code e}.
+   * Ensures that the pair must be present or else throws the exception returned by {@code
+   * exceptionFactory} with {@code message} formatted with {@code args} using {@link
+   * Strings#lenientFormat}.
    *
-   * <p>Note that given {@link Enum#ordinal} is 0-based, an enum with {@code ordinal() == 0}
-   * maps to {@link #first}, or {@code of(1)}.
-   *
+   * @throws NullPointerException if {@code exceptionFactory} or {@code message} is null, or if
 ```
 
 ### JavadocReference
-Cannot resolve symbol `or`
-in `mug/src/main/java/com/google/mu/util/stream/Cases.java`
+Cannot resolve symbol `lenientFormat`
+in `mug/src/main/java/com/google/mu/util/BiOptional.java`
 #### Snippet
 ```java
- * @deprecated Use {@link com.google.mu.util.MoreCollections#findFirstElements findFirstElements()}
- * and/or {@link com.google.mu.util.MoreCollections#findOnlyElements findOnlyElements()} methods
- * together with {@link Optional#or} instead.
- */
-@Deprecated
+   * Ensures that the pair must be present or else throws the exception returned by {@code
+   * exceptionFactory} with {@code message} formatted with {@code args} using {@link
+   * Strings#lenientFormat}.
+   *
+   * @throws NullPointerException if {@code exceptionFactory} or {@code message} is null, or if
 ```
 
 ### JavadocReference
@@ -211,6 +246,18 @@ in `mug/src/main/java/com/google/mu/util/stream/FixedSizeCollector.java`
  * multiple conditional cases to {@link MoreCollectors#switching}.
  *
  * @since 5.5
+```
+
+### JavadocReference
+Cannot resolve symbol `ifPresentOrElse`
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   *
+   * <p>This method is very similar to JDK {@link Optional#ifPresent} with a few differences: <ol>
+   * <li>{@link Premise#orElse orElse()} is chained fluently, compared to {@link Optional#ifPresentOrElse}.
+   * <li>{@link Premise#or or()} allows chaining arbitrary number of alternative options on arbitrary
+   *     optional types.
 ```
 
 ### JavadocReference
@@ -243,22 +290,46 @@ in `mug/src/main/java/com/google/mu/util/Optionals.java`
 #### Snippet
 ```java
    *
-   * <p>This method is very similar to JDK {@link Optional#ifPresent} with a few differences: <ol>
-   * <li>{@link Premise#orElse orElse()} is chained fluently, compared to {@link Optional#ifPresentOrElse}.
+   * <p>This method is very similar to JDK {@link OptionalInt#ifPresent} with a few differences: <ol>
+   * <li>{@link Premise#orElse orElse()} is chained fluently, compared to {@link OptionalInt#ifPresentOrElse}.
    * <li>{@link Premise#or or()} allows chaining arbitrary number of alternative options on arbitrary
    *     optional types.
 ```
 
 ### JavadocReference
-Cannot resolve symbol `ifPresentOrElse`
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
+Cannot resolve symbol `placeholders`
+in `mug/src/main/java/com/google/mu/util/StringFormat.java`
 #### Snippet
 ```java
+   * Parses {@code input} against the pattern.
    *
-   * <p>This method is very similar to JDK {@link OptionalInt#ifPresent} with a few differences: <ol>
-   * <li>{@link Premise#orElse orElse()} is chained fluently, compared to {@link OptionalInt#ifPresentOrElse}.
-   * <li>{@link Premise#or or()} allows chaining arbitrary number of alternative options on arbitrary
-   *     optional types.
+   * <p>Returns an immutable list of placeholder values in the same order as {@link #placeholders},
+   * upon success; otherwise returns empty.
+   *
+```
+
+### JavadocReference
+Cannot resolve symbol `flatMapping`
+in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
+#### Snippet
+```java
+
+  /**
+   * Similar but slightly different than {@link Collectors#flatMapping}, returns a {@link Collector}
+   * that first flattens the input stream of <em>pairs</em> (as opposed to single elements) and then
+   * collects the flattened pairs with the {@code downstream} BiCollector.
+```
+
+### JavadocReference
+Cannot resolve symbol `asIn(Function)`
+in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
+#### Snippet
+```java
+
+  /**
+   * Same as {@link #asIn(Function)}.
+   *
+   * @since 5.4
 ```
 
 ### JavadocReference
@@ -298,42 +369,6 @@ in `mug/src/main/java/com/google/mu/function/BiComparator.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `placeholders`
-in `mug/src/main/java/com/google/mu/util/StringFormat.java`
-#### Snippet
-```java
-   * Parses {@code input} against the pattern.
-   *
-   * <p>Returns an immutable list of placeholder values in the same order as {@link #placeholders},
-   * upon success; otherwise returns empty.
-   *
-```
-
-### JavadocReference
-Cannot resolve symbol `NULL`
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/MoreValues.java`
-#### Snippet
-```java
-  /**
-   * Returns {@link ListValue} wrapping {@code values}.
-   * Null structs are converted to {@link NULL}.
-   */
-  public static ListValue listValueOf(@Nullable Struct... values) {
-```
-
-### JavadocReference
-Cannot resolve symbol `NULL`
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/MoreValues.java`
-#### Snippet
-```java
-  /**
-   * Returns {@link ListValue} wrapping {@code values}.
-   * Null strings are converted to {@link NULL}.
-   */
-  public static ListValue listValueOf(@Nullable String... values) {
-```
-
-### JavadocReference
 Cannot resolve symbol `inGraph`
 in `mug/src/main/java/com/google/mu/util/graph/Walker.java`
 #### Snippet
@@ -346,63 +381,15 @@ in `mug/src/main/java/com/google/mu/util/graph/Walker.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `asIn(Function)`
-in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
+Cannot resolve symbol `or`
+in `mug/src/main/java/com/google/mu/util/stream/Cases.java`
 #### Snippet
 ```java
-
-  /**
-   * Same as {@link #asIn(Function)}.
-   *
-   * @since 5.4
-```
-
-### JavadocReference
-Cannot resolve symbol `flatMapping`
-in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
-#### Snippet
-```java
-
-  /**
-   * Similar but slightly different than {@link Collectors#flatMapping}, returns a {@link Collector}
-   * that first flattens the input stream of <em>pairs</em> (as opposed to single elements) and then
-   * collects the flattened pairs with the {@code downstream} BiCollector.
-```
-
-### JavadocReference
-Cannot resolve symbol `Strings`
-in `mug/src/main/java/com/google/mu/util/BiOptional.java`
-#### Snippet
-```java
-   * Ensures that the pair must be present or else throws the exception returned by {@code
-   * exceptionFactory} with {@code message} formatted with {@code args} using {@link
-   * Strings#lenientFormat}.
-   *
-   * @throws NullPointerException if {@code exceptionFactory} or {@code message} is null, or if
-```
-
-### JavadocReference
-Cannot resolve symbol `lenientFormat`
-in `mug/src/main/java/com/google/mu/util/BiOptional.java`
-#### Snippet
-```java
-   * Ensures that the pair must be present or else throws the exception returned by {@code
-   * exceptionFactory} with {@code message} formatted with {@code args} using {@link
-   * Strings#lenientFormat}.
-   *
-   * @throws NullPointerException if {@code exceptionFactory} or {@code message} is null, or if
-```
-
-### JavadocReference
-Cannot resolve symbol `minBykey`
-in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
-#### Snippet
-```java
-  /**
-   * @since 6.0
-   * @deprecated Use {@link #minBykey} or {@link #minByValue}.
-   */
-  @Deprecated
+ * @deprecated Use {@link com.google.mu.util.MoreCollections#findFirstElements findFirstElements()}
+ * and/or {@link com.google.mu.util.MoreCollections#findOnlyElements findOnlyElements()} methods
+ * together with {@link Optional#or} instead.
+ */
+@Deprecated
 ```
 
 ### JavadocReference
@@ -427,6 +414,18 @@ in `mug/src/main/java/com/google/mu/util/Substring.java`
      * the starting point to scan for the succeeding {@link Pattern#iterateIn iteration} of the same
      * pattern. It's by default equal to {@code endIndex}, but for {@link Substring#before} and
      * {@link Substring#upToIncluding}, {@code repetitionStartIndex} starts after the delimiters.
+```
+
+### JavadocReference
+Cannot resolve symbol `minBykey`
+in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
+#### Snippet
+```java
+  /**
+   * @since 6.0
+   * @deprecated Use {@link #minBykey} or {@link #minByValue}.
+   */
+  @Deprecated
 ```
 
 ### JavadocReference
@@ -592,18 +591,6 @@ in `mug/src/main/java/com/google/mu/util/Substring.java`
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'Cases' is still used
-in `mug/src/main/java/com/google/mu/util/stream/Cases.java`
-#### Snippet
-```java
- */
-@Deprecated
-public final class Cases {
-  /**
-   * A collector that collects the only element from the input,
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'mapBoth' is still used
 in `mug/src/main/java/com/google/mu/util/Optionals.java`
 #### Snippet
@@ -637,6 +624,18 @@ in `mug/src/main/java/com/google/mu/function/BiComparator.java`
 public interface BiComparator<K, V> {
   /**
    * Returns a {@code BiComparator} that first transforms the pairs using {@code function} and then
+```
+
+### DeprecatedIsStillUsed
+Deprecated member 'Cases' is still used
+in `mug/src/main/java/com/google/mu/util/stream/Cases.java`
+#### Snippet
+```java
+ */
+@Deprecated
+public final class Cases {
+  /**
+   * A collector that collects the only element from the input,
 ```
 
 ### DeprecatedIsStillUsed
@@ -697,8 +696,8 @@ in `mug/src/main/java/com/google/mu/util/concurrent/Retryer.java`
    * {@code upon(InterruptedException.class, ...)} is illegal.
    */
   public final <E extends Throwable> Retryer upon(
-      Class<E> exceptionType, Stream<? extends Delay<? super E>> delays) {
-    return upon(exceptionType, copyOf(delays));
+      Class<E> exceptionType, List<? extends Delay<? super E>> delays) {
+    return new Retryer(plan.upon(rejectInterruptedException(exceptionType), delays));
 ```
 
 ### FinalMethodInFinalClass
@@ -709,8 +708,8 @@ in `mug/src/main/java/com/google/mu/util/concurrent/Retryer.java`
    * {@code upon(InterruptedException.class, ...)} is illegal.
    */
   public final <E extends Throwable> Retryer upon(
-      Class<E> exceptionType, List<? extends Delay<? super E>> delays) {
-    return new Retryer(plan.upon(rejectInterruptedException(exceptionType), delays));
+      Class<E> exceptionType, Stream<? extends Delay<? super E>> delays) {
+    return upon(exceptionType, copyOf(delays));
 ```
 
 ### FinalMethodInFinalClass
@@ -732,9 +731,9 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 ```java
     }
 
-    @Override public final void close() {
-      try (Stream<K> closeLeft = left) {
-        right.close();
+    @Override public final <A> A collect(A container, BiAccumulator<? super A, ? super K, ? super V> accumulator) {
+      forEach(accumulator.into(container));
+      return container;
 ```
 
 ### FinalMethodInFinalClass
@@ -744,9 +743,9 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 ```java
     }
 
-    @Override public final <A> A collect(A container, BiAccumulator<? super A, ? super K, ? super V> accumulator) {
-      forEach(accumulator.into(container));
-      return container;
+    @Override public final void close() {
+      try (Stream<K> closeLeft = left) {
+        right.close();
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -867,18 +866,6 @@ in `mug-guava/src/main/java/com/google/mu/util/CaseBreaker.java`
 ```
 
 ### Deprecation
-'com.google.mu.util.stream.Cases' is deprecated
-in `mug/src/main/java/com/google/mu/util/stream/Cases.java`
-#### Snippet
-```java
-package com.google.mu.util.stream;
-
-import static com.google.mu.util.stream.Cases.TinyContainer.toTinyContainer;
-import static java.util.Objects.requireNonNull;
-import static java.util.function.Function.identity;
-```
-
-### Deprecation
 'from(java.util.Collection, java.util.function.Function, java.util.function.Function)' is deprecated
 in `mug/src/main/java/com/google/mu/util/graph/ShortestPath.java`
 #### Snippet
@@ -888,6 +875,18 @@ in `mug/src/main/java/com/google/mu/util/graph/ShortestPath.java`
     return BiStream.from(nodes, ShortestPath::to, ShortestPath::distance);
   }
 
+```
+
+### Deprecation
+'com.google.mu.util.stream.Cases' is deprecated
+in `mug/src/main/java/com/google/mu/util/stream/Cases.java`
+#### Snippet
+```java
+package com.google.mu.util.stream;
+
+import static com.google.mu.util.stream.Cases.TinyContainer.toTinyContainer;
+import static java.util.Objects.requireNonNull;
+import static java.util.function.Function.identity;
 ```
 
 ### Deprecation
@@ -917,18 +916,6 @@ import static java.util.Map.Entry.comparingByKey;
 ## RuleId[id=RedundantTypeArguments]
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
-in `mug/src/main/java/com/google/mu/util/stream/MoreStreams.java`
-#### Snippet
-```java
-   */
-  public static <T> Stream<T> flatten(Stream<? extends Stream<? extends T>> streamOfStream) {
-    return mapBySpliterator(streamOfStream.sequential(), 0, FlattenedSpliterator<T>::new);
-  }
-
-```
-
-### RedundantTypeArguments
-Explicit type arguments can be inferred
 in `mug/src/main/java/com/google/mu/util/concurrent/Retryer.java`
 #### Snippet
 ```java
@@ -939,19 +926,19 @@ in `mug/src/main/java/com/google/mu/util/concurrent/Retryer.java`
 
 ```
 
-## RuleId[id=NullableProblems]
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
-in `mug-guava/src/main/java/com/google/mu/util/InsertionPoint.java`
+### RedundantTypeArguments
+Explicit type arguments can be inferred
+in `mug/src/main/java/com/google/mu/util/stream/MoreStreams.java`
 #### Snippet
 ```java
-      .nullsLast(naturalOrder());
-
-  private final @Nullable C floor;
-  private final @Nullable C ceiling;
+   */
+  public static <T> Stream<T> flatten(Stream<? extends Stream<? extends T>> streamOfStream) {
+    return mapBySpliterator(streamOfStream.sequential(), 0, FlattenedSpliterator<T>::new);
+  }
 
 ```
 
+## RuleId[id=NullableProblems]
 ### NullableProblems
 The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
 in `mug-guava/src/main/java/com/google/mu/util/InsertionPoint.java`
@@ -965,15 +952,15 @@ in `mug-guava/src/main/java/com/google/mu/util/InsertionPoint.java`
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @NotNull
-in `mug/src/main/java/com/google/mu/util/Substring.java`
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@org.checkerframework.checker.nullness.qual.Nullable'
+in `mug-guava/src/main/java/com/google/mu/util/InsertionPoint.java`
 #### Snippet
 ```java
+      .nullsLast(naturalOrder());
 
-    /** Returns the matched substring. */
-    @Override public String toString() {
-      return context.substring(startIndex, endIndex);
-    }
+  private final @Nullable C floor;
+  private final @Nullable C ceiling;
+
 ```
 
 ### NullableProblems
@@ -1009,6 +996,18 @@ in `mug/src/main/java/com/google/mu/util/Substring.java`
     /** @since 5.7 */
     @Override public String subSequence(int start, int end) {
       return prefix.substring(start, end);
+    }
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @NotNull
+in `mug/src/main/java/com/google/mu/util/Substring.java`
+#### Snippet
+```java
+
+    /** Returns the matched substring. */
+    @Override public String toString() {
+      return context.substring(startIndex, endIndex);
     }
 ```
 
@@ -1052,18 +1051,6 @@ in `mug-algorithms/src/main/java/com/google/mu/algorithms/Fibonacci.java`
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `BaseStream.onClose()` is ignored
-in `mug/src/main/java/com/google/mu/util/stream/MoreStreams.java`
-#### Snippet
-```java
-    Stream<T> mapped = StreamSupport.stream(
-        () -> mapper.apply(stream.spliterator()), characteristics, stream.isParallel());
-    mapped.onClose(stream::close);
-    return mapped;
-  }
-```
-
-### IgnoreResultOfCall
 Result of `Thread.interrupted()` is ignored
 in `mug/src/main/java/com/google/mu/util/Maybe.java`
 #### Snippet
@@ -1075,163 +1062,19 @@ in `mug/src/main/java/com/google/mu/util/Maybe.java`
     return exception;
 ```
 
-## RuleId[id=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'a'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
+### IgnoreResultOfCall
+Result of `BaseStream.onClose()` is ignored
+in `mug/src/main/java/com/google/mu/util/stream/MoreStreams.java`
 #### Snippet
 ```java
-   * @since 5.7
-   */
-  public static <A, B> BiOptional<A, B> both(Optional<? extends A> a, Optional<? extends B> b) {
-    requireNonNull(a);
-    requireNonNull(b);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'b'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   * @since 5.7
-   */
-  public static <A, B> BiOptional<A, B> both(Optional<? extends A> a, Optional<? extends B> b) {
-    requireNonNull(a);
-    requireNonNull(b);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalDouble` used as type for parameter 'optional'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   */
-  public static <E extends Throwable> Premise ifPresent(
-      OptionalDouble optional, CheckedDoubleConsumer<E> consumer) throws E {
-    requireNonNull(optional);
-    requireNonNull(consumer);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'optional'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   */
-  public static <E extends Throwable> Premise ifPresent(
-      OptionalLong optional, CheckedLongConsumer<E> consumer) throws E {
-    requireNonNull(optional);
-    requireNonNull(consumer);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'left'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-  @Deprecated
-  public static <A, B, R, E extends Throwable> Optional<R> mapBoth(
-      Optional<A> left, Optional<B> right, CheckedBiFunction<? super A, ? super B, ? extends R, E> mapper)
-      throws E {
-    requireNonNull(left);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`**used as type for parameter 'right'**
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-  @Deprecated
-  public static <A, B, R, E extends Throwable> Optional<R> mapBoth(
-      Optional<A> left, Optional<B> right, CheckedBiFunction<? super A, ? super B, ? extends R, E> mapper)
-      throws E {
-    requireNonNull(left);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'left'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-  @Deprecated
-  public static <A, B, R, E extends Throwable> Optional<R> flatMapBoth(
-      Optional<A> left, Optional<B> right,
-      CheckedBiFunction<? super A, ? super B, ? extends Optional<R>, E> mapper)
-      throws E {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`**used as type for parameter 'right'**
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-  @Deprecated
-  public static <A, B, R, E extends Throwable> Optional<R> flatMapBoth(
-      Optional<A> left, Optional<B> right,
-      CheckedBiFunction<? super A, ? super B, ? extends Optional<R>, E> mapper)
-      throws E {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   */
-  public static <T, E extends Throwable> Premise ifPresent(
-      Optional<T> optional, CheckedConsumer<? super T, E> consumer) throws E {
-    requireNonNull(optional);
-    requireNonNull(consumer);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalInt` used as type for parameter 'optional'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   */
-  public static <E extends Throwable> Premise ifPresent(
-      OptionalInt optional, CheckedIntConsumer<E> consumer) throws E {
-    requireNonNull(optional);
-    requireNonNull(consumer);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   * @since 6.1
-   */
-  public static <T> Set<T> asSet(Optional<? extends T> optional) {
-    return optional.isPresent() ? Collections.singleton(optional.get()) : Collections.emptySet();
+    Stream<T> mapped = StreamSupport.stream(
+        () -> mapper.apply(stream.spliterator()), characteristics, stream.isParallel());
+    mapped.onClose(stream::close);
+    return mapped;
   }
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'left'
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   */
-  public static <A, B, E extends Throwable> Premise ifPresent(
-      Optional<A> left, Optional<B> right, CheckedBiConsumer<? super A, ? super B, E> consumer)
-      throws E {
-    requireNonNull(left);
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`**used as type for parameter 'right'**
-in `mug/src/main/java/com/google/mu/util/Optionals.java`
-#### Snippet
-```java
-   */
-  public static <A, B, E extends Throwable> Premise ifPresent(
-      Optional<A> left, Optional<B> right, CheckedBiConsumer<? super A, ? super B, E> consumer)
-      throws E {
-    requireNonNull(left);
-```
-
+## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'optional'
 in `mug/src/main/java/com/google/mu/util/BiOptional.java`
@@ -1293,6 +1136,162 @@ in `mug/src/main/java/com/google/mu/util/BiOptional.java`
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   */
+  public static <T, E extends Throwable> Premise ifPresent(
+      Optional<T> optional, CheckedConsumer<? super T, E> consumer) throws E {
+    requireNonNull(optional);
+    requireNonNull(consumer);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'a'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   * @since 5.7
+   */
+  public static <A, B> BiOptional<A, B> both(Optional<? extends A> a, Optional<? extends B> b) {
+    requireNonNull(a);
+    requireNonNull(b);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'b'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   * @since 5.7
+   */
+  public static <A, B> BiOptional<A, B> both(Optional<? extends A> a, Optional<? extends B> b) {
+    requireNonNull(a);
+    requireNonNull(b);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalDouble` used as type for parameter 'optional'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   */
+  public static <E extends Throwable> Premise ifPresent(
+      OptionalDouble optional, CheckedDoubleConsumer<E> consumer) throws E {
+    requireNonNull(optional);
+    requireNonNull(consumer);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'left'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+  @Deprecated
+  public static <A, B, R, E extends Throwable> Optional<R> mapBoth(
+      Optional<A> left, Optional<B> right, CheckedBiFunction<? super A, ? super B, ? extends R, E> mapper)
+      throws E {
+    requireNonNull(left);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`**used as type for parameter 'right'**
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+  @Deprecated
+  public static <A, B, R, E extends Throwable> Optional<R> mapBoth(
+      Optional<A> left, Optional<B> right, CheckedBiFunction<? super A, ? super B, ? extends R, E> mapper)
+      throws E {
+    requireNonNull(left);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'left'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   */
+  public static <A, B, E extends Throwable> Premise ifPresent(
+      Optional<A> left, Optional<B> right, CheckedBiConsumer<? super A, ? super B, E> consumer)
+      throws E {
+    requireNonNull(left);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`**used as type for parameter 'right'**
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   */
+  public static <A, B, E extends Throwable> Premise ifPresent(
+      Optional<A> left, Optional<B> right, CheckedBiConsumer<? super A, ? super B, E> consumer)
+      throws E {
+    requireNonNull(left);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   * @since 6.1
+   */
+  public static <T> Set<T> asSet(Optional<? extends T> optional) {
+    return optional.isPresent() ? Collections.singleton(optional.get()) : Collections.emptySet();
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for parameter 'optional'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   */
+  public static <E extends Throwable> Premise ifPresent(
+      OptionalLong optional, CheckedLongConsumer<E> consumer) throws E {
+    requireNonNull(optional);
+    requireNonNull(consumer);
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'left'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+  @Deprecated
+  public static <A, B, R, E extends Throwable> Optional<R> flatMapBoth(
+      Optional<A> left, Optional<B> right,
+      CheckedBiFunction<? super A, ? super B, ? extends Optional<R>, E> mapper)
+      throws E {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`**used as type for parameter 'right'**
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+  @Deprecated
+  public static <A, B, R, E extends Throwable> Optional<R> flatMapBoth(
+      Optional<A> left, Optional<B> right,
+      CheckedBiFunction<? super A, ? super B, ? extends Optional<R>, E> mapper)
+      throws E {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalInt` used as type for parameter 'optional'
+in `mug/src/main/java/com/google/mu/util/Optionals.java`
+#### Snippet
+```java
+   */
+  public static <E extends Throwable> Premise ifPresent(
+      OptionalInt optional, CheckedIntConsumer<E> consumer) throws E {
+    requireNonNull(optional);
+    requireNonNull(consumer);
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional``>` used as type for parameter 'optional'
 in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
 #### Snippet
@@ -1301,6 +1300,18 @@ in `mug/src/main/java/com/google/mu/util/stream/BiCollectors.java`
   private static <K, V> BiOptional<K, V> asBiOptional(
       Optional<? extends Map.Entry<? extends K, ? extends V>> optional) {
     return BiOptional.from(optional).map(Map.Entry::getKey, Map.Entry::getValue);
+  }
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'optional'
+in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
+#### Snippet
+```java
+  }
+
+  private static <T> T orElseNull(Optional<T> optional) {
+    return optional.orElse(null);
   }
 ```
 
@@ -1316,41 +1327,17 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
         ? BiOptional.of(optional.get().getKey(), optional.get().getValue())
 ```
 
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'optional'
-in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
-#### Snippet
-```java
-  }
-
-  private static <T> T orElseNull(Optional<T> optional) {
-    return optional.orElse(null);
-  }
-```
-
 ## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
 'BiStream' used without 'try'-with-resources statement
-in `mug/src/main/java/com/google/mu/util/graph/ShortestPath.java`
+in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
 #### Snippet
 ```java
 
-  @Override public String toString() {
-    return stream().keys().map(Object::toString).collect(joining("->"));
-  }
+      Builder addAll(Builder that) {
+        return BiStream.from(that.map).collect(this, Builder::add);
+      }
 
-```
-
-### AutoCloseableResource
-'BiStream' used without 'try'-with-resources statement
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/StructBuilder.java`
-#### Snippet
-```java
-  public StructBuilder addAllFields(StructBuilder that) {
-    checkArgument(this != that, "Cannot add this builder to itself.");
-    BiStream.from(that.fields).forEachOrdered(this::add);
-    return this;
-  }
 ```
 
 ### AutoCloseableResource
@@ -1370,11 +1357,11 @@ in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/StructBuilder.java`
 in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/StructBuilder.java`
 #### Snippet
 ```java
-   */
-  public StructBuilder addAll(Map<String, Value> map) {
-    BiStream.from(map).forEachOrdered(this::add);
-    return this;
+    return add(
+        name,
+        BiStream.from(map).collect(new StructBuilder(), StructBuilder::add).build());
   }
+
 ```
 
 ### AutoCloseableResource
@@ -1385,6 +1372,30 @@ in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/StructBuilder.java`
    */
   public StructBuilder addAllFields(Struct that) {
     BiStream.from(that.getFieldsMap()).forEachOrdered(this::add);
+    return this;
+  }
+```
+
+### AutoCloseableResource
+'BiStream' used without 'try'-with-resources statement
+in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/StructBuilder.java`
+#### Snippet
+```java
+  public StructBuilder addAllFields(StructBuilder that) {
+    checkArgument(this != that, "Cannot add this builder to itself.");
+    BiStream.from(that.fields).forEachOrdered(this::add);
+    return this;
+  }
+```
+
+### AutoCloseableResource
+'BiStream' used without 'try'-with-resources statement
+in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/StructBuilder.java`
+#### Snippet
+```java
+   */
+  public StructBuilder addAll(Map<String, Value> map) {
+    BiStream.from(map).forEachOrdered(this::add);
     return this;
   }
 ```
@@ -1403,25 +1414,13 @@ in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/StructBuilder.java`
 
 ### AutoCloseableResource
 'BiStream' used without 'try'-with-resources statement
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/StructBuilder.java`
+in `mug/src/main/java/com/google/mu/util/graph/ShortestPath.java`
 #### Snippet
 ```java
-    return add(
-        name,
-        BiStream.from(map).collect(new StructBuilder(), StructBuilder::add).build());
+
+  @Override public String toString() {
+    return stream().keys().map(Object::toString).collect(joining("->"));
   }
-
-```
-
-### AutoCloseableResource
-'BiStream' used without 'try'-with-resources statement
-in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
-#### Snippet
-```java
-
-      Builder addAll(Builder that) {
-        return BiStream.from(that.map).collect(this, Builder::add);
-      }
 
 ```
 
@@ -1430,11 +1429,11 @@ in `mug/src/main/java/com/google/mu/util/stream/MoreCollectors.java`
 in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
 #### Snippet
 ```java
-   */
-  public final Struct struct(Map<String, ?> map) {
-    return BiStream.from(map)
-        .mapValues(this::convertNonNull)
-        .collect(Struct.newBuilder(), Struct.Builder::putFields)
+  private Value toStructValue(Map<?, ?> map) {
+    return valueOf(
+        BiStream.from(map)
+            .mapKeys(Structor::toStructKey)
+            .mapValues(this::convertNonNull)
 ```
 
 ### AutoCloseableResource
@@ -1454,11 +1453,11 @@ in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
 in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
 #### Snippet
 ```java
-  private Value toStructValue(Map<?, ?> map) {
-    return valueOf(
-        BiStream.from(map)
-            .mapKeys(Structor::toStructKey)
-            .mapValues(this::convertNonNull)
+   */
+  public final Struct struct(Map<String, ?> map) {
+    return BiStream.from(map)
+        .mapValues(this::convertNonNull)
+        .collect(Struct.newBuilder(), Struct.Builder::putFields)
 ```
 
 ### AutoCloseableResource
@@ -1474,25 +1473,13 @@ in `mug/src/main/java/com/google/mu/util/Substring.java`
 ```
 
 ### AutoCloseableResource
-'BiStream' used without 'try'-with-resources statement
+'BiStream, V\>' used without 'try'-with-resources statement
 in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 #### Snippet
 ```java
-  private <A, R> BiStream<K, R> groupConsecutiveByKeys(
-      Collector<? super V, A, R> groupCollector) {
-    return groupConsecutiveByKeys(groupCollector.supplier(), groupCollector.accumulator())
-        .mapValues(groupCollector.finisher());
-  }
-```
-
-### AutoCloseableResource
-'BiStream\>' used without 'try'-with-resources statement
-in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
-#### Snippet
-```java
-  public final <V2> BiStream<K, V2> mapValuesIfPresent(
-      Function<? super V, ? extends Optional<? extends V2>> valueMapper) {
-    return mapValues(valueMapper).<V2>mapValues(BiStream::orElseNull).filterValues(Objects::nonNull);
+  public final <K2> BiStream<K2, V> mapKeysIfPresent(
+      BiFunction<? super K, ? super V, ? extends Optional<? extends K2>> keyMapper) {
+    return mapKeys(keyMapper).<K2>mapKeys(BiStream::orElseNull).filterKeys(Objects::nonNull);
   }
 
 ```
@@ -1515,20 +1502,32 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 #### Snippet
 ```java
   public final <V2> BiStream<K, V2> mapValuesIfPresent(
-      BiFunction<? super K, ? super V, ? extends Optional<? extends V2>> valueMapper) {
+      Function<? super V, ? extends Optional<? extends V2>> valueMapper) {
     return mapValues(valueMapper).<V2>mapValues(BiStream::orElseNull).filterValues(Objects::nonNull);
   }
 
 ```
 
 ### AutoCloseableResource
-'BiStream, V\>' used without 'try'-with-resources statement
+'BiStream' used without 'try'-with-resources statement
 in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
 #### Snippet
 ```java
-  public final <K2> BiStream<K2, V> mapKeysIfPresent(
-      BiFunction<? super K, ? super V, ? extends Optional<? extends K2>> keyMapper) {
-    return mapKeys(keyMapper).<K2>mapKeys(BiStream::orElseNull).filterKeys(Objects::nonNull);
+  private <A, R> BiStream<K, R> groupConsecutiveByKeys(
+      Collector<? super V, A, R> groupCollector) {
+    return groupConsecutiveByKeys(groupCollector.supplier(), groupCollector.accumulator())
+        .mapValues(groupCollector.finisher());
+  }
+```
+
+### AutoCloseableResource
+'BiStream\>' used without 'try'-with-resources statement
+in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
+#### Snippet
+```java
+  public final <V2> BiStream<K, V2> mapValuesIfPresent(
+      BiFunction<? super K, ? super V, ? extends Optional<? extends V2>> valueMapper) {
+    return mapValues(valueMapper).<V2>mapValues(BiStream::orElseNull).filterValues(Objects::nonNull);
   }
 
 ```
@@ -1571,51 +1570,15 @@ in `mug-guava/src/main/java/com/google/mu/util/BinarySearch.java`
 ```
 
 ### JavadocDeclaration
-Illegal character
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+Javadoc pointing to itself
+in `mug/src/main/java/com/google/mu/util/Substring.java`
 #### Snippet
 ```java
-  /**
-   * Returns a {@link BiCollector} that collects the key-value pairs into an {@link
-   * ImmutableTable<R, C, V>}, where each input key (of type {@code R}) is mapped to a row in the
-   * table, and each input value is a {@code BiStream<C, V>} whose keys (of type {@code C}) are
-   * mapped to columns in the table, and whose values (of type {@code V}) are mapped to the cell
-```
-
-### JavadocDeclaration
-Illegal character
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-  /**
-   * Returns a {@link BiCollector} that collects the key-value pairs into an {@link
-   * ImmutableTable<R, C, V>}, where each input key (of type {@code R}) is mapped to a row in the
-   * table, and each input value is a {@code BiStream<C, V>} whose keys (of type {@code C}) are
-   * mapped to columns in the table, and whose values (of type {@code V}) are mapped to the cell
-```
-
-### JavadocDeclaration
-Illegal character
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-  /**
-   * Returns a {@link BiCollector} that collects the key-value pairs into an {@link
-   * ImmutableTable<R, C, V>}, where each input key (of type {@code R}) is mapped to a row in the
-   * table, and each input value is a {@code BiStream<C, V>} whose keys (of type {@code C}) are
-   * mapped to columns in the table, and whose values (of type {@code V}) are mapped to the cell
-```
-
-### JavadocDeclaration
-Illegal character
-in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
-#### Snippet
-```java
-  /**
-   * Returns a {@link BiCollector} that collects the key-value pairs into an {@link
-   * ImmutableTable<R, C, V>}, where each input key (of type {@code R}) is mapped to a row in the
-   * table, and each input value is a {@code BiStream<C, V>} whose keys (of type {@code C}) are
-   * mapped to columns in the table, and whose values (of type {@code V}) are mapped to the cell
+     * Returns the part of the original string before the matched substring.
+     *
+     * <p>{@link #before} and {@link #after} are almost always used together to split a string into
+     * two parts. If you just need the substring after the match, you might want to use {@code
+     * Substring.after(pattern)} instead, because the pattern logic is encoded entirely in the
 ```
 
 ### JavadocDeclaration
@@ -1631,15 +1594,51 @@ in `mug/src/main/java/com/google/mu/util/Substring.java`
 ```
 
 ### JavadocDeclaration
-Javadoc pointing to itself
-in `mug/src/main/java/com/google/mu/util/Substring.java`
+Illegal character
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
 #### Snippet
 ```java
-     * Returns the part of the original string before the matched substring.
-     *
-     * <p>{@link #before} and {@link #after} are almost always used together to split a string into
-     * two parts. If you just need the substring after the match, you might want to use {@code
-     * Substring.after(pattern)} instead, because the pattern logic is encoded entirely in the
+  /**
+   * Returns a {@link BiCollector} that collects the key-value pairs into an {@link
+   * ImmutableTable<R, C, V>}, where each input key (of type {@code R}) is mapped to a row in the
+   * table, and each input value is a {@code BiStream<C, V>} whose keys (of type {@code C}) are
+   * mapped to columns in the table, and whose values (of type {@code V}) are mapped to the cell
+```
+
+### JavadocDeclaration
+Illegal character
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+  /**
+   * Returns a {@link BiCollector} that collects the key-value pairs into an {@link
+   * ImmutableTable<R, C, V>}, where each input key (of type {@code R}) is mapped to a row in the
+   * table, and each input value is a {@code BiStream<C, V>} whose keys (of type {@code C}) are
+   * mapped to columns in the table, and whose values (of type {@code V}) are mapped to the cell
+```
+
+### JavadocDeclaration
+Illegal character
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+  /**
+   * Returns a {@link BiCollector} that collects the key-value pairs into an {@link
+   * ImmutableTable<R, C, V>}, where each input key (of type {@code R}) is mapped to a row in the
+   * table, and each input value is a {@code BiStream<C, V>} whose keys (of type {@code C}) are
+   * mapped to columns in the table, and whose values (of type {@code V}) are mapped to the cell
+```
+
+### JavadocDeclaration
+Illegal character
+in `mug-guava/src/main/java/com/google/mu/util/stream/GuavaCollectors.java`
+#### Snippet
+```java
+  /**
+   * Returns a {@link BiCollector} that collects the key-value pairs into an {@link
+   * ImmutableTable<R, C, V>}, where each input key (of type {@code R}) is mapped to a row in the
+   * table, and each input value is a {@code BiStream<C, V>} whose keys (of type {@code C}) are
+   * mapped to columns in the table, and whose values (of type {@code V}) are mapped to the cell
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -1728,222 +1727,5 @@ in `mug/src/main/java/com/google/mu/util/stream/BiStream.java`
             .map(optional -> optional.map(BiStream::kv).get()));
   }
 
-```
-
-## RuleId[id=UnstableApiUsage]
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableIntArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-   * <li>{@link Table} converted as {@code toValue(table.rowMap())}
-   * <li>{@link Optional} converted as {@code toValue(optional.orElse(null))}
-   * <li>{@link ImmutableIntArray}, {@link ImmutableLongArray} and {@link ImmutableDoubleArray}
-   *     elements wrapped in {@link ListValue}
-   * <li>Built-in protobuf types ({@link Struct}, {@link Value}, {@link ListValue}, {@link NullValue})
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableLongArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-   * <li>{@link Table} converted as {@code toValue(table.rowMap())}
-   * <li>{@link Optional} converted as {@code toValue(optional.orElse(null))}
-   * <li>{@link ImmutableIntArray}, {@link ImmutableLongArray} and {@link ImmutableDoubleArray}
-   *     elements wrapped in {@link ListValue}
-   * <li>Built-in protobuf types ({@link Struct}, {@link Value}, {@link ListValue}, {@link NullValue})
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableDoubleArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-   * <li>{@link Table} converted as {@code toValue(table.rowMap())}
-   * <li>{@link Optional} converted as {@code toValue(optional.orElse(null))}
-   * <li>{@link ImmutableIntArray}, {@link ImmutableLongArray} and {@link ImmutableDoubleArray}
-   *     elements wrapped in {@link ListValue}
-   * <li>Built-in protobuf types ({@link Struct}, {@link Value}, {@link ListValue}, {@link NullValue})
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableIntArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-          .collect(valuesToValue());
-    }
-    if (object instanceof ImmutableIntArray) {
-      // TODO: use ImmutableIntArray.stream() when it's available in Android
-     ImmutableIntArray array = (ImmutableIntArray) object;
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableIntArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-    if (object instanceof ImmutableIntArray) {
-      // TODO: use ImmutableIntArray.stream() when it's available in Android
-     ImmutableIntArray array = (ImmutableIntArray) object;
-     return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableIntArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-    if (object instanceof ImmutableIntArray) {
-      // TODO: use ImmutableIntArray.stream() when it's available in Android
-     ImmutableIntArray array = (ImmutableIntArray) object;
-     return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-```
-
-### UnstableApiUsage
-'length()' is declared in unstable class 'com.google.common.primitives.ImmutableIntArray' marked with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-      // TODO: use ImmutableIntArray.stream() when it's available in Android
-     ImmutableIntArray array = (ImmutableIntArray) object;
-     return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-          .collect(valuesToValue());
-```
-
-### UnstableApiUsage
-'get(int)' is declared in unstable class 'com.google.common.primitives.ImmutableIntArray' marked with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-     ImmutableIntArray array = (ImmutableIntArray) object;
-     return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-          .collect(valuesToValue());
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableLongArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-          .collect(valuesToValue());
-    }
-    if (object instanceof ImmutableLongArray) {
-      // TODO: use ImmutableLongArray.stream() when it's available in Android
-      ImmutableLongArray array = (ImmutableLongArray) object;
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableLongArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-    if (object instanceof ImmutableLongArray) {
-      // TODO: use ImmutableLongArray.stream() when it's available in Android
-      ImmutableLongArray array = (ImmutableLongArray) object;
-      return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableLongArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-    if (object instanceof ImmutableLongArray) {
-      // TODO: use ImmutableLongArray.stream() when it's available in Android
-      ImmutableLongArray array = (ImmutableLongArray) object;
-      return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-```
-
-### UnstableApiUsage
-'length()' is declared in unstable class 'com.google.common.primitives.ImmutableLongArray' marked with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-      // TODO: use ImmutableLongArray.stream() when it's available in Android
-      ImmutableLongArray array = (ImmutableLongArray) object;
-      return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-          .collect(valuesToValue());
-```
-
-### UnstableApiUsage
-'get(int)' is declared in unstable class 'com.google.common.primitives.ImmutableLongArray' marked with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-      ImmutableLongArray array = (ImmutableLongArray) object;
-      return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-          .collect(valuesToValue());
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableDoubleArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-          .collect(valuesToValue());
-    }
-    if (object instanceof ImmutableDoubleArray) {
-      // TODO: use ImmutableDoubleArray.stream() when it's available in Android
-      ImmutableDoubleArray array = (ImmutableDoubleArray) object;
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableDoubleArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-    if (object instanceof ImmutableDoubleArray) {
-      // TODO: use ImmutableDoubleArray.stream() when it's available in Android
-      ImmutableDoubleArray array = (ImmutableDoubleArray) object;
-      return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-```
-
-### UnstableApiUsage
-'com.google.common.primitives.ImmutableDoubleArray' is marked unstable with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-    if (object instanceof ImmutableDoubleArray) {
-      // TODO: use ImmutableDoubleArray.stream() when it's available in Android
-      ImmutableDoubleArray array = (ImmutableDoubleArray) object;
-      return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-```
-
-### UnstableApiUsage
-'length()' is declared in unstable class 'com.google.common.primitives.ImmutableDoubleArray' marked with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-      // TODO: use ImmutableDoubleArray.stream() when it's available in Android
-      ImmutableDoubleArray array = (ImmutableDoubleArray) object;
-      return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-        .collect(valuesToValue());
-```
-
-### UnstableApiUsage
-'get(int)' is declared in unstable class 'com.google.common.primitives.ImmutableDoubleArray' marked with @Beta
-in `mug-protobuf/src/main/java/com/google/mu/protobuf/util/Structor.java`
-#### Snippet
-```java
-      ImmutableDoubleArray array = (ImmutableDoubleArray) object;
-      return IntStream.range(0, array.length())
-          .mapToObj(i -> valueOf(array.get(i)))
-        .collect(valuesToValue());
-    }
 ```
 
