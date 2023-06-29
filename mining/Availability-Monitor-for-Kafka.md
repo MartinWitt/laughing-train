@@ -70,6 +70,111 @@ in `src/main/java/com/microsoft/kafkaavailability/reporters/ScheduledReporterCol
 
 ## RuleId[id=UnnecessaryModifier]
 ### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+}
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+public interface Constants { 
+
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+public interface Constants { 
+
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+public interface Constants { 
+
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+}
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
+#### Snippet
+```java
+    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
+    public static final String SERVICE_NAME = "kattool";
+    public static final long DEFAULT_ELAPSED_TIME = 60000;
+}
+```
+
+### UnnecessaryModifier
 Modifier `static` is redundant for inner enums
 in `src/main/java/com/microsoft/kafkaavailability/reporters/StatsdClient.java`
 #### Snippet
@@ -79,111 +184,6 @@ in `src/main/java/com/microsoft/kafkaavailability/reporters/StatsdClient.java`
     public static enum StatType { COUNTER, TIMER, GAUGE }
 
     private final String host;
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-}
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-}
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-}
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-public interface Constants { 
-
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-public interface Constants { 
-
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `src/main/java/com/microsoft/kafkaavailability/discovery/Constants.java`
-#### Snippet
-```java
-public interface Constants { 
-
-    public static final String DEFAULT_REGISTRATION_ROOT = "/services";
-    public static final String SERVICE_NAME = "kattool";
-    public static final long DEFAULT_ELAPSED_TIME = 60000;
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
@@ -536,18 +536,6 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `src/main/java/com/microsoft/kafkaavailability/App.java`
-#### Snippet
-```java
-            } catch (TimeoutException te) {
-                m_logger.error("Super thread timed out for " + mainThreadsTimeoutInSeconds + " " + TimeUnit.SECONDS + ", but super thread will advance.");
-            } catch (InterruptedException ie) {
-            }
-
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
 in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
 #### Snippet
 ```java
@@ -555,6 +543,30 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
             m_phaser.arriveAndDeregister();
         } catch (IllegalStateException exception) {
         }
+
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/main/java/com/microsoft/kafkaavailability/Consumer.java`
+#### Snippet
+```java
+                try {
+                    Thread.sleep(NEW_LEADER_PAUSE_MS);
+                } catch (InterruptedException ie) {
+                }
+            }
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/main/java/com/microsoft/kafkaavailability/App.java`
+#### Snippet
+```java
+            } catch (TimeoutException te) {
+                m_logger.error("Super thread timed out for " + mainThreadsTimeoutInSeconds + " " + TimeUnit.SECONDS + ", but super thread will advance.");
+            } catch (InterruptedException ie) {
+            }
 
 ```
 
@@ -568,18 +580,6 @@ in `src/main/java/com/microsoft/kafkaavailability/App.java`
             } catch (IllegalStateException exception) {
             }
         }
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/main/java/com/microsoft/kafkaavailability/Consumer.java`
-#### Snippet
-```java
-                try {
-                    Thread.sleep(NEW_LEADER_PAUSE_MS);
-                } catch (InterruptedException ie) {
-                }
-            }
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -635,18 +635,6 @@ in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorClient.java`
 ```
 
 ### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorClient.java`
-#### Snippet
-```java
-        } catch (InterruptedException e) {
-            log.error(e.getMessage(), e);
-            Throwables.propagate(e);
-        }
-
-```
-
-### Deprecation
 'org.apache.curator.utils.EnsurePath' is deprecated
 in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorClient.java`
 #### Snippet
@@ -671,6 +659,18 @@ in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorClient.java`
 ```
 
 ### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorClient.java`
+#### Snippet
+```java
+        } catch (InterruptedException e) {
+            log.error(e.getMessage(), e);
+            Throwables.propagate(e);
+        }
+
+```
+
+### Deprecation
 'org.apache.curator.utils.EnsurePath' is deprecated
 in `src/main/java/com/microsoft/kafkaavailability/discovery/ServiceUtil.java`
 #### Snippet
@@ -711,8 +711,8 @@ in `src/main/java/com/microsoft/kafkaavailability/discovery/ServiceUtil.java`
 in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorManager.java`
 #### Snippet
 ```java
-            throw rte;
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             throw Throwables.propagate(e);
         }
 
@@ -723,8 +723,8 @@ in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorManager.java`
 in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorManager.java`
 #### Snippet
 ```java
+            throw rte;
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
             throw Throwables.propagate(e);
         }
 
@@ -855,6 +855,18 @@ in `src/main/java/com/microsoft/kafkaavailability/reporters/StatsdClient.java`
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+    private Phaser m_phaser;
+    private List<String> m_listServers;
+    private long m_threadSleepTime;
+
+    @Inject
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
 #### Snippet
 ```java
@@ -887,18 +899,6 @@ in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
     private int m_vipRetries = 3;
     private IMetaDataManager m_metaDataManager;
     private ProducerProperties producerProperties;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-    private Phaser m_phaser;
-    private List<String> m_listServers;
-    private long m_threadSleepTime;
-
-    @Inject
 ```
 
 ### FieldCanBeLocal
@@ -1166,11 +1166,11 @@ in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorManager.java`
 in `src/main/java/com/microsoft/kafkaavailability/module/ModuleScanner.java`
 #### Snippet
 ```java
-     * scan KAT and all KAT's dependencies.
+     * Purpose of this method is to get all Guice module classes, to pick up drop wizard reporters in dependencies.
      *
      * @return
      */
-    private static Set<Class<? extends AbstractModule>> findAllModuleClasses() {
+    public static Set<Module> getModulesFromDependencies() {
 ```
 
 ### JavadocDeclaration
@@ -1178,11 +1178,11 @@ in `src/main/java/com/microsoft/kafkaavailability/module/ModuleScanner.java`
 in `src/main/java/com/microsoft/kafkaavailability/module/ModuleScanner.java`
 #### Snippet
 ```java
-     * Purpose of this method is to get all Guice module classes, to pick up drop wizard reporters in dependencies.
+     * scan KAT and all KAT's dependencies.
      *
      * @return
      */
-    public static Set<Module> getModulesFromDependencies() {
+    private static Set<Class<? extends AbstractModule>> findAllModuleClasses() {
 ```
 
 ### JavadocDeclaration
@@ -1195,6 +1195,18 @@ in `src/main/java/com/microsoft/kafkaavailability/reporters/ScheduledReporterCol
      * @return
      */
     public MetricRegistry getRegistry() {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
+#### Snippet
+```java
+     * Closes this context
+     *
+     * @throws IOException
+     */
+    public void close() throws IOException {
 ```
 
 ### JavadocDeclaration
@@ -1219,18 +1231,6 @@ in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
      * @return
      */
     private KeyedMessage<String, String> createCanaryMessage(String topicName, String partitionId) {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
-#### Snippet
-```java
-     * Closes this context
-     *
-     * @throws IOException
-     */
-    public void close() throws IOException {
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -1259,18 +1259,6 @@ public class CommonUtils {
 ```
 
 ### FieldMayBeFinal
-Field `m_PartitionMetadata` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerPartitionThread.java`
-#### Snippet
-```java
-    private CuratorFramework m_curatorFramework;
-    private TopicMetadata m_TopicMetadata;
-    private PartitionMetadata m_PartitionMetadata;
-
-    public ConsumerPartitionThread(CuratorFramework curatorFramework, TopicMetadata topicMetadata, PartitionMetadata partitionMetadata) {
-```
-
-### FieldMayBeFinal
 Field `m_curatorFramework` may be 'final'
 in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerPartitionThread.java`
 #### Snippet
@@ -1295,27 +1283,15 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerPartitionThrea
 ```
 
 ### FieldMayBeFinal
-Field `log` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorManager.java`
+Field `m_PartitionMetadata` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerPartitionThread.java`
 #### Snippet
 ```java
-     * The log.
-     */
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    private CuratorFramework m_curatorFramework;
+    private TopicMetadata m_TopicMetadata;
+    private PartitionMetadata m_PartitionMetadata;
 
-    /**
-```
-
-### FieldMayBeFinal
-Field `serviceProviders` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorManager.java`
-#### Snippet
-```java
-    private Map<ServiceDiscovery<MetaData>, ServiceInstance<MetaData>> discoveryMap;
-
-    private Map<String, ServiceProvider<MetaData>> serviceProviders = Maps.newHashMap();
-
-    /**
+    public ConsumerPartitionThread(CuratorFramework curatorFramework, TopicMetadata topicMetadata, PartitionMetadata partitionMetadata) {
 ```
 
 ### FieldMayBeFinal
@@ -1343,15 +1319,27 @@ in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorManager.java`
 ```
 
 ### FieldMayBeFinal
-Field `m_threadSleepTime` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/threads/LeaderInfoThread.java`
+Field `serviceProviders` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorManager.java`
 #### Snippet
 ```java
+    private Map<ServiceDiscovery<MetaData>, ServiceInstance<MetaData>> discoveryMap;
 
-    private Phaser m_phaser;
-    private long m_threadSleepTime;
+    private Map<String, ServiceProvider<MetaData>> serviceProviders = Maps.newHashMap();
 
-    @Inject
+    /**
+```
+
+### FieldMayBeFinal
+Field `log` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/discovery/CuratorManager.java`
+#### Snippet
+```java
+     * The log.
+     */
+    private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -1367,27 +1355,15 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/LeaderInfoThread.java`
 ```
 
 ### FieldMayBeFinal
-Field `outputData` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/reporters/StatsdClient.java`
+Field `m_threadSleepTime` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/threads/LeaderInfoThread.java`
 #### Snippet
 ```java
-    private boolean prependNewline = false;
 
-    private ByteArrayOutputStream outputData;
-    private DatagramSocket datagramSocket;
-    private Writer writer;
-```
+    private Phaser m_phaser;
+    private long m_threadSleepTime;
 
-### FieldMayBeFinal
-Field `filter` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/reporters/StatsdReporter.java`
-#### Snippet
-```java
-        private TimeUnit rateUnit;
-        private TimeUnit durationUnit;
-        private MetricFilter filter;
-
-        private Builder(MetricRegistry registry) {
+    @Inject
 ```
 
 ### FieldMayBeFinal
@@ -1403,6 +1379,30 @@ in `src/main/java/com/microsoft/kafkaavailability/reporters/StatsdReporter.java`
 ```
 
 ### FieldMayBeFinal
+Field `filter` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/reporters/StatsdReporter.java`
+#### Snippet
+```java
+        private TimeUnit rateUnit;
+        private TimeUnit durationUnit;
+        private MetricFilter filter;
+
+        private Builder(MetricRegistry registry) {
+```
+
+### FieldMayBeFinal
+Field `outputData` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/reporters/StatsdClient.java`
+#### Snippet
+```java
+    private boolean prependNewline = false;
+
+    private ByteArrayOutputStream outputData;
+    private DatagramSocket datagramSocket;
+    private Writer writer;
+```
+
+### FieldMayBeFinal
 Field `m_phaser` may be 'final'
 in `src/main/java/com/microsoft/kafkaavailability/threads/AvailabilityThread.java`
 #### Snippet
@@ -1427,6 +1427,18 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/AvailabilityThread.jav
 ```
 
 ### FieldMayBeFinal
+Field `m_threadSleepTime` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/threads/ProducerThread.java`
+#### Snippet
+```java
+
+    private Phaser m_phaser;
+    private long m_threadSleepTime;
+
+    @Inject
+```
+
+### FieldMayBeFinal
 Field `m_phaser` may be 'final'
 in `src/main/java/com/microsoft/kafkaavailability/threads/ProducerThread.java`
 #### Snippet
@@ -1439,15 +1451,63 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/ProducerThread.java`
 ```
 
 ### FieldMayBeFinal
+Field `client` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
+#### Snippet
+```java
+{
+    final static Logger m_logger = LoggerFactory.getLogger(MetaDataManager.class);
+    private CuratorFramework client;
+
+    MetaDataManagerProperties m_mDProps;
+```
+
+### FieldMayBeFinal
+Field `m_phaser` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+    private final MetricNameEncodedFactory metricNameFactory;
+
+    private Phaser m_phaser;
+    private List<String> m_listServers;
+    private long m_threadSleepTime;
+```
+
+### FieldMayBeFinal
 Field `m_threadSleepTime` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/threads/ProducerThread.java`
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
+#### Snippet
+```java
+    private Phaser m_phaser;
+    private List<String> m_listServers;
+    private long m_threadSleepTime;
+
+    @Inject
+```
+
+### FieldMayBeFinal
+Field `m_listServers` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
 #### Snippet
 ```java
 
     private Phaser m_phaser;
+    private List<String> m_listServers;
     private long m_threadSleepTime;
 
-    @Inject
+```
+
+### FieldMayBeFinal
+Field `computerName` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/App.java`
+#### Snippet
+```java
+    static List<String> listServers;
+
+    private static String computerName = CommonUtils.getComputerName();
+
+    public static void main(String[] args) throws IOException, MetaDataManagerException, InterruptedException {
 ```
 
 ### FieldMayBeFinal
@@ -1475,18 +1535,6 @@ in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
 ```
 
 ### FieldMayBeFinal
-Field `m_metaDataManager` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
-#### Snippet
-```java
-    final static Logger m_logger = LoggerFactory.getLogger(Producer.class);
-    private int m_vipRetries = 3;
-    private IMetaDataManager m_metaDataManager;
-    private ProducerProperties producerProperties;
-    private kafka.javaapi.producer.Producer<String, String> m_producer;
-```
-
-### FieldMayBeFinal
 Field `producerProperties` may be 'final'
 in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
 #### Snippet
@@ -1499,6 +1547,18 @@ in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
 ```
 
 ### FieldMayBeFinal
+Field `m_metaDataManager` may be 'final'
+in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
+#### Snippet
+```java
+    final static Logger m_logger = LoggerFactory.getLogger(Producer.class);
+    private int m_vipRetries = 3;
+    private IMetaDataManager m_metaDataManager;
+    private ProducerProperties producerProperties;
+    private kafka.javaapi.producer.Producer<String, String> m_producer;
+```
+
+### FieldMayBeFinal
 Field `m_vipRetries` may be 'final'
 in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
 #### Snippet
@@ -1508,66 +1568,6 @@ in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
     private int m_vipRetries = 3;
     private IMetaDataManager m_metaDataManager;
     private ProducerProperties producerProperties;
-```
-
-### FieldMayBeFinal
-Field `client` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
-#### Snippet
-```java
-{
-    final static Logger m_logger = LoggerFactory.getLogger(MetaDataManager.class);
-    private CuratorFramework client;
-
-    MetaDataManagerProperties m_mDProps;
-```
-
-### FieldMayBeFinal
-Field `computerName` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/App.java`
-#### Snippet
-```java
-    static List<String> listServers;
-
-    private static String computerName = CommonUtils.getComputerName();
-
-    public static void main(String[] args) throws IOException, MetaDataManagerException, InterruptedException {
-```
-
-### FieldMayBeFinal
-Field `m_threadSleepTime` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-    private Phaser m_phaser;
-    private List<String> m_listServers;
-    private long m_threadSleepTime;
-
-    @Inject
-```
-
-### FieldMayBeFinal
-Field `m_phaser` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-    private final MetricNameEncodedFactory metricNameFactory;
-
-    private Phaser m_phaser;
-    private List<String> m_listServers;
-    private long m_threadSleepTime;
-```
-
-### FieldMayBeFinal
-Field `m_listServers` may be 'final'
-in `src/main/java/com/microsoft/kafkaavailability/threads/ConsumerThread.java`
-#### Snippet
-```java
-
-    private Phaser m_phaser;
-    private List<String> m_listServers;
-    private long m_threadSleepTime;
-
 ```
 
 ### FieldMayBeFinal
@@ -1671,18 +1671,6 @@ in `src/main/java/com/microsoft/kafkaavailability/threads/ProducerThread.java`
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
-#### Snippet
-```java
-
-                try {
-                    Thread.sleep(500);
-                } catch (Exception ex) {
-                    m_logger.error(ex.getMessage(), ex);
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/microsoft/kafkaavailability/App.java`
 #### Snippet
 ```java
@@ -1693,19 +1681,19 @@ in `src/main/java/com/microsoft/kafkaavailability/App.java`
         }
 ```
 
-## RuleId[id=StringConcatenationInLoops]
-### StringConcatenationInLoops
-String concatenation `+=` in loop
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
 #### Snippet
 ```java
-        String brokerList = "";
-        for (String broker : m_metaDataManager.getBrokerList(true)) {
-            brokerList += broker + ", ";
-        }
-        props.put("metadata.broker.list", brokerList);
+
+                try {
+                    Thread.sleep(500);
+                } catch (Exception ex) {
+                    m_logger.error(ex.getMessage(), ex);
 ```
 
+## RuleId[id=StringConcatenationInLoops]
 ### StringConcatenationInLoops
 String concatenation `+=` in loop
 in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
@@ -1730,19 +1718,19 @@ in `src/main/java/com/microsoft/kafkaavailability/MetaDataManager.java`
                 String leader = "";
 ```
 
-## RuleId[id=UnusedAssignment]
-### UnusedAssignment
-Variable `hostname` initializer `"Unknown"` is redundant
-in `src/main/java/com/microsoft/kafkaavailability/discovery/CommonUtils.java`
+### StringConcatenationInLoops
+String concatenation `+=` in loop
+in `src/main/java/com/microsoft/kafkaavailability/Producer.java`
 #### Snippet
 ```java
-     */
-    public static String getComputerName() {
-        String hostname = "Unknown";
-
-        try {
+        String brokerList = "";
+        for (String broker : m_metaDataManager.getBrokerList(true)) {
+            brokerList += broker + ", ";
+        }
+        props.put("metadata.broker.list", brokerList);
 ```
 
+## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
 Variable `regex` initializer `""` is redundant
 in `src/main/java/com/microsoft/kafkaavailability/discovery/CommonUtils.java`
@@ -1753,6 +1741,18 @@ in `src/main/java/com/microsoft/kafkaavailability/discovery/CommonUtils.java`
         String regex = "";
         StringBuilder stringbuilder = new StringBuilder();
         for (String whiteList : topicsSet) {
+```
+
+### UnusedAssignment
+Variable `hostname` initializer `"Unknown"` is redundant
+in `src/main/java/com/microsoft/kafkaavailability/discovery/CommonUtils.java`
+#### Snippet
+```java
+     */
+    public static String getComputerName() {
+        String hostname = "Unknown";
+
+        try {
 ```
 
 ### UnusedAssignment
@@ -1857,11 +1857,11 @@ Condition `zkClient != null` is always `true`
 in `src/main/java/com/microsoft/kafkaavailability/KafkaUtils.java`
 #### Snippet
 ```java
-            return AdminUtils.topicExists(zkClient, topic);
-        } finally {
-            if (zkClient != null) {
-                zkClient.close();
-            }
+                m_logger.info("Topic exists. name: {}", topicName);
+            } finally {
+                if (zkClient != null) {
+                    zkClient.close();
+                }
 ```
 
 ### ConstantValue
@@ -1869,11 +1869,11 @@ Condition `zkClient != null` is always `true`
 in `src/main/java/com/microsoft/kafkaavailability/KafkaUtils.java`
 #### Snippet
 ```java
-                m_logger.info("Topic exists. name: {}", topicName);
-            } finally {
-                if (zkClient != null) {
-                    zkClient.close();
-                }
+            return AdminUtils.topicExists(zkClient, topic);
+        } finally {
+            if (zkClient != null) {
+                zkClient.close();
+            }
 ```
 
 ### ConstantValue
