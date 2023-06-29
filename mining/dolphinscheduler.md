@@ -1,40 +1,40 @@
 # dolphinscheduler 
  
 # Bad smells
-I found 2774 bad smells with 35 repairable:
+I found 2759 bad smells with 34 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | SpringJavaAutowiredFieldsWarningInspection | 618 | false |
-| JavadocDeclaration | 501 | false |
+| JavadocDeclaration | 498 | false |
 | SpringJavaInjectionPointsAutowiringInspection | 221 | false |
 | SpringBootApplicationYaml | 161 | false |
 | UNCHECKED_WARNING | 144 | false |
 | FieldMayBeFinal | 122 | false |
-| DuplicatedCode | 121 | false |
+| DuplicatedCode | 117 | false |
 | DefaultAnnotationParam | 82 | false |
 | DataFlowIssue | 81 | false |
-| NullableProblems | 50 | false |
 | UnusedAssignment | 49 | false |
-| Lombok | 48 | false |
+| NullableProblems | 47 | false |
+| Lombok | 45 | false |
 | MismatchedJavadocCode | 41 | false |
 | AutoCloseableResource | 39 | false |
-| RegExpRedundantEscape | 34 | false |
+| RegExpRedundantEscape | 33 | false |
+| Deprecation | 32 | false |
 | SpringCacheAnnotationsOnInterfaceInspection | 31 | false |
 | FieldCanBeLocal | 31 | false |
-| Deprecation | 30 | false |
 | DanglingJavadoc | 28 | false |
 | NonFinalFieldInEnum | 24 | false |
 | UnnecessarySemicolon | 22 | false |
-| DuplicateBranchesInSwitch | 18 | false |
 | ConstantValue | 17 | false |
 | RegExpSingleCharAlternation | 17 | false |
-| UnnecessaryLocalVariable | 17 | true |
+| DuplicateBranchesInSwitch | 16 | false |
+| UnnecessaryLocalVariable | 16 | true |
 | BusyWait | 15 | false |
 | UnstableApiUsage | 13 | false |
 | IgnoreResultOfCall | 12 | false |
 | SuspiciousMethodCalls | 12 | false |
-| TrivialIf | 12 | false |
 | RedundantModifiersValueLombok | 12 | false |
+| TrivialIf | 11 | false |
 | SimplifyStreamApiCallChains | 10 | false |
 | JavadocReference | 9 | false |
 | SpringCacheableComponentsInspection | 8 | false |
@@ -48,10 +48,10 @@ I found 2774 bad smells with 35 repairable:
 | StringConcatenationInsideStringBufferAppend | 5 | false |
 | IOStreamConstructor | 5 | false |
 | UnnecessaryToStringCall | 5 | true |
+| TrivialStringConcatenation | 4 | false |
 | PlaceholderCountMatchesArgumentCount | 4 | false |
 | SpringTransactionalMethodCallsInspection | 4 | false |
 | StringBufferReplaceableByString | 3 | false |
-| TrivialStringConcatenation | 3 | false |
 | JavadocLinkAsPlainText | 3 | false |
 | MismatchedCollectionQueryUpdate | 3 | false |
 | OptionalGetWithoutIsPresent | 3 | false |
@@ -218,11 +218,11 @@ Modifier `public` is redundant for interface members
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/TaskCallBack.java`
 #### Snippet
 ```java
+public interface TaskCallBack {
+
     public void updateRemoteApplicationInfo(int taskInstanceId, ApplicationInfo applicationInfo);
 
     public void updateTaskInstanceInfo(int taskInstanceId);
-}
-
 ```
 
 ### UnnecessaryModifier
@@ -230,11 +230,11 @@ Modifier `public` is redundant for interface members
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/TaskCallBack.java`
 #### Snippet
 ```java
-public interface TaskCallBack {
-
     public void updateRemoteApplicationInfo(int taskInstanceId, ApplicationInfo applicationInfo);
 
     public void updateTaskInstanceInfo(int taskInstanceId);
+}
+
 ```
 
 ### UnnecessaryModifier
@@ -505,90 +505,6 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         }
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
         String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
 ```
 
@@ -637,6 +553,30 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         }
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
         String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
 ```
 
@@ -672,6 +612,42 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
         String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
         String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
 
         ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
 ```
@@ -689,6 +665,30 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
 ```
 
 ### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### RegExpRedundantEscape
 Redundant character escape `\\$` in RegExp
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/ParameterUtils.java`
 #### Snippet
@@ -696,18 +696,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 public class ParameterUtils {
 
     private static final Pattern DATE_PARSE_PATTERN = Pattern.compile("\\$\\[([^\\$\\]]+)]");
-    private static final Pattern DATE_START_PATTERN = Pattern.compile("^[0-9]");
-
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\$` in RegExp
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/ParameterUtils.java`
-#### Snippet
-```java
-public class ParameterUtils {
-
-    private static final Pattern DATE_PARSE_PATTERN = Pattern.compile("\\$\\[([^\\$\\]]+)]");
 
     private static final Pattern DATE_START_PATTERN = Pattern.compile("^[0-9]");
 ```
@@ -717,11 +705,11 @@ Redundant character escape `\\_` in RegExp
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
 #### Snippet
 ```java
-    private static final Pattern IPV4_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\,]+$");
-
     private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
 
     private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
+
+    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.\\:]+$");
 ```
 
 ### RegExpRedundantEscape
@@ -729,23 +717,35 @@ Redundant character escape `\\.` in RegExp
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
 #### Snippet
 ```java
-    private static final Pattern IPV4_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\,]+$");
-
     private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
 
     private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
+
+    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.\\:]+$");
 ```
 
 ### RegExpRedundantEscape
-Redundant character escape `\\:` in RegExp
+Redundant character escape `\\_` in RegExp
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
 #### Snippet
 ```java
+public abstract class AbstractDataSourceProcessor implements DataSourceProcessor {
+
     private static final Pattern IPV4_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\,]+$");
 
     private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
+```
 
-    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
+### RegExpRedundantEscape
+Redundant character escape `\\.` in RegExp
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
+#### Snippet
+```java
+public abstract class AbstractDataSourceProcessor implements DataSourceProcessor {
+
+    private static final Pattern IPV4_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\,]+$");
+
+    private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
 ```
 
 ### RegExpRedundantEscape
@@ -753,35 +753,11 @@ Redundant character escape `\\,` in RegExp
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
 #### Snippet
 ```java
+public abstract class AbstractDataSourceProcessor implements DataSourceProcessor {
+
     private static final Pattern IPV4_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\,]+$");
 
     private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
-
-    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\_` in RegExp
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
-#### Snippet
-```java
-    private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
-
-    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
-
-    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.\\:]+$");
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\.` in RegExp
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
-#### Snippet
-```java
-    private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
-
-    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
-
-    private static final Pattern PARAMS_PATTER = Pattern.compile("^[a-zA-Z0-9\\-\\_\\/\\@\\.\\:]+$");
 ```
 
 ### RegExpRedundantEscape
@@ -849,11 +825,11 @@ Redundant character escape `\\_` in RegExp
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
 #### Snippet
 ```java
-public abstract class AbstractDataSourceProcessor implements DataSourceProcessor {
-
     private static final Pattern IPV4_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\,]+$");
 
     private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
+
+    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
 ```
 
 ### RegExpRedundantEscape
@@ -861,11 +837,23 @@ Redundant character escape `\\.` in RegExp
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
 #### Snippet
 ```java
-public abstract class AbstractDataSourceProcessor implements DataSourceProcessor {
-
     private static final Pattern IPV4_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\,]+$");
 
     private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
+
+    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
+```
+
+### RegExpRedundantEscape
+Redundant character escape `\\:` in RegExp
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
+#### Snippet
+```java
+    private static final Pattern IPV4_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\,]+$");
+
+    private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
+
+    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
 ```
 
 ### RegExpRedundantEscape
@@ -873,11 +861,11 @@ Redundant character escape `\\,` in RegExp
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/AbstractDataSourceProcessor.java`
 #### Snippet
 ```java
-public abstract class AbstractDataSourceProcessor implements DataSourceProcessor {
-
     private static final Pattern IPV4_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\,]+$");
 
     private static final Pattern IPV6_PATTERN = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.\\:\\[\\]\\,]+$");
+
+    private static final Pattern DATABASE_PATTER = Pattern.compile("^[a-zA-Z0-9\\_\\-\\.]+$");
 ```
 
 ## RuleId[id=UastIncorrectHttpHeaderInspection]
@@ -2897,97 +2885,73 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'EnvironmentWorkerGroupRelationMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
+Could not autowire. No beans of 'TaskDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
 #### Snippet
 ```java
 
     @Autowired
-    private EnvironmentWorkerGroupRelationMapper environmentWorkerGroupRelationMapper;
+    private TaskDefinitionMapper taskDefinitionMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'WorkerGroupMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
+Could not autowire. No beans of 'ProjectMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
 #### Snippet
 ```java
 
     @Autowired
-    private WorkerGroupMapper workerGroupMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ScheduleMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ScheduleMapper scheduleMapper;
-
-    /**
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessInstanceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessInstanceMapper processInstanceMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessInstanceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessInstanceMapper processInstanceMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TenantMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TenantMapper tenantMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private UserMapper userMapper;
+    private ProjectMapper projectMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ScheduleMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
 #### Snippet
 ```java
 
     @Autowired
     private ScheduleMapper scheduleMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'DataSourceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+
+    @Autowired
+    private DataSourceMapper dataSourceMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProjectUserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProjectUserMapper projectUserMapper;
+
+    // TODO replace this user to build in admin user if we make sure build in one could not be change
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessDefinitionMapper processDefinitionMapper;
 
     @Autowired
 ```
@@ -3041,56 +3005,80 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DataSourceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+Could not autowire. No beans of 'ScheduleMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private DataSourceMapper dataSourceMapper;
+    private ScheduleMapper scheduleMapper;
+
+    /**
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'EnvironmentWorkerGroupRelationMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private EnvironmentWorkerGroupRelationMapper environmentWorkerGroupRelationMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectUserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+Could not autowire. No beans of 'WorkerGroupMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ProjectUserMapper projectUserMapper;
-
-    // TODO replace this user to build in admin user if we make sure build in one could not be change
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
+    private WorkerGroupMapper workerGroupMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+Could not autowire. No beans of 'ProcessInstanceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ProjectMapper projectMapper;
+    private ProcessInstanceMapper processInstanceMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TenantMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TenantMapper tenantMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'UserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ScheduleMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
 #### Snippet
 ```java
 
@@ -3101,13 +3089,13 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/Py
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+Could not autowire. No beans of 'ProcessInstanceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
+    private ProcessInstanceMapper processInstanceMapper;
 
     @Autowired
 ```
@@ -3125,6 +3113,30 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'DataSourceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private DataSourceMapper dataSourceMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'DataSourceUserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private DataSourceUserMapper datasourceUserMapper;
+
+    private static final String TABLE = "TABLE";
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'AlertGroupMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AlertGroupServiceImpl.java`
 #### Snippet
@@ -3132,6 +3144,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
     @Autowired
     private AlertGroupMapper alertGroupMapper;
+
+    /**
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/LoggerServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    TaskDefinitionMapper taskDefinitionMapper;
 
     /**
 ```
@@ -3149,18 +3173,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/LoggerServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    TaskDefinitionMapper taskDefinitionMapper;
-
-    /**
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'PluginDefineMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AlertPluginInstanceServiceImpl.java`
 #### Snippet
@@ -3168,18 +3180,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
     @Autowired
     private PluginDefineMapper pluginDefineMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'AlertPluginInstanceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AlertPluginInstanceServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private AlertPluginInstanceMapper alertPluginInstanceMapper;
 
     @Autowired
 ```
@@ -3197,20 +3197,32 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DataSourceUserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+Could not autowire. No beans of 'AlertPluginInstanceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AlertPluginInstanceServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private DataSourceUserMapper datasourceUserMapper;
+    private AlertPluginInstanceMapper alertPluginInstanceMapper;
 
-    private static final String TABLE = "TABLE";
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'DqRuleMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private DqRuleMapper dqRuleMapper;
+
+    @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'DataSourceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
 #### Snippet
 ```java
 
@@ -3221,25 +3233,73 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ScheduleMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+Could not autowire. No beans of 'DqRuleInputEntryMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ScheduleMapper scheduleMapper;
+    private DqRuleInputEntryMapper dqRuleInputEntryMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'EnvironmentMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+Could not autowire. No beans of 'DqComparisonTypeMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private EnvironmentMapper environmentMapper;
+    private DqComparisonTypeMapper dqComparisonTypeMapper;
+
+    @Override
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'DqRuleExecuteSqlMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProjectMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    ProjectMapper projectMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskInstanceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    TaskInstanceMapper taskInstanceMapper;
 
     @Autowired
 ```
@@ -3269,13 +3329,13 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
+Could not autowire. No beans of 'EnvironmentMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
+    private EnvironmentMapper environmentMapper;
 
     @Autowired
 ```
@@ -3293,97 +3353,25 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+Could not autowire. No beans of 'ScheduleMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    TaskDefinitionMapper taskDefinitionMapper;
+    private ScheduleMapper scheduleMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskInstanceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    TaskInstanceMapper taskInstanceMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    ProjectMapper projectMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DqComparisonTypeMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DqComparisonTypeMapper dqComparisonTypeMapper;
-
-    @Override
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DataSourceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DataSourceMapper dataSourceMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DqRuleInputEntryMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DqRuleInputEntryMapper dqRuleInputEntryMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DqRuleMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DqRuleMapper dqRuleMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DqRuleExecuteSqlMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
+    private ProcessTaskRelationMapper processTaskRelationMapper;
 
     @Autowired
 ```
@@ -3437,32 +3425,8 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskGroupQueueMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskGroupQueueMapper taskGroupQueueMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
 #### Snippet
 ```java
 
@@ -3473,44 +3437,8 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessInstanceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessInstanceMapper processInstanceMapper;
-
-    @Lazy()
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    ProcessDefinitionMapper processDefineMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ProjectMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
 #### Snippet
 ```java
 
@@ -3521,27 +3449,27 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+Could not autowire. No beans of 'TaskDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
+    private TaskDefinitionMapper taskDefinitionMapper;
 
-    @Autowired
+    @Override
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TenantMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+Could not autowire. No beans of 'WorkFlowLineageMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private TenantMapper tenantMapper;
+    private WorkFlowLineageMapper workFlowLineageMapper;
 
-    /**
+    @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
@@ -3569,51 +3497,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'WorkFlowLineageMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private WorkFlowLineageMapper workFlowLineageMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
     private TaskDefinitionMapper taskDefinitionMapper;
 
-    @Override
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-    @Autowired
+    /**
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
@@ -3641,18 +3533,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-    /**
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'QueueMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
 #### Snippet
@@ -3677,85 +3557,25 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupQueueServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-    /**
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskGroupQueueMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupQueueServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    TaskGroupQueueMapper taskGroupQueueMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private UserMapper userMapper;
-
-    /**
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectUserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProjectUserMapper projectUserMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectMapper' type found.
+Could not autowire. No beans of 'ErrorCommandMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ProjectMapper projectMapper;
+    private ErrorCommandMapper errorCommandMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskDefinitionMapper taskDefinitionMapper;
 
     @Autowired
 ```
@@ -3797,18 +3617,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ErrorCommandMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ErrorCommandMapper errorCommandMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'CommandMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
@@ -3816,18 +3624,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
     @Autowired
     private CommandMapper commandMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
 
     @Autowired
 ```
@@ -3846,55 +3642,103 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ProjectMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    ProjectMapper projectMapper;
+    private ProjectMapper projectMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'RelationSubWorkflowMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+Could not autowire. No beans of 'ProjectMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupQueueServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private RelationSubWorkflowMapper relationSubWorkflowMapper;
+    private ProjectMapper projectMapper;
+
+    /**
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskGroupQueueMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupQueueServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    TaskGroupQueueMapper taskGroupQueueMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ProcessDefinitionLogMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    ProcessDefinitionLogMapper processDefinitionLogMapper;
+    private ProcessDefinitionLogMapper processDefinitionLogMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    TaskDefinitionMapper taskDefinitionMapper;
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+    @Autowired(required = false)
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'UserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ResourceUserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ResourceUserMapper resourceUserMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ResourceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ResourceMapper resourcesMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'TenantMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
 
@@ -3905,8 +3749,92 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'UdfFuncMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private UdfFuncMapper udfFunctionMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessInstanceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessInstanceMapper processInstanceMapper;
+
+    @Lazy()
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskGroupQueueMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskGroupQueueMapper taskGroupQueueMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
 #### Snippet
 ```java
 
@@ -3917,49 +3845,85 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskInstanceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+Could not autowire. No beans of 'ProjectMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    TaskInstanceMapper taskInstanceMapper;
+    private ProjectMapper projectMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessInstanceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+Could not autowire. No beans of 'TenantMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    ProcessInstanceMapper processInstanceMapper;
+    private TenantMapper tenantMapper;
+
+    /**
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProjectMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProjectMapper projectMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ScheduleMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ScheduleMapper scheduleMapper;
+    private ProcessDefinitionMapper processDefinitionMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+Could not autowire. No beans of 'UserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    TaskDefinitionLogMapper taskDefinitionLogMapper;
+    private UserMapper userMapper;
+
+    /**
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProjectUserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProjectUserMapper projectUserMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'K8sNamespaceUserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private K8sNamespaceUserMapper k8sNamespaceUserMapper;
 
     @Autowired
 ```
@@ -3989,18 +3953,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'AlertGroupMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private AlertGroupMapper alertGroupMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'TenantMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
 #### Snippet
@@ -4008,54 +3960,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
     @Autowired
     private TenantMapper tenantMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'K8sNamespaceUserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private K8sNamespaceUserMapper k8sNamespaceUserMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UDFUserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private UDFUserMapper udfUserMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ResourceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ResourceMapper resourceMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private UserMapper userMapper;
 
     @Autowired
 ```
@@ -4097,6 +4001,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'AlertGroupMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private AlertGroupMapper alertGroupMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ProjectUserMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
 #### Snippet
@@ -4109,27 +4025,159 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'K8sNamespaceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
+Could not autowire. No beans of 'ResourceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private K8sNamespaceMapper k8sNamespaceMapper;
+    private ResourceMapper resourceMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ClusterMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
+Could not autowire. No beans of 'UserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ClusterMapper clusterMapper;
+    private UserMapper userMapper;
 
-    /**
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'UDFUserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private UDFUserMapper udfUserMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TenantMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TenantMapper tenantMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessDefinitionLogMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    ProcessDefinitionLogMapper processDefinitionLogMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessInstanceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    ProcessInstanceMapper processInstanceMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'RelationSubWorkflowMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private RelationSubWorkflowMapper relationSubWorkflowMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ScheduleMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ScheduleMapper scheduleMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    ProcessDefinitionMapper processDefineMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProjectMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    ProjectMapper projectMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskInstanceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    TaskInstanceMapper taskInstanceMapper;
+
+    @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
@@ -4141,42 +4189,6 @@ public class LdapAuthenticator extends AbstractAuthenticator {
 
     @Autowired
     LdapService ldapService;
-
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/impl/AbstractAuthenticator.java`
-#### Snippet
-```java
-public abstract class AbstractAuthenticator implements Authenticator {
-
-    @Autowired
-    protected UsersService userService;
-
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/impl/AbstractAuthenticator.java`
-#### Snippet
-```java
-    private SessionService sessionService;
-
-    @Autowired
-    private SecurityConfig securityConfig;
-
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/impl/AbstractAuthenticator.java`
-#### Snippet
-```java
-    protected UsersService userService;
-
-    @Autowired
-    private SessionService sessionService;
 
 ```
 
@@ -4205,224 +4217,68 @@ public class CasdoorAuthenticator extends AbstractSsoAuthenticator {
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/impl/AbstractAuthenticator.java`
 #### Snippet
 ```java
+    private SessionService sessionService;
 
     @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
+    private SecurityConfig securityConfig;
 
-    @Autowired(required = false)
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UdfFuncMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/impl/AbstractAuthenticator.java`
 #### Snippet
 ```java
+    protected UsersService userService;
 
     @Autowired
-    private UdfFuncMapper udfFunctionMapper;
+    private SessionService sessionService;
 
-    @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ResourceUserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/impl/AbstractAuthenticator.java`
 #### Snippet
 ```java
+public abstract class AbstractAuthenticator implements Authenticator {
 
     @Autowired
-    private ResourceUserMapper resourceUserMapper;
+    protected UsersService userService;
 
-    @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ResourceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+Could not autowire. No beans of 'K8sNamespaceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ResourceMapper resourcesMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private UserMapper userMapper;
+    private K8sNamespaceMapper k8sNamespaceMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessDefinitionLogMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+Could not autowire. No beans of 'ClusterMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ProcessDefinitionLogMapper processDefinitionLogMapper;
+    private ClusterMapper clusterMapper;
 
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TenantMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TenantMapper tenantMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UserMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
+    /**
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-    @Lazy
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessTaskRelationLogMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskInstanceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskInstanceMapper taskInstanceMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ScheduleMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ScheduleMapper scheduleMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-    @Lazy
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessDefinitionLogMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessDefinitionLogMapper processDefinitionLogMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DataSourceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DataSourceMapper dataSourceMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
 #### Snippet
 ```java
 
@@ -4434,12 +4290,60 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
     private TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProjectMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessTaskRelationMapper processTaskRelationMapper;
 
     @Autowired
 ```
@@ -4457,6 +4361,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
 #### Snippet
@@ -4464,18 +4380,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
     @Autowired
     private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
 
     @Autowired
 ```
@@ -4493,6 +4397,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ProjectMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
 #### Snippet
@@ -4505,32 +4421,68 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
     private TaskDefinitionMapper taskDefinitionMapper;
 
+    @Lazy
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'UserMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ScheduleMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ScheduleMapper scheduleMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'DataSourceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private DataSourceMapper dataSourceMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessDefinitionLogMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessDefinitionLogMapper processDefinitionLogMapper;
+
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
 
@@ -4541,25 +4493,61 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ProjectMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
     private ProjectMapper projectMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+    @Lazy
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskInstanceMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskInstanceMapper taskInstanceMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessTaskRelationLogMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessTaskRelationMapper processTaskRelationMapper;
 
     @Autowired
 ```
@@ -4577,74 +4565,26 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/intercept
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'WorkerGroupMapper' type found.
+Could not autowire. No beans of 'K8sNamespaceMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
 #### Snippet
 ```java
-        private final WorkerGroupMapper workerGroupMapper;
+        private final K8sNamespaceMapper k8sNamespaceMapper;
 
-        public WorkerGroupResourcePermissionCheck(WorkerGroupMapper workerGroupMapper) {
-            this.workerGroupMapper = workerGroupMapper;
+        public K8sNamespaceResourcePermissionCheck(K8sNamespaceMapper k8sNamespaceMapper) {
+            this.k8sNamespaceMapper = k8sNamespaceMapper;
         }
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectMapper' type found.
+Could not autowire. No beans of 'TaskGroupMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
 #### Snippet
 ```java
-        private final ProjectMapper projectMapper;
+        private final TaskGroupMapper taskGroupMapper;
 
-        public ProjectsResourcePermissionCheck(ProjectMapper projectMapper) {
-            this.projectMapper = projectMapper;
-        }
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'EnvironmentMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
-#### Snippet
-```java
-        private final EnvironmentMapper environmentMapper;
-
-        public EnvironmentResourcePermissionCheck(EnvironmentMapper environmentMapper) {
-            this.environmentMapper = environmentMapper;
-        }
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TenantMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
-#### Snippet
-```java
-        private final TenantMapper tenantMapper;
-
-        public TenantResourcePermissionCheck(TenantMapper tenantMapper) {
-            this.tenantMapper = tenantMapper;
-        }
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'QueueMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
-#### Snippet
-```java
-        private final QueueMapper queueMapper;
-
-        public QueueResourcePermissionCheck(QueueMapper queueMapper) {
-            this.queueMapper = queueMapper;
-        }
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'AccessTokenMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
-#### Snippet
-```java
-        private final AccessTokenMapper accessTokenMapper;
-
-        public AccessTokenResourcePermissionCheck(AccessTokenMapper accessTokenMapper) {
-            this.accessTokenMapper = accessTokenMapper;
+        public TaskGroupPermissionCheck(TaskGroupMapper taskGroupMapper) {
+            this.taskGroupMapper = taskGroupMapper;
         }
 ```
 
@@ -4661,6 +4601,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permissio
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TenantMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
+#### Snippet
+```java
+        private final TenantMapper tenantMapper;
+
+        public TenantResourcePermissionCheck(TenantMapper tenantMapper) {
+            this.tenantMapper = tenantMapper;
+        }
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'AlertGroupMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
 #### Snippet
@@ -4673,14 +4625,62 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permissio
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'AlertPluginInstanceMapper' type found.
+Could not autowire. No beans of 'ProjectMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
 #### Snippet
 ```java
-        private final AlertPluginInstanceMapper alertPluginInstanceMapper;
+        private final ProjectMapper projectMapper;
 
-        public AlertPluginInstanceResourcePermissionCheck(AlertPluginInstanceMapper alertPluginInstanceMapper) {
-            this.alertPluginInstanceMapper = alertPluginInstanceMapper;
+        public ProjectsResourcePermissionCheck(ProjectMapper projectMapper) {
+            this.projectMapper = projectMapper;
+        }
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'WorkerGroupMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
+#### Snippet
+```java
+        private final WorkerGroupMapper workerGroupMapper;
+
+        public WorkerGroupResourcePermissionCheck(WorkerGroupMapper workerGroupMapper) {
+            this.workerGroupMapper = workerGroupMapper;
+        }
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'UdfFuncMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
+#### Snippet
+```java
+        private final UdfFuncMapper udfFuncMapper;
+
+        public UdfFuncPermissionCheck(UdfFuncMapper udfFuncMapper) {
+            this.udfFuncMapper = udfFuncMapper;
+        }
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'AccessTokenMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
+#### Snippet
+```java
+        private final AccessTokenMapper accessTokenMapper;
+
+        public AccessTokenResourcePermissionCheck(AccessTokenMapper accessTokenMapper) {
+            this.accessTokenMapper = accessTokenMapper;
+        }
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'EnvironmentMapper' type found.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
+#### Snippet
+```java
+        private final EnvironmentMapper environmentMapper;
+
+        public EnvironmentResourcePermissionCheck(EnvironmentMapper environmentMapper) {
+            this.environmentMapper = environmentMapper;
         }
 ```
 
@@ -4709,51 +4709,27 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permissio
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UdfFuncMapper' type found.
+Could not autowire. No beans of 'QueueMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
 #### Snippet
 ```java
-        private final UdfFuncMapper udfFuncMapper;
+        private final QueueMapper queueMapper;
 
-        public UdfFuncPermissionCheck(UdfFuncMapper udfFuncMapper) {
-            this.udfFuncMapper = udfFuncMapper;
+        public QueueResourcePermissionCheck(QueueMapper queueMapper) {
+            this.queueMapper = queueMapper;
         }
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskGroupMapper' type found.
+Could not autowire. No beans of 'AlertPluginInstanceMapper' type found.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
 #### Snippet
 ```java
-        private final TaskGroupMapper taskGroupMapper;
+        private final AlertPluginInstanceMapper alertPluginInstanceMapper;
 
-        public TaskGroupPermissionCheck(TaskGroupMapper taskGroupMapper) {
-            this.taskGroupMapper = taskGroupMapper;
+        public AlertPluginInstanceResourcePermissionCheck(AlertPluginInstanceMapper alertPluginInstanceMapper) {
+            this.alertPluginInstanceMapper = alertPluginInstanceMapper;
         }
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'K8sNamespaceMapper' type found.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
-#### Snippet
-```java
-        private final K8sNamespaceMapper k8sNamespaceMapper;
-
-        public K8sNamespaceResourcePermissionCheck(K8sNamespaceMapper k8sNamespaceMapper) {
-            this.k8sNamespaceMapper = k8sNamespaceMapper;
-        }
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DataSource' type found.
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/datasource/SpringConnectionFactory.java`
-#### Snippet
-```java
-
-    @Bean
-    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
@@ -4766,6 +4742,18 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/datasourc
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource, GlobalConfig globalConfig,
                                                DbType dbType) throws Exception {
         MybatisConfiguration configuration = new MybatisConfiguration();
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'DataSource' type found.
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/datasource/SpringConnectionFactory.java`
+#### Snippet
+```java
+
+    @Bean
+    public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
@@ -4793,18 +4781,6 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/resou
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UdfFuncMapper' type found.
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/resource/MigrateResourceService.java`
-#### Snippet
-```java
-
-    @Autowired
-    private UdfFuncMapper udfFuncMapper;
-
-    private static final String MIGRATE_BASE_DIR = ".migrate";
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ResourceMapper' type found.
 in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/resource/MigrateResourceService.java`
 #### Snippet
@@ -4814,6 +4790,18 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/resou
     private ResourceMapper resourceMapper;
 
     @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'UdfFuncMapper' type found.
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/resource/MigrateResourceService.java`
+#### Snippet
+```java
+
+    @Autowired
+    private UdfFuncMapper udfFuncMapper;
+
+    private static final String MIGRATE_BASE_DIR = ".migrate";
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
@@ -4843,18 +4831,6 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datas
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskInstanceMapper' type found.
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskInstanceMapper taskInstanceMapper;
-
-    @Lazy()
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ScheduleMapper' type found.
 in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
 #### Snippet
@@ -4862,18 +4838,6 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datas
 
     @Autowired
     private ScheduleMapper scheduleMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessDefinitionLogMapper' type found.
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessDefinitionLogMapper processDefinitionLogMapper;
 
     @Autowired
 ```
@@ -4891,17 +4855,27 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datas
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Could not autowire. There is more than one bean of 'UpgradeDao' type.                                                                                                                                     |
-| |--------|-----------------------------------------------------------------------------------------| | Beans: | mySQLUpgradeDao (MySQLUpgradeDao.java) postgreSQLUpgradeDao (PostgreSQLUpgradeDao.java) | |
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
+Could not autowire. No beans of 'TaskInstanceMapper' type found.
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
 #### Snippet
 ```java
-    @Lazy()
-    @Autowired
-    private UpgradeDao upgradeDao;
 
-    @Override
+    @Autowired
+    private TaskInstanceMapper taskInstanceMapper;
+
+    @Lazy()
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessDefinitionLogMapper' type found.
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessDefinitionLogMapper processDefinitionLogMapper;
+
+    @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
@@ -4912,6 +4886,18 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
 
     @Autowired
     private AccessTokenMapper accessTokenMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'UserMapper' type found.
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
 ```
@@ -4929,15 +4915,17 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UserMapper' type found.
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Could not autowire. There is more than one bean of 'UpgradeDao' type.                                                                                                                                     |
+| |--------|-----------------------------------------------------------------------------------------| | Beans: | mySQLUpgradeDao (MySQLUpgradeDao.java) postgreSQLUpgradeDao (PostgreSQLUpgradeDao.java) | |
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
 #### Snippet
 ```java
-
+    @Lazy()
     @Autowired
-    private UserMapper userMapper;
+    private UpgradeDao upgradeDao;
 
-    @Autowired
+    @Override
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
@@ -4965,18 +4953,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessDefinitionMapper processDefineMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'CommandMapper' type found.
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
 #### Snippet
@@ -4984,6 +4960,18 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
     @Autowired
     private CommandMapper commandMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessDefinitionMapper processDefineMapper;
 
     @Autowired
 ```
@@ -5025,18 +5013,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ScheduleMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/command/CommandServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ScheduleMapper scheduleMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'ErrorCommandMapper' type found.
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/command/CommandServiceImpl.java`
 #### Snippet
@@ -5058,6 +5034,18 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/c
     private ProcessDefinitionMapper processDefineMapper;
 
     @Override
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ScheduleMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/command/CommandServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ScheduleMapper scheduleMapper;
+
+    @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
@@ -5097,54 +5085,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/s
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DqRuleExecuteSqlMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'UdfFuncMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private UdfFuncMapper udfFuncMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ClusterMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ClusterMapper clusterMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskInstanceMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskInstanceMapper taskInstanceMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'TaskGroupQueueMapper' type found.
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
@@ -5152,138 +5092,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 
     @Autowired
     private TaskGroupQueueMapper taskGroupQueueMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'CommandMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private CommandMapper commandMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DqComparisonTypeMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DqComparisonTypeMapper dqComparisonTypeMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DqRuleMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DqRuleMapper dqRuleMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DqExecuteResultMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DqExecuteResultMapper dqExecuteResultMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ErrorCommandMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ErrorCommandMapper errorCommandMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ResourceUserMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ResourceUserMapper resourceUserMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessDefinitionMapper processDefineMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'DqRuleInputEntryMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private DqRuleInputEntryMapper dqRuleInputEntryMapper;
 
     @Autowired
 ```
@@ -5301,6 +5109,30 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'DqRuleMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private DqRuleMapper dqRuleMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'DqRuleExecuteSqlMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'DataSourceMapper' type found.
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
@@ -5308,30 +5140,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 
     @Autowired
     private DataSourceMapper dataSourceMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessInstanceMapMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessInstanceMapMapper processInstanceMapMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProcessTaskRelationLogMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
 
     @Autowired
 ```
@@ -5349,13 +5157,109 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'EnvironmentMapper' type found.
+Could not autowire. No beans of 'DqExecuteResultMapper' type found.
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private EnvironmentMapper environmentMapper;
+    private DqExecuteResultMapper dqExecuteResultMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'UdfFuncMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private UdfFuncMapper udfFuncMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskInstanceMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskInstanceMapper taskInstanceMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ClusterMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ClusterMapper clusterMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessInstanceMapMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessInstanceMapMapper processInstanceMapMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProjectMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ResourceMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ResourceMapper resourceMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskGroupMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskGroupMapper taskGroupMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'CommandMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private CommandMapper commandMapper;
 
     @Autowired
 ```
@@ -5385,49 +5289,37 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ScheduleMapper' type found.
+Could not autowire. No beans of 'ProcessTaskRelationLogMapper' type found.
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ScheduleMapper scheduleMapper;
+    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'TaskGroupMapper' type found.
+Could not autowire. No beans of 'ResourceUserMapper' type found.
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private TaskGroupMapper taskGroupMapper;
+    private ResourceUserMapper resourceUserMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ResourceMapper' type found.
+Could not autowire. No beans of 'EnvironmentMapper' type found.
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ResourceMapper resourceMapper;
-
-    @Autowired
-```
-
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'WorkFlowLineageMapper' type found.
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    @Autowired
-    private WorkFlowLineageMapper workFlowLineageMapper;
+    private EnvironmentMapper environmentMapper;
 
     @Autowired
 ```
@@ -5445,27 +5337,111 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'ProjectMapper' type found.
+Could not autowire. No beans of 'ProcessDefinitionMapper' type found.
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
 
     @Autowired
-    private ProjectMapper projectMapper;
+    private ProcessDefinitionMapper processDefineMapper;
 
     @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
-Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
-in `dolphinscheduler-scheduler-plugin/dolphinscheduler-scheduler-quartz/src/main/java/org/apache/dolphinscheduler/scheduler/quartz/ProcessScheduleTask.java`
+Could not autowire. No beans of 'DqComparisonTypeMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
-public class ProcessScheduleTask extends QuartzJobBean {
 
     @Autowired
-    private ProcessService processService;
+    private DqComparisonTypeMapper dqComparisonTypeMapper;
 
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ProcessTaskRelationMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'WorkFlowLineageMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private WorkFlowLineageMapper workFlowLineageMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionLogMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'DqRuleInputEntryMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private DqRuleInputEntryMapper dqRuleInputEntryMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ErrorCommandMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ErrorCommandMapper errorCommandMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'ScheduleMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private ScheduleMapper scheduleMapper;
+
+    @Autowired
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'TaskDefinitionMapper' type found.
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    @Autowired
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
 ```
 
 ### SpringJavaInjectionPointsAutowiringInspection
@@ -5477,6 +5453,18 @@ in `dolphinscheduler-scheduler-plugin/dolphinscheduler-scheduler-quartz/src/main
 
     @Autowired
     private CommandService commandService;
+
+```
+
+### SpringJavaInjectionPointsAutowiringInspection
+Autowired members must be defined in valid Spring bean (@Component\|@Service\|...)
+in `dolphinscheduler-scheduler-plugin/dolphinscheduler-scheduler-quartz/src/main/java/org/apache/dolphinscheduler/scheduler/quartz/ProcessScheduleTask.java`
+#### Snippet
+```java
+public class ProcessScheduleTask extends QuartzJobBean {
+
+    @Autowired
+    private ProcessService processService;
 
 ```
 
@@ -5618,30 +5606,6 @@ Duplicate branch in 'switch'
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
 #### Snippet
 ```java
-                return DATAX_READER_PLUGIN_RDBMS;
-            case PRESTO:
-                return DATAX_READER_PLUGIN_RDBMS;
-            default:
-                return null;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
-                return DATAX_WRITER_PLUGIN_RDBMS;
-            case PRESTO:
-                return DATAX_WRITER_PLUGIN_RDBMS;
-            default:
-                return null;
-```
-
-### DuplicateBranchesInSwitch
-Duplicate branch in 'switch'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxUtils.java`
-#### Snippet
-```java
                 return String.format("\"%s\"", column);
             case ORACLE:
                 return String.format("\"%s\"", column);
@@ -5711,6 +5675,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/a
 
 ## RuleId[id=NonFinalFieldInEnum]
 ### NonFinalFieldInEnum
+Non-final field `formType` in enum 'FormType'
+in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/FormType.java`
+#### Snippet
+```java
+    GROUP("group");
+
+    private String formType;
+
+    FormType(String formType) {
+```
+
+### NonFinalFieldInEnum
 Non-final field `triggerType` in enum 'TriggerType'
 in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/TriggerType.java`
 #### Snippet
@@ -5720,6 +5696,18 @@ in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/ba
     private String triggerType;
 
     TriggerType(String triggerType) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `dataType` in enum 'DataType'
+in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/DataType.java`
+#### Snippet
+```java
+    NUMBER("number");
+
+    private String dataType;
+
+    DataType(String dataType) {
 ```
 
 ### NonFinalFieldInEnum
@@ -5735,18 +5723,6 @@ in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/ba
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `formType` in enum 'FormType'
-in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/FormType.java`
-#### Snippet
-```java
-    GROUP("group");
-
-    private String formType;
-
-    FormType(String formType) {
-```
-
-### NonFinalFieldInEnum
 Non-final field `propsType` in enum 'PropsType'
 in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/PropsType.java`
 #### Snippet
@@ -5756,18 +5732,6 @@ in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/ba
     private String propsType;
 
     PropsType(String propsType) {
-```
-
-### NonFinalFieldInEnum
-Non-final field `dataType` in enum 'DataType'
-in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/DataType.java`
-#### Snippet
-```java
-    NUMBER("number");
-
-    private String dataType;
-
-    DataType(String dataType) {
 ```
 
 ### NonFinalFieldInEnum
@@ -5807,18 +5771,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/enu
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `AUDIT_RESOURCE_MAP` in enum 'AuditResourceType'
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/enums/AuditResourceType.java`
-#### Snippet
-```java
-    private final String enMsg;
-
-    private static HashMap<Integer, AuditResourceType> AUDIT_RESOURCE_MAP = new HashMap<>();
-
-    static {
-```
-
-### NonFinalFieldInEnum
 Non-final field `STATUS_MAP` in enum 'TaskGroupQueueStatus'
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/enums/TaskGroupQueueStatus.java`
 #### Snippet
@@ -5831,27 +5783,15 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/enu
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `type` in enum 'RequestEventType'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/RequestEventType.java`
+Non-final field `AUDIT_RESOURCE_MAP` in enum 'AuditResourceType'
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/enums/AuditResourceType.java`
 #### Snippet
 ```java
-    BUSINESS((byte) 2, "business request");
+    private final String enMsg;
 
-    private Byte type;
+    private static HashMap<Integer, AuditResourceType> AUDIT_RESOURCE_MAP = new HashMap<>();
 
-    private String description;
-```
-
-### NonFinalFieldInEnum
-Non-final field `description` in enum 'RequestEventType'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/RequestEventType.java`
-#### Snippet
-```java
-    private Byte type;
-
-    private String description;
-
-    RequestEventType(Byte type, String description) {
+    static {
 ```
 
 ### NonFinalFieldInEnum
@@ -5867,11 +5807,23 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `type` in enum 'ResponseEventType'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/ResponseEventType.java`
+Non-final field `description` in enum 'RequestEventType'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/RequestEventType.java`
 #### Snippet
 ```java
-    BUSINESS_RSP((byte) 2, "business response");
+    private Byte type;
+
+    private String description;
+
+    RequestEventType(Byte type, String description) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `type` in enum 'RequestEventType'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/RequestEventType.java`
+#### Snippet
+```java
+    BUSINESS((byte) 2, "business request");
 
     private Byte type;
 
@@ -5891,11 +5843,11 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `type` in enum 'EventType'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protocol/EventType.java`
+Non-final field `type` in enum 'ResponseEventType'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/ResponseEventType.java`
 #### Snippet
 ```java
-    RESPONSE((byte) 3, "business response");
+    BUSINESS_RSP((byte) 2, "business response");
 
     private Byte type;
 
@@ -5912,6 +5864,18 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protoc
     private String description;
 
     EventType(Byte type, String description) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `type` in enum 'EventType'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protocol/EventType.java`
+#### Snippet
+```java
+    RESPONSE((byte) 3, "business response");
+
+    private Byte type;
+
+    private String description;
 ```
 
 ### NonFinalFieldInEnum
@@ -5975,18 +5939,6 @@ in `dolphinscheduler-microbench/src/main/java/org/apache/dolphinscheduler/microb
 ```
 
 ### NonFinalFieldInEnum
-Non-final field `name` in enum 'LinkisJobStatus'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisJobStatus.java`
-#### Snippet
-```java
-    SHUTTINGDOWN("Shuttingdown", 11);
-
-    private String name;
-    private int id;
-
-```
-
-### NonFinalFieldInEnum
 Non-final field `id` in enum 'LinkisJobStatus'
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisJobStatus.java`
 #### Snippet
@@ -5996,6 +5948,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/
     private int id;
 
     LinkisJobStatus(String name, int id) {
+```
+
+### NonFinalFieldInEnum
+Non-final field `name` in enum 'LinkisJobStatus'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisJobStatus.java`
+#### Snippet
+```java
+    SHUTTINGDOWN("Shuttingdown", 11);
+
+    private String name;
+    private int id;
+
 ```
 
 ## RuleId[id=RegExpSimplifiable]
@@ -6008,7 +5972,7 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-openmldb/src/main/java/or
 
         String rawSQLScript = openmldbParameters.getSql().replaceAll("[\\r]?\\n", "\n");
         Map<String, Property> paramsMap = mergeParamsWithContext(openmldbParameters);
-        rawSQLScript = ParameterUtils.convertParameterPlaceholders(rawSQLScript, ParamUtils.convert(paramsMap));
+        rawSQLScript = ParameterUtils.convertParameterPlaceholders(rawSQLScript, ParameterUtils.convert(paramsMap));
 ```
 
 ## RuleId[id=DuplicateExpressions]
@@ -6089,18 +6053,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sCl
 ```
 
 ### Deprecation
-'createOrReplace(T)' is deprecated
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sClientService.java`
-#### Snippet
-```java
-        return client.resourceQuotas().inNamespace(k8sNamespace.getNamespace())
-                .withName(k8sNamespace.getNamespace())
-                .createOrReplace(body);
-    }
-
-```
-
-### Deprecation
 'create(T)' is deprecated
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sClientService.java`
 #### Snippet
@@ -6110,6 +6062,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sCl
             return client.namespaces().create(body);
         }
         return result.get();
+```
+
+### Deprecation
+'createOrReplace(T)' is deprecated
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sClientService.java`
+#### Snippet
+```java
+        return client.resourceQuotas().inNamespace(k8sNamespace.getNamespace())
+                .withName(k8sNamespace.getNamespace())
+                .createOrReplace(body);
+    }
+
 ```
 
 ### Deprecation
@@ -6237,6 +6201,30 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datas
 in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
 #### Snippet
 ```java
+                        }
+                    }
+                    param.put("conditionResult", task.get("conditionResult"));
+                    param.put("dependence", task.get("dependence"));
+                    taskDefinitionLog.setTaskParams(JSONUtils.toJsonString(param));
+```
+
+### Deprecation
+'put(java.lang.String, com.fasterxml.jackson.databind.JsonNode)' is deprecated
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
+#### Snippet
+```java
+                    }
+                    param.put("conditionResult", task.get("conditionResult"));
+                    param.put("dependence", task.get("dependence"));
+                    taskDefinitionLog.setTaskParams(JSONUtils.toJsonString(param));
+                }
+```
+
+### Deprecation
+'put(java.lang.String, com.fasterxml.jackson.databind.JsonNode)' is deprecated
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
+#### Snippet
+```java
                         dependItemList.set(j, dependItem);
                     }
                     dependTask.put("dependItemList", dependItemList);
@@ -6257,27 +6245,27 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datas
 ```
 
 ### Deprecation
-'put(java.lang.String, com.fasterxml.jackson.databind.JsonNode)' is deprecated
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
+'create(okhttp3.MediaType, java.lang.String)' is deprecated
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OkHttpUtils.java`
 #### Snippet
 ```java
-                        }
-                    }
-                    param.put("conditionResult", task.get("conditionResult"));
-                    param.put("dependence", task.get("dependence"));
-                    taskDefinitionLog.setTaskParams(JSONUtils.toJsonString(param));
+
+        RequestBody body =
+                RequestBody.create(MediaType.parse("application/x-www-form-urlencoded"), stringBuffer.toString());
+
+        Request request = new Request.Builder()
 ```
 
 ### Deprecation
-'put(java.lang.String, com.fasterxml.jackson.databind.JsonNode)' is deprecated
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
+'create(okhttp3.MediaType, java.lang.String)' is deprecated
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OkHttpUtils.java`
 #### Snippet
 ```java
-                    }
-                    param.put("conditionResult", task.get("conditionResult"));
-                    param.put("dependence", task.get("dependence"));
-                    taskDefinitionLog.setTaskParams(JSONUtils.toJsonString(param));
-                }
+        Request.Builder requestBuilder = new Request.Builder().url(finalUrl);
+        if (requestBodyMap != null) {
+            requestBuilder = requestBuilder.post(RequestBody.create(MediaType.parse("application/json"),
+                    JSONUtils.toJsonString(requestBodyMap)));
+        }
 ```
 
 ### Deprecation
@@ -6329,18 +6317,6 @@ in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler
 ```
 
 ### Deprecation
-'create(T)' is deprecated
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/K8sUtils.java`
-#### Snippet
-```java
-                    .jobs()
-                    .inNamespace(namespace)
-                    .create(job);
-        } catch (Exception e) {
-            throw new TaskException("fail to create job", e);
-```
-
-### Deprecation
 'jobs()' is deprecated
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/K8sUtils.java`
 #### Snippet
@@ -6350,6 +6326,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
             JobList jobList = client.batch().jobs().inNamespace(namespace).list();
             List<Job> jobs = jobList.getItems();
             result = jobs.stream()
+```
+
+### Deprecation
+'create(T)' is deprecated
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/K8sUtils.java`
+#### Snippet
+```java
+                    .jobs()
+                    .inNamespace(namespace)
+                    .create(job);
+        } catch (Exception e) {
+            throw new TaskException("fail to create job", e);
 ```
 
 ### Deprecation
@@ -6465,6 +6453,54 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
 ## RuleId[id=SpringCacheAnnotationsOnInterfaceInspection]
 ### SpringCacheAnnotationsOnInterfaceInspection
 Spring doesn't recommend to annotate interface methods with @Cache\* annotation
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TenantMapper.java`
+#### Snippet
+```java
+ * tenant mapper interface
+ */
+@CacheConfig(cacheNames = "tenant", keyGenerator = "cacheKeyGenerator")
+public interface TenantMapper extends BaseMapper<Tenant> {
+
+```
+
+### SpringCacheAnnotationsOnInterfaceInspection
+Spring doesn't recommend to annotate interface methods with @Cache\* annotation
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TenantMapper.java`
+#### Snippet
+```java
+     * @return tenant
+     */
+    @Cacheable(sync = true)
+    Tenant queryById(@Param("tenantId") int tenantId);
+
+```
+
+### SpringCacheAnnotationsOnInterfaceInspection
+Spring doesn't recommend to annotate interface methods with @Cache\* annotation
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TenantMapper.java`
+#### Snippet
+```java
+     * delete by id
+     */
+    @CacheEvict
+    int deleteById(int id);
+
+```
+
+### SpringCacheAnnotationsOnInterfaceInspection
+Spring doesn't recommend to annotate interface methods with @Cache\* annotation
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TenantMapper.java`
+#### Snippet
+```java
+     * update
+     */
+    @CacheEvict(key = "#p0.id")
+    int updateById(@Param("et") Tenant tenant);
+
+```
+
+### SpringCacheAnnotationsOnInterfaceInspection
+Spring doesn't recommend to annotate interface methods with @Cache\* annotation
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessDefinitionLogMapper.java`
 #### Snippet
 ```java
@@ -6489,61 +6525,13 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Pr
 
 ### SpringCacheAnnotationsOnInterfaceInspection
 Spring doesn't recommend to annotate interface methods with @Cache\* annotation
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TenantMapper.java`
-#### Snippet
-```java
- * tenant mapper interface
- */
-@CacheConfig(cacheNames = "tenant", keyGenerator = "cacheKeyGenerator")
-public interface TenantMapper extends BaseMapper<Tenant> {
-
-```
-
-### SpringCacheAnnotationsOnInterfaceInspection
-Spring doesn't recommend to annotate interface methods with @Cache\* annotation
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TenantMapper.java`
-#### Snippet
-```java
-     * update
-     */
-    @CacheEvict(key = "#p0.id")
-    int updateById(@Param("et") Tenant tenant);
-
-```
-
-### SpringCacheAnnotationsOnInterfaceInspection
-Spring doesn't recommend to annotate interface methods with @Cache\* annotation
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TenantMapper.java`
-#### Snippet
-```java
-     * delete by id
-     */
-    @CacheEvict
-    int deleteById(int id);
-
-```
-
-### SpringCacheAnnotationsOnInterfaceInspection
-Spring doesn't recommend to annotate interface methods with @Cache\* annotation
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TenantMapper.java`
-#### Snippet
-```java
-     * @return tenant
-     */
-    @Cacheable(sync = true)
-    Tenant queryById(@Param("tenantId") int tenantId);
-
-```
-
-### SpringCacheAnnotationsOnInterfaceInspection
-Spring doesn't recommend to annotate interface methods with @Cache\* annotation
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ScheduleMapper.java`
 #### Snippet
 ```java
-public interface ScheduleMapper extends BaseMapper<Schedule> {
-
-    @CacheEvict(key = "#p0.processDefinitionCode")
-    int insert(Schedule entity);
+     * @return schedule list
+     */
+    @Cacheable(sync = true)
+    List<Schedule> queryReleaseSchedulerListByProcessDefinitionCode(@Param("processDefinitionCode") long processDefinitionCode);
 
 ```
 
@@ -6576,10 +6564,22 @@ Spring doesn't recommend to annotate interface methods with @Cache\* annotation
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ScheduleMapper.java`
 #### Snippet
 ```java
-     * @return schedule list
-     */
-    @Cacheable(sync = true)
-    List<Schedule> queryReleaseSchedulerListByProcessDefinitionCode(@Param("processDefinitionCode") long processDefinitionCode);
+public interface ScheduleMapper extends BaseMapper<Schedule> {
+
+    @CacheEvict(key = "#p0.processDefinitionCode")
+    int insert(Schedule entity);
+
+```
+
+### SpringCacheAnnotationsOnInterfaceInspection
+Spring doesn't recommend to annotate interface methods with @Cache\* annotation
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/WorkerGroupMapper.java`
+#### Snippet
+```java
+    int insert(WorkerGroup entity);
+
+    @CacheEvict(key = CACHE_KEY_VALUE_ALL)
+    int updateById(@Param("et") WorkerGroup entity);
 
 ```
 
@@ -6624,46 +6624,10 @@ Spring doesn't recommend to annotate interface methods with @Cache\* annotation
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/WorkerGroupMapper.java`
 #### Snippet
 ```java
-    int insert(WorkerGroup entity);
-
-    @CacheEvict(key = CACHE_KEY_VALUE_ALL)
-    int updateById(@Param("et") WorkerGroup entity);
-
-```
-
-### SpringCacheAnnotationsOnInterfaceInspection
-Spring doesn't recommend to annotate interface methods with @Cache\* annotation
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/WorkerGroupMapper.java`
-#### Snippet
-```java
     List<WorkerGroup> queryAllWorkerGroup();
 
     @CacheEvict(key = CACHE_KEY_VALUE_ALL)
     int deleteById(Integer id);
-
-```
-
-### SpringCacheAnnotationsOnInterfaceInspection
-Spring doesn't recommend to annotate interface methods with @Cache\* annotation
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/UserMapper.java`
-#### Snippet
-```java
-     * update
-     */
-    @CacheEvict(key = "#p0.id")
-    int updateById(@Param("et") User user);
-
-```
-
-### SpringCacheAnnotationsOnInterfaceInspection
-Spring doesn't recommend to annotate interface methods with @Cache\* annotation
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/UserMapper.java`
-#### Snippet
-```java
-     * select by user id
-     */
-    @Cacheable(sync = true)
-    User selectById(int id);
 
 ```
 
@@ -6693,13 +6657,25 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Us
 
 ### SpringCacheAnnotationsOnInterfaceInspection
 Spring doesn't recommend to annotate interface methods with @Cache\* annotation
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessDefinitionMapper.java`
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/UserMapper.java`
 #### Snippet
 ```java
-     * @return delete result
+     * update
      */
-    @CacheEvict
-    int deleteByCode(@Param("code") long code);
+    @CacheEvict(key = "#p0.id")
+    int updateById(@Param("et") User user);
+
+```
+
+### SpringCacheAnnotationsOnInterfaceInspection
+Spring doesn't recommend to annotate interface methods with @Cache\* annotation
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/UserMapper.java`
+#### Snippet
+```java
+     * select by user id
+     */
+    @Cacheable(sync = true)
+    User selectById(int id);
 
 ```
 
@@ -6708,10 +6684,10 @@ Spring doesn't recommend to annotate interface methods with @Cache\* annotation
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessDefinitionMapper.java`
 #### Snippet
 ```java
- * process definition mapper interface
- */
-@CacheConfig(cacheNames = "processDefinition", keyGenerator = "cacheKeyGenerator")
-public interface ProcessDefinitionMapper extends BaseMapper<ProcessDefinition> {
+     * @return delete result
+     */
+    @CacheEvict
+    int deleteByCode(@Param("code") long code);
 
 ```
 
@@ -6732,6 +6708,18 @@ Spring doesn't recommend to annotate interface methods with @Cache\* annotation
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessDefinitionMapper.java`
 #### Snippet
 ```java
+ * process definition mapper interface
+ */
+@CacheConfig(cacheNames = "processDefinition", keyGenerator = "cacheKeyGenerator")
+public interface ProcessDefinitionMapper extends BaseMapper<ProcessDefinition> {
+
+```
+
+### SpringCacheAnnotationsOnInterfaceInspection
+Spring doesn't recommend to annotate interface methods with @Cache\* annotation
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessDefinitionMapper.java`
+#### Snippet
+```java
      * update
      */
     @CacheEvict(key = "#p0.code")
@@ -6744,11 +6732,11 @@ Spring doesn't recommend to annotate interface methods with @Cache\* annotation
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessTaskRelationMapper.java`
 #### Snippet
 ```java
-     * update
+     * @return ProcessTaskRelation list
      */
-    @CacheEvict(key = "#p0.projectCode + '_' + #p0.processDefinitionCode")
-    int updateById(@Param("et") ProcessTaskRelation processTaskRelation);
-
+    @Cacheable(unless = "#result == null || #result.size() == 0")
+    List<ProcessTaskRelation> queryByProcessCode(@Param("projectCode") long projectCode,
+                                                 @Param("processCode") long processCode);
 ```
 
 ### SpringCacheAnnotationsOnInterfaceInspection
@@ -6780,11 +6768,11 @@ Spring doesn't recommend to annotate interface methods with @Cache\* annotation
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessTaskRelationMapper.java`
 #### Snippet
 ```java
-     * @return ProcessTaskRelation list
+     * update
      */
-    @Cacheable(unless = "#result == null || #result.size() == 0")
-    List<ProcessTaskRelation> queryByProcessCode(@Param("projectCode") long projectCode,
-                                                 @Param("processCode") long processCode);
+    @CacheEvict(key = "#p0.projectCode + '_' + #p0.processDefinitionCode")
+    int updateById(@Param("et") ProcessTaskRelation processTaskRelation);
+
 ```
 
 ### SpringCacheAnnotationsOnInterfaceInspection
@@ -6846,6 +6834,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
             cpuStr = k8sNamespace.getLimitsCpu() + "";
         }
 
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/switchtask/SwitchLogicTask.java`
+#### Snippet
+```java
+            String value;
+            if (ParameterUtils.isNumber(property) || ParameterUtils.isBoolean(property)) {
+                value = "" + ParameterUtils.getParameterValue(property);
+            } else {
+                value = "\"" + ParameterUtils.getParameterValue(property) + "\"";
 ```
 
 ### TrivialStringConcatenation
@@ -7019,30 +7019,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/intercept
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-
-                @Override
-                public RateLimiter load(String token) {
-                    // use tenant customize rate limit
-                    Map<String, Integer> customizeTenantQpsRate = trafficConfiguration.getCustomizeTenantQpsRate();
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-
-                @Override
-                public RateLimiter load(String token) {
-                    // use tenant customize rate limit
-                    Map<String, Integer> customizeTenantQpsRate = trafficConfiguration.getCustomizeTenantQpsRate();
-```
-
-### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
 #### Snippet
@@ -7079,6 +7055,30 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/intercept
 ```
 
 ### NullableProblems
+Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+
+                @Override
+                public RateLimiter load(String token) {
+                    // use tenant customize rate limit
+                    Map<String, Integer> customizeTenantQpsRate = trafficConfiguration.getCustomizeTenantQpsRate();
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+
+                @Override
+                public RateLimiter load(String token) {
+                    // use tenant customize rate limit
+                    Map<String, Integer> customizeTenantQpsRate = trafficConfiguration.getCustomizeTenantQpsRate();
+```
+
+### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/BeanContext.java`
 #### Snippet
@@ -7109,33 +7109,33 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apach
 ```java
 
     @Override
-    public void validate(Object target, Errors errors) {
-        AlertConfig alertConfig = (AlertConfig) target;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/config/AlertConfig.java`
-#### Snippet
-```java
-
-    @Override
-    public void validate(Object target, Errors errors) {
-        AlertConfig alertConfig = (AlertConfig) target;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/config/AlertConfig.java`
-#### Snippet
-```java
-
-    @Override
     public boolean supports(Class<?> clazz) {
         return AlertConfig.class.isAssignableFrom(clazz);
     }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/config/AlertConfig.java`
+#### Snippet
+```java
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        AlertConfig alertConfig = (AlertConfig) target;
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/config/AlertConfig.java`
+#### Snippet
+```java
+
+    @Override
+    public void validate(Object target, Errors errors) {
+        AlertConfig alertConfig = (AlertConfig) target;
+
 ```
 
 ### NullableProblems
@@ -7475,42 +7475,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/c
 ```
 
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/BaseLoopTaskExecutor.java`
-#### Snippet
-```java
-     * The task instance info will be set when task has submitted successful.
-     */
-    protected @Nullable LoopTaskInstanceInfo loopTaskInstanceInfo;
-
-    protected BaseLoopTaskExecutor(@NonNull TaskExecutionContext taskExecutionContext) {
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/model/DynamicInputParameter.java`
-#### Snippet
-```java
-public class DynamicInputParameter {
-
-    @NonNull
-    private String name;
-    @NonNull
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@lombok.NonNull'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/model/DynamicInputParameter.java`
-#### Snippet
-```java
-    @NonNull
-    private String name;
-    @NonNull
-    private String value;
-    private String separator = ",";
-```
-
-### NullableProblems
 Not annotated method overrides method annotated with @ElementTypesAreNonnullByDefault
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
 #### Snippet
@@ -7574,6 +7538,54 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
 ## RuleId[id=FieldCanBeLocal]
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/LdapUserNotExistActionType.java`
+#### Snippet
+```java
+
+    @EnumValue
+    private final int code;
+    private final String desc;
+}
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/LdapUserNotExistActionType.java`
+#### Snippet
+```java
+    @EnumValue
+    private final int code;
+    private final String desc;
+}
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/AuthenticationType.java`
+#### Snippet
+```java
+    @EnumValue
+    private final int code;
+    private final String desc;
+}
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/AuthenticationType.java`
+#### Snippet
+```java
+
+    @EnumValue
+    private final int code;
+    private final String desc;
+}
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
 #### Snippet
 ```java
@@ -7582,54 +7594,6 @@ public class K8SNamespaceServiceImpl extends BaseServiceImpl implements K8sNames
     private static String resourceYaml = "apiVersion: v1\n"
             + "kind: ResourceQuota\n"
             + "metadata:\n"
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/LdapUserNotExistActionType.java`
-#### Snippet
-```java
-    @EnumValue
-    private final int code;
-    private final String desc;
-}
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/LdapUserNotExistActionType.java`
-#### Snippet
-```java
-
-    @EnumValue
-    private final int code;
-    private final String desc;
-}
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/AuthenticationType.java`
-#### Snippet
-```java
-    @EnumValue
-    private final int code;
-    private final String desc;
-}
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/AuthenticationType.java`
-#### Snippet
-```java
-
-    @EnumValue
-    private final int code;
-    private final String desc;
-}
 ```
 
 ### FieldCanBeLocal
@@ -7697,11 +7661,11 @@ Field can be converted to a local variable
 in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-email/src/main/java/org/apache/dolphinscheduler/plugin/alert/email/MailSender.java`
 #### Snippet
 ```java
-    private final List<String> receivers;
-    private final List<String> receiverCcs;
-    private final String mailProtocol = "SMTP";
-    private final String mailSmtpHost;
-    private final String mailSmtpPort;
+    private final String showType;
+    private final AlertTemplate alertTemplate;
+    private final String mustNotNull = " must not be null";
+    private String xlsFilePath;
+
 ```
 
 ### FieldCanBeLocal
@@ -7709,11 +7673,11 @@ Field can be converted to a local variable
 in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-email/src/main/java/org/apache/dolphinscheduler/plugin/alert/email/MailSender.java`
 #### Snippet
 ```java
-    private final String showType;
-    private final AlertTemplate alertTemplate;
-    private final String mustNotNull = " must not be null";
-    private String xlsFilePath;
-
+    private final List<String> receivers;
+    private final List<String> receiverCcs;
+    private final String mailProtocol = "SMTP";
+    private final String mailSmtpHost;
+    private final String mailSmtpPort;
 ```
 
 ### FieldCanBeLocal
@@ -7757,11 +7721,11 @@ Field can be converted to a local variable
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/HttpUtils.java`
 #### Snippet
 ```java
+    private static SSLContext ctx = null;
+
+    private static SSLConnectionSocketFactory socketFactory;
+
     private static RequestConfig requestConfig;
-
-    private static Registry<ConnectionSocketFactory> socketFactoryRegistry;
-
-    private static X509TrustManager xtm = new X509TrustManager() {
 ```
 
 ### FieldCanBeLocal
@@ -7769,11 +7733,11 @@ Field can be converted to a local variable
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/HttpUtils.java`
 #### Snippet
 ```java
-    private static SSLContext ctx = null;
-
-    private static SSLConnectionSocketFactory socketFactory;
-
     private static RequestConfig requestConfig;
+
+    private static Registry<ConnectionSocketFactory> socketFactoryRegistry;
+
+    private static X509TrustManager xtm = new X509TrustManager() {
 ```
 
 ### FieldCanBeLocal
@@ -7805,30 +7769,6 @@ Field can be converted to a local variable
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/HostWeight.java`
 #### Snippet
 ```java
-    private final int MEMORY_FACTOR = 20;
-
-    private final int LOAD_AVERAGE_FACTOR = 70;
-
-    private final HostWorker hostWorker;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/HostWeight.java`
-#### Snippet
-```java
-    private final int CPU_FACTOR = 10;
-
-    private final int MEMORY_FACTOR = 20;
-
-    private final int LOAD_AVERAGE_FACTOR = 70;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/HostWeight.java`
-#### Snippet
-```java
 public class HostWeight {
 
     private final int CPU_FACTOR = 10;
@@ -7838,14 +7778,38 @@ public class HostWeight {
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterConnectionStateListener.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/HostWeight.java`
 #### Snippet
 ```java
+    private final int CPU_FACTOR = 10;
 
-    private final MasterConfig masterConfig;
+    private final int MEMORY_FACTOR = 20;
+
+    private final int LOAD_AVERAGE_FACTOR = 70;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/HostWeight.java`
+#### Snippet
+```java
+    private final int MEMORY_FACTOR = 20;
+
+    private final int LOAD_AVERAGE_FACTOR = 70;
+
+    private final HostWorker hostWorker;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
+#### Snippet
+```java
     private final RegistryClient registryClient;
-    private final MasterConnectStrategy masterConnectStrategy;
-
+    private final MasterConfig masterConfig;
+    private final ProcessService processService;
+    private final WorkflowExecuteThreadPool workflowExecuteThreadPool;
+    private final ProcessInstanceExecCacheManager cacheManager;
 ```
 
 ### FieldCanBeLocal
@@ -7862,14 +7826,14 @@ public class MasterConnectionStateListener implements ConnectionListener {
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterConnectionStateListener.java`
 #### Snippet
 ```java
-    private final RegistryClient registryClient;
+
     private final MasterConfig masterConfig;
-    private final ProcessService processService;
-    private final WorkflowExecuteThreadPool workflowExecuteThreadPool;
-    private final ProcessInstanceExecCacheManager cacheManager;
+    private final RegistryClient registryClient;
+    private final MasterConnectStrategy masterConnectStrategy;
+
 ```
 
 ### FieldCanBeLocal
@@ -7925,11 +7889,11 @@ Field can be converted to a local variable
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisJobStatus.java`
 #### Snippet
 ```java
-    SHUTTINGDOWN("Shuttingdown", 11);
 
     private String name;
     private int id;
 
+    LinkisJobStatus(String name, int id) {
 ```
 
 ### FieldCanBeLocal
@@ -7937,11 +7901,11 @@ Field can be converted to a local variable
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisJobStatus.java`
 #### Snippet
 ```java
+    SHUTTINGDOWN("Shuttingdown", 11);
 
     private String name;
     private int id;
 
-    LinkisJobStatus(String name, int id) {
 ```
 
 ## RuleId[id=IfStatementMissingBreakInLoop]
@@ -8219,6 +8183,30 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
 #### Snippet
 ```java
+                                                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                                                          @RequestParam("size") Integer size,
+                                                                          @RequestParam(value = "startTime", required = true) String startTime,
+                                                                          @RequestParam(value = "endTime", required = true) String endTime) {
+        Map<String, Object> result = processInstanceService.queryTopNLongestRunningProcessInstance(loginUser,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
+#### Snippet
+```java
+                                                                          @RequestParam("size") Integer size,
+                                                                          @RequestParam(value = "startTime", required = true) String startTime,
+                                                                          @RequestParam(value = "endTime", required = true) String endTime) {
+        Map<String, Object> result = processInstanceService.queryTopNLongestRunningProcessInstance(loginUser,
+                projectCode, size, startTime, endTime);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
+#### Snippet
+```java
     public Result updateProcessInstance(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
                                         @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
                                         @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
@@ -8252,26 +8240,38 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
 #### Snippet
 ```java
-                                                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                                                          @RequestParam("size") Integer size,
-                                                                          @RequestParam(value = "startTime", required = true) String startTime,
-                                                                          @RequestParam(value = "endTime", required = true) String endTime) {
-        Map<String, Object> result = processInstanceService.queryTopNLongestRunningProcessInstance(loginUser,
+    @Operation(summary = "queryTaskListPaging", description = "QUERY_TASK_INSTANCE_LIST_PAGING_NOTES")
+    @Parameters({
+            @Parameter(name = "processInstanceId", description = "PROCESS_INSTANCE_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
+            @Parameter(name = "processInstanceName", description = "PROCESS_INSTANCE_NAME", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "searchVal", description = "SEARCH_VAL", schema = @Schema(implementation = String.class)),
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
 #### Snippet
 ```java
-                                                                          @RequestParam("size") Integer size,
-                                                                          @RequestParam(value = "startTime", required = true) String startTime,
-                                                                          @RequestParam(value = "endTime", required = true) String endTime) {
-        Map<String, Object> result = processInstanceService.queryTopNLongestRunningProcessInstance(loginUser,
-                projectCode, size, startTime, endTime);
+    @Parameters({
+            @Parameter(name = "processInstanceId", description = "PROCESS_INSTANCE_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
+            @Parameter(name = "processInstanceName", description = "PROCESS_INSTANCE_NAME", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "searchVal", description = "SEARCH_VAL", schema = @Schema(implementation = String.class)),
+            @Parameter(name = "taskName", description = "TASK_NAME", schema = @Schema(implementation = String.class)),
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
+#### Snippet
+```java
+            @Parameter(name = "startDate", description = "START_DATE", schema = @Schema(implementation = String.class)),
+            @Parameter(name = "endDate", description = "END_DATE", schema = @Schema(implementation = String.class)),
+            @Parameter(name = "taskExecuteType", description = "TASK_EXECUTE_TYPE", required = false, schema = @Schema(implementation = TaskExecuteType.class, example = "STREAM")),
+            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
+            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "20")),
 ```
 
 ### DefaultAnnotationParam
@@ -8279,23 +8279,11 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
 #### Snippet
 ```java
-            @Parameter(name = "code", description = "TASK_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class, example = "1")),
-            @Parameter(name = "taskDefinitionJsonObj", description = "TASK_DEFINITION_JSON", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "upstreamCodes", description = "UPSTREAM_CODES", required = false, schema = @Schema(implementation = String.class))
-    })
-    @PutMapping(value = "/{code}/with-upstream")
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
-#### Snippet
-```java
-                                         @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                         @PathVariable(value = "code") long code,
-                                         @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
-                                         @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
-        Map<String, Object> result = taskDefinitionService.updateTaskWithUpstream(loginUser, projectCode, code,
+                                       @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                       @PathVariable(value = "code") long code,
+                                       @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj) {
+        Map<String, Object> result =
+                taskDefinitionService.updateTaskDefinition(loginUser, projectCode, code, taskDefinitionJsonObj);
 ```
 
 ### DefaultAnnotationParam
@@ -8327,23 +8315,11 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
 #### Snippet
 ```java
-    public Result createTaskDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                       @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                       @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson) {
-        Map<String, Object> result =
-                taskDefinitionService.createTaskDefinition(loginUser, projectCode, taskDefinitionJson);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
-#### Snippet
-```java
-            @Parameter(name = "processDefinitionCode", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class)),
+            @Parameter(name = "code", description = "TASK_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class, example = "1")),
             @Parameter(name = "taskDefinitionJsonObj", description = "TASK_DEFINITION_JSON", required = true, schema = @Schema(implementation = String.class)),
             @Parameter(name = "upstreamCodes", description = "UPSTREAM_CODES", required = false, schema = @Schema(implementation = String.class))
     })
-    @PostMapping("/save-single")
+    @PutMapping(value = "/{code}/with-upstream")
 ```
 
 ### DefaultAnnotationParam
@@ -8351,23 +8327,11 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
 #### Snippet
 ```java
-    public Result createTaskBindsWorkFlow(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                          @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
-                                          @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
-                                          @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
-#### Snippet
-```java
-                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                          @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
-                                          @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
-                                          @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
-        Map<String, Object> result = taskDefinitionService.createTaskBindsWorkFlow(loginUser, projectCode,
+                                         @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                         @PathVariable(value = "code") long code,
+                                         @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
+                                         @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
+        Map<String, Object> result = taskDefinitionService.updateTaskWithUpstream(loginUser, projectCode, code,
 ```
 
 ### DefaultAnnotationParam
@@ -8435,59 +8399,47 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
 #### Snippet
 ```java
+            @Parameter(name = "processDefinitionCode", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class)),
+            @Parameter(name = "taskDefinitionJsonObj", description = "TASK_DEFINITION_JSON", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "upstreamCodes", description = "UPSTREAM_CODES", required = false, schema = @Schema(implementation = String.class))
+    })
+    @PostMapping("/save-single")
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+    public Result createTaskBindsWorkFlow(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                          @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
+                                          @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
+                                          @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                          @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
+                                          @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj,
+                                          @RequestParam(value = "upstreamCodes", required = false) String upstreamCodes) {
+        Map<String, Object> result = taskDefinitionService.createTaskBindsWorkFlow(loginUser, projectCode,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+    public Result createTaskDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                       @PathVariable(value = "code") long code,
-                                       @RequestParam(value = "taskDefinitionJsonObj", required = true) String taskDefinitionJsonObj) {
+                                       @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson) {
         Map<String, Object> result =
-                taskDefinitionService.updateTaskDefinition(loginUser, projectCode, code, taskDefinitionJsonObj);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
-#### Snippet
-```java
-    @Operation(summary = "queryTaskListPaging", description = "QUERY_TASK_INSTANCE_LIST_PAGING_NOTES")
-    @Parameters({
-            @Parameter(name = "processInstanceId", description = "PROCESS_INSTANCE_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
-            @Parameter(name = "processInstanceName", description = "PROCESS_INSTANCE_NAME", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "searchVal", description = "SEARCH_VAL", schema = @Schema(implementation = String.class)),
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
-#### Snippet
-```java
-    @Parameters({
-            @Parameter(name = "processInstanceId", description = "PROCESS_INSTANCE_ID", required = false, schema = @Schema(implementation = int.class, example = "100")),
-            @Parameter(name = "processInstanceName", description = "PROCESS_INSTANCE_NAME", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "searchVal", description = "SEARCH_VAL", schema = @Schema(implementation = String.class)),
-            @Parameter(name = "taskName", description = "TASK_NAME", schema = @Schema(implementation = String.class)),
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
-#### Snippet
-```java
-            @Parameter(name = "startDate", description = "START_DATE", schema = @Schema(implementation = String.class)),
-            @Parameter(name = "endDate", description = "END_DATE", schema = @Schema(implementation = String.class)),
-            @Parameter(name = "taskExecuteType", description = "TASK_EXECUTE_TYPE", required = false, schema = @Schema(implementation = TaskExecuteType.class, example = "STREAM")),
-            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
-            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "20")),
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessTaskRelationController.java`
-#### Snippet
-```java
-    public Result deleteUpstreamRelation(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                         @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                         @RequestParam(name = "preTaskCodes", required = true) String preTaskCodes,
-                                         @PathVariable("taskCode") long taskCode) {
-        return returnDataList(
+                taskDefinitionService.createTaskDefinition(loginUser, projectCode, taskDefinitionJson);
 ```
 
 ### DefaultAnnotationParam
@@ -8511,6 +8463,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
                                            @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
                                            @RequestParam(name = "postTaskCodes", required = true) String postTaskCodes,
                                            @PathVariable("taskCode") long taskCode) {
+        return returnDataList(
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessTaskRelationController.java`
+#### Snippet
+```java
+    public Result deleteUpstreamRelation(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                         @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                         @RequestParam(name = "preTaskCodes", required = true) String preTaskCodes,
+                                         @PathVariable("taskCode") long taskCode) {
         return returnDataList(
 ```
 
@@ -8552,282 +8516,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkerGroupController.java`
-#### Snippet
-```java
-            @Parameter(name = "name", description = "WORKER_GROUP_NAME", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "addrList", description = "WORKER_ADDR_LIST", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "description", description = "WORKER_DESC", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "otherParamsJson", description = "WORKER_PARMS_JSON", required = false, schema = @Schema(implementation = String.class)),
-    })
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkerGroupController.java`
-#### Snippet
-```java
-            @Parameter(name = "addrList", description = "WORKER_ADDR_LIST", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "description", description = "WORKER_DESC", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "otherParamsJson", description = "WORKER_PARMS_JSON", required = false, schema = @Schema(implementation = String.class)),
-    })
-    @PostMapping()
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-            @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
-            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
-            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-            @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
-            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
-            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
-    })
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
-            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
-    })
-    @PutMapping(value = "/{code}/basic-info")
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result updateProcessDefinitionBasicInfo(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                                   @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                                   @RequestParam(value = "name", required = true) String name,
-                                                   @PathVariable(value = "code", required = true) long code,
-                                                   @RequestParam(value = "description", required = false) String description,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                                   @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                                   @RequestParam(value = "name", required = true) String name,
-                                                   @PathVariable(value = "code", required = true) long code,
-                                                   @RequestParam(value = "description", required = false) String description,
-                                                   @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result moveProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @RequestParam(value = "codes", required = true) String codes,
-                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
-        return returnDataList(
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @RequestParam(value = "codes", required = true) String codes,
-                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
-        return returnDataList(
-                processDefinitionService.batchMoveProcessDefinition(loginUser, projectCode, codes, targetProjectCode));
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result queryProcessDefinitionByCode(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                               @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                               @PathVariable(value = "code", required = true) long code) {
-        Map<String, Object> result =
-                processDefinitionService.queryProcessDefinitionByCode(loginUser, projectCode, code);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-            @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "locations", description = "PROCESS_DEFINITION_LOCATIONS", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
-    })
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-            @Parameter(name = "locations", description = "PROCESS_DEFINITION_LOCATIONS", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
-    })
-    @PostMapping()
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result createProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                          @RequestParam(value = "name", required = true) String name,
-                                          @RequestParam(value = "description", required = false) String description,
-                                          @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                          @RequestParam(value = "locations", required = false) String locations,
-                                          @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
-                                          @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
-                                          @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
-                                          @RequestParam(value = "otherParamsJson", required = false) String otherParamsJson,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                          @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
-                                          @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
-                                          @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
-                                          @RequestParam(value = "otherParamsJson", required = false) String otherParamsJson,
-                                          @RequestParam(value = "executionType", defaultValue = "PARALLEL") ProcessExecutionTypeEnum executionType) {
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result releaseWorkflowAndSchedule(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                             @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                             @PathVariable(value = "code", required = true) long code,
-                                             @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
-        return returnDataList(
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                             @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                             @PathVariable(value = "code", required = true) long code,
-                                             @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
-        return returnDataList(
-                processDefinitionService.releaseWorkflowAndSchedule(loginUser, projectCode, code, releaseState));
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result releaseProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                           @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                           @PathVariable(value = "code", required = true) long code,
-                                           @RequestParam(value = "releaseState", required = true) ReleaseState releaseState) {
-        Map<String, Object> result =
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                           @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                           @PathVariable(value = "code", required = true) long code,
-                                           @RequestParam(value = "releaseState", required = true) ReleaseState releaseState) {
-        Map<String, Object> result =
-                processDefinitionService.releaseProcessDefinition(loginUser, projectCode, code, releaseState);
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result copyProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @RequestParam(value = "codes", required = true) String codes,
-                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
-        return returnDataList(
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @RequestParam(value = "codes", required = true) String codes,
-                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
-        return returnDataList(
-                processDefinitionService.batchCopyProcessDefinition(loginUser, projectCode, codes, targetProjectCode));
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-            @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
-            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class))
-    })
-    @PostMapping(value = "/empty")
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-    public Result createEmptyProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                               @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                               @RequestParam(value = "name", required = true) String name,
-                                               @RequestParam(value = "description", required = false) String description,
-                                               @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
@@ -8860,6 +8548,30 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
             @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
     })
     @GetMapping()
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result copyProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @RequestParam(value = "codes", required = true) String codes,
+                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
+        return returnDataList(
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @RequestParam(value = "codes", required = true) String codes,
+                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
+        return returnDataList(
+                processDefinitionService.batchCopyProcessDefinition(loginUser, projectCode, codes, targetProjectCode));
 ```
 
 ### DefaultAnnotationParam
@@ -8951,6 +8663,234 @@ Redundant default parameter value assignment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
+    public Result queryProcessDefinitionByCode(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                               @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                               @PathVariable(value = "code", required = true) long code) {
+        Map<String, Object> result =
+                processDefinitionService.queryProcessDefinitionByCode(loginUser, projectCode, code);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result moveProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @RequestParam(value = "codes", required = true) String codes,
+                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
+        return returnDataList(
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @RequestParam(value = "codes", required = true) String codes,
+                                        @RequestParam(value = "targetProjectCode", required = true) long targetProjectCode) {
+        return returnDataList(
+                processDefinitionService.batchMoveProcessDefinition(loginUser, projectCode, codes, targetProjectCode));
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result releaseWorkflowAndSchedule(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                             @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                             @PathVariable(value = "code", required = true) long code,
+                                             @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
+        return returnDataList(
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                             @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                             @PathVariable(value = "code", required = true) long code,
+                                             @RequestParam(value = "releaseState", required = true, defaultValue = "OFFLINE") ReleaseState releaseState) {
+        return returnDataList(
+                processDefinitionService.releaseWorkflowAndSchedule(loginUser, projectCode, code, releaseState));
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+            @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
+            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
+            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+            @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
+            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
+            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
+    })
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "releaseState", description = "RELEASE_PROCESS_DEFINITION_NOTES", required = false, schema = @Schema(implementation = ReleaseState.class)),
+            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
+    })
+    @PutMapping(value = "/{code}/basic-info")
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result updateProcessDefinitionBasicInfo(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                                   @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                                   @RequestParam(value = "name", required = true) String name,
+                                                   @PathVariable(value = "code", required = true) long code,
+                                                   @RequestParam(value = "description", required = false) String description,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                                   @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                                   @RequestParam(value = "name", required = true) String name,
+                                                   @PathVariable(value = "code", required = true) long code,
+                                                   @RequestParam(value = "description", required = false) String description,
+                                                   @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result releaseProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                           @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                           @PathVariable(value = "code", required = true) long code,
+                                           @RequestParam(value = "releaseState", required = true) ReleaseState releaseState) {
+        Map<String, Object> result =
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                           @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                           @PathVariable(value = "code", required = true) long code,
+                                           @RequestParam(value = "releaseState", required = true) ReleaseState releaseState) {
+        Map<String, Object> result =
+                processDefinitionService.releaseProcessDefinition(loginUser, projectCode, code, releaseState);
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+            @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "locations", description = "PROCESS_DEFINITION_LOCATIONS", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
+    })
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+            @Parameter(name = "locations", description = "PROCESS_DEFINITION_LOCATIONS", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "otherParamsJson", description = "OTHER_PARAMS_JSON", required = false, schema = @Schema(implementation = String.class))
+    })
+    @PostMapping()
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result createProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                          @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                          @RequestParam(value = "name", required = true) String name,
+                                          @RequestParam(value = "description", required = false) String description,
+                                          @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                          @RequestParam(value = "locations", required = false) String locations,
+                                          @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
+                                          @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
+                                          @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
+                                          @RequestParam(value = "otherParamsJson", required = false) String otherParamsJson,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+                                          @RequestParam(value = "timeout", required = false, defaultValue = "0") int timeout,
+                                          @RequestParam(value = "taskRelationJson", required = true) String taskRelationJson,
+                                          @RequestParam(value = "taskDefinitionJson", required = true) String taskDefinitionJson,
+                                          @RequestParam(value = "otherParamsJson", required = false) String otherParamsJson,
+                                          @RequestParam(value = "executionType", defaultValue = "PARALLEL") ProcessExecutionTypeEnum executionType) {
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+            @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true, schema = @Schema(implementation = long.class, example = "123456789")),
+            @Parameter(name = "description", description = "PROCESS_DEFINITION_DESC", required = false, schema = @Schema(implementation = String.class))
+    })
+    @PostMapping(value = "/empty")
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
+    public Result createEmptyProcessDefinition(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                               @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                               @RequestParam(value = "name", required = true) String name,
+                                               @RequestParam(value = "description", required = false) String description,
+                                               @RequestParam(value = "globalParams", required = false, defaultValue = "[]") String globalParams,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
+#### Snippet
+```java
     @Parameters({
             @Parameter(name = "name", description = "PROCESS_DEFINITION_NAME", required = true, schema = @Schema(implementation = String.class)),
             @Parameter(name = "code", description = "PROCESS_DEFINITION_CODE", required = false, schema = @Schema(implementation = Long.class)),
@@ -8968,6 +8908,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
                                               @RequestParam(value = "name", required = true) String name,
                                               @RequestParam(value = "code", required = false, defaultValue = "0") long processDefinitionCode) {
         Map<String, Object> result = processDefinitionService.verifyProcessDefinitionName(loginUser, projectCode, name,
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProjectParameterController.java`
+#### Snippet
+```java
+    @Operation(summary = "queryProjectParameterListPaging", description = "QUERY_PROJECT_PARAMETER_LIST_PAGING_NOTES")
+    @Parameters({
+            @Parameter(name = "searchVal", description = "SEARCH_VAL", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
+            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "10"))
 ```
 
 ### DefaultAnnotationParam
@@ -8996,14 +8948,26 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProjectParameterController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkerGroupController.java`
 #### Snippet
 ```java
-    @Operation(summary = "queryProjectParameterListPaging", description = "QUERY_PROJECT_PARAMETER_LIST_PAGING_NOTES")
-    @Parameters({
-            @Parameter(name = "searchVal", description = "SEARCH_VAL", required = false, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "pageNo", description = "PAGE_NO", required = true, schema = @Schema(implementation = int.class, example = "1")),
-            @Parameter(name = "pageSize", description = "PAGE_SIZE", required = true, schema = @Schema(implementation = int.class, example = "10"))
+            @Parameter(name = "name", description = "WORKER_GROUP_NAME", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "addrList", description = "WORKER_ADDR_LIST", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "description", description = "WORKER_DESC", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "otherParamsJson", description = "WORKER_PARMS_JSON", required = false, schema = @Schema(implementation = String.class)),
+    })
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkerGroupController.java`
+#### Snippet
+```java
+            @Parameter(name = "addrList", description = "WORKER_ADDR_LIST", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "description", description = "WORKER_DESC", required = false, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "otherParamsJson", description = "WORKER_PARMS_JSON", required = false, schema = @Schema(implementation = String.class)),
+    })
+    @PostMapping()
 ```
 
 ### DefaultAnnotationParam
@@ -9020,38 +8984,26 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkFlowLineageController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
 #### Snippet
 ```java
-    public Result<Map<String, Object>> queryWorkFlowLineageByCode(@Parameter(hidden = true) @RequestAttribute(value = SESSION_USER) User loginUser,
-                                                                  @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                                                  @PathVariable(value = "workFlowCode", required = true) long workFlowCode) {
-        try {
-            Map<String, Object> result = workFlowLineageService.queryWorkFlowLineageByCode(projectCode, workFlowCode);
+            @Parameter(name = "namespace", description = "NAMESPACE", required = true, schema = @Schema(implementation = String.class)),
+            @Parameter(name = "clusterCode", description = "CLUSTER_CODE", required = true, schema = @Schema(implementation = long.class)),
+            @Parameter(name = "limits_cpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
+            @Parameter(name = "limits_memory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))
+    })
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkFlowLineageController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
 #### Snippet
 ```java
-    public Result verifyTaskCanDelete(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
-                                      @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                      @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
-                                      @RequestParam(value = "taskCode", required = true) long taskCode) {
-        Result result = new Result();
-```
-
-### DefaultAnnotationParam
-Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkFlowLineageController.java`
-#### Snippet
-```java
-                                      @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                      @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
-                                      @RequestParam(value = "taskCode", required = true) long taskCode) {
-        Result result = new Result();
-        Optional<String> taskDepMsg =
+            @Parameter(name = "clusterCode", description = "CLUSTER_CODE", required = true, schema = @Schema(implementation = long.class)),
+            @Parameter(name = "limits_cpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
+            @Parameter(name = "limits_memory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))
+    })
+    @PostMapping()
 ```
 
 ### DefaultAnnotationParam
@@ -9092,26 +9044,38 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkFlowLineageController.java`
 #### Snippet
 ```java
-            @Parameter(name = "namespace", description = "NAMESPACE", required = true, schema = @Schema(implementation = String.class)),
-            @Parameter(name = "clusterCode", description = "CLUSTER_CODE", required = true, schema = @Schema(implementation = long.class)),
-            @Parameter(name = "limits_cpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
-            @Parameter(name = "limits_memory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))
-    })
+    public Result<Map<String, Object>> queryWorkFlowLineageByCode(@Parameter(hidden = true) @RequestAttribute(value = SESSION_USER) User loginUser,
+                                                                  @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                                                  @PathVariable(value = "workFlowCode", required = true) long workFlowCode) {
+        try {
+            Map<String, Object> result = workFlowLineageService.queryWorkFlowLineageByCode(projectCode, workFlowCode);
 ```
 
 ### DefaultAnnotationParam
 Redundant default parameter value assignment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkFlowLineageController.java`
 #### Snippet
 ```java
-            @Parameter(name = "clusterCode", description = "CLUSTER_CODE", required = true, schema = @Schema(implementation = long.class)),
-            @Parameter(name = "limits_cpu", description = "LIMITS_CPU", required = false, schema = @Schema(implementation = double.class)),
-            @Parameter(name = "limits_memory", description = "LIMITS_MEMORY", required = false, schema = @Schema(implementation = int.class))
-    })
-    @PostMapping()
+    public Result verifyTaskCanDelete(@Parameter(hidden = true) @RequestAttribute(value = Constants.SESSION_USER) User loginUser,
+                                      @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                      @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
+                                      @RequestParam(value = "taskCode", required = true) long taskCode) {
+        Result result = new Result();
+```
+
+### DefaultAnnotationParam
+Redundant default parameter value assignment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkFlowLineageController.java`
+#### Snippet
+```java
+                                      @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                      @RequestParam(value = "processDefinitionCode", required = true) long processDefinitionCode,
+                                      @RequestParam(value = "taskCode", required = true) long taskCode) {
+        Result result = new Result();
+        Optional<String> taskDepMsg =
 ```
 
 ### DefaultAnnotationParam
@@ -9287,6 +9251,18 @@ public class QueueCreateResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/queue/QueueUpdateResponse.java`
+#### Snippet
+```java
+ * queue update response
+ */
+@Data
+public class QueueUpdateResponse extends Result {
+
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/queue/QueueListResponse.java`
 #### Snippet
 ```java
@@ -9299,13 +9275,13 @@ public class QueueListResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/queue/QueueUpdateResponse.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/queue/QueueListPagingResponse.java`
 #### Snippet
 ```java
- * queue update response
+ * queue list paging response
  */
 @Data
-public class QueueUpdateResponse extends Result {
+public class QueueListPagingResponse extends Result {
 
 ```
 
@@ -9335,18 +9311,6 @@ public class ProjectUpdateResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/queue/QueueListPagingResponse.java`
-#### Snippet
-```java
- * queue list paging response
- */
-@Data
-public class QueueListPagingResponse extends Result {
-
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectCreateResponse.java`
 #### Snippet
 ```java
@@ -9359,18 +9323,6 @@ public class ProjectCreateResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectDeleteResponse.java`
-#### Snippet
-```java
- * project delete response
- */
-@Data
-public class ProjectDeleteResponse extends Result {
-
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectListPagingResponse.java`
 #### Snippet
 ```java
@@ -9378,6 +9330,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/proje
  */
 @Data
 public class ProjectListPagingResponse extends Result {
+
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/project/ProjectDeleteResponse.java`
+#### Snippet
+```java
+ * project delete response
+ */
+@Data
+public class ProjectDeleteResponse extends Result {
 
 ```
 
@@ -9431,18 +9395,6 @@ public class ScheduleFilterRequest extends PageQueryDto {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/workflow/WorkflowFilterRequest.java`
-#### Snippet
-```java
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Data
-public class WorkflowFilterRequest extends PageQueryDto {
-
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/resources/DeleteDataTransferResponse.java`
 #### Snippet
 ```java
@@ -9450,6 +9402,18 @@ import lombok.Data;
 
 @Data
 public class DeleteDataTransferResponse extends Result {
+
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/workflow/WorkflowFilterRequest.java`
+#### Snippet
+```java
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
+public class WorkflowFilterRequest extends PageQueryDto {
 
 ```
 
@@ -9479,30 +9443,6 @@ public class TaskInstanceSuccessResponse extends Result {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskInstance/TaskInstanceQueryRequest.java`
-#### Snippet
-```java
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Data
-public class TaskInstanceQueryRequest extends PageQueryDto {
-
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskRelation/TaskRelationFilterRequest.java`
-#### Snippet
-```java
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@Data
-public class TaskRelationFilterRequest extends PageQueryDto {
-
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskInstance/TaskInstanceRemoveCacheResponse.java`
 #### Snippet
 ```java
@@ -9510,6 +9450,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskI
  */
 @Data
 public class TaskInstanceRemoveCacheResponse extends Result {
+
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskInstance/TaskInstanceQueryRequest.java`
+#### Snippet
+```java
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
+public class TaskInstanceQueryRequest extends PageQueryDto {
 
 ```
 
@@ -9539,6 +9491,18 @@ public class TaskRelationUpdateUpstreamRequest extends PageQueryDto {
 
 ### Lombok
 Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/taskRelation/TaskRelationFilterRequest.java`
+#### Snippet
+```java
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@Data
+public class TaskRelationFilterRequest extends PageQueryDto {
+
+```
+
+### Lombok
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/workflowInstance/WorkflowInstanceQueryRequest.java`
 #### Snippet
 ```java
@@ -9559,42 +9523,6 @@ import lombok.Data;
 @Data
 public class ServiceException extends RuntimeException {
 
-```
-
-### Lombok
-Class contains required fields, you have to force NoArgsConstructor.
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/WorkflowStateEvent.java`
-#### Snippet
-```java
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class WorkflowStateEvent implements StateEvent {
-
-```
-
-### Lombok
-Class contains required fields, you have to force NoArgsConstructor.
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskStateEvent.java`
-#### Snippet
-```java
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class TaskStateEvent implements StateEvent {
-```
-
-### Lombok
-Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/template/LoopTaskYamlDefinition.java`
-#### Snippet
-```java
-    }
-
-    @Data
-    public static class LoopTaskCancelYamlDefinition extends LoopTaskMethodYamlDefinition {
-    }
 ```
 
 ### Lombok
@@ -9622,15 +9550,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### Lombok
-Class contains required fields, you have to force NoArgsConstructor.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/model/DynamicInputParameter.java`
+Generating equals/hashCode implementation but without a call to superclass, even though this class does not extend java.lang.Object. If this is intentional, add '(callSuper=false)' to your type.
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/template/LoopTaskYamlDefinition.java`
 #### Snippet
 ```java
+    }
 
-@Data
-@NoArgsConstructor
-public class DynamicInputParameter {
-
+    @Data
+    public static class LoopTaskCancelYamlDefinition extends LoopTaskMethodYamlDefinition {
+    }
 ```
 
 ### Lombok
@@ -9868,11 +9796,11 @@ Path variable 'projectCode' is not consumed
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ExecutorController.java`
 #### Snippet
 ```java
-    @ApiException(CHECK_PROCESS_DEFINITION_ERROR)
-    @AccessLogAnnotation(ignoreRequestArgs = "loginUser")
-    public Result startCheckProcessDefinition(@RequestParam(value = "processDefinitionCode") long processDefinitionCode) {
-        Map<String, Object> result = execService.startCheckByProcessDefinedCode(processDefinitionCode);
-        return returnDataList(result);
+    @ApiException(QUERY_EXECUTING_WORKFLOW_ERROR)
+    @AccessLogAnnotation
+    public Result queryExecutingWorkflow(@RequestParam("id") Integer processInstanceId) {
+        WorkflowExecuteDto workflowExecuteDto =
+                execService.queryExecutingWorkflowByProcessInstanceId(processInstanceId);
 ```
 
 ### MVCPathVariableInspection
@@ -9880,11 +9808,11 @@ Path variable 'projectCode' is not consumed
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ExecutorController.java`
 #### Snippet
 ```java
-    @ApiException(QUERY_EXECUTING_WORKFLOW_ERROR)
-    @AccessLogAnnotation
-    public Result queryExecutingWorkflow(@RequestParam("id") Integer processInstanceId) {
-        WorkflowExecuteDto workflowExecuteDto =
-                execService.queryExecutingWorkflowByProcessInstanceId(processInstanceId);
+    @ApiException(CHECK_PROCESS_DEFINITION_ERROR)
+    @AccessLogAnnotation(ignoreRequestArgs = "loginUser")
+    public Result startCheckProcessDefinition(@RequestParam(value = "processDefinitionCode") long processDefinitionCode) {
+        Map<String, Object> result = execService.startCheckByProcessDefinedCode(processDefinitionCode);
+        return returnDataList(result);
 ```
 
 ### MVCPathVariableInspection
@@ -9976,18 +9904,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### UnusedAssignment
-Variable `tableList` initializer `null` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
-#### Snippet
-```java
-        DataSource dataSource = dataSourceMapper.selectById(datasourceId);
-
-        List<String> tableList = null;
-        BaseConnectionParam connectionParam =
-                (BaseConnectionParam) DataSourceUtils.buildConnectionParams(
-```
-
-### UnusedAssignment
 Variable `dataSourceList` initializer `null` is redundant
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
 #### Snippet
@@ -10008,7 +9924,19 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
         List<DataSource> datasourceList = null;
         if (loginUser.getUserType().equals(UserType.ADMIN_USER)) {
-            datasourceList = dataSourceMapper.queryDataSourceByType(0, type, testFlag);
+            datasourceList = dataSourceMapper.queryDataSourceByType(0, type);
+```
+
+### UnusedAssignment
+Variable `tableList` initializer `null` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+#### Snippet
+```java
+        DataSource dataSource = dataSourceMapper.selectById(datasourceId);
+
+        List<String> tableList = null;
+        BaseConnectionParam connectionParam =
+                (BaseConnectionParam) DataSourceUtils.buildConnectionParams(
 ```
 
 ### UnusedAssignment
@@ -10036,51 +9964,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### UnusedAssignment
-Variable `timezoneId` initializer `null` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+Variable `resourcesList` initializer `new ArrayList<>()` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-        //
-        Map<String, String> commandParamMap = JSONUtils.toMap(processInstance.getCommandParam());
-        String timezoneId = null;
-        if (commandParamMap == null || StringUtils.isBlank(commandParamMap.get(Constants.SCHEDULE_TIMEZONE))) {
-            timezoneId = loginUser.getTimeZone();
-```
-
-### UnusedAssignment
-Variable `user` initializer `null` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-            return result;
         }
-        User user = null;
-        if (loginUser.getUserType() == UserType.ADMIN_USER) {
-            user = loginUser;
-```
 
-### UnusedAssignment
-Variable `userSet` initializer `null` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-        List<User> userList = userMapper.selectList(null);
-        List<User> resultUsers = new ArrayList<>();
-        Set<User> userSet = null;
-        if (userList != null && !userList.isEmpty()) {
-            userSet = new HashSet<>(userList);
-```
-
-### UnusedAssignment
-Variable `authedUserSet` initializer `null` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-            List<User> authedUserList = userMapper.queryUserListByAlertGroupId(alertgroupId);
-
-            Set<User> authedUserSet = null;
-            if (authedUserList != null && !authedUserList.isEmpty()) {
-                authedUserSet = new HashSet<>(authedUserList);
+        List<StorageEntity> resourcesList = new ArrayList<>();
+        try {
+            resourcesList = queryStorageEntityList(loginUser, fullName, type, tenantCode, false);
 ```
 
 ### UnusedAssignment
@@ -10088,23 +9980,23 @@ Variable `result` initializer `new Result<>()` is redundant
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-    public Result<Object> delete(User loginUser, String fullName,
-                                 String resTenantCode) throws IOException {
+    public Result<Object> onlineCreateResource(User loginUser, ResourceType type, String fileName, String fileSuffix,
+                                               String content, String currentDir) {
         Result<Object> result = new Result<>();
 
         result = checkResourceUploadStartupState();
 ```
 
 ### UnusedAssignment
-Variable `defaultPath` initializer `""` is redundant
+Variable `fullName` initializer `""` is redundant
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-    private List<StorageEntity> queryStorageEntityList(User loginUser, String fullName, ResourceType type,
-                                                       String tenantCode, boolean recursive) {
-        String defaultPath = "";
-        List<StorageEntity> resourcesList = new ArrayList<>();
-        String resourceStorageType =
+        String name = fileName.trim() + "." + nameSuffix;
+
+        String fullName = "";
+        String userResRootPath = storageOperate.getResDir(tenantCode);
+        if (!currentDir.contains(userResRootPath)) {
 ```
 
 ### UnusedAssignment
@@ -10156,39 +10048,75 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### UnusedAssignment
-Variable `resourcesList` initializer `new ArrayList<>()` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        List<StorageEntity> resourcesList = new ArrayList<>();
-        try {
-            resourcesList = queryStorageEntityList(loginUser, fullName, type, tenantCode, false);
-```
-
-### UnusedAssignment
 Variable `result` initializer `new Result<>()` is redundant
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-    public Result<Object> onlineCreateResource(User loginUser, ResourceType type, String fileName, String fileSuffix,
-                                               String desc, String content, String currentDir) {
+    public Result<Object> delete(User loginUser, String fullName,
+                                 String resTenantCode) throws IOException {
         Result<Object> result = new Result<>();
 
         result = checkResourceUploadStartupState();
 ```
 
 ### UnusedAssignment
-Variable `fullName` initializer `""` is redundant
+Variable `defaultPath` initializer `""` is redundant
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-        String name = fileName.trim() + "." + nameSuffix;
+    private List<StorageEntity> queryStorageEntityList(User loginUser, String fullName, ResourceType type,
+                                                       String tenantCode, boolean recursive) {
+        String defaultPath = "";
+        List<StorageEntity> resourcesList = new ArrayList<>();
+        String resourceStorageType =
+```
 
-        String fullName = "";
-        String userResRootPath = storageOperate.getResDir(tenantCode);
-        if (!currentDir.contains(userResRootPath)) {
+### UnusedAssignment
+Variable `user` initializer `null` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+            return result;
+        }
+        User user = null;
+        if (loginUser.getUserType() == UserType.ADMIN_USER) {
+            user = loginUser;
+```
+
+### UnusedAssignment
+Variable `userSet` initializer `null` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+        List<User> userList = userMapper.selectList(null);
+        List<User> resultUsers = new ArrayList<>();
+        Set<User> userSet = null;
+        if (userList != null && !userList.isEmpty()) {
+            userSet = new HashSet<>(userList);
+```
+
+### UnusedAssignment
+Variable `authedUserSet` initializer `null` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+            List<User> authedUserList = userMapper.queryUserListByAlertGroupId(alertgroupId);
+
+            Set<User> authedUserSet = null;
+            if (authedUserList != null && !authedUserList.isEmpty()) {
+                authedUserSet = new HashSet<>(authedUserList);
+```
+
+### UnusedAssignment
+Variable `timezoneId` initializer `null` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+        //
+        Map<String, String> commandParamMap = JSONUtils.toMap(processInstance.getCommandParam());
+        String timezoneId = null;
+        if (commandParamMap == null || StringUtils.isBlank(commandParamMap.get(Constants.SCHEDULE_TIMEZONE))) {
+            timezoneId = loginUser.getTimeZone();
 ```
 
 ### UnusedAssignment
@@ -10301,7 +10229,7 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 
 ### UnusedAssignment
 Variable `cronTime` initializer `null` is redundant
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/ParameterUtils.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/ParameterUtils.java`
 #### Snippet
 ```java
         // Get current time, schedule execute time
@@ -10384,18 +10312,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/ap
 ```
 
 ### UnusedAssignment
-Variable `execState` initializer `null` is redundant
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/apache/dolphinscheduler/plugin/task/pigeon/PigeonTask.java`
-#### Snippet
-```java
-            StringEntity entity = new StringEntity(config.getJobTriggerPostBody(), StandardCharsets.UTF_8);
-            post.setEntity(entity);
-            ExecResult execState = null;
-            int taskId;
-            WebSocketClient webSocket = null;
-```
-
-### UnusedAssignment
 Variable `cancelResult` initializer `null` is redundant
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/apache/dolphinscheduler/plugin/task/pigeon/PigeonTask.java`
 #### Snippet
@@ -10405,6 +10321,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/
         CancelResult cancelResult = null;
         HttpPost post = new HttpPost(triggerUrl);
         addFormUrlencoded(post);
+```
+
+### UnusedAssignment
+Variable `execState` initializer `null` is redundant
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/apache/dolphinscheduler/plugin/task/pigeon/PigeonTask.java`
+#### Snippet
+```java
+            StringEntity entity = new StringEntity(config.getJobTriggerPostBody(), StandardCharsets.UTF_8);
+            post.setEntity(entity);
+            ExecResult execState = null;
+            int taskId;
+            WebSocketClient webSocket = null;
 ```
 
 ### UnusedAssignment
@@ -10492,18 +10420,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-abs/src/main/java/o
 ```
 
 ### UnusedAssignment
-Variable `pathToExplore` initializer `""` is redundant
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-
-        do {
-            String pathToExplore = "";
-            if (foldersToFetch.size() == 0) {
-                pathToExplore = path;
-```
-
-### UnusedAssignment
 Variable `alias` initializer `""` is redundant
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
 #### Snippet
@@ -10525,6 +10441,18 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/
             String fileName = "";
             String fullName = fileStatus.getPath().toString();
             if (fileStatus.isDirectory()) {
+```
+
+### UnusedAssignment
+Variable `pathToExplore` initializer `""` is redundant
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
+#### Snippet
+```java
+
+        do {
+            String pathToExplore = "";
+            if (foldersToFetch.size() == 0) {
+                pathToExplore = path;
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -10578,6 +10506,54 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### ConstantValue
+Value `start` is always 'null'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+        // count normal command state
+        Map<CommandType, Integer> normalCountCommandCounts =
+                commandMapper.countCommandState(start, end, projectCodeArray)
+                        .stream()
+                        .collect(Collectors.toMap(CommandCount::getCommandType, CommandCount::getCount));
+```
+
+### ConstantValue
+Value `end` is always 'null'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+        // count normal command state
+        Map<CommandType, Integer> normalCountCommandCounts =
+                commandMapper.countCommandState(start, end, projectCodeArray)
+                        .stream()
+                        .collect(Collectors.toMap(CommandCount::getCommandType, CommandCount::getCount));
+```
+
+### ConstantValue
+Value `start` is always 'null'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+        // count error command state
+        Map<CommandType, Integer> errorCommandCounts =
+                errorCommandMapper.countCommandState(start, end, projectCodeArray)
+                        .stream()
+                        .collect(Collectors.toMap(CommandCount::getCommandType, CommandCount::getCount));
+```
+
+### ConstantValue
+Value `end` is always 'null'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+        // count error command state
+        Map<CommandType, Integer> errorCommandCounts =
+                errorCommandMapper.countCommandState(start, end, projectCodeArray)
+                        .stream()
+                        .collect(Collectors.toMap(CommandCount::getCommandType, CommandCount::getCount));
+```
+
+### ConstantValue
 Condition `start == null` is always `false`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
 #### Snippet
@@ -10611,54 +10587,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
                 if (start == null || end == null) {
                     return false;
                 }
-```
-
-### ConstantValue
-Value `start` is always 'null'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-        // count normal command state
-        Map<CommandType, Integer> normalCountCommandCounts =
-                commandMapper.countCommandState(start, end, projectCodeArray)
-                        .stream()
-                        .collect(Collectors.toMap(CommandCount::getCommandType, CommandCount::getCount));
-```
-
-### ConstantValue
-Value `end` is always 'null'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-        // count normal command state
-        Map<CommandType, Integer> normalCountCommandCounts =
-                commandMapper.countCommandState(start, end, projectCodeArray)
-                        .stream()
-                        .collect(Collectors.toMap(CommandCount::getCommandType, CommandCount::getCount));
-```
-
-### ConstantValue
-Value `start` is always 'null'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-        // count error command state
-        Map<CommandType, Integer> errorCommandCounts =
-                errorCommandMapper.countCommandState(start, end, projectCodeArray)
-                        .stream()
-                        .collect(Collectors.toMap(CommandCount::getCommandType, CommandCount::getCount));
-```
-
-### ConstantValue
-Value `end` is always 'null'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-        // count error command state
-        Map<CommandType, Integer> errorCommandCounts =
-                errorCommandMapper.countCommandState(start, end, projectCodeArray)
-                        .stream()
-                        .collect(Collectors.toMap(CommandCount::getCommandType, CommandCount::getCount));
 ```
 
 ### ConstantValue
@@ -10941,6 +10869,54 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.List'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+        Result<Object> resources = resourceService.queryResourceByProgramType(dummyAdminUser, ResourceType.FILE,
+                ProgramType.valueOf(programType));
+        List<ResourceComponent> resourcesComponent = (List<ResourceComponent>) resources.getData();
+        List<ResourceComponent> namedResources =
+                resourcesComponent.stream().filter(s -> fullName.equals(s.getFullName())).collect(Collectors.toList());
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+#### Snippet
+```java
+     */
+    private IPage<UdfFunc> getUdfFuncsPage(User loginUser, String searchVal, Integer pageSize, int pageNo) {
+        Set<Integer> udfFuncIds = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.UDF,
+                loginUser.getId(), log);
+        Page<UdfFunc> page = new Page<>(pageNo, pageSize);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.dolphinscheduler.api.utils.Result' to 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+#### Snippet
+```java
+    @Override
+    public Result<Object> queryUdfFuncListPaging(User loginUser, String searchVal, Integer pageNo, Integer pageSize) {
+        Result<Object> result = new Result();
+        boolean canOperatorPermissions = canOperatorPermissions(loginUser, null, AuthorizationType.UDF,
+                ApiFuncIdentificationConstant.UDF_FUNCTION_VIEW);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+#### Snippet
+```java
+            return result;
+        }
+        Set<Integer> udfFuncIds = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.UDF,
+                loginUser.getId(), log);
+        if (udfFuncIds.isEmpty()) {
+```
+
+### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
 #### Snippet
@@ -10983,8 +10959,8 @@ Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermi
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
 #### Snippet
 ```java
-
-        Map<String, Object> result = new HashMap<>();
+        Result<Object> result = new Result<>();
+        PageInfo<Tenant> pageInfo = new PageInfo<>(pageNo, pageSize);
         Set<Integer> ids = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.TENANT,
                 loginUser.getId(), log);
         if (ids.isEmpty()) {
@@ -10995,59 +10971,11 @@ Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermi
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
 #### Snippet
 ```java
-        Result<Object> result = new Result<>();
-        PageInfo<Tenant> pageInfo = new PageInfo<>(pageNo, pageSize);
+
+        Map<String, Object> result = new HashMap<>();
         Set<Integer> ids = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.TENANT,
                 loginUser.getId(), log);
         if (ids.isEmpty()) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.dolphinscheduler.api.utils.Result' to 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
-#### Snippet
-```java
-    @Override
-    public Result<Object> queryUdfFuncListPaging(User loginUser, String searchVal, Integer pageNo, Integer pageSize) {
-        Result<Object> result = new Result();
-        boolean canOperatorPermissions = canOperatorPermissions(loginUser, null, AuthorizationType.UDF,
-                ApiFuncIdentificationConstant.UDF_FUNCTION_VIEW);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
-#### Snippet
-```java
-     */
-    private IPage<UdfFunc> getUdfFuncsPage(User loginUser, String searchVal, Integer pageSize, int pageNo) {
-        Set<Integer> udfFuncIds = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.UDF,
-                loginUser.getId(), log);
-        Page<UdfFunc> page = new Page<>(pageNo, pageSize);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
-#### Snippet
-```java
-            return result;
-        }
-        Set<Integer> udfFuncIds = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.UDF,
-                loginUser.getId(), log);
-        if (udfFuncIds.isEmpty()) {
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.List'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-        Result<Object> resources = resourceService.queryResourceByProgramType(dummyAdminUser, ResourceType.FILE,
-                ProgramType.valueOf(programType));
-        List<ResourceComponent> resourcesComponent = (List<ResourceComponent>) resources.getData();
-        List<ResourceComponent> namedResources =
-                resourcesComponent.stream().filter(s -> fullName.equals(s.getFullName())).collect(Collectors.toList());
 ```
 
 ### UNCHECKED_WARNING
@@ -11072,6 +11000,56 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
         Set<Integer> ids = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.TASK_GROUP,
                 loginUser.getId(), log);
         if (ids.isEmpty()) {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+#### Snippet
+```java
+            dataSourceList = dataSourceMapper.selectPaging(dataSourcePage, 0, searchVal);
+        } else {
+            Set<Integer> ids = resourcePermissionCheckService
+                    .userOwnedResourceIdsAcquisition(AuthorizationType.DATASOURCE, loginUser.getId(), log);
+            if (ids.isEmpty()) {
+                result.setData(pageInfo);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+#### Snippet
+```java
+                    .userOwnedResourceIdsAcquisition(AuthorizationType.DATASOURCE, loginUser.getId(), log);
+            if (ids.isEmpty()) {
+                result.setData(pageInfo);
+                putMsg(result, Status.SUCCESS);
+                return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+#### Snippet
+```java
+        pageInfo.setTotal((int) (dataSourceList != null ? dataSourceList.getTotal() : 0L));
+        pageInfo.setTotalList(dataSources);
+        result.setData(pageInfo);
+        putMsg(result, Status.SUCCESS);
+        return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+#### Snippet
+```java
+            datasourceList = dataSourceMapper.queryDataSourceByType(0, type);
+        } else {
+            Set<Integer> ids = resourcePermissionCheckService
+                    .userOwnedResourceIdsAcquisition(AuthorizationType.DATASOURCE, loginUser.getId(), log);
+            if (ids.isEmpty()) {
+                result.put(Constants.DATA_LIST, Collections.emptyList());
 ```
 
 ### UNCHECKED_WARNING
@@ -11137,62 +11115,12 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
-#### Snippet
-```java
-            dataSourceList = dataSourceMapper.selectPaging(dataSourcePage, 0, searchVal);
-        } else {
-            Set<Integer> ids = resourcePermissionCheckService
-                    .userOwnedResourceIdsAcquisition(AuthorizationType.DATASOURCE, loginUser.getId(), log);
-            if (ids.isEmpty()) {
-                result.setData(pageInfo);
-```
-
-### UNCHECKED_WARNING
 Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
 #### Snippet
 ```java
-                    .userOwnedResourceIdsAcquisition(AuthorizationType.DATASOURCE, loginUser.getId(), log);
-            if (ids.isEmpty()) {
-                result.setData(pageInfo);
-                putMsg(result, Status.SUCCESS);
-                return result;
-```
+        }
 
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
-#### Snippet
-```java
-        pageInfo.setTotal((int) (dataSourceList != null ? dataSourceList.getTotal() : 0L));
-        pageInfo.setTotalList(dataSources);
-        result.setData(pageInfo);
-        putMsg(result, Status.SUCCESS);
-        return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
-#### Snippet
-```java
-            datasourceList = dataSourceMapper.queryDataSourceByType(0, type, testFlag);
-        } else {
-            Set<Integer> ids = resourcePermissionCheckService
-                    .userOwnedResourceIdsAcquisition(AuthorizationType.DATASOURCE, loginUser.getId(), log);
-            if (ids.isEmpty()) {
-                result.put(Constants.DATA_LIST, Collections.emptyList());
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-        pageInfo.setTotal((int) schedulePage.getTotal());
-        pageInfo.setTotalList(scheduleList);
         result.setData(pageInfo);
         putMsg(result, Status.SUCCESS);
         return result;
@@ -11212,11 +11140,23 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### UNCHECKED_WARNING
 Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
 #### Snippet
 ```java
-        }
+        pageInfo.setTotal((int) schedulePage.getTotal());
+        pageInfo.setTotalList(scheduleList);
+        result.setData(pageInfo);
+        putMsg(result, Status.SUCCESS);
+        return result;
+```
 
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AccessTokenServiceImpl.java`
+#### Snippet
+```java
+        pageInfo.setTotal((int) accessTokenList.getTotal());
+        pageInfo.setTotalList(accessTokenList.getRecords());
         result.setData(pageInfo);
         putMsg(result, Status.SUCCESS);
         return result;
@@ -11236,18 +11176,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### UNCHECKED_WARNING
 Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AccessTokenServiceImpl.java`
-#### Snippet
-```java
-        pageInfo.setTotal((int) accessTokenList.getTotal());
-        pageInfo.setTotalList(accessTokenList.getRecords());
-        result.setData(pageInfo);
-        putMsg(result, Status.SUCCESS);
-        return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ClusterServiceImpl.java`
 #### Snippet
 ```java
@@ -11256,18 +11184,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
         result.setData(pageInfo);
         putMsg(result, Status.SUCCESS);
         return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectParameterServiceImpl.java`
-#### Snippet
-```java
-        if (projectParameterMapper.updateById(projectParameter) > 0) {
-            log.info("Project parameter is updated and id is :{}", projectParameter.getId());
-            result.setData(projectParameter);
-            putMsg(result, Status.SUCCESS);
-        } else {
 ```
 
 ### UNCHECKED_WARNING
@@ -11287,8 +11203,8 @@ Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinschedu
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectParameterServiceImpl.java`
 #### Snippet
 ```java
-        if (projectParameterMapper.insert(projectParameter) > 0) {
-            log.info("Project parameter is created and id is :{}", projectParameter.getId());
+        if (projectParameterMapper.updateById(projectParameter) > 0) {
+            log.info("Project parameter is updated and id is :{}", projectParameter.getId());
             result.setData(projectParameter);
             putMsg(result, Status.SUCCESS);
         } else {
@@ -11311,23 +11227,23 @@ Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinschedu
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectParameterServiceImpl.java`
 #### Snippet
 ```java
-        if (projectParameterMapper.deleteById(projectParameter.getId()) > 0) {
-            log.info("Project parameter is deleted and id is :{}.", projectParameter.getId());
-            result.setData(Boolean.TRUE);
+        if (projectParameterMapper.insert(projectParameter) > 0) {
+            log.info("Project parameter is created and id is :{}", projectParameter.getId());
+            result.setData(projectParameter);
             putMsg(result, Status.SUCCESS);
         } else {
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectParameterServiceImpl.java`
 #### Snippet
 ```java
-    public Map<String, Object> queryAllEnvironmentList(User loginUser) {
-        Map<String, Object> result = new HashMap<>();
-        Set<Integer> ids = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.ENVIRONMENT,
-                loginUser.getId(), log);
-        if (ids.isEmpty()) {
+        if (projectParameterMapper.deleteById(projectParameter.getId()) > 0) {
+            log.info("Project parameter is deleted and id is :{}.", projectParameter.getId());
+            result.setData(Boolean.TRUE);
+            putMsg(result, Status.SUCCESS);
+        } else {
 ```
 
 ### UNCHECKED_WARNING
@@ -11343,39 +11259,28 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
 #### Snippet
 ```java
-        queueMapper.insert(queueObj);
-
-        result.setData(queueObj);
-        log.info("Queue create complete, queueName:{}.", queueObj.getQueueName());
-        putMsg(result, Status.SUCCESS);
+            environmentIPage = environmentMapper.queryEnvironmentListPaging(page, searchVal);
+        } else {
+            Set<Integer> ids = resourcePermissionCheckService
+                    .userOwnedResourceIdsAcquisition(AuthorizationType.ENVIRONMENT, loginUser.getId(), log);
+            if (ids.isEmpty()) {
+                result.setData(pageInfo);
 ```
 
 ### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
 #### Snippet
 ```java
-    public Result queryList(User loginUser) {
-        Result result = new Result();
-        Set<Integer> ids = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.QUEUE,
+    public Map<String, Object> queryAllEnvironmentList(User loginUser) {
+        Map<String, Object> result = new HashMap<>();
+        Set<Integer> ids = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.ENVIRONMENT,
                 loginUser.getId(), log);
-        if (loginUser.getUserType().equals(UserType.GENERAL_USER)) {
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
-#### Snippet
-```java
-        }
-        List<Queue> queueList = queueMapper.selectBatchIds(ids);
-        result.setData(queueList);
-        putMsg(result, Status.SUCCESS);
-        return result;
+        if (ids.isEmpty()) {
 ```
 
 ### UNCHECKED_WARNING
@@ -11427,16 +11332,91 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
 #### Snippet
 ```java
-            environmentIPage = environmentMapper.queryEnvironmentListPaging(page, searchVal);
-        } else {
-            Set<Integer> ids = resourcePermissionCheckService
-                    .userOwnedResourceIdsAcquisition(AuthorizationType.ENVIRONMENT, loginUser.getId(), log);
-            if (ids.isEmpty()) {
-                result.setData(pageInfo);
+        queueMapper.insert(queueObj);
+
+        result.setData(queueObj);
+        log.info("Queue create complete, queueName:{}.", queueObj.getQueueName());
+        putMsg(result, Status.SUCCESS);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
+#### Snippet
+```java
+    public Result queryList(User loginUser) {
+        Result result = new Result();
+        Set<Integer> ids = resourcePermissionCheckService.userOwnedResourceIdsAcquisition(AuthorizationType.QUEUE,
+                loginUser.getId(), log);
+        if (loginUser.getUserType().equals(UserType.GENERAL_USER)) {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
+#### Snippet
+```java
+        }
+        List<Queue> queueList = queueMapper.selectBatchIds(ids);
+        result.setData(queueList);
+        putMsg(result, Status.SUCCESS);
+        return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+                                                   StatisticsStateRequest statisticsStateRequest) {
+        Map<String, Object> result = new HashMap<>();
+        Set<Integer> projectIds = resourcePermissionCheckService
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
+        if (projectIds.isEmpty()) {
+            putMsg(result, Status.SUCCESS);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+    public Map<String, Object> countTaskStates(User loginUser, StatisticsStateRequest statisticsStateRequest) {
+        Map<String, Object> result = new HashMap<>();
+        Set<Integer> projectIds = resourcePermissionCheckService
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
+        if (projectIds.isEmpty()) {
+            putMsg(result, Status.SUCCESS);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+        Map<String, Object> result = new HashMap<>();
+        int count = 0;
+        Set<Integer> projectIds = resourcePermissionCheckService
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
+        if (!projectIds.isEmpty()) {
+            List<Project> projects = projectMapper.selectBatchIds(projectIds);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+
+    private Pair<Set<Integer>, Map<String, Object>> getProjectIds(User loginUser, Map<String, Object> result) {
+        Set<Integer> projectIds = resourcePermissionCheckService
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
+        if (projectIds.isEmpty()) {
+            List<ExecuteStatusCount> taskInstanceStateCounts = new ArrayList<>();
 ```
 
 ### UNCHECKED_WARNING
@@ -11450,6 +11430,166 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
                 .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
         if (projectIds.isEmpty()) {
             result.put(Constants.DATA_LIST, pageInfo);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+     */
+    private List<Resource> queryAuthoredResourceList(User loginUser, ResourceType type) {
+        Set<Integer> resourceIds = resourcePermissionCheckService
+                .userOwnedResourceIdsAcquisition(checkResourceType(type), loginUser.getId(), log);
+        if (resourceIds.isEmpty()) {
+            return Collections.emptyList();
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+        PageInfo<Project> pageInfo = new PageInfo<>(pageNo, pageSize);
+        Page<Project> page = new Page<>(pageNo, pageSize);
+        Set<Integer> allProjectIds = resourcePermissionCheckService
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
+        Set<Integer> userProjectIds = resourcePermissionCheckService
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, userId, log);
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+        Set<Integer> allProjectIds = resourcePermissionCheckService
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
+        Set<Integer> userProjectIds = resourcePermissionCheckService
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, userId, log);
+        if (allProjectIds.isEmpty()) {
+            result.setData(pageInfo);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, userId, log);
+        if (allProjectIds.isEmpty()) {
+            result.setData(pageInfo);
+            putMsg(result, Status.SUCCESS);
+            return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+        pageInfo.setTotal((int) projectIPage.getTotal());
+        pageInfo.setTotalList(projectList);
+        result.setData(pageInfo);
+        putMsg(result, Status.SUCCESS);
+        return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+        List<Project> projects =
+                projectMapper.queryAllProjectForDependent();
+        result.setData(projects);
+        putMsg(result, Status.SUCCESS);
+        return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+        if (delete > 0) {
+            log.info("Project is deleted and id is :{}.", project.getId());
+            result.setData(Boolean.TRUE);
+            putMsg(result, Status.SUCCESS);
+        } else {
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+        PageInfo<Project> pageInfo = new PageInfo<>(pageNo, pageSize);
+        Page<Project> page = new Page<>(pageNo, pageSize);
+        Set<Integer> projectIds = resourcePermissionCheckService
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
+        if (projectIds.isEmpty()) {
+            result.setData(pageInfo);
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
+        if (projectIds.isEmpty()) {
+            result.setData(pageInfo);
+            putMsg(result, Status.SUCCESS);
+            return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+        pageInfo.setTotal((int) projectIPage.getTotal());
+        pageInfo.setTotalList(projectList);
+        result.setData(pageInfo);
+        putMsg(result, Status.SUCCESS);
+        return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+        if (update > 0) {
+            log.info("Project is updated and id is :{}", project.getId());
+            result.setData(project);
+            putMsg(result, Status.SUCCESS);
+        } else {
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+        // 2. query authorized user list
+        List<User> users = this.userMapper.queryAuthedUserListByProjectId(project.getId());
+        result.setData(users);
+        this.putMsg(result, Status.SUCCESS);
+        return result;
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+                projectMapper.queryAllProject(user.getUserType() == UserType.ADMIN_USER ? 0 : user.getId());
+
+        result.setData(projects);
+        putMsg(result, Status.SUCCESS);
+        return result;
 ```
 
 ### UNCHECKED_WARNING
@@ -11494,11 +11634,11 @@ Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinschedu
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
 #### Snippet
 ```java
-        List<Project> projects =
-                projectMapper.queryAllProjectForDependent();
-        result.setData(projects);
-        putMsg(result, Status.SUCCESS);
-        return result;
+        if (projectMapper.insert(project) > 0) {
+            log.info("Project is created and id is :{}", project.getId());
+            result.setData(project);
+            putMsg(result, Status.SUCCESS);
+            permissionPostHandle(AuthorizationType.PROJECTS, loginUser.getId(),
 ```
 
 ### UNCHECKED_WARNING
@@ -11511,67 +11651,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
             result.setData(project);
             putMsg(result, Status.SUCCESS);
         }
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-                projectMapper.queryAllProject(user.getUserType() == UserType.ADMIN_USER ? 0 : user.getId());
-
-        result.setData(projects);
-        putMsg(result, Status.SUCCESS);
-        return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-        PageInfo<Project> pageInfo = new PageInfo<>(pageNo, pageSize);
-        Page<Project> page = new Page<>(pageNo, pageSize);
-        Set<Integer> projectIds = resourcePermissionCheckService
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
-        if (projectIds.isEmpty()) {
-            result.setData(pageInfo);
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
-        if (projectIds.isEmpty()) {
-            result.setData(pageInfo);
-            putMsg(result, Status.SUCCESS);
-            return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-        pageInfo.setTotal((int) projectIPage.getTotal());
-        pageInfo.setTotalList(projectList);
-        result.setData(pageInfo);
-        putMsg(result, Status.SUCCESS);
-        return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-
-        List<Project> projects = projectMapper.queryAuthedProjectListByUserId(userId);
-        result.setData(projects);
-        putMsg(result, Status.SUCCESS);
-
 ```
 
 ### UNCHECKED_WARNING
@@ -11604,23 +11683,11 @@ Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinschedu
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
 #### Snippet
 ```java
-        if (delete > 0) {
-            log.info("Project is deleted and id is :{}.", project.getId());
-            result.setData(Boolean.TRUE);
-            putMsg(result, Status.SUCCESS);
-        } else {
-```
 
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-        if (update > 0) {
-            log.info("Project is updated and id is :{}", project.getId());
-            result.setData(project);
-            putMsg(result, Status.SUCCESS);
-        } else {
+        List<Project> projects = projectMapper.queryAuthedProjectListByUserId(userId);
+        result.setData(projects);
+        putMsg(result, Status.SUCCESS);
+
 ```
 
 ### UNCHECKED_WARNING
@@ -11662,128 +11729,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### UNCHECKED_WARNING
 Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
 #### Snippet
 ```java
-        // 2. query authorized user list
-        List<User> users = this.userMapper.queryAuthedUserListByProjectId(project.getId());
-        result.setData(users);
-        this.putMsg(result, Status.SUCCESS);
-        return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-        if (projectMapper.insert(project) > 0) {
-            log.info("Project is created and id is :{}", project.getId());
-            result.setData(project);
-            putMsg(result, Status.SUCCESS);
-            permissionPostHandle(AuthorizationType.PROJECTS, loginUser.getId(),
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-        PageInfo<Project> pageInfo = new PageInfo<>(pageNo, pageSize);
-        Page<Project> page = new Page<>(pageNo, pageSize);
-        Set<Integer> allProjectIds = resourcePermissionCheckService
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
-        Set<Integer> userProjectIds = resourcePermissionCheckService
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, userId, log);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-        Set<Integer> allProjectIds = resourcePermissionCheckService
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
-        Set<Integer> userProjectIds = resourcePermissionCheckService
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, userId, log);
-        if (allProjectIds.isEmpty()) {
-            result.setData(pageInfo);
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, userId, log);
-        if (allProjectIds.isEmpty()) {
-            result.setData(pageInfo);
-            putMsg(result, Status.SUCCESS);
-            return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-        pageInfo.setTotal((int) projectIPage.getTotal());
-        pageInfo.setTotalList(projectList);
+        pageInfo.setTotal((int) processInstanceList.getTotal());
+        pageInfo.setTotalList(processInstances);
         result.setData(pageInfo);
         putMsg(result, Status.SUCCESS);
         return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-        Map<String, Object> result = new HashMap<>();
-        int count = 0;
-        Set<Integer> projectIds = resourcePermissionCheckService
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
-        if (!projectIds.isEmpty()) {
-            List<Project> projects = projectMapper.selectBatchIds(projectIds);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-                                                   StatisticsStateRequest statisticsStateRequest) {
-        Map<String, Object> result = new HashMap<>();
-        Set<Integer> projectIds = resourcePermissionCheckService
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
-        if (projectIds.isEmpty()) {
-            putMsg(result, Status.SUCCESS);
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-
-    private Pair<Set<Integer>, Map<String, Object>> getProjectIds(User loginUser, Map<String, Object> result) {
-        Set<Integer> projectIds = resourcePermissionCheckService
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
-        if (projectIds.isEmpty()) {
-            List<ExecuteStatusCount> taskInstanceStateCounts = new ArrayList<>();
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-    public Map<String, Object> countTaskStates(User loginUser, StatisticsStateRequest statisticsStateRequest) {
-        Map<String, Object> result = new HashMap<>();
-        Set<Integer> projectIds = resourcePermissionCheckService
-                .userOwnedResourceIdsAcquisition(AuthorizationType.PROJECTS, loginUser.getId(), log);
-        if (projectIds.isEmpty()) {
-            putMsg(result, Status.SUCCESS);
 ```
 
 ### UNCHECKED_WARNING
@@ -11812,18 +11765,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### UNCHECKED_WARNING
 Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-        pageInfo.setTotal((int) processInstanceList.getTotal());
-        pageInfo.setTotalList(processInstances);
-        result.setData(pageInfo);
-        putMsg(result, Status.SUCCESS);
-        return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
 #### Snippet
 ```java
@@ -11835,16 +11776,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set'. Reason: 'resourcePermissionCheckService' has raw type, so result of userOwnedResourceIdsAcquisition is erased
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+Unchecked assignment: 'org.apache.dolphinscheduler.api.utils.Result' to 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
 #### Snippet
 ```java
-     */
-    private List<Resource> queryAuthoredResourceList(User loginUser, ResourceType type) {
-        Set<Integer> resourceIds = resourcePermissionCheckService
-                .userOwnedResourceIdsAcquisition(checkResourceType(type), loginUser.getId(), log);
-        if (resourceIds.isEmpty()) {
-            return Collections.emptyList();
+        Map<String, Object> result = processInstanceService.queryTopNLongestRunningProcessInstance(loginUser,
+                projectCode, size, startTime, endTime);
+        return returnDataList(result);
+    }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -11873,30 +11813,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### UNCHECKED_WARNING
 Unchecked assignment: 'org.apache.dolphinscheduler.api.utils.Result' to 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
-#### Snippet
-```java
-        Map<String, Object> result = processInstanceService.queryTopNLongestRunningProcessInstance(loginUser,
-                projectCode, size, startTime, endTime);
-        return returnDataList(result);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-        pageInfo.setTotalList(processDefinitionLogs);
-        pageInfo.setTotal((int) processDefinitionVersionsPaging.getTotal());
-        result.setData(pageInfo);
-        putMsg(result, Status.SUCCESS);
-        return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.dolphinscheduler.api.utils.Result' to 'org.apache.dolphinscheduler.api.utils.Result'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
 #### Snippet
 ```java
@@ -11917,6 +11833,30 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
         return taskInstanceService.stopTask(loginUser, projectCode, id);
     }
 
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/BaseController.java`
+#### Snippet
+```java
+        map.put(Constants.TOTAL_PAGE, totalPage);
+        map.put(Constants.TOTAL, total);
+        result.setData(map);
+        return result;
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/BaseController.java`
+#### Snippet
+```java
+        result.setMsg(msg);
+
+        result.setData(list);
+        return result;
+    }
 ```
 
 ### UNCHECKED_WARNING
@@ -11948,8 +11888,8 @@ Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinschedu
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
 #### Snippet
 ```java
-        pageInfo.setTotalList(taskDefinitionLogs);
-        pageInfo.setTotal((int) taskDefinitionVersionsPaging.getTotal());
+        pageInfo.setTotal((int) taskMainInfoIPage.getTotal());
+        pageInfo.setTotalList(taskMainInfoIPage.getRecords());
         result.setData(pageInfo);
         putMsg(result, Status.SUCCESS);
         return result;
@@ -11960,35 +11900,11 @@ Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinschedu
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
 #### Snippet
 ```java
-        pageInfo.setTotal((int) taskMainInfoIPage.getTotal());
-        pageInfo.setTotalList(taskMainInfoIPage.getRecords());
+        pageInfo.setTotalList(taskDefinitionLogs);
+        pageInfo.setTotal((int) taskDefinitionVersionsPaging.getTotal());
         result.setData(pageInfo);
         putMsg(result, Status.SUCCESS);
         return result;
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/BaseController.java`
-#### Snippet
-```java
-        map.put(Constants.TOTAL_PAGE, totalPage);
-        map.put(Constants.TOTAL, total);
-        result.setData(map);
-        return result;
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/BaseController.java`
-#### Snippet
-```java
-        result.setMsg(msg);
-
-        result.setData(list);
-        return result;
-    }
 ```
 
 ### UNCHECKED_WARNING
@@ -12124,27 +12040,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.dolphinscheduler.api.utils.Result' to 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/TaskInstanceV2Controller.java`
+Unchecked call to 'setData(T)' as a member of raw type 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
-                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                        @PathVariable(value = "id") Integer id) {
-        return taskInstanceService.taskSavePoint(loginUser, projectCode, id);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'org.apache.dolphinscheduler.api.utils.Result' to 'org.apache.dolphinscheduler.api.utils.Result'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/TaskInstanceV2Controller.java`
-#### Snippet
-```java
-                                   @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
-                                   @PathVariable(value = "id") Integer id) {
-        return taskInstanceService.stopTask(loginUser, projectCode, id);
-    }
-
+        pageInfo.setTotalList(processDefinitionLogs);
+        pageInfo.setTotal((int) processDefinitionVersionsPaging.getTotal());
+        result.setData(pageInfo);
+        putMsg(result, Status.SUCCESS);
+        return result;
 ```
 
 ### UNCHECKED_WARNING
@@ -12184,15 +12088,27 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'T'
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/ResourceProcessDefinitionUtils.java`
+Unchecked assignment: 'org.apache.dolphinscheduler.api.utils.Result' to 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/TaskInstanceV2Controller.java`
 #### Snippet
 ```java
-            for (Map<String, Object> resourceMap : resourceList) {
-                // get resName and resource_id_news, td_id
-                T taskId = (T) resourceMap.get(objectName);
-                String[] resourceIds = ((String) resourceMap.get("resource_ids"))
-                        .split(",");
+                                   @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                   @PathVariable(value = "id") Integer id) {
+        return taskInstanceService.stopTask(loginUser, projectCode, id);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'org.apache.dolphinscheduler.api.utils.Result' to 'org.apache.dolphinscheduler.api.utils.Result'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/TaskInstanceV2Controller.java`
+#### Snippet
+```java
+                                        @Parameter(name = "projectCode", description = "PROJECT_CODE", required = true) @PathVariable long projectCode,
+                                        @PathVariable(value = "id") Integer id) {
+        return taskInstanceService.taskSavePoint(loginUser, projectCode, id);
+    }
+
 ```
 
 ### UNCHECKED_WARNING
@@ -12206,6 +12122,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permissio
                 user.getUserType().equals(UserType.ADMIN_USER) ? 0 : userId, logger);
     }
 
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'T'
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/utils/ResourceProcessDefinitionUtils.java`
+#### Snippet
+```java
+            for (Map<String, Object> resourceMap : resourceList) {
+                // get resName and resource_id_news, td_id
+                T taskId = (T) resourceMap.get(objectName);
+                String[] resourceIds = ((String) resourceMap.get("resource_ids"))
+                        .split(",");
 ```
 
 ### UNCHECKED_WARNING
@@ -12293,15 +12221,15 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Set' to 'java.util.Set\>'. Reason: 'mapItems' has raw type, so result of entrySet is erased
-in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
+Unchecked cast: 'java.util.Set' to 'java.lang.Iterable\>'. Reason: 'map' has raw type, so result of entrySet is erased
+in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-pagerduty/src/main/java/org/apache/dolphinscheduler/plugin/alert/pagerduty/PagerDutySender.java`
 #### Snippet
 ```java
-            for (LinkedHashMap mapItems : mapItemsList) {
-
-                Set<Map.Entry<String, Object>> entries = mapItems.entrySet();
-                for (Entry<String, Object> entry : entries) {
-                    contents.append(WeChatAlertConstants.MARKDOWN_QUOTE);
+        StringBuilder contents = new StringBuilder(100);
+        for (Map map : list) {
+            for (Map.Entry<String, Object> entry : (Iterable<Map.Entry<String, Object>>) map.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue().toString();
 ```
 
 ### UNCHECKED_WARNING
@@ -12317,15 +12245,15 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.util.Set' to 'java.lang.Iterable\>'. Reason: 'map' has raw type, so result of entrySet is erased
-in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-pagerduty/src/main/java/org/apache/dolphinscheduler/plugin/alert/pagerduty/PagerDutySender.java`
+Unchecked assignment: 'java.util.Set' to 'java.util.Set\>'. Reason: 'mapItems' has raw type, so result of entrySet is erased
+in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
 #### Snippet
 ```java
-        StringBuilder contents = new StringBuilder(100);
-        for (Map map : list) {
-            for (Map.Entry<String, Object> entry : (Iterable<Map.Entry<String, Object>>) map.entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue().toString();
+            for (LinkedHashMap mapItems : mapItemsList) {
+
+                Set<Map.Entry<String, Object>> entries = mapItems.entrySet();
+                for (Entry<String, Object> entry : entries) {
+                    contents.append(WeChatAlertConstants.MARKDOWN_QUOTE);
 ```
 
 ### UNCHECKED_WARNING
@@ -12465,8 +12393,8 @@ Unchecked call to 'sendMessage(T)' as a member of raw type 'org.apache.dolphinsc
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/rpc/WorkerMessageSender.java`
 #### Snippet
 ```java
+        BaseMessage baseMessage = messageSender.buildMessage(taskExecutionContext);
         try {
-            messageRetryRunner.addRetryMessage(taskExecutionContext.getTaskInstanceId(), messageType, baseMessage);
             messageSender.sendMessage(baseMessage);
         } catch (RemotingException e) {
             log.error("Send message error, messageType: {}, message: {}", messageType, baseMessage);
@@ -12477,8 +12405,8 @@ Unchecked call to 'sendMessage(T)' as a member of raw type 'org.apache.dolphinsc
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/rpc/WorkerMessageSender.java`
 #### Snippet
 ```java
-        BaseMessage baseMessage = messageSender.buildMessage(taskExecutionContext);
         try {
+            messageRetryRunner.addRetryMessage(taskExecutionContext.getTaskInstanceId(), messageType, baseMessage);
             messageSender.sendMessage(baseMessage);
         } catch (RemotingException e) {
             log.error("Send message error, messageType: {}, message: {}", messageType, baseMessage);
@@ -12678,18 +12606,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Pr
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.apache.dolphinscheduler.dao.entity.Datasource`
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/DataSourceProcessor.java`
-#### Snippet
-```java
-     * create BaseDataSourceParamDTO by connectionJson
-     *
-     * @param connectionJson see{@link org.apache.dolphinscheduler.dao.entity.Datasource}
-     * @return {@link BaseDataSourceParamDTO}
-     */
-```
-
-### JavadocReference
 Cannot resolve symbol `BaseConnectionParam`
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/DataSourceProcessor.java`
 #### Snippet
@@ -12699,6 +12615,18 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/
      * @return {@link BaseConnectionParam}
      */
     ConnectionParam createConnectionParams(String connectionJson);
+```
+
+### JavadocReference
+Cannot resolve symbol `org.apache.dolphinscheduler.dao.entity.Datasource`
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/datasource/DataSourceProcessor.java`
+#### Snippet
+```java
+     * create BaseDataSourceParamDTO by connectionJson
+     *
+     * @param connectionJson see{@link org.apache.dolphinscheduler.dao.entity.Datasource}
+     * @return {@link BaseDataSourceParamDTO}
+     */
 ```
 
 ## RuleId[id=DataFlowIssue]
@@ -12727,30 +12655,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### DataFlowIssue
-Variable is already assigned to this value
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-            if (projectUser == null || projectUser.getPerm() != Constants.DEFAULT_ADMIN_PERMISSION) {
-                putMsg(result, Status.USER_NO_WRITE_PROJECT_PERM, loginUser.getUserName(), project.getCode());
-                checkResult = false;
-            } else {
-                checkResult = true;
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-            if (projectUser == null || projectUser.getPerm() != Constants.DEFAULT_ADMIN_PERMISSION) {
-                putMsg(result, Status.USER_NO_WRITE_PROJECT_PERM, loginUser.getUserName(), project.getCode());
-                checkResult = false;
-            } else {
-                checkResult = true;
-```
-
-### DataFlowIssue
 Method invocation `containsKey` may produce `NullPointerException`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
@@ -12760,18 +12664,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
         if (taskParameters.containsKey("resourceList")) {
             String resourceListStr = JSONUtils.toJsonString(taskParameters.get("resourceList"));
             List<ResourceInfo> resourceInfoList = JSONUtils.toList(resourceListStr, ResourceInfo.class);
-```
-
-### DataFlowIssue
-Unboxing of `resource.getId()` may produce `NullPointerException`
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-
-        if (resource.isDirectory()) {
-            listAllChildren(resource.getId(), childList);
-        }
-        return childList;
 ```
 
 ### DataFlowIssue
@@ -12787,15 +12679,51 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### DataFlowIssue
-Method invocation `put` may produce `NullPointerException`
+Unboxing of `resource.getId()` may produce `NullPointerException`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+
+        if (resource.isDirectory()) {
+            listAllChildren(resource.getId(), childList);
+        }
+        return childList;
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+            if (projectUser == null || projectUser.getPerm() != Constants.DEFAULT_ADMIN_PERMISSION) {
+                putMsg(result, Status.USER_NO_WRITE_PROJECT_PERM, loginUser.getUserName(), project.getCode());
+                checkResult = false;
+            } else {
+                checkResult = true;
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+            if (projectUser == null || projectUser.getPerm() != Constants.DEFAULT_ADMIN_PERMISSION) {
+                putMsg(result, Status.USER_NO_WRITE_PROJECT_PERM, loginUser.getUserName(), project.getCode());
+                checkResult = false;
+            } else {
+                checkResult = true;
+```
+
+### DataFlowIssue
+Method invocation `get` may produce `NullPointerException`
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/TaskInstance.java`
 #### Snippet
 ```java
-                JSONUtils.parseObject(this.getTaskParams(), new TypeReference<Map<String, Object>>() {
-                });
-        taskParamsMap.put(Constants.SWITCH_RESULT, JSONUtils.toJsonString(switchDependency));
-        this.switchDependency = switchDependency;
-        this.setTaskParams(JSONUtils.toJsonString(taskParamsMap));
+                    });
+            this.dependency =
+                    JSONUtils.parseObject((String) taskParamsMap.get(Constants.DEPENDENCE), DependentParameters.class);
+        }
+        return this.dependency;
 ```
 
 ### DataFlowIssue
@@ -12811,15 +12739,15 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/Ta
 ```
 
 ### DataFlowIssue
-Method invocation `get` may produce `NullPointerException`
+Method invocation `put` may produce `NullPointerException`
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/entity/TaskInstance.java`
 #### Snippet
 ```java
-                    });
-            this.dependency =
-                    JSONUtils.parseObject((String) taskParamsMap.get(Constants.DEPENDENCE), DependentParameters.class);
-        }
-        return this.dependency;
+                JSONUtils.parseObject(this.getTaskParams(), new TypeReference<Map<String, Object>>() {
+                });
+        taskParamsMap.put(Constants.SWITCH_RESULT, JSONUtils.toJsonString(switchDependency));
+        this.switchDependency = switchDependency;
+        this.setTaskParams(JSONUtils.toJsonString(taskParamsMap));
 ```
 
 ### DataFlowIssue
@@ -12931,30 +12859,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 ```
 
 ### DataFlowIssue
-Argument `token` might be null
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OkHttpUtils.java`
-#### Snippet
-```java
-        Request request = new Request.Builder()
-                .url(url)
-                .header("token", token)
-                .addHeader("accpect", "application/json")
-                .post(body)
-```
-
-### DataFlowIssue
-Method invocation `string` may produce `NullPointerException`
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OkHttpUtils.java`
-#### Snippet
-```java
-
-        try (Response response = CLIENT.newCall(request).execute()) {
-            return response.body().string();
-        }
-
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/DateUtils.java`
 #### Snippet
@@ -13000,6 +12904,30 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
         strBuilder = seconds > 0 ? strBuilder.append(seconds).append("s") : strBuilder;
 
         return strBuilder.toString();
+```
+
+### DataFlowIssue
+Argument `token` might be null
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OkHttpUtils.java`
+#### Snippet
+```java
+        Request request = new Request.Builder()
+                .url(url)
+                .header("token", token)
+                .addHeader("accpect", "application/json")
+                .post(body)
+```
+
+### DataFlowIssue
+Method invocation `string` may produce `NullPointerException`
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/OkHttpUtils.java`
+#### Snippet
+```java
+
+        try (Response response = CLIENT.newCall(request).execute()) {
+            return response.body().string();
+        }
+
 ```
 
 ### DataFlowIssue
@@ -13147,6 +13075,42 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### DataFlowIssue
+Argument `processInstance` might be null
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
+#### Snippet
+```java
+                            "Worker[{}] failover: begin to failover taskInstance, will set the status to NEED_FAULT_TOLERANCE",
+                            workerHost);
+                    failoverTaskInstance(processInstance, taskInstance);
+                    log.info("Worker[{}] failover: Finish failover taskInstance", workerHost);
+                } catch (Exception ex) {
+```
+
+### DataFlowIssue
+Method invocation `isHive` may produce `NullPointerException`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
+#### Snippet
+```java
+            if (dataSource != null) {
+                ConnectorType targetConnectorType = ConnectorType.of(
+                        DbType.of(Integer.parseInt(config.get(TARGET_CONNECTOR_TYPE))).isHive() ? 1 : 0);
+                dataQualityTaskExecutionContext.setTargetConnectorType(targetConnectorType.getDescription());
+                dataQualityTaskExecutionContext.setTargetType(dataSource.getType().getCode());
+```
+
+### DataFlowIssue
+Method invocation `setDefaultFS` may produce `NullPointerException`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
+#### Snippet
+```java
+            UdfFuncParameters udfFuncParameters =
+                    JSONUtils.parseObject(JSONUtils.toJsonString(udfFunc), UdfFuncParameters.class);
+            udfFuncParameters.setDefaultFS(PropertyUtils.getString(Constants.FS_DEFAULT_FS));
+            String tenantCode = processService.queryTenantCodeByResName(udfFunc.getResourceName(), ResourceType.UDF);
+            udfFuncParameters.setTenantCode(tenantCode);
+```
+
+### DataFlowIssue
 Method invocation `isHive` may produce `NullPointerException`
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
 #### Snippet
@@ -13195,42 +13159,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### DataFlowIssue
-Method invocation `isHive` may produce `NullPointerException`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
-#### Snippet
-```java
-            if (dataSource != null) {
-                ConnectorType targetConnectorType = ConnectorType.of(
-                        DbType.of(Integer.parseInt(config.get(TARGET_CONNECTOR_TYPE))).isHive() ? 1 : 0);
-                dataQualityTaskExecutionContext.setTargetConnectorType(targetConnectorType.getDescription());
-                dataQualityTaskExecutionContext.setTargetType(dataSource.getType().getCode());
-```
-
-### DataFlowIssue
-Method invocation `setDefaultFS` may produce `NullPointerException`
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
-#### Snippet
-```java
-            UdfFuncParameters udfFuncParameters =
-                    JSONUtils.parseObject(JSONUtils.toJsonString(udfFunc), UdfFuncParameters.class);
-            udfFuncParameters.setDefaultFS(PropertyUtils.getString(Constants.FS_DEFAULT_FS));
-            String tenantCode = processService.queryTenantCodeByResName(udfFunc.getResourceName(), ResourceType.UDF);
-            udfFuncParameters.setTenantCode(tenantCode);
-```
-
-### DataFlowIssue
-Argument `processInstance` might be null
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
-#### Snippet
-```java
-                            "Worker[{}] failover: begin to failover taskInstance, will set the status to NEED_FAULT_TOLERANCE",
-                            workerHost);
-                    failoverTaskInstance(processInstance, taskInstance);
-                    log.info("Worker[{}] failover: Finish failover taskInstance", workerHost);
-                } catch (Exception ex) {
-```
-
-### DataFlowIssue
 Passing `null` argument to parameter annotated as @NotNull
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/config/WorkerConfig.java`
 #### Snippet
@@ -13255,15 +13183,15 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
 ```
 
 ### DataFlowIssue
-Method invocation `getExitStatus` may produce `NullPointerException`
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/runner/WorkerTaskExecuteRunnable.java`
+Method invocation `getDirect` may produce `NullPointerException`
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/utils/TaskFilesTransferUtils.java`
 #### Snippet
 ```java
+            Property property = JSONUtils.parseObject(localParam.toString(), Property.class);
 
-    protected void sendTaskResult() {
-        taskExecutionContext.setCurrentExecutionStatus(task.getExitStatus());
-        taskExecutionContext.setProcessId(task.getProcessId());
-        taskExecutionContext.setAppIds(task.getAppIds());
+            if (property.getDirect().equals(direct) && property.getType().equals(DataType.FILE)) {
+                localParamsProperty.add(property);
+            }
 ```
 
 ### DataFlowIssue
@@ -13291,15 +13219,15 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
 ```
 
 ### DataFlowIssue
-Method invocation `getDirect` may produce `NullPointerException`
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/utils/TaskFilesTransferUtils.java`
+Method invocation `getExitStatus` may produce `NullPointerException`
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/runner/WorkerTaskExecuteRunnable.java`
 #### Snippet
 ```java
-            Property property = JSONUtils.parseObject(localParam.toString(), Property.class);
 
-            if (property.getDirect().equals(direct) && property.getType().equals(DataType.FILE)) {
-                localParamsProperty.add(property);
-            }
+    protected void sendTaskResult() {
+        taskExecutionContext.setCurrentExecutionStatus(task.getExitStatus());
+        taskExecutionContext.setProcessId(task.getProcessId());
+        taskExecutionContext.setAppIds(task.getAppIds());
 ```
 
 ### DataFlowIssue
@@ -13423,6 +13351,30 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### DataFlowIssue
+Variable is already assigned to this value
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/DependentUtils.java`
+#### Snippet
+```java
+            case OR:
+                if (dependResultList.contains(DependResult.SUCCESS)) {
+                    dependResult = DependResult.SUCCESS;
+                } else if (dependResultList.contains(DependResult.WAITING)) {
+                    dependResult = DependResult.WAITING;
+```
+
+### DataFlowIssue
+Method invocation `getProcessDefinitionCode` may produce `NullPointerException`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+                if (parameterJson.get(CMD_PARAM_SUB_PROCESS_DEFINE_CODE) != null) {
+                    SubProcessParameters subProcessParam = JSONUtils.parseObject(parameter, SubProcessParameters.class);
+                    ids.add(subProcessParam.getProcessDefinitionCode());
+                    recurseFindSubProcess(subProcessParam.getProcessDefinitionCode(), ids);
+                }
+```
+
+### DataFlowIssue
 Argument `start` might be null
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
@@ -13447,18 +13399,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 ```
 
 ### DataFlowIssue
-Method invocation `getProcessDefinitionCode` may produce `NullPointerException`
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-                if (parameterJson.get(CMD_PARAM_SUB_PROCESS_DEFINE_CODE) != null) {
-                    SubProcessParameters subProcessParam = JSONUtils.parseObject(parameter, SubProcessParameters.class);
-                    ids.add(subProcessParam.getProcessDefinitionCode());
-                    recurseFindSubProcess(subProcessParam.getProcessDefinitionCode(), ids);
-                }
-```
-
-### DataFlowIssue
 Method invocation `get` may produce `NullPointerException`
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
@@ -13468,18 +13408,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
         Object localParams = taskParams.get(LOCAL_PARAMS);
         if (localParams == null) {
             return;
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/utils/DependentUtils.java`
-#### Snippet
-```java
-            case OR:
-                if (dependResultList.contains(DependResult.SUCCESS)) {
-                    dependResult = DependResult.SUCCESS;
-                } else if (dependResultList.contains(DependResult.WAITING)) {
-                    dependResult = DependResult.WAITING;
 ```
 
 ### DataFlowIssue
@@ -13591,15 +13519,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-chunjun/src/main/java/org
 ```
 
 ### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/apache/dolphinscheduler/plugin/task/pigeon/PigeonTask.java`
+Method invocation `checkParameters` may produce `NullPointerException`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-hivecli/src/main/java/org/apache/dolphinscheduler/plugin/task/hivecli/HiveCliTask.java`
 #### Snippet
 ```java
-                        Thread.sleep(3000);
-                    } finally {
-                        status.close();
-                    }
-                }
+        hiveCliParameters = JSONUtils.parseObject(taskExecutionContext.getTaskParams(), HiveCliParameters.class);
+
+        if (!hiveCliParameters.checkParameters()) {
+            throw new TaskException("hiveCli task params is not valid");
+        }
 ```
 
 ### DataFlowIssue
@@ -13615,15 +13543,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/
 ```
 
 ### DataFlowIssue
-Method invocation `checkParameters` may produce `NullPointerException`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-hivecli/src/main/java/org/apache/dolphinscheduler/plugin/task/hivecli/HiveCliTask.java`
+Method invocation `close` may produce `NullPointerException`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/apache/dolphinscheduler/plugin/task/pigeon/PigeonTask.java`
 #### Snippet
 ```java
-        hiveCliParameters = JSONUtils.parseObject(taskExecutionContext.getTaskParams(), HiveCliParameters.class);
-
-        if (!hiveCliParameters.checkParameters()) {
-            throw new TaskException("hiveCli task params is not valid");
-        }
+                        Thread.sleep(3000);
+                    } finally {
+                        status.close();
+                    }
+                }
 ```
 
 ### DataFlowIssue
@@ -13809,18 +13737,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/codec/NettyDecoder.java`
-#### Snippet
-```java
-        CONTEXT,
-        BODY_LENGTH,
-        BODY;
-    }
-}
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/command/MessageType.java`
 #### Snippet
 ```java
@@ -13828,6 +13744,18 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/com
     PAUSE_TASK_INSTANCE,
     ;
 
+}
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/codec/NettyDecoder.java`
+#### Snippet
+```java
+        CONTEXT,
+        BODY_LENGTH,
+        BODY;
+    }
 }
 ```
 
@@ -13881,18 +13809,6 @@ public enum LoopTaskMethodType {
 
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractCommandExecutor.java`
-#### Snippet
-```java
-            try (
-                    final LogUtils.MDCAutoClosableContext mdcAutoClosableContext =
-                            LogUtils.setTaskInstanceLogFullPathMDC(taskRequest.getLogPath());) {
-                while (logBuffer.size() > 1 || !processLogOutputIsSuccess || !podLogOutputIsFinished) {
-                    if (logBuffer.size() > 1) {
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/enums/ResourceType.java`
 #### Snippet
 ```java
@@ -13925,6 +13841,18 @@ public enum DependentRelation {
     AND, OR;
 }
 
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractCommandExecutor.java`
+#### Snippet
+```java
+            try (
+                    final LogUtils.MDCAutoClosableContext mdcAutoClosableContext =
+                            LogUtils.setTaskInstanceLogFullPathMDC(taskRequest.getLogPath());) {
+                while (logBuffer.size() > 1 || !processLogOutputIsSuccess || !podLogOutputIsFinished) {
+                    if (logBuffer.size() > 1) {
 ```
 
 ### UnnecessarySemicolon
@@ -14029,11 +13957,11 @@ Can be replaced with 'String.join'
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/apache/dolphinscheduler/plugin/task/pigeon/PigeonTask.java`
 #### Snippet
 ```java
-                    StringBuffer errs = new StringBuffer();
-                    if (CollectionUtils.isNotEmpty(errormsg)) {
-                        errs.append(",errs:").append(errormsg.stream().collect(Collectors.joining(",")));
-                    }
-                    throw new Exception("trigger PIGEON job faild taskName:" + targetJobName + errs.toString());
+                StringBuffer errs = new StringBuffer();
+                if (CollectionUtils.isNotEmpty(errormsg)) {
+                    errs.append(",errs:").append(errormsg.stream().collect(Collectors.joining(",")));
+                }
+                throw new TaskException("cancel PIGEON job faild taskId:" + triggerResult.getTaskId() + errs);
 ```
 
 ### SimplifyStreamApiCallChains
@@ -14041,11 +13969,11 @@ Can be replaced with 'String.join'
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-pigeon/src/main/java/org/apache/dolphinscheduler/plugin/task/pigeon/PigeonTask.java`
 #### Snippet
 ```java
-                StringBuffer errs = new StringBuffer();
-                if (CollectionUtils.isNotEmpty(errormsg)) {
-                    errs.append(",errs:").append(errormsg.stream().collect(Collectors.joining(",")));
-                }
-                throw new TaskException("cancel PIGEON job faild taskId:" + triggerResult.getTaskId() + errs);
+                    StringBuffer errs = new StringBuffer();
+                    if (CollectionUtils.isNotEmpty(errormsg)) {
+                        errs.append(",errs:").append(errormsg.stream().collect(Collectors.joining(",")));
+                    }
+                    throw new Exception("trigger PIGEON job faild taskName:" + targetJobName + errs.toString());
 ```
 
 ### SimplifyStreamApiCallChains
@@ -15618,7 +15546,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-abs/src/main/java/o
                 entity.setFileName(fileName);
                 entity.setFullName(blobItem.getName());
                 entity.setDirectory(true);
-                entity.setDescription(EMPTY_STRING);
                 entity.setUserName(tenantCode);
                 entity.setType(type);
                 entity.setSize(0);
@@ -15643,7 +15570,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-abs/src/main/java/o
                 entity.setFileName(fileName);
                 entity.setFullName(blobItem.getName());
                 entity.setDirectory(false);
-                entity.setDescription(EMPTY_STRING);
                 entity.setUserName(tenantCode);
                 entity.setType(type);
 ```
@@ -15661,7 +15587,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-abs/src/main/java/o
             entity.setFileName(fileName);
             entity.setFullName(path);
             entity.setDirectory(true);
-            entity.setDescription(EMPTY_STRING);
             entity.setUserName(tenantCode);
             entity.setType(type);
             entity.setSize(0);
@@ -15682,7 +15607,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-gcs/src/main/java/o
                 entity.setFileName(fileName);
                 entity.setFullName(blob.getName());
                 entity.setDirectory(false);
-                entity.setDescription(EMPTY_STRING);
                 entity.setUserName(tenantCode);
                 entity.setType(type);
                 entity.setSize(blob.getSize());
@@ -15703,23 +15627,8 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/
                     entity.setFileName(fileName);
                     entity.setFullName(fullName);
                     entity.setDirectory(true);
-                    entity.setDescription("");
                     entity.setUserName(tenantCode);
                     entity.setType(type);
-```
-
-### DuplicatedCode
-Duplicated code
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/org/apache/dolphinscheduler/plugin/storage/hdfs/HdfsStorageOperator.java`
-#### Snippet
-```java
-            entity.setDescription("");
-            entity.setUserName(tenantCode);
-            entity.setType(type);
-            entity.setSize(fileStatus.getLen());
-            entity.setCreateTime(new Date(fileStatus.getModificationTime()));
-            entity.setUpdateTime(new Date(fileStatus.getModificationTime()));
-            entity.setPfullName(path);
 ```
 
 ### DuplicatedCode
@@ -15736,7 +15645,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/o
                     entity.setFileName(fileName);
                     entity.setFullName(summary.getKey());
                     entity.setDirectory(false);
-                    entity.setDescription("");
                     entity.setUserName(tenantCode);
                     entity.setType(type);
                     entity.setSize(summary.getSize());
@@ -15759,7 +15667,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/o
                 entity.setFileName(fileName);
                 entity.setFullName(commonPrefix);
                 entity.setDirectory(true);
-                entity.setDescription("");
                 entity.setUserName(tenantCode);
                 entity.setType(type);
                 entity.setSize(0);
@@ -15769,27 +15676,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/o
 
                 storageEntityList.add(entity);
             }
-```
-
-### DuplicatedCode
-Duplicated code
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-oss/src/main/java/org/apache/dolphinscheduler/plugin/storage/oss/OssStorageOperator.java`
-#### Snippet
-```java
-            String alias = findDirAlias(path);
-            String fileName = StringUtils.difference(defaultPath, path);
-
-            StorageEntity entity = new StorageEntity();
-            entity.setAlias(alias);
-            entity.setFileName(fileName);
-            entity.setFullName(path);
-            entity.setDirectory(true);
-            entity.setDescription("");
-            entity.setUserName(tenantCode);
-            entity.setType(type);
-            entity.setSize(0);
-
-            return entity;
 ```
 
 ### DuplicatedCode
@@ -15806,7 +15692,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/or
                     entity.setFileName(fileName);
                     entity.setFullName(summary.getKey());
                     entity.setDirectory(false);
-                    entity.setDescription("");
                     entity.setUserName(tenantCode);
                     entity.setType(type);
                     entity.setSize(summary.getSize());
@@ -15864,48 +15749,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
         } else {
             this.nextNode = (ArrayList) nextNode;
         }
-```
-
-### DuplicatedCode
-Duplicated code
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/ParamUtils.java`
-#### Snippet
-```java
-        Map<String, String> map = new HashMap<>();
-        Iterator<Map.Entry<String, Property>> iter = paramsMap.entrySet().iterator();
-        while (iter.hasNext()) {
-            Map.Entry<String, Property> en = iter.next();
-            map.put(en.getKey(), en.getValue().getValue());
-        }
-        return map;
-```
-
-### DuplicatedCode
-Duplicated code
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/ParameterUtils.java`
-#### Snippet
-```java
-        if (templateStr == null) {
-            return null;
-        }
-
-        StringBuffer newValue = new StringBuffer(templateStr.length());
-
-        Matcher matcher = DATE_PARSE_PATTERN.matcher(templateStr);
-
-        while (matcher.find()) {
-            String key = matcher.group(1);
-            if (DATE_START_PATTERN.matcher(key).matches()) {
-                continue;
-            }
-            String value = TimePlaceholderUtils.getPlaceHolderTime(key, date);
-            assert value != null;
-            matcher.appendReplacement(newValue, value);
-        }
-
-        matcher.appendTail(newValue);
-
-        return newValue.toString();
 ```
 
 ### DuplicatedCode
@@ -16493,14 +16336,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/Q
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ClusterService.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ResourcesService.java`
 #### Snippet
 ```java
-     *
-     * @param clusterName cluster name
-     * @return true if the cluster name not exists, otherwise return false
+     * @param fullName  resource full name
+     * @param type      resource type
+     * @return true if the resource name not exists, otherwise return false
      */
-    Map<String, Object> verifyCluster(String clusterName);
+    Result<Object> verifyResourceName(String fullName, ResourceType type, User loginUser);
 ```
 
 ### MismatchedJavadocCode
@@ -16517,14 +16360,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/R
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ResourcesService.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ClusterService.java`
 #### Snippet
 ```java
-     * @param fullName  resource full name
-     * @param type      resource type
-     * @return true if the resource name not exists, otherwise return false
+     *
+     * @param clusterName cluster name
+     * @return true if the cluster name not exists, otherwise return false
      */
-    Result<Object> verifyResourceName(String fullName, ResourceType type, User loginUser);
+    Map<String, Object> verifyCluster(String clusterName);
 ```
 
 ### MismatchedJavadocCode
@@ -16553,18 +16396,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/K
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/UsersService.java`
-#### Snippet
-```java
-     *
-     * @param userName user name
-     * @return true if user name not exists, otherwise return false
-     */
-    Result<Object> verifyUserName(String userName);
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/UdfFuncService.java`
 #### Snippet
 ```java
@@ -16573,6 +16404,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/U
      * @return true if the name can user, otherwise return false
      */
     Result<Object> verifyUdfFuncByName(User loginUser, String name);
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/UsersService.java`
+#### Snippet
+```java
+     *
+     * @param userName user name
+     * @return true if user name not exists, otherwise return false
+     */
+    Result<Object> verifyUserName(String userName);
 ```
 
 ### MismatchedJavadocCode
@@ -16589,6 +16432,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/P
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+#### Snippet
+```java
+     *
+     * @param name name
+     * @return true if the name can user, otherwise return false
+     */
+    @Override
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
 #### Snippet
 ```java
@@ -16601,12 +16456,12 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
 #### Snippet
 ```java
      *
-     * @param name name
-     * @return true if the name can user, otherwise return false
+     * @param name datasource name
+     * @return true if data datasource not exists, otherwise return false
      */
     @Override
 ```
@@ -16631,18 +16486,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
      * @param connectionParam connectionParam
      * @return true if connect successfully, otherwise false
      * @return true if connect successfully, otherwise false
-     */
-    @Override
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
-#### Snippet
-```java
-     *
-     * @param name datasource name
-     * @return true if data datasource not exists, otherwise return false
      */
     @Override
 ```
@@ -16685,6 +16528,30 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+     * @param resTenantCode tenantCode in the request field "resTenantCode" for tenant code owning the resource,
+     *                      can be different from the login user in the case of logging in as admin users.
+     * @return true if the resource full name or pid not exists, otherwise return false
+     */
+    @Override
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+     * @param fullName  resource full name
+     * @param type      resource type
+     * @return true if the resource name not exists, otherwise return false
+     */
+    @Override
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
 #### Snippet
 ```java
@@ -16721,30 +16588,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-     * @param resTenantCode tenantCode in the request field "resTenantCode" for tenant code owning the resource,
-     *                      can be different from the login user in the case of logging in as admin users.
-     * @return true if the resource full name or pid not exists, otherwise return false
-     */
-    @Override
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
-#### Snippet
-```java
-     * @param fullName  resource full name
-     * @param type      resource type
-     * @return true if the resource name not exists, otherwise return false
-     */
-    @Override
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/DataSourceController.java`
 #### Snippet
 ```java
@@ -16769,14 +16612,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
 #### Snippet
 ```java
      * @param projectCode project code
      * @param name name
      * @return true if process definition name not exists, otherwise false
      */
-    @Override
+    @Operation(summary = "verify-name", description = "VERIFY_PROCESS_DEFINITION_NAME_NOTES")
 ```
 
 ### MismatchedJavadocCode
@@ -16793,18 +16636,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessDefinitionController.java`
-#### Snippet
-```java
-     * @param projectCode project code
-     * @param name name
-     * @return true if process definition name not exists, otherwise false
-     */
-    @Operation(summary = "verify-name", description = "VERIFY_PROCESS_DEFINITION_NAME_NOTES")
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ClusterController.java`
 #### Snippet
 ```java
@@ -16813,18 +16644,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
      * @return true if the cluster name not exists, otherwise return false
      */
     @Operation(summary = "verifyCluster", description = "VERIFY_CLUSTER_NOTES")
-```
-
-### MismatchedJavadocCode
-Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
-#### Snippet
-```java
-     * @param namespace   namespace
-     * @param clusterCode cluster code
-     * @return true if the k8s and namespace not exists, otherwise return false
-     */
-    @Operation(summary = "verifyNamespaceK8s", description = "VERIFY_NAMESPACE_K8S_NOTES")
 ```
 
 ### MismatchedJavadocCode
@@ -16841,14 +16660,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/UsersController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
 #### Snippet
 ```java
-     * @param loginUser login user
-     * @param userName user name
-     * @return true if user name not exists, otherwise return false
+     * @param namespace   namespace
+     * @param clusterCode cluster code
+     * @return true if the k8s and namespace not exists, otherwise return false
      */
-    @Operation(summary = "verifyUserName", description = "VERIFY_USER_NAME_NOTES")
+    @Operation(summary = "verifyNamespaceK8s", description = "VERIFY_NAMESPACE_K8S_NOTES")
 ```
 
 ### MismatchedJavadocCode
@@ -16865,14 +16684,26 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### MismatchedJavadocCode
 Method is specified to return 'true' but its return type is not boolean
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ResourcesController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/UsersController.java`
 #### Snippet
 ```java
-     * @param tenantCode tenantcode of the owner of the resource
-     * @param type resource type
-     * @return true if the resource name not exists, otherwise return false
+     * @param loginUser login user
+     * @param userName user name
+     * @return true if user name not exists, otherwise return false
      */
-    @Operation(summary = "queryResourceByFileName", description = "QUERY_BY_RESOURCE_FILE_NAME")
+    @Operation(summary = "verifyUserName", description = "VERIFY_USER_NAME_NOTES")
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+     * @param projectCode project code
+     * @param name name
+     * @return true if process definition name not exists, otherwise false
+     */
+    @Override
 ```
 
 ### MismatchedJavadocCode
@@ -16897,6 +16728,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
      * @return true if the resource name not exists, otherwise return false
      */
     @Operation(summary = "verifyResourceName", description = "VERIFY_RESOURCE_NAME_NOTES")
+```
+
+### MismatchedJavadocCode
+Method is specified to return 'true' but its return type is not boolean
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ResourcesController.java`
+#### Snippet
+```java
+     * @param tenantCode tenantcode of the owner of the resource
+     * @param type resource type
+     * @return true if the resource name not exists, otherwise return false
+     */
+    @Operation(summary = "queryResourceByFileName", description = "QUERY_BY_RESOURCE_FILE_NAME")
 ```
 
 ### MismatchedJavadocCode
@@ -17101,11 +16944,23 @@ Suspicious call to 'Map.get()'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
 #### Snippet
 ```java
-            return Collections.emptySet();
-        }
-        return (Set<Object>) RESOURCE_LIST_MAP.get(authorizationType).listAuthorizedResourceIds(
-                user.getUserType().equals(UserType.ADMIN_USER) ? 0 : userId, logger);
-    }
+        if (Objects.nonNull(needChecks) && needChecks.length > 0) {
+            Set<?> originResSet = new HashSet<>(Arrays.asList(needChecks));
+            Set<?> ownResSets = RESOURCE_LIST_MAP.get(authorizationType).listAuthorizedResourceIds(userId, logger);
+            boolean checkResult = ownResSets != null && ownResSets.containsAll(originResSet);
+            if (!checkResult) {
+```
+
+### SuspiciousMethodCalls
+'Set' may not contain objects of type 'capture of ?'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
+#### Snippet
+```java
+            Set<?> originResSet = new HashSet<>(Arrays.asList(needChecks));
+            Set<?> ownResSets = RESOURCE_LIST_MAP.get(authorizationType).listAuthorizedResourceIds(userId, logger);
+            boolean checkResult = ownResSets != null && ownResSets.containsAll(originResSet);
+            if (!checkResult) {
+                logger.warn("User does not have resource permission on associated resources, userId:{}", userId);
 ```
 
 ### SuspiciousMethodCalls
@@ -17125,23 +16980,11 @@ Suspicious call to 'Map.get()'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
 #### Snippet
 ```java
-        if (Objects.nonNull(needChecks) && needChecks.length > 0) {
-            Set<?> originResSet = new HashSet<>(Arrays.asList(needChecks));
-            Set<?> ownResSets = RESOURCE_LIST_MAP.get(authorizationType).listAuthorizedResourceIds(userId, logger);
-            boolean checkResult = ownResSets != null && ownResSets.containsAll(originResSet);
-            if (!checkResult) {
-```
-
-### SuspiciousMethodCalls
-'Set' may not contain objects of type 'capture of ?'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
-#### Snippet
-```java
-            Set<?> originResSet = new HashSet<>(Arrays.asList(needChecks));
-            Set<?> ownResSets = RESOURCE_LIST_MAP.get(authorizationType).listAuthorizedResourceIds(userId, logger);
-            boolean checkResult = ownResSets != null && ownResSets.containsAll(originResSet);
-            if (!checkResult) {
-                logger.warn("User does not have resource permission on associated resources, userId:{}", userId);
+            return Collections.emptySet();
+        }
+        return (Set<Object>) RESOURCE_LIST_MAP.get(authorizationType).listAuthorizedResourceIds(
+                user.getUserType().equals(UserType.ADMIN_USER) ? 0 : userId, logger);
+    }
 ```
 
 ### SuspiciousMethodCalls
@@ -17246,18 +17089,6 @@ Dangling Javadoc comment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SessionServiceImpl.java`
 #### Snippet
 ```java
-    public void signOut(String ip, User loginUser) {
-        try {
-            /**
-             * query session by user id and ip
-             */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SessionServiceImpl.java`
-#### Snippet
-```java
         Date now = new Date();
 
         /**
@@ -17291,6 +17122,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### DanglingJavadoc
 Dangling Javadoc comment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SessionServiceImpl.java`
+#### Snippet
+```java
+    public void signOut(String ip, User loginUser) {
+        try {
+            /**
+             * query session by user id and ip
+             */
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/BaseServiceImpl.java`
 #### Snippet
 ```java
@@ -17299,6 +17142,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
     /**
      * create tenant dir if not exists
      *
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+                if (subProcessDefinitionList != null && !subProcessDefinitionList.isEmpty()) {
+                    for (ProcessDefinition subProcessDefinition : subProcessDefinitionList) {
+                        /**
+                         * if there is no online process, exit directly
+                         */
 ```
 
 ### DanglingJavadoc
@@ -17315,14 +17170,26 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### DanglingJavadoc
 Dangling Javadoc comment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
 ```java
-                if (subProcessDefinitionList != null && !subProcessDefinitionList.isEmpty()) {
-                    for (ProcessDefinition subProcessDefinition : subProcessDefinitionList) {
-                        /**
-                         * if there is no online process, exit directly
-                         */
+        Map<String, Object> result = new HashMap<>();
+
+        /**
+         * find all the task lists in the project under the user
+         * statistics based on task status execution, failure, completion, wait, total
+```
+
+### DanglingJavadoc
+Dangling Javadoc comment
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+            if (processDefinitionList != null) {
+                for (ProcessDefinition processDefinitionTmp : processDefinitionList) {
+                    /**
+                     * if there is no online process, exit directly
+                     */
 ```
 
 ### DanglingJavadoc
@@ -17347,30 +17214,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
         /**
          * create command
          */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-            if (processDefinitionList != null) {
-                for (ProcessDefinition processDefinitionTmp : processDefinitionList) {
-                    /**
-                     * if there is no online process, exit directly
-                     */
-```
-
-### DanglingJavadoc
-Dangling Javadoc comment
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-        Map<String, Object> result = new HashMap<>();
-
-        /**
-         * find all the task lists in the project under the user
-         * statistics based on task status execution, failure, completion, wait, total
 ```
 
 ### DanglingJavadoc
@@ -17568,18 +17411,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-hdfs/src/main/java/
 ## RuleId[id=SpringCacheableComponentsInspection]
 ### SpringCacheableComponentsInspection
 Cannot resolve bean 'cacheKeyGenerator'
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessDefinitionLogMapper.java`
-#### Snippet
-```java
- * process definition log mapper interface
- */
-@CacheConfig(cacheNames = "processDefinition", keyGenerator = "cacheKeyGenerator")
-public interface ProcessDefinitionLogMapper extends BaseMapper<ProcessDefinitionLog> {
-
-```
-
-### SpringCacheableComponentsInspection
-Cannot resolve bean 'cacheKeyGenerator'
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TenantMapper.java`
 #### Snippet
 ```java
@@ -17587,6 +17418,18 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Te
  */
 @CacheConfig(cacheNames = "tenant", keyGenerator = "cacheKeyGenerator")
 public interface TenantMapper extends BaseMapper<Tenant> {
+
+```
+
+### SpringCacheableComponentsInspection
+Cannot resolve bean 'cacheKeyGenerator'
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessDefinitionLogMapper.java`
+#### Snippet
+```java
+ * process definition log mapper interface
+ */
+@CacheConfig(cacheNames = "processDefinition", keyGenerator = "cacheKeyGenerator")
+public interface ProcessDefinitionLogMapper extends BaseMapper<ProcessDefinitionLog> {
 
 ```
 
@@ -17713,7 +17556,7 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
 
 ### TrivialIf
 `if` statement can be simplified
-in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
+in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-dingtalk/src/main/java/org/apache/dolphinscheduler/plugin/alert/dingtalk/DingTalkSender.java`
 #### Snippet
 ```java
             final Object this$errmsg = this.getErrmsg();
@@ -17725,7 +17568,7 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
 
 ### TrivialIf
 `if` statement can be simplified
-in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-dingtalk/src/main/java/org/apache/dolphinscheduler/plugin/alert/dingtalk/DingTalkSender.java`
+in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert-wechat/src/main/java/org/apache/dolphinscheduler/plugin/alert/wechat/WeChatSender.java`
 #### Snippet
 ```java
             final Object this$errmsg = this.getErrmsg();
@@ -17752,18 +17595,6 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
 #### Snippet
 ```java
-                return true;
-            }
-            if (dependentItem.getDepTaskCode() == taskInstance.getTaskCode()) {
-                return true;
-            }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
-#### Snippet
-```java
             }
         }
         if (firstProcessInstance.getId() == processInstance.getId()) {
@@ -17773,14 +17604,14 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### TrivialIf
 `if` statement can be simplified
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
 #### Snippet
 ```java
-    public Integer queryTestDataSourceId(Integer onlineDataSourceId) {
-        Integer testDataSourceId = dataSourceMapper.queryTestDataSourceId(onlineDataSourceId);
-        if (testDataSourceId != null)
-            return testDataSourceId;
-        return null;
+                return true;
+            }
+            if (dependentItem.getDepTaskCode() == taskInstance.getTaskCode()) {
+                return true;
+            }
 ```
 
 ### TrivialIf
@@ -17860,30 +17691,6 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-plugins/dolphinscheduler-alert
 
 ### AutoCloseableResource
 'MDCAutoClosableContext' used without 'try'-with-resources statement
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StreamTaskExecuteThreadPool.java`
-#### Snippet
-```java
-            @Override
-            public void onFailure(Throwable ex) {
-                LogUtils.setTaskInstanceIdMDC(taskInstanceId);
-                log.error("Stream task instance events handle failed", ex);
-                LogUtils.removeTaskInstanceIdMDC();
-```
-
-### AutoCloseableResource
-'MDCAutoClosableContext' used without 'try'-with-resources statement
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StreamTaskExecuteThreadPool.java`
-#### Snippet
-```java
-            @Override
-            public void onSuccess(Object result) {
-                LogUtils.setTaskInstanceIdMDC(taskInstanceId);
-                log.info("Stream task instance is finished.");
-                LogUtils.removeTaskInstanceIdMDC();
-```
-
-### AutoCloseableResource
-'MDCAutoClosableContext' used without 'try'-with-resources statement
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/EventExecuteService.java`
 #### Snippet
 ```java
@@ -17908,6 +17715,42 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### AutoCloseableResource
 'MDCAutoClosableContext' used without 'try'-with-resources statement
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StreamTaskExecuteThreadPool.java`
+#### Snippet
+```java
+            @Override
+            public void onSuccess(Object result) {
+                LogUtils.setTaskInstanceIdMDC(taskInstanceId);
+                log.info("Stream task instance is finished.");
+                LogUtils.removeTaskInstanceIdMDC();
+```
+
+### AutoCloseableResource
+'MDCAutoClosableContext' used without 'try'-with-resources statement
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StreamTaskExecuteThreadPool.java`
+#### Snippet
+```java
+            @Override
+            public void onFailure(Throwable ex) {
+                LogUtils.setTaskInstanceIdMDC(taskInstanceId);
+                log.error("Stream task instance events handle failed", ex);
+                LogUtils.removeTaskInstanceIdMDC();
+```
+
+### AutoCloseableResource
+'MDCAutoClosableContext' used without 'try'-with-resources statement
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StateWheelExecuteThread.java`
+#### Snippet
+```java
+            long taskCode = taskInstanceKey.getTaskCode();
+            try {
+                LogUtils.setWorkflowInstanceIdMDC(processInstanceId);
+
+                WorkflowExecuteRunnable workflowExecuteThread =
+```
+
+### AutoCloseableResource
+'MDCAutoClosableContext' used without 'try'-with-resources statement
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
 #### Snippet
 ```java
@@ -17928,18 +17771,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
                 LogUtils.setWorkflowInstanceIdMDC(processInstanceId);
                 try {
                     log.error("Workflow instance events handle failed", ex);
-```
-
-### AutoCloseableResource
-'MDCAutoClosableContext' used without 'try'-with-resources statement
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StateWheelExecuteThread.java`
-#### Snippet
-```java
-            long taskCode = taskInstanceKey.getTaskCode();
-            try {
-                LogUtils.setWorkflowInstanceIdMDC(processInstanceId);
-
-                WorkflowExecuteRunnable workflowExecuteThread =
 ```
 
 ### AutoCloseableResource
@@ -18004,6 +17835,30 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### AutoCloseableResource
 'MDCAutoClosableContext' used without 'try'-with-resources statement
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
+#### Snippet
+```java
+            }
+            try {
+                LogUtils.setWorkflowAndTaskInstanceIDMDC(stateEvent.getProcessInstanceId(),
+                        stateEvent.getTaskInstanceId());
+                // if state handle success then will remove this state, otherwise will retry this state next time.
+```
+
+### AutoCloseableResource
+'MDCAutoClosableContext' used without 'try'-with-resources statement
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
+#### Snippet
+```java
+
+        try {
+            LogUtils.setWorkflowInstanceIdMDC(processInstance.getId());
+            if (isStart()) {
+                // This case should not been happened
+```
+
+### AutoCloseableResource
+'MDCAutoClosableContext' used without 'try'-with-resources statement
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/MasterTaskPauseProcessor.java`
 #### Snippet
 ```java
@@ -18040,30 +17895,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### AutoCloseableResource
 'MDCAutoClosableContext' used without 'try'-with-resources statement
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
-#### Snippet
-```java
-
-        try {
-            LogUtils.setWorkflowInstanceIdMDC(processInstance.getId());
-            if (isStart()) {
-                // This case should not been happened
-```
-
-### AutoCloseableResource
-'MDCAutoClosableContext' used without 'try'-with-resources statement
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
-#### Snippet
-```java
-            }
-            try {
-                LogUtils.setWorkflowAndTaskInstanceIDMDC(stateEvent.getProcessInstanceId(),
-                        stateEvent.getTaskInstanceId());
-                // if state handle success then will remove this state, otherwise will retry this state next time.
-```
-
-### AutoCloseableResource
-'MDCAutoClosableContext' used without 'try'-with-resources statement
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskUpdatePidAckProcessor.java`
 #### Snippet
 ```java
@@ -18071,18 +17902,6 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
                         LogUtils.setTaskInstanceIdMDC(updatePidAckCommand.getTaskInstanceId());) {
             LogUtils.setTaskInstanceIdMDC(updatePidAckCommand.getTaskInstanceId());
             log.info("task execute update pid ack command : {}", updatePidAckCommand);
-
-```
-
-### AutoCloseableResource
-'MDCAutoClosableContext' used without 'try'-with-resources statement
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskExecuteRunningAckProcessor.java`
-#### Snippet
-```java
-        }
-        try {
-            LogUtils.setTaskInstanceIdMDC(runningAckCommand.getTaskInstanceId());
-            log.info("task execute running ack command : {}", runningAckCommand);
 
 ```
 
@@ -18096,6 +17915,18 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
                     LogUtils.setTaskInstanceIdMDC(taskInstanceId);
                     try {
                         for (Map.Entry<MessageType, BaseMessage> messageEntry : retryMessageMap.entrySet()) {
+```
+
+### AutoCloseableResource
+'MDCAutoClosableContext' used without 'try'-with-resources statement
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskExecuteRunningAckProcessor.java`
+#### Snippet
+```java
+        }
+        try {
+            LogUtils.setTaskInstanceIdMDC(runningAckCommand.getTaskInstanceId());
+            log.info("task execute running ack command : {}", runningAckCommand);
+
 ```
 
 ### AutoCloseableResource
@@ -18271,11 +18102,11 @@ in `dolphinscheduler-data-quality/src/main/java/org/apache/dolphinscheduler/data
 in `dolphinscheduler-data-quality/src/main/java/org/apache/dolphinscheduler/data/quality/execution/SparkBatchExecution.java`
 #### Snippet
 ```java
-        }
 
-        environment.sparkSession().stop();
-    }
+            for (String sourceTableName : tableNames) {
+                inputDataset = environment.sparkSession().read().table(sourceTableName);
 
+                if (outputDataset == null) {
 ```
 
 ### AutoCloseableResource
@@ -18295,11 +18126,11 @@ in `dolphinscheduler-data-quality/src/main/java/org/apache/dolphinscheduler/data
 in `dolphinscheduler-data-quality/src/main/java/org/apache/dolphinscheduler/data/quality/execution/SparkBatchExecution.java`
 #### Snippet
 ```java
+        }
 
-            for (String sourceTableName : tableNames) {
-                inputDataset = environment.sparkSession().read().table(sourceTableName);
+        environment.sparkSession().stop();
+    }
 
-                if (outputDataset == null) {
 ```
 
 ### AutoCloseableResource
@@ -18349,90 +18180,6 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         }
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
-        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
-
-        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
-```
-
-### RegExpSingleCharAlternation
-Single character alternation in RegExp
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-            log.error("task code get error, ", e);
-        }
-        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
-        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
         String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
 ```
 
@@ -18481,6 +18228,30 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         }
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
         String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
 ```
 
@@ -18516,6 +18287,42 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
         String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
         String taskCodeFourth = String.valueOf(taskCodes.get(3)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+        String taskCodeThird = String.valueOf(taskCodes.get(2)).replaceAll("\\[|\\]", "");
 
         ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
 ```
@@ -18529,6 +18336,67 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/
         }
         String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
         String absolutePath = System.getProperty("user.dir");
+
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+            log.error("task code get error, ", e);
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+```
+
+### RegExpSingleCharAlternation
+Single character alternation in RegExp
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+        }
+        String taskCodeFirst = String.valueOf(taskCodes.get(0)).replaceAll("\\[|\\]", "");
+        String taskCodeSecond = String.valueOf(taskCodes.get(1)).replaceAll("\\[|\\]", "");
+
+        ProcessDefinitionLog processDefinitionLog = new ProcessDefinitionLog();
+```
+
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `checkAndParseDateParameters(...)` to `Date` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AuditServiceImpl.java`
+#### Snippet
+```java
+        }
+
+        Date start = (Date) checkAndParseDateParameters(startDate);
+        Date end = (Date) checkAndParseDateParameters(endDate);
+
+```
+
+### RedundantCast
+Casting `checkAndParseDateParameters(...)` to `Date` is redundant
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AuditServiceImpl.java`
+#### Snippet
+```java
+
+        Date start = (Date) checkAndParseDateParameters(startDate);
+        Date end = (Date) checkAndParseDateParameters(endDate);
+
+        Page<AuditLog> page = new Page<>(pageNo, pageSize);
+```
+
+### RedundantCast
+Casting `hostWorker` to `Host` is redundant
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/HostWeight.java`
+#### Snippet
+```java
+
+    public Host getHost() {
+        return (Host) hostWorker;
+    }
 
 ```
 
@@ -18594,6 +18462,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sMa
 ```
 
 ### JavadocDeclaration
+`@param loginUser` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/AlertGroupService.java`
+#### Snippet
+```java
+     * query alert group list
+     *
+     * @param loginUser
+     * @return alert group list
+     */
+```
+
+### JavadocDeclaration
 `@param file` tag description is missing
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/utils/FileUtils.java`
 #### Snippet
@@ -18618,18 +18498,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/utils/Fil
 ```
 
 ### JavadocDeclaration
-`@param loginUser` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/AlertGroupService.java`
-#### Snippet
-```java
-     * query alert group list
-     *
-     * @param loginUser
-     * @return alert group list
-     */
-```
-
-### JavadocDeclaration
 Wrong tag `Return`
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/TaskDefinitionService.java`
 #### Snippet
@@ -18647,7 +18515,7 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/T
 #### Snippet
 ```java
     /**
-     * remove task instance cache
+     * stop task
      * @param loginUser
      * @param projectCode
      * @param taskInstanceId
@@ -18658,7 +18526,7 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/T
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/TaskInstanceService.java`
 #### Snippet
 ```java
-     * remove task instance cache
+     * stop task
      * @param loginUser
      * @param projectCode
      * @param taskInstanceId
@@ -18686,7 +18554,7 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/T
      * @param taskInstanceId
      * @return
      */
-    TaskInstanceRemoveCacheResponse removeTaskInstanceCache(User loginUser, long projectCode, Integer taskInstanceId);
+    Result stopTask(User loginUser, long projectCode, Integer taskInstanceId);
 ```
 
 ### JavadocDeclaration
@@ -18743,7 +18611,7 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/T
 #### Snippet
 ```java
     /**
-     * stop task
+     * remove task instance cache
      * @param loginUser
      * @param projectCode
      * @param taskInstanceId
@@ -18754,7 +18622,7 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/T
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/TaskInstanceService.java`
 #### Snippet
 ```java
-     * stop task
+     * remove task instance cache
      * @param loginUser
      * @param projectCode
      * @param taskInstanceId
@@ -18782,7 +18650,7 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/T
      * @param taskInstanceId
      * @return
      */
-    Result stopTask(User loginUser, long projectCode, Integer taskInstanceId);
+    TaskInstanceRemoveCacheResponse removeTaskInstanceCache(User loginUser, long projectCode, Integer taskInstanceId);
 ```
 
 ### JavadocDeclaration
@@ -18846,6 +18714,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/D
 ```
 
 ### JavadocDeclaration
+`@param processDefinition` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ExecutorService.java`
+#### Snippet
+```java
+    /**
+     * check if the current process has subprocesses and all subprocesses are valid
+     * @param processDefinition
+     * @return check result
+     */
+```
+
+### JavadocDeclaration
 `@param processInstanceId` tag description is missing
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ExecutorService.java`
 #### Snippet
@@ -18903,18 +18783,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/E
      * @return
      */
     Map<String, Object> forceStartTaskInstance(User loginUser, int queueId);
-```
-
-### JavadocDeclaration
-`@param processDefinition` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ExecutorService.java`
-#### Snippet
-```java
-    /**
-     * check if the current process has subprocesses and all subprocesses are valid
-     * @param processDefinition
-     * @return check result
-     */
 ```
 
 ### JavadocDeclaration
@@ -19042,18 +18910,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/E
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/K8sNamespaceService.java`
 #### Snippet
 ```java
-     * @param limitsCpu    max cpu
-     * @param limitsMemory max memory
-     * @return
-     */
-    Map<String, Object> updateK8sNamespace(User loginUser, int id, String userName, Double limitsCpu,
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/K8sNamespaceService.java`
-#### Snippet
-```java
      * @param limitsCpu    limits cpu, can null means not limit
      * @param limitsMemory limits memory, can null means not limit
      * @return
@@ -19066,11 +18922,35 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/K
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/K8sNamespaceService.java`
 #### Snippet
 ```java
+     * @param limitsCpu    max cpu
+     * @param limitsMemory max memory
+     * @return
+     */
+    Map<String, Object> updateK8sNamespace(User loginUser, int id, String userName, Double limitsCpu,
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/K8sNamespaceService.java`
+#### Snippet
+```java
      * @param loginUser login user
      * @param id        namespace id
      * @return
      */
     Map<String, Object> deleteNamespaceById(User loginUser, int id);
+```
+
+### JavadocDeclaration
+Exception is not declared to be thrown by method registerUser
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/UsersService.java`
+#### Snippet
+```java
+     * @param email email
+     * @return registry result code
+     * @throws Exception exception
+     */
+    Map<String, Object> registerUser(String userName, String userPassword, String repeatPassword, String email);
 ```
 
 ### JavadocDeclaration
@@ -19098,18 +18978,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/U
 ```
 
 ### JavadocDeclaration
-Exception is not declared to be thrown by method deleteUserById
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/UsersService.java`
-#### Snippet
-```java
-     * @param id user id
-     * @return delete result code
-     * @throws Exception exception when operate hdfs
-     */
-    Map<String, Object> deleteUserById(User loginUser, int id) throws IOException;
-```
-
-### JavadocDeclaration
 `@param loginUser` tag description is missing
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/UsersService.java`
 #### Snippet
@@ -19134,15 +19002,27 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/U
 ```
 
 ### JavadocDeclaration
-Exception is not declared to be thrown by method registerUser
+Exception is not declared to be thrown by method deleteUserById
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/UsersService.java`
 #### Snippet
 ```java
-     * @param email email
-     * @return registry result code
-     * @throws Exception exception
+     * @param id user id
+     * @return delete result code
+     * @throws Exception exception when operate hdfs
      */
-    Map<String, Object> registerUser(String userName, String userPassword, String repeatPassword, String email);
+    Map<String, Object> deleteUserById(User loginUser, int id) throws IOException;
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ProcessInstanceService.java`
+#### Snippet
+```java
+     * @param loginUser         login user
+     * @param processInstanceId process instance id
+     * @return delete result code
+     */
+    void deleteProcessInstanceById(User loginUser,
 ```
 
 ### JavadocDeclaration
@@ -19194,27 +19074,27 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/P
 ```
 
 ### JavadocDeclaration
-Tag `return` is not allowed here
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ProcessInstanceService.java`
-#### Snippet
-```java
-     * @param loginUser         login user
-     * @param processInstanceId process instance id
-     * @return delete result code
-     */
-    void deleteProcessInstanceById(User loginUser,
-```
-
-### JavadocDeclaration
-`@param loginUser` tag description is missing
+`@param project` tag description is missing
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ProcessDefinitionService.java`
 #### Snippet
 ```java
     /**
-     * get Json String
-     * @param loginUser
+     * delete other relation
+     * @param project
+     * @param result
      * @param processDefinition
-     * @return Json String
+```
+
+### JavadocDeclaration
+`@param result` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ProcessDefinitionService.java`
+#### Snippet
+```java
+     * delete other relation
+     * @param project
+     * @param result
+     * @param processDefinition
+     */
 ```
 
 ### JavadocDeclaration
@@ -19222,11 +19102,11 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/P
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ProcessDefinitionService.java`
 #### Snippet
 ```java
-     * get Json String
-     * @param loginUser
+     * @param project
+     * @param result
      * @param processDefinition
-     * @return Json String
      */
+    void deleteOtherRelation(Project project, Map<String, Object> result, ProcessDefinition processDefinition);
 ```
 
 ### JavadocDeclaration
@@ -19278,27 +19158,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/P
 ```
 
 ### JavadocDeclaration
-`@param project` tag description is missing
+`@param loginUser` tag description is missing
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ProcessDefinitionService.java`
 #### Snippet
 ```java
     /**
-     * delete other relation
-     * @param project
-     * @param result
+     * get Json String
+     * @param loginUser
      * @param processDefinition
-```
-
-### JavadocDeclaration
-`@param result` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ProcessDefinitionService.java`
-#### Snippet
-```java
-     * delete other relation
-     * @param project
-     * @param result
-     * @param processDefinition
-     */
+     * @return Json String
 ```
 
 ### JavadocDeclaration
@@ -19306,11 +19174,11 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/P
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/ProcessDefinitionService.java`
 #### Snippet
 ```java
-     * @param project
-     * @param result
+     * get Json String
+     * @param loginUser
      * @param processDefinition
+     * @return Json String
      */
-    void deleteOtherRelation(Project project, Map<String, Object> result, ProcessDefinition processDefinition);
 ```
 
 ### JavadocDeclaration
@@ -19338,18 +19206,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### JavadocDeclaration
-`@param loginUser` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AlertGroupServiceImpl.java`
-#### Snippet
-```java
-     * query alert group list
-     *
-     * @param loginUser
-     * @return alert group list
-     */
-```
-
-### JavadocDeclaration
 Duplicate @return tag
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
 #### Snippet
@@ -19359,6 +19215,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
      * @return true if connect successfully, otherwise false
      */
     @Override
+```
+
+### JavadocDeclaration
+`@param loginUser` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AlertGroupServiceImpl.java`
+#### Snippet
+```java
+     * query alert group list
+     *
+     * @param loginUser
+     * @return alert group list
+     */
 ```
 
 ### JavadocDeclaration
@@ -19398,27 +19266,27 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### JavadocDeclaration
-`@param scheduleTimeList` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+`@param loginUser` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
 #### Snippet
 ```java
-
-    /**
-     * @param scheduleTimeList
-     * @return remove duplicate date list
+     * query all environment
+     *
+     * @param loginUser
+     * @return all environment list
      */
 ```
 
 ### JavadocDeclaration
-`@param schedule` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+`@return` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-
-    /**
-     * @param schedule
-     * @return check error return 0, otherwise 1
+     * @param loginUser login user
+     * @param type      resource type
+     * @return
      */
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -19458,6 +19326,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### JavadocDeclaration
+`@param scheduleTimeList` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+
+    /**
+     * @param scheduleTimeList
+     * @return remove duplicate date list
+     */
+```
+
+### JavadocDeclaration
 `@param processInstanceId` tag description is missing
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
 #### Snippet
@@ -19482,14 +19362,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### JavadocDeclaration
-`@param processDefinition` tag description is missing
+`@param schedule` tag description is missing
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
 #### Snippet
 ```java
-     * check whether the current process has subprocesses and validate all subprocesses
-     *
-     * @param processDefinition
-     * @return check result
+
+    /**
+     * @param schedule
+     * @return check error return 0, otherwise 1
      */
 ```
 
@@ -19506,26 +19386,14 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### JavadocDeclaration
-`@param loginUser` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
+`@param processDefinition` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
 #### Snippet
 ```java
-     * query all environment
+     * check whether the current process has subprocesses and validate all subprocesses
      *
-     * @param loginUser
-     * @return all environment list
-     */
-```
-
-### JavadocDeclaration
-`@param result` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-     * check project description
-     *
-     * @param result
-     * @param desc   desc
+     * @param processDefinition
+     * @return check result
      */
 ```
 
@@ -19542,6 +19410,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### JavadocDeclaration
+`@param result` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+     * check project description
+     *
+     * @param result
+     * @param desc   desc
+     */
+```
+
+### JavadocDeclaration
 Tag `return` is not allowed here
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
 #### Snippet
@@ -19549,6 +19429,78 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
      * @param project     project
      * @param projectCode project code
      * @return true if the login user have permission to see the project
+     */
+    @Override
+```
+
+### JavadocDeclaration
+Exception is not declared to be thrown by method updateUser
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+     * @param timeZone     timeZone
+     * @return update result code
+     * @throws Exception exception
+     */
+    @Override
+```
+
+### JavadocDeclaration
+Exception is not declared to be thrown by method registerUser
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+     * @param email          email
+     * @return registry result code
+     * @throws Exception exception
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+     * @param userId        User id
+     * @param projectIds   project id array
+     * @return
+     */
+    @Override
+```
+
+### JavadocDeclaration
+IOException is not declared to be thrown by method copyResourceFiles
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+     * @param srcBasePath       src base path
+     * @param dstBasePath       dst base path
+     * @throws IOException io exception
+     */
+    private void copyResourceFiles(String oldTenantCode, String newTenantCode, ResourceComponent resourceComponent,
+```
+
+### JavadocDeclaration
+Exception is not declared to be thrown by method deleteUserById
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+     * @param id        user id
+     * @return delete result code
+     * @throws Exception exception when operate hdfs
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+     * @param userId      User id
+     * @param projectCode Project Code
+     * @return
      */
     @Override
 ```
@@ -19615,83 +19567,11 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-     * @param userId        User id
-     * @param projectIds   project id array
-     * @return
-     */
-    @Override
-```
-
-### JavadocDeclaration
-IOException is not declared to be thrown by method copyResourceFiles
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-     * @param srcBasePath       src base path
-     * @param dstBasePath       dst base path
-     * @throws IOException io exception
-     */
-    private void copyResourceFiles(String oldTenantCode, String newTenantCode, ResourceComponent resourceComponent,
-```
-
-### JavadocDeclaration
-Exception is not declared to be thrown by method updateUser
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-     * @param timeZone     timeZone
-     * @return update result code
-     * @throws Exception exception
-     */
-    @Override
-```
-
-### JavadocDeclaration
-Exception is not declared to be thrown by method deleteUserById
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-     * @param id        user id
-     * @return delete result code
-     * @throws Exception exception when operate hdfs
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-     * @param userId      User id
-     * @param projectCode Project Code
-     * @return
-     */
-    @Override
-```
-
-### JavadocDeclaration
-Exception is not declared to be thrown by method registerUser
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-     * @param email          email
-     * @return registry result code
-     * @throws Exception exception
-     */
-    @Override
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
 #### Snippet
 ```java
-     * @param limitsCpu    max cpu
-     * @param limitsMemory max memory
+     * @param limitsCpu    limits cpu, can null means not limit
+     * @param limitsMemory limits memory, can null means not limit
      * @return
      */
     @Override
@@ -19714,8 +19594,8 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
 #### Snippet
 ```java
-     * @param limitsCpu    limits cpu, can null means not limit
-     * @param limitsMemory limits memory, can null means not limit
+     * @param loginUser login user
+     * @param id        namespace id
      * @return
      */
     @Override
@@ -19726,83 +19606,107 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
 #### Snippet
 ```java
-     * @param loginUser login user
-     * @param id        namespace id
+     * @param limitsCpu    max cpu
+     * @param limitsMemory max memory
      * @return
      */
     @Override
+```
+
+### JavadocDeclaration
+Duplicate @param tag for parameter 'code'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+#### Snippet
+```java
+     * @param pageNo the task definition version list current page number
+     * @param pageSize the task definition version list page size
+     * @param code the task definition code
+     * @return the task definition version list
+     */
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/DataQualityController.java`
 #### Snippet
 ```java
-     * @param loginUser login user
-     * @param type      resource type
+     * @param pageNo pageNo
+     * @param pageSize pageSize
      * @return
      */
-    @Override
+    @Operation(summary = "queryExecuteResultListPaging", description = "QUERY_EXECUTE_RESULT_LIST_PAGING_NOTES")
 ```
 
 ### JavadocDeclaration
-`@param project` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+`@return` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/FavTaskController.java`
 #### Snippet
 ```java
-    /**
-     * delete other relation
-     * @param project
-     * @param result
-     * @param processDefinition
-```
-
-### JavadocDeclaration
-`@param result` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-     * delete other relation
-     * @param project
-     * @param result
-     * @param processDefinition
+     *
+     * @param loginUser login user
+     * @return
      */
+    @Operation(summary = "addTaskType", description = "ADD_TASK_TYPE")
 ```
 
 ### JavadocDeclaration
-`@param processDefinition` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+`@return` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/FavTaskController.java`
 #### Snippet
 ```java
-     * @param project
-     * @param result
-     * @param processDefinition
+     *
+     * @param loginUser login user
+     * @return
      */
-    @Override
+    @Operation(summary = "deleteTaskType", description = "DELETE_TASK_TYPE")
 ```
 
 ### JavadocDeclaration
 `@param loginUser` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
 #### Snippet
 ```java
-    /**
-     * get Json String
+     * create namespace,if not exist on k8s,will create,if exist only register in db
+     *
      * @param loginUser
-     * @param processDefinition
-     * @return Json String
+     * @param namespace    k8s namespace
+     * @param clusterCode  clusterCode
 ```
 
 ### JavadocDeclaration
-`@param processDefinition` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+`@return` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
 #### Snippet
 ```java
-     * get Json String
-     * @param loginUser
-     * @param processDefinition
-     * @return Json String
+     * @param limitsCpu    max cpu
+     * @param limitsMemory max memory
+     * @return
      */
+    @Operation(summary = "createK8sNamespace", description = "CREATE_NAMESPACE_NOTES")
+```
+
+### JavadocDeclaration
+`@param loginUser` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
+#### Snippet
+```java
+     * update namespace,namespace and k8s not allowed update, because may create on k8s,can delete and create new instead
+     *
+     * @param loginUser
+     * @param userName     owner
+     * @param limitsCpu    max cpu
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
+#### Snippet
+```java
+     * @param limitsCpu    max cpu
+     * @param limitsMemory max memory
+     * @return
+     */
+    @Operation(summary = "updateK8sNamespace", description = "UPDATE_NAMESPACE_NOTES")
 ```
 
 ### JavadocDeclaration
@@ -19854,99 +19758,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 ```
 
 ### JavadocDeclaration
-Duplicate @param tag for parameter 'code'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskDefinitionController.java`
+`@param project` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
-     * @param pageNo the task definition version list current page number
-     * @param pageSize the task definition version list page size
-     * @param code the task definition code
-     * @return the task definition version list
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/FavTaskController.java`
-#### Snippet
-```java
-     *
-     * @param loginUser login user
-     * @return
-     */
-    @Operation(summary = "addTaskType", description = "ADD_TASK_TYPE")
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/FavTaskController.java`
-#### Snippet
-```java
-     *
-     * @param loginUser login user
-     * @return
-     */
-    @Operation(summary = "deleteTaskType", description = "DELETE_TASK_TYPE")
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/DataQualityController.java`
-#### Snippet
-```java
-     * @param pageNo pageNo
-     * @param pageSize pageSize
-     * @return
-     */
-    @Operation(summary = "queryExecuteResultListPaging", description = "QUERY_EXECUTE_RESULT_LIST_PAGING_NOTES")
-```
-
-### JavadocDeclaration
-`@param loginUser` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
-#### Snippet
-```java
-     * update namespace,namespace and k8s not allowed update, because may create on k8s,can delete and create new instead
-     *
-     * @param loginUser
-     * @param userName     owner
-     * @param limitsCpu    max cpu
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
-#### Snippet
-```java
-     * @param limitsCpu    max cpu
-     * @param limitsMemory max memory
-     * @return
-     */
-    @Operation(summary = "updateK8sNamespace", description = "UPDATE_NAMESPACE_NOTES")
-```
-
-### JavadocDeclaration
-`@param loginUser` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
-#### Snippet
-```java
-     * create namespace,if not exist on k8s,will create,if exist only register in db
-     *
-     * @param loginUser
-     * @param namespace    k8s namespace
-     * @param clusterCode  clusterCode
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
-#### Snippet
-```java
-     * @param limitsCpu    max cpu
-     * @param limitsMemory max memory
-     * @return
-     */
-    @Operation(summary = "createK8sNamespace", description = "CREATE_NAMESPACE_NOTES")
+    /**
+     * delete other relation
+     * @param project
+     * @param result
+     * @param processDefinition
 ```
 
 ### JavadocDeclaration
@@ -19970,6 +19790,54 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
      * @param groupSize   group size
      * @param name        project id
      * @return result and msg code
+     */
+```
+
+### JavadocDeclaration
+`@param result` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+     * delete other relation
+     * @param project
+     * @param result
+     * @param processDefinition
+     */
+```
+
+### JavadocDeclaration
+`@param processDefinition` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+     * @param project
+     * @param result
+     * @param processDefinition
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@param loginUser` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    /**
+     * get Json String
+     * @param loginUser
+     * @param processDefinition
+     * @return Json String
+```
+
+### JavadocDeclaration
+`@param processDefinition` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+     * get Json String
+     * @param loginUser
+     * @param processDefinition
+     * @return Json String
      */
 ```
 
@@ -20019,6 +19887,54 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permissio
      * @return
      */
     Set<T> userOwnedResourceIdsAcquisition(Object authorizationType, Integer userId, Logger logger);
+```
+
+### JavadocDeclaration
+`@param authorizationType` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckService.java`
+#### Snippet
+```java
+    /**
+     * associated with the current user after the resource is created
+     * @param authorizationType
+     * @param ids
+     * @param logger
+```
+
+### JavadocDeclaration
+`@param ids` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckService.java`
+#### Snippet
+```java
+     * associated with the current user after the resource is created
+     * @param authorizationType
+     * @param ids
+     * @param logger
+     */
+```
+
+### JavadocDeclaration
+`@param logger` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckService.java`
+#### Snippet
+```java
+     * @param authorizationType
+     * @param ids
+     * @param logger
+     */
+    void postHandle(Object authorizationType, Integer userId, List<Integer> ids, Logger logger);
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckService.java`
+#### Snippet
+```java
+    /**
+     * functionDisabled
+     * @return
+     */
+    boolean functionDisabled();
 ```
 
 ### JavadocDeclaration
@@ -20142,54 +20058,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permissio
 ```
 
 ### JavadocDeclaration
-`@param authorizationType` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckService.java`
-#### Snippet
-```java
-    /**
-     * associated with the current user after the resource is created
-     * @param authorizationType
-     * @param ids
-     * @param logger
-```
-
-### JavadocDeclaration
-`@param ids` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckService.java`
-#### Snippet
-```java
-     * associated with the current user after the resource is created
-     * @param authorizationType
-     * @param ids
-     * @param logger
-     */
-```
-
-### JavadocDeclaration
-`@param logger` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckService.java`
-#### Snippet
-```java
-     * @param authorizationType
-     * @param ids
-     * @param logger
-     */
-    void postHandle(Object authorizationType, Integer userId, List<Integer> ids, Logger logger);
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckService.java`
-#### Snippet
-```java
-    /**
-     * functionDisabled
-     * @return
-     */
-    boolean functionDisabled();
-```
-
-### JavadocDeclaration
 `@param userId` tag description is missing
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
 #### Snippet
@@ -20214,18 +20082,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permissio
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
-#### Snippet
-```java
-        /**
-         * authorization types
-         * @return
-         */
-        List<AuthorizationType> authorizationTypes();
-```
-
-### JavadocDeclaration
 `@param userId` tag description is missing
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
 #### Snippet
@@ -20247,6 +20103,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permissio
          * @return
          */
         Set<T> listAuthorizedResourceIds(int userId, Logger logger);
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/permission/ResourcePermissionCheckServiceImpl.java`
+#### Snippet
+```java
+        /**
+         * authorization types
+         * @return
+         */
+        List<AuthorizationType> authorizationTypes();
 ```
 
 ### JavadocDeclaration
@@ -20395,6 +20263,30 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Te
 
 ### JavadocDeclaration
 `@param userId` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TaskGroupMapper.java`
+#### Snippet
+```java
+     * listAuthorizedResource
+     *
+     * @param userId
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TaskGroupMapper.java`
+#### Snippet
+```java
+     *
+     * @param userId
+     * @return
+     */
+    List<TaskGroup> listAuthorizedResource(@Param("userId") int userId);
+```
+
+### JavadocDeclaration
+`@param userId` tag description is missing
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AccessTokenMapper.java`
 #### Snippet
 ```java
@@ -20403,6 +20295,18 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Ac
      * @param userId
      * @param accessTokensIds
      * @return access token for specified user
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/UserMapper.java`
+#### Snippet
+```java
+    /**
+     * query enabled users
+     * @return
+     */
+    List<User> queryEnabledUsers();
 ```
 
 ### JavadocDeclaration
@@ -20442,18 +20346,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Tr
 ```
 
 ### JavadocDeclaration
-`@param userId` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TaskGroupMapper.java`
-#### Snippet
-```java
-     * listAuthorizedResource
-     *
-     * @param userId
-     * @return
-     */
-```
-
-### JavadocDeclaration
 `@return` tag description is missing
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TriggerRelationMapper.java`
 #### Snippet
@@ -20463,18 +20355,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Tr
      * @return
      */
     TriggerRelation queryByTypeAndJobId(@Param("triggerType") Integer triggerType, @Param("jobId") int jobId);
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/TaskGroupMapper.java`
-#### Snippet
-```java
-     *
-     * @param userId
-     * @return
-     */
-    List<TaskGroup> listAuthorizedResource(@Param("userId") int userId);
 ```
 
 ### JavadocDeclaration
@@ -20491,18 +20371,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Tr
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/UserMapper.java`
-#### Snippet
-```java
-    /**
-     * query enabled users
-     * @return
-     */
-    List<User> queryEnabledUsers();
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/CommandMapper.java`
 #### Snippet
 ```java
@@ -20511,6 +20379,90 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Co
      * @return
      */
     List<Command> queryCommandPage(@Param("limit") int limit, @Param("offset") int offset);
+```
+
+### JavadocDeclaration
+`@param userId` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
+#### Snippet
+```java
+    /**
+     * list authorized AlertGroup
+     * @param userId
+     * @param alertGroupsIds
+     * @return
+```
+
+### JavadocDeclaration
+`@param alertGroupsIds` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
+#### Snippet
+```java
+     * list authorized AlertGroup
+     * @param userId
+     * @param alertGroupsIds
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
+#### Snippet
+```java
+     * @param userId
+     * @param alertGroupsIds
+     * @return
+     */
+    <T> List<AlertGroup> listAuthorizedAlertGroupList(@Param("userId") int userId,
+```
+
+### JavadocDeclaration
+`@param page` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
+#### Snippet
+```java
+    /**
+     * queryAlertGroupPageByIds
+     * @param page
+     * @param ids
+     * @param searchVal
+```
+
+### JavadocDeclaration
+`@param ids` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
+#### Snippet
+```java
+     * queryAlertGroupPageByIds
+     * @param page
+     * @param ids
+     * @param searchVal
+     * @return
+```
+
+### JavadocDeclaration
+`@param searchVal` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
+#### Snippet
+```java
+     * @param page
+     * @param ids
+     * @param searchVal
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
+#### Snippet
+```java
+     * @param ids
+     * @param searchVal
+     * @return
+     */
+    IPage<AlertGroup> queryAlertGroupPageByIds(Page<AlertGroup> page, @Param("ids") List<Integer> ids,
 ```
 
 ### JavadocDeclaration
@@ -20539,30 +20491,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Al
 
 ### JavadocDeclaration
 `@param page` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
-#### Snippet
-```java
-    /**
-     * queryAlertGroupPageByIds
-     * @param page
-     * @param ids
-     * @param searchVal
-```
-
-### JavadocDeclaration
-`@param ids` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
-#### Snippet
-```java
-     * queryAlertGroupPageByIds
-     * @param page
-     * @param ids
-     * @param searchVal
-     * @return
-```
-
-### JavadocDeclaration
-`@param page` tag description is missing
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/EnvironmentMapper.java`
 #### Snippet
 ```java
@@ -20571,18 +20499,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/En
      * @param page
      * @param ids
      * @param searchVal
-```
-
-### JavadocDeclaration
-`@param searchVal` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
-#### Snippet
-```java
-     * @param page
-     * @param ids
-     * @param searchVal
-     * @return
-     */
 ```
 
 ### JavadocDeclaration
@@ -20598,18 +20514,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/En
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
-#### Snippet
-```java
-     * @param ids
-     * @param searchVal
-     * @return
-     */
-    IPage<AlertGroup> queryAlertGroupPageByIds(Page<AlertGroup> page, @Param("ids") List<Integer> ids,
-```
-
-### JavadocDeclaration
 `@param searchVal` tag description is missing
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/EnvironmentMapper.java`
 #### Snippet
@@ -20619,18 +20523,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/En
      * @param searchVal
      * @return
      */
-```
-
-### JavadocDeclaration
-`@param userId` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
-#### Snippet
-```java
-    /**
-     * list authorized AlertGroup
-     * @param userId
-     * @param alertGroupsIds
-     * @return
 ```
 
 ### JavadocDeclaration
@@ -20643,30 +20535,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/En
      * @return
      */
     IPage<Environment> queryEnvironmentListPagingByIds(Page<Environment> page, @Param("ids") List<Integer> ids,
-```
-
-### JavadocDeclaration
-`@param alertGroupsIds` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
-#### Snippet
-```java
-     * list authorized AlertGroup
-     * @param userId
-     * @param alertGroupsIds
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/AlertGroupMapper.java`
-#### Snippet
-```java
-     * @param userId
-     * @param alertGroupsIds
-     * @return
-     */
-    <T> List<AlertGroup> listAuthorizedAlertGroupList(@Param("userId") int userId,
 ```
 
 ### JavadocDeclaration
@@ -20691,18 +20559,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Ta
      * @return
      */
     int updateStatusByTaskId(@Param("taskId") int taskId, @Param("status") int status);
-```
-
-### JavadocDeclaration
-`@param processDefinitionCode` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessTaskRelationMapper.java`
-#### Snippet
-```java
-    /**
-     * query downstream process task relation by processDefinitionCode
-     * @param processDefinitionCode
-     * @return ProcessTaskRelation
-     */
 ```
 
 ### JavadocDeclaration
@@ -20778,75 +20634,15 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Da
 ```
 
 ### JavadocDeclaration
-`@param onlineDataSourceId` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/DataSourceMapper.java`
+`@param processDefinitionCode` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessTaskRelationMapper.java`
 #### Snippet
 ```java
     /**
-     * queryTestDataSourceId
-     * @param onlineDataSourceId
-     * @return Integer
+     * query downstream process task relation by processDefinitionCode
+     * @param processDefinitionCode
+     * @return ProcessTaskRelation
      */
-```
-
-### JavadocDeclaration
-`@param bindTestId` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/DataSourceMapper.java`
-#### Snippet
-```java
-    /**
-     * clearBindTestId
-     * @param bindTestId
-     * @return
-     */
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/DataSourceMapper.java`
-#### Snippet
-```java
-     * clearBindTestId
-     * @param bindTestId
-     * @return
-     */
-    void clearBindTestId(@Param("bindTestId") Integer bindTestId);
-```
-
-### JavadocDeclaration
-`@param taskInstanceId` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProjectMapper.java`
-#### Snippet
-```java
-    /**
-     * query the project by task instance id
-     * @param taskInstanceId
-     * @return project
-     */
-```
-
-### JavadocDeclaration
-`@param userId` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProjectMapper.java`
-#### Snippet
-```java
-    /**
-     * query project list by userId
-     * @param userId
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProjectMapper.java`
-#### Snippet
-```java
-     * query project list by userId
-     * @param userId
-     * @return
-     */
-    List<Project> queryProjectCreatedAndAuthorizedByUserId(@Param("userId") int userId);
 ```
 
 ### JavadocDeclaration
@@ -20898,6 +20694,42 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Pr
 ```
 
 ### JavadocDeclaration
+`@param taskInstanceId` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProjectMapper.java`
+#### Snippet
+```java
+    /**
+     * query the project by task instance id
+     * @param taskInstanceId
+     * @return project
+     */
+```
+
+### JavadocDeclaration
+`@param userId` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProjectMapper.java`
+#### Snippet
+```java
+    /**
+     * query project list by userId
+     * @param userId
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProjectMapper.java`
+#### Snippet
+```java
+     * query project list by userId
+     * @param userId
+     * @return
+     */
+    List<Project> queryProjectCreatedAndAuthorizedByUserId(@Param("userId") int userId);
+```
+
+### JavadocDeclaration
 `@param userId` tag description is missing
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProjectMapper.java`
 #### Snippet
@@ -20946,6 +20778,30 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Pl
 ```
 
 ### JavadocDeclaration
+`@param stateArray` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessInstanceMapper.java`
+#### Snippet
+```java
+     * query process instance host by stateArray
+     *
+     * @param stateArray
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessInstanceMapper.java`
+#### Snippet
+```java
+     *
+     * @param stateArray
+     * @return
+     */
+    List<String> queryNeedFailoverProcessInstanceHost(@Param("states") int[] stateArray);
+```
+
+### JavadocDeclaration
 `@param triggerCode` tag description is missing
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessInstanceMapper.java`
 #### Snippet
@@ -20979,30 +20835,6 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/Pr
      * @param startTime   end time
      * @param status      process instance status
      * @param projectCode project code
-```
-
-### JavadocDeclaration
-`@param stateArray` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessInstanceMapper.java`
-#### Snippet
-```java
-     * query process instance host by stateArray
-     *
-     * @param stateArray
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/mapper/ProcessInstanceMapper.java`
-#### Snippet
-```java
-     *
-     * @param stateArray
-     * @return
-     */
-    List<String> queryNeedFailoverProcessInstanceHost(@Param("states") int[] stateArray);
 ```
 
 ### JavadocDeclaration
@@ -21054,6 +20886,18 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 ```
 
 ### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/FileUtils.java`
+#### Snippet
+```java
+     *
+     * @param execPath  directory of process execution
+     * @return
+     */
+    public static String getAppInfoPath(String execPath) {
+```
+
+### JavadocDeclaration
 `@param execPath` tag description is missing
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/FileUtils.java`
 #### Snippet
@@ -21078,18 +20922,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/FileUtils.java`
-#### Snippet
-```java
-     *
-     * @param execPath  directory of process execution
-     * @return
-     */
-    public static String getAppInfoPath(String execPath) {
-```
-
-### JavadocDeclaration
 `@param ` tag description is missing
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/JSONUtils.java`
 #### Snippet
@@ -21111,42 +20943,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
      * @param timezone
      * @return yyyy-MM-dd HH:mm:ss format
      */
-```
-
-### JavadocDeclaration
-`@param taskResponseEvent` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DataQualityResultOperator.java`
-#### Snippet
-```java
-     * get the data quality check result
-     * and if the result is failure that will alert or block
-     * @param taskResponseEvent
-     * @param dqExecuteResult
-     * @param processInstance
-```
-
-### JavadocDeclaration
-`@param dqExecuteResult` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DataQualityResultOperator.java`
-#### Snippet
-```java
-     * and if the result is failure that will alert or block
-     * @param taskResponseEvent
-     * @param dqExecuteResult
-     * @param processInstance
-     */
-```
-
-### JavadocDeclaration
-`@param processInstance` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DataQualityResultOperator.java`
-#### Snippet
-```java
-     * @param taskResponseEvent
-     * @param dqExecuteResult
-     * @param processInstance
-     */
-    private void checkDqExecuteResult(TaskEvent taskResponseEvent,
 ```
 
 ### JavadocDeclaration
@@ -21198,27 +20994,39 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### JavadocDeclaration
-`@param dependentItem` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
+`@param taskResponseEvent` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DataQualityResultOperator.java`
 #### Snippet
 ```java
-    /**
-     * check for self-dependent
-     * @param dependentItem
-     * @return
+     * get the data quality check result
+     * and if the result is failure that will alert or block
+     * @param taskResponseEvent
+     * @param dqExecuteResult
+     * @param processInstance
+```
+
+### JavadocDeclaration
+`@param dqExecuteResult` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DataQualityResultOperator.java`
+#### Snippet
+```java
+     * and if the result is failure that will alert or block
+     * @param taskResponseEvent
+     * @param dqExecuteResult
+     * @param processInstance
      */
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
+`@param processInstance` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DataQualityResultOperator.java`
 #### Snippet
 ```java
-     * check for self-dependent
-     * @param dependentItem
-     * @return
+     * @param taskResponseEvent
+     * @param dqExecuteResult
+     * @param processInstance
      */
-    public boolean isSelfDependent(DependentItem dependentItem) {
+    private void checkDqExecuteResult(TaskEvent taskResponseEvent,
 ```
 
 ### JavadocDeclaration
@@ -21258,18 +21066,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
-#### Snippet
-```java
-     * depend type = depend_all
-     *
-     * @return
-     */
-    private DependResult dependResultByProcessInstance(ProcessInstance processInstance) {
-```
-
-### JavadocDeclaration
 `@param dependentItem` tag description is missing
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
 #### Snippet
@@ -21294,27 +21090,39 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### JavadocDeclaration
-`@param businessParamsMap` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/builder/TaskExecutionContextBuilder.java`
+`@return` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
 #### Snippet
 ```java
-     * build business params
+     * depend type = depend_all
      *
-     * @param businessParamsMap
+     * @return
+     */
+    private DependResult dependResultByProcessInstance(ProcessInstance processInstance) {
+```
+
+### JavadocDeclaration
+`@param dependentItem` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
+#### Snippet
+```java
+    /**
+     * check for self-dependent
+     * @param dependentItem
      * @return
      */
 ```
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/builder/TaskExecutionContextBuilder.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
 #### Snippet
 ```java
-     *
-     * @param businessParamsMap
+     * check for self-dependent
+     * @param dependentItem
      * @return
      */
-    public TaskExecutionContextBuilder buildBusinessParamsMap(Map<String, Property> businessParamsMap) {
+    public boolean isSelfDependent(DependentItem dependentItem) {
 ```
 
 ### JavadocDeclaration
@@ -21342,15 +21150,111 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### JavadocDeclaration
+`@param businessParamsMap` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/builder/TaskExecutionContextBuilder.java`
+#### Snippet
+```java
+     * build business params
+     *
+     * @param businessParamsMap
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/builder/TaskExecutionContextBuilder.java`
+#### Snippet
+```java
+     *
+     * @param businessParamsMap
+     * @return
+     */
+    public TaskExecutionContextBuilder buildBusinessParamsMap(Map<String, Property> businessParamsMap) {
+```
+
+### JavadocDeclaration
+`@param processInstance` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
+#### Snippet
+```java
+     * 3. try to notify local master
+     *
+     * @param processInstance
+     * @param taskInstance
+     */
+```
+
+### JavadocDeclaration
+`@param taskInstance` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
+#### Snippet
+```java
+     *
+     * @param processInstance
+     * @param taskInstance
+     */
+    private void failoverTaskInstance(@NonNull ProcessInstance processInstance, @NonNull TaskInstance taskInstance) {
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/executor/ExecutorManager.java`
+#### Snippet
+```java
+     *
+     * @param context context
+     * @return T
+     * @throws ExecuteException if error throws ExecuteException
+     */
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
+#### Snippet
+```java
+     * 4. remove related task instance from taskInstanceMap, completeTaskSet, validTaskMap, errorTaskMap
+     *
+     * @return task instance
+     */
+    protected void clearDataIfExecuteTask() {
+```
+
+### JavadocDeclaration
 `@param dataQualityTaskExecutionContext` tag description is missing
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
 #### Snippet
 ```java
-     * The StatisticsValueWriterConfig will be used in DataQualityApplication that
-     * writes the statistics value into dolphin scheduler datasource
+     * writes the data quality check result into dolphin scheduler datasource
+     *
      * @param dataQualityTaskExecutionContext
      */
-    private void setStatisticsValueWriterConfig(DataQualityTaskExecutionContext dataQualityTaskExecutionContext) {
+    private void setWriterConfig(DataQualityTaskExecutionContext dataQualityTaskExecutionContext) {
+```
+
+### JavadocDeclaration
+`@param dataQualityTaskExecutionContext` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
+#### Snippet
+```java
+     * get the data which be used to compare to src value
+     *
+     * @param dataQualityTaskExecutionContext
+     * @param config
+     */
+```
+
+### JavadocDeclaration
+`@param config` tag description is missing
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
+#### Snippet
+```java
+     *
+     * @param dataQualityTaskExecutionContext
+     * @param config
+     */
+    private void setTargetConfig(DataQualityTaskExecutionContext dataQualityTaskExecutionContext,
 ```
 
 ### JavadocDeclaration
@@ -21430,71 +21334,11 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
 #### Snippet
 ```java
-     * get the data which be used to compare to src value
-     *
-     * @param dataQualityTaskExecutionContext
-     * @param config
-     */
-```
-
-### JavadocDeclaration
-`@param config` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
-#### Snippet
-```java
-     *
-     * @param dataQualityTaskExecutionContext
-     * @param config
-     */
-    private void setTargetConfig(DataQualityTaskExecutionContext dataQualityTaskExecutionContext,
-```
-
-### JavadocDeclaration
-`@param dataQualityTaskExecutionContext` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
-#### Snippet
-```java
-     * writes the data quality check result into dolphin scheduler datasource
-     *
+     * The StatisticsValueWriterConfig will be used in DataQualityApplication that
+     * writes the statistics value into dolphin scheduler datasource
      * @param dataQualityTaskExecutionContext
      */
-    private void setWriterConfig(DataQualityTaskExecutionContext dataQualityTaskExecutionContext) {
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/executor/ExecutorManager.java`
-#### Snippet
-```java
-     *
-     * @param context context
-     * @return T
-     * @throws ExecuteException if error throws ExecuteException
-     */
-```
-
-### JavadocDeclaration
-`@param processInstance` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
-#### Snippet
-```java
-     * 3. try to notify local master
-     *
-     * @param processInstance
-     * @param taskInstance
-     */
-```
-
-### JavadocDeclaration
-`@param taskInstance` tag description is missing
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/service/WorkerFailoverService.java`
-#### Snippet
-```java
-     *
-     * @param processInstance
-     * @param taskInstance
-     */
-    private void failoverTaskInstance(@NonNull ProcessInstance processInstance, @NonNull TaskInstance taskInstance) {
+    private void setStatisticsValueWriterConfig(DataQualityTaskExecutionContext dataQualityTaskExecutionContext) {
 ```
 
 ### JavadocDeclaration
@@ -21507,18 +21351,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
      * @return result
      * @throws ExecuteException if error throws ExecuteException
      */
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
-#### Snippet
-```java
-     * 4. remove related task instance from taskInstanceMap, completeTaskMap, validTaskMap, errorTaskMap
-     *
-     * @return task instance
-     */
-    protected void clearDataIfExecuteTask() {
 ```
 
 ### JavadocDeclaration
@@ -21642,6 +21474,18 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/remote/pro
 ```
 
 ### JavadocDeclaration
+`@param taskInstanceId` tag description is missing
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskKillProcessor.java`
+#### Snippet
+```java
+    /**
+     * kill task by cancel application
+     * @param taskInstanceId
+     */
+    protected void cancelApplication(int taskInstanceId) {
+```
+
+### JavadocDeclaration
 `@param tenantCode` tag description is missing
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskKillProcessor.java`
 #### Snippet
@@ -21663,18 +21507,6 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
      * @param processId
      */
     protected boolean killProcess(String tenantCode, Integer processId) {
-```
-
-### JavadocDeclaration
-`@param taskInstanceId` tag description is missing
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskKillProcessor.java`
-#### Snippet
-```java
-    /**
-     * kill task by cancel application
-     * @param taskInstanceId
-     */
-    protected void cancelApplication(int taskInstanceId) {
 ```
 
 ### JavadocDeclaration
@@ -21723,6 +21555,18 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/a
      * @return
      */
     public AlertSendResponse sendAlert(int groupId, String title, String content, int strategy) {
+```
+
+### JavadocDeclaration
+`@param param` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CronUtils.java`
+#### Snippet
+```java
+     * get Schedule Date
+     *
+     * @param param
+     * @return date list
+     */
 ```
 
 ### JavadocDeclaration
@@ -21807,18 +21651,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/q
      * @throws TaskPriorityQueueException
      */
     @Override
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/queue/TaskPriorityQueue.java`
-#### Snippet
-```java
-     *
-     * @return taskInfo
-     * @throws TaskPriorityQueueException
-     */
-    T take() throws TaskPriorityQueueException, InterruptedException;
 ```
 
 ### JavadocDeclaration
@@ -21887,18 +21719,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/q
 #### Snippet
 ```java
      *
-     * @return size
-     * @throws TaskPriorityQueueException
-     */
-    int size() throws TaskPriorityQueueException;
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/queue/TaskPriorityQueue.java`
-#### Snippet
-```java
-     *
      * @param taskInfo taskInfo
      * @throws TaskPriorityQueueException
      */
@@ -21918,39 +21738,27 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/q
 ```
 
 ### JavadocDeclaration
-`@param param` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/cron/CronUtils.java`
-#### Snippet
-```java
-     * get Schedule Date
-     *
-     * @param param
-     * @return date list
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/ClusterConfUtils.java`
+`@throws` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/queue/TaskPriorityQueue.java`
 #### Snippet
 ```java
      *
-     * @param config cluster config in db
-     * @return
+     * @return size
+     * @throws TaskPriorityQueueException
      */
-    public static String getK8sConfig(String config) {
+    int size() throws TaskPriorityQueueException;
 ```
 
 ### JavadocDeclaration
 `@throws` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/queue/PeerTaskInstancePriorityQueue.java`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/queue/TaskPriorityQueue.java`
 #### Snippet
 ```java
      *
-     * @return task instance
+     * @return taskInfo
      * @throws TaskPriorityQueueException
      */
-    @Override
+    T take() throws TaskPriorityQueueException, InterruptedException;
 ```
 
 ### JavadocDeclaration
@@ -22026,12 +21834,60 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/q
 ```
 
 ### JavadocDeclaration
-`@param placeholderName` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/TimePlaceholderResolverExpandService.java`
+`@throws` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/queue/PeerTaskInstancePriorityQueue.java`
+#### Snippet
+```java
+     *
+     * @return task instance
+     * @throws TaskPriorityQueueException
+     */
+    @Override
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/ClusterConfUtils.java`
+#### Snippet
+```java
+     *
+     * @param config cluster config in db
+     * @return
+     */
+    public static String getK8sConfig(String config) {
+```
+
+### JavadocDeclaration
+`@param processInstanceId` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
 #### Snippet
 ```java
     /**
      * time function extension
+     * @param processInstanceId
+     * @param timezone
+     * @param placeholderName
+```
+
+### JavadocDeclaration
+`@param timezone` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+     * time function extension
+     * @param processInstanceId
+     * @param timezone
+     * @param placeholderName
+     * @return
+```
+
+### JavadocDeclaration
+`@param placeholderName` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+     * @param processInstanceId
+     * @param timezone
      * @param placeholderName
      * @return
      */
@@ -22039,14 +21895,38 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/e
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/TimePlaceholderResolverExpandService.java`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
 #### Snippet
 ```java
-     * time function extension
+     * @param timezone
      * @param placeholderName
      * @return
      */
-    String timeFunctionExtension(Integer processInstanceId, String timeZone, String placeholderName);
+    String timeFunctionExtension(Integer processInstanceId, String timezone, String placeholderName);
+```
+
+### JavadocDeclaration
+`@param val` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+    /**
+     * convert parameter placeholders
+     * @param val
+     * @param allParamMap
+     * @return
+```
+
+### JavadocDeclaration
+`@param allParamMap` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+     * convert parameter placeholders
+     * @param val
+     * @param allParamMap
+     * @return
+     */
 ```
 
 ### JavadocDeclaration
@@ -22071,6 +21951,138 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/e
      * @return
      */
     boolean timeFunctionNeedExpand(String placeholderName);
+```
+
+### JavadocDeclaration
+`@param placeholderName` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/TimePlaceholderResolverExpandService.java`
+#### Snippet
+```java
+    /**
+     * time function extension
+     * @param placeholderName
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/TimePlaceholderResolverExpandService.java`
+#### Snippet
+```java
+     * time function extension
+     * @param placeholderName
+     * @return
+     */
+    String timeFunctionExtension(Integer processInstanceId, String timeZone, String placeholderName);
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+     * @param val
+     * @param allParamMap
+     * @return
+     */
+    String convertParameterPlaceholders(String val, Map<String, String> allParamMap);
+```
+
+### JavadocDeclaration
+`@param processInstance` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+    /**
+     * preBuildBusinessParams
+     * @param processInstance
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+     * preBuildBusinessParams
+     * @param processInstance
+     * @return
+     */
+    Map<String, Property> preBuildBusinessParams(ProcessInstance processInstance);
+```
+
+### JavadocDeclaration
+`@param placeholderName` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+    /**
+     * time function need expand
+     * @param placeholderName
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+     * time function need expand
+     * @param placeholderName
+     * @return
+     */
+    boolean timeFunctionNeedExpand(String placeholderName);
+```
+
+### JavadocDeclaration
+`@param parameters` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+    /**
+     * param parsing preparation
+     * @param parameters
+     * @param taskInstance
+     * @param processInstance
+```
+
+### JavadocDeclaration
+`@param taskInstance` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+     * param parsing preparation
+     * @param parameters
+     * @param taskInstance
+     * @param processInstance
+     * @return
+```
+
+### JavadocDeclaration
+`@param processInstance` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+     * @param parameters
+     * @param taskInstance
+     * @param processInstance
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
+#### Snippet
+```java
+     * @param taskInstance
+     * @param processInstance
+     * @return
+     */
+    Map<String, Property> paramParsingPreparation(@NonNull TaskInstance taskInstance,
 ```
 
 ### JavadocDeclaration
@@ -22158,186 +22170,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/e
 ```
 
 ### JavadocDeclaration
-`@param placeholderName` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-    /**
-     * time function need expand
-     * @param placeholderName
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-     * time function need expand
-     * @param placeholderName
-     * @return
-     */
-    boolean timeFunctionNeedExpand(String placeholderName);
-```
-
-### JavadocDeclaration
-`@param processInstance` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-    /**
-     * preBuildBusinessParams
-     * @param processInstance
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-     * preBuildBusinessParams
-     * @param processInstance
-     * @return
-     */
-    Map<String, Property> preBuildBusinessParams(ProcessInstance processInstance);
-```
-
-### JavadocDeclaration
-`@param processInstanceId` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-    /**
-     * time function extension
-     * @param processInstanceId
-     * @param timezone
-     * @param placeholderName
-```
-
-### JavadocDeclaration
-`@param timezone` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-     * time function extension
-     * @param processInstanceId
-     * @param timezone
-     * @param placeholderName
-     * @return
-```
-
-### JavadocDeclaration
-`@param placeholderName` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-     * @param processInstanceId
-     * @param timezone
-     * @param placeholderName
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-     * @param timezone
-     * @param placeholderName
-     * @return
-     */
-    String timeFunctionExtension(Integer processInstanceId, String timezone, String placeholderName);
-```
-
-### JavadocDeclaration
-`@param parameters` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-    /**
-     * param parsing preparation
-     * @param parameters
-     * @param taskInstance
-     * @param processInstance
-```
-
-### JavadocDeclaration
-`@param taskInstance` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-     * param parsing preparation
-     * @param parameters
-     * @param taskInstance
-     * @param processInstance
-     * @return
-```
-
-### JavadocDeclaration
-`@param processInstance` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-     * @param parameters
-     * @param taskInstance
-     * @param processInstance
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-     * @param taskInstance
-     * @param processInstance
-     * @return
-     */
-    Map<String, Property> paramParsingPreparation(@NonNull TaskInstance taskInstance,
-```
-
-### JavadocDeclaration
-`@param val` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-    /**
-     * convert parameter placeholders
-     * @param val
-     * @param allParamMap
-     * @return
-```
-
-### JavadocDeclaration
-`@param allParamMap` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-     * convert parameter placeholders
-     * @param val
-     * @param allParamMap
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringParamsService.java`
-#### Snippet
-```java
-     * @param val
-     * @param allParamMap
-     * @return
-     */
-    String convertParameterPlaceholders(String val, Map<String, String> allParamMap);
-```
-
-### JavadocDeclaration
 `@param processInstance` tag description is missing
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/alert/ProcessAlertManager.java`
 #### Snippet
@@ -22359,54 +22191,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/a
      * @return
      */
     public boolean isNeedToSendWarning(ProcessInstance processInstance) {
-```
-
-### JavadocDeclaration
-`@param taskInstance` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
-#### Snippet
-```java
-     * the global parameters and local parameters used in the worker will be prepared here, and built-in parameters.
-     *
-     * @param taskInstance
-     * @param parameters
-     * @param processInstance
-```
-
-### JavadocDeclaration
-`@param parameters` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
-#### Snippet
-```java
-     *
-     * @param taskInstance
-     * @param parameters
-     * @param processInstance
-     * @return
-```
-
-### JavadocDeclaration
-`@param processInstance` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
-#### Snippet
-```java
-     * @param taskInstance
-     * @param parameters
-     * @param processInstance
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
-#### Snippet
-```java
-     * @param parameters
-     * @param processInstance
-     * @return
-     */
-    @Override
 ```
 
 ### JavadocDeclaration
@@ -22518,6 +22302,54 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/e
 ```
 
 ### JavadocDeclaration
+`@param taskInstance` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
+#### Snippet
+```java
+     * the global parameters and local parameters used in the worker will be prepared here, and built-in parameters.
+     *
+     * @param taskInstance
+     * @param parameters
+     * @param processInstance
+```
+
+### JavadocDeclaration
+`@param parameters` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
+#### Snippet
+```java
+     *
+     * @param taskInstance
+     * @param parameters
+     * @param processInstance
+     * @return
+```
+
+### JavadocDeclaration
+`@param processInstance` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
+#### Snippet
+```java
+     * @param taskInstance
+     * @param parameters
+     * @param processInstance
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
+#### Snippet
+```java
+     * @param parameters
+     * @param processInstance
+     * @return
+     */
+    @Override
+```
+
+### JavadocDeclaration
 `@param nodeCode` tag description is missing
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/utils/DagHelper.java`
 #### Snippet
@@ -22590,13 +22422,13 @@ in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler
 ```
 
 ### JavadocDeclaration
-Wrong tag value
+Wrong tag `Code`
 in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler-registry-etcd/src/main/java/org/apache/dolphinscheduler/plugin/registry/etcd/EtcdRegistry.java`
 #### Snippet
 ```java
-     *
-     * @return Returns the value corresponding to the key
-     * @throws throws an exception if the key does not exist
+
+    /**
+     * delete all keys that contain the prefix {@Code key}
      */
     @Override
 ```
@@ -22614,18 +22446,6 @@ in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler
 ```
 
 ### JavadocDeclaration
-Wrong tag `Code`
-in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler-registry-etcd/src/main/java/org/apache/dolphinscheduler/plugin/registry/etcd/EtcdRegistry.java`
-#### Snippet
-```java
-
-    /**
-     * delete all keys that contain the prefix {@Code key}
-     */
-    @Override
-```
-
-### JavadocDeclaration
 Wrong tag value
 in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler-registry-etcd/src/main/java/org/apache/dolphinscheduler/plugin/registry/etcd/EtcdRegistry.java`
 #### Snippet
@@ -22635,6 +22455,42 @@ in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler
      * @throws throws an exception if the unsubscribe path does not exist
      * @param path The prefix of the key being listened to
      */
+```
+
+### JavadocDeclaration
+Wrong tag value
+in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler-registry-etcd/src/main/java/org/apache/dolphinscheduler/plugin/registry/etcd/EtcdRegistry.java`
+#### Snippet
+```java
+     *
+     * @return Returns the value corresponding to the key
+     * @throws throws an exception if the key does not exist
+     */
+    @Override
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractRemoteTask.java`
+#### Snippet
+```java
+     * submit a new remote application and get application info
+     *
+     * @return
+     * @throws TaskException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractRemoteTask.java`
+#### Snippet
+```java
+     *
+     * @return
+     * @throws TaskException
+     */
+    public abstract void submitApplication() throws TaskException;
 ```
 
 ### JavadocDeclaration
@@ -22674,30 +22530,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### JavadocDeclaration
-Tag `return` is not allowed here
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractRemoteTask.java`
-#### Snippet
-```java
-     * submit a new remote application and get application info
-     *
-     * @return
-     * @throws TaskException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractRemoteTask.java`
-#### Snippet
-```java
-     *
-     * @return
-     * @throws TaskException
-     */
-    public abstract void submitApplication() throws TaskException;
-```
-
-### JavadocDeclaration
 `@return` tag description is missing
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractYarnTask.java`
 #### Snippet
@@ -22717,30 +22549,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
      * get application ids
      * @return
      * @throws TaskException
-     */
-    @Override
-```
-
-### JavadocDeclaration
-Exception is not declared to be thrown by method buildCommand
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/k8s/AbstractK8sTask.java`
-#### Snippet
-```java
-     *
-     * @return String
-     * @throws Exception exception
-     */
-    protected abstract String buildCommand();
-```
-
-### JavadocDeclaration
-Exception is not declared to be thrown by method cancelApplication
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/k8s/AbstractK8sTask.java`
-#### Snippet
-```java
-     * cancel application
-     *
-     * @throws Exception exception
      */
     @Override
 ```
@@ -22767,6 +22575,30 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
      * @return
      */
     boolean killApplication(ApplicationManagerContext applicationManagerContext);
+```
+
+### JavadocDeclaration
+Exception is not declared to be thrown by method buildCommand
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/k8s/AbstractK8sTask.java`
+#### Snippet
+```java
+     *
+     * @return String
+     * @throws Exception exception
+     */
+    protected abstract String buildCommand();
+```
+
+### JavadocDeclaration
+Exception is not declared to be thrown by method cancelApplication
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/k8s/AbstractK8sTask.java`
+#### Snippet
+```java
+     * cancel application
+     *
+     * @throws Exception exception
+     */
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -22798,7 +22630,7 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/KubernetesApplicationManager.java`
 #### Snippet
 ```java
-     * get pod's log watcher
+     * create client or get from cache map
      *
      * @param kubernetesApplicationManagerContext
      * @return
@@ -22814,7 +22646,7 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
      * @param kubernetesApplicationManagerContext
      * @return
      */
-    public LogWatch getPodLogWatcher(KubernetesApplicationManagerContext kubernetesApplicationManagerContext) {
+    private KubernetesClient getClient(KubernetesApplicationManagerContext kubernetesApplicationManagerContext) {
 ```
 
 ### JavadocDeclaration
@@ -22894,7 +22726,7 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/KubernetesApplicationManager.java`
 #### Snippet
 ```java
-     * create client or get from cache map
+     * get pod's log watcher
      *
      * @param kubernetesApplicationManagerContext
      * @return
@@ -22910,7 +22742,7 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
      * @param kubernetesApplicationManagerContext
      * @return
      */
-    private KubernetesClient getClient(KubernetesApplicationManagerContext kubernetesApplicationManagerContext) {
+    public LogWatch getPodLogWatcher(KubernetesApplicationManagerContext kubernetesApplicationManagerContext) {
 ```
 
 ### JavadocDeclaration
@@ -22935,54 +22767,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
      * @return
      */
     private String findVarPool(String line) {
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-     *
-     * @param taskId task id
-     * @return the result code and msg
-     */
-
-```
-
-### JavadocDeclaration
-`@param parentValPool` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-     * only the keys doesn't in sub process global would be joined.
-     *
-     * @param parentValPool
-     * @param subValPool
-     * @return
-```
-
-### JavadocDeclaration
-`@param subValPool` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-     *
-     * @param parentValPool
-     * @param subValPool
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-     * @param parentValPool
-     * @param subValPool
-     * @return
-     */
-    private String joinVarPool(String parentValPool, String subValPool) {
 ```
 
 ### JavadocDeclaration
@@ -23142,6 +22926,54 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### JavadocDeclaration
+Tag `return` is not allowed here
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+     *
+     * @param taskId task id
+     * @return the result code and msg
+     */
+
+```
+
+### JavadocDeclaration
+`@param parentValPool` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+     * only the keys doesn't in sub process global would be joined.
+     *
+     * @param parentValPool
+     * @param subValPool
+     * @return
+```
+
+### JavadocDeclaration
+`@param subValPool` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+     *
+     * @param parentValPool
+     * @param subValPool
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+     * @param parentValPool
+     * @param subValPool
+     * @return
+     */
+    private String joinVarPool(String parentValPool, String subValPool) {
+```
+
+### JavadocDeclaration
 `@param result` tag description is missing
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parameters/AbstractParameters.java`
 #### Snippet
@@ -23187,66 +23019,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
      * @return
      */
     public SQLTaskExecutionContext generateExtendedContext(ResourceParametersHelper parametersHelper) {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dms/src/main/java/org/apache/dolphinscheduler/plugin/task/dms/DmsTask.java`
-#### Snippet
-```java
-     * start replication task
-     *
-     * @return
-     * @throws TaskException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-dms/src/main/java/org/apache/dolphinscheduler/plugin/task/dms/DmsTask.java`
-#### Snippet
-```java
-     *
-     * @return
-     * @throws TaskException
-     */
-    public int startReplicationTask() {
-```
-
-### JavadocDeclaration
-`@param expression` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/TimePlaceholderUtils.java`
-#### Snippet
-```java
-     * string to list
-     *
-     * @param expression
-     * @return list
-     */
-```
-
-### JavadocDeclaration
-`@param result` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/TimePlaceholderUtils.java`
-#### Snippet
-```java
-     * Calculate the suffix expression
-     *
-     * @param result
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/TimePlaceholderUtils.java`
-#### Snippet
-```java
-     *
-     * @param result
-     * @return
-     */
-    private static Integer calculate(List<String> result) {
 ```
 
 ### JavadocDeclaration
@@ -23310,39 +23082,63 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 ```
 
 ### JavadocDeclaration
-Wrong tag `returnboolean`
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaParameters.java`
+`@param expression` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/TimePlaceholderUtils.java`
 #### Snippet
 ```java
-     * Check that the parameters are valid
+     * string to list
      *
-     * @returnboolean
+     * @param expression
+     * @return list
      */
-    @Override
 ```
 
 ### JavadocDeclaration
-`@param status` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTaskChannel.java`
+`@param result` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/TimePlaceholderUtils.java`
 #### Snippet
 ```java
-     * Cancel the mission
+     * Calculate the suffix expression
      *
-     * @param status
-     * @return void
-     **/
+     * @param result
+     * @return
+     */
 ```
 
 ### JavadocDeclaration
-Tag `return` is not allowed here
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTaskChannel.java`
+`@return` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/parser/TimePlaceholderUtils.java`
 #### Snippet
 ```java
      *
-     * @param status
-     * @return void
-     **/
-    @Override
+     * @param result
+     * @return
+     */
+    private static Integer calculate(List<String> result) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dms/src/main/java/org/apache/dolphinscheduler/plugin/task/dms/DmsTask.java`
+#### Snippet
+```java
+     * start replication task
+     *
+     * @return
+     * @throws TaskException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-dms/src/main/java/org/apache/dolphinscheduler/plugin/task/dms/DmsTask.java`
+#### Snippet
+```java
+     *
+     * @return
+     * @throws TaskException
+     */
+    public int startReplicationTask() {
 ```
 
 ### JavadocDeclaration
@@ -23382,87 +23178,39 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/ap
 ```
 
 ### JavadocDeclaration
-Exception is not declared to be thrown by method prepareStatementAndBind
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+`@param status` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTaskChannel.java`
 #### Snippet
 ```java
-     * @param sqlBinds sqlBinds
-     * @return PreparedStatement
-     * @throws Exception Exception
-     */
-    private PreparedStatement prepareStatementAndBind(Connection connection, SqlBinds sqlBinds) {
+     * Cancel the mission
+     *
+     * @param status
+     * @return void
+     **/
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+Tag `return` is not allowed here
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTaskChannel.java`
 #### Snippet
 ```java
-     * @param udfFuncParameters udfFuncParameters
-     * @param log log
-     * @return
-     */
-    private List<String> createFuncs(List<UdfFuncParameters> udfFuncParameters, Logger log) {
+     *
+     * @param status
+     * @return void
+     **/
+    @Override
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+Wrong tag `returnboolean`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaParameters.java`
 #### Snippet
 ```java
-     * build jar sql
-     * @param udfFuncParameters udfFuncParameters
-     * @return
+     * Check that the parameters are valid
+     *
+     * @returnboolean
      */
-    private List<String> buildJarSql(List<UdfFuncParameters> udfFuncParameters) {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
-#### Snippet
-```java
-     * build temp function sql
-     * @param udfFuncParameters udfFuncParameters
-     * @return
-     */
-    private List<String> buildTempFuncSql(List<UdfFuncParameters> udfFuncParameters) {
-```
-
-### JavadocDeclaration
-`@param sql` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
-#### Snippet
-```java
-     * when the data source does not support multi-segment SQL execution,
-     * and the client needs to split the SQL and execute it multiple times.</p>
-     * @param sql
-     * @param segmentSeparator
-     * @return
-```
-
-### JavadocDeclaration
-`@param segmentSeparator` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
-#### Snippet
-```java
-     * and the client needs to split the SQL and execute it multiple times.</p>
-     * @param sql
-     * @param segmentSeparator
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
-#### Snippet
-```java
-     * @param sql
-     * @param segmentSeparator
-     * @return
-     */
-    public static List<String> split(String sql, String segmentSeparator) {
+    @Override
 ```
 
 ### JavadocDeclaration
@@ -23470,11 +23218,11 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apa
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
 #### Snippet
 ```java
-     * Gets the public class name from the Java source file
+     * Constructs a shell command compiled from a Java source file
      *
      * @param sourceCode
      * @return String
-     **/
+     * @throws IOException
 ```
 
 ### JavadocDeclaration
@@ -23482,11 +23230,47 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/ap
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
 #### Snippet
 ```java
-     *
+     * @param sourceCode
      * @return String
-     * @throws Exception
+     * @throws IOException
      **/
-    protected String buildJavaCommand() throws Exception {
+    protected String buildJavaCompileCommand(String sourceCode) throws IOException {
+```
+
+### JavadocDeclaration
+`@param sourceCode` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+#### Snippet
+```java
+     * Creates a Java source file when it does not exist
+     *
+     * @param sourceCode
+     * @param fileName
+     * @return String
+```
+
+### JavadocDeclaration
+`@param fileName` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+#### Snippet
+```java
+     *
+     * @param sourceCode
+     * @param fileName
+     * @return String
+     **/
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+#### Snippet
+```java
+     * @param sourceCode
+     * @param fileName
+     * @return String
+     **/
+    protected void createJavaSourceFileIfNotExists(String sourceCode, String fileName) throws IOException {
 ```
 
 ### JavadocDeclaration
@@ -23566,11 +23350,11 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/ap
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
 #### Snippet
 ```java
-     * Constructs a shell command compiled from a Java source file
+     * Gets the public class name from the Java source file
      *
      * @param sourceCode
      * @return String
-     * @throws IOException
+     **/
 ```
 
 ### JavadocDeclaration
@@ -23578,47 +23362,107 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/ap
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
 #### Snippet
 ```java
-     * @param sourceCode
-     * @return String
-     * @throws IOException
-     **/
-    protected String buildJavaCompileCommand(String sourceCode) throws IOException {
-```
-
-### JavadocDeclaration
-`@param sourceCode` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
-#### Snippet
-```java
-     * Creates a Java source file when it does not exist
      *
-     * @param sourceCode
-     * @param fileName
      * @return String
+     * @throws Exception
+     **/
+    protected String buildJavaCommand() throws Exception {
 ```
 
 ### JavadocDeclaration
-`@param fileName` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+`@return` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
 #### Snippet
 ```java
-     *
-     * @param sourceCode
-     * @param fileName
-     * @return String
-     **/
+     * @param udfFuncParameters udfFuncParameters
+     * @param log log
+     * @return
+     */
+    private List<String> createFuncs(List<UdfFuncParameters> udfFuncParameters, Logger log) {
 ```
 
 ### JavadocDeclaration
-Tag `return` is not allowed here
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+Exception is not declared to be thrown by method prepareStatementAndBind
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
 #### Snippet
 ```java
-     * @param sourceCode
-     * @param fileName
-     * @return String
-     **/
-    protected void createJavaSourceFileIfNotExists(String sourceCode, String fileName) throws IOException {
+     * @param sqlBinds sqlBinds
+     * @return PreparedStatement
+     * @throws Exception Exception
+     */
+    private PreparedStatement prepareStatementAndBind(Connection connection, SqlBinds sqlBinds) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+     * build temp function sql
+     * @param udfFuncParameters udfFuncParameters
+     * @return
+     */
+    private List<String> buildTempFuncSql(List<UdfFuncParameters> udfFuncParameters) {
+```
+
+### JavadocDeclaration
+`@param sql` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+     * when the data source does not support multi-segment SQL execution,
+     * and the client needs to split the SQL and execute it multiple times.</p>
+     * @param sql
+     * @param segmentSeparator
+     * @return
+```
+
+### JavadocDeclaration
+`@param segmentSeparator` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+     * and the client needs to split the SQL and execute it multiple times.</p>
+     * @param sql
+     * @param segmentSeparator
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+     * @param sql
+     * @param segmentSeparator
+     * @return
+     */
+    public static List<String> split(String sql, String segmentSeparator) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+     * build jar sql
+     * @param udfFuncParameters udfFuncParameters
+     * @return
+     */
+    private List<String> buildJarSql(List<UdfFuncParameters> udfFuncParameters) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkArgsUtils.java`
+#### Snippet
+```java
+    /**
+     * build flink savepoint command line, the savepoint folder should be set in flink conf
+     * @return
+     */
+    public static List<String> buildSavePointCommandLine(TaskExecutionContext taskExecutionContext) {
 ```
 
 ### JavadocDeclaration
@@ -23643,18 +23487,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/a
      * @return
      */
     public static List<String> buildCancelCommandLine(TaskExecutionContext taskExecutionContext) {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkArgsUtils.java`
-#### Snippet
-```java
-    /**
-     * build flink savepoint command line, the savepoint folder should be set in flink conf
-     * @return
-     */
-    public static List<String> buildSavePointCommandLine(TaskExecutionContext taskExecutionContext) {
 ```
 
 ### JavadocDeclaration
@@ -23771,186 +23603,6 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/o
 #### Snippet
 ```java
     /**
-     * return the udf directory of tenant
-     * @param tenantCode
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * return the udf directory of tenant
-     * @param tenantCode
-     * @return
-     */
-    String getUdfDir(String tenantCode);
-```
-
-### JavadocDeclaration
-`@param fullName` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-    /**
-     * predicate  if the resource of tenant exists
-     * @param fullName
-     * @return
-     * @throws IOException
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * predicate  if the resource of tenant exists
-     * @param fullName
-     * @return
-     * @throws IOException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param fullName
-     * @return
-     * @throws IOException
-     */
-    boolean exists(String fullName) throws IOException;
-```
-
-### JavadocDeclaration
-`@param resourceType` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-    /**
-     * get the root path of the tenant with resourceType
-     * @param resourceType
-     * @param tenantCode
-     * @return
-```
-
-### JavadocDeclaration
-`@param tenantCode` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * get the root path of the tenant with resourceType
-     * @param resourceType
-     * @param tenantCode
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param resourceType
-     * @param tenantCode
-     * @return
-     */
-    String getDir(ResourceType resourceType, String tenantCode);
-```
-
-### JavadocDeclaration
-`@param fullName` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-    /**
-     * get the path of the resource file excluding the base path (fileName)
-     * @param fullName
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * get the path of the resource file excluding the base path (fileName)
-     * @param fullName
-     * @return
-     */
-    String getResourceFileName(String tenantCode, String fullName);
-```
-
-### JavadocDeclaration
-`@param srcPath` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-    /**
-     * copy the file from srcPath to dstPath
-     * @param srcPath
-     * @param dstPath
-     * @param deleteSource if need to delete the file of srcPath
-```
-
-### JavadocDeclaration
-`@param dstPath` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * copy the file from srcPath to dstPath
-     * @param srcPath
-     * @param dstPath
-     * @param deleteSource if need to delete the file of srcPath
-     * @param overwrite
-```
-
-### JavadocDeclaration
-`@param overwrite` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param dstPath
-     * @param deleteSource if need to delete the file of srcPath
-     * @param overwrite
-     * @return
-     * @throws IOException
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param deleteSource if need to delete the file of srcPath
-     * @param overwrite
-     * @return
-     * @throws IOException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param overwrite
-     * @return
-     * @throws IOException
-     */
-    boolean copy(String srcPath, String dstPath, boolean deleteSource, boolean overwrite) throws IOException;
-```
-
-### JavadocDeclaration
-`@param tenantCode` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-    /**
      * get the path of the resource file (fullName)
      * @param tenantCode
      * @param fileName
@@ -23982,37 +23634,13 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/o
 ```
 
 ### JavadocDeclaration
-`@param resourceType` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-    /**
-     * get the path of the file
-     * @param resourceType
-     * @param tenantCode
-     * @param fileName
-```
-
-### JavadocDeclaration
 `@param tenantCode` tag description is missing
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
 #### Snippet
 ```java
-     * get the path of the file
-     * @param resourceType
+    /**
+     * return the udf directory of tenant
      * @param tenantCode
-     * @param fileName
-     * @return
-```
-
-### JavadocDeclaration
-`@param fileName` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param resourceType
-     * @param tenantCode
-     * @param fileName
      * @return
      */
 ```
@@ -24022,155 +23650,11 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/o
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
 #### Snippet
 ```java
+     * return the udf directory of tenant
      * @param tenantCode
-     * @param fileName
      * @return
      */
-    String getFileName(ResourceType resourceType, String tenantCode, String fileName);
-```
-
-### JavadocDeclaration
-`@param tenantCode` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-    /**
-     * vim the context of filePath
-     * @param tenantCode
-     * @param filePath
-     * @param skipLineNums
-```
-
-### JavadocDeclaration
-`@param filePath` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * vim the context of filePath
-     * @param tenantCode
-     * @param filePath
-     * @param skipLineNums
-     * @param limit
-```
-
-### JavadocDeclaration
-`@param skipLineNums` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param tenantCode
-     * @param filePath
-     * @param skipLineNums
-     * @param limit
-     * @return
-```
-
-### JavadocDeclaration
-`@param limit` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param filePath
-     * @param skipLineNums
-     * @param limit
-     * @return
-     * @throws IOException
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param skipLineNums
-     * @param limit
-     * @return
-     * @throws IOException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param limit
-     * @return
-     * @throws IOException
-     */
-    List<String> vimFile(String tenantCode, String filePath, int skipLineNums, int limit) throws IOException;
-```
-
-### JavadocDeclaration
-`@param tenantCode` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * delete the files and directory of the tenant
-     *
-     * @param tenantCode
-     * @throws Exception
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     *
-     * @param tenantCode
-     * @throws Exception
-     */
-    void deleteTenant(String tenantCode) throws Exception;
-```
-
-### JavadocDeclaration
-`@param tenantCode` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-    /**
-     * create the directory that the path of tenant wanted to create
-     * @param tenantCode
-     * @param path
-     * @return
-```
-
-### JavadocDeclaration
-`@param path` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * create the directory that the path of tenant wanted to create
-     * @param tenantCode
-     * @param path
-     * @return
-     * @throws IOException
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param tenantCode
-     * @param path
-     * @return
-     * @throws IOException
-     */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * @param path
-     * @return
-     * @throws IOException
-     */
-    boolean mkdir(String tenantCode, String path) throws IOException;
+    String getUdfDir(String tenantCode);
 ```
 
 ### JavadocDeclaration
@@ -24246,6 +23730,54 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/o
 ```
 
 ### JavadocDeclaration
+`@param fullName` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+    /**
+     * get the path of the resource file excluding the base path (fileName)
+     * @param fullName
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * get the path of the resource file excluding the base path (fileName)
+     * @param fullName
+     * @return
+     */
+    String getResourceFileName(String tenantCode, String fullName);
+```
+
+### JavadocDeclaration
+`@param tenantCode` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * delete the files and directory of the tenant
+     *
+     * @param tenantCode
+     * @throws Exception
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     *
+     * @param tenantCode
+     * @throws Exception
+     */
+    void deleteTenant(String tenantCode) throws Exception;
+```
+
+### JavadocDeclaration
 `@param filePath` tag description is missing
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
 #### Snippet
@@ -24294,27 +23826,15 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/o
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
-#### Snippet
-```java
-     * return the storageType
-     *
-     * @return
-     */
-    ResUploadType returnStorageType();
-```
-
-### JavadocDeclaration
-`@param tenantCode` tag description is missing
+`@param fullName` tag description is missing
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
 #### Snippet
 ```java
     /**
-     * get the resource directory of tenant
-     * @param tenantCode
+     * predicate  if the resource of tenant exists
+     * @param fullName
      * @return
-     */
+     * @throws IOException
 ```
 
 ### JavadocDeclaration
@@ -24322,11 +23842,23 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/o
 in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
 #### Snippet
 ```java
-     * get the resource directory of tenant
-     * @param tenantCode
+     * predicate  if the resource of tenant exists
+     * @param fullName
      * @return
+     * @throws IOException
      */
-    String getResDir(String tenantCode);
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param fullName
+     * @return
+     * @throws IOException
+     */
+    boolean exists(String fullName) throws IOException;
 ```
 
 ### JavadocDeclaration
@@ -24415,26 +23947,302 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/o
 
 ### JavadocDeclaration
 `@param tenantCode` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/org/apache/dolphinscheduler/plugin/storage/s3/S3StorageOperator.java`
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
 #### Snippet
 ```java
-     * download S3 Directory to local
-     *
+    /**
+     * vim the context of filePath
      * @param tenantCode
-     * @param keyPrefix  the name of directory
-     * @param srcPath
+     * @param filePath
+     * @param skipLineNums
+```
+
+### JavadocDeclaration
+`@param filePath` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * vim the context of filePath
+     * @param tenantCode
+     * @param filePath
+     * @param skipLineNums
+     * @param limit
+```
+
+### JavadocDeclaration
+`@param skipLineNums` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param tenantCode
+     * @param filePath
+     * @param skipLineNums
+     * @param limit
+     * @return
+```
+
+### JavadocDeclaration
+`@param limit` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param filePath
+     * @param skipLineNums
+     * @param limit
+     * @return
+     * @throws IOException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param skipLineNums
+     * @param limit
+     * @return
+     * @throws IOException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param limit
+     * @return
+     * @throws IOException
+     */
+    List<String> vimFile(String tenantCode, String filePath, int skipLineNums, int limit) throws IOException;
+```
+
+### JavadocDeclaration
+`@param resourceType` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+    /**
+     * get the root path of the tenant with resourceType
+     * @param resourceType
+     * @param tenantCode
+     * @return
+```
+
+### JavadocDeclaration
+`@param tenantCode` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * get the root path of the tenant with resourceType
+     * @param resourceType
+     * @param tenantCode
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param resourceType
+     * @param tenantCode
+     * @return
+     */
+    String getDir(ResourceType resourceType, String tenantCode);
+```
+
+### JavadocDeclaration
+`@param tenantCode` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+    /**
+     * create the directory that the path of tenant wanted to create
+     * @param tenantCode
+     * @param path
+     * @return
+```
+
+### JavadocDeclaration
+`@param path` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * create the directory that the path of tenant wanted to create
+     * @param tenantCode
+     * @param path
+     * @return
+     * @throws IOException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param tenantCode
+     * @param path
+     * @return
+     * @throws IOException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param path
+     * @return
+     * @throws IOException
+     */
+    boolean mkdir(String tenantCode, String path) throws IOException;
 ```
 
 ### JavadocDeclaration
 `@param srcPath` tag description is missing
-in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/org/apache/dolphinscheduler/plugin/storage/s3/S3StorageOperator.java`
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+    /**
+     * copy the file from srcPath to dstPath
+     * @param srcPath
+     * @param dstPath
+     * @param deleteSource if need to delete the file of srcPath
+```
+
+### JavadocDeclaration
+`@param dstPath` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * copy the file from srcPath to dstPath
+     * @param srcPath
+     * @param dstPath
+     * @param deleteSource if need to delete the file of srcPath
+     * @param overwrite
+```
+
+### JavadocDeclaration
+`@param overwrite` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param dstPath
+     * @param deleteSource if need to delete the file of srcPath
+     * @param overwrite
+     * @return
+     * @throws IOException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param deleteSource if need to delete the file of srcPath
+     * @param overwrite
+     * @return
+     * @throws IOException
+     */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param overwrite
+     * @return
+     * @throws IOException
+     */
+    boolean copy(String srcPath, String dstPath, boolean deleteSource, boolean overwrite) throws IOException;
+```
+
+### JavadocDeclaration
+`@param resourceType` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+    /**
+     * get the path of the file
+     * @param resourceType
+     * @param tenantCode
+     * @param fileName
+```
+
+### JavadocDeclaration
+`@param tenantCode` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * get the path of the file
+     * @param resourceType
+     * @param tenantCode
+     * @param fileName
+     * @return
+```
+
+### JavadocDeclaration
+`@param fileName` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * @param resourceType
+     * @param tenantCode
+     * @param fileName
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
 #### Snippet
 ```java
      * @param tenantCode
-     * @param keyPrefix  the name of directory
-     * @param srcPath
+     * @param fileName
+     * @return
      */
-    private void downloadDirectory(String tenantCode, String keyPrefix, String srcPath) {
+    String getFileName(ResourceType resourceType, String tenantCode, String fileName);
+```
+
+### JavadocDeclaration
+`@param tenantCode` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+    /**
+     * get the resource directory of tenant
+     * @param tenantCode
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * get the resource directory of tenant
+     * @param tenantCode
+     * @return
+     */
+    String getResDir(String tenantCode);
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-api/src/main/java/org/apache/dolphinscheduler/plugin/storage/api/StorageOperate.java`
+#### Snippet
+```java
+     * return the storageType
+     *
+     * @return
+     */
+    ResUploadType returnStorageType();
 ```
 
 ### JavadocDeclaration
@@ -24462,6 +24270,30 @@ in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/or
 ```
 
 ### JavadocDeclaration
+`@param tenantCode` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/org/apache/dolphinscheduler/plugin/storage/s3/S3StorageOperator.java`
+#### Snippet
+```java
+     * download S3 Directory to local
+     *
+     * @param tenantCode
+     * @param keyPrefix  the name of directory
+     * @param srcPath
+```
+
+### JavadocDeclaration
+`@param srcPath` tag description is missing
+in `dolphinscheduler-storage-plugin/dolphinscheduler-storage-s3/src/main/java/org/apache/dolphinscheduler/plugin/storage/s3/S3StorageOperator.java`
+#### Snippet
+```java
+     * @param tenantCode
+     * @param keyPrefix  the name of directory
+     * @param srcPath
+     */
+    private void downloadDirectory(String tenantCode, String keyPrefix, String srcPath) {
+```
+
+### JavadocDeclaration
 `@param configuration` tag description is missing
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/java/org/apache/dolphinscheduler/plugin/datasource/api/utils/CommonUtils.java`
 #### Snippet
@@ -24483,30 +24315,6 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-api/src/main/
      * @param paramJson
      * @return {@link BaseDataSourceParamDTO}
      */
-```
-
-### JavadocDeclaration
-`@param redshiftConnectionParam` tag description is missing
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/main/java/org/apache/dolphinscheduler/plugin/datasource/redshift/param/RedshiftDataSourceProcessor.java`
-#### Snippet
-```java
-     * address example2: jdbc:redshift:iam://examplecluster.abc123xyz789.us-west-2.redshift.amazonaws.com:5439/dev?AccessKeyID=xxx&SecretAccessKey=xxx&DbUser=kristen
-     *
-     * @param redshiftConnectionParam
-     * @return
-     */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/main/java/org/apache/dolphinscheduler/plugin/datasource/redshift/param/RedshiftDataSourceProcessor.java`
-#### Snippet
-```java
-     *
-     * @param redshiftConnectionParam
-     * @return
-     */
-    public static Connection getConnectionByIAM(RedshiftConnectionParam redshiftConnectionParam) {
 ```
 
 ### JavadocDeclaration
@@ -24534,6 +24342,30 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/
 ```
 
 ### JavadocDeclaration
+`@param redshiftConnectionParam` tag description is missing
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/main/java/org/apache/dolphinscheduler/plugin/datasource/redshift/param/RedshiftDataSourceProcessor.java`
+#### Snippet
+```java
+     * address example2: jdbc:redshift:iam://examplecluster.abc123xyz789.us-west-2.redshift.amazonaws.com:5439/dev?AccessKeyID=xxx&SecretAccessKey=xxx&DbUser=kristen
+     *
+     * @param redshiftConnectionParam
+     * @return
+     */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-redshift/src/main/java/org/apache/dolphinscheduler/plugin/datasource/redshift/param/RedshiftDataSourceProcessor.java`
+#### Snippet
+```java
+     *
+     * @param redshiftConnectionParam
+     * @return
+     */
+    public static Connection getConnectionByIAM(RedshiftConnectionParam redshiftConnectionParam) {
+```
+
+### JavadocDeclaration
 `@param paramDTO` tag description is missing
 in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-azure-sql/src/main/java/org/apache/dolphinscheduler/plugin/datasource/azuresql/param/AzureSQLDataSourceProcessor.java`
 #### Snippet
@@ -24543,43 +24375,6 @@ in `dolphinscheduler-datasource-plugin/dolphinscheduler-datasource-azure-sql/src
      * @param paramDTO
      */
     private void checkTrustServerCertificate(BaseDataSourceParamDTO paramDTO) {
-```
-
-## RuleId[id=RedundantCast]
-### RedundantCast
-Casting `checkAndParseDateParameters(...)` to `Date` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AuditServiceImpl.java`
-#### Snippet
-```java
-        }
-
-        Date start = (Date) checkAndParseDateParameters(startDate);
-        Date end = (Date) checkAndParseDateParameters(endDate);
-
-```
-
-### RedundantCast
-Casting `checkAndParseDateParameters(...)` to `Date` is redundant
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AuditServiceImpl.java`
-#### Snippet
-```java
-
-        Date start = (Date) checkAndParseDateParameters(startDate);
-        Date end = (Date) checkAndParseDateParameters(endDate);
-
-        Page<AuditLog> page = new Page<>(pageNo, pageSize);
-```
-
-### RedundantCast
-Casting `hostWorker` to `Host` is redundant
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/HostWeight.java`
-#### Snippet
-```java
-
-    public Host getHost() {
-        return (Host) hostWorker;
-    }
-
 ```
 
 ## RuleId[id=SpringTransactionalMethodCallsInspection]
@@ -24633,18 +24428,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/p
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `resourceList` may be 'final'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/resources/filter/ResourceFilter.java`
-#### Snippet
-```java
-     * resource list
-     */
-    private List<StorageEntity> resourceList;
-
-    /**
-```
-
-### FieldMayBeFinal
 Field `suffix` may be 'final'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/resources/filter/ResourceFilter.java`
 #### Snippet
@@ -24657,15 +24440,15 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/resou
 ```
 
 ### FieldMayBeFinal
-Field `clientMap` may be 'final'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sManager.java`
+Field `resourceList` may be 'final'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/dto/resources/filter/ResourceFilter.java`
 #### Snippet
 ```java
-     * cache k8s client
+     * resource list
      */
-    private static Map<Long, KubernetesClient> clientMap = new Hashtable<>();
+    private List<StorageEntity> resourceList;
 
-    @Autowired
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -24681,6 +24464,18 @@ public class K8sClientService {
 ```
 
 ### FieldMayBeFinal
+Field `clientMap` may be 'final'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sManager.java`
+#### Snippet
+```java
+     * cache k8s client
+     */
+    private static Map<Long, KubernetesClient> clientMap = new Hashtable<>();
+
+    @Autowired
+```
+
+### FieldMayBeFinal
 Field `auditMessageQueue` may be 'final'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/audit/AuditPublishService.java`
 #### Snippet
@@ -24693,18 +24488,6 @@ public class AuditPublishService {
 ```
 
 ### FieldMayBeFinal
-Field `resourceYaml` may be 'final'
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
-#### Snippet
-```java
-public class K8SNamespaceServiceImpl extends BaseServiceImpl implements K8sNamespaceService {
-
-    private static String resourceYaml = "apiVersion: v1\n"
-            + "kind: ResourceQuota\n"
-            + "metadata:\n"
-```
-
-### FieldMayBeFinal
 Field `beanFactory` may be 'final'
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/SecurityConfig.java`
 #### Snippet
@@ -24714,6 +24497,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/security/
     private AutowireCapableBeanFactory beanFactory;
     private AuthenticationType authenticationType;
 
+```
+
+### FieldMayBeFinal
+Field `resourceYaml` may be 'final'
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
+#### Snippet
+```java
+public class K8SNamespaceServiceImpl extends BaseServiceImpl implements K8sNamespaceService {
+
+    private static String resourceYaml = "apiVersion: v1\n"
+            + "kind: ResourceQuota\n"
+            + "metadata:\n"
 ```
 
 ### FieldMayBeFinal
@@ -24741,6 +24536,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/intercept
 ```
 
 ### FieldMayBeFinal
+Field `formType` may be 'final'
+in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/FormType.java`
+#### Snippet
+```java
+    GROUP("group");
+
+    private String formType;
+
+    FormType(String formType) {
+```
+
+### FieldMayBeFinal
 Field `triggerType` may be 'final'
 in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/TriggerType.java`
 #### Snippet
@@ -24750,6 +24557,18 @@ in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/ba
     private String triggerType;
 
     TriggerType(String triggerType) {
+```
+
+### FieldMayBeFinal
+Field `dataType` may be 'final'
+in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/DataType.java`
+#### Snippet
+```java
+    NUMBER("number");
+
+    private String dataType;
+
+    DataType(String dataType) {
 ```
 
 ### FieldMayBeFinal
@@ -24765,18 +24584,6 @@ in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/ba
 ```
 
 ### FieldMayBeFinal
-Field `formType` may be 'final'
-in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/FormType.java`
-#### Snippet
-```java
-    GROUP("group");
-
-    private String formType;
-
-    FormType(String formType) {
-```
-
-### FieldMayBeFinal
 Field `propsType` may be 'final'
 in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/PropsType.java`
 #### Snippet
@@ -24786,18 +24593,6 @@ in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/ba
     private String propsType;
 
     PropsType(String propsType) {
-```
-
-### FieldMayBeFinal
-Field `dataType` may be 'final'
-in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/base/DataType.java`
-#### Snippet
-```java
-    NUMBER("number");
-
-    private String dataType;
-
-    DataType(String dataType) {
 ```
 
 ### FieldMayBeFinal
@@ -24861,18 +24656,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/enu
 ```
 
 ### FieldMayBeFinal
-Field `AUDIT_RESOURCE_MAP` may be 'final'
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/enums/AuditResourceType.java`
-#### Snippet
-```java
-    private final String enMsg;
-
-    private static HashMap<Integer, AuditResourceType> AUDIT_RESOURCE_MAP = new HashMap<>();
-
-    static {
-```
-
-### FieldMayBeFinal
 Field `STATUS_MAP` may be 'final'
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/enums/TaskGroupQueueStatus.java`
 #### Snippet
@@ -24880,6 +24663,18 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/enu
     private final int code;
     private final String descp;
     private static HashMap<Integer, TaskGroupQueueStatus> STATUS_MAP = new HashMap<>();
+
+    static {
+```
+
+### FieldMayBeFinal
+Field `AUDIT_RESOURCE_MAP` may be 'final'
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/enums/AuditResourceType.java`
+#### Snippet
+```java
+    private final String enMsg;
+
+    private static HashMap<Integer, AuditResourceType> AUDIT_RESOURCE_MAP = new HashMap<>();
 
     static {
 ```
@@ -24897,6 +24692,18 @@ public class ShellExecutor extends AbstractShell {
 ```
 
 ### FieldMayBeFinal
+Field `cm` may be 'final'
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/HttpUtils.java`
+#### Snippet
+```java
+    }
+
+    private static PoolingHttpClientConnectionManager cm;
+
+    private static SSLContext ctx = null;
+```
+
+### FieldMayBeFinal
 Field `xtm` may be 'final'
 in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/HttpUtils.java`
 #### Snippet
@@ -24906,6 +24713,18 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
     private static X509TrustManager xtm = new X509TrustManager() {
 
         @Override
+```
+
+### FieldMayBeFinal
+Field `socketFactory` may be 'final'
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/HttpUtils.java`
+#### Snippet
+```java
+    private static SSLContext ctx = null;
+
+    private static SSLConnectionSocketFactory socketFactory;
+
+    private static RequestConfig requestConfig;
 ```
 
 ### FieldMayBeFinal
@@ -24933,27 +24752,15 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 ```
 
 ### FieldMayBeFinal
-Field `socketFactory` may be 'final'
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/HttpUtils.java`
+Field `shell` may be 'final'
+in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/shell/AbstractShell.java`
 #### Snippet
 ```java
-    private static SSLContext ctx = null;
+    private static class ShellTimeoutTimerTask extends TimerTask {
 
-    private static SSLConnectionSocketFactory socketFactory;
+        private AbstractShell shell;
 
-    private static RequestConfig requestConfig;
-```
-
-### FieldMayBeFinal
-Field `cm` may be 'final'
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/utils/HttpUtils.java`
-#### Snippet
-```java
-    }
-
-    private static PoolingHttpClientConnectionManager cm;
-
-    private static SSLContext ctx = null;
+        public ShellTimeoutTimerTask(AbstractShell shell) {
 ```
 
 ### FieldMayBeFinal
@@ -24966,18 +24773,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/she
     private long interval;
 
     /**
-```
-
-### FieldMayBeFinal
-Field `shell` may be 'final'
-in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/shell/AbstractShell.java`
-#### Snippet
-```java
-    private static class ShellTimeoutTimerTask extends TimerTask {
-
-        private AbstractShell shell;
-
-        public ShellTimeoutTimerTask(AbstractShell shell) {
 ```
 
 ### FieldMayBeFinal
@@ -25005,42 +24800,6 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/uti
 ```
 
 ### FieldMayBeFinal
-Field `dependResultMap` may be 'final'
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
-#### Snippet
-```java
-     * depend result map
-     */
-    private Map<String, DependResult> dependResultMap = new HashMap<>();
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `processInstance` may be 'final'
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
-#### Snippet
-```java
-    private DependentRelation relation;
-
-    private ProcessInstance processInstance;
-
-    private TaskInstance taskInstance;
-```
-
-### FieldMayBeFinal
-Field `relation` may be 'final'
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
-#### Snippet
-```java
-     * dependent relation
-     */
-    private DependentRelation relation;
-
-    private ProcessInstance processInstance;
-```
-
-### FieldMayBeFinal
 Field `dependItemList` may be 'final'
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
 #### Snippet
@@ -25065,6 +24824,42 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### FieldMayBeFinal
+Field `relation` may be 'final'
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
+#### Snippet
+```java
+     * dependent relation
+     */
+    private DependentRelation relation;
+
+    private ProcessInstance processInstance;
+```
+
+### FieldMayBeFinal
+Field `dependResultMap` may be 'final'
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
+#### Snippet
+```java
+     * depend result map
+     */
+    private Map<String, DependResult> dependResultMap = new HashMap<>();
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `processInstance` may be 'final'
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/utils/DependentExecute.java`
+#### Snippet
+```java
+    private DependentRelation relation;
+
+    private ProcessInstance processInstance;
+
+    private TaskInstance taskInstance;
+```
+
+### FieldMayBeFinal
 Field `multiThreadFilterMap` may be 'final'
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
 #### Snippet
@@ -25074,18 +24869,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
     private ConcurrentHashMap<String, WorkflowExecuteRunnable> multiThreadFilterMap = new ConcurrentHashMap<>();
 
     @PostConstruct
-```
-
-### FieldMayBeFinal
-Field `streamTaskInstanceExecCacheManager` may be 'final'
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StreamTaskExecuteRunnable.java`
-#### Snippet
-```java
-    protected TaskPluginManager taskPluginManager;
-
-    private StreamTaskInstanceExecCacheManager streamTaskInstanceExecCacheManager;
-
-    protected TaskDefinition taskDefinition;
 ```
 
 ### FieldMayBeFinal
@@ -25113,6 +24896,18 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### FieldMayBeFinal
+Field `streamTaskInstanceExecCacheManager` may be 'final'
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StreamTaskExecuteRunnable.java`
+#### Snippet
+```java
+    protected TaskPluginManager taskPluginManager;
+
+    private StreamTaskInstanceExecCacheManager streamTaskInstanceExecCacheManager;
+
+    protected TaskDefinition taskDefinition;
+```
+
+### FieldMayBeFinal
 Field `beanFactory` may be 'final'
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/HostManagerConfig.java`
 #### Snippet
@@ -25137,18 +24932,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 ```
 
 ### FieldMayBeFinal
-Field `current` may be 'final'
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/RoundRobinSelector.java`
-#### Snippet
-```java
-
-        private int weight;
-        private AtomicLong current = new AtomicLong(0);
-        private long lastUpdate;
-
-```
-
-### FieldMayBeFinal
 Field `workGroupWeightMap` may be 'final'
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/RoundRobinSelector.java`
 #### Snippet
@@ -25157,6 +24940,18 @@ public class RoundRobinSelector extends AbstractSelector<HostWorker> {
 
     private ConcurrentMap<String, ConcurrentMap<String, WeightedRoundRobin>> workGroupWeightMap =
             new ConcurrentHashMap<>();
+
+```
+
+### FieldMayBeFinal
+Field `current` may be 'final'
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/host/assign/RoundRobinSelector.java`
+#### Snippet
+```java
+
+        private int weight;
+        private AtomicLong current = new AtomicLong(0);
+        private long lastUpdate;
 
 ```
 
@@ -25170,6 +24965,18 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
     private AtomicBoolean updateLock = new AtomicBoolean();
 
     protected static class WeightedRoundRobin {
+```
+
+### FieldMayBeFinal
+Field `taskDefinitionLogDao` may be 'final'
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
+#### Snippet
+```java
+    private TaskInstanceDao taskInstanceDao;
+
+    private TaskDefinitionLogDao taskDefinitionLogDao;
+
+    private final ProcessAlertManager processAlertManager;
 ```
 
 ### FieldMayBeFinal
@@ -25194,18 +25001,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
     private ProcessInstanceDao processInstanceDao;
 
     private TaskInstanceDao taskInstanceDao;
-```
-
-### FieldMayBeFinal
-Field `taskDefinitionLogDao` may be 'final'
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnable.java`
-#### Snippet
-```java
-    private TaskInstanceDao taskInstanceDao;
-
-    private TaskDefinitionLogDao taskDefinitionLogDao;
-
-    private final ProcessAlertManager processAlertManager;
 ```
 
 ### FieldMayBeFinal
@@ -25269,6 +25064,30 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/client
 ```
 
 ### FieldMayBeFinal
+Field `description` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/RequestEventType.java`
+#### Snippet
+```java
+    private Byte type;
+
+    private String description;
+
+    RequestEventType(Byte type, String description) {
+```
+
+### FieldMayBeFinal
+Field `type` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/RequestEventType.java`
+#### Snippet
+```java
+    BUSINESS((byte) 2, "business request");
+
+    private Byte type;
+
+    private String description;
+```
+
+### FieldMayBeFinal
 Field `nettyClient` may be 'final'
 in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/client/ConsumerInterceptor.java`
 #### Snippet
@@ -25293,27 +25112,15 @@ public class ConsumerInterceptor {
 ```
 
 ### FieldMayBeFinal
-Field `type` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/RequestEventType.java`
-#### Snippet
-```java
-    BUSINESS((byte) 2, "business request");
-
-    private Byte type;
-
-    private String description;
-```
-
-### FieldMayBeFinal
 Field `description` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/RequestEventType.java`
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/ResponseEventType.java`
 #### Snippet
 ```java
     private Byte type;
 
     private String description;
 
-    RequestEventType(Byte type, String description) {
+    ResponseEventType(Byte type, String description) {
 ```
 
 ### FieldMayBeFinal
@@ -25329,15 +25136,39 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common
 ```
 
 ### FieldMayBeFinal
-Field `description` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/common/ResponseEventType.java`
+Field `request` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/future/RpcFuture.java`
 #### Snippet
 ```java
-    private Byte type;
+    private RpcResponse response;
 
-    private String description;
+    private RpcRequest request;
 
-    ResponseEventType(Byte type, String description) {
+    private long requestId;
+```
+
+### FieldMayBeFinal
+Field `requestId` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/future/RpcFuture.java`
+#### Snippet
+```java
+    private RpcRequest request;
+
+    private long requestId;
+
+    public RpcFuture(RpcRequest rpcRequest, long requestId) {
+```
+
+### FieldMayBeFinal
+Field `latch` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/future/RpcFuture.java`
+#### Snippet
+```java
+public class RpcFuture implements Future<Object> {
+
+    private CountDownLatch latch = new CountDownLatch(1);
+
+    private RpcResponse response;
 ```
 
 ### FieldMayBeFinal
@@ -25365,18 +25196,6 @@ public class ServiceBean {
 ```
 
 ### FieldMayBeFinal
-Field `type` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protocol/EventType.java`
-#### Snippet
-```java
-    RESPONSE((byte) 3, "business response");
-
-    private Byte type;
-
-    private String description;
-```
-
-### FieldMayBeFinal
 Field `description` may be 'final'
 in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protocol/EventType.java`
 #### Snippet
@@ -25389,39 +25208,15 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protoc
 ```
 
 ### FieldMayBeFinal
-Field `request` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/future/RpcFuture.java`
+Field `type` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/protocol/EventType.java`
 #### Snippet
 ```java
-    private RpcResponse response;
+    RESPONSE((byte) 3, "business response");
 
-    private RpcRequest request;
+    private Byte type;
 
-    private long requestId;
-```
-
-### FieldMayBeFinal
-Field `latch` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/future/RpcFuture.java`
-#### Snippet
-```java
-public class RpcFuture implements Future<Object> {
-
-    private CountDownLatch latch = new CountDownLatch(1);
-
-    private RpcResponse response;
-```
-
-### FieldMayBeFinal
-Field `requestId` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/future/RpcFuture.java`
-#### Snippet
-```java
-    private RpcRequest request;
-
-    private long requestId;
-
-    public RpcFuture(RpcRequest rpcRequest, long requestId) {
+    private String description;
 ```
 
 ### FieldMayBeFinal
@@ -25446,6 +25241,54 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serial
     private static HashMap<Byte, Serializer> SERIALIZERS_MAP = new HashMap<>();
 
     static {
+```
+
+### FieldMayBeFinal
+Field `schemaCache` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serializer/ProtoStuffSerializer.java`
+#### Snippet
+```java
+    private static LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
+
+    private static Map<Class<?>, Schema<?>> schemaCache = new ConcurrentHashMap<>();
+
+    @SuppressWarnings("unchecked")
+```
+
+### FieldMayBeFinal
+Field `buffer` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serializer/ProtoStuffSerializer.java`
+#### Snippet
+```java
+public class ProtoStuffSerializer implements Serializer {
+
+    private static LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
+
+    private static Map<Class<?>, Schema<?>> schemaCache = new ConcurrentHashMap<>();
+```
+
+### FieldMayBeFinal
+Field `schemaCache` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serializer/ProtoStuffUtils.java`
+#### Snippet
+```java
+    private static LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
+
+    private static Map<Class<?>, Schema<?>> schemaCache = new ConcurrentHashMap<>();
+
+    @SuppressWarnings("unchecked")
+```
+
+### FieldMayBeFinal
+Field `buffer` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serializer/ProtoStuffUtils.java`
+#### Snippet
+```java
+    }
+
+    private static LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
+
+    private static Map<Class<?>, Schema<?>> schemaCache = new ConcurrentHashMap<>();
 ```
 
 ### FieldMayBeFinal
@@ -25477,31 +25320,7 @@ Field `threadIndex` may be 'final'
 in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/remote/NettyServer.java`
 #### Snippet
 ```java
-            this.workGroup = new EpollEventLoopGroup(serverConfig.getWorkerThread(), new ThreadFactory() {
-
-                private AtomicInteger threadIndex = new AtomicInteger(0);
-
-                @Override
-```
-
-### FieldMayBeFinal
-Field `threadIndex` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/remote/NettyServer.java`
-#### Snippet
-```java
             this.bossGroup = new NioEventLoopGroup(1, new ThreadFactory() {
-
-                private AtomicInteger threadIndex = new AtomicInteger(0);
-
-                @Override
-```
-
-### FieldMayBeFinal
-Field `threadIndex` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/remote/NettyServer.java`
-#### Snippet
-```java
-            this.workGroup = new NioEventLoopGroup(serverConfig.getWorkerThread(), new ThreadFactory() {
 
                 private AtomicInteger threadIndex = new AtomicInteger(0);
 
@@ -25521,51 +25340,27 @@ in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/remote
 ```
 
 ### FieldMayBeFinal
-Field `schemaCache` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serializer/ProtoStuffUtils.java`
+Field `threadIndex` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/remote/NettyServer.java`
 #### Snippet
 ```java
-    private static LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
+            this.workGroup = new EpollEventLoopGroup(serverConfig.getWorkerThread(), new ThreadFactory() {
 
-    private static Map<Class<?>, Schema<?>> schemaCache = new ConcurrentHashMap<>();
+                private AtomicInteger threadIndex = new AtomicInteger(0);
 
-    @SuppressWarnings("unchecked")
+                @Override
 ```
 
 ### FieldMayBeFinal
-Field `buffer` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serializer/ProtoStuffUtils.java`
+Field `threadIndex` may be 'final'
+in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/remote/NettyServer.java`
 #### Snippet
 ```java
-    }
+            this.workGroup = new NioEventLoopGroup(serverConfig.getWorkerThread(), new ThreadFactory() {
 
-    private static LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
+                private AtomicInteger threadIndex = new AtomicInteger(0);
 
-    private static Map<Class<?>, Schema<?>> schemaCache = new ConcurrentHashMap<>();
-```
-
-### FieldMayBeFinal
-Field `schemaCache` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serializer/ProtoStuffSerializer.java`
-#### Snippet
-```java
-    private static LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
-
-    private static Map<Class<?>, Schema<?>> schemaCache = new ConcurrentHashMap<>();
-
-    @SuppressWarnings("unchecked")
-```
-
-### FieldMayBeFinal
-Field `buffer` may be 'final'
-in `dolphinscheduler-remote/src/main/java/org/apache/dolphinscheduler/rpc/serializer/ProtoStuffSerializer.java`
-#### Snippet
-```java
-public class ProtoStuffSerializer implements Serializer {
-
-    private static LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
-
-    private static Map<Class<?>, Schema<?>> schemaCache = new ConcurrentHashMap<>();
+                @Override
 ```
 
 ### FieldMayBeFinal
@@ -25593,18 +25388,6 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
 ```
 
 ### FieldMayBeFinal
-Field `MESSAGE_RETRY_WINDOW` may be 'final'
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/MessageRetryRunner.java`
-#### Snippet
-```java
-    }
-
-    private static long MESSAGE_RETRY_WINDOW = Duration.ofMinutes(5L).toMillis();
-
-    @Lazy
-```
-
-### FieldMayBeFinal
 Field `messageSenderMap` may be 'final'
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/MessageRetryRunner.java`
 #### Snippet
@@ -25617,6 +25400,18 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
 ```
 
 ### FieldMayBeFinal
+Field `MESSAGE_RETRY_WINDOW` may be 'final'
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/MessageRetryRunner.java`
+#### Snippet
+```java
+    }
+
+    private static long MESSAGE_RETRY_WINDOW = Duration.ofMinutes(5L).toMillis();
+
+    @Lazy
+```
+
+### FieldMayBeFinal
 Field `needToRetryMessages` may be 'final'
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/MessageRetryRunner.java`
 #### Snippet
@@ -25624,6 +25419,18 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
     private Map<MessageType, MessageSender<BaseMessage>> messageSenderMap = new HashMap<>();
 
     private Map<Integer, Map<MessageType, BaseMessage>> needToRetryMessages = new ConcurrentHashMap<>();
+
+    @Override
+```
+
+### FieldMayBeFinal
+Field `hostIndexMap` may be 'final'
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/queue/MasterPriorityQueue.java`
+#### Snippet
+```java
+    private PriorityBlockingQueue<Server> queue = new PriorityBlockingQueue<>(QUEUE_MAX_SIZE, new ServerComparator());
+
+    private HashMap<String, Integer> hostIndexMap = new HashMap<>();
 
     @Override
 ```
@@ -25641,18 +25448,6 @@ in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/q
 ```
 
 ### FieldMayBeFinal
-Field `hostIndexMap` may be 'final'
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/queue/MasterPriorityQueue.java`
-#### Snippet
-```java
-    private PriorityBlockingQueue<Server> queue = new PriorityBlockingQueue<>(QUEUE_MAX_SIZE, new ServerComparator());
-
-    private HashMap<String, Integer> hostIndexMap = new HashMap<>();
-
-    @Override
-```
-
-### FieldMayBeFinal
 Field `jdbcOperator` may be 'final'
 in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler-registry-jdbc/src/main/java/org/apache/dolphinscheduler/plugin/registry/jdbc/JdbcRegistry.java`
 #### Snippet
@@ -25662,18 +25457,6 @@ in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler
     private JdbcOperator jdbcOperator;
 
     public JdbcRegistry(JdbcRegistryProperties jdbcRegistryProperties,
-```
-
-### FieldMayBeFinal
-Field `etcdConnectionStateListener` may be 'final'
-in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler-registry-etcd/src/main/java/org/apache/dolphinscheduler/plugin/registry/etcd/EtcdRegistry.java`
-#### Snippet
-```java
-
-    private final Client client;
-    private EtcdConnectionStateListener etcdConnectionStateListener;
-    public static final String FOLDER_SEPARATOR = "/";
-    // save the lock info for thread
 ```
 
 ### FieldMayBeFinal
@@ -25722,6 +25505,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-mr/src/main/java/org/apac
     private TaskExecutionContext taskExecutionContext;
 
     /**
+```
+
+### FieldMayBeFinal
+Field `etcdConnectionStateListener` may be 'final'
+in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler-registry-etcd/src/main/java/org/apache/dolphinscheduler/plugin/registry/etcd/EtcdRegistry.java`
+#### Snippet
+```java
+
+    private final Client client;
+    private EtcdConnectionStateListener etcdConnectionStateListener;
+    public static final String FOLDER_SEPARATOR = "/";
+    // save the lock info for thread
 ```
 
 ### FieldMayBeFinal
@@ -25797,37 +25592,13 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-http/src/main/java/org/ap
 ```
 
 ### FieldMayBeFinal
-Field `sqlParameters` may be 'final'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+Field `taskRequest` may be 'final'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
 #### Snippet
 ```java
-     * sql parameters
+     * task execution context
      */
-    private SqlParameters sqlParameters;
-
-    /**
-```
-
-### FieldMayBeFinal
-Field `sqlTaskExecutionContext` may be 'final'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
-#### Snippet
-```java
-    private static final int QUERY_LIMIT = 10000;
-
-    private SQLTaskExecutionContext sqlTaskExecutionContext;
-
-    public static final int TEST_FLAG_YES = 1;
-```
-
-### FieldMayBeFinal
-Field `taskExecutionContext` may be 'final'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
-#### Snippet
-```java
-     * taskExecutionContext
-     */
-    private TaskExecutionContext taskExecutionContext;
+    private TaskExecutionContext taskRequest;
 
     /**
 ```
@@ -25845,13 +25616,37 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/ap
 ```
 
 ### FieldMayBeFinal
-Field `taskRequest` may be 'final'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-java/src/main/java/org/apache/dolphinscheduler/plugin/task/java/JavaTask.java`
+Field `taskExecutionContext` may be 'final'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
 #### Snippet
 ```java
-     * task execution context
+     * taskExecutionContext
      */
-    private TaskExecutionContext taskRequest;
+    private TaskExecutionContext taskExecutionContext;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `sqlTaskExecutionContext` may be 'final'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+    private static final int QUERY_LIMIT = 10000;
+
+    private SQLTaskExecutionContext sqlTaskExecutionContext;
+
+    public static final int TEST_FLAG_YES = 1;
+```
+
+### FieldMayBeFinal
+Field `sqlParameters` may be 'final'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-sql/src/main/java/org/apache/dolphinscheduler/plugin/task/sql/SqlTask.java`
+#### Snippet
+```java
+     * sql parameters
+     */
+    private SqlParameters sqlParameters;
 
     /**
 ```
@@ -25869,18 +25664,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink/src/main/java/org/a
 ```
 
 ### FieldMayBeFinal
-Field `shellCommandExecutor` may be 'final'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
-#### Snippet
-```java
-     * shell command executor
-     */
-    private ShellCommandExecutor shellCommandExecutor;
-
-    /**
-```
-
-### FieldMayBeFinal
 Field `taskExecutionContext` may be 'final'
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
 #### Snippet
@@ -25893,13 +25676,13 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/a
 ```
 
 ### FieldMayBeFinal
-Field `taskExecutionContext` may be 'final'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-shell/src/main/java/org/apache/dolphinscheduler/plugin/task/shell/ShellTask.java`
+Field `shellCommandExecutor` may be 'final'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-datax/src/main/java/org/apache/dolphinscheduler/plugin/task/datax/DataxTask.java`
 #### Snippet
 ```java
-     * taskExecutionContext
+     * shell command executor
      */
-    private TaskExecutionContext taskExecutionContext;
+    private ShellCommandExecutor shellCommandExecutor;
 
     /**
 ```
@@ -25912,6 +25695,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-shell/src/main/java/org/a
      * shell command executor
      */
     private ShellCommandExecutor shellCommandExecutor;
+
+    /**
+```
+
+### FieldMayBeFinal
+Field `taskExecutionContext` may be 'final'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-shell/src/main/java/org/apache/dolphinscheduler/plugin/task/shell/ShellTask.java`
+#### Snippet
+```java
+     * taskExecutionContext
+     */
+    private TaskExecutionContext taskExecutionContext;
 
     /**
 ```
@@ -25929,15 +25724,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-spark/src/main/java/org/a
 ```
 
 ### FieldMayBeFinal
-Field `name` may be 'final'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisJobStatus.java`
+Field `shellCommandExecutor` may be 'final'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisTask.java`
 #### Snippet
 ```java
-    SHUTTINGDOWN("Shuttingdown", 11);
+     * shell command executor
+     */
+    private ShellCommandExecutor shellCommandExecutor;
 
-    private String name;
-    private int id;
-
+    /**
 ```
 
 ### FieldMayBeFinal
@@ -25953,15 +25748,15 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/
 ```
 
 ### FieldMayBeFinal
-Field `shellCommandExecutor` may be 'final'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisTask.java`
+Field `name` may be 'final'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-linkis/src/main/java/org/apache/dolphinscheduler/plugin/task/linkis/LinkisJobStatus.java`
 #### Snippet
 ```java
-     * shell command executor
-     */
-    private ShellCommandExecutor shellCommandExecutor;
+    SHUTTINGDOWN("Shuttingdown", 11);
 
-    /**
+    private String name;
+    private int id;
+
 ```
 
 ### FieldMayBeFinal
@@ -26001,18 +25796,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-chunjun/src/main/java/org
 ```
 
 ### FieldMayBeFinal
-Field `shellCommandExecutor` may be 'final'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-jupyter/src/main/java/org/apache/dolphinscheduler/plugin/task/jupyter/JupyterTask.java`
-#### Snippet
-```java
-    private TaskExecutionContext taskExecutionContext;
-
-    private ShellCommandExecutor shellCommandExecutor;
-
-    public JupyterTask(TaskExecutionContext taskExecutionContext) {
-```
-
-### FieldMayBeFinal
 Field `taskExecutionContext` may be 'final'
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-jupyter/src/main/java/org/apache/dolphinscheduler/plugin/task/jupyter/JupyterTask.java`
 #### Snippet
@@ -26022,6 +25805,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-jupyter/src/main/java/org
     private TaskExecutionContext taskExecutionContext;
 
     private ShellCommandExecutor shellCommandExecutor;
+```
+
+### FieldMayBeFinal
+Field `shellCommandExecutor` may be 'final'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-jupyter/src/main/java/org/apache/dolphinscheduler/plugin/task/jupyter/JupyterTask.java`
+#### Snippet
+```java
+    private TaskExecutionContext taskExecutionContext;
+
+    private ShellCommandExecutor shellCommandExecutor;
+
+    public JupyterTask(TaskExecutionContext taskExecutionContext) {
 ```
 
 ### FieldMayBeFinal
@@ -26074,18 +25869,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-seatunnel/src/main/java/o
 
 ### FieldMayBeFinal
 Field `taskExecutionContext` may be 'final'
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink-stream/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkStreamTask.java`
-#### Snippet
-```java
-     * taskExecutionContext
-     */
-    private TaskExecutionContext taskExecutionContext;
-
-    public FlinkStreamTask(TaskExecutionContext taskExecutionContext) {
-```
-
-### FieldMayBeFinal
-Field `taskExecutionContext` may be 'final'
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-remoteshell/src/main/java/org/apache/dolphinscheduler/plugin/task/remoteshell/RemoteShellTask.java`
 #### Snippet
 ```java
@@ -26096,19 +25879,19 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-remoteshell/src/main/java
     private RemoteExecutor remoteExecutor;
 ```
 
-## RuleId[id=RedundantModifiersValueLombok]
-### RedundantModifiersValueLombok
-@Value already marks non-static, package-local fields private.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/K8sTaskExecutionContext.java`
+### FieldMayBeFinal
+Field `taskExecutionContext` may be 'final'
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-flink-stream/src/main/java/org/apache/dolphinscheduler/plugin/task/flink/FlinkStreamTask.java`
 #### Snippet
 ```java
-    private String configYaml;
+     * taskExecutionContext
+     */
+    private TaskExecutionContext taskExecutionContext;
 
-    private String namespace;
-
-    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+    public FlinkStreamTask(TaskExecutionContext taskExecutionContext) {
 ```
 
+## RuleId[id=RedundantModifiersValueLombok]
 ### RedundantModifiersValueLombok
 @Value already marks non-static, package-local fields private.
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/K8sTaskExecutionContext.java`
@@ -26123,6 +25906,42 @@ public class K8sTaskExecutionContext implements Serializable {
 
 ### RedundantModifiersValueLombok
 @Value already marks non-static, package-local fields private.
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/K8sTaskExecutionContext.java`
+#### Snippet
+```java
+    private String configYaml;
+
+    private String namespace;
+
+    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
+```
+
+### RedundantModifiersValueLombok
+@Value already marks non-static, package-local fields private.
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/KubernetesApplicationManagerContext.java`
+#### Snippet
+```java
+     * kubernetes execution context
+     */
+    private final K8sTaskExecutionContext k8sTaskExecutionContext;
+
+    /**
+```
+
+### RedundantModifiersValueLombok
+@Value already marks non-static fields final.
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/KubernetesApplicationManagerContext.java`
+#### Snippet
+```java
+     * kubernetes execution context
+     */
+    private final K8sTaskExecutionContext k8sTaskExecutionContext;
+
+    /**
+```
+
+### RedundantModifiersValueLombok
+@Value already marks non-static, package-local fields private.
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/KubernetesApplicationManagerContext.java`
 #### Snippet
 ```java
@@ -26147,24 +25966,24 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
 
 ### RedundantModifiersValueLombok
 @Value already marks non-static, package-local fields private.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/KubernetesApplicationManagerContext.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManagerContext.java`
 #### Snippet
 ```java
-     * kubernetes execution context
+     * tenant code
      */
-    private final K8sTaskExecutionContext k8sTaskExecutionContext;
+    private final String tenantCode;
 
     /**
 ```
 
 ### RedundantModifiersValueLombok
 @Value already marks non-static fields final.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/KubernetesApplicationManagerContext.java`
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManagerContext.java`
 #### Snippet
 ```java
-     * kubernetes execution context
+     * tenant code
      */
-    private final K8sTaskExecutionContext k8sTaskExecutionContext;
+    private final String tenantCode;
 
     /**
 ```
@@ -26213,30 +26032,6 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
      * execute path
      */
     private final String executePath;
-
-    /**
-```
-
-### RedundantModifiersValueLombok
-@Value already marks non-static, package-local fields private.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManagerContext.java`
-#### Snippet
-```java
-     * tenant code
-     */
-    private final String tenantCode;
-
-    /**
-```
-
-### RedundantModifiersValueLombok
-@Value already marks non-static fields final.
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/am/YarnApplicationManagerContext.java`
-#### Snippet
-```java
-     * tenant code
-     */
-    private final String tenantCode;
 
     /**
 ```
@@ -26273,10 +26068,10 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/ApiApplicationServer.java`
 #### Snippet
 ```java
-    private TaskPluginManager taskPluginManager;
+public class ApiApplicationServer {
 
     @Autowired
-    private PluginDao pluginDao;
+    private TaskPluginManager taskPluginManager;
 
 ```
 
@@ -26285,10 +26080,10 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/ApiApplicationServer.java`
 #### Snippet
 ```java
-public class ApiApplicationServer {
+    private TaskPluginManager taskPluginManager;
 
     @Autowired
-    private TaskPluginManager taskPluginManager;
+    private PluginDao pluginDao;
 
 ```
 
@@ -26306,18 +26101,6 @@ public class AuditSubscriberImpl implements AuditSubscriber {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sManager.java`
-#### Snippet
-```java
-    private static Map<Long, KubernetesClient> clientMap = new Hashtable<>();
-
-    @Autowired
-    private ClusterMapper clusterMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sClientService.java`
 #### Snippet
 ```java
@@ -26325,6 +26108,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sCl
     private static Yaml yaml = new Yaml();
     @Autowired
     private K8sManager k8sManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/k8s/K8sManager.java`
+#### Snippet
+```java
+    private static Map<Long, KubernetesClient> clientMap = new Hashtable<>();
+
+    @Autowired
+    private ClusterMapper clusterMapper;
 
 ```
 
@@ -26378,13 +26173,13 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/audit/Aud
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqExecuteResultServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionLogServiceImpl.java`
 #### Snippet
 ```java
-public class DqExecuteResultServiceImpl extends BaseServiceImpl implements DqExecuteResultService {
+    private ProcessTaskRelationLogDao processTaskRelationLogDao;
 
     @Autowired
-    private DqExecuteResultMapper dqExecuteResultMapper;
+    private TaskDefinitionLogDao taskDefinitionLogDao;
 
 ```
 
@@ -26402,13 +26197,13 @@ public class TaskDefinitionLogServiceImpl implements TaskDefinitionLogService {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionLogServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqExecuteResultServiceImpl.java`
 #### Snippet
 ```java
-    private ProcessTaskRelationLogDao processTaskRelationLogDao;
+public class DqExecuteResultServiceImpl extends BaseServiceImpl implements DqExecuteResultService {
 
     @Autowired
-    private TaskDefinitionLogDao taskDefinitionLogDao;
+    private DqExecuteResultMapper dqExecuteResultMapper;
 
 ```
 
@@ -26429,18 +26224,6 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AuditServiceImpl.java`
 #### Snippet
 ```java
-public class AuditServiceImpl extends BaseServiceImpl implements AuditService {
-
-    @Autowired
-    private AuditLogMapper auditLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AuditServiceImpl.java`
-#### Snippet
-```java
     private AuditLogMapper auditLogMapper;
 
     @Autowired
@@ -26450,13 +26233,289 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AuditServiceImpl.java`
+#### Snippet
+```java
+public class AuditServiceImpl extends BaseServiceImpl implements AuditService {
+
+    @Autowired
+    private AuditLogMapper auditLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+    @Autowired
+    private ProjectService projectService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private UsersService usersService;
+
+    @Autowired
+    private ResourcesService resourceService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private TaskDefinitionService taskDefinitionService;
+
+    @Autowired
+    private UsersService usersService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private ScheduleMapper scheduleMapper;
+
+    @Autowired
+    private DataSourceMapper dataSourceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private PythonGatewayConfiguration pythonGatewayConfiguration;
+
+    @Autowired
+    private ProjectUserMapper projectUserMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private static final int ADMIN_USER_ID = 1;
+
+    @Autowired
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private ProcessDefinitionService processDefinitionService;
+
+    @Autowired
+    private TaskDefinitionService taskDefinitionService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private TenantService tenantService;
+
+    @Autowired
+    private EnvironmentService environmentService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private ExecutorService executorService;
+
+    @Autowired
+    private ProcessDefinitionService processDefinitionService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private DataSourceMapper dataSourceMapper;
+
+    @Autowired
+    private PythonGatewayConfiguration pythonGatewayConfiguration;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private ProjectService projectService;
+
+    @Autowired
+    private TenantService tenantService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private ResourcesService resourceService;
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private EnvironmentService environmentService;
+
+    @Autowired
+    private ExecutorService executorService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private SchedulerService schedulerService;
+
+    @Autowired
+    private ScheduleMapper scheduleMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+#### Snippet
+```java
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+    private SchedulerService schedulerService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+#### Snippet
+```java
+    private UdfFuncMapper udfFuncMapper;
+
+    @Autowired
+    private UDFUserMapper udfUserMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+#### Snippet
+```java
+public class UdfFuncServiceImpl extends BaseServiceImpl implements UdfFuncService {
+
+    @Autowired
+    private ResourceMapper resourceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+#### Snippet
+```java
+    private UDFUserMapper udfUserMapper;
+
+    @Autowired(required = false)
+    private StorageOperate storageOperate;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+#### Snippet
+```java
+    private ResourceMapper resourceMapper;
+
+    @Autowired
+    private UdfFuncMapper udfFuncMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UiPluginServiceImpl.java`
+#### Snippet
+```java
+public class UiPluginServiceImpl extends BaseServiceImpl implements UiPluginService {
+
+    @Autowired
+    PluginDefineMapper pluginDefineMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
 #### Snippet
 ```java
-    private ProcessInstanceMapper processInstanceMapper;
+    private ProcessService processService;
 
     @Autowired
-    private RegistryClient registryClient;
+    private ScheduleMapper scheduleMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
+#### Snippet
+```java
+    private EnvironmentWorkerGroupRelationMapper environmentWorkerGroupRelationMapper;
+
+    @Autowired
+    private ProcessService processService;
 
 ```
 
@@ -26489,10 +26548,10 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
 #### Snippet
 ```java
-    private ProcessService processService;
+    private ProcessInstanceMapper processInstanceMapper;
 
     @Autowired
-    private ScheduleMapper scheduleMapper;
+    private RegistryClient registryClient;
 
 ```
 
@@ -26505,54 +26564,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
     @Autowired
     private ProcessInstanceMapper processInstanceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkerGroupServiceImpl.java`
-#### Snippet
-```java
-    private EnvironmentWorkerGroupRelationMapper environmentWorkerGroupRelationMapper;
-
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
-#### Snippet
-```java
-    private TenantMapper tenantMapper;
-
-    @Autowired
-    private ProcessInstanceMapper processInstanceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
-#### Snippet
-```java
-    private QueueService queueService;
-
-    @Autowired(required = false)
-    private StorageOperate storageOperate;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
-#### Snippet
-```java
-    private UserMapper userMapper;
-
-    @Autowired
-    private QueueService queueService;
 
 ```
 
@@ -26573,6 +26584,18 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
 #### Snippet
 ```java
+    private QueueService queueService;
+
+    @Autowired(required = false)
+    private StorageOperate storageOperate;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
+#### Snippet
+```java
     private ScheduleMapper scheduleMapper;
 
     @Autowired
@@ -26594,70 +26617,34 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
 #### Snippet
 ```java
-    private UdfFuncMapper udfFuncMapper;
+    private TenantMapper tenantMapper;
 
     @Autowired
-    private UDFUserMapper udfUserMapper;
+    private ProcessInstanceMapper processInstanceMapper;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TenantServiceImpl.java`
 #### Snippet
 ```java
-    private UDFUserMapper udfUserMapper;
-
-    @Autowired(required = false)
-    private StorageOperate storageOperate;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
-#### Snippet
-```java
-public class UdfFuncServiceImpl extends BaseServiceImpl implements UdfFuncService {
+    private UserMapper userMapper;
 
     @Autowired
-    private ResourceMapper resourceMapper;
+    private QueueService queueService;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UdfFuncServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupServiceImpl.java`
 #### Snippet
 ```java
-    private ResourceMapper resourceMapper;
-
-    @Autowired
-    private UdfFuncMapper udfFuncMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UiPluginServiceImpl.java`
-#### Snippet
-```java
-public class UiPluginServiceImpl extends BaseServiceImpl implements UiPluginService {
-
-    @Autowired
-    PluginDefineMapper pluginDefineMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private EnvironmentService environmentService;
+    private TaskGroupQueueService taskGroupQueueService;
 
     @Autowired
     private ExecutorService executorService;
@@ -26666,181 +26653,13 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/Py
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupServiceImpl.java`
 #### Snippet
 ```java
-    private PythonGatewayConfiguration pythonGatewayConfiguration;
+    private TaskGroupMapper taskGroupMapper;
 
     @Autowired
-    private ProjectUserMapper projectUserMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private UsersService usersService;
-
-    @Autowired
-    private ResourcesService resourceService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-    private ProjectService projectService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private ResourcesService resourceService;
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private SchedulerService schedulerService;
-
-    @Autowired
-    private ScheduleMapper scheduleMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private static final int ADMIN_USER_ID = 1;
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-    @Autowired
-    private SchedulerService schedulerService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private ProjectService projectService;
-
-    @Autowired
-    private TenantService tenantService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private ScheduleMapper scheduleMapper;
-
-    @Autowired
-    private DataSourceMapper dataSourceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private ExecutorService executorService;
-
-    @Autowired
-    private ProcessDefinitionService processDefinitionService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private TaskDefinitionService taskDefinitionService;
-
-    @Autowired
-    private UsersService usersService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private TenantService tenantService;
-
-    @Autowired
-    private EnvironmentService environmentService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private DataSourceMapper dataSourceMapper;
-
-    @Autowired
-    private PythonGatewayConfiguration pythonGatewayConfiguration;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private ProjectMapper projectMapper;
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/python/PythonGateway.java`
-#### Snippet
-```java
-    private ProcessDefinitionService processDefinitionService;
-
-    @Autowired
-    private TaskDefinitionService taskDefinitionService;
+    private TaskGroupQueueService taskGroupQueueService;
 
 ```
 
@@ -26858,25 +26677,25 @@ public class TaskGroupServiceImpl extends BaseServiceImpl implements TaskGroupSe
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
 #### Snippet
 ```java
-    private TaskGroupQueueService taskGroupQueueService;
+public class DataSourceServiceImpl extends BaseServiceImpl implements DataSourceService {
 
     @Autowired
-    private ExecutorService executorService;
+    private DataSourceMapper dataSourceMapper;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
 #### Snippet
 ```java
-    private TaskGroupMapper taskGroupMapper;
+    private DataSourceMapper dataSourceMapper;
 
     @Autowired
-    private TaskGroupQueueService taskGroupQueueService;
+    private DataSourceUserMapper datasourceUserMapper;
 
 ```
 
@@ -26921,10 +26740,10 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/LoggerServiceImpl.java`
 #### Snippet
 ```java
-    private TaskInstanceDao taskInstanceDao;
+    ProjectService projectService;
 
     @Autowired
-    private LogClient logClient;
+    TaskDefinitionMapper taskDefinitionMapper;
 
 ```
 
@@ -26945,10 +26764,10 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/LoggerServiceImpl.java`
 #### Snippet
 ```java
-    ProjectService projectService;
+    private TaskInstanceDao taskInstanceDao;
 
     @Autowired
-    TaskDefinitionMapper taskDefinitionMapper;
+    private LogClient logClient;
 
 ```
 
@@ -26961,18 +26780,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
     @Autowired
     private PluginDefineMapper pluginDefineMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AlertPluginInstanceServiceImpl.java`
-#### Snippet
-```java
-public class AlertPluginInstanceServiceImpl extends BaseServiceImpl implements AlertPluginInstanceService {
-
-    @Autowired
-    private AlertPluginInstanceMapper alertPluginInstanceMapper;
 
 ```
 
@@ -26990,349 +26797,13 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/AlertPluginInstanceServiceImpl.java`
 #### Snippet
 ```java
-    private DataSourceMapper dataSourceMapper;
+public class AlertPluginInstanceServiceImpl extends BaseServiceImpl implements AlertPluginInstanceService {
 
     @Autowired
-    private DataSourceUserMapper datasourceUserMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataSourceServiceImpl.java`
-#### Snippet
-```java
-public class DataSourceServiceImpl extends BaseServiceImpl implements DataSourceService {
-
-    @Autowired
-    private DataSourceMapper dataSourceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-    private ProcessService processService;
-
-    @Autowired
-    private ScheduleMapper scheduleMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-    private ProjectService projectService;
-
-    @Autowired
-    private ExecutorService executorService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-    @Autowired
-    private EnvironmentMapper environmentMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-    private EnvironmentMapper environmentMapper;
-
-    @Autowired
-    private TenantMapper tenantMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-    private MonitorService monitorService;
-
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-    private ScheduleMapper scheduleMapper;
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-public class SchedulerServiceImpl extends BaseServiceImpl implements SchedulerService {
-
-    @Autowired
-    private ProjectService projectService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-    private SchedulerApi schedulerApi;
-
-    @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-    private ProjectMapper projectMapper;
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-    private SchedulerApi schedulerApi;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
-#### Snippet
-```java
-    private ExecutorService executorService;
-
-    @Autowired
-    private MonitorService monitorService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProjectService projectService;
-
-    @Autowired
-    ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-    UsersService usersService;
-
-    @Autowired
-    TaskDefinitionMapper taskDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-    private LogClient logClient;
-
-    @Autowired
-    private DqExecuteResultDao dqExecuteResultDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-    TaskInstanceMapper taskInstanceMapper;
-
-    @Autowired
-    TaskInstanceDao taskInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-    TaskDefinitionMapper taskDefinitionMapper;
-
-    @Autowired
-    private StateEventCallbackService stateEventCallbackService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-    private DqExecuteResultDao dqExecuteResultDao;
-
-    @Autowired
-    private TaskGroupQueueService taskGroupQueueService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-    TaskInstanceDao taskInstanceDao;
-
-    @Autowired
-    UsersService usersService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProcessService processService;
-
-    @Autowired
-    TaskInstanceMapper taskInstanceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProjectMapper projectMapper;
-
-    @Autowired
-    ProjectService projectService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-    private StateEventCallbackService stateEventCallbackService;
-
-    @Autowired
-    private LogClient logClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
-#### Snippet
-```java
-public class TaskInstanceServiceImpl extends BaseServiceImpl implements TaskInstanceService {
-
-    @Autowired
-    ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/MonitorServiceImpl.java`
-#### Snippet
-```java
-public class MonitorServiceImpl extends BaseServiceImpl implements MonitorService {
-
-    @Autowired
-    private MonitorDBDao monitorDBDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/MonitorServiceImpl.java`
-#### Snippet
-```java
-    private MonitorDBDao monitorDBDao;
-
-    @Autowired
-    private RegistryClient registryClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
-#### Snippet
-```java
-    private DataSourceMapper dataSourceMapper;
-
-    @Autowired
-    private DqComparisonTypeMapper dqComparisonTypeMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
-#### Snippet
-```java
-    private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
-
-    @Autowired
-    private DataSourceMapper dataSourceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
-#### Snippet
-```java
-    private DqRuleMapper dqRuleMapper;
-
-    @Autowired
-    private DqRuleInputEntryMapper dqRuleInputEntryMapper;
+    private AlertPluginInstanceMapper alertPluginInstanceMapper;
 
 ```
 
@@ -27353,10 +26824,334 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
 #### Snippet
 ```java
+    private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
+
+    @Autowired
+    private DataSourceMapper dataSourceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
+#### Snippet
+```java
+    private DqRuleMapper dqRuleMapper;
+
+    @Autowired
+    private DqRuleInputEntryMapper dqRuleInputEntryMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
+#### Snippet
+```java
+    private DataSourceMapper dataSourceMapper;
+
+    @Autowired
+    private DqComparisonTypeMapper dqComparisonTypeMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DqRuleServiceImpl.java`
+#### Snippet
+```java
     private DqRuleInputEntryMapper dqRuleInputEntryMapper;
 
     @Autowired
     private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+    UsersService usersService;
+
+    @Autowired
+    TaskDefinitionMapper taskDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+    private LogClient logClient;
+
+    @Autowired
+    private DqExecuteResultDao dqExecuteResultDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+    TaskInstanceDao taskInstanceDao;
+
+    @Autowired
+    UsersService usersService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+    private StateEventCallbackService stateEventCallbackService;
+
+    @Autowired
+    private LogClient logClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProjectMapper projectMapper;
+
+    @Autowired
+    ProjectService projectService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+    TaskInstanceMapper taskInstanceMapper;
+
+    @Autowired
+    TaskInstanceDao taskInstanceDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProjectService projectService;
+
+    @Autowired
+    ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+    TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+    private StateEventCallbackService stateEventCallbackService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+public class TaskInstanceServiceImpl extends BaseServiceImpl implements TaskInstanceService {
+
+    @Autowired
+    ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+    private DqExecuteResultDao dqExecuteResultDao;
+
+    @Autowired
+    private TaskGroupQueueService taskGroupQueueService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProcessService processService;
+
+    @Autowired
+    TaskInstanceMapper taskInstanceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/MonitorServiceImpl.java`
+#### Snippet
+```java
+    private MonitorDBDao monitorDBDao;
+
+    @Autowired
+    private RegistryClient registryClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+    private EnvironmentMapper environmentMapper;
+
+    @Autowired
+    private TenantMapper tenantMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/MonitorServiceImpl.java`
+#### Snippet
+```java
+public class MonitorServiceImpl extends BaseServiceImpl implements MonitorService {
+
+    @Autowired
+    private MonitorDBDao monitorDBDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+    private MonitorService monitorService;
+
+    @Autowired
+    private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+    private ScheduleMapper scheduleMapper;
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+    @Autowired
+    private EnvironmentMapper environmentMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+public class SchedulerServiceImpl extends BaseServiceImpl implements SchedulerService {
+
+    @Autowired
+    private ProjectService projectService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+    private ProcessService processService;
+
+    @Autowired
+    private ScheduleMapper scheduleMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+    @Autowired
+    private SchedulerApi schedulerApi;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+    private ProjectService projectService;
+
+    @Autowired
+    private ExecutorService executorService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+    private ExecutorService executorService;
+
+    @Autowired
+    private MonitorService monitorService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/SchedulerServiceImpl.java`
+#### Snippet
+```java
+    private SchedulerApi schedulerApi;
+
+    @Autowired
+    private ProcessTaskRelationMapper processTaskRelationMapper;
 
 ```
 
@@ -27389,11 +27184,11 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ClusterServiceImpl.java`
 #### Snippet
 ```java
-    private ClusterMapper clusterMapper;
-
-    @Autowired
     private K8sManager k8sManager;
 
+    @Autowired
+    private K8sNamespaceMapper k8sNamespaceMapper;
+    /**
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
@@ -27401,11 +27196,11 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ClusterServiceImpl.java`
 #### Snippet
 ```java
-    private K8sManager k8sManager;
+    private ClusterMapper clusterMapper;
 
     @Autowired
-    private K8sNamespaceMapper k8sNamespaceMapper;
-    /**
+    private K8sManager k8sManager;
+
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
@@ -27422,22 +27217,10 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
 #### Snippet
 ```java
-    private StateEventCallbackService stateEventCallbackService;
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private CommandService commandService;
+    private ProjectMapper projectMapper;
 
     @Autowired
     private TaskDefinitionLogMapper taskDefinitionLogMapper;
@@ -27446,70 +27229,10 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
 #### Snippet
 ```java
-    private TriggerRelationService triggerRelationService;
-
-    @Autowired
-    private ExecuteClient executeClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private ProcessInstanceDao processInstanceDao;
-
-    @Autowired
-    private ProcessDefinitionService processDefinitionService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private ProjectMapper projectMapper;
-
-    @Autowired
-    private ProjectService projectService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-    ProcessDefinitionMapper processDefineMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private ProjectService projectService;
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-public class ExecutorServiceImpl extends BaseServiceImpl implements ExecutorService {
+    private WorkFlowLineageMapper workFlowLineageMapper;
 
     @Autowired
     private ProjectMapper projectMapper;
@@ -27518,133 +27241,25 @@ public class ExecutorServiceImpl extends BaseServiceImpl implements ExecutorServ
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private ExecuteClient executeClient;
-
-    @Autowired
-    private TenantMapper tenantMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
 #### Snippet
 ```java
     private TaskDefinitionLogMapper taskDefinitionLogMapper;
 
     @Autowired
-    private StateEventCallbackService stateEventCallbackService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionService processDefinitionService;
-
-    @Autowired
-    private CommandService commandService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-    @Autowired
-    private TaskGroupQueueMapper taskGroupQueueMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private MonitorService monitorService;
-
-    @Autowired
-    private ProcessInstanceMapper processInstanceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private TaskGroupQueueMapper taskGroupQueueMapper;
-
-    @Autowired
-    private WorkerGroupService workerGroupService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private WorkerGroupService workerGroupService;
-
-    @Autowired
-    private TriggerRelationService triggerRelationService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    ProcessDefinitionMapper processDefineMapper;
-
-    @Autowired
-    private MonitorService monitorService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-
-    @Lazy()
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
-    private ProcessService processService;
-
-    @Autowired
-    private ProcessInstanceDao processInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
-#### Snippet
-```java
     private TaskDefinitionMapper taskDefinitionMapper;
 
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
+#### Snippet
+```java
+public class WorkFlowLineageServiceImpl extends BaseServiceImpl implements WorkFlowLineageService {
+
     @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
+    private WorkFlowLineageMapper workFlowLineageMapper;
 
 ```
 
@@ -27686,97 +27301,13 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
 #### Snippet
 ```java
-public class WorkFlowLineageServiceImpl extends BaseServiceImpl implements WorkFlowLineageService {
-
-    @Autowired
-    private WorkFlowLineageMapper workFlowLineageMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+    private EnvironmentWorkerGroupRelationMapper relationMapper;
 
     @Autowired
     private TaskDefinitionMapper taskDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
-#### Snippet
-```java
-    private ProjectMapper projectMapper;
-
-    @Autowired
-    private TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/WorkFlowLineageServiceImpl.java`
-#### Snippet
-```java
-    private WorkFlowLineageMapper workFlowLineageMapper;
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/MetricsCleanUpServiceImpl.java`
-#### Snippet
-```java
-    private ApiRpcClient apiRpcClient;
-
-    @Autowired
-    private RegistryClient registryClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/MetricsCleanUpServiceImpl.java`
-#### Snippet
-```java
-public class MetricsCleanUpServiceImpl implements MetricsCleanUpService {
-
-    @Autowired
-    private ApiRpcClient apiRpcClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
-#### Snippet
-```java
-public class QueueServiceImpl extends BaseServiceImpl implements QueueService {
-
-    @Autowired
-    private QueueMapper queueMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
-#### Snippet
-```java
-    private QueueMapper queueMapper;
-
-    @Autowired
-    private UserMapper userMapper;
 
 ```
 
@@ -27806,70 +27337,22 @@ public class EnvironmentServiceImpl extends BaseServiceImpl implements Environme
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/EnvironmentServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
 #### Snippet
 ```java
-    private EnvironmentWorkerGroupRelationMapper relationMapper;
+public class QueueServiceImpl extends BaseServiceImpl implements QueueService {
 
     @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
+    private QueueMapper queueMapper;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupQueueServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/QueueServiceImpl.java`
 #### Snippet
 ```java
-    TaskGroupQueueMapper taskGroupQueueMapper;
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupQueueServiceImpl.java`
-#### Snippet
-```java
-public class TaskGroupQueueServiceImpl extends BaseServiceImpl implements TaskGroupQueueService {
-
-    @Autowired
-    TaskGroupQueueMapper taskGroupQueueMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-    private ProjectUserMapper projectUserMapper;
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-    private TaskGroupService taskGroupService;
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionMapper processDefinitionMapper;
+    private QueueMapper queueMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -27878,25 +27361,25 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/MetricsCleanUpServiceImpl.java`
 #### Snippet
 ```java
+    private ApiRpcClient apiRpcClient;
 
-    @Lazy
     @Autowired
-    private TaskGroupService taskGroupService;
+    private RegistryClient registryClient;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/MetricsCleanUpServiceImpl.java`
 #### Snippet
 ```java
-    private ProjectMapper projectMapper;
+public class MetricsCleanUpServiceImpl implements MetricsCleanUpService {
 
     @Autowired
-    private ProjectUserMapper projectUserMapper;
+    private ApiRpcClient apiRpcClient;
 
 ```
 
@@ -27905,10 +27388,22 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
 ```java
-public class DataAnalysisServiceImpl extends BaseServiceImpl implements DataAnalysisService {
+    private CommandMapper commandMapper;
 
     @Autowired
-    private ProjectMapper projectMapper;
+    private ErrorCommandMapper errorCommandMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+    private TaskInstanceMapper taskInstanceMapper;
+
+    @Autowired
+    private TaskDefinitionMapper taskDefinitionMapper;
 
 ```
 
@@ -27921,6 +27416,18 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
     @Autowired
     private TaskInstanceMapper taskInstanceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
+#### Snippet
+```java
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private ProjectService projectService;
 
 ```
 
@@ -27953,46 +27460,10 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
 ```java
-    private CommandMapper commandMapper;
-
-    @Autowired
-    private ErrorCommandMapper errorCommandMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
     private ProcessDefinitionMapper processDefinitionMapper;
 
     @Autowired
     private CommandMapper commandMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-    private ProjectMapper projectMapper;
-
-    @Autowired
-    private ProjectService projectService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
-#### Snippet
-```java
-    private TaskInstanceMapper taskInstanceMapper;
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
 
 ```
 
@@ -28010,565 +27481,61 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/stop/StopExecuteFunctionBuilder.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/DataAnalysisServiceImpl.java`
 #### Snippet
 ```java
-    @Autowired
-    private ProcessInstanceDao processInstanceDao;
-    @Autowired
-    private ApiRpcClient apiRpcClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/stop/StopExecuteFunctionBuilder.java`
-#### Snippet
-```java
-    public static final ExecuteType EXECUTE_TYPE = ExecuteType.STOP;
+public class DataAnalysisServiceImpl extends BaseServiceImpl implements DataAnalysisService {
 
     @Autowired
-    private ProcessInstanceDao processInstanceDao;
-    @Autowired
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/pause/pause/PauseExecuteFunctionBuilder.java`
-#### Snippet
-```java
-    @Autowired
-    private ProcessInstanceDao processInstanceDao;
-    @Autowired
-    private ApiRpcClient apiRpcClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/pause/pause/PauseExecuteFunctionBuilder.java`
-#### Snippet
-```java
-    public static final ExecuteType EXECUTE_TYPE = ExecuteType.PAUSE;
-
-    @Autowired
-    private ProcessInstanceDao processInstanceDao;
-    @Autowired
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    public static final String LOCAL_PARAMS_LIST = "localParamsList";
-
-    @Autowired
-    ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    private ScheduleMapper scheduleMapper;
-
-    @Autowired
-    private RelationSubWorkflowMapper relationSubWorkflowMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    LoggerService loggerService;
-
-    @Autowired
-    ProcessDefinitionLogMapper processDefinitionLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProcessInstanceMapper processInstanceMapper;
-
-    @Autowired
-    ProcessInstanceDao processInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    private ProcessInstanceMapDao processInstanceMapDao;
-
-    @Autowired
-    ProcessDefinitionMapper processDefineMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    TaskDefinitionMapper taskDefinitionMapper;
-
-    @Autowired
-    private TaskPluginManager taskPluginManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    private TaskInstanceService taskInstanceService;
-
-    @Autowired
-    ProcessInstanceMapper processInstanceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    private AlertDao alertDao;
-
-    @Autowired
-    private CuringParamsService curingGlobalParamsService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProjectMapper projectMapper;
-
-    @Autowired
-    ProjectService projectService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-    @Autowired
-    UsersService usersService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProcessDefinitionService processDefinitionService;
-
-    @Autowired
-    ExecutorService execService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProcessDefinitionMapper processDefineMapper;
-
-    @Autowired
-    ProcessDefinitionService processDefinitionService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    private RelationSubWorkflowMapper relationSubWorkflowMapper;
-
-    @Autowired
-    private AlertDao alertDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProcessInstanceDao processInstanceDao;
-
-    @Autowired
-    private ProcessInstanceMapDao processInstanceMapDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-
-    @Lazy
-    @Autowired
-    private TaskInstanceService taskInstanceService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    private TenantMapper tenantMapper;
-
-    @Autowired
-    TaskDefinitionMapper taskDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    UsersService usersService;
-
-    @Autowired
-    private TenantMapper tenantMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    ExecutorService execService;
-
-    @Autowired
-    TaskInstanceMapper taskInstanceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    TaskInstanceMapper taskInstanceMapper;
-
-    @Autowired
-    LoggerService loggerService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProcessService processService;
-
-    @Autowired
-    TaskInstanceDao taskInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProjectService projectService;
-
-    @Autowired
-    ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    private TaskPluginManager taskPluginManager;
-
-    @Autowired
-    private ScheduleMapper scheduleMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
-#### Snippet
-```java
-    ProcessDefinitionLogMapper processDefinitionLogMapper;
-
-    @Autowired
-    TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/pause/recover/RecoverExecuteFunctionBuilder.java`
-#### Snippet
-```java
-    public static final ExecuteType EXECUTE_TYPE = ExecuteType.RECOVER_SUSPENDED_PROCESS;
-
-    @Autowired
-    private CommandService commandService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private K8sNamespaceUserMapper k8sNamespaceUserMapper;
-
-    @Autowired
-    private MetricsCleanUpService metricsCleanUpService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private AlertGroupMapper alertGroupMapper;
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private UserMapper userMapper;
-
-    @Autowired
-    private TenantMapper tenantMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private DataSourceUserMapper datasourceUserMapper;
-
-    @Autowired
-    private UDFUserMapper udfUserMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
     private ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupQueueServiceImpl.java`
+#### Snippet
+```java
+    TaskGroupQueueMapper taskGroupQueueMapper;
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskGroupQueueServiceImpl.java`
+#### Snippet
+```java
+public class TaskGroupQueueServiceImpl extends BaseServiceImpl implements TaskGroupQueueService {
+
+    @Autowired
+    TaskGroupQueueMapper taskGroupQueueMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+    private ResourceUserMapper resourceUserMapper;
+
+    @Autowired
+    private ProcessDefinitionLogMapper processDefinitionLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+    private ProcessTaskRelationMapper processTaskRelationMapper;
 
     @Autowired(required = false)
     private StorageOperate storageOperate;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private ProjectUserMapper projectUserMapper;
-
-    @Autowired
-    private ResourceUserMapper resourceUserMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private ResourceMapper resourceMapper;
-
-    @Autowired
-    private DataSourceUserMapper datasourceUserMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private UDFUserMapper udfUserMapper;
-
-    @Autowired
-    private AlertGroupMapper alertGroupMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private StorageOperate storageOperate;
-
-    @Autowired
-    private K8sNamespaceUserMapper k8sNamespaceUserMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private ResourceUserMapper resourceUserMapper;
-
-    @Autowired
-    private ResourceMapper resourceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private AccessTokenMapper accessTokenMapper;
-
-    @Autowired
-    private UserMapper userMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
-
-    @Autowired
-    private AccessTokenMapper accessTokenMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
-#### Snippet
-```java
-    private TenantMapper tenantMapper;
-
-    @Autowired
-    private ProjectUserMapper projectUserMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/rerun/RepeatRunningExecuteFunctionBuilder.java`
-#### Snippet
-```java
-    public static final ExecuteType EXECUTE_TYPE = ExecuteType.REPEAT_RUNNING;
-
-    @Autowired
-    private CommandService commandService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
-#### Snippet
-```java
-    private K8sNamespaceMapper k8sNamespaceMapper;
-
-    @Autowired
-    private K8sClientService k8sClientService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
-#### Snippet
-```java
-            + "    ${limitMemory}\n";
-
-    @Autowired
-    private K8sNamespaceMapper k8sNamespaceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
-#### Snippet
-```java
-    private K8sClientService k8sClientService;
-
-    @Autowired
-    private ClusterMapper clusterMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/failure/recovery/FailureRecoveryExecuteFunctionBuilder.java`
-#### Snippet
-```java
-    public static final ExecuteType EXECUTE_TYPE = ExecuteType.START_FAILURE_TASK_PROCESS;
-
-    @Autowired
-    private CommandService commandService;
 
 ```
 
@@ -28589,10 +27556,10 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
-    private ResourceMapper resourcesMapper;
+    private TenantMapper tenantMapper;
 
     @Autowired
-    private UdfFuncMapper udfFunctionMapper;
+    private UserMapper userMapper;
 
 ```
 
@@ -28625,7 +27592,295 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
 #### Snippet
 ```java
+    private UdfFuncMapper udfFunctionMapper;
+
+    @Autowired
     private TenantMapper tenantMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+#### Snippet
+```java
+    private ResourceMapper resourcesMapper;
+
+    @Autowired
+    private UdfFuncMapper udfFunctionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private ProcessDefinitionService processDefinitionService;
+
+    @Autowired
+    private CommandService commandService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    ProcessDefinitionMapper processDefineMapper;
+
+    @Autowired
+    private MonitorService monitorService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private TriggerRelationService triggerRelationService;
+
+    @Autowired
+    private ExecuteClient executeClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private ProjectService projectService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+    @Autowired
+    private TaskGroupQueueMapper taskGroupQueueMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private ProcessInstanceDao processInstanceDao;
+
+    @Autowired
+    private ProcessDefinitionService processDefinitionService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private ProjectService projectService;
+
+    @Autowired
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+public class ExecutorServiceImpl extends BaseServiceImpl implements ExecutorService {
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private WorkerGroupService workerGroupService;
+
+    @Autowired
+    private TriggerRelationService triggerRelationService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private MonitorService monitorService;
+
+    @Autowired
+    private ProcessInstanceMapper processInstanceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private TaskGroupQueueMapper taskGroupQueueMapper;
+
+    @Autowired
+    private WorkerGroupService workerGroupService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+
+    @Lazy()
+    @Autowired
+    private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private StateEventCallbackService stateEventCallbackService;
+
+    @Autowired
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private ProcessService processService;
+
+    @Autowired
+    private ProcessInstanceDao processInstanceDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+    @Autowired
+    private StateEventCallbackService stateEventCallbackService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private CommandService commandService;
+
+    @Autowired
+    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+    @Autowired
+    ProcessDefinitionMapper processDefineMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ExecutorServiceImpl.java`
+#### Snippet
+```java
+    private ExecuteClient executeClient;
+
+    @Autowired
+    private TenantMapper tenantMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+    private TaskGroupService taskGroupService;
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+
+    @Lazy
+    @Autowired
+    private TaskGroupService taskGroupService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+    private ProjectUserMapper projectUserMapper;
+
+    @Autowired
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
+#### Snippet
+```java
+    private ProcessDefinitionMapper processDefinitionMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -28634,10 +27889,106 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProjectServiceImpl.java`
 #### Snippet
 ```java
-    private ProcessTaskRelationMapper processTaskRelationMapper;
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private ProjectUserMapper projectUserMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/stop/StopExecuteFunctionBuilder.java`
+#### Snippet
+```java
+    @Autowired
+    private ProcessInstanceDao processInstanceDao;
+    @Autowired
+    private ApiRpcClient apiRpcClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/stop/StopExecuteFunctionBuilder.java`
+#### Snippet
+```java
+    public static final ExecuteType EXECUTE_TYPE = ExecuteType.STOP;
+
+    @Autowired
+    private ProcessInstanceDao processInstanceDao;
+    @Autowired
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private AlertGroupMapper alertGroupMapper;
+
+    @Autowired
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/pause/pause/PauseExecuteFunctionBuilder.java`
+#### Snippet
+```java
+    @Autowired
+    private ProcessInstanceDao processInstanceDao;
+    @Autowired
+    private ApiRpcClient apiRpcClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private K8sNamespaceUserMapper k8sNamespaceUserMapper;
+
+    @Autowired
+    private MetricsCleanUpService metricsCleanUpService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private AccessTokenMapper accessTokenMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/pause/pause/PauseExecuteFunctionBuilder.java`
+#### Snippet
+```java
+    public static final ExecuteType EXECUTE_TYPE = ExecuteType.PAUSE;
+
+    @Autowired
+    private ProcessInstanceDao processInstanceDao;
+    @Autowired
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private ProjectMapper projectMapper;
 
     @Autowired(required = false)
     private StorageOperate storageOperate;
@@ -28646,25 +27997,481 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
 #### Snippet
 ```java
-    private ResourceUserMapper resourceUserMapper;
+    private StorageOperate storageOperate;
 
     @Autowired
-    private ProcessDefinitionLogMapper processDefinitionLogMapper;
+    private K8sNamespaceUserMapper k8sNamespaceUserMapper;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ResourcesServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
 #### Snippet
 ```java
-    private UdfFuncMapper udfFunctionMapper;
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private UserMapper userMapper;
 
     @Autowired
     private TenantMapper tenantMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+public class UsersServiceImpl extends BaseServiceImpl implements UsersService {
+
+    @Autowired
+    private AccessTokenMapper accessTokenMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private ProjectUserMapper projectUserMapper;
+
+    @Autowired
+    private ResourceUserMapper resourceUserMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private ResourceMapper resourceMapper;
+
+    @Autowired
+    private DataSourceUserMapper datasourceUserMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private UDFUserMapper udfUserMapper;
+
+    @Autowired
+    private AlertGroupMapper alertGroupMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private TenantMapper tenantMapper;
+
+    @Autowired
+    private ProjectUserMapper projectUserMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private ResourceUserMapper resourceUserMapper;
+
+    @Autowired
+    private ResourceMapper resourceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/UsersServiceImpl.java`
+#### Snippet
+```java
+    private DataSourceUserMapper datasourceUserMapper;
+
+    @Autowired
+    private UDFUserMapper udfUserMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/pause/recover/RecoverExecuteFunctionBuilder.java`
+#### Snippet
+```java
+    public static final ExecuteType EXECUTE_TYPE = ExecuteType.RECOVER_SUSPENDED_PROCESS;
+
+    @Autowired
+    private CommandService commandService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/rerun/RepeatRunningExecuteFunctionBuilder.java`
+#### Snippet
+```java
+    public static final ExecuteType EXECUTE_TYPE = ExecuteType.REPEAT_RUNNING;
+
+    @Autowired
+    private CommandService commandService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/executor/workflow/instance/failure/recovery/FailureRecoveryExecuteFunctionBuilder.java`
+#### Snippet
+```java
+    public static final ExecuteType EXECUTE_TYPE = ExecuteType.START_FAILURE_TASK_PROCESS;
+
+    @Autowired
+    private CommandService commandService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    UsersService usersService;
+
+    @Autowired
+    private TenantMapper tenantMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    LoggerService loggerService;
+
+    @Autowired
+    ProcessDefinitionLogMapper processDefinitionLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProcessInstanceDao processInstanceDao;
+
+    @Autowired
+    private ProcessInstanceMapDao processInstanceMapDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    private TaskInstanceService taskInstanceService;
+
+    @Autowired
+    ProcessInstanceMapper processInstanceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    private ScheduleMapper scheduleMapper;
+
+    @Autowired
+    private RelationSubWorkflowMapper relationSubWorkflowMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+    @Autowired
+    UsersService usersService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    private ProcessInstanceMapDao processInstanceMapDao;
+
+    @Autowired
+    ProcessDefinitionMapper processDefineMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProjectService projectService;
+
+    @Autowired
+    ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    TaskInstanceMapper taskInstanceMapper;
+
+    @Autowired
+    LoggerService loggerService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProcessDefinitionMapper processDefineMapper;
+
+    @Autowired
+    ProcessDefinitionService processDefinitionService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+    private TaskPluginManager taskPluginManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    private TaskPluginManager taskPluginManager;
+
+    @Autowired
+    private ScheduleMapper scheduleMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    private AlertDao alertDao;
+
+    @Autowired
+    private CuringParamsService curingGlobalParamsService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+
+    @Lazy
+    @Autowired
+    private TaskInstanceService taskInstanceService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProcessService processService;
+
+    @Autowired
+    TaskInstanceDao taskInstanceDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    public static final String LOCAL_PARAMS_LIST = "localParamsList";
+
+    @Autowired
+    ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    private RelationSubWorkflowMapper relationSubWorkflowMapper;
+
+    @Autowired
+    private AlertDao alertDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    private TenantMapper tenantMapper;
+
+    @Autowired
+    TaskDefinitionMapper taskDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    ExecutorService execService;
+
+    @Autowired
+    TaskInstanceMapper taskInstanceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProcessDefinitionLogMapper processDefinitionLogMapper;
+
+    @Autowired
+    TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProcessDefinitionService processDefinitionService;
+
+    @Autowired
+    ExecutorService execService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProcessInstanceMapper processInstanceMapper;
+
+    @Autowired
+    ProcessInstanceDao processInstanceDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessInstanceServiceImpl.java`
+#### Snippet
+```java
+    ProjectMapper projectMapper;
+
+    @Autowired
+    ProjectService projectService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
+#### Snippet
+```java
+            + "    ${limitMemory}\n";
+
+    @Autowired
+    private K8sNamespaceMapper k8sNamespaceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
+#### Snippet
+```java
+    private K8sClientService k8sClientService;
+
+    @Autowired
+    private ClusterMapper clusterMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/K8SNamespaceServiceImpl.java`
+#### Snippet
+```java
+    private K8sNamespaceMapper k8sNamespaceMapper;
+
+    @Autowired
+    private K8sClientService k8sClientService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProjectController.java`
+#### Snippet
+```java
+public class ProjectController extends BaseController {
+
+    @Autowired
+    private ProjectService projectService;
 
 ```
 
@@ -28694,18 +28501,6 @@ public class EnvironmentController extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProjectController.java`
-#### Snippet
-```java
-public class ProjectController extends BaseController {
-
-    @Autowired
-    private ProjectService projectService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ProcessInstanceController.java`
 #### Snippet
 ```java
@@ -28718,277 +28513,13 @@ public class ProcessInstanceController extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
 #### Snippet
 ```java
-    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
+public class TaskInstanceController extends BaseController {
 
     @Autowired
-    TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-    @Autowired
-    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProjectMapper projectMapper;
-
-    @Autowired
-    private ProjectService projectService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private WorkFlowLineageService workFlowLineageService;
-
-    @Autowired
-    private MetricsCleanUpService metricsCleanUpService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ScheduleMapper scheduleMapper;
-
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionDao processDefinitionDao;
-
-    @Autowired
-    private ProcessDefinitionLogDao processDefinitionLogDao;
-    @Lazy
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionLogMapper processDefinitionLogMapper;
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionService taskDefinitionService;
-
-    @Autowired
-    private TaskDefinitionLogService taskDefinitionLogService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Lazy
-    @Autowired
-    private TaskDefinitionService taskDefinitionService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-
-    @Lazy
-    @Autowired
-    private SchedulerService schedulerService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionLogService taskDefinitionLogService;
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-    private ProcessDefinitionDao processDefinitionDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private UserMapper userMapper;
-
-    @Autowired
-    private ProcessDefinitionLogMapper processDefinitionLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private SchedulerService schedulerService;
-
-    @Autowired
-    private DataSourceMapper dataSourceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private static final String RELEASESTATE = "releaseState";
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProjectService projectService;
-
-    @Autowired
-    private UserMapper userMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionLogDao taskDefinitionLogDao;
-
-    @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessService processService;
-
-    @Autowired
-    private TaskDefinitionLogDao taskDefinitionLogDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessInstanceService processInstanceService;
-
-    @Autowired
-    private TaskInstanceMapper taskInstanceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private TaskPluginManager taskPluginManager;
-
-    @Autowired
-    private WorkFlowLineageService workFlowLineageService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private TaskInstanceMapper taskInstanceMapper;
-
-    @Autowired
-    private ScheduleMapper scheduleMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionLogDao processDefinitionLogDao;
-    @Lazy
-    @Autowired
-    private ProcessInstanceService processInstanceService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private DataSourceMapper dataSourceMapper;
-
-    @Autowired
-    private TaskPluginManager taskPluginManager;
+    private TaskInstanceService taskInstanceService;
 
 ```
 
@@ -29018,114 +28549,6 @@ public class TaskDefinitionController extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
-#### Snippet
-```java
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-    @Autowired
-    private TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
-#### Snippet
-```java
-    private ProcessService processService;
-
-    @Autowired
-    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
-#### Snippet
-```java
-    private ProjectService projectService;
-
-    @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-    private ProcessDefinitionLogMapper processDefinitionLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionLogMapper processDefinitionLogMapper;
-
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
-#### Snippet
-```java
-public class ProcessTaskRelationServiceImpl extends BaseServiceImpl implements ProcessTaskRelationService {
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
-#### Snippet
-```java
-    private ProjectMapper projectMapper;
-
-    @Autowired
-    private ProjectService projectService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/AuditLogController.java`
 #### Snippet
 ```java
@@ -29133,18 +28556,6 @@ public class AuditLogController extends BaseController {
 
     @Autowired
     AuditService auditService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskInstanceController.java`
-#### Snippet
-```java
-public class TaskInstanceController extends BaseController {
-
-    @Autowired
-    private TaskInstanceService taskInstanceService;
 
 ```
 
@@ -29162,109 +28573,13 @@ public class ProcessTaskRelationController extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/LoginController.java`
 #### Snippet
 ```java
-    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+public class LoginController extends BaseController {
 
     @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessTaskRelationLogDao processTaskRelationLogDao;
-
-    @Autowired
-    private ProcessTaskRelationService processTaskRelationService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-    @Autowired
-    private TaskDefinitionDao taskDefinitionDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-    @Autowired
-    private ProcessTaskRelationLogDao processTaskRelationLogDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProjectService projectService;
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private ProcessTaskRelationService processTaskRelationService;
-
-    @Autowired
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private TaskPluginManager taskPluginManager;
-
-    @Autowired
-    private ProcessDefinitionService processDefinitionService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionDao taskDefinitionDao;
-
-    @Autowired
-    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+    private SessionService sessionService;
 
 ```
 
@@ -29285,22 +28600,10 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
 #### Snippet
 ```java
-    private ProcessService processService;
+    private ProcessTaskRelationLogDao processTaskRelationLogDao;
 
     @Autowired
-    private TaskPluginManager taskPluginManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/LoginController.java`
-#### Snippet
-```java
-public class LoginController extends BaseController {
-
-    @Autowired
-    private SessionService sessionService;
+    private ProcessTaskRelationService processTaskRelationService;
 
 ```
 
@@ -29309,10 +28612,70 @@ Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
 #### Snippet
 ```java
-    private ProjectMapper projectMapper;
+    private ProcessDefinitionMapper processDefinitionMapper;
 
     @Autowired
+    private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+    @Autowired
+    private ProcessTaskRelationLogDao processTaskRelationLogDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionDao taskDefinitionDao;
+
+    @Autowired
+    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+    private TaskDefinitionDao taskDefinitionDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private TaskPluginManager taskPluginManager;
+
+    @Autowired
+    private ProcessDefinitionService processDefinitionService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+#### Snippet
+```java
     private ProjectService projectService;
+
+    @Autowired
+    private TaskDefinitionMapper taskDefinitionMapper;
 
 ```
 
@@ -29330,37 +28693,49 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/i
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/AlertPluginInstanceController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
 #### Snippet
 ```java
-public class AlertPluginInstanceController extends BaseController {
+    private ProcessService processService;
 
     @Autowired
-    private AlertPluginInstanceService alertPluginInstanceService;
+    private TaskPluginManager taskPluginManager;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/QueueController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
 #### Snippet
 ```java
-public class QueueController extends BaseController {
+    private ProcessTaskRelationService processTaskRelationService;
 
     @Autowired
-    private QueueService queueService;
+    private ProcessDefinitionMapper processDefinitionMapper;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkerGroupController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
 #### Snippet
 ```java
-public class WorkerGroupController extends BaseController {
+    private TaskDefinitionLogMapper taskDefinitionLogMapper;
 
     @Autowired
-    WorkerGroupService workerGroupService;
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/TaskDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private ProjectService projectService;
 
 ```
 
@@ -29378,6 +28753,126 @@ public class ProcessDefinitionController extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/QueueController.java`
+#### Snippet
+```java
+public class QueueController extends BaseController {
+
+    @Autowired
+    private QueueService queueService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+    private ProjectService projectService;
+
+    @Autowired
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+    private ProcessService processService;
+
+    @Autowired
+    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+    @Autowired
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+    @Autowired
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+    @Autowired
+    private ProcessDefinitionLogMapper processDefinitionLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+    private ProcessDefinitionLogMapper processDefinitionLogMapper;
+
+    @Autowired
+    private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private ProjectService projectService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+    @Autowired
+    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessTaskRelationServiceImpl.java`
+#### Snippet
+```java
+public class ProcessTaskRelationServiceImpl extends BaseServiceImpl implements ProcessTaskRelationService {
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ClusterController.java`
 #### Snippet
 ```java
@@ -29390,13 +28885,13 @@ public class ClusterController extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/AccessTokenController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/AlertPluginInstanceController.java`
 #### Snippet
 ```java
-public class AccessTokenController extends BaseController {
+public class AlertPluginInstanceController extends BaseController {
 
     @Autowired
-    private AccessTokenService accessTokenService;
+    private AlertPluginInstanceService alertPluginInstanceService;
 
 ```
 
@@ -29414,13 +28909,25 @@ public class ProjectParameterController extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/MonitorController.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/AccessTokenController.java`
 #### Snippet
 ```java
-public class MonitorController extends BaseController {
+public class AccessTokenController extends BaseController {
 
     @Autowired
-    private MonitorService monitorService;
+    private AccessTokenService accessTokenService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/WorkerGroupController.java`
+#### Snippet
+```java
+public class WorkerGroupController extends BaseController {
+
+    @Autowired
+    WorkerGroupService workerGroupService;
 
 ```
 
@@ -29450,6 +28957,18 @@ public class DataQualityController extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/MonitorController.java`
+#### Snippet
+```java
+public class MonitorController extends BaseController {
+
+    @Autowired
+    private MonitorService monitorService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/ExecutorController.java`
 #### Snippet
 ```java
@@ -29457,6 +28976,30 @@ public class ExecutorController extends BaseController {
 
     @Autowired
     private ExecutorService execService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TenantController.java`
+#### Snippet
+```java
+public class TenantController extends BaseController {
+
+    @Autowired
+    private TenantService tenantService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
+#### Snippet
+```java
+public class K8sNamespaceController extends BaseController {
+
+    @Autowired
+    private K8sNamespaceService k8sNamespaceService;
 
 ```
 
@@ -29486,30 +29029,6 @@ public class LoggerController extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/K8sNamespaceController.java`
-#### Snippet
-```java
-public class K8sNamespaceController extends BaseController {
-
-    @Autowired
-    private K8sNamespaceService k8sNamespaceService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TenantController.java`
-#### Snippet
-```java
-public class TenantController extends BaseController {
-
-    @Autowired
-    private TenantService tenantService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/UiPluginController.java`
 #### Snippet
 ```java
@@ -29534,18 +29053,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/UsersController.java`
-#### Snippet
-```java
-public class UsersController extends BaseController {
-
-    @Autowired
-    private UsersService usersService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/DataAnalysisController.java`
 #### Snippet
 ```java
@@ -29553,18 +29060,6 @@ public class DataAnalysisController extends BaseController {
 
     @Autowired
     DataAnalysisService dataAnalysisService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/AccessTokenV2Controller.java`
-#### Snippet
-```java
-public class AccessTokenV2Controller extends BaseController {
-
-    @Autowired
-    private AccessTokenService accessTokenService;
 
 ```
 
@@ -29582,6 +29077,30 @@ public class QueueV2Controller extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/UsersController.java`
+#### Snippet
+```java
+public class UsersController extends BaseController {
+
+    @Autowired
+    private UsersService usersService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/AccessTokenV2Controller.java`
+#### Snippet
+```java
+public class AccessTokenV2Controller extends BaseController {
+
+    @Autowired
+    private AccessTokenService accessTokenService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/StatisticsV2Controller.java`
 #### Snippet
 ```java
@@ -29589,42 +29108,6 @@ public class StatisticsV2Controller extends BaseController {
 
     @Autowired
     private DataAnalysisService dataAnalysisService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/ScheduleV2Controller.java`
-#### Snippet
-```java
-public class ScheduleV2Controller extends BaseController {
-
-    @Autowired
-    private SchedulerService schedulerService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/WorkflowV2Controller.java`
-#### Snippet
-```java
-public class WorkflowV2Controller extends BaseController {
-
-    @Autowired
-    private ProcessDefinitionService processDefinitionService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskGroupController.java`
-#### Snippet
-```java
-public class TaskGroupController extends BaseController {
-
-    @Autowired
-    private TaskGroupService taskGroupService;
 
 ```
 
@@ -29642,11 +29125,227 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/TaskDefinitionV2Controller.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/TaskGroupController.java`
 #### Snippet
 ```java
-public class TaskDefinitionV2Controller extends BaseController {
+public class TaskGroupController extends BaseController {
 
+    @Autowired
+    private TaskGroupService taskGroupService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/WorkflowV2Controller.java`
+#### Snippet
+```java
+public class WorkflowV2Controller extends BaseController {
+
+    @Autowired
+    private ProcessDefinitionService processDefinitionService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionLogService taskDefinitionLogService;
+
+    @Autowired
+    private TaskDefinitionMapper taskDefinitionMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProcessDefinitionMapper processDefinitionMapper;
+
+    @Autowired
+    private ProcessDefinitionDao processDefinitionDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionService taskDefinitionService;
+
+    @Autowired
+    private TaskDefinitionLogService taskDefinitionLogService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private TaskInstanceMapper taskInstanceMapper;
+
+    @Autowired
+    private ScheduleMapper scheduleMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProcessDefinitionDao processDefinitionDao;
+
+    @Autowired
+    private ProcessDefinitionLogDao processDefinitionLogDao;
+    @Lazy
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private SchedulerService schedulerService;
+
+    @Autowired
+    private DataSourceMapper dataSourceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
+
+    @Autowired
+    TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ScheduleMapper scheduleMapper;
+
+    @Autowired
+    private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProcessDefinitionLogDao processDefinitionLogDao;
+    @Lazy
+    @Autowired
+    private ProcessInstanceService processInstanceService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Lazy
+    @Autowired
+    private SchedulerService schedulerService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private ProjectService projectService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionLogDao taskDefinitionLogDao;
+
+    @Autowired
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private DataSourceMapper dataSourceMapper;
+
+    @Autowired
+    private TaskPluginManager taskPluginManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProjectService projectService;
+
+    @Autowired
+    private UserMapper userMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private UserMapper userMapper;
+
+    @Autowired
+    private ProcessDefinitionLogMapper processDefinitionLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private WorkFlowLineageService workFlowLineageService;
+
+    @Autowired
+    private MetricsCleanUpService metricsCleanUpService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+
+    @Lazy
     @Autowired
     private TaskDefinitionService taskDefinitionService;
 
@@ -29654,37 +29353,73 @@ public class TaskDefinitionV2Controller extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/WorkflowInstanceV2Controller.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
-public class WorkflowInstanceV2Controller extends BaseController {
+    private ProcessDefinitionLogMapper processDefinitionLogMapper;
 
     @Autowired
-    private ProcessInstanceService processInstanceService;
+    private ProcessDefinitionMapper processDefinitionMapper;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/WorkflowInstanceV2Controller.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
-    private ProcessInstanceService processInstanceService;
+    private static final String RELEASESTATE = "releaseState";
 
     @Autowired
-    private ExecutorService execService;
+    private ProjectMapper projectMapper;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/ProjectV2Controller.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
 #### Snippet
 ```java
-public class ProjectV2Controller extends BaseController {
+    private TaskPluginManager taskPluginManager;
 
     @Autowired
-    private ProjectService projectService;
+    private WorkFlowLineageService workFlowLineageService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProcessInstanceService processInstanceService;
+
+    @Autowired
+    private TaskInstanceMapper taskInstanceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProcessService processService;
+
+    @Autowired
+    private TaskDefinitionLogDao taskDefinitionLogDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/service/impl/ProcessDefinitionServiceImpl.java`
+#### Snippet
+```java
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+    @Autowired
+    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
 
 ```
 
@@ -29702,13 +29437,37 @@ public class ProcessTaskRelationV2Controller extends BaseController {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/TaskInstanceV2Controller.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/WorkflowInstanceV2Controller.java`
 #### Snippet
 ```java
-public class TaskInstanceV2Controller extends BaseController {
+    private ProcessInstanceService processInstanceService;
 
     @Autowired
-    private TaskInstanceService taskInstanceService;
+    private ExecutorService execService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/WorkflowInstanceV2Controller.java`
+#### Snippet
+```java
+public class WorkflowInstanceV2Controller extends BaseController {
+
+    @Autowired
+    private ProcessInstanceService processInstanceService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/TaskDefinitionV2Controller.java`
+#### Snippet
+```java
+public class TaskDefinitionV2Controller extends BaseController {
+
+    @Autowired
+    private TaskDefinitionService taskDefinitionService;
 
 ```
 
@@ -29734,6 +29493,42 @@ public class ResourcesController extends BaseController {
     @Autowired
     private ResourcesService resourceService;
     @Autowired
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/TaskInstanceV2Controller.java`
+#### Snippet
+```java
+public class TaskInstanceV2Controller extends BaseController {
+
+    @Autowired
+    private TaskInstanceService taskInstanceService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/ProjectV2Controller.java`
+#### Snippet
+```java
+public class ProjectV2Controller extends BaseController {
+
+    @Autowired
+    private ProjectService projectService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controller/v2/ScheduleV2Controller.java`
+#### Snippet
+```java
+public class ScheduleV2Controller extends BaseController {
+
+    @Autowired
+    private SchedulerService schedulerService;
+
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
@@ -29789,6 +29584,18 @@ Field injection is not recommended
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/AlertDao.java`
 #### Snippet
 ```java
+    private AlertPluginInstanceMapper alertPluginInstanceMapper;
+
+    @Autowired
+    private AlertGroupMapper alertGroupMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/AlertDao.java`
+#### Snippet
+```java
     private AlertMapper alertMapper;
 
     @Autowired
@@ -29810,13 +29617,13 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/AlertDao.
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/AlertDao.java`
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/configuration/AppConfiguration.java`
 #### Snippet
 ```java
-    private AlertPluginInstanceMapper alertPluginInstanceMapper;
+    public static final String LOCALE_LANGUAGE_COOKIE = "language";
 
     @Autowired
-    private AlertGroupMapper alertGroupMapper;
+    private TrafficConfiguration trafficConfiguration;
 
 ```
 
@@ -29873,18 +29680,6 @@ Field injection is not recommended
 in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/repository/impl/TaskDefinitionDaoImpl.java`
 #### Snippet
 ```java
-    private ProcessDefinitionMapper processDefinitionMapper;
-
-    @Autowired
-    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/repository/impl/TaskDefinitionDaoImpl.java`
-#### Snippet
-```java
     private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
 
     @Autowired
@@ -29894,13 +29689,13 @@ in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/repositor
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/configuration/AppConfiguration.java`
+in `dolphinscheduler-dao/src/main/java/org/apache/dolphinscheduler/dao/repository/impl/TaskDefinitionDaoImpl.java`
 #### Snippet
 ```java
-    public static final String LOCALE_LANGUAGE_COOKIE = "language";
+    private ProcessDefinitionMapper processDefinitionMapper;
 
     @Autowired
-    private TrafficConfiguration trafficConfiguration;
+    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
 
 ```
 
@@ -29921,18 +29716,6 @@ Field injection is not recommended
 in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/registry/AlertRegistryClient.java`
 #### Snippet
 ```java
-public class AlertRegistryClient implements AutoCloseable {
-
-    @Autowired
-    private RegistryClient registryClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/registry/AlertRegistryClient.java`
-#### Snippet
-```java
     private RegistryClient registryClient;
 
     @Autowired
@@ -29942,14 +29725,14 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apach
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/AlertServer.java`
+in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/registry/AlertRegistryClient.java`
 #### Snippet
 ```java
+public class AlertRegistryClient implements AutoCloseable {
+
     @Autowired
-    private AlertBootstrapService alertBootstrapService;
-    @Autowired
-    private AlertRpcServer alertRpcServer;
-    @Autowired
+    private RegistryClient registryClient;
+
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
@@ -29961,6 +29744,18 @@ public class AlertServer {
 
     @Autowired
     private AlertBootstrapService alertBootstrapService;
+    @Autowired
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/AlertServer.java`
+#### Snippet
+```java
+    @Autowired
+    private AlertRpcServer alertRpcServer;
+    @Autowired
+    private AlertPluginManager alertPluginManager;
     @Autowired
 ```
 
@@ -29982,22 +29777,10 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apach
 #### Snippet
 ```java
     @Autowired
+    private AlertBootstrapService alertBootstrapService;
+    @Autowired
     private AlertRpcServer alertRpcServer;
     @Autowired
-    private AlertPluginManager alertPluginManager;
-    @Autowired
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/rpc/AlertRpcServer.java`
-#### Snippet
-```java
-    @Autowired
-    private List<NettyRequestProcessor> nettyRequestProcessors;
-    @Autowired
-    private AlertConfig alertConfig;
-
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
@@ -30014,14 +29797,14 @@ public class AlertRpcServer implements AutoCloseable {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/service/AlertBootstrapService.java`
+in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/rpc/AlertRpcServer.java`
 #### Snippet
 ```java
-public final class AlertBootstrapService extends BaseDaemonThread implements AutoCloseable {
+    @Autowired
+    private List<NettyRequestProcessor> nettyRequestProcessors;
+    @Autowired
+    private AlertConfig alertConfig;
 
-    @Autowired
-    private AlertDao alertDao;
-    @Autowired
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
@@ -30046,6 +29829,18 @@ in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apach
     @Autowired
     private AlertConfig alertConfig;
 
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-alert/dolphinscheduler-alert-server/src/main/java/org/apache/dolphinscheduler/alert/service/AlertBootstrapService.java`
+#### Snippet
+```java
+public final class AlertBootstrapService extends BaseDaemonThread implements AutoCloseable {
+
+    @Autowired
+    private AlertDao alertDao;
+    @Autowired
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
@@ -30077,10 +29872,10 @@ Field injection is not recommended
 in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/resource/MigrateResourceService.java`
 #### Snippet
 ```java
-    private static final Logger logger = LoggerFactory.getLogger(MigrateResourceService.class);
+    private TenantMapper tenantMapper;
 
     @Autowired
-    private StorageOperate storageOperate;
+    private ResourceMapper resourceMapper;
 
 ```
 
@@ -30101,10 +29896,10 @@ Field injection is not recommended
 in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/resource/MigrateResourceService.java`
 #### Snippet
 ```java
-    private TenantMapper tenantMapper;
+    private static final Logger logger = LoggerFactory.getLogger(MigrateResourceService.class);
 
     @Autowired
-    private ResourceMapper resourceMapper;
+    private StorageOperate storageOperate;
 
 ```
 
@@ -30149,18 +29944,6 @@ Field injection is not recommended
 in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
 #### Snippet
 ```java
-    private UserMapper userMapper;
-
-    @Autowired
-    private TaskInstanceMapper taskInstanceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
-#### Snippet
-```java
     private ProcessDefinitionLogMapper processDefinitionLogMapper;
 
     @Autowired
@@ -30173,6 +29956,30 @@ Field injection is not recommended
 in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
 #### Snippet
 ```java
+public class V320DolphinSchedulerUpgrader implements DolphinSchedulerUpgrader {
+
+    @Autowired
+    private ProcessInstanceMapper processInstanceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
+#### Snippet
+```java
+    private UserMapper userMapper;
+
+    @Autowired
+    private TaskInstanceMapper taskInstanceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
+#### Snippet
+```java
     private ProcessInstanceMapper processInstanceMapper;
 
     @Autowired
@@ -30182,13 +29989,49 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v320/V320DolphinSchedulerUpgrader.java`
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
 #### Snippet
 ```java
-public class V320DolphinSchedulerUpgrader implements DolphinSchedulerUpgrader {
+    private UserMapper userMapper;
 
     @Autowired
-    private ProcessInstanceMapper processInstanceMapper;
+    private AccessTokenMapper accessTokenMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+    private AccessTokenMapper accessTokenMapper;
+
+    @Autowired
+    private ProxyProcessDefinitionController proxyProcessDefinitionController;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+#### Snippet
+```java
+    private String tenantCode;
+
+    @Autowired
+    private ProjectMapper projectMapper;
 
 ```
 
@@ -30221,18 +30064,6 @@ Field injection is not recommended
 in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
 #### Snippet
 ```java
-public class V200DolphinSchedulerUpgrader implements DolphinSchedulerUpgrader {
-
-    @Autowired
-    private DataSource dataSource;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
-#### Snippet
-```java
 
     @Lazy()
     @Autowired
@@ -30242,61 +30073,13 @@ in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
+in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/datasource/upgrader/v200/V200DolphinSchedulerUpgrader.java`
 #### Snippet
 ```java
-    private AccessTokenMapper accessTokenMapper;
+public class V200DolphinSchedulerUpgrader implements DolphinSchedulerUpgrader {
 
     @Autowired
-    private ProxyProcessDefinitionController proxyProcessDefinitionController;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-    private UserMapper userMapper;
-
-    @Autowired
-    private AccessTokenMapper accessTokenMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-    private String tenantCode;
-
-    @Autowired
-    private ProjectMapper projectMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-tools/src/main/java/org/apache/dolphinscheduler/tools/demo/ProcessDefinitionDemo.java`
-#### Snippet
-```java
-    private ProjectMapper projectMapper;
-
-    @Autowired
-    private UserMapper userMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/rpc/MasterRPCServer.java`
-#### Snippet
-```java
-    private NettyRemotingServer nettyRemotingServer;
-
-    @Autowired
-    private MasterConfig masterConfig;
+    private DataSource dataSource;
 
 ```
 
@@ -30314,13 +30097,13 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/rpc/MasterRPCServer.java`
 #### Snippet
 ```java
-    private SchedulerApi schedulerApi;
+    private NettyRemotingServer nettyRemotingServer;
 
     @Autowired
-    private EventExecuteService eventExecuteService;
+    private MasterConfig masterConfig;
 
 ```
 
@@ -30341,6 +30124,66 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
 #### Snippet
 ```java
+    private EventExecuteService eventExecuteService;
+
+    @Autowired
+    private FailoverExecuteThread failoverExecuteThread;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
+#### Snippet
+```java
+    private MasterRegistryClient masterRegistryClient;
+
+    @Autowired
+    private TaskPluginManager taskPluginManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
+#### Snippet
+```java
+    private TaskPluginManager taskPluginManager;
+
+    @Autowired
+    private MasterSchedulerBootstrap masterSchedulerBootstrap;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
+#### Snippet
+```java
+    private SchedulerApi schedulerApi;
+
+    @Autowired
+    private EventExecuteService eventExecuteService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
+#### Snippet
+```java
+    private FailoverExecuteThread failoverExecuteThread;
+
+    @Autowired
+    private MasterRPCServer masterRPCServer;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
+#### Snippet
+```java
     private MasterSchedulerBootstrap masterSchedulerBootstrap;
 
     @Autowired
@@ -30362,49 +30205,61 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/WorkflowStartEventHandler.java`
 #### Snippet
 ```java
-    private TaskPluginManager taskPluginManager;
+public class WorkflowStartEventHandler implements WorkflowEventHandler {
 
     @Autowired
-    private MasterSchedulerBootstrap masterSchedulerBootstrap;
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/WorkflowStartEventHandler.java`
 #### Snippet
 ```java
-    private EventExecuteService eventExecuteService;
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
 
     @Autowired
-    private FailoverExecuteThread failoverExecuteThread;
+    private StateWheelExecuteThread stateWheelExecuteThread;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/WorkflowStartEventHandler.java`
 #### Snippet
 ```java
-    private FailoverExecuteThread failoverExecuteThread;
+    private StateWheelExecuteThread stateWheelExecuteThread;
 
     @Autowired
-    private MasterRPCServer masterRPCServer;
+    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/MasterServer.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskRunningEventHandler.java`
 #### Snippet
 ```java
-    private MasterRegistryClient masterRegistryClient;
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
 
     @Autowired
-    private TaskPluginManager taskPluginManager;
+    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskRunningEventHandler.java`
+#### Snippet
+```java
+public class TaskRunningEventHandler implements TaskEventHandler {
+
+    @Autowired
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
 
 ```
 
@@ -30434,61 +30289,13 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskRunningEventHandler.java`
-#### Snippet
-```java
-public class TaskRunningEventHandler implements TaskEventHandler {
-
-    @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskRunningEventHandler.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskDispatchEventHandler.java`
 #### Snippet
 ```java
     private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
 
     @Autowired
-    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/WorkflowStartEventHandler.java`
-#### Snippet
-```java
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-    @Autowired
-    private StateWheelExecuteThread stateWheelExecuteThread;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/WorkflowStartEventHandler.java`
-#### Snippet
-```java
-public class WorkflowStartEventHandler implements WorkflowEventHandler {
-
-    @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/WorkflowStartEventHandler.java`
-#### Snippet
-```java
-    private StateWheelExecuteThread stateWheelExecuteThread;
-
-    @Autowired
-    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
+    private TaskInstanceDao taskInstanceDao;
 
 ```
 
@@ -30506,10 +30313,10 @@ public class TaskDispatchEventHandler implements TaskEventHandler {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskDispatchEventHandler.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskUpdatePidEventHandler.java`
 #### Snippet
 ```java
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
 
     @Autowired
     private TaskInstanceDao taskInstanceDao;
@@ -30525,18 +30332,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
     @Autowired
     private WorkflowExecuteThreadPool workflowExecuteThreadPool;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskUpdatePidEventHandler.java`
-#### Snippet
-```java
-    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
-
-    @Autowired
-    private TaskInstanceDao taskInstanceDao;
 
 ```
 
@@ -30557,18 +30352,6 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskCacheEventHandler.java`
 #### Snippet
 ```java
-    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
-
-    @Autowired
-    private DataQualityResultOperator dataQualityResultOperator;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskCacheEventHandler.java`
-#### Snippet
-```java
     private ProcessService processService;
 
     @Autowired
@@ -30585,6 +30368,18 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
     @Autowired
     private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskCacheEventHandler.java`
+#### Snippet
+```java
+    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
+
+    @Autowired
+    private DataQualityResultOperator dataQualityResultOperator;
 
 ```
 
@@ -30614,114 +30409,6 @@ public class TaskCacheEventHandler implements TaskEventHandler {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
-#### Snippet
-```java
-    private TaskInstanceDao taskInstanceDao;
-
-    @Autowired
-    private MasterConfig masterConfig;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
-#### Snippet
-```java
-    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
-
-    @Autowired
-    private DataQualityResultOperator dataQualityResultOperator;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
-#### Snippet
-```java
-public class TaskResultEventHandler implements TaskEventHandler {
-
-    @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
-#### Snippet
-```java
-    private DataQualityResultOperator dataQualityResultOperator;
-
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
-#### Snippet
-```java
-    private ProcessService processService;
-
-    @Autowired
-    private TaskInstanceDao taskInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
-#### Snippet
-```java
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-    @Autowired
-    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskDelayEventHandler.java`
-#### Snippet
-```java
-    private TaskInstanceDao taskInstanceDao;
-
-    @Autowired
-    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskDelayEventHandler.java`
-#### Snippet
-```java
-    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
-
-    @Autowired
-    private MasterConfig masterConfig;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskDelayEventHandler.java`
-#### Snippet
-```java
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-    @Autowired
-    private TaskInstanceDao taskInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskDelayEventHandler.java`
 #### Snippet
 ```java
@@ -30734,91 +30421,43 @@ public class TaskDelayEventHandler implements TaskEventHandler {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskDelayEventHandler.java`
 #### Snippet
 ```java
-public class WorkflowExecuteRunnableFactory {
+    private TaskInstanceDao taskInstanceDao;
 
     @Autowired
-    private ServerNodeManager serverNodeManager;
+    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskDelayEventHandler.java`
 #### Snippet
 ```java
-    private StateWheelExecuteThread stateWheelExecuteThread;
+    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
 
     @Autowired
-    private CuringParamsService curingGlobalParamsService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
-#### Snippet
-```java
     private MasterConfig masterConfig;
 
-    @Autowired
-    private TaskDefinitionLogDao taskDefinitionLogDao;
-
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskDelayEventHandler.java`
 #### Snippet
 ```java
-    private ProcessInstanceDao processInstanceDao;
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
 
     @Autowired
-    private MasterRpcClient masterRpcClient;
+    private TaskInstanceDao taskInstanceDao;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
-#### Snippet
-```java
-    private ServerNodeManager serverNodeManager;
-
-    @Autowired
-    private CommandService commandService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
-#### Snippet
-```java
-    private TaskDefinitionLogDao taskDefinitionLogDao;
-
-    @Autowired
-    private DefaultTaskExecuteRunnableFactory defaultTaskExecuteRunnableFactory;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
-#### Snippet
-```java
-    private MasterRpcClient masterRpcClient;
-
-    @Autowired
-    private ProcessAlertManager processAlertManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
 #### Snippet
 ```java
     private TaskInstanceDao taskInstanceDao;
@@ -30830,34 +30469,46 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
+#### Snippet
+```java
+    private DataQualityResultOperator dataQualityResultOperator;
+
+    @Autowired
+    private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
+#### Snippet
+```java
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+
+    @Autowired
+    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
+#### Snippet
+```java
+    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
+
+    @Autowired
+    private DataQualityResultOperator dataQualityResultOperator;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
 #### Snippet
 ```java
     private ProcessService processService;
-
-    @Autowired
-    private ProcessInstanceDao processInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
-#### Snippet
-```java
-    private ProcessAlertManager processAlertManager;
-
-    @Autowired
-    private StateWheelExecuteThread stateWheelExecuteThread;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
-#### Snippet
-```java
-    private CuringParamsService curingGlobalParamsService;
 
     @Autowired
     private TaskInstanceDao taskInstanceDao;
@@ -30866,58 +30517,10 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/event/TaskResultEventHandler.java`
 #### Snippet
 ```java
-    private CommandService commandService;
-
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StreamTaskExecuteThreadPool.java`
-#### Snippet
-```java
-public class StreamTaskExecuteThreadPool extends ThreadPoolTaskExecutor {
-
-    @Autowired
-    private MasterConfig masterConfig;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterDelayTaskExecuteRunnableDelayQueueLooper.java`
-#### Snippet
-```java
-public class MasterDelayTaskExecuteRunnableDelayQueueLooper extends BaseDaemonThread implements AutoCloseable {
-
-    @Autowired
-    private MasterDelayTaskExecuteRunnableDelayQueue masterDelayTaskExecuteRunnableDelayQueue;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterDelayTaskExecuteRunnableDelayQueueLooper.java`
-#### Snippet
-```java
-    private MasterDelayTaskExecuteRunnableDelayQueue masterDelayTaskExecuteRunnableDelayQueue;
-
-    @Autowired
-    private MasterTaskExecuteRunnableThreadPool masterTaskExecuteRunnableThreadPool;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/EventExecuteService.java`
-#### Snippet
-```java
-public class EventExecuteService extends BaseDaemonThread {
+public class TaskResultEventHandler implements TaskEventHandler {
 
     @Autowired
     private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
@@ -30941,6 +30544,30 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/EventExecuteService.java`
 #### Snippet
 ```java
+    private StreamTaskInstanceExecCacheManager streamTaskInstanceExecCacheManager;
+
+    @Autowired
+    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/EventExecuteService.java`
+#### Snippet
+```java
+public class EventExecuteService extends BaseDaemonThread {
+
+    @Autowired
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/EventExecuteService.java`
+#### Snippet
+```java
     private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
 
     @Autowired
@@ -30950,13 +30577,25 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/EventExecuteService.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StreamTaskExecuteThreadPool.java`
 #### Snippet
 ```java
-    private StreamTaskInstanceExecCacheManager streamTaskInstanceExecCacheManager;
+public class StreamTaskExecuteThreadPool extends ThreadPoolTaskExecutor {
 
     @Autowired
-    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
+    private MasterConfig masterConfig;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterTaskExecutorBootstrap.java`
+#### Snippet
+```java
+    private MasterDelayTaskExecuteRunnableDelayQueueLooper masterDelayTaskExecuteRunnableDelayQueueLooper;
+
+    @Autowired
+    private AsyncMasterTaskDelayQueueLooper asyncMasterTaskDelayQueueLooper;
 
 ```
 
@@ -30986,25 +30625,169 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterTaskExecutorBootstrap.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterDelayTaskExecuteRunnableDelayQueueLooper.java`
 #### Snippet
 ```java
-    private MasterDelayTaskExecuteRunnableDelayQueueLooper masterDelayTaskExecuteRunnableDelayQueueLooper;
+public class MasterDelayTaskExecuteRunnableDelayQueueLooper extends BaseDaemonThread implements AutoCloseable {
 
     @Autowired
-    private AsyncMasterTaskDelayQueueLooper asyncMasterTaskDelayQueueLooper;
+    private MasterDelayTaskExecuteRunnableDelayQueue masterDelayTaskExecuteRunnableDelayQueue;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/FailoverExecuteThread.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterDelayTaskExecuteRunnableDelayQueueLooper.java`
 #### Snippet
 ```java
-     * failover service
-     */
+    private MasterDelayTaskExecuteRunnableDelayQueue masterDelayTaskExecuteRunnableDelayQueue;
+
     @Autowired
-    private MasterFailoverService masterFailoverService;
+    private MasterTaskExecuteRunnableThreadPool masterTaskExecuteRunnableThreadPool;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private MasterConfig masterConfig;
+
+    @Autowired
+    private TaskDefinitionLogDao taskDefinitionLogDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private MasterRpcClient masterRpcClient;
+
+    @Autowired
+    private ProcessAlertManager processAlertManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private ProcessInstanceDao processInstanceDao;
+
+    @Autowired
+    private MasterRpcClient masterRpcClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private CuringParamsService curingGlobalParamsService;
+
+    @Autowired
+    private TaskInstanceDao taskInstanceDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private TaskInstanceDao taskInstanceDao;
+
+    @Autowired
+    private MasterConfig masterConfig;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private ProcessService processService;
+
+    @Autowired
+    private ProcessInstanceDao processInstanceDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private ServerNodeManager serverNodeManager;
+
+    @Autowired
+    private CommandService commandService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private CommandService commandService;
+
+    @Autowired
+    private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private TaskDefinitionLogDao taskDefinitionLogDao;
+
+    @Autowired
+    private DefaultTaskExecuteRunnableFactory defaultTaskExecuteRunnableFactory;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private ProcessAlertManager processAlertManager;
+
+    @Autowired
+    private StateWheelExecuteThread stateWheelExecuteThread;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private StateWheelExecuteThread stateWheelExecuteThread;
+
+    @Autowired
+    private CuringParamsService curingGlobalParamsService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteRunnableFactory.java`
+#### Snippet
+```java
+public class WorkflowExecuteRunnableFactory {
+
+    @Autowired
+    private ServerNodeManager serverNodeManager;
 
 ```
 
@@ -31022,97 +30805,13 @@ public class FailoverExecuteThread extends BaseDaemonThread {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/GlobalTaskDispatchWaitingQueueLooper.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/FailoverExecuteThread.java`
 #### Snippet
 ```java
-public class GlobalTaskDispatchWaitingQueueLooper extends BaseDaemonThread implements AutoCloseable {
-
+     * failover service
+     */
     @Autowired
-    private GlobalTaskDispatchWaitingQueue globalTaskDispatchWaitingQueue;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/GlobalTaskDispatchWaitingQueueLooper.java`
-#### Snippet
-```java
-    private GlobalTaskDispatchWaitingQueue globalTaskDispatchWaitingQueue;
-
-    @Autowired
-    private TaskDispatchFactory taskDispatchFactory;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
-#### Snippet
-```java
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-    @Autowired
-    private StateEventCallbackService stateEventCallbackService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
-#### Snippet
-```java
-    private ProcessService processService;
-
-    @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
-#### Snippet
-```java
-    private StateEventCallbackService stateEventCallbackService;
-
-    @Autowired
-    private StateWheelExecuteThread stateWheelExecuteThread;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
-#### Snippet
-```java
-public class WorkflowExecuteThreadPool extends ThreadPoolTaskExecutor {
-
-    @Autowired
-    private MasterConfig masterConfig;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
-#### Snippet
-```java
-    private MasterConfig masterConfig;
-
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowEventLooper.java`
-#### Snippet
-```java
-    private WorkflowEventQueue workflowEventQueue;
-
-    @Autowired
-    private List<WorkflowEventHandler> workflowEventHandlerList;
+    private MasterFailoverService masterFailoverService;
 
 ```
 
@@ -31130,109 +30829,13 @@ public class WorkflowEventLooper extends BaseDaemonThread implements AutoCloseab
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
-#### Snippet
-```java
-    private MasterConfig masterConfig;
-
-    @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
-#### Snippet
-```java
-public class MasterSchedulerBootstrap extends BaseDaemonThread implements AutoCloseable {
-
-    @Autowired
-    private CommandService commandService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
-#### Snippet
-```java
-    private WorkflowEventLooper workflowEventLooper;
-
-    @Autowired
-    private ServerNodeManager serverNodeManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
-#### Snippet
-```java
-    private CommandService commandService;
-
-    @Autowired
-    private MasterConfig masterConfig;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
-#### Snippet
-```java
-    private WorkflowExecuteRunnableFactory workflowExecuteRunnableFactory;
-
-    @Autowired
-    private WorkflowEventQueue workflowEventQueue;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
-#### Snippet
-```java
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-    @Autowired
-    private WorkflowExecuteRunnableFactory workflowExecuteRunnableFactory;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
-#### Snippet
-```java
-    private ServerNodeManager serverNodeManager;
-
-    @Autowired
-    private MasterTaskExecutorBootstrap masterTaskExecutorBootstrap;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowEventLooper.java`
 #### Snippet
 ```java
     private WorkflowEventQueue workflowEventQueue;
 
     @Autowired
-    private WorkflowEventLooper workflowEventLooper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StateWheelExecuteThread.java`
-#### Snippet
-```java
-
-    @Lazy
-    @Autowired
-    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
+    private List<WorkflowEventHandler> workflowEventHandlerList;
 
 ```
 
@@ -31262,6 +30865,210 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StateWheelExecuteThread.java`
+#### Snippet
+```java
+
+    @Lazy
+    @Autowired
+    private WorkflowExecuteThreadPool workflowExecuteThreadPool;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
+#### Snippet
+```java
+    private ProcessService processService;
+
+    @Autowired
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
+#### Snippet
+```java
+public class WorkflowExecuteThreadPool extends ThreadPoolTaskExecutor {
+
+    @Autowired
+    private MasterConfig masterConfig;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
+#### Snippet
+```java
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+
+    @Autowired
+    private StateEventCallbackService stateEventCallbackService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
+#### Snippet
+```java
+    private StateEventCallbackService stateEventCallbackService;
+
+    @Autowired
+    private StateWheelExecuteThread stateWheelExecuteThread;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/WorkflowExecuteThreadPool.java`
+#### Snippet
+```java
+    private MasterConfig masterConfig;
+
+    @Autowired
+    private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/GlobalTaskDispatchWaitingQueueLooper.java`
+#### Snippet
+```java
+    private GlobalTaskDispatchWaitingQueue globalTaskDispatchWaitingQueue;
+
+    @Autowired
+    private TaskDispatchFactory taskDispatchFactory;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/GlobalTaskDispatchWaitingQueueLooper.java`
+#### Snippet
+```java
+public class GlobalTaskDispatchWaitingQueueLooper extends BaseDaemonThread implements AutoCloseable {
+
+    @Autowired
+    private GlobalTaskDispatchWaitingQueue globalTaskDispatchWaitingQueue;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
+#### Snippet
+```java
+    private WorkflowEventQueue workflowEventQueue;
+
+    @Autowired
+    private WorkflowEventLooper workflowEventLooper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
+#### Snippet
+```java
+public class MasterSchedulerBootstrap extends BaseDaemonThread implements AutoCloseable {
+
+    @Autowired
+    private CommandService commandService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
+#### Snippet
+```java
+    private WorkflowExecuteRunnableFactory workflowExecuteRunnableFactory;
+
+    @Autowired
+    private WorkflowEventQueue workflowEventQueue;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
+#### Snippet
+```java
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+
+    @Autowired
+    private WorkflowExecuteRunnableFactory workflowExecuteRunnableFactory;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
+#### Snippet
+```java
+    private WorkflowEventLooper workflowEventLooper;
+
+    @Autowired
+    private ServerNodeManager serverNodeManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
+#### Snippet
+```java
+    private ServerNodeManager serverNodeManager;
+
+    @Autowired
+    private MasterTaskExecutorBootstrap masterTaskExecutorBootstrap;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
+#### Snippet
+```java
+    private CommandService commandService;
+
+    @Autowired
+    private MasterConfig masterConfig;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/MasterSchedulerBootstrap.java`
+#### Snippet
+```java
+    private MasterConfig masterConfig;
+
+    @Autowired
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
+#### Snippet
+```java
+    private CommandMapper commandMapper;
+
+    @Autowired
+    private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
 #### Snippet
 ```java
@@ -31269,30 +31076,6 @@ public class DynamicLogicTaskPluginFactory implements ILogicTaskPluginFactory<Dy
 
     @Autowired
     private ProcessInstanceDao processInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
-#### Snippet
-```java
-    private TaskInstanceDao taskInstanceDao;
-
-    @Autowired
-    private ProcessDefinitionMapper processDefineMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
-#### Snippet
-```java
-    private ProcessInstanceDao processInstanceDao;
-
-    @Autowired
-    private TaskInstanceDao taskInstanceDao;
 
 ```
 
@@ -31325,18 +31108,6 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
 #### Snippet
 ```java
-    private CommandMapper commandMapper;
-
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
-#### Snippet
-```java
     private ProcessDefinitionMapper processDefineMapper;
 
     @Autowired
@@ -31346,13 +31117,37 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/blocking/BlockingLogicTaskPluginFactory.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
 #### Snippet
 ```java
     private TaskInstanceDao taskInstanceDao;
 
     @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+    private ProcessDefinitionMapper processDefineMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dynamic/DynamicLogicTaskPluginFactory.java`
+#### Snippet
+```java
+    private ProcessInstanceDao processInstanceDao;
+
+    @Autowired
+    private TaskInstanceDao taskInstanceDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/blocking/BlockingLogicTaskPluginFactory.java`
+#### Snippet
+```java
+public class BlockingLogicTaskPluginFactory implements ILogicTaskPluginFactory<BlockingLogicTask> {
+
+    @Autowired
+    private ProcessInstanceDao processInstanceDao;
 
 ```
 
@@ -31373,8 +31168,20 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/blocking/BlockingLogicTaskPluginFactory.java`
 #### Snippet
 ```java
-public class BlockingLogicTaskPluginFactory implements ILogicTaskPluginFactory<BlockingLogicTask> {
+    private TaskInstanceDao taskInstanceDao;
 
+    @Autowired
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/condition/ConditionLogicTaskPluginFactory.java`
+#### Snippet
+```java
+    @Autowired
+    private TaskInstanceDao taskInstanceDao;
     @Autowired
     private ProcessInstanceDao processInstanceDao;
 
@@ -31401,18 +31208,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
     @Autowired
     private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/condition/ConditionLogicTaskPluginFactory.java`
-#### Snippet
-```java
-    @Autowired
-    private TaskInstanceDao taskInstanceDao;
-    @Autowired
-    private ProcessInstanceDao processInstanceDao;
 
 ```
 
@@ -31446,18 +31241,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 #### Snippet
 ```java
     @Autowired
-    private TaskInstanceDao taskInstanceDao;
-    @Autowired
-    private ProcessInstanceDao processInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dependent/DependentLogicTaskPluginFactory.java`
-#### Snippet
-```java
-    @Autowired
     private TaskDefinitionDao taskDefinitionDao;
     @Autowired
     private TaskInstanceDao taskInstanceDao;
@@ -31473,6 +31256,18 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
     @Autowired
     private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/dependent/DependentLogicTaskPluginFactory.java`
+#### Snippet
+```java
+    @Autowired
+    private TaskInstanceDao taskInstanceDao;
+    @Autowired
+    private ProcessInstanceDao processInstanceDao;
 
 ```
 
@@ -31505,18 +31300,6 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/subworkflow/SubWorkflowLogicTaskPluginFactory.java`
 #### Snippet
 ```java
-    @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-    @Autowired
-    private MasterRpcClient masterRpcClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/subworkflow/SubWorkflowLogicTaskPluginFactory.java`
-#### Snippet
-```java
 public class SubWorkflowLogicTaskPluginFactory implements ILogicTaskPluginFactory<SubWorkflowLogicTask> {
 
     @Autowired
@@ -31538,13 +31321,13 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/AsyncMasterTaskDelayQueueLooper.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/task/subworkflow/SubWorkflowLogicTaskPluginFactory.java`
 #### Snippet
 ```java
-    private AsyncMasterTaskDelayQueue asyncMasterTaskDelayQueue;
-
     @Autowired
-    private MasterConfig masterConfig;
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+    @Autowired
+    private MasterRpcClient masterRpcClient;
 
 ```
 
@@ -31562,13 +31345,49 @@ public class AsyncMasterTaskDelayQueueLooper extends BaseDaemonThread implements
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/AsyncMasterDelayTaskExecuteRunnableFactory.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/AsyncMasterTaskDelayQueueLooper.java`
 #### Snippet
 ```java
-            MasterDelayTaskExecuteRunnableFactory<AsyncMasterDelayTaskExecuteRunnable> {
+    private AsyncMasterTaskDelayQueue asyncMasterTaskDelayQueue;
 
     @Autowired
-    private LogicTaskPluginFactoryBuilder logicTaskPluginFactoryBuilder;
+    private MasterConfig masterConfig;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/DefaultTaskExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private TaskExecutionContextFactory taskExecutionContextFactory;
+
+    @Autowired
+    private TaskOperatorManager taskOperatorManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/DefaultTaskExecuteRunnableFactory.java`
+#### Snippet
+```java
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+
+    @Autowired
+    private TaskExecutionContextFactory taskExecutionContextFactory;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/DefaultTaskExecuteRunnableFactory.java`
+#### Snippet
+```java
+public class DefaultTaskExecuteRunnableFactory implements TaskExecuteRunnableFactory<DefaultTaskExecuteRunnable> {
+
+    @Autowired
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
 
 ```
 
@@ -31598,37 +31417,13 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/DefaultTaskExecuteRunnableFactory.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/AsyncMasterDelayTaskExecuteRunnableFactory.java`
 #### Snippet
 ```java
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+            MasterDelayTaskExecuteRunnableFactory<AsyncMasterDelayTaskExecuteRunnable> {
 
     @Autowired
-    private TaskExecutionContextFactory taskExecutionContextFactory;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/DefaultTaskExecuteRunnableFactory.java`
-#### Snippet
-```java
-    private TaskExecutionContextFactory taskExecutionContextFactory;
-
-    @Autowired
-    private TaskOperatorManager taskOperatorManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/DefaultTaskExecuteRunnableFactory.java`
-#### Snippet
-```java
-public class DefaultTaskExecuteRunnableFactory implements TaskExecuteRunnableFactory<DefaultTaskExecuteRunnable> {
-
-    @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+    private LogicTaskPluginFactoryBuilder logicTaskPluginFactoryBuilder;
 
 ```
 
@@ -31694,30 +31489,6 @@ public class MasterTaskExecuteRunnableThreadPool {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/operator/TaskDispatchOperator.java`
-#### Snippet
-```java
-public class TaskDispatchOperator implements TaskOperator {
-
-    @Autowired
-    private GlobalTaskDispatchWaitingQueue globalTaskDispatchWaitingQueue;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/message/MasterMessageSenderManager.java`
-#### Snippet
-```java
-    private MasterTaskExecuteResultMessageSender masterTaskExecuteResultMessageSender;
-
-    @Autowired
-    private MasterTaskExecuteRunningMessageSender masterTaskExecuteRunningMessageSender;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/message/MasterMessageSenderManager.java`
 #### Snippet
 ```java
@@ -31737,6 +31508,54 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
     @Autowired
     private MasterTaskUpdateRuntimeMessageSender masterTaskUpdateRuntimeMessageSender;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/message/MasterMessageSenderManager.java`
+#### Snippet
+```java
+    private MasterTaskExecuteResultMessageSender masterTaskExecuteResultMessageSender;
+
+    @Autowired
+    private MasterTaskExecuteRunningMessageSender masterTaskExecuteRunningMessageSender;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/message/MasterTaskExecuteResultMessageSender.java`
+#### Snippet
+```java
+    private MasterConfig masterConfig;
+
+    @Autowired
+    private MasterRpcClient masterRpcClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/message/MasterTaskExecuteResultMessageSender.java`
+#### Snippet
+```java
+public class MasterTaskExecuteResultMessageSender implements MasterMessageSender<TaskExecuteResultMessage> {
+
+    @Autowired
+    private MasterConfig masterConfig;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/operator/TaskDispatchOperator.java`
+#### Snippet
+```java
+public class TaskDispatchOperator implements TaskOperator {
+
+    @Autowired
+    private GlobalTaskDispatchWaitingQueue globalTaskDispatchWaitingQueue;
 
 ```
 
@@ -31790,13 +31609,25 @@ public class MasterTaskExecuteRunningMessageSender implements MasterMessageSende
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/operator/TaskPauseOperator.java`
+#### Snippet
+```java
+public class TaskPauseOperator implements TaskOperator {
+
+    @Autowired
+    private MasterRpcClient masterRpcClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/operator/TaskOperatorManager.java`
 #### Snippet
 ```java
-    private TaskPauseOperator taskPauseOperator;
+public class TaskOperatorManager {
 
     @Autowired
-    private TaskDispatchOperator taskDispatchOperator;
+    private TaskKillOperator taskKillOperator;
 
 ```
 
@@ -31829,46 +31660,10 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/operator/TaskOperatorManager.java`
 #### Snippet
 ```java
-public class TaskOperatorManager {
+    private TaskPauseOperator taskPauseOperator;
 
     @Autowired
-    private TaskKillOperator taskKillOperator;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/operator/TaskPauseOperator.java`
-#### Snippet
-```java
-public class TaskPauseOperator implements TaskOperator {
-
-    @Autowired
-    private MasterRpcClient masterRpcClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/message/MasterTaskExecuteResultMessageSender.java`
-#### Snippet
-```java
-    private MasterConfig masterConfig;
-
-    @Autowired
-    private MasterRpcClient masterRpcClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/message/MasterTaskExecuteResultMessageSender.java`
-#### Snippet
-```java
-public class MasterTaskExecuteResultMessageSender implements MasterMessageSender<TaskExecuteResultMessage> {
-
-    @Autowired
-    private MasterConfig masterConfig;
+    private TaskDispatchOperator taskDispatchOperator;
 
 ```
 
@@ -31898,30 +31693,6 @@ public class TaskTimeoutOperator implements TaskOperator {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/dispatcher/TaskDispatchFactory.java`
-#### Snippet
-```java
-    private MasterTaskDispatcher masterTaskDispatcher;
-
-    @Autowired
-    private WorkerTaskDispatcher workerTaskDispatcher;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/dispatcher/TaskDispatchFactory.java`
-#### Snippet
-```java
-public class TaskDispatchFactory {
-
-    @Autowired
-    private MasterTaskDispatcher masterTaskDispatcher;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/operator/TaskKillOperator.java`
 #### Snippet
 ```java
@@ -31941,6 +31712,30 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
     @Autowired
     private MasterRpcClient masterRpcClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/dispatcher/TaskDispatchFactory.java`
+#### Snippet
+```java
+public class TaskDispatchFactory {
+
+    @Autowired
+    private MasterTaskDispatcher masterTaskDispatcher;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/dispatcher/TaskDispatchFactory.java`
+#### Snippet
+```java
+    private MasterTaskDispatcher masterTaskDispatcher;
+
+    @Autowired
+    private WorkerTaskDispatcher workerTaskDispatcher;
 
 ```
 
@@ -31970,6 +31765,30 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterStopStrategy.java`
+#### Snippet
+```java
+public class MasterStopStrategy implements MasterConnectStrategy {
+
+    @Autowired
+    private RegistryClient registryClient;
+    @Autowired
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterStopStrategy.java`
+#### Snippet
+```java
+    @Autowired
+    private RegistryClient registryClient;
+    @Autowired
+    private MasterConfig masterConfig;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
 #### Snippet
 ```java
@@ -31977,6 +31796,30 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
     @Autowired
     private TaskPluginManager taskPluginManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
+#### Snippet
+```java
+public class TaskExecutionContextFactory {
+
+    @Autowired
+    private ProcessService processService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
+#### Snippet
+```java
+    private TaskPluginManager taskPluginManager;
+
+    @Autowired
+    private CuringParamsService curingParamsService;
 
 ```
 
@@ -32006,49 +31849,13 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/executor/NettyExecutorManager.java`
 #### Snippet
 ```java
-    private TaskPluginManager taskPluginManager;
+    private ServerNodeManager serverNodeManager;
 
     @Autowired
-    private CuringParamsService curingParamsService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/execute/TaskExecutionContextFactory.java`
-#### Snippet
-```java
-public class TaskExecutionContextFactory {
-
-    @Autowired
-    private ProcessService processService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterStopStrategy.java`
-#### Snippet
-```java
-public class MasterStopStrategy implements MasterConnectStrategy {
-
-    @Autowired
-    private RegistryClient registryClient;
-    @Autowired
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterStopStrategy.java`
-#### Snippet
-```java
-    @Autowired
-    private RegistryClient registryClient;
-    @Autowired
-    private MasterConfig masterConfig;
+    private List<NettyRequestProcessor> nettyRequestProcessors;
 
 ```
 
@@ -32066,37 +31873,13 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/dispatch/executor/NettyExecutorManager.java`
-#### Snippet
-```java
-    private ServerNodeManager serverNodeManager;
-
-    @Autowired
-    private List<NettyRequestProcessor> nettyRequestProcessors;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterWaitingStrategy.java`
 #### Snippet
 ```java
     @Autowired
-    private WorkflowEventQueue workflowEventQueue;
-    @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-    @Autowired
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterWaitingStrategy.java`
-#### Snippet
-```java
+    private RegistryClient registryClient;
     @Autowired
     private MasterRPCServer masterRPCServer;
-    @Autowired
-    private WorkflowEventQueue workflowEventQueue;
     @Autowired
 ```
 
@@ -32118,18 +31901,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 #### Snippet
 ```java
     @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
-    @Autowired
-    private StateWheelExecuteThread stateWheelExecuteThread;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterWaitingStrategy.java`
-#### Snippet
-```java
-    @Autowired
     private MasterConfig masterConfig;
     @Autowired
     private RegistryClient registryClient;
@@ -32142,10 +31913,82 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 #### Snippet
 ```java
     @Autowired
-    private RegistryClient registryClient;
+    private WorkflowEventQueue workflowEventQueue;
+    @Autowired
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+    @Autowired
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterWaitingStrategy.java`
+#### Snippet
+```java
     @Autowired
     private MasterRPCServer masterRPCServer;
     @Autowired
+    private WorkflowEventQueue workflowEventQueue;
+    @Autowired
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterWaitingStrategy.java`
+#### Snippet
+```java
+    @Autowired
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+    @Autowired
+    private StateWheelExecuteThread stateWheelExecuteThread;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterRegistryClient.java`
+#### Snippet
+```java
+    private MasterConfig masterConfig;
+
+    @Autowired
+    private MasterConnectStrategy masterConnectStrategy;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterRegistryClient.java`
+#### Snippet
+```java
+    private FailoverService failoverService;
+
+    @Autowired
+    private RegistryClient registryClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterRegistryClient.java`
+#### Snippet
+```java
+public class MasterRegistryClient implements AutoCloseable {
+
+    @Autowired
+    private FailoverService failoverService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterRegistryClient.java`
+#### Snippet
+```java
+    private RegistryClient registryClient;
+
+    @Autowired
+    private MasterConfig masterConfig;
+
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
@@ -32174,78 +32017,6 @@ public class TaskExecuteRunningProcessor implements MasterRpcProcessor {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterRegistryClient.java`
-#### Snippet
-```java
-    private RegistryClient registryClient;
-
-    @Autowired
-    private MasterConfig masterConfig;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterRegistryClient.java`
-#### Snippet
-```java
-public class MasterRegistryClient implements AutoCloseable {
-
-    @Autowired
-    private FailoverService failoverService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterRegistryClient.java`
-#### Snippet
-```java
-    private FailoverService failoverService;
-
-    @Autowired
-    private RegistryClient registryClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/MasterRegistryClient.java`
-#### Snippet
-```java
-    private MasterConfig masterConfig;
-
-    @Autowired
-    private MasterConnectStrategy masterConnectStrategy;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/StateEventProcessor.java`
-#### Snippet
-```java
-public class StateEventProcessor implements MasterRpcProcessor {
-
-    @Autowired
-    private StateEventResponseService stateEventResponseService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/CacheProcessor.java`
-#### Snippet
-```java
-public class CacheProcessor implements MasterRpcProcessor {
-
-    @Autowired
-    private CacheManager cacheManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/TaskExecuteResultProcessor.java`
 #### Snippet
 ```java
@@ -32258,10 +32029,10 @@ public class TaskExecuteResultProcessor implements MasterRpcProcessor {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/TaskWakeupProcessor.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/StateEventProcessor.java`
 #### Snippet
 ```java
-public class TaskWakeupProcessor implements MasterRpcProcessor {
+public class StateEventProcessor implements MasterRpcProcessor {
 
     @Autowired
     private StateEventResponseService stateEventResponseService;
@@ -32282,13 +32053,37 @@ public class TaskUpdateRuntimeProcessor implements MasterRpcProcessor {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/WorkflowExecutingDataRequestProcessor.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/TaskWakeupProcessor.java`
 #### Snippet
 ```java
-public class WorkflowExecutingDataRequestProcessor implements MasterRpcProcessor {
+public class TaskWakeupProcessor implements MasterRpcProcessor {
 
     @Autowired
-    private ExecutingService executingService;
+    private StateEventResponseService stateEventResponseService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/TaskExecuteStartProcessor.java`
+#### Snippet
+```java
+    private StreamTaskExecuteThreadPool streamTaskExecuteThreadPool;
+
+    @Autowired
+    private TaskDefinitionDao taskDefinitionDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/TaskExecuteStartProcessor.java`
+#### Snippet
+```java
+public class TaskExecuteStartProcessor implements MasterRpcProcessor {
+
+    @Autowired
+    private StreamTaskExecuteThreadPool streamTaskExecuteThreadPool;
 
 ```
 
@@ -32297,10 +32092,10 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/MasterTaskDispatchProcessor.java`
 #### Snippet
 ```java
-public class MasterTaskDispatchProcessor implements MasterRpcProcessor {
+    private MasterTaskExecuteRunnableFactoryBuilder masterTaskExecuteRunnableFactoryBuilder;
 
     @Autowired
-    private MasterTaskExecuteRunnableFactoryBuilder masterTaskExecuteRunnableFactoryBuilder;
+    private MasterMessageSenderManager masterMessageSenderManager;
 
 ```
 
@@ -32321,46 +32116,34 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/MasterTaskDispatchProcessor.java`
 #### Snippet
 ```java
+public class MasterTaskDispatchProcessor implements MasterRpcProcessor {
+
+    @Autowired
     private MasterTaskExecuteRunnableFactoryBuilder masterTaskExecuteRunnableFactoryBuilder;
 
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/CacheProcessor.java`
+#### Snippet
+```java
+public class CacheProcessor implements MasterRpcProcessor {
+
     @Autowired
-    private MasterMessageSenderManager masterMessageSenderManager;
+    private CacheManager cacheManager;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/TaskExecuteStartProcessor.java`
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/WorkflowExecutingDataRequestProcessor.java`
 #### Snippet
 ```java
-public class TaskExecuteStartProcessor implements MasterRpcProcessor {
+public class WorkflowExecutingDataRequestProcessor implements MasterRpcProcessor {
 
     @Autowired
-    private StreamTaskExecuteThreadPool streamTaskExecuteThreadPool;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/TaskExecuteStartProcessor.java`
-#### Snippet
-```java
-    private StreamTaskExecuteThreadPool streamTaskExecuteThreadPool;
-
-    @Autowired
-    private TaskDefinitionDao taskDefinitionDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/TaskForceStartProcessor.java`
-#### Snippet
-```java
-public class TaskForceStartProcessor implements MasterRpcProcessor {
-
-    @Autowired
-    private StateEventResponseService stateEventResponseService;
+    private ExecutingService executingService;
 
 ```
 
@@ -32390,13 +32173,25 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/TaskForceStartProcessor.java`
+#### Snippet
+```java
+public class TaskForceStartProcessor implements MasterRpcProcessor {
+
+    @Autowired
+    private StateEventResponseService stateEventResponseService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/ServerNodeManager.java`
 #### Snippet
 ```java
-    private ScheduledExecutorService executorService;
+    private RegistryClient registryClient;
 
     @Autowired
-    private RegistryClient registryClient;
+    private WorkerGroupMapper workerGroupMapper;
 
 ```
 
@@ -32417,10 +32212,10 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/registry/ServerNodeManager.java`
 #### Snippet
 ```java
-    private RegistryClient registryClient;
+    private ScheduledExecutorService executorService;
 
     @Autowired
-    private WorkerGroupMapper workerGroupMapper;
+    private RegistryClient registryClient;
 
 ```
 
@@ -32477,10 +32272,10 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/queue/TaskExecuteThreadPool.java`
 #### Snippet
 ```java
-    private List<TaskEventHandler> taskEventHandlerList;
+    private MasterConfig masterConfig;
 
     @Autowired
-    private StreamTaskInstanceExecCacheManager streamTaskInstanceExecCacheManager;
+    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
 
 ```
 
@@ -32501,10 +32296,94 @@ Field injection is not recommended
 in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/processor/queue/TaskExecuteThreadPool.java`
 #### Snippet
 ```java
-    private MasterConfig masterConfig;
+    private List<TaskEventHandler> taskEventHandlerList;
 
     @Autowired
-    private ProcessInstanceExecCacheManager processInstanceExecCacheManager;
+    private StreamTaskInstanceExecCacheManager streamTaskInstanceExecCacheManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
+#### Snippet
+```java
+    private WorkerRegistryClient workerRegistryClient;
+
+    @Autowired
+    private TaskPluginManager taskPluginManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
+#### Snippet
+```java
+public class WorkerServer implements IStoppable {
+
+    @Autowired
+    private WorkerManagerThread workerManagerThread;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
+#### Snippet
+```java
+    private WorkerManagerThread workerManagerThread;
+
+    @Autowired
+    private WorkerRegistryClient workerRegistryClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
+#### Snippet
+```java
+    private MessageRetryRunner messageRetryRunner;
+
+    @Autowired
+    private WorkerConfig workerConfig;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
+#### Snippet
+```java
+    private WorkerRpcClient workerRpcClient;
+
+    @Autowired
+    private MessageRetryRunner messageRetryRunner;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
+#### Snippet
+```java
+    private WorkerRpcServer workerRpcServer;
+
+    @Autowired
+    private WorkerRpcClient workerRpcClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
+#### Snippet
+```java
+    private TaskPluginManager taskPluginManager;
+
+    @Autowired
+    private WorkerRpcServer workerRpcServer;
 
 ```
 
@@ -32542,90 +32421,6 @@ public class WorkerRpcClient implements AutoCloseable {
     @Autowired
     @Lazy
     private List<WorkerRpcProcessor> workerRpcProcessors;
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
-#### Snippet
-```java
-    private WorkerRpcClient workerRpcClient;
-
-    @Autowired
-    private MessageRetryRunner messageRetryRunner;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
-#### Snippet
-```java
-    private WorkerRpcServer workerRpcServer;
-
-    @Autowired
-    private WorkerRpcClient workerRpcClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
-#### Snippet
-```java
-    private TaskPluginManager taskPluginManager;
-
-    @Autowired
-    private WorkerRpcServer workerRpcServer;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
-#### Snippet
-```java
-    private WorkerManagerThread workerManagerThread;
-
-    @Autowired
-    private WorkerRegistryClient workerRegistryClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
-#### Snippet
-```java
-    private WorkerRegistryClient workerRegistryClient;
-
-    @Autowired
-    private TaskPluginManager taskPluginManager;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
-#### Snippet
-```java
-public class WorkerServer implements IStoppable {
-
-    @Autowired
-    private WorkerManagerThread workerManagerThread;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/WorkerServer.java`
-#### Snippet
-```java
-    private MessageRetryRunner messageRetryRunner;
-
-    @Autowired
-    private WorkerConfig workerConfig;
-
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
@@ -32678,30 +32473,6 @@ public class TaskExecuteRunningMessageSender implements MessageSender<TaskExecut
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/TaskExecuteResultMessageSender.java`
-#### Snippet
-```java
-public class TaskExecuteResultMessageSender implements MessageSender<TaskExecuteResultMessage> {
-
-    @Autowired
-    private WorkerConfig workerConfig;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/TaskExecuteResultMessageSender.java`
-#### Snippet
-```java
-    private WorkerConfig workerConfig;
-
-    @Autowired
-    private WorkerRpcClient workerRpcClient;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/WorkerTaskUpdateRuntimeMessageSender.java`
 #### Snippet
 ```java
@@ -32721,6 +32492,54 @@ public class WorkerTaskUpdateRuntimeMessageSender implements MessageSender<TaskU
 
     @Autowired
     private WorkerRpcClient workerRpcClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/TaskExecuteResultMessageSender.java`
+#### Snippet
+```java
+    private WorkerConfig workerConfig;
+
+    @Autowired
+    private WorkerRpcClient workerRpcClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/TaskExecuteResultMessageSender.java`
+#### Snippet
+```java
+public class TaskExecuteResultMessageSender implements MessageSender<TaskExecuteResultMessage> {
+
+    @Autowired
+    private WorkerConfig workerConfig;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerStopStrategy.java`
+#### Snippet
+```java
+public class WorkerStopStrategy implements WorkerConnectStrategy {
+
+    @Autowired
+    public RegistryClient registryClient;
+    @Autowired
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerStopStrategy.java`
+#### Snippet
+```java
+    @Autowired
+    public RegistryClient registryClient;
+    @Autowired
+    private WorkerConfig workerConfig;
 
 ```
 
@@ -32753,6 +32572,18 @@ Field injection is not recommended
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerRegistryClient.java`
 #### Snippet
 ```java
+    private WorkerConfig workerConfig;
+
+    @Autowired
+    private WorkerManagerThread workerManagerThread;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerRegistryClient.java`
+#### Snippet
+```java
 public class WorkerRegistryClient implements AutoCloseable {
 
     @Autowired
@@ -32762,54 +32593,6 @@ public class WorkerRegistryClient implements AutoCloseable {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerRegistryClient.java`
-#### Snippet
-```java
-    private WorkerConfig workerConfig;
-
-    @Autowired
-    private WorkerManagerThread workerManagerThread;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerStopStrategy.java`
-#### Snippet
-```java
-    @Autowired
-    public RegistryClient registryClient;
-    @Autowired
-    private WorkerConfig workerConfig;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerStopStrategy.java`
-#### Snippet
-```java
-public class WorkerStopStrategy implements WorkerConnectStrategy {
-
-    @Autowired
-    public RegistryClient registryClient;
-    @Autowired
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskExecuteRunningAckProcessor.java`
-#### Snippet
-```java
-public class WorkerTaskExecuteRunningAckProcessor implements WorkerRpcProcessor {
-
-    @Autowired
-    private MessageRetryRunner messageRetryRunner;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerWaitingStrategy.java`
 #### Snippet
 ```java
@@ -32837,18 +32620,6 @@ Field injection is not recommended
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerWaitingStrategy.java`
 #### Snippet
 ```java
-    private WorkerRpcClient workerRpcClient;
-
-    @Autowired
-    private MessageRetryRunner messageRetryRunner;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerWaitingStrategy.java`
-#### Snippet
-```java
     private WorkerRpcServer workerRpcServer;
 
     @Autowired
@@ -32861,10 +32632,10 @@ Field injection is not recommended
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerWaitingStrategy.java`
 #### Snippet
 ```java
-    private WorkerConfig workerConfig;
+    private WorkerRpcClient workerRpcClient;
 
     @Autowired
-    private RegistryClient registryClient;
+    private MessageRetryRunner messageRetryRunner;
 
 ```
 
@@ -32882,13 +32653,37 @@ public class WorkerWaitingStrategy implements WorkerConnectStrategy {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskDispatchProcessor.java`
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/registry/WorkerWaitingStrategy.java`
 #### Snippet
 ```java
-public class WorkerTaskDispatchProcessor implements WorkerRpcProcessor {
+    private WorkerConfig workerConfig;
 
     @Autowired
-    private WorkerConfig workerConfig;
+    private RegistryClient registryClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/MessageRetryRunner.java`
+#### Snippet
+```java
+
+    @Lazy
+    @Autowired
+    private List<MessageSender> messageSenders;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskExecuteRunningAckProcessor.java`
+#### Snippet
+```java
+public class WorkerTaskExecuteRunningAckProcessor implements WorkerRpcProcessor {
+
+    @Autowired
+    private MessageRetryRunner messageRetryRunner;
 
 ```
 
@@ -32897,23 +32692,11 @@ Field injection is not recommended
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskDispatchProcessor.java`
 #### Snippet
 ```java
-    private WorkerConfig workerConfig;
+    private TaskPluginManager taskPluginManager;
 
     @Autowired
-    private WorkerMessageSender workerMessageSender;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskDispatchProcessor.java`
-#### Snippet
-```java
     private WorkerManagerThread workerManager;
 
-    @Autowired(required = false)
-    private StorageOperate storageOperate;
-
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
@@ -32921,10 +32704,10 @@ Field injection is not recommended
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskDispatchProcessor.java`
 #### Snippet
 ```java
-    private WorkerMessageSender workerMessageSender;
+    private WorkerConfig workerConfig;
 
     @Autowired
-    private WorkerRpcClient workerRpcClient;
+    private WorkerMessageSender workerMessageSender;
 
 ```
 
@@ -32945,6 +32728,30 @@ Field injection is not recommended
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskDispatchProcessor.java`
 #### Snippet
 ```java
+    private WorkerManagerThread workerManager;
+
+    @Autowired(required = false)
+    private StorageOperate storageOperate;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskDispatchProcessor.java`
+#### Snippet
+```java
+public class WorkerTaskDispatchProcessor implements WorkerRpcProcessor {
+
+    @Autowired
+    private WorkerConfig workerConfig;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskDispatchProcessor.java`
+#### Snippet
+```java
     private WorkerRpcClient workerRpcClient;
 
     @Autowired
@@ -32957,22 +32764,22 @@ Field injection is not recommended
 in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskDispatchProcessor.java`
 #### Snippet
 ```java
-    private TaskPluginManager taskPluginManager;
+    private WorkerMessageSender workerMessageSender;
 
     @Autowired
-    private WorkerManagerThread workerManager;
+    private WorkerRpcClient workerRpcClient;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/message/MessageRetryRunner.java`
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskSavePointProcessor.java`
 #### Snippet
 ```java
-
-    @Lazy
+     * task execute manager
+     */
     @Autowired
-    private List<MessageSender> messageSenders;
+    private WorkerManagerThread workerManager;
 
 ```
 
@@ -33002,11 +32809,11 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskSavePointProcessor.java`
+in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskKillProcessor.java`
 #### Snippet
 ```java
-     * task execute manager
-     */
+public class WorkerTaskKillProcessor implements WorkerRpcProcessor {
+
     @Autowired
     private WorkerManagerThread workerManager;
 
@@ -33021,18 +32828,6 @@ in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/wor
 
     @Autowired
     private MessageRetryRunner messageRetryRunner;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-worker/src/main/java/org/apache/dolphinscheduler/server/worker/processor/WorkerTaskKillProcessor.java`
-#### Snippet
-```java
-public class WorkerTaskKillProcessor implements WorkerRpcProcessor {
-
-    @Autowired
-    private WorkerManagerThread workerManager;
 
 ```
 
@@ -33074,13 +32869,13 @@ public class TriggerRelationServiceImpl implements TriggerRelationService {
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/command/CommandServiceImpl.java`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
 #### Snippet
 ```java
-    private CommandMapper commandMapper;
+public class CuringGlobalParams implements CuringParamsService {
 
     @Autowired
-    private ScheduleMapper scheduleMapper;
+    private TimePlaceholderResolverExpandService timePlaceholderResolverExpandService;
 
 ```
 
@@ -33113,22 +32908,22 @@ Field injection is not recommended
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/command/CommandServiceImpl.java`
 #### Snippet
 ```java
-    private ErrorCommandMapper errorCommandMapper;
+    private CommandMapper commandMapper;
 
     @Autowired
-    private CommandMapper commandMapper;
+    private ScheduleMapper scheduleMapper;
 
 ```
 
 ### SpringJavaAutowiredFieldsWarningInspection
 Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/expand/CuringGlobalParams.java`
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/command/CommandServiceImpl.java`
 #### Snippet
 ```java
-public class CuringGlobalParams implements CuringParamsService {
+    private ErrorCommandMapper errorCommandMapper;
 
     @Autowired
-    private TimePlaceholderResolverExpandService timePlaceholderResolverExpandService;
+    private CommandMapper commandMapper;
 
 ```
 
@@ -33197,166 +32992,10 @@ Field injection is not recommended
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
-    private ScheduleMapper scheduleMapper;
-
-    @Autowired
-    private UdfFuncMapper udfFuncMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private DqRuleInputEntryMapper dqRuleInputEntryMapper;
-
-    @Autowired
-    private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private TaskPluginManager taskPluginManager;
-
-    @Autowired
-    private ClusterMapper clusterMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private ProcessInstanceMapMapper processInstanceMapMapper;
-
-    @Autowired
-    private TaskInstanceMapper taskInstanceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private EnvironmentMapper environmentMapper;
-
-    @Autowired
-    private TaskGroupQueueMapper taskGroupQueueMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private DqTaskStatisticsValueMapper dqTaskStatisticsValueMapper;
-
-    @Autowired
-    private TaskDefinitionMapper taskDefinitionMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private TaskInstanceDao taskInstanceDao;
-
-    @Autowired
-    private TaskDefinitionLogDao taskDefinitionLogDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private TaskInstanceMapper taskInstanceMapper;
-
-    @Autowired
-    private CommandMapper commandMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
     private LogClient logClient;
 
     @Autowired
     private CommandService commandService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionLogMapper taskDefinitionLogMapper;
-
-    @Autowired
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
-
-    @Autowired
-    private DqComparisonTypeMapper dqComparisonTypeMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private DqExecuteResultMapper dqExecuteResultMapper;
-
-    @Autowired
-    private DqRuleMapper dqRuleMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private ProjectMapper projectMapper;
-
-    @Autowired
-    private DqExecuteResultMapper dqExecuteResultMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private ResourceUserMapper resourceUserMapper;
-
-    @Autowired
-    private ErrorCommandMapper errorCommandMapper;
 
 ```
 
@@ -33377,6 +33016,294 @@ Field injection is not recommended
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
+    private EnvironmentMapper environmentMapper;
+
+    @Autowired
+    private TaskGroupQueueMapper taskGroupQueueMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ErrorCommandMapper errorCommandMapper;
+
+    @Autowired
+    private TenantMapper tenantMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private WorkFlowLineageMapper workFlowLineageMapper;
+
+    @Autowired
+    private TaskPluginManager taskPluginManager;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private DqExecuteResultMapper dqExecuteResultMapper;
+
+    @Autowired
+    private DqRuleMapper dqRuleMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private DqRuleInputEntryMapper dqRuleInputEntryMapper;
+
+    @Autowired
+    private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ProcessInstanceMapDao processInstanceMapDao;
+
+    @Autowired
+    private DataSourceMapper dataSourceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ProcessDefinitionMapper processDefineMapper;
+
+    @Autowired
+    private ProcessDefinitionLogMapper processDefineLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ScheduleMapper scheduleMapper;
+
+    @Autowired
+    private UdfFuncMapper udfFuncMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ProcessInstanceMapMapper processInstanceMapMapper;
+
+    @Autowired
+    private TaskInstanceMapper taskInstanceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ProjectMapper projectMapper;
+
+    @Autowired
+    private DqExecuteResultMapper dqExecuteResultMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private TaskPluginManager taskPluginManager;
+
+    @Autowired
+    private ClusterMapper clusterMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private DataSourceMapper dataSourceMapper;
+
+    @Autowired
+    private ProcessInstanceMapMapper processInstanceMapMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ClusterMapper clusterMapper;
+
+    @Autowired
+    private CuringParamsService curingGlobalParamsService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private TenantMapper tenantMapper;
+
+    @Autowired
+    private ProjectMapper projectMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private UdfFuncMapper udfFuncMapper;
+
+    @Autowired
+    private ResourceMapper resourceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private TaskGroupQueueMapper taskGroupQueueMapper;
+
+    @Autowired
+    private TaskGroupMapper taskGroupMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
+
+    @Autowired
+    StateEventCallbackService stateEventCallbackService;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private TaskInstanceMapper taskInstanceMapper;
+
+    @Autowired
+    private CommandMapper commandMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ProcessInstanceDao processInstanceDao;
+
+    @Autowired
+    private TaskDefinitionDao taskDefinitionDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+
+    // todo replace with processInstanceDao
+    @Autowired
+    private ProcessInstanceMapper processInstanceMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionDao taskDefinitionDao;
+
+    @Autowired
+    private TaskInstanceDao taskInstanceDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ProcessInstanceMapper processInstanceMapper;
+
+    @Autowired
+    private ProcessInstanceDao processInstanceDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+public class ProcessServiceImpl implements ProcessService {
+
+    @Autowired
+    private UserMapper userMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+    @Autowired
+    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
     private ResourceMapper resourceMapper;
 
     @Autowired
@@ -33389,10 +33316,22 @@ Field injection is not recommended
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
-    private CuringParamsService curingGlobalParamsService;
+    StateEventCallbackService stateEventCallbackService;
 
     @Autowired
-    private LogClient logClient;
+    private EnvironmentMapper environmentMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private DqComparisonTypeMapper dqComparisonTypeMapper;
+
+    @Autowired
+    private DqTaskStatisticsValueMapper dqTaskStatisticsValueMapper;
 
 ```
 
@@ -33413,10 +33352,70 @@ Field injection is not recommended
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
-    private WorkFlowLineageMapper workFlowLineageMapper;
+    private TaskDefinitionLogDao taskDefinitionLogDao;
 
     @Autowired
-    private TaskPluginManager taskPluginManager;
+    private ProcessInstanceMapDao processInstanceMapDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private DqRuleExecuteSqlMapper dqRuleExecuteSqlMapper;
+
+    @Autowired
+    private DqComparisonTypeMapper dqComparisonTypeMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private CuringParamsService curingGlobalParamsService;
+
+    @Autowired
+    private LogClient logClient;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private TaskInstanceDao taskInstanceDao;
+
+    @Autowired
+    private TaskDefinitionLogDao taskDefinitionLogDao;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private TaskDefinitionLogMapper taskDefinitionLogMapper;
+
+    @Autowired
+    private ProcessTaskRelationMapper processTaskRelationMapper;
+
+```
+
+### SpringJavaAutowiredFieldsWarningInspection
+Field injection is not recommended
+in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
+#### Snippet
+```java
+    private TaskGroupMapper taskGroupMapper;
+
+    @Autowired
+    private WorkFlowLineageMapper workFlowLineageMapper;
 
 ```
 
@@ -33449,142 +33448,10 @@ Field injection is not recommended
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
-    private ClusterMapper clusterMapper;
+    private ResourceUserMapper resourceUserMapper;
 
     @Autowired
-    private CuringParamsService curingGlobalParamsService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
     private ErrorCommandMapper errorCommandMapper;
-
-    @Autowired
-    private TenantMapper tenantMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private ProcessInstanceMapDao processInstanceMapDao;
-
-    @Autowired
-    private DataSourceMapper dataSourceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private DataSourceMapper dataSourceMapper;
-
-    @Autowired
-    private ProcessInstanceMapMapper processInstanceMapMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionDao taskDefinitionDao;
-
-    @Autowired
-    private TaskInstanceDao taskInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
-
-    @Autowired
-    StateEventCallbackService stateEventCallbackService;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private ProcessTaskRelationMapper processTaskRelationMapper;
-
-    @Autowired
-    private ProcessTaskRelationLogMapper processTaskRelationLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private ProcessDefinitionMapper processDefineMapper;
-
-    @Autowired
-    private ProcessDefinitionLogMapper processDefineLogMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private TaskDefinitionLogDao taskDefinitionLogDao;
-
-    @Autowired
-    private ProcessInstanceMapDao processInstanceMapDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    StateEventCallbackService stateEventCallbackService;
-
-    @Autowired
-    private EnvironmentMapper environmentMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-
-    // todo replace with processInstanceDao
-    @Autowired
-    private ProcessInstanceMapper processInstanceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-public class ProcessServiceImpl implements ProcessService {
-
-    @Autowired
-    private UserMapper userMapper;
 
 ```
 
@@ -33605,82 +33472,10 @@ Field injection is not recommended
 in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
 #### Snippet
 ```java
-    private ProcessInstanceMapper processInstanceMapper;
-
-    @Autowired
-    private ProcessInstanceDao processInstanceDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private TaskGroupQueueMapper taskGroupQueueMapper;
-
-    @Autowired
-    private TaskGroupMapper taskGroupMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private UdfFuncMapper udfFuncMapper;
-
-    @Autowired
-    private ResourceMapper resourceMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private TaskGroupMapper taskGroupMapper;
-
-    @Autowired
-    private WorkFlowLineageMapper workFlowLineageMapper;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private DqComparisonTypeMapper dqComparisonTypeMapper;
-
-    @Autowired
     private DqTaskStatisticsValueMapper dqTaskStatisticsValueMapper;
 
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private ProcessInstanceDao processInstanceDao;
-
     @Autowired
-    private TaskDefinitionDao taskDefinitionDao;
-
-```
-
-### SpringJavaAutowiredFieldsWarningInspection
-Field injection is not recommended
-in `dolphinscheduler-service/src/main/java/org/apache/dolphinscheduler/service/process/ProcessServiceImpl.java`
-#### Snippet
-```java
-    private TenantMapper tenantMapper;
-
-    @Autowired
-    private ProjectMapper projectMapper;
+    private TaskDefinitionMapper taskDefinitionMapper;
 
 ```
 
@@ -33744,18 +33539,6 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/controlle
         TaskInstance taskInstance = taskInstanceService.queryTaskInstanceById(loginUser, projectCode, taskInstanceId);
         return taskInstance;
     }
-```
-
-### UnnecessaryLocalVariable
-Local variable `paramsProps` is redundant
-in `dolphinscheduler-spi/src/main/java/org/apache/dolphinscheduler/spi/params/PasswordParam.java`
-#### Snippet
-```java
-        public Builder(String name, String title) {
-            super(name, FormType.INPUT, title);
-            ParamsProps paramsProps = new ParamsProps();
-            this.props = paramsProps;
-        }
 ```
 
 ### UnnecessaryLocalVariable
@@ -33871,7 +33654,7 @@ Local variable `command` is redundant
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-dvc/src/main/java/org/apache/dolphinscheduler/plugin/task/dvc/DvcTask.java`
 #### Snippet
 ```java
-        args.add(DvcConstants.DVC_DOWNLOAD);
+        args.add(DvcConstants.GIT_UPDATE_FOR_INIT_DVC);
 
         String command = String.join("\n", args);
         return command;
@@ -33883,7 +33666,7 @@ Local variable `command` is redundant
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-dvc/src/main/java/org/apache/dolphinscheduler/plugin/task/dvc/DvcTask.java`
 #### Snippet
 ```java
-        args.add(DvcConstants.GIT_UPDATE_FOR_INIT_DVC);
+        args.add(DvcConstants.DVC_DOWNLOAD);
 
         String command = String.join("\n", args);
         return command;
@@ -33913,6 +33696,18 @@ in `dolphinscheduler-common/src/main/java/org/apache/dolphinscheduler/common/mod
                     Thread.sleep(heartBeatInterval);
                 } catch (InterruptedException e) {
                     handleInterruptException(e);
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StateWheelExecuteThread.java`
+#### Snippet
+```java
+            }
+            try {
+                Thread.sleep(checkInterval);
+            } catch (InterruptedException e) {
+                log.error("state wheel thread sleep error, will close the loop", e);
 ```
 
 ### BusyWait
@@ -33949,18 +33744,6 @@ in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/mas
                     Thread.sleep(Constants.SLEEP_TIME_MILLIS);
                     continue;
                 }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `dolphinscheduler-master/src/main/java/org/apache/dolphinscheduler/server/master/runner/StateWheelExecuteThread.java`
-#### Snippet
-```java
-            }
-            try {
-                Thread.sleep(checkInterval);
-            } catch (InterruptedException e) {
-                log.error("state wheel thread sleep error, will close the loop", e);
 ```
 
 ### BusyWait
@@ -34013,18 +33796,6 @@ in `dolphinscheduler-registry/dolphinscheduler-registry-plugins/dolphinscheduler
 
 ### BusyWait
 Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractCommandExecutor.java`
-#### Snippet
-```java
-                        logBuffer.add(EMPTY_STRING);
-                    } else {
-                        Thread.sleep(TaskConstants.DEFAULT_LOG_FLUSH_INTERVAL);
-                    }
-                }
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
 in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/loop/BaseLoopTaskExecutor.java`
 #### Snippet
 ```java
@@ -34033,6 +33804,18 @@ in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apa
                 Thread.sleep(loopInterval);
             }
             if (loopTaskInstanceStatus != null && loopTaskInstanceStatus.isSuccess()) {
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `dolphinscheduler-task-plugin/dolphinscheduler-task-api/src/main/java/org/apache/dolphinscheduler/plugin/task/api/AbstractCommandExecutor.java`
+#### Snippet
+```java
+                        logBuffer.add(EMPTY_STRING);
+                    } else {
+                        Thread.sleep(TaskConstants.DEFAULT_LOG_FLUSH_INTERVAL);
+                    }
+                }
 ```
 
 ### BusyWait
@@ -34165,83 +33948,35 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/intercept
 in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
 #### Snippet
 ```java
-        if (trafficConfiguration.isGlobalSwitch()) {
-            this.globalRateLimiter =
-                    RateLimiter.create(trafficConfiguration.getMaxGlobalQpsRate(), 1, TimeUnit.SECONDS);
-        }
-    }
-```
-
-### UnstableApiUsage
-'create(double, long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-        if (trafficConfiguration.isGlobalSwitch()) {
-            this.globalRateLimiter =
-                    RateLimiter.create(trafficConfiguration.getMaxGlobalQpsRate(), 1, TimeUnit.SECONDS);
-        }
-    }
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-    private RateLimiter globalRateLimiter;
-
-    private LoadingCache<String, RateLimiter> tenantRateLimiterCache = CacheBuilder.newBuilder()
-            .maximumSize(100)
-            .expireAfterAccess(10, TimeUnit.MINUTES)
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-
-                @Override
-                public RateLimiter load(String token) {
-                    // use tenant customize rate limit
-                    Map<String, Integer> customizeTenantQpsRate = trafficConfiguration.getCustomizeTenantQpsRate();
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-                    }
-                    // use tenant default rate limit
-                    return RateLimiter.create(tenantQuota, 1, TimeUnit.SECONDS);
-                }
-            });
-```
-
-### UnstableApiUsage
-'create(double, long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
-                    }
-                    // use tenant default rate limit
-                    return RateLimiter.create(tenantQuota, 1, TimeUnit.SECONDS);
-                }
-            });
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
-in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
-#### Snippet
-```java
     private TrafficConfiguration trafficConfiguration;
 
     private RateLimiter globalRateLimiter;
 
     private LoadingCache<String, RateLimiter> tenantRateLimiterCache = CacheBuilder.newBuilder()
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+        if (trafficConfiguration.isGlobalSwitch()) {
+            this.globalRateLimiter =
+                    RateLimiter.create(trafficConfiguration.getMaxGlobalQpsRate(), 1, TimeUnit.SECONDS);
+        }
+    }
+```
+
+### UnstableApiUsage
+'create(double, long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+        if (trafficConfiguration.isGlobalSwitch()) {
+            this.globalRateLimiter =
+                    RateLimiter.create(trafficConfiguration.getMaxGlobalQpsRate(), 1, TimeUnit.SECONDS);
+        }
+    }
 ```
 
 ### UnstableApiUsage
@@ -34302,5 +34037,53 @@ in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/intercept
                         globalRateLimiter.getRate());
                 return false;
             }
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+
+                @Override
+                public RateLimiter load(String token) {
+                    // use tenant customize rate limit
+                    Map<String, Integer> customizeTenantQpsRate = trafficConfiguration.getCustomizeTenantQpsRate();
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+                    }
+                    // use tenant default rate limit
+                    return RateLimiter.create(tenantQuota, 1, TimeUnit.SECONDS);
+                }
+            });
+```
+
+### UnstableApiUsage
+'create(double, long, java.util.concurrent.TimeUnit)' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+                    }
+                    // use tenant default rate limit
+                    return RateLimiter.create(tenantQuota, 1, TimeUnit.SECONDS);
+                }
+            });
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.RateLimiter' is marked unstable with @Beta
+in `dolphinscheduler-api/src/main/java/org/apache/dolphinscheduler/api/interceptor/RateLimitInterceptor.java`
+#### Snippet
+```java
+    private RateLimiter globalRateLimiter;
+
+    private LoadingCache<String, RateLimiter> tenantRateLimiterCache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .expireAfterAccess(10, TimeUnit.MINUTES)
 ```
 
