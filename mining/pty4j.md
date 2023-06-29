@@ -21,20 +21,19 @@ I found 85 bad smells with 0 repairable:
 | UnusedAssignment | 1 | false |
 | FieldCanBeLocal | 1 | false |
 | TrivialIf | 1 | false |
-## RuleId[id=ConditionalBreakInInfiniteLoop]
-### ConditionalBreakInInfiniteLoop
-Conditional break inside loop
-in `src/com/pty4j/unix/Pty.java`
+## RuleId[id=IntegerMultiplicationImplicitCastToLong]
+### IntegerMultiplicationImplicitCastToLong
+Native.LONG_SIZE \* MAX_COUNT: integer multiplication implicitly cast to long
+in `src/com/pty4j/windows/WinPty.java`
 #### Snippet
 ```java
-    // each {int, short, short} structure is represented by two ints
-    int[] poll_fds = new int[]{pipeFd, JTermios.POLLIN, fd, JTermios.POLLIN};
-    while (true) {
-      if (JTermios.poll(poll_fds, 2, -1) > 0) break;
-
+    }
+    int MAX_COUNT = 64;
+    Pointer buffer = new Memory(Native.LONG_SIZE * MAX_COUNT);
+    PointerByReference errPtr = new PointerByReference();
+    try {
 ```
 
-## RuleId[id=IntegerMultiplicationImplicitCastToLong]
 ### IntegerMultiplicationImplicitCastToLong
 Native.WCHAR_SIZE \* bufferLength: integer multiplication implicitly cast to long
 in `src/com/pty4j/windows/WinPty.java`
@@ -47,16 +46,17 @@ in `src/com/pty4j/windows/WinPty.java`
     try {
 ```
 
-### IntegerMultiplicationImplicitCastToLong
-Native.LONG_SIZE \* MAX_COUNT: integer multiplication implicitly cast to long
-in `src/com/pty4j/windows/WinPty.java`
+## RuleId[id=ConditionalBreakInInfiniteLoop]
+### ConditionalBreakInInfiniteLoop
+Conditional break inside loop
+in `src/com/pty4j/unix/Pty.java`
 #### Snippet
 ```java
-    }
-    int MAX_COUNT = 64;
-    Pointer buffer = new Memory(Native.LONG_SIZE * MAX_COUNT);
-    PointerByReference errPtr = new PointerByReference();
-    try {
+    // each {int, short, short} structure is represented by two ints
+    int[] poll_fds = new int[]{pipeFd, JTermios.POLLIN, fd, JTermios.POLLIN};
+    while (true) {
+      if (JTermios.poll(poll_fds, 2, -1) > 0) break;
+
 ```
 
 ## RuleId[id=MarkedForRemoval]
@@ -234,14 +234,62 @@ in `src/com/pty4j/windows/WindowsVersion.java`
 ```
 
 ### FieldMayBeFinal
-Field `myHandle` may be 'final'
+Field `writeEvent` may be 'final'
 in `src/com/pty4j/windows/NamedPipe.java`
 #### Snippet
 ```java
 
-public class NamedPipe {
-  private WinNT.HANDLE myHandle;
-  boolean myCloseHandleOnFinalize;
+  private WinNT.HANDLE readEvent;
+  private WinNT.HANDLE writeEvent;
+
+  private WinNT.HANDLE[] readWaitHandles;
+```
+
+### FieldMayBeFinal
+Field `readActual` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+  private WinNT.HANDLE[] writeWaitHandles;
+
+  private IntByReference readActual = new IntByReference();
+  private IntByReference writeActual = new IntByReference();
+  private IntByReference peekActual = new IntByReference();
+```
+
+### FieldMayBeFinal
+Field `readOver` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+  private IntByReference peekActual = new IntByReference();
+
+  private WinNT.OVERLAPPED readOver = new WinNT.OVERLAPPED();
+  private WinNT.OVERLAPPED writeOver = new WinNT.OVERLAPPED();
+
+```
+
+### FieldMayBeFinal
+Field `writeActual` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+
+  private IntByReference readActual = new IntByReference();
+  private IntByReference writeActual = new IntByReference();
+  private IntByReference peekActual = new IntByReference();
+
+```
+
+### FieldMayBeFinal
+Field `readEvent` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+  private Memory writeBuffer = new Memory(16 * 1024);
+
+  private WinNT.HANDLE readEvent;
+  private WinNT.HANDLE writeEvent;
 
 ```
 
@@ -258,15 +306,27 @@ in `src/com/pty4j/windows/NamedPipe.java`
 ```
 
 ### FieldMayBeFinal
-Field `readActual` may be 'final'
+Field `writeOver` may be 'final'
 in `src/com/pty4j/windows/NamedPipe.java`
 #### Snippet
 ```java
-  private WinNT.HANDLE[] writeWaitHandles;
 
+  private WinNT.OVERLAPPED readOver = new WinNT.OVERLAPPED();
+  private WinNT.OVERLAPPED writeOver = new WinNT.OVERLAPPED();
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `peekActual` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
   private IntByReference readActual = new IntByReference();
   private IntByReference writeActual = new IntByReference();
   private IntByReference peekActual = new IntByReference();
+
+  private WinNT.OVERLAPPED readOver = new WinNT.OVERLAPPED();
 ```
 
 ### FieldMayBeFinal
@@ -279,6 +339,30 @@ in `src/com/pty4j/windows/NamedPipe.java`
   private WinNT.HANDLE[] readWaitHandles;
   private WinNT.HANDLE[] writeWaitHandles;
 
+```
+
+### FieldMayBeFinal
+Field `myHandle` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+
+public class NamedPipe {
+  private WinNT.HANDLE myHandle;
+  boolean myCloseHandleOnFinalize;
+
+```
+
+### FieldMayBeFinal
+Field `writeWaitHandles` may be 'final'
+in `src/com/pty4j/windows/NamedPipe.java`
+#### Snippet
+```java
+
+  private WinNT.HANDLE[] readWaitHandles;
+  private WinNT.HANDLE[] writeWaitHandles;
+
+  private IntByReference readActual = new IntByReference();
 ```
 
 ### FieldMayBeFinal
@@ -306,171 +390,15 @@ in `src/com/pty4j/windows/NamedPipe.java`
 ```
 
 ### FieldMayBeFinal
-Field `writeOver` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-
-  private WinNT.OVERLAPPED readOver = new WinNT.OVERLAPPED();
-  private WinNT.OVERLAPPED writeOver = new WinNT.OVERLAPPED();
-
-  /**
-```
-
-### FieldMayBeFinal
-Field `writeActual` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-
-  private IntByReference readActual = new IntByReference();
-  private IntByReference writeActual = new IntByReference();
-  private IntByReference peekActual = new IntByReference();
-
-```
-
-### FieldMayBeFinal
-Field `writeEvent` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-
-  private WinNT.HANDLE readEvent;
-  private WinNT.HANDLE writeEvent;
-
-  private WinNT.HANDLE[] readWaitHandles;
-```
-
-### FieldMayBeFinal
-Field `peekActual` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-  private IntByReference readActual = new IntByReference();
-  private IntByReference writeActual = new IntByReference();
-  private IntByReference peekActual = new IntByReference();
-
-  private WinNT.OVERLAPPED readOver = new WinNT.OVERLAPPED();
-```
-
-### FieldMayBeFinal
-Field `writeWaitHandles` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-
-  private WinNT.HANDLE[] readWaitHandles;
-  private WinNT.HANDLE[] writeWaitHandles;
-
-  private IntByReference readActual = new IntByReference();
-```
-
-### FieldMayBeFinal
-Field `readEvent` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-  private Memory writeBuffer = new Memory(16 * 1024);
-
-  private WinNT.HANDLE readEvent;
-  private WinNT.HANDLE writeEvent;
-
-```
-
-### FieldMayBeFinal
-Field `readOver` may be 'final'
-in `src/com/pty4j/windows/NamedPipe.java`
-#### Snippet
-```java
-  private IntByReference peekActual = new IntByReference();
-
-  private WinNT.OVERLAPPED readOver = new WinNT.OVERLAPPED();
-  private WinNT.OVERLAPPED writeOver = new WinNT.OVERLAPPED();
-
-```
-
-### FieldMayBeFinal
-Field `myStatusByRef` may be 'final'
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  // for INFINITE waits.
-  private class WaitForExitThread extends Thread {
-    private IntByReference myStatusByRef = new IntByReference(-1);
-
-    @Override
-```
-
-### FieldMayBeFinal
-Field `myConoutPipe` may be 'final'
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  private WinNT.HANDLE myProcess;
-  private NamedPipe myConinPipe;
-  private NamedPipe myConoutPipe;
-  private NamedPipe myConerrPipe;
-
-```
-
-### FieldMayBeFinal
-Field `myConinPipe` may be 'final'
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-
-  private WinNT.HANDLE myProcess;
-  private NamedPipe myConinPipe;
-  private NamedPipe myConoutPipe;
-  private NamedPipe myConerrPipe;
-```
-
-### FieldMayBeFinal
-Field `myConerrPipe` may be 'final'
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  private NamedPipe myConinPipe;
-  private NamedPipe myConoutPipe;
-  private NamedPipe myConerrPipe;
-
-  private boolean myChildExited = false;
-```
-
-### FieldMayBeFinal
-Field `INSTANCE` may be 'final'
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  }
-
-  private static WinPtyLib INSTANCE = Native.loadLibrary(getLibraryPath(), WinPtyLib.class);
-
-  private static String getLibraryPath() {
-```
-
-### FieldMayBeFinal
-Field `myCommand` may be 'final'
+Field `myEnv` may be 'final'
 in `src/com/pty4j/unix/UnixPtyProcess.java`
 #### Snippet
 ```java
-  // same thread.
   class Reaper extends Thread {
     private String[] myCommand;
     private String[] myEnv;
     private String myDir;
-```
-
-### FieldMayBeFinal
-Field `myConsole` may be 'final'
-in `src/com/pty4j/unix/UnixPtyProcess.java`
-#### Snippet
-```java
-    private String myErrSlaveName;
-    private int myErrMasterFD;
-    private boolean myConsole;
-    volatile Throwable myException;
-
+    private String mySlaveName;
 ```
 
 ### FieldMayBeFinal
@@ -483,6 +411,18 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
     private int myErrMasterFD;
     private boolean myConsole;
     volatile Throwable myException;
+```
+
+### FieldMayBeFinal
+Field `myDir` may be 'final'
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+    private String[] myCommand;
+    private String[] myEnv;
+    private String myDir;
+    private String mySlaveName;
+    private int myMasterFD;
 ```
 
 ### FieldMayBeFinal
@@ -510,27 +450,27 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
 ```
 
 ### FieldMayBeFinal
-Field `myEnv` may be 'final'
+Field `myConsole` may be 'final'
 in `src/com/pty4j/unix/UnixPtyProcess.java`
 #### Snippet
 ```java
+    private String myErrSlaveName;
+    private int myErrMasterFD;
+    private boolean myConsole;
+    volatile Throwable myException;
+
+```
+
+### FieldMayBeFinal
+Field `myCommand` may be 'final'
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+  // same thread.
   class Reaper extends Thread {
     private String[] myCommand;
     private String[] myEnv;
     private String myDir;
-    private String mySlaveName;
-```
-
-### FieldMayBeFinal
-Field `myDir` may be 'final'
-in `src/com/pty4j/unix/UnixPtyProcess.java`
-#### Snippet
-```java
-    private String[] myCommand;
-    private String[] myEnv;
-    private String myDir;
-    private String mySlaveName;
-    private int myMasterFD;
 ```
 
 ### FieldMayBeFinal
@@ -543,6 +483,66 @@ in `src/com/pty4j/unix/UnixPtyProcess.java`
     private String mySlaveName;
     private int myMasterFD;
     private String myErrSlaveName;
+```
+
+### FieldMayBeFinal
+Field `myConinPipe` may be 'final'
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+
+  private WinNT.HANDLE myProcess;
+  private NamedPipe myConinPipe;
+  private NamedPipe myConoutPipe;
+  private NamedPipe myConerrPipe;
+```
+
+### FieldMayBeFinal
+Field `myConoutPipe` may be 'final'
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  private WinNT.HANDLE myProcess;
+  private NamedPipe myConinPipe;
+  private NamedPipe myConoutPipe;
+  private NamedPipe myConerrPipe;
+
+```
+
+### FieldMayBeFinal
+Field `INSTANCE` may be 'final'
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  }
+
+  private static WinPtyLib INSTANCE = Native.loadLibrary(getLibraryPath(), WinPtyLib.class);
+
+  private static String getLibraryPath() {
+```
+
+### FieldMayBeFinal
+Field `myStatusByRef` may be 'final'
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  // for INFINITE waits.
+  private class WaitForExitThread extends Thread {
+    private IntByReference myStatusByRef = new IntByReference(-1);
+
+    @Override
+```
+
+### FieldMayBeFinal
+Field `myConerrPipe` may be 'final'
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  private NamedPipe myConinPipe;
+  private NamedPipe myConoutPipe;
+  private NamedPipe myConerrPipe;
+
+  private boolean myChildExited = false;
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -577,48 +577,48 @@ in `src/com/pty4j/unix/PtyHelpers.java`
 ## RuleId[id=CatchMayIgnoreException]
 ### CatchMayIgnoreException
 Empty `catch` block
-in `src/com/pty4j/windows/WinPty.java`
+in `src/com/pty4j/unix/UnixPtyProcess.java`
 #### Snippet
 ```java
-        pipe.close();
       }
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
+    }
+    try {
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+      }
+    }
+    catch (IOException e) {
+    }
+    try {
+```
+
+### CatchMayIgnoreException
+Empty `catch` block
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+      }
+    }
+    catch (IOException e) {
     }
   }
 ```
 
 ### CatchMayIgnoreException
 Empty `catch` block
-in `src/com/pty4j/unix/UnixPtyProcess.java`
+in `src/com/pty4j/windows/WinPty.java`
 #### Snippet
 ```java
+        pipe.close();
       }
-    }
-    catch (IOException e) {
-    }
-    try {
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/com/pty4j/unix/UnixPtyProcess.java`
-#### Snippet
-```java
-      }
-    }
-    catch (IOException e) {
-    }
-    try {
-```
-
-### CatchMayIgnoreException
-Empty `catch` block
-in `src/com/pty4j/unix/UnixPtyProcess.java`
-#### Snippet
-```java
-      }
-    }
-    catch (IOException e) {
+    } catch (IOException e) {
     }
   }
 ```
@@ -689,11 +689,11 @@ in `src/com/pty4j/windows/CygwinPTYInputStream.java`
 in `src/com/pty4j/unix/linux/OSFacadeImpl.java`
 #### Snippet
 ```java
+  }
+
   private static final C_lib m_Clib = Native.loadLibrary("c", C_lib.class);
 
   private static final Linux_Util_lib m_Utillib = Native.loadLibrary("util", Linux_Util_lib.class);
-
-  // CONSTUCTORS
 ```
 
 ### Deprecation
@@ -701,33 +701,9 @@ in `src/com/pty4j/unix/linux/OSFacadeImpl.java`
 in `src/com/pty4j/unix/linux/OSFacadeImpl.java`
 #### Snippet
 ```java
-  }
-
   private static final C_lib m_Clib = Native.loadLibrary("c", C_lib.class);
 
   private static final Linux_Util_lib m_Utillib = Native.loadLibrary("util", Linux_Util_lib.class);
-```
-
-### Deprecation
-'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
-in `src/com/pty4j/unix/freebsd/OSFacadeImpl.java`
-#### Snippet
-```java
-  }
-
-  private static final FreeBSD_C_lib m_Clib = Native.loadLibrary("c", FreeBSD_C_lib.class);
-  private static final FreeBSD_Util_lib m_Utillib = Native.loadLibrary("util", FreeBSD_Util_lib.class);
-
-```
-
-### Deprecation
-'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
-in `src/com/pty4j/unix/freebsd/OSFacadeImpl.java`
-#### Snippet
-```java
-
-  private static final FreeBSD_C_lib m_Clib = Native.loadLibrary("c", FreeBSD_C_lib.class);
-  private static final FreeBSD_Util_lib m_Utillib = Native.loadLibrary("util", FreeBSD_Util_lib.class);
 
   // CONSTUCTORS
 ```
@@ -742,6 +718,30 @@ in `src/com/pty4j/unix/macosx/OSFacadeImpl.java`
   private static final MacOSX_C_lib m_Clib = Native.loadLibrary("c", MacOSX_C_lib.class);
 
   // CONSTUCTORS
+```
+
+### Deprecation
+'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
+in `src/com/pty4j/unix/freebsd/OSFacadeImpl.java`
+#### Snippet
+```java
+
+  private static final FreeBSD_C_lib m_Clib = Native.loadLibrary("c", FreeBSD_C_lib.class);
+  private static final FreeBSD_Util_lib m_Utillib = Native.loadLibrary("util", FreeBSD_Util_lib.class);
+
+  // CONSTUCTORS
+```
+
+### Deprecation
+'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
+in `src/com/pty4j/unix/freebsd/OSFacadeImpl.java`
+#### Snippet
+```java
+  }
+
+  private static final FreeBSD_C_lib m_Clib = Native.loadLibrary("c", FreeBSD_C_lib.class);
+  private static final FreeBSD_Util_lib m_Utillib = Native.loadLibrary("util", FreeBSD_Util_lib.class);
+
 ```
 
 ### Deprecation
@@ -769,30 +769,6 @@ in `src/com/pty4j/windows/NamedPipe.java`
 ```
 
 ### Deprecation
-Overrides deprecated method in 'java.lang.Object'
-in `src/com/pty4j/unix/Pty.java`
-#### Snippet
-```java
-
-  @Override
-  protected void finalize() throws Throwable {
-    close();
-    super.finalize();
-```
-
-### Deprecation
-'finalize()' is deprecated
-in `src/com/pty4j/unix/Pty.java`
-#### Snippet
-```java
-  protected void finalize() throws Throwable {
-    close();
-    super.finalize();
-  }
-
-```
-
-### Deprecation
 'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
 in `src/com/pty4j/unix/openbsd/OSFacadeImpl.java`
 #### Snippet
@@ -817,20 +793,8 @@ in `src/com/pty4j/unix/openbsd/OSFacadeImpl.java`
 ```
 
 ### Deprecation
-'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
-in `src/com/pty4j/windows/WinPty.java`
-#### Snippet
-```java
-  }
-
-  static final Kern32 KERNEL32 = Native.loadLibrary("kernel32", Kern32.class);
-
-  interface Kern32 extends Library {
-```
-
-### Deprecation
 Overrides deprecated method in 'java.lang.Object'
-in `src/com/pty4j/windows/WinPty.java`
+in `src/com/pty4j/unix/Pty.java`
 #### Snippet
 ```java
 
@@ -842,7 +806,7 @@ in `src/com/pty4j/windows/WinPty.java`
 
 ### Deprecation
 'finalize()' is deprecated
-in `src/com/pty4j/windows/WinPty.java`
+in `src/com/pty4j/unix/Pty.java`
 #### Snippet
 ```java
   protected void finalize() throws Throwable {
@@ -850,6 +814,42 @@ in `src/com/pty4j/windows/WinPty.java`
     super.finalize();
   }
 
+```
+
+### Deprecation
+Overrides deprecated method in 'java.lang.Object'
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+
+  @Override
+  protected void finalize() throws Throwable {
+    closeUnusedStreams();
+    super.finalize();
+```
+
+### Deprecation
+'finalize()' is deprecated
+in `src/com/pty4j/unix/UnixPtyProcess.java`
+#### Snippet
+```java
+  protected void finalize() throws Throwable {
+    closeUnusedStreams();
+    super.finalize();
+  }
+
+```
+
+### Deprecation
+'loadLibrary(java.lang.String, java.lang.Class)' is deprecated
+in `src/com/pty4j/windows/WinPty.java`
+#### Snippet
+```java
+  }
+
+  static final Kern32 KERNEL32 = Native.loadLibrary("kernel32", Kern32.class);
+
+  interface Kern32 extends Library {
 ```
 
 ### Deprecation
@@ -866,23 +866,23 @@ in `src/com/pty4j/windows/WinPty.java`
 
 ### Deprecation
 Overrides deprecated method in 'java.lang.Object'
-in `src/com/pty4j/unix/UnixPtyProcess.java`
+in `src/com/pty4j/windows/WinPty.java`
 #### Snippet
 ```java
 
   @Override
   protected void finalize() throws Throwable {
-    closeUnusedStreams();
+    close();
     super.finalize();
 ```
 
 ### Deprecation
 'finalize()' is deprecated
-in `src/com/pty4j/unix/UnixPtyProcess.java`
+in `src/com/pty4j/windows/WinPty.java`
 #### Snippet
 ```java
   protected void finalize() throws Throwable {
-    closeUnusedStreams();
+    close();
     super.finalize();
   }
 
