@@ -9,8 +9,8 @@ I found 34 bad smells with 0 repairable:
 | FieldCanBeLocal | 3 | false |
 | Deprecation | 2 | false |
 | UNUSED_IMPORT | 2 | false |
-| FieldMayBeFinal | 2 | false |
 | NullableProblems | 2 | false |
+| FieldMayBeFinal | 2 | false |
 | StringEquality | 1 | false |
 | StringOperationCanBeSimplified | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
@@ -34,9 +34,21 @@ Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedIOSDriver' to 'com
 in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 #### Snippet
 ```java
+    public static <T extends WebElement> EnhancedIOSDriver<T> createIOSDriver(AppiumDriverLocalService service, Capabilities desiredCapabilities) {
+        WarnServiceAndBuilerNotSupportedInXTC();
+        return provider.createIOSDriver(service, desiredCapabilities);
+
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
      */
-    public static <T extends WebElement> EnhancedIOSDriver<T> createIOSDriver(Capabilities desiredCapabilities) {
-        return provider.createIOSDriver(desiredCapabilities);
+    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(HttpClient.Factory httpClientFactory, Capabilities desiredCapabilities) {
+        return provider.createAndroidDriver(httpClientFactory, desiredCapabilities);
     }
 
 ```
@@ -54,85 +66,13 @@ in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(AppiumDriverLocalService service, HttpClient.Factory httpClientFactory, Capabilities desiredCapabilities) {
-        WarnServiceAndBuilerNotSupportedInXTC();
-        return provider.createAndroidDriver(service, httpClientFactory, desiredCapabilities);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     */
-    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(URL url, DesiredCapabilities desiredCapabilities) {
-        return provider.createAndroidDriver(url, desiredCapabilities);
-    }
-
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedIOSDriver' to 'com.microsoft.appcenter.appium.EnhancedIOSDriver'
 in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 #### Snippet
 ```java
-    public static <T extends WebElement> EnhancedIOSDriver<T> createIOSDriver(AppiumDriverLocalService service, Capabilities desiredCapabilities) {
+    public static <T extends WebElement> EnhancedIOSDriver<T> createIOSDriver(AppiumServiceBuilder builder, HttpClient.Factory httpClientFactory, Capabilities desiredCapabilities) {
         WarnServiceAndBuilerNotSupportedInXTC();
-        return provider.createIOSDriver(service, desiredCapabilities);
-
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedIOSDriver' to 'com.microsoft.appcenter.appium.EnhancedIOSDriver'
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-    public static <T extends WebElement> EnhancedIOSDriver<T> createIOSDriver(AppiumDriverLocalService service, HttpClient.Factory httpClientFactory, Capabilities desiredCapabilities) {
-        WarnServiceAndBuilerNotSupportedInXTC();
-        return provider.createIOSDriver(service, httpClientFactory, desiredCapabilities);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     */
-    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(HttpClient.Factory httpClientFactory, Capabilities desiredCapabilities) {
-        return provider.createAndroidDriver(httpClientFactory, desiredCapabilities);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(AppiumDriverLocalService service, Capabilities desiredCapabilities) {
-        WarnServiceAndBuilerNotSupportedInXTC();
-        return provider.createAndroidDriver(service, desiredCapabilities);
-
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(AppiumServiceBuilder builder, Capabilities desiredCapabilities) {
-        WarnServiceAndBuilerNotSupportedInXTC();
-        return provider.createAndroidDriver(builder, desiredCapabilities);
+        return provider.createIOSDriver(builder, httpClientFactory, desiredCapabilities);
     }
 
 ```
@@ -166,33 +106,9 @@ Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedIOSDriver' to 'com
 in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 #### Snippet
 ```java
-     */
-    public static <T extends WebElement> EnhancedIOSDriver<T> createIOSDriver(URL url, DesiredCapabilities capabilities) {
-        return provider.createIOSDriver(url, capabilities);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedIOSDriver' to 'com.microsoft.appcenter.appium.EnhancedIOSDriver'
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-    public static <T extends WebElement> EnhancedIOSDriver<T> createIOSDriver(AppiumServiceBuilder builder, HttpClient.Factory httpClientFactory, Capabilities desiredCapabilities) {
+    public static <T extends WebElement> EnhancedIOSDriver<T> createIOSDriver(AppiumDriverLocalService service, HttpClient.Factory httpClientFactory, Capabilities desiredCapabilities) {
         WarnServiceAndBuilerNotSupportedInXTC();
-        return provider.createIOSDriver(builder, httpClientFactory, desiredCapabilities);
-    }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
-in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
-#### Snippet
-```java
-     */
-    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(URL url, HttpClient.Factory httpClientFactory, Capabilities desiredCapabilities) {
-        return provider.createAndroidDriver(url, httpClientFactory, desiredCapabilities);
+        return provider.createIOSDriver(service, httpClientFactory, desiredCapabilities);
     }
 
 ```
@@ -215,8 +131,92 @@ in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
 #### Snippet
 ```java
      */
+    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(URL url, DesiredCapabilities desiredCapabilities) {
+        return provider.createAndroidDriver(url, desiredCapabilities);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     */
     public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(Capabilities desiredCapabilities) {
         return provider.createAndroidDriver(desiredCapabilities);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(AppiumServiceBuilder builder, Capabilities desiredCapabilities) {
+        WarnServiceAndBuilerNotSupportedInXTC();
+        return provider.createAndroidDriver(builder, desiredCapabilities);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedIOSDriver' to 'com.microsoft.appcenter.appium.EnhancedIOSDriver'
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     */
+    public static <T extends WebElement> EnhancedIOSDriver<T> createIOSDriver(URL url, DesiredCapabilities capabilities) {
+        return provider.createIOSDriver(url, capabilities);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedIOSDriver' to 'com.microsoft.appcenter.appium.EnhancedIOSDriver'
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     */
+    public static <T extends WebElement> EnhancedIOSDriver<T> createIOSDriver(Capabilities desiredCapabilities) {
+        return provider.createIOSDriver(desiredCapabilities);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(AppiumDriverLocalService service, Capabilities desiredCapabilities) {
+        WarnServiceAndBuilerNotSupportedInXTC();
+        return provider.createAndroidDriver(service, desiredCapabilities);
+
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(AppiumDriverLocalService service, HttpClient.Factory httpClientFactory, Capabilities desiredCapabilities) {
+        WarnServiceAndBuilerNotSupportedInXTC();
+        return provider.createAndroidDriver(service, httpClientFactory, desiredCapabilities);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.microsoft.appcenter.appium.EnhancedAndroidDriver' to 'com.microsoft.appcenter.appium.EnhancedAndroidDriver'
+in `src/main/java/com/microsoft/appcenter/appium/Factory.java`
+#### Snippet
+```java
+     */
+    public static <T extends WebElement> EnhancedAndroidDriver<T> createAndroidDriver(URL url, HttpClient.Factory httpClientFactory, Capabilities desiredCapabilities) {
+        return provider.createAndroidDriver(url, httpClientFactory, desiredCapabilities);
     }
 
 ```
@@ -321,32 +321,19 @@ in `src/main/java/com/microsoft/appcenter/appium/javassist/GenericsRewrite.java`
                     cc.writeFile();
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `usedIds` may be 'final'
-in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
-#### Snippet
-```java
-abstract class EventReporter {
-
-    private Set<String> usedIds = new HashSet<>();
-    private Description lastDescription = null;
-    private int labelCounter = 0;
-```
-
-### FieldMayBeFinal
-Field `GenericdDecl` may be 'final'
-in `src/main/java/com/microsoft/appcenter/appium/javassist/GenericsRewrite.java`
-#### Snippet
-```java
-
-public class GenericsRewrite {
-    private static String GenericdDecl = "<TT;>";
-    public static void main(String[] args) {
-        ClassPool pool = ClassPool.getDefault();
-```
-
 ## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/com/microsoft/appcenter/appium/Watcher.java`
+#### Snippet
+```java
+
+    @Override
+    protected void finished(Description description) {
+        super.finished(description);
+        this.eventReporter.reportJunit(EventType.finished, description, null);
+```
+
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
 in `src/main/java/com/microsoft/appcenter/appium/Watcher.java`
@@ -359,16 +346,29 @@ in `src/main/java/com/microsoft/appcenter/appium/Watcher.java`
         this.eventReporter.reportJunit(EventType.started, description, null);
 ```
 
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/com/microsoft/appcenter/appium/Watcher.java`
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `GenericdDecl` may be 'final'
+in `src/main/java/com/microsoft/appcenter/appium/javassist/GenericsRewrite.java`
 #### Snippet
 ```java
 
-    @Override
-    protected void finished(Description description) {
-        super.finished(description);
-        this.eventReporter.reportJunit(EventType.finished, description, null);
+public class GenericsRewrite {
+    private static String GenericdDecl = "<TT;>";
+    public static void main(String[] args) {
+        ClassPool pool = ClassPool.getDefault();
+```
+
+### FieldMayBeFinal
+Field `usedIds` may be 'final'
+in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
+#### Snippet
+```java
+abstract class EventReporter {
+
+    private Set<String> usedIds = new HashSet<>();
+    private Description lastDescription = null;
+    private int labelCounter = 0;
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -384,31 +384,20 @@ abstract class EventReporter {
     private int labelCounter = 0;
 ```
 
+## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\]` in RegExp
+in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
+#### Snippet
+```java
+    private int labelCounter = 0;
+    private int screenshotCounter = 0;
+    private final Pattern paramsFinder = Pattern.compile("\\[(\\d+?)\\]");
+
+    void reportJunit(EventType eventType, Description description, Throwable throwable) {
+```
+
 ## RuleId[id=FieldCanBeLocal]
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/microsoft/appcenter/appium/ShortIdentifier.java`
-#### Snippet
-```java
-    private final Pattern sanitizer = Pattern.compile("[^a-zA-Z0-9.:_()\\[\\]]");
-    private final int partMaxLength = 50;
-    private final int idMaxLength = 1024; // other 1024 reserved for leading path
-    private final String shortId;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/microsoft/appcenter/appium/ShortIdentifier.java`
-#### Snippet
-```java
-
-    private final Pattern sanitizer = Pattern.compile("[^a-zA-Z0-9.:_()\\[\\]]");
-    private final int partMaxLength = 50;
-    private final int idMaxLength = 1024; // other 1024 reserved for leading path
-    private final String shortId;
-```
-
 ### FieldCanBeLocal
 Field can be converted to a local variable
 in `src/main/java/com/microsoft/appcenter/appium/javassist/GenericsRewrite.java`
@@ -421,16 +410,27 @@ public class GenericsRewrite {
         ClassPool pool = ClassPool.getDefault();
 ```
 
-## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\]` in RegExp
-in `src/main/java/com/microsoft/appcenter/appium/EventReporter.java`
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/com/microsoft/appcenter/appium/ShortIdentifier.java`
 #### Snippet
 ```java
-    private int labelCounter = 0;
-    private int screenshotCounter = 0;
-    private final Pattern paramsFinder = Pattern.compile("\\[(\\d+?)\\]");
+    private final Pattern sanitizer = Pattern.compile("[^a-zA-Z0-9.:_()\\[\\]]");
+    private final int partMaxLength = 50;
+    private final int idMaxLength = 1024; // other 1024 reserved for leading path
+    private final String shortId;
 
-    void reportJunit(EventType eventType, Description description, Throwable throwable) {
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/com/microsoft/appcenter/appium/ShortIdentifier.java`
+#### Snippet
+```java
+
+    private final Pattern sanitizer = Pattern.compile("[^a-zA-Z0-9.:_()\\[\\]]");
+    private final int partMaxLength = 50;
+    private final int idMaxLength = 1024; // other 1024 reserved for leading path
+    private final String shortId;
 ```
 
