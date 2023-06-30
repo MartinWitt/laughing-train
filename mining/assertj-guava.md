@@ -12,18 +12,6 @@ I found 129 bad smells with 0 repairable:
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'actual'
-in `src/main/java/org/assertj/guava/error/OptionalShouldBeAbsent.java`
-#### Snippet
-```java
-public final class OptionalShouldBeAbsent extends BasicErrorMessageFactory {
-
-  public static <T> ErrorMessageFactory shouldBeAbsent(final Optional<T> actual) {
-    return new OptionalShouldBeAbsent("Expecting Optional to contain nothing (absent Optional) but contained %s",
-                                      actual.get());
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'actual'
 in `src/main/java/org/assertj/guava/error/OptionalShouldBePresent.java`
 #### Snippet
 ```java
@@ -32,6 +20,18 @@ public final class OptionalShouldBePresent extends BasicErrorMessageFactory {
   public static <T> ErrorMessageFactory shouldBePresent(final Optional<T> actual) {
     return new OptionalShouldBePresent(
                                        "Expecting Optional to contain a non-null instance but contained nothing (absent Optional)",
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'actual'
+in `src/main/java/org/assertj/guava/error/OptionalShouldBeAbsent.java`
+#### Snippet
+```java
+public final class OptionalShouldBeAbsent extends BasicErrorMessageFactory {
+
+  public static <T> ErrorMessageFactory shouldBeAbsent(final Optional<T> actual) {
+    return new OptionalShouldBeAbsent("Expecting Optional to contain nothing (absent Optional) but contained %s",
+                                      actual.get());
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -48,18 +48,6 @@ public class OptionalAssert<T> extends AbstractAssert<OptionalAssert<T>, Optiona
 
 ### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'actual'
-in `src/main/java/org/assertj/guava/api/Assertions.java`
-#### Snippet
-```java
-  }
-
-  public static <T> OptionalAssert<T> assertThat(final Optional<T> actual) {
-    return new OptionalAssert<>(actual);
-  }
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'actual'
 in `src/main/java/org/assertj/guava/error/OptionalShouldBePresentWithValue.java`
 #### Snippet
 ```java
@@ -68,6 +56,18 @@ public final class OptionalShouldBePresentWithValue extends BasicErrorMessageFac
   public static <T> ErrorMessageFactory shouldBePresentWithValue(final Optional<T> actual, final Object value) {
     return new OptionalShouldBePresentWithValue("%nExpecting Optional to contain value %n  %s%n but contained %n  %s",
                                                 value, actual.get());
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'actual'
+in `src/main/java/org/assertj/guava/api/Assertions.java`
+#### Snippet
+```java
+  }
+
+  public static <T> OptionalAssert<T> assertThat(final Optional<T> actual) {
+    return new OptionalAssert<>(actual);
+  }
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -90,6 +90,18 @@ in `src/main/java/org/assertj/guava/api/MultimapAssert.java`
 
 ## RuleId[id=JavadocReference]
 ### JavadocReference
+Cannot resolve symbol `org.assertj.core.error.BasicErrorMessageFactory`
+in `src/main/java/org/assertj/guava/error/RangeShouldHaveUpperEndpointEqual.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
+   *
+   * @param format the format string.
+```
+
+### JavadocReference
 Cannot resolve symbol `BasicErrorMessageFactory`
 in `src/main/java/org/assertj/guava/error/RangeSetShouldNotIntersect.java`
 #### Snippet
@@ -104,18 +116,6 @@ in `src/main/java/org/assertj/guava/error/RangeSetShouldNotIntersect.java`
 ### JavadocReference
 Cannot resolve symbol `org.assertj.core.error.BasicErrorMessageFactory`
 in `src/main/java/org/assertj/guava/error/RangeShouldBeOpenedInTheLowerBound.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
-   *
-   * @param format the format string.
-```
-
-### JavadocReference
-Cannot resolve symbol `org.assertj.core.error.BasicErrorMessageFactory`
-in `src/main/java/org/assertj/guava/error/RangeShouldHaveUpperEndpointEqual.java`
 #### Snippet
 ```java
 
@@ -150,6 +150,18 @@ in `src/main/java/org/assertj/guava/error/RangeShouldBeClosedInTheLowerBound.jav
 ```
 
 ### JavadocReference
+Cannot resolve symbol `org.assertj.core.error.ShouldContainKeys`
+in `src/main/java/org/assertj/guava/error/ShouldContainKeys.java`
+#### Snippet
+```java
+/**
+ * Creates an error message indicating that an assertion that verifies a map contains some keys failed. TODO : move to
+ * assertj-core to replace {@link org.assertj.core.error.ShouldContainKeys}.
+ *
+ * @author Joel Costigliola
+```
+
+### JavadocReference
 Cannot resolve symbol `BasicErrorMessageFactory`
 in `src/main/java/org/assertj/guava/error/RangeSetShouldEnclose.java`
 #### Snippet
@@ -169,18 +181,6 @@ in `src/main/java/org/assertj/guava/error/ShouldContainValues.java`
 /**
  * Creates an error message indicating that an assertion that verifies a map contains some values failed. TODO : move to
  * assertj-core to replace {@link ShouldContainValue}
- *
- * @author Joel Costigliola
-```
-
-### JavadocReference
-Cannot resolve symbol `org.assertj.core.error.ShouldContainKeys`
-in `src/main/java/org/assertj/guava/error/ShouldContainKeys.java`
-#### Snippet
-```java
-/**
- * Creates an error message indicating that an assertion that verifies a map contains some keys failed. TODO : move to
- * assertj-core to replace {@link org.assertj.core.error.ShouldContainKeys}.
  *
  * @author Joel Costigliola
 ```
@@ -211,14 +211,14 @@ in `src/main/java/org/assertj/guava/api/OptionalAssert.java`
 
 ### JavadocReference
 Cannot resolve symbol `BasicErrorMessageFactory`
-in `src/main/java/org/assertj/guava/error/RangeSetShouldEncloseAnyOf.java`
+in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersect.java`
 #### Snippet
 ```java
 
   /**
    * Creates a new <code>{@link BasicErrorMessageFactory}</code>.
    *
-   * @param actual actual {@code RangeSet}.
+   * @param actual actual {@link RangeSet}.
 ```
 
 ### JavadocReference
@@ -235,19 +235,31 @@ in `src/main/java/org/assertj/guava/error/RangeShouldBeOpenedInTheUpperBound.jav
 
 ### JavadocReference
 Cannot resolve symbol `BasicErrorMessageFactory`
-in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersect.java`
+in `src/main/java/org/assertj/guava/error/RangeSetShouldEncloseAnyOf.java`
 #### Snippet
 ```java
 
   /**
    * Creates a new <code>{@link BasicErrorMessageFactory}</code>.
    *
-   * @param actual actual {@link RangeSet}.
+   * @param actual actual {@code RangeSet}.
 ```
 
 ### JavadocReference
 Cannot resolve symbol `org.assertj.core.error.BasicErrorMessageFactory`
 in `src/main/java/org/assertj/guava/error/RangeShouldBeClosedInTheUpperBound.java`
+#### Snippet
+```java
+
+  /**
+   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
+   *
+   * @param format the format string.
+```
+
+### JavadocReference
+Cannot resolve symbol `org.assertj.core.error.BasicErrorMessageFactory`
+in `src/main/java/org/assertj/guava/error/RangeShouldHaveLowerEndpointEqual.java`
 #### Snippet
 ```java
 
@@ -267,42 +279,6 @@ in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersectAnyOf.java`
    * Creates a new <code>{@link BasicErrorMessageFactory}</code>.
    *
    * @param actual actual {@link com.google.common.collect.RangeSet}.
-```
-
-### JavadocReference
-Cannot resolve symbol `org.assertj.core.error.BasicErrorMessageFactory`
-in `src/main/java/org/assertj/guava/error/RangeShouldHaveLowerEndpointEqual.java`
-#### Snippet
-```java
-
-  /**
-   * Creates a new <code>{@link org.assertj.core.error.BasicErrorMessageFactory}</code>.
-   *
-   * @param format the format string.
-```
-
-### JavadocReference
-Cannot resolve symbol `org.assertj.core.data.MapEntry`
-in `src/main/java/org/assertj/guava/data/MapEntry.java`
-#### Snippet
-```java
-
-/**
- * This is generic version of {@link org.assertj.core.data.MapEntry}
- *
- * @param <K> key type
-```
-
-### JavadocReference
-Cannot resolve symbol `org.assertj.core.data.MapEntry`
-in `src/main/java/org/assertj/guava/data/MapEntry.java`
-#### Snippet
-```java
- * @param <V> value type
- *
- * @deprecated use {@link org.assertj.core.data.MapEntry org.assertj.core.data.MapEntry} instead.
- */
-@Deprecated
 ```
 
 ### JavadocReference
@@ -348,21 +324,9 @@ in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 ```java
 
   /**
-   * {@link InstanceOfAssertFactory} for a {@link RangeMap}.
+   * {@link InstanceOfAssertFactory} for an {@link Optional}.
    *
-   * @param <K>       the {@code RangeMap} key type.
-```
-
-### JavadocReference
-Cannot resolve symbol `InstanceOfAssertFactory`
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
-#### Snippet
-```java
-
-  /**
-   * {@link InstanceOfAssertFactory} for a {@link Table}, assuming {@code Object} as row key type, column key type and
-   * value type.
-   *
+   * @param <VALUE>    the {@code Optional} value type.
 ```
 
 ### JavadocReference
@@ -420,9 +384,9 @@ in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 ```java
 
   /**
-   * {@link InstanceOfAssertFactory} for a {@link Multiset}, assuming {@code Object} as element type.
-   *
-   * @see #multiset(Class)
+   * {@link InstanceOfAssertFactory} for a {@link ByteSource}.
+   */
+  InstanceOfAssertFactory<ByteSource, ByteSourceAssert> BYTE_SOURCE = new InstanceOfAssertFactory<>(ByteSource.class,
 ```
 
 ### JavadocReference
@@ -432,9 +396,9 @@ in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 ```java
 
   /**
-   * {@link InstanceOfAssertFactory} for a {@link Range}.
+   * {@link InstanceOfAssertFactory} for a {@link RangeMap}.
    *
-   * @param <C>            the {@code Comparable} type.
+   * @param <K>       the {@code RangeMap} key type.
 ```
 
 ### JavadocReference
@@ -456,9 +420,9 @@ in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 ```java
 
   /**
-   * {@link InstanceOfAssertFactory} for an {@link Optional}.
+   * {@link InstanceOfAssertFactory} for a {@link Table}, assuming {@code Object} as row key type, column key type and
+   * value type.
    *
-   * @param <VALUE>    the {@code Optional} value type.
 ```
 
 ### JavadocReference
@@ -480,9 +444,9 @@ in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 ```java
 
   /**
-   * {@link InstanceOfAssertFactory} for a {@link Multimap}, assuming {@code Object} as key and value types.
+   * {@link InstanceOfAssertFactory} for a {@link Multiset}.
    *
-   * @see #multimap(Class, Class)
+   * @param <ELEMENT>   the {@code Multiset} element type.
 ```
 
 ### JavadocReference
@@ -516,9 +480,9 @@ in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 ```java
 
   /**
-   * {@link InstanceOfAssertFactory} for a {@link Multiset}.
+   * {@link InstanceOfAssertFactory} for a {@link Multiset}, assuming {@code Object} as element type.
    *
-   * @param <ELEMENT>   the {@code Multiset} element type.
+   * @see #multiset(Class)
 ```
 
 ### JavadocReference
@@ -528,9 +492,45 @@ in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 ```java
 
   /**
-   * {@link InstanceOfAssertFactory} for a {@link ByteSource}.
-   */
-  InstanceOfAssertFactory<ByteSource, ByteSourceAssert> BYTE_SOURCE = new InstanceOfAssertFactory<>(ByteSource.class,
+   * {@link InstanceOfAssertFactory} for a {@link Range}.
+   *
+   * @param <C>            the {@code Comparable} type.
+```
+
+### JavadocReference
+Cannot resolve symbol `InstanceOfAssertFactory`
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
+#### Snippet
+```java
+
+  /**
+   * {@link InstanceOfAssertFactory} for a {@link Multimap}, assuming {@code Object} as key and value types.
+   *
+   * @see #multimap(Class, Class)
+```
+
+### JavadocReference
+Cannot resolve symbol `org.assertj.core.data.MapEntry`
+in `src/main/java/org/assertj/guava/data/MapEntry.java`
+#### Snippet
+```java
+
+/**
+ * This is generic version of {@link org.assertj.core.data.MapEntry}
+ *
+ * @param <K> key type
+```
+
+### JavadocReference
+Cannot resolve symbol `org.assertj.core.data.MapEntry`
+in `src/main/java/org/assertj/guava/data/MapEntry.java`
+#### Snippet
+```java
+ * @param <V> value type
+ *
+ * @deprecated use {@link org.assertj.core.data.MapEntry org.assertj.core.data.MapEntry} instead.
+ */
+@Deprecated
 ```
 
 ### JavadocReference
@@ -621,14 +621,26 @@ in `src/main/java/org/assertj/guava/error/RangeSetShouldEnclose.java`
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/error/RangeSetShouldEncloseAnyOf.java`
+in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersect.java`
 #### Snippet
 ```java
+   * Creates a new <code>{@link BasicErrorMessageFactory}</code>.
+   *
+   * @param actual actual {@link RangeSet}.
+   * @param expected expected {@link RangeSet} that have to be intersected.
+   * @param notIntersected not intersected ranges.
+```
 
-/**
- * Creates an error message indicating that the given {@link com.google.common.collect.RangeSet} does not enclose
- * at lease one element of expected objects.
- *
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersect.java`
+#### Snippet
+```java
+   *
+   * @param actual actual {@link RangeSet}.
+   * @param expected expected {@link RangeSet} that have to be intersected.
+   * @param notIntersected not intersected ranges.
+   */
 ```
 
 ### UnstableApiUsage
@@ -660,30 +672,6 @@ in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersect.java`
 in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersect.java`
 #### Snippet
 ```java
-   * Creates a new <code>{@link BasicErrorMessageFactory}</code>.
-   *
-   * @param actual actual {@link RangeSet}.
-   * @param expected expected {@link RangeSet} that have to be intersected.
-   * @param notIntersected not intersected ranges.
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersect.java`
-#### Snippet
-```java
-   *
-   * @param actual actual {@link RangeSet}.
-   * @param expected expected {@link RangeSet} that have to be intersected.
-   * @param notIntersected not intersected ranges.
-   */
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersect.java`
-#### Snippet
-```java
 public class RangeSetShouldIntersect extends BasicErrorMessageFactory {
 
   public static ErrorMessageFactory shouldIntersect(RangeSet<?> actual, Object expected, Iterable<?> notIntersected) {
@@ -693,14 +681,26 @@ public class RangeSetShouldIntersect extends BasicErrorMessageFactory {
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersectAnyOf.java`
+in `src/main/java/org/assertj/guava/error/RangeSetShouldEncloseAnyOf.java`
 #### Snippet
 ```java
 
 /**
- * Creates an error message indicating that the given {@link com.google.common.collect.RangeSet} does not intersect
+ * Creates an error message indicating that the given {@link com.google.common.collect.RangeSet} does not enclose
  * at lease one element of expected objects.
  *
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersectAnyOf.java`
+#### Snippet
+```java
+public class RangeSetShouldIntersectAnyOf extends BasicErrorMessageFactory {
+
+  public static ErrorMessageFactory shouldIntersectAnyOf(RangeSet<?> actual, Object expected) {
+    return new RangeSetShouldIntersectAnyOf(actual, expected);
+  }
 ```
 
 ### UnstableApiUsage
@@ -720,23 +720,11 @@ in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersectAnyOf.java`
 in `src/main/java/org/assertj/guava/error/RangeSetShouldIntersectAnyOf.java`
 #### Snippet
 ```java
-public class RangeSetShouldIntersectAnyOf extends BasicErrorMessageFactory {
 
-  public static ErrorMessageFactory shouldIntersectAnyOf(RangeSet<?> actual, Object expected) {
-    return new RangeSetShouldIntersectAnyOf(actual, expected);
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/Assertions.java`
-#### Snippet
-```java
-  }
-
-  public static <K extends Comparable<K>, V> RangeMapAssert<K, V> assertThat(final RangeMap<K, V> actual) {
-    return new RangeMapAssert<>(actual);
-  }
+/**
+ * Creates an error message indicating that the given {@link com.google.common.collect.RangeSet} does not intersect
+ * at lease one element of expected objects.
+ *
 ```
 
 ### UnstableApiUsage
@@ -753,38 +741,14 @@ in `src/main/java/org/assertj/guava/api/Assertions.java`
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
+in `src/main/java/org/assertj/guava/api/Assertions.java`
 #### Snippet
 ```java
-
-  /**
-   * {@link InstanceOfAssertFactory} for a {@link RangeMap}.
-   *
-   * @param <K>       the {@code RangeMap} key type.
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
-#### Snippet
-```java
-   */
-  @SuppressWarnings({ "rawtypes", "unused" }) // rawtypes: using Class instance, unused: parameter needed for type inference
-  static <K extends Comparable<K>, V> InstanceOfAssertFactory<RangeMap, RangeMapAssert<K, V>> rangeMap(Class<K> keyType,
-                                                                                                       Class<V> valueType) {
-    return new InstanceOfAssertFactory<>(RangeMap.class, Assertions::<K, V> assertThat);
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
-#### Snippet
-```java
-  static <K extends Comparable<K>, V> InstanceOfAssertFactory<RangeMap, RangeMapAssert<K, V>> rangeMap(Class<K> keyType,
-                                                                                                       Class<V> valueType) {
-    return new InstanceOfAssertFactory<>(RangeMap.class, Assertions::<K, V> assertThat);
   }
 
+  public static <K extends Comparable<K>, V> RangeMapAssert<K, V> assertThat(final RangeMap<K, V> actual) {
+    return new RangeMapAssert<>(actual);
+  }
 ```
 
 ### UnstableApiUsage
@@ -825,38 +789,38 @@ in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 #### Snippet
 ```java
 
   /**
-   * Verifies that the actual {@link com.google.common.collect.RangeMap} is not empty.
+   * {@link InstanceOfAssertFactory} for a {@link RangeMap}.
    *
-   * <p>
+   * @param <K>       the {@code RangeMap} key type.
 ```
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 #### Snippet
 ```java
-   * @return this {@link RangeMapAssert} for assertions chaining.
-   *
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
    */
+  @SuppressWarnings({ "rawtypes", "unused" }) // rawtypes: using Class instance, unused: parameter needed for type inference
+  static <K extends Comparable<K>, V> InstanceOfAssertFactory<RangeMap, RangeMapAssert<K, V>> rangeMap(Class<K> keyType,
+                                                                                                       Class<V> valueType) {
+    return new InstanceOfAssertFactory<>(RangeMap.class, Assertions::<K, V> assertThat);
 ```
 
 ### UnstableApiUsage
 'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+in `src/main/java/org/assertj/guava/api/InstanceOfAssertFactories.java`
 #### Snippet
 ```java
-   *
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
-   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
-   */
-  public RangeMapAssert<K, V> isNotEmpty() {
+  static <K extends Comparable<K>, V> InstanceOfAssertFactory<RangeMap, RangeMapAssert<K, V>> rangeMap(Class<K> keyType,
+                                                                                                       Class<V> valueType) {
+    return new InstanceOfAssertFactory<>(RangeMap.class, Assertions::<K, V> assertThat);
+  }
+
 ```
 
 ### UnstableApiUsage
@@ -948,6 +912,18 @@ in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
+public class RangeMapAssert<K extends Comparable<K>, V> extends AbstractAssert<RangeMapAssert<K, V>, RangeMap<K, V>> {
+
+  protected RangeMapAssert(final RangeMap<K, V> actual) {
+    super(actual, RangeMapAssert.class);
+  }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
 
   /**
    * Verifies that the actual {@link com.google.common.collect.RangeMap} contains the given keys.<br>
@@ -996,11 +972,47 @@ in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 #### Snippet
 ```java
-public class RangeMapAssert<K extends Comparable<K>, V> extends AbstractAssert<RangeMapAssert<K, V>, RangeMap<K, V>> {
 
-  protected RangeMapAssert(final RangeMap<K, V> actual) {
-    super(actual, RangeMapAssert.class);
+  // visible for test
+  protected RangeMap<K, V> getActual() {
+    return actual;
   }
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the actual {@link com.google.common.collect.RangeMap} is not empty.
+   *
+   * <p>
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   * @return this {@link RangeMapAssert} for assertions chaining.
+   *
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
+   */
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeMap' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+#### Snippet
+```java
+   *
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is {@code null}.
+   * @throws AssertionError if the actual {@link com.google.common.collect.RangeMap} is empty.
+   */
+  public RangeMapAssert<K, V> isNotEmpty() {
 ```
 
 ### UnstableApiUsage
@@ -1136,15 +1148,63 @@ in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.RangeMap' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeMapAssert.java`
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
 
-  // visible for test
-  protected RangeMap<K, V> getActual() {
-    return actual;
+  @SuppressWarnings("unchecked")
+  private void assertEnclosesAll(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertEnclosesAll(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+    failIfEmpty(rangeSet);
+    assertRangeSetEnclosesGivenValues(toArray(rangeSet.asRanges(), Range.class));
+```
+
+### UnstableApiUsage
+'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+    failIfEmpty(rangeSet);
+    assertRangeSetEnclosesGivenValues(toArray(rangeSet.asRanges(), Range.class));
   }
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  @SuppressWarnings("unchecked")
+  private void assertDoesNotIntersectAnyRangeFrom(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    failIfEmpty(rangeSet);
+```
+
+### UnstableApiUsage
+'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    failIfEmpty(rangeSet);
+    assertRangeSetDoesNotIntersectGivenValues(toArray(rangeSet.asRanges(), Range.class));
+  }
+
 ```
 
 ### UnstableApiUsage
@@ -1200,35 +1260,35 @@ public class RangeSetAssert<T extends Comparable<T>> extends AbstractAssert<Rang
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-
-  @SuppressWarnings("unchecked")
-  private void assertEnclosesAnyRangesOf(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+   * @throws IllegalArgumentException if range set is empty.
+   */
+  public RangeSetAssert<T> doesNotEncloseAnyRangesOf(RangeSet<T> rangeSet) {
+    isNotNull();
+    assertDoesNotEncloseAnyRangesOf(rangeSet);
 ```
 
 ### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-  private void assertEnclosesAnyRangesOf(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetEnclosesAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
+
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  private void assertRangeSetDoesNotContainGivenValues(RangeSet actual, Comparable[] values) {
+    List<?> elementsFound = stream(values).filter(actual::contains).collect(toList());
+    if (!elementsFound.isEmpty()) throwAssertionError(shouldNotContain(actual, values, elementsFound));
 ```
 
 ### UnstableApiUsage
-'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+'contains(C)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetEnclosesAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  private void assertRangeSetDoesNotContainGivenValues(RangeSet actual, Comparable[] values) {
+    List<?> elementsFound = stream(values).filter(actual::contains).collect(toList());
+    if (!elementsFound.isEmpty()) throwAssertionError(shouldNotContain(actual, values, elementsFound));
   }
-
 ```
 
 ### UnstableApiUsage
@@ -1238,9 +1298,9 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 ```java
    * @throws IllegalArgumentException if range set is empty while actual is not empty.
    */
-  public RangeSetAssert<T> intersectsAll(RangeSet<T> rangeSet) {
+  public RangeSetAssert<T> enclosesAll(RangeSet<T> rangeSet) {
     isNotNull();
-    assertIntersectsAll(rangeSet);
+    assertEnclosesAll(rangeSet);
 ```
 
 ### UnstableApiUsage
@@ -1250,9 +1310,21 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 ```java
 
   @SuppressWarnings("unchecked")
-  private void assertDoesNotEncloseAnyRangesOf(RangeSet<T> rangeSet) {
+  private void assertIntersectsAnyRangesOf(RangeSet<T> rangeSet) {
     requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertIntersectsAnyRangesOf(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
     failIfEmpty(rangeSet);
+    assertRangeSetIntersectsAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
 ```
 
 ### UnstableApiUsage
@@ -1260,9 +1332,9 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
     failIfEmpty(rangeSet);
-    assertRangeSetDoesNotEncloseGivenValues(toArray(rangeSet.asRanges(), Range.class));
+    assertRangeSetIntersectsAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
   }
 
 ```
@@ -1322,9 +1394,21 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 ```java
 
   @SuppressWarnings("unchecked")
-  private void assertDoesNotIntersectAnyRangeFrom(RangeSet<T> rangeSet) {
+  private void assertEnclosesAnyRangesOf(RangeSet<T> rangeSet) {
     requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
+```
+
+### UnstableApiUsage
+'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+  private void assertEnclosesAnyRangesOf(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
     failIfEmpty(rangeSet);
+    assertRangeSetEnclosesAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
 ```
 
 ### UnstableApiUsage
@@ -1332,11 +1416,23 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    if (actual.isEmpty() && rangeSet.isEmpty()) return;
     failIfEmpty(rangeSet);
-    assertRangeSetDoesNotIntersectGivenValues(toArray(rangeSet.asRanges(), Range.class));
+    assertRangeSetEnclosesAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
   }
 
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+
+  /**
+   * Verifies that the given {@link RangeSet} intersects at least one of the given ranges.
+   * <p>
+   * Example:
 ```
 
 ### UnstableApiUsage
@@ -1368,11 +1464,47 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 #### Snippet
 ```java
+
+  @SuppressWarnings("unchecked")
+  private void assertDoesNotEncloseAnyRangesOf(RangeSet<T> rangeSet) {
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    failIfEmpty(rangeSet);
+```
+
+### UnstableApiUsage
+'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
+    failIfEmpty(rangeSet);
+    assertRangeSetDoesNotEncloseGivenValues(toArray(rangeSet.asRanges(), Range.class));
+  }
+
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
    * @throws IllegalArgumentException if range set is empty while actual is not empty.
    */
   public RangeSetAssert<T> intersectsAnyRangesOf(RangeSet<T> rangeSet) {
     isNotNull();
     assertIntersectsAnyRangesOf(rangeSet);
+```
+
+### UnstableApiUsage
+'com.google.common.collect.RangeSet' is marked unstable with @Beta
+in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
+#### Snippet
+```java
+   * @throws IllegalArgumentException if range set is empty while actual is not empty.
+   */
+  public RangeSetAssert<T> intersectsAll(RangeSet<T> rangeSet) {
+    isNotNull();
+    assertIntersectsAll(rangeSet);
 ```
 
 ### UnstableApiUsage
@@ -1418,90 +1550,6 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
 ```java
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  private void assertRangeSetDoesNotContainGivenValues(RangeSet actual, Comparable[] values) {
-    List<?> elementsFound = stream(values).filter(actual::contains).collect(toList());
-    if (!elementsFound.isEmpty()) throwAssertionError(shouldNotContain(actual, values, elementsFound));
-```
-
-### UnstableApiUsage
-'contains(C)' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  @SuppressWarnings({ "rawtypes", "unchecked" })
-  private void assertRangeSetDoesNotContainGivenValues(RangeSet actual, Comparable[] values) {
-    List<?> elementsFound = stream(values).filter(actual::contains).collect(toList());
-    if (!elementsFound.isEmpty()) throwAssertionError(shouldNotContain(actual, values, elementsFound));
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if range set is empty.
-   */
-  public RangeSetAssert<T> doesNotEncloseAnyRangesOf(RangeSet<T> rangeSet) {
-    isNotNull();
-    assertDoesNotEncloseAnyRangesOf(rangeSet);
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-   * @throws IllegalArgumentException if range set is empty while actual is not empty.
-   */
-  public RangeSetAssert<T> enclosesAll(RangeSet<T> rangeSet) {
-    isNotNull();
-    assertEnclosesAll(rangeSet);
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  private void assertIntersectsAnyRangesOf(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertIntersectsAnyRangesOf(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetIntersectsAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
-```
-
-### UnstableApiUsage
-'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetIntersectsAnyOfGivenValues(toArray(rangeSet.asRanges(), Range.class));
-  }
-
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  @SuppressWarnings({ "rawtypes", "unchecked" })
   private void assertRangeSetContainsAnyGivenValues(RangeSet actual, Comparable[] values) {
     boolean match = stream(values).anyMatch(actual::contains);
     if (!match) throwAssertionError(shouldContainAnyOf(actual, values));
@@ -1517,53 +1565,5 @@ in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
     boolean match = stream(values).anyMatch(actual::contains);
     if (!match) throwAssertionError(shouldContainAnyOf(actual, values));
   }
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  /**
-   * Verifies that the given {@link RangeSet} intersects at least one of the given ranges.
-   * <p>
-   * Example:
-```
-
-### UnstableApiUsage
-'com.google.common.collect.RangeSet' is marked unstable with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-
-  @SuppressWarnings("unchecked")
-  private void assertEnclosesAll(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-```
-
-### UnstableApiUsage
-'isEmpty()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-  private void assertEnclosesAll(RangeSet<T> rangeSet) {
-    requireNonNull(rangeSet, shouldNotBeNull("rangeSet")::create);
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetEnclosesGivenValues(toArray(rangeSet.asRanges(), Range.class));
-```
-
-### UnstableApiUsage
-'asRanges()' is declared in unstable interface 'com.google.common.collect.RangeSet' marked with @Beta
-in `src/main/java/org/assertj/guava/api/RangeSetAssert.java`
-#### Snippet
-```java
-    if (actual.isEmpty() && rangeSet.isEmpty()) return;
-    failIfEmpty(rangeSet);
-    assertRangeSetEnclosesGivenValues(toArray(rangeSet.asRanges(), Range.class));
-  }
-
 ```
 
