@@ -77,62 +77,14 @@ in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/i
 ## RuleId[id=RedundantClassCall]
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
 #### Snippet
 ```java
-    if (servlets != null) {
-      for (ServletRegistration servletRegistration : servlets) {
-        if (!Dynamic.class.isInstance(servletRegistration)) {
-          continue;
-        }
-```
 
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestParam.java`
-#### Snippet
-```java
-    }
-
-    if (value.getClass().isArray() || Collection.class.isInstance(value)) {
-      return (String[]) paramProcessor.convertValue(value, STRING_ARRAY_TYPE);
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/ExceptionFactory.java`
-#### Snippet
-```java
-  public static InvocationException create(StatusType status,
-      Object exceptionOrErrorData) {
-    if (InvocationException.class.isInstance(exceptionOrErrorData)) {
-      return (InvocationException) exceptionOrErrorData;
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
-#### Snippet
-```java
-    context.runOnContext(v -> readStream.resume());
-
-    if (!AsyncCloseable.class.isInstance(writeStream)) {
-      return readFuture;
-    }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpFromPart.java`
-#### Snippet
-```java
-    CompletableFuture<ReadStream<Buffer>> future = new CompletableFuture<>();
-
-    if (ReadStreamPart.class.isInstance(part)) {
-      future.complete(((ReadStreamPart) part).getReadStream());
-      return future;
+      if (!isLocalAddress(localHost)) {
+        if (Inet6Address.class.isInstance(localHost)) {
+          hostAddressIpv6 = trimIpv6(localHost.getHostAddress());
+          hostAddress = tryGetHostAddressFromNetworkInterface(false, localHost);
 ```
 
 ### RedundantClassCall
@@ -161,18 +113,6 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
-#### Snippet
-```java
-
-      if (!isLocalAddress(localHost)) {
-        if (Inet6Address.class.isInstance(localHost)) {
-          hostAddressIpv6 = trimIpv6(localHost.getHostAddress());
-          hostAddress = tryGetHostAddressFromNetworkInterface(false, localHost);
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/impl/XmlLoaderUtils.java`
 #### Snippet
 ```java
@@ -181,18 +121,6 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
       if (!Element.class.isInstance(node)) {
         continue;
       }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/config/ConfigurePropertyUtils.java`
-#### Snippet
-```java
-  public static Map<String, String> getPropertiesWithPrefix(String prefix) {
-    Object config = DynamicPropertyFactory.getBackingConfigurationSource();
-    if (!Configuration.class.isInstance(config)) {
-      return new HashMap<>();
-    }
 ```
 
 ### RedundantClassCall
@@ -209,38 +137,14 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseRequestCallback.java`
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/config/ConfigurePropertyUtils.java`
 #### Snippet
 ```java
-    req.setResponseType(overrideResponseType());
-
-    if (!CseHttpEntity.class.isInstance(requestBody)) {
-      return;
+  public static Map<String, String> getPropertiesWithPrefix(String prefix) {
+    Object config = DynamicPropertyFactory.getBackingConfigurationSource();
+    if (!Configuration.class.isInstance(config)) {
+      return new HashMap<>();
     }
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-    }
-
-    if (Collection.class.isInstance(value)) {
-      Collection<?> collection = (Collection<?>) value;
-      if (collection.isEmpty()) {
-```
-
-### RedundantClassCall
-Redundant call to `isInstance()`
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
-#### Snippet
-```java
-        continue;
-      }
-      if (Collection.class.isInstance(value)) {
-        Collection<?> collection = (Collection<?>) value;
-        for (Object part : collection) {
 ```
 
 ### RedundantClassCall
@@ -269,26 +173,50 @@ in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/Threa
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/TagFinder.java`
+in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/archaius/sources/AbstractConfigLoader.java`
 #### Snippet
 ```java
-public interface TagFinder {
-  static TagFinder build(Object obj) {
-    if (String.class.isInstance(obj)) {
-      return new DefaultTagFinder((String) obj);
+
+    if (objOrder != null) {
+      if (Integer.class.isInstance(objOrder)) {
+        configModel.setOrder((int) objOrder);
+      } else {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseRequestCallback.java`
+#### Snippet
+```java
+    req.setResponseType(overrideResponseType());
+
+    if (!CseHttpEntity.class.isInstance(requestBody)) {
+      return;
     }
 ```
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/TagFinder.java`
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
+#### Snippet
+```java
+        continue;
+      }
+      if (Collection.class.isInstance(value)) {
+        Collection<?> collection = (Collection<?>) value;
+        for (Object part : collection) {
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
 #### Snippet
 ```java
     }
 
-    if (TagFinder.class.isInstance(obj)) {
-      return (TagFinder) obj;
-    }
+    if (Collection.class.isInstance(value)) {
+      Collection<?> collection = (Collection<?>) value;
+      if (collection.isEmpty()) {
 ```
 
 ### RedundantClassCall
@@ -329,14 +257,86 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
 
 ### RedundantClassCall
 Redundant call to `isInstance()`
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/archaius/sources/AbstractConfigLoader.java`
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
 #### Snippet
 ```java
+    context.runOnContext(v -> readStream.resume());
 
-    if (objOrder != null) {
-      if (Integer.class.isInstance(objOrder)) {
-        configModel.setOrder((int) objOrder);
-      } else {
+    if (!AsyncCloseable.class.isInstance(writeStream)) {
+      return readFuture;
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpFromPart.java`
+#### Snippet
+```java
+    CompletableFuture<ReadStream<Buffer>> future = new CompletableFuture<>();
+
+    if (ReadStreamPart.class.isInstance(part)) {
+      future.complete(((ReadStreamPart) part).getReadStream());
+      return future;
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/ExceptionFactory.java`
+#### Snippet
+```java
+  public static InvocationException create(StatusType status,
+      Object exceptionOrErrorData) {
+    if (InvocationException.class.isInstance(exceptionOrErrorData)) {
+      return (InvocationException) exceptionOrErrorData;
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/TagFinder.java`
+#### Snippet
+```java
+public interface TagFinder {
+  static TagFinder build(Object obj) {
+    if (String.class.isInstance(obj)) {
+      return new DefaultTagFinder((String) obj);
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/TagFinder.java`
+#### Snippet
+```java
+    }
+
+    if (TagFinder.class.isInstance(obj)) {
+      return (TagFinder) obj;
+    }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
+#### Snippet
+```java
+    if (servlets != null) {
+      for (ServletRegistration servletRegistration : servlets) {
+        if (!Dynamic.class.isInstance(servletRegistration)) {
+          continue;
+        }
+```
+
+### RedundantClassCall
+Redundant call to `isInstance()`
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestParam.java`
+#### Snippet
+```java
+    }
+
+    if (value.getClass().isArray() || Collection.class.isInstance(value)) {
+      return (String[]) paramProcessor.convertValue(value, STRING_ARRAY_TYPE);
+    }
 ```
 
 ## RuleId[id=CommentedOutCode]
@@ -391,42 +391,6 @@ public class PlaceholderResolver {
 
 ## RuleId[id=UnparsedCustomBeanInspection]
 ### UnparsedCustomBeanInspection
-Unsupported tag 'rpc-schema' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
-in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
-#### Snippet
-```java
-
-  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
-  <cse:rpc-schema schema-id="helloworld.Greeter"
-    implementation="spring:hello"></cse:rpc-schema>
-
-```
-
-### UnparsedCustomBeanInspection
-Unsupported tag 'rpc-schema' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
-in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
-#### Snippet
-```java
-    implementation="spring:hello"></cse:rpc-schema>
-
-  <cse:rpc-schema schema-id="smartcare"
-    implementation="org.apache.servicecomb.demo.pojo.server.SmartCareImpl"></cse:rpc-schema>
-
-```
-
-### UnparsedCustomBeanInspection
-Unsupported tag 'rpc-schema' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
-in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
-#### Snippet
-```java
-    implementation="org.apache.servicecomb.demo.pojo.server.SmartCareImpl"></cse:rpc-schema>
-
-  <cse:rpc-schema schema-id="SchemaInterface" schema-interface="org.apache.servicecomb.demo.pojo.server.SchemaInterface"
-    implementation="org.apache.servicecomb.demo.pojo.server.SchemaInterfaceImpl"></cse:rpc-schema>
-</beans>
-```
-
-### UnparsedCustomBeanInspection
 Unsupported tag 'rpc-reference' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
 in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
 #### Snippet
@@ -460,6 +424,42 @@ in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.be
   <cse:rpc-reference id="codeFirstFromXml" microservice-name="pojo"
     schema-id="org.apache.servicecomb.demo.CodeFirstPojoIntf"></cse:rpc-reference>
 
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-schema' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+
+  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
+  <cse:rpc-schema schema-id="helloworld.Greeter"
+    implementation="spring:hello"></cse:rpc-schema>
+
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-schema' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+    implementation="spring:hello"></cse:rpc-schema>
+
+  <cse:rpc-schema schema-id="smartcare"
+    implementation="org.apache.servicecomb.demo.pojo.server.SmartCareImpl"></cse:rpc-schema>
+
+```
+
+### UnparsedCustomBeanInspection
+Unsupported tag 'rpc-schema' for namespace 'http://www.huawei.com/schema/paas/cse/rpc', please file issue (Help\|Submit a Bug Report...)
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+    implementation="org.apache.servicecomb.demo.pojo.server.SmartCareImpl"></cse:rpc-schema>
+
+  <cse:rpc-schema schema-id="SchemaInterface" schema-interface="org.apache.servicecomb.demo.pojo.server.SchemaInterface"
+    implementation="org.apache.servicecomb.demo.pojo.server.SchemaInterfaceImpl"></cse:rpc-schema>
+</beans>
 ```
 
 ### UnparsedCustomBeanInspection
@@ -1128,18 +1128,6 @@ in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation
 
 ## RuleId[id=StringBufferReplaceableByString]
 ### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/model/RbacTokenRequest.java`
-#### Snippet
-```java
-  @Override
-  public String toString() {
-    final StringBuilder sb = new StringBuilder("RbacTokenRequest{");
-    sb.append("name='").append(name).append('\'');
-    sb.append(", password='").append(password).append('\'');
-```
-
-### StringBufferReplaceableByString
 `StringBuilder permStr` can be replaced with 'String'
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/FilePerm.java`
 #### Snippet
@@ -1187,14 +1175,26 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
     sb.append(", statusCode=").append(statusCode);
 ```
 
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/model/RbacTokenRequest.java`
+#### Snippet
+```java
+  @Override
+  public String toString() {
+    final StringBuilder sb = new StringBuilder("RbacTokenRequest{");
+    sb.append("name='").append(name).append('\'');
+    sb.append(", password='").append(password).append('\'');
+```
+
 ## RuleId[id=UnnecessaryReturn]
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/VertxTLSBuilder.java`
+in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/archaius/scheduler/NeverStartPollingScheduler.java`
 #### Snippet
 ```java
-
-    netServerOptions.setClientAuth(ClientAuth.REQUEST);
+  @Override
+  protected void schedule(Runnable runnable) {
     return;
   }
 
@@ -1214,11 +1214,11 @@ in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ar
 
 ### UnnecessaryReturn
 `return` is unnecessary as the last statement in a 'void' method
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/archaius/scheduler/NeverStartPollingScheduler.java`
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/VertxTLSBuilder.java`
 #### Snippet
 ```java
-  @Override
-  protected void schedule(Runnable runnable) {
+
+    netServerOptions.setClientAuth(ClientAuth.REQUEST);
     return;
   }
 
@@ -1282,42 +1282,6 @@ in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publi
       return;
     }
     sb.append(""
-        + "consumer:\n"
-        + " simple:\n"
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
-#### Snippet
-```java
-      return;
-    }
-    sb.append(""
-        + "edge:\n"
-        + " simple:\n"
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
-#### Snippet
-```java
-      + "        execute: %-18s handlersResp: %-18s filtersResp: %-18s sendResp   : %s\n";
-
-  private static final String CONSUMER_DETAILS_FORMAT = ""
-      + "        prepare     : %-18s handlersReq : %-18s cFiltersReq: %-18s sendReq     : %s\n"
-      + "        getConnect  : %-18s writeBuf    : %-18s waitResp   : %-18s wakeConsumer: %s\n"
-```
-
-### TrivialStringConcatenation
-Empty string used in concatenation
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
-#### Snippet
-```java
-      return;
-    }
-    sb.append(""
         + "producer:\n"
         + " simple:\n"
 ```
@@ -1346,6 +1310,42 @@ in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publi
       + "        cFiltersReq : %-18s sendReq     : %-18s getConnect  : %-18s writeBuf    : %s\n"
 ```
 
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
+#### Snippet
+```java
+      + "        execute: %-18s handlersResp: %-18s filtersResp: %-18s sendResp   : %s\n";
+
+  private static final String CONSUMER_DETAILS_FORMAT = ""
+      + "        prepare     : %-18s handlersReq : %-18s cFiltersReq: %-18s sendReq     : %s\n"
+      + "        getConnect  : %-18s writeBuf    : %-18s waitResp   : %-18s wakeConsumer: %s\n"
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
+#### Snippet
+```java
+      return;
+    }
+    sb.append(""
+        + "consumer:\n"
+        + " simple:\n"
+```
+
+### TrivialStringConcatenation
+Empty string used in concatenation
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
+#### Snippet
+```java
+      return;
+    }
+    sb.append(""
+        + "edge:\n"
+        + " simple:\n"
+```
+
 ## RuleId[id=RedundantTypeArguments]
 ### RedundantTypeArguments
 Explicit type arguments can be inferred
@@ -1361,87 +1361,75 @@ in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation
 
 ## RuleId[id=NullableProblems]
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferInputStream.java`
+Primitive type members cannot be annotated
+in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterAddHeaderFilter.java`
 #### Snippet
 ```java
+  }
 
+  @Nonnull
   @Override
-  public int read(byte[] b, int off, int len) {
-    int avail = available();
-    if (len > avail) {
+  public boolean isEnabledForInvocationType(InvocationType invocationType) {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferInputStream.java`
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/NamedThreadFactory.java`
 #### Snippet
 ```java
-
+   */
   @Override
-  public int read(byte[] b) {
-    return read(b, 0, b.length);
+  public Thread newThread(Runnable r) {
+    return new Thread(r, prefix + "-" + threadNumber.getAndIncrement());
   }
 ```
 
 ### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferOutputStream.java`
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/event/SimpleEventBus.java`
 #### Snippet
 ```java
 
   @Override
-  public void write(byte[] b) {
-    write(b, 0, b.length);
-  }
+  public void unregister(Object instance) {
+    if (subscribersMap.remove(instance) != null) {
+      subscribersCache = new ConcurrentHashMapEx<>();
+```
+
+### NullableProblems
+Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/event/SimpleEventBus.java`
+#### Snippet
+```java
+
+  @Override
+  public void register(Object instance) {
+    subscribersMap.computeIfAbsent(instance, this::collectSubscribers);
+    // even ignored cause of duplicate register
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferOutputStream.java`
+in `governance/src/main/java/org/apache/servicecomb/governance/handler/DisposableMap.java`
 #### Snippet
 ```java
 
   @Override
-  public void write(byte[] bytes, int offset, int len) {
-    byteBuf.writeBytes(bytes, offset, len);
-  }
+  public Disposable<V> put(String key, Disposable<V> value) {
+    Disposable<V> result = super.put(key, value);
+
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/executor/SinglePoolBlockingExecutor.java`
+in `governance/src/main/java/org/apache/servicecomb/governance/handler/DisposableMap.java`
 #### Snippet
 ```java
 
   @Override
-  public void execute(Runnable command) {
-    SINGLE_POOL.execute(() -> {
-      try {
-```
+  public Disposable<V> put(String key, Disposable<V> value) {
+    Disposable<V> result = super.put(key, value);
 
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/executor/VertxWorkerExecutor.java`
-#### Snippet
-```java
-
-  @Override
-  public void execute(Runnable command) {
-    Vertx.currentContext().owner().executeBlocking(future -> command.run(),
-        false,
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/executor/VertxContextExecutor.java`
-#### Snippet
-```java
-
-  @Override
-  public void execute(Runnable command) {
-    if (context == Vertx.currentContext()) {
-      command.run();
 ```
 
 ### NullableProblems
@@ -1470,6 +1458,18 @@ public interface ProducerFilter extends Filter {
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
+in `core/src/main/java/org/apache/servicecomb/core/executor/ThreadPoolExecutorEx.java`
+#### Snippet
+```java
+
+  @Override
+  public void execute(Runnable command) {
+    submittedCount.incrementAndGet();
+    try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
 in `core/src/main/java/org/apache/servicecomb/core/executor/LinkedBlockingQueueEx.java`
 #### Snippet
 ```java
@@ -1494,18 +1494,6 @@ in `core/src/main/java/org/apache/servicecomb/core/executor/GroupThreadFactory.j
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `core/src/main/java/org/apache/servicecomb/core/provider/consumer/SyncResponseExecutor.java`
-#### Snippet
-```java
-
-  @Override
-  public void execute(Runnable cmd) {
-    this.cmd = cmd;
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `core/src/main/java/org/apache/servicecomb/core/executor/GroupExecutor.java`
 #### Snippet
 ```java
@@ -1518,14 +1506,14 @@ in `core/src/main/java/org/apache/servicecomb/core/executor/GroupExecutor.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `core/src/main/java/org/apache/servicecomb/core/executor/ThreadPoolExecutorEx.java`
+in `core/src/main/java/org/apache/servicecomb/core/provider/consumer/SyncResponseExecutor.java`
 #### Snippet
 ```java
 
   @Override
-  public void execute(Runnable command) {
-    submittedCount.incrementAndGet();
-    try {
+  public void execute(Runnable cmd) {
+    this.cmd = cmd;
+
 ```
 
 ### NullableProblems
@@ -1562,78 +1550,6 @@ in `core/src/main/java/org/apache/servicecomb/core/invocation/endpoint/EndpointC
         public Endpoint load(String uri) {
           return EndpointCacheUtils.create(uri);
         }
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/NamedThreadFactory.java`
-#### Snippet
-```java
-   */
-  @Override
-  public Thread newThread(Runnable r) {
-    return new Thread(r, prefix + "-" + threadNumber.getAndIncrement());
-  }
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/event/SimpleEventBus.java`
-#### Snippet
-```java
-
-  @Override
-  public void register(Object instance) {
-    subscribersMap.computeIfAbsent(instance, this::collectSubscribers);
-    // even ignored cause of duplicate register
-```
-
-### NullableProblems
-Not annotated parameter overrides @ElementTypesAreNonnullByDefault parameter
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/event/SimpleEventBus.java`
-#### Snippet
-```java
-
-  @Override
-  public void unregister(Object instance) {
-    if (subscribersMap.remove(instance) != null) {
-      subscribersCache = new ConcurrentHashMapEx<>();
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `governance/src/main/java/org/apache/servicecomb/governance/handler/DisposableMap.java`
-#### Snippet
-```java
-
-  @Override
-  public Disposable<V> put(String key, Disposable<V> value) {
-    Disposable<V> result = super.put(key, value);
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `governance/src/main/java/org/apache/servicecomb/governance/handler/DisposableMap.java`
-#### Snippet
-```java
-
-  @Override
-  public Disposable<V> put(String key, Disposable<V> value) {
-    Disposable<V> result = super.put(key, value);
-
-```
-
-### NullableProblems
-Primitive type members cannot be annotated
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/EdgeServerCodecFilter.java`
-#### Snippet
-```java
-  }
-
-  @Nonnull
-  @Override
-  public boolean isEnabledForInvocationType(InvocationType invocationType) {
 ```
 
 ### NullableProblems
@@ -1710,7 +1626,7 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
 
 ### NullableProblems
 Primitive type members cannot be annotated
-in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterAddHeaderFilter.java`
+in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/EdgeServerCodecFilter.java`
 #### Snippet
 ```java
   }
@@ -1744,7 +1660,115 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
           Map<String, String> schemas = new HashMap<>();
 ```
 
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferInputStream.java`
+#### Snippet
+```java
+
+  @Override
+  public int read(byte[] b) {
+    return read(b, 0, b.length);
+  }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferInputStream.java`
+#### Snippet
+```java
+
+  @Override
+  public int read(byte[] b, int off, int len) {
+    int avail = available();
+    if (len > avail) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferOutputStream.java`
+#### Snippet
+```java
+
+  @Override
+  public void write(byte[] b) {
+    write(b, 0, b.length);
+  }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/BufferOutputStream.java`
+#### Snippet
+```java
+
+  @Override
+  public void write(byte[] bytes, int offset, int len) {
+    byteBuf.writeBytes(bytes, offset, len);
+  }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/executor/VertxContextExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  public void execute(Runnable command) {
+    if (context == Vertx.currentContext()) {
+      command.run();
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/executor/SinglePoolBlockingExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  public void execute(Runnable command) {
+    SINGLE_POOL.execute(() -> {
+      try {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/executor/VertxWorkerExecutor.java`
+#### Snippet
+```java
+
+  @Override
+  public void execute(Runnable command) {
+    Vertx.currentContext().owner().executeBlocking(future -> command.run(),
+        false,
+```
+
 ## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/HttpClientRequestFactory.java`
+#### Snippet
+```java
+/**
+ * some service has special domain name rule, eg: k8s<br>
+ * assume k8s domain name is https://k8s.com:1234, and clusterId is my-id<br>
+ * then must send request to https://my-id.k8s.com:1234<br>
+ * <br>
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/HttpClientRequestFactory.java`
+#### Snippet
+```java
+ * some service has special domain name rule, eg: k8s<br>
+ * assume k8s domain name is https://k8s.com:1234, and clusterId is my-id<br>
+ * then must send request to https://my-id.k8s.com:1234<br>
+ * <br>
+ * this interface allowed to modify host by invocation argument, eg:<br>
+```
+
 ### JavadocLinkAsPlainText
 Link specified as plain text
 in `core/src/main/java/org/apache/servicecomb/core/registry/ThirdServiceRegister.java`
@@ -1817,53 +1841,17 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
    */
 ```
 
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/HttpClientRequestFactory.java`
-#### Snippet
-```java
-/**
- * some service has special domain name rule, eg: k8s<br>
- * assume k8s domain name is https://k8s.com:1234, and clusterId is my-id<br>
- * then must send request to https://my-id.k8s.com:1234<br>
- * <br>
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/HttpClientRequestFactory.java`
-#### Snippet
-```java
- * some service has special domain name rule, eg: k8s<br>
- * assume k8s domain name is https://k8s.com:1234, and clusterId is my-id<br>
- * then must send request to https://my-id.k8s.com:1234<br>
- * <br>
- * this interface allowed to modify host by invocation argument, eg:<br>
-```
-
 ## RuleId[id=FieldCanBeLocal]
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/FormProcessorCreator.java`
+in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/RestTransportClientManager.java`
 #### Snippet
 ```java
-    private final boolean repeatedType;
 
-    private final Type genericParamType;
+  // same instance in AbstractTransport. need refactor in future.
+  private final Vertx transportVertx = VertxUtils.getOrCreateVertxByName("transport", null);
 
-    private Converter converter;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/BodyProcessorCreator.java`
-#### Snippet
-```java
-    protected Class<?> serialViewClass;
-
-    private final boolean isString;
-
-    protected boolean isRequired;
+  private final RestTransportClient restClient;
 ```
 
 ### FieldCanBeLocal
@@ -1880,14 +1868,26 @@ in `transports/transport-rest/transport-rest-vertx/src/main/java/org/apache/serv
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/server/TcpParser.java`
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
 #### Snippet
 ```java
+      + "        sFiltersResp: %-18s sendResp    : %s\n";
 
-  // 仅仅是header + body，不包括headerLen本身
-  private int totalLen;
+  private LatencyDistributionConfig latencyDistributionConfig;
 
-  private int headerLen;
+  /**
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java`
+#### Snippet
+```java
+  private static class ServiceCombPropertyUpdateListener implements WatchedUpdateListener {
+
+    private final ConcurrentMapConfiguration injectConfig;
+
+    ServiceCombPropertyUpdateListener(ConcurrentMapConfiguration injectConfig) {
 ```
 
 ### FieldCanBeLocal
@@ -1912,66 +1912,6 @@ in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authent
   private final String randomCode;
 
   private final String sign;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `dynamic-config/config-kie/src/main/java/org/apache/servicecomb/config/kie/KieConfigurationSourceImpl.java`
-#### Snippet
-```java
-  private KieConfigManager kieConfigManager;
-
-  private ConfigConverter configConverter;
-
-  @Override
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/AccessLogGenerator.java`
-#### Snippet
-```java
-  private final AccessLogItem<RoutingContext>[] accessLogItems;
-
-  private final AccessLogPatternParser<RoutingContext> logPatternParser = new VertxRestAccessLogPatternParser();
-
-  @SuppressWarnings("unchecked")
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinProviderDelegate.java`
-#### Snippet
-```java
-  private final HttpTracing httpTracing;
-
-  private final Extractor<Invocation> extractor;
-
-  private final HttpServeRequestWrapper requestWrapper;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinConsumerDelegate.java`
-#### Snippet
-```java
-  private final HttpTracing httpTracing;
-
-  private final Injector<Invocation> injector;
-
-  private final HttpClientResponseWrapper responseWrapper;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/DefaultLogPublisher.java`
-#### Snippet
-```java
-      + "        sFiltersResp: %-18s sendResp    : %s\n";
-
-  private LatencyDistributionConfig latencyDistributionConfig;
-
-  /**
 ```
 
 ### FieldCanBeLocal
@@ -2012,63 +1952,99 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/RestTransportClientManager.java`
+in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/AccessLogGenerator.java`
 #### Snippet
 ```java
+  private final AccessLogItem<RoutingContext>[] accessLogItems;
 
-  // same instance in AbstractTransport. need refactor in future.
-  private final Vertx transportVertx = VertxUtils.getOrCreateVertxByName("transport", null);
+  private final AccessLogPatternParser<RoutingContext> logPatternParser = new VertxRestAccessLogPatternParser();
 
-  private final RestTransportClient restClient;
+  @SuppressWarnings("unchecked")
 ```
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/ConfigUtil.java`
+in `dynamic-config/config-kie/src/main/java/org/apache/servicecomb/config/kie/KieConfigurationSourceImpl.java`
 #### Snippet
 ```java
-  private static class ServiceCombPropertyUpdateListener implements WatchedUpdateListener {
+  private KieConfigManager kieConfigManager;
 
-    private final ConcurrentMapConfiguration injectConfig;
+  private ConfigConverter configConverter;
 
-    ServiceCombPropertyUpdateListener(ConcurrentMapConfiguration injectConfig) {
+  @Override
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/server/TcpParser.java`
+#### Snippet
+```java
+
+  // 仅仅是header + body，不包括headerLen本身
+  private int totalLen;
+
+  private int headerLen;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinConsumerDelegate.java`
+#### Snippet
+```java
+  private final HttpTracing httpTracing;
+
+  private final Injector<Invocation> injector;
+
+  private final HttpClientResponseWrapper responseWrapper;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinProviderDelegate.java`
+#### Snippet
+```java
+  private final HttpTracing httpTracing;
+
+  private final Extractor<Invocation> extractor;
+
+  private final HttpServeRequestWrapper requestWrapper;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/FormProcessorCreator.java`
+#### Snippet
+```java
+    private final boolean repeatedType;
+
+    private final Type genericParamType;
+
+    private Converter converter;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/BodyProcessorCreator.java`
+#### Snippet
+```java
+    protected Class<?> serialViewClass;
+
+    private final boolean isString;
+
+    protected boolean isRequired;
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `Collectors.toList()` is ignored
-in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
+Result of `File.delete()` is ignored
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/part/FilePart.java`
 #### Snippet
 ```java
-    List<MicroserviceInstance> instances = new ArrayList<>();
+  @Override
+  public void delete() throws IOException {
+    file.delete();
+  }
 
-    Collectors.toList();
-    microserviceInstanceMap.values().forEach(
-        allInstances -> allInstances.values().stream().filter(
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
-#### Snippet
-```java
-
-    if (!dir.exists()) {
-      dir.mkdirs();
-    }
-
-```
-
-### IgnoreResultOfCall
-Result of `File.mkdirs()` is ignored
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
-#### Snippet
-```java
-  public CompletableFuture<File> saveToFile(String fileName) {
-    File file = new File(fileName);
-    file.getParentFile().mkdirs();
-    OpenOptions openOptions = new OpenOptions().setCreateNew(true);
-    return saveToFile(file, openOptions);
 ```
 
 ### IgnoreResultOfCall
@@ -2108,18 +2084,6 @@ in `core/src/main/java/org/apache/servicecomb/core/provider/producer/ProducerBoo
 ```
 
 ### IgnoreResultOfCall
-Result of `File.delete()` is ignored
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/part/FilePart.java`
-#### Snippet
-```java
-  @Override
-  public void delete() throws IOException {
-    file.delete();
-  }
-
-```
-
-### IgnoreResultOfCall
 Result of `ExecutorService.awaitTermination()` is ignored
 in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/task/AbstractTask.java`
 #### Snippet
@@ -2129,6 +2093,42 @@ in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/
       this.taskPool.awaitTermination(10, TimeUnit.SECONDS);
     } catch (InterruptedException e) {
       LOGGER.warn("tasks not shutdown in time {}", e.getMessage());
+```
+
+### IgnoreResultOfCall
+Result of `Collectors.toList()` is ignored
+in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
+#### Snippet
+```java
+    List<MicroserviceInstance> instances = new ArrayList<>();
+
+    Collectors.toList();
+    microserviceInstanceMap.values().forEach(
+        allInstances -> allInstances.values().stream().filter(
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+#### Snippet
+```java
+  public CompletableFuture<File> saveToFile(String fileName) {
+    File file = new File(fileName);
+    file.getParentFile().mkdirs();
+    OpenOptions openOptions = new OpenOptions().setCreateNew(true);
+    return saveToFile(file, openOptions);
+```
+
+### IgnoreResultOfCall
+Result of `File.mkdirs()` is ignored
+in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletUtils.java`
+#### Snippet
+```java
+
+    if (!dir.exists()) {
+      dir.mkdirs();
+    }
+
 ```
 
 ## RuleId[id=FunctionalExpressionCanBeFolded]
@@ -2146,14 +2146,14 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
 
 ## RuleId[id=RedundantMethodOverride]
 ### RedundantMethodOverride
-Method `enabled()` is identical to its super method
-in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/DarklaunchServerListFilter.java`
+Method `beforeSendRequestAsync()` is identical to its super method
+in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/http/DefaultHttpClientFilter.java`
 #### Snippet
 ```java
 
   @Override
-  public boolean enabled() {
-    return true;
+  public CompletableFuture<Void> beforeSendRequestAsync(Invocation invocation, HttpServletRequestEx requestEx) {
+    return CompletableFuture.completedFuture(null);
   }
 ```
 
@@ -2166,18 +2166,6 @@ in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalanc
   @Override
   public boolean isGroupingFilter() {
     return false;
-  }
-```
-
-### RedundantMethodOverride
-Method `getBody()` is identical to its super method
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncClientHttpRequest.java`
-#### Snippet
-```java
-
-  @Override
-  public OutputStream getBody() {
-    return null;
   }
 ```
 
@@ -2218,14 +2206,26 @@ public class EmptyAuthHeaderProvider implements AuthHeaderProvider {
 ```
 
 ### RedundantMethodOverride
-Method `beforeSendRequestAsync()` is identical to its super method
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/http/DefaultHttpClientFilter.java`
+Method `getBody()` is identical to its super method
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncClientHttpRequest.java`
 #### Snippet
 ```java
 
   @Override
-  public CompletableFuture<Void> beforeSendRequestAsync(Invocation invocation, HttpServletRequestEx requestEx) {
-    return CompletableFuture.completedFuture(null);
+  public OutputStream getBody() {
+    return null;
+  }
+```
+
+### RedundantMethodOverride
+Method `enabled()` is identical to its super method
+in `huawei-cloud/darklaunch/src/main/java/org/apache/servicecomb/darklaunch/DarklaunchServerListFilter.java`
+#### Snippet
+```java
+
+  @Override
+  public boolean enabled() {
+    return true;
   }
 ```
 
@@ -2257,18 +2257,6 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 
 ### IfStatementWithIdenticalBranches
 'if' statement can be collapsed
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/Fixed64WriteSchemas.java`
-#### Snippet
-```java
-    }
-
-    if (Long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-      return new Fixed64Schema<>(protoField, propertyDescriptor);
-    }
-```
-
-### IfStatementWithIdenticalBranches
-'if' statement can be collapsed
 in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/SInt32WriteSchemas.java`
 #### Snippet
 ```java
@@ -2281,14 +2269,110 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 
 ### IfStatementWithIdenticalBranches
 'if' statement can be collapsed
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/StringWriteSchemas.java`
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/Fixed64WriteSchemas.java`
 #### Snippet
 ```java
     }
 
-    if (String.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-      return new StringSchema<>(protoField, propertyDescriptor);
+    if (Long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
+      return new Fixed64Schema<>(protoField, propertyDescriptor);
     }
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    session.size += totalSize;
+
+    if (tagSize == 1) {
+      buffer[offset++] = (byte) tag;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    }
+
+    if (size == 1) {
+      buffer[offset] = (byte) value;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    session.size += totalSize;
+
+    if (tagSize == 1) {
+      buffer[offset++] = (byte) tag;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    this.size += size;
+
+    if (size == 1) {
+      buffer[offset] = (byte) value;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    session.size += totalSize;
+
+    if (tagSize == 1) {
+      buffer[offset++] = (byte) tag;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    session.size += totalSize;
+
+    if (tagSize == 1) {
+      buffer[offset++] = (byte) tag;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    }
+
+    if (size == 1) {
+      buffer[offset] = (byte) value;
+    } else {
+```
+
+### IfStatementWithIdenticalBranches
+Common part can be extracted removing branch
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
+#### Snippet
+```java
+    session.size += size;
+
+    if (size == 1) {
+      buffer[offset] = (byte) value;
+    } else {
 ```
 
 ### IfStatementWithIdenticalBranches
@@ -2305,13 +2389,13 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 
 ### IfStatementWithIdenticalBranches
 'if' statement can be collapsed
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/SInt64WriteSchemas.java`
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/StringWriteSchemas.java`
 #### Snippet
 ```java
     }
 
-    if (Long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-      return new SInt64Schema<>(protoField, propertyDescriptor);
+    if (String.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
+      return new StringSchema<>(protoField, propertyDescriptor);
     }
 ```
 
@@ -2341,6 +2425,18 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 
 ### IfStatementWithIdenticalBranches
 'if' statement can be collapsed
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/SInt64WriteSchemas.java`
+#### Snippet
+```java
+    }
+
+    if (Long.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
+      return new SInt64Schema<>(protoField, propertyDescriptor);
+    }
+```
+
+### IfStatementWithIdenticalBranches
+'if' statement can be collapsed
 in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/SFixed64WriteSchemas.java`
 #### Snippet
 ```java
@@ -2353,13 +2449,25 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 
 ### IfStatementWithIdenticalBranches
 'if' statement can be collapsed
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/UInt32WriteSchemas.java`
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/Fixed32WriteSchemas.java`
 #### Snippet
 ```java
     }
 
     if (Integer.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-      return new UInt32Schema<>(protoField, propertyDescriptor);
+      return new Fixed32Schema<>(protoField, propertyDescriptor);
+    }
+```
+
+### IfStatementWithIdenticalBranches
+'if' statement can be collapsed
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/BytesWriteSchemas.java`
+#### Snippet
+```java
+public class BytesWriteSchemas {
+  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
+    if (byte[].class.equals(propertyDescriptor.getJavaType().getRawClass())) {
+      return new BytesSchema<>(protoField, propertyDescriptor);
     }
 ```
 
@@ -2376,122 +2484,14 @@ public class EnumWriteSchemas {
 ```
 
 ### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    session.size += totalSize;
-
-    if (tagSize == 1) {
-      buffer[offset++] = (byte) tag;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
 'if' statement can be collapsed
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/BytesWriteSchemas.java`
-#### Snippet
-```java
-public class BytesWriteSchemas {
-  public static <T> FieldSchema<T> create(Field protoField, PropertyDescriptor propertyDescriptor) {
-    if (byte[].class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-      return new BytesSchema<>(protoField, propertyDescriptor);
-    }
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    }
-
-    if (size == 1) {
-      buffer[offset] = (byte) value;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    this.size += size;
-
-    if (size == 1) {
-      buffer[offset] = (byte) value;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    session.size += size;
-
-    if (size == 1) {
-      buffer[offset] = (byte) value;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    session.size += totalSize;
-
-    if (tagSize == 1) {
-      buffer[offset++] = (byte) tag;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    session.size += totalSize;
-
-    if (tagSize == 1) {
-      buffer[offset++] = (byte) tag;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    session.size += totalSize;
-
-    if (tagSize == 1) {
-      buffer[offset++] = (byte) tag;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-Common part can be extracted removing branch
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
-#### Snippet
-```java
-    }
-
-    if (size == 1) {
-      buffer[offset] = (byte) value;
-    } else {
-```
-
-### IfStatementWithIdenticalBranches
-'if' statement can be collapsed
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/Fixed32WriteSchemas.java`
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/scalar/UInt32WriteSchemas.java`
 #### Snippet
 ```java
     }
 
     if (Integer.class.equals(propertyDescriptor.getJavaType().getRawClass())) {
-      return new Fixed32Schema<>(protoField, propertyDescriptor);
+      return new UInt32Schema<>(protoField, propertyDescriptor);
     }
 ```
 
@@ -2510,18 +2510,6 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 ## RuleId[id=SimplifyOptionalCallChains]
 ### SimplifyOptionalCallChains
 Can be replaced with 'isEmpty()'
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/VertxServerRequestToHttpServletRequest.java`
-#### Snippet
-```java
-        .filter(fileUpload -> fileUpload.name().equals(name))
-        .findFirst();
-    if (!upload.isPresent()) {
-      LOGGER.debug("No such file with name: {}.", name);
-      return null;
-```
-
-### SimplifyOptionalCallChains
-Can be replaced with 'isEmpty()'
 in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerAuthFilter.java`
 #### Snippet
 ```java
@@ -2530,6 +2518,18 @@ in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authent
     if (!token.isPresent()) {
       return CompletableFuture.failedFuture(
           new InvocationException(Status.SERVICE_UNAVAILABLE, "auth token is not properly configured yet."));
+```
+
+### SimplifyOptionalCallChains
+Can be replaced with 'isEmpty()'
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/VertxServerRequestToHttpServletRequest.java`
+#### Snippet
+```java
+        .filter(fileUpload -> fileUpload.name().equals(name))
+        .findFirst();
+    if (!upload.isPresent()) {
+      LOGGER.debug("No such file with name: {}.", name);
+      return null;
 ```
 
 ## RuleId[id=SlowListContainsAll]
@@ -2600,10 +2600,10 @@ There is a more general exception, 'java.io.IOException', in the throws list alr
 in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/SSLSocketFactoryExt.java`
 #### Snippet
 ```java
+
   @Override
-  public Socket createSocket(String host, int port, InetAddress localHost, int localPort) throws IOException,
-      UnknownHostException {
-    return this.sslSocketFactory.createSocket(host, port, localHost, localPort);
+  public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
+    return this.sslSocketFactory.createSocket(host, port);
   }
 ```
 
@@ -2612,10 +2612,10 @@ There is a more general exception, 'java.io.IOException', in the throws list alr
 in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/SSLSocketFactoryExt.java`
 #### Snippet
 ```java
-
   @Override
-  public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
-    return this.sslSocketFactory.createSocket(host, port);
+  public Socket createSocket(String host, int port, InetAddress localHost, int localPort) throws IOException,
+      UnknownHostException {
+    return this.sslSocketFactory.createSocket(host, port, localHost, localPort);
   }
 ```
 
@@ -2646,18 +2646,6 @@ in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publi
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `required` initializer `false` is redundant
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/AbstractParamProcessor.java`
-#### Snippet
-```java
-  protected Object defaultValue;
-
-  protected boolean required = false;
-
-  public Object getDefaultValue() {
-```
-
-### UnusedAssignment
 Variable `value` initializer `0` is redundant
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/Version.java`
 #### Snippet
@@ -2682,15 +2670,27 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
 ```
 
 ### UnusedAssignment
-Variable `fieldValue` initializer `null` is redundant
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/provider/AccessController.java`
+Variable `extractionHandlerClass` initializer `null` is redundant
+in `governance/src/main/java/org/apache/servicecomb/governance/marker/RequestProcessor.java`
 #### Snippet
 ```java
 
-  private boolean matchMicroserviceField(Microservice microservice, ConfigurationItem item) {
-    Object fieldValue = null;
+    LOGGER.info("{} {}", customMatcherHandler, infoMessageForCreatingClass);
+    Class<?> extractionHandlerClass = null;
     try {
-      fieldValue = new PropertyDescriptor(item.propertyName, Microservice.class).getReadMethod().invoke(microservice);
+      extractionHandlerClass = Class.forName(customMatcherHandler);
+```
+
+### UnusedAssignment
+Variable `extractObject` initializer `null` is redundant
+in `governance/src/main/java/org/apache/servicecomb/governance/marker/RequestProcessor.java`
+#### Snippet
+```java
+
+  private CustomMatch getBeanByHandlerName(String customMatcherHandler) {
+    Object extractObject = null;
+    if (applicationContext.containsBean(customMatcherHandler)) {
+      extractObject = applicationContext.getBean(customMatcherHandler);
 ```
 
 ### UnusedAssignment
@@ -2718,39 +2718,27 @@ in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faulti
 ```
 
 ### UnusedAssignment
-Variable `fileKeys` initializer `new ArrayList<>()` is redundant
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
+Variable `fieldValue` initializer `null` is redundant
+in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/provider/AccessController.java`
 #### Snippet
 ```java
 
-  //contains all the file key in the parts
-  private List<String> fileKeys = new ArrayList<>();
-
-  // gen by httpHeaders
-```
-
-### UnusedAssignment
-Variable `extractObject` initializer `null` is redundant
-in `governance/src/main/java/org/apache/servicecomb/governance/marker/RequestProcessor.java`
-#### Snippet
-```java
-
-  private CustomMatch getBeanByHandlerName(String customMatcherHandler) {
-    Object extractObject = null;
-    if (applicationContext.containsBean(customMatcherHandler)) {
-      extractObject = applicationContext.getBean(customMatcherHandler);
-```
-
-### UnusedAssignment
-Variable `extractionHandlerClass` initializer `null` is redundant
-in `governance/src/main/java/org/apache/servicecomb/governance/marker/RequestProcessor.java`
-#### Snippet
-```java
-
-    LOGGER.info("{} {}", customMatcherHandler, infoMessageForCreatingClass);
-    Class<?> extractionHandlerClass = null;
+  private boolean matchMicroserviceField(Microservice microservice, ConfigurationItem item) {
+    Object fieldValue = null;
     try {
-      extractionHandlerClass = Class.forName(customMatcherHandler);
+      fieldValue = new PropertyDescriptor(item.propertyName, Microservice.class).getReadMethod().invoke(microservice);
+```
+
+### UnusedAssignment
+Variable `cseResponse` initializer `null` is redundant
+in `swagger/swagger-invocation/invocation-springmvc/src/main/java/org/apache/servicecomb/swagger/invocation/springmvc/response/SpringmvcProducerResponseMapper.java`
+#### Snippet
+```java
+        springmvcResponse.getStatusCode().getReasonPhrase());
+
+    Response cseResponse = null;
+    if (HttpStatus.isSuccess(responseStatus)) {
+      cseResponse = realMapper.mapResponse(responseStatus, springmvcResponse.getBody());
 ```
 
 ### UnusedAssignment
@@ -2778,42 +2766,6 @@ in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/
 ```
 
 ### UnusedAssignment
-Variable `number` initializer `0` is redundant
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/CompatiblePathVersionMapper.java`
-#### Snippet
-```java
-    }
-
-    int number = 0;
-    try {
-      number = Integer.parseInt(pathVersion.substring(1));
-```
-
-### UnusedAssignment
-Variable `configArr` initializer `null` is redundant
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/element/impl/ConfigurableDatetimeAccessItem.java`
-#### Snippet
-```java
-   */
-  public ConfigurableDatetimeAccessItem(String config) {
-    String[] configArr = null;
-    if (config.contains("|")) {
-      configArr = splitConfig(config);
-```
-
-### UnusedAssignment
-Variable `executorService` initializer `null` is redundant
-in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/DataFactory.java`
-#### Snippet
-```java
-  private MonitorDataPublisher publisher;
-
-  private ScheduledExecutorService executorService = null;
-
-
-```
-
-### UnusedAssignment
 Variable `hostName` initializer `""` is redundant
 in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/task/MicroserviceInstanceRegisterTask.java`
 #### Snippet
@@ -2838,15 +2790,63 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
 ```
 
 ### UnusedAssignment
-Variable `cseResponse` initializer `null` is redundant
-in `swagger/swagger-invocation/invocation-springmvc/src/main/java/org/apache/servicecomb/swagger/invocation/springmvc/response/SpringmvcProducerResponseMapper.java`
+Variable `configArr` initializer `null` is redundant
+in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/element/impl/ConfigurableDatetimeAccessItem.java`
 #### Snippet
 ```java
-        springmvcResponse.getStatusCode().getReasonPhrase());
+   */
+  public ConfigurableDatetimeAccessItem(String config) {
+    String[] configArr = null;
+    if (config.contains("|")) {
+      configArr = splitConfig(config);
+```
 
-    Response cseResponse = null;
-    if (HttpStatus.isSuccess(responseStatus)) {
-      cseResponse = realMapper.mapResponse(responseStatus, springmvcResponse.getBody());
+### UnusedAssignment
+Variable `number` initializer `0` is redundant
+in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/CompatiblePathVersionMapper.java`
+#### Snippet
+```java
+    }
+
+    int number = 0;
+    try {
+      number = Integer.parseInt(pathVersion.substring(1));
+```
+
+### UnusedAssignment
+Variable `fileKeys` initializer `new ArrayList<>()` is redundant
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CommonToHttpServletRequest.java`
+#### Snippet
+```java
+
+  //contains all the file key in the parts
+  private List<String> fileKeys = new ArrayList<>();
+
+  // gen by httpHeaders
+```
+
+### UnusedAssignment
+Variable `required` initializer `false` is redundant
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/AbstractParamProcessor.java`
+#### Snippet
+```java
+  protected Object defaultValue;
+
+  protected boolean required = false;
+
+  public Object getDefaultValue() {
+```
+
+### UnusedAssignment
+Variable `executorService` initializer `null` is redundant
+in `huawei-cloud/dashboard/src/main/java/org/apache/servicecomb/huaweicloud/dashboard/monitor/DataFactory.java`
+#### Snippet
+```java
+  private MonitorDataPublisher publisher;
+
+  private ScheduledExecutorService executorService = null;
+
+
 ```
 
 ## RuleId[id=OptionalGetWithoutIsPresent]
@@ -2864,18 +2864,6 @@ in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definiti
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Value `type` is always 'null'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationMeta.java`
-#### Snippet
-```java
-    final BodyParameter bodyParameter = (BodyParameter) parameter;
-    if (!(bodyParameter.getSchema() instanceof ModelImpl)) {
-      return type;
-    }
-    final Property additionalProperties = ((ModelImpl) bodyParameter.getSchema()).getAdditionalProperties();
-```
-
-### ConstantValue
 Condition `interfaces != null` is always `true`
 in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/TrustManagerExt.java`
 #### Snippet
@@ -2888,30 +2876,6 @@ in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/s
 ```
 
 ### ConstantValue
-Condition `totalLen == 0` is always `false`
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/server/TcpParser.java`
-#### Snippet
-```java
-        }
-
-        if (totalLen == 0) {
-          onReadOnePackage(null, null);
-          return;
-```
-
-### ConstantValue
-Value `propertySource` is always 'null'
-in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
-#### Snippet
-```java
-      return;
-    }
-    if (propertySource instanceof EnumerablePropertySource) {
-      EnumerablePropertySource<?> enumerablePropertySource = (EnumerablePropertySource<?>) propertySource;
-      for (String propertyName : enumerablePropertySource.getPropertyNames()) {
-```
-
-### ConstantValue
 Condition `value instanceof Resource` is always `false`
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/PartUtils.java`
 #### Snippet
@@ -2921,6 +2885,18 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
     if (value instanceof Resource) {
       return new ResourcePart(name, (Resource) value);
     }
+```
+
+### ConstantValue
+Value `propertySource` is always 'null'
+in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
+#### Snippet
+```java
+      return;
+    }
+    if (propertySource instanceof EnumerablePropertySource) {
+      EnumerablePropertySource<?> enumerablePropertySource = (EnumerablePropertySource<?>) propertySource;
+      Collections.addAll(allKeys, enumerablePropertySource.getPropertyNames());
 ```
 
 ### ConstantValue
@@ -2948,30 +2924,6 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
 ```
 
 ### ConstantValue
-Value `propertySource` is always 'null'
-in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
-#### Snippet
-```java
-      return;
-    }
-    if (propertySource instanceof EnumerablePropertySource) {
-      EnumerablePropertySource<?> enumerablePropertySource = (EnumerablePropertySource<?>) propertySource;
-      Collections.addAll(allKeys, enumerablePropertySource.getPropertyNames());
-```
-
-### ConstantValue
-Condition `printDetail` is always `true`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/ServerEndpointsLogPublisher.java`
-#### Snippet
-```java
-
-    for (MeasurementNode address : measurementNode.getChildren().values()) {
-      if (printDetail) {
-        appendLine(sb, "      %-12.0f %-15.0f %-13.0f %-11.0f %-8.0f %-7.0f %-9s %-12s %s",
-            address.findChild(EndpointMeter.CONNECT_COUNT).summary(),
-```
-
-### ConstantValue
 Value `value` is always 'true'
 in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx.java`
 #### Snippet
@@ -2981,18 +2933,6 @@ in `foundations/foundation-protobuf/src/main/java/io/protostuff/ProtobufOutputEx
       writeBool(tag, tagSize, value);
     }
   }
-```
-
-### ConstantValue
-Condition `first.getClass() == String.class` is always `false`
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumNotPackedWriteSchemas.java`
-#### Snippet
-```java
-        }
-
-        if (first.getClass() == String.class) {
-          writeStringCollection(output, (Collection<String>) (Object) collection);
-          return;
 ```
 
 ### ConstantValue
@@ -3008,15 +2948,39 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 ```
 
 ### ConstantValue
-Result of `apiOperation.hidden()` is always 'true'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/utils/MethodUtils.java`
+Condition `first.getClass() == String.class` is always `false`
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/repeated/impl/enums/EnumNotPackedWriteSchemas.java`
 #### Snippet
 ```java
-    ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
-    if (apiOperation != null && apiOperation.hidden()) {
-      return apiOperation.hidden();
-    }
+        }
 
+        if (first.getClass() == String.class) {
+          writeStringCollection(output, (Collection<String>) (Object) collection);
+          return;
+```
+
+### ConstantValue
+Condition `printDetail` is always `true`
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/publish/ServerEndpointsLogPublisher.java`
+#### Snippet
+```java
+
+    for (MeasurementNode address : measurementNode.getChildren().values()) {
+      if (printDetail) {
+        appendLine(sb, "      %-12.0f %-15.0f %-13.0f %-11.0f %-8.0f %-7.0f %-9s %-12s %s",
+            address.findChild(EndpointMeter.CONNECT_COUNT).summary(),
+```
+
+### ConstantValue
+Value `propertySource` is always 'null'
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
+#### Snippet
+```java
+      return;
+    }
+    if (propertySource instanceof EnumerablePropertySource) {
+      EnumerablePropertySource<?> enumerablePropertySource = (EnumerablePropertySource<?>) propertySource;
+      for (String propertyName : enumerablePropertySource.getPropertyNames()) {
 ```
 
 ### ConstantValue
@@ -3033,6 +2997,18 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
 
 ### ConstantValue
 Result of `apiOperation.hidden()` is always 'true'
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/utils/MethodUtils.java`
+#### Snippet
+```java
+    ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+    if (apiOperation != null && apiOperation.hidden()) {
+      return apiOperation.hidden();
+    }
+
+```
+
+### ConstantValue
+Result of `apiOperation.hidden()` is always 'true'
 in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
 #### Snippet
 ```java
@@ -3041,6 +3017,30 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
       return apiOperation.hidden();
     }
 
+```
+
+### ConstantValue
+Condition `totalLen == 0` is always `false`
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/server/TcpParser.java`
+#### Snippet
+```java
+        }
+
+        if (totalLen == 0) {
+          onReadOnePackage(null, null);
+          return;
+```
+
+### ConstantValue
+Value `type` is always 'null'
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationMeta.java`
+#### Snippet
+```java
+    final BodyParameter bodyParameter = (BodyParameter) parameter;
+    if (!(bodyParameter.getSchema() instanceof ModelImpl)) {
+      return type;
+    }
+    final Property additionalProperties = ((ModelImpl) bodyParameter.getSchema()).getAdditionalProperties();
 ```
 
 ## RuleId[id=StringConcatenationInsideStringBufferAppend]
@@ -3190,18 +3190,6 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
 
 ### StringConcatenationInsideStringBufferAppend
 String concatenation as argument to `StringBuilder.append()` call
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/WebsocketClientUtil.java`
-#### Snippet
-```java
-    SignRequest signReq = new SignRequest();
-    StringBuilder endpoint = new StringBuilder("https://" + ipPort.getHostOrIp());
-    endpoint.append(":" + ipPort.getPort());
-    endpoint.append(url);
-    try {
-```
-
-### StringConcatenationInsideStringBufferAppend
-String concatenation as argument to `StringBuilder.append()` call
 in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/inject/PlaceholderResolver.java`
 #### Snippet
 ```java
@@ -3210,6 +3198,18 @@ in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/in
             sb.append("\\" + part.fullName);
             continue;
           }
+```
+
+### StringConcatenationInsideStringBufferAppend
+String concatenation as argument to `StringBuilder.append()` call
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/WebsocketClientUtil.java`
+#### Snippet
+```java
+    SignRequest signReq = new SignRequest();
+    StringBuilder endpoint = new StringBuilder("https://" + ipPort.getHostOrIp());
+    endpoint.append(":" + ipPort.getPort());
+    endpoint.append(url);
+    try {
 ```
 
 ## RuleId[id=RedundantOperationOnEmptyContainer]
@@ -3252,6 +3252,54 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
 
 ## RuleId[id=JavadocReference]
 ### JavadocReference
+Cannot resolve symbol `org.springframework.aop.framework.AopProxyUtils`
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/BeanUtils.java`
+#### Snippet
+```java
+   * @param bean the instance to get implemented class from
+   * @return the implemented class (if the checked class is proxied, return the ultimate target class)
+   * @see org.springframework.aop.framework.AopProxyUtils#ultimateTargetClass
+   */
+  public static Class<?> getImplClassFromBean(Object bean) {
+```
+
+### JavadocReference
+Cannot resolve symbol `ultimateTargetClass`
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/BeanUtils.java`
+#### Snippet
+```java
+   * @param bean the instance to get implemented class from
+   * @return the implemented class (if the checked class is proxied, return the ultimate target class)
+   * @see org.springframework.aop.framework.AopProxyUtils#ultimateTargetClass
+   */
+  public static Class<?> getImplClassFromBean(Object bean) {
+```
+
+### JavadocReference
+Cannot resolve symbol `Conditional`
+in `spring-boot/spring-boot-starters/java-chassis-spring-boot-starter/src/main/java/org/apache/servicecomb/springboot/starter/ConfigurationSpringBootInitializer.java`
+#### Snippet
+```java
+/**
+ * when run with springboot, add microservice.yaml to Environment earlier<br>
+ * to affect {@link Conditional}<br>
+ */
+public class ConfigurationSpringBootInitializer implements EnvironmentPostProcessor {
+```
+
+### JavadocReference
+Cannot resolve symbol `Conditional`
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
+#### Snippet
+```java
+  /**
+   * make springboot have a change to add microservice.yaml source earlier<br>
+   * to affect {@link Conditional}
+   * @param environment environment
+   */
+```
+
+### JavadocReference
 Cannot resolve symbol `EnumerablePropertySource`
 in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
 #### Snippet
@@ -3288,18 +3336,6 @@ in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitialize
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Conditional`
-in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
-#### Snippet
-```java
-  /**
-   * make springboot have a change to add microservice.yaml source earlier<br>
-   * to affect {@link Conditional}
-   * @param environment environment
-   */
-```
-
-### JavadocReference
 Cannot resolve symbol `PropertySource`
 in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
 #### Snippet
@@ -3323,42 +3359,6 @@ in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitialize
   private Map<String, Object> getAllProperties(Environment environment) {
 ```
 
-### JavadocReference
-Cannot resolve symbol `org.springframework.aop.framework.AopProxyUtils`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/BeanUtils.java`
-#### Snippet
-```java
-   * @param bean the instance to get implemented class from
-   * @return the implemented class (if the checked class is proxied, return the ultimate target class)
-   * @see org.springframework.aop.framework.AopProxyUtils#ultimateTargetClass
-   */
-  public static Class<?> getImplClassFromBean(Object bean) {
-```
-
-### JavadocReference
-Cannot resolve symbol `ultimateTargetClass`
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/utils/BeanUtils.java`
-#### Snippet
-```java
-   * @param bean the instance to get implemented class from
-   * @return the implemented class (if the checked class is proxied, return the ultimate target class)
-   * @see org.springframework.aop.framework.AopProxyUtils#ultimateTargetClass
-   */
-  public static Class<?> getImplClassFromBean(Object bean) {
-```
-
-### JavadocReference
-Cannot resolve symbol `Conditional`
-in `spring-boot/spring-boot-starters/java-chassis-spring-boot-starter/src/main/java/org/apache/servicecomb/springboot/starter/ConfigurationSpringBootInitializer.java`
-#### Snippet
-```java
-/**
- * when run with springboot, add microservice.yaml to Environment earlier<br>
- * to affect {@link Conditional}<br>
- */
-public class ConfigurationSpringBootInitializer implements EnvironmentPostProcessor {
-```
-
 ## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -3374,63 +3374,27 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Method invocation `getAccessURL` may produce `NullPointerException`
-in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/ConfigCenterConfig.java`
+Method invocation `getFilteredListOfServers` may produce `NullPointerException`
+in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterServerListFilter.java`
 #### Snippet
 ```java
-  public List<String> getServerUri() {
-    return Deployment.getSystemBootStrapInfo(ConfigCenterDefaultDeploymentProvider.SYSTEM_KEY_CONFIG_CENTER)
-        .getAccessURL();
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `getAccessURL` may produce `NullPointerException`
-in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/ConfigCenterConfigurationSourceImpl.java`
-#### Snippet
-```java
-    return new ConfigCenterAddressManager(ConfigCenterConfig.INSTANCE.getDomainName(),
-        Deployment
-            .getSystemBootStrapInfo(ConfigCenterDefaultDeploymentProvider.SYSTEM_KEY_CONFIG_CENTER).getAccessURL(),
-        EventManager.getEventBus());
+    headers = filterHeaders(headers);
+    return routerFilter
+        .getFilteredListOfServers(list, targetServiceName, headers,
+            routerDistributor);
   }
 ```
 
 ### DataFlowIssue
-Method invocation `getName` will produce `NullPointerException`
-in `core/src/main/java/org/apache/servicecomb/core/filter/impl/JacksonPropertyNodeNameProvider.java`
+Method invocation `entrySet` may produce `NullPointerException`
+in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/RestClientEncoder.java`
 #### Snippet
 ```java
-    }
 
-    return property.getName();
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `getName` will produce `NullPointerException`
-in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
-#### Snippet
-```java
-    }
-
-    LOGGER.debug("a none EnumerablePropertySource is ignored, propertySourceName = [{}]", propertySource.getName());
-  }
-
-```
-
-### DataFlowIssue
-Method invocation `getActuator` may produce `NullPointerException`
-in `core/src/main/java/org/apache/servicecomb/core/provider/consumer/InvokerUtils.java`
-#### Snippet
-```java
-    // governance implementations.
-    RetryHandler retryHandler = BeanUtils.getBean(RetryHandler.class);
-    Retry retry = retryHandler.getActuator(request);
-    if (retry != null) {
-      dcs.withRetry(retry, getOrCreateRetryPool());
+      StringBuilder builder = new StringBuilder();
+      for (Entry<String, String> entry : cookieMap.entrySet()) {
+        builder.append(entry.getKey())
+            .append('=')
 ```
 
 ### DataFlowIssue
@@ -3470,54 +3434,6 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
 ```
 
 ### DataFlowIssue
-Method invocation `format` may produce `NullPointerException`
-in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerTokenManager.java`
-#### Snippet
-```java
-      return null;
-    }
-    return token.format();
-  }
-
-```
-
-### DataFlowIssue
-Argument `restControllerCls` might be null
-in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/RestProducers.java`
-#### Snippet
-```java
-    }
-
-    if (scanRestController && beanCls.getAnnotation(restControllerCls) != null) {
-      ProducerMeta producerMeta = new ProducerMeta(beanCls.getName(), bean);
-      producerMetaList.add(producerMeta);
-```
-
-### DataFlowIssue
-Method invocation `ping` may produce `NullPointerException`
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-      inUseInstances.stream().forEach(instance -> {
-        if (!mergedInstances.instanceIdMap.containsKey(instance.getInstanceId())) {
-          if (ping.ping(instance)) {
-            mergedInstances.addInstance(instance);
-          }
-```
-
-### DataFlowIssue
-Condition `CseHttpEntity.class.isInstance(requestBody)` is redundant and can be replaced with a null check
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRequestCallback.java`
-#### Snippet
-```java
-    }
-
-    if (!CseHttpEntity.class.isInstance(requestBody)) {
-      return;
-    }
-```
-
-### DataFlowIssue
 Method invocation `getName` will produce `NullPointerException`
 in `governance/src/main/java/org/apache/servicecomb/governance/properties/GovernanceProperties.java`
 #### Snippet
@@ -3530,51 +3446,15 @@ in `governance/src/main/java/org/apache/servicecomb/governance/properties/Govern
 ```
 
 ### DataFlowIssue
-Method invocation `getHost` may produce `NullPointerException`
-in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/AbstractAddressManager.java`
+Method invocation `ping` may produce `NullPointerException`
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
 #### Snippet
 ```java
-    URI ipPort = parseIpPortFromURI(address);
-    try (Socket s = new Socket()) {
-      s.connect(new InetSocketAddress(ipPort.getHost(), ipPort.getPort()), 3000);
-      return true;
-    } catch (IOException e) {
-```
-
-### DataFlowIssue
-Method invocation `createLoadBalancerRule` may produce `NullPointerException`
-in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/CommonHttpEdgeDispatcher.java`
-#### Snippet
-```java
-
-  private LoadBalancer createLoadBalancer(String microserviceName) {
-    RuleExt rule = BeanUtils.getBean(ExtensionsManager.class).createLoadBalancerRule(microserviceName);
-    return new LoadBalancer(rule, microserviceName);
-  }
-```
-
-### DataFlowIssue
-Method invocation `length` may produce `NullPointerException`
-in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/parser/impl/VertxRestAccessLogPatternParser.java`
-#### Snippet
-```java
-
-    return rawPattern.substring(
-        accessLogItemLocation.prefixIndex + accessLogItemLocation.getPrefix().length(),
-        accessLogItemLocation.suffixIndex);
-  }
-```
-
-### DataFlowIssue
-Method invocation `trim` may produce `NullPointerException`
-in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/os/cpu/CpuUtils.java`
-#### Snippet
-```java
-
-  public static String[] readAndSplitFirstLine(File file) throws IOException {
-    return Files.asCharSource(file, StandardCharsets.UTF_8).readFirstLine().trim().split("\\s+");
-  }
-
+      inUseInstances.stream().forEach(instance -> {
+        if (!mergedInstances.instanceIdMap.containsKey(instance.getInstanceId())) {
+          if (ping.ping(instance)) {
+            mergedInstances.addInstance(instance);
+          }
 ```
 
 ### DataFlowIssue
@@ -3602,6 +3482,114 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 ```
 
 ### DataFlowIssue
+Method invocation `trim` may produce `NullPointerException`
+in `metrics/metrics-core/src/main/java/org/apache/servicecomb/metrics/core/meter/os/cpu/CpuUtils.java`
+#### Snippet
+```java
+
+  public static String[] readAndSplitFirstLine(File file) throws IOException {
+    return Files.asCharSource(file, StandardCharsets.UTF_8).readFirstLine().trim().split("\\s+");
+  }
+
+```
+
+### DataFlowIssue
+Argument `restControllerCls` might be null
+in `providers/provider-rest-common/src/main/java/org/apache/servicecomb/provider/rest/common/RestProducers.java`
+#### Snippet
+```java
+    }
+
+    if (scanRestController && beanCls.getAnnotation(restControllerCls) != null) {
+      ProducerMeta producerMeta = new ProducerMeta(beanCls.getName(), bean);
+      producerMetaList.add(producerMeta);
+```
+
+### DataFlowIssue
+Method invocation `getName` will produce `NullPointerException`
+in `core/src/main/java/org/apache/servicecomb/core/filter/impl/JacksonPropertyNodeNameProvider.java`
+#### Snippet
+```java
+    }
+
+    return property.getName();
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `getName` will produce `NullPointerException`
+in `core/src/main/java/org/apache/servicecomb/core/ConfigurationSpringInitializer.java`
+#### Snippet
+```java
+    }
+
+    LOGGER.debug("a none EnumerablePropertySource is ignored, propertySourceName = [{}]", propertySource.getName());
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `getActuator` may produce `NullPointerException`
+in `core/src/main/java/org/apache/servicecomb/core/provider/consumer/InvokerUtils.java`
+#### Snippet
+```java
+    // governance implementations.
+    RetryHandler retryHandler = BeanUtils.getBean(RetryHandler.class);
+    Retry retry = retryHandler.getActuator(request);
+    if (retry != null) {
+      dcs.withRetry(retry, getOrCreateRetryPool());
+```
+
+### DataFlowIssue
+Method invocation `format` may produce `NullPointerException`
+in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerTokenManager.java`
+#### Snippet
+```java
+      return null;
+    }
+    return token.format();
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `getAccessURL` may produce `NullPointerException`
+in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/ConfigCenterConfig.java`
+#### Snippet
+```java
+  public List<String> getServerUri() {
+    return Deployment.getSystemBootStrapInfo(ConfigCenterDefaultDeploymentProvider.SYSTEM_KEY_CONFIG_CENTER)
+        .getAccessURL();
+  }
+
+```
+
+### DataFlowIssue
+Method invocation `getAccessURL` may produce `NullPointerException`
+in `dynamic-config/config-cc/src/main/java/org/apache/servicecomb/config/ConfigCenterConfigurationSourceImpl.java`
+#### Snippet
+```java
+    return new ConfigCenterAddressManager(ConfigCenterConfig.INSTANCE.getDomainName(),
+        Deployment
+            .getSystemBootStrapInfo(ConfigCenterDefaultDeploymentProvider.SYSTEM_KEY_CONFIG_CENTER).getAccessURL(),
+        EventManager.getEventBus());
+  }
+```
+
+### DataFlowIssue
+Method invocation `getHost` may produce `NullPointerException`
+in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/AbstractAddressManager.java`
+#### Snippet
+```java
+    URI ipPort = parseIpPortFromURI(address);
+    try (Socket s = new Socket()) {
+      s.connect(new InetSocketAddress(ipPort.getHost(), ipPort.getPort()), 3000);
+      return true;
+    } catch (IOException e) {
+```
+
+### DataFlowIssue
 Casting `Arrays.asList(...).toArray()` to `String[]` will produce `ClassCastException` for any non-null value
 in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/RequestParam.java`
 #### Snippet
@@ -3614,27 +3602,51 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
 ```
 
 ### DataFlowIssue
-Method invocation `getFilteredListOfServers` may produce `NullPointerException`
-in `handlers/handler-router/src/main/java/org/apache/servicecomb/router/custom/RouterServerListFilter.java`
+Method invocation `length` may produce `NullPointerException`
+in `common/common-access-log/src/main/java/org/apache/servicecomb/common/accessLog/core/parser/impl/VertxRestAccessLogPatternParser.java`
 #### Snippet
 ```java
-    headers = filterHeaders(headers);
-    return routerFilter
-        .getFilteredListOfServers(list, targetServiceName, headers,
-            routerDistributor);
+
+    return rawPattern.substring(
+        accessLogItemLocation.prefixIndex + accessLogItemLocation.getPrefix().length(),
+        accessLogItemLocation.suffixIndex);
   }
 ```
 
 ### DataFlowIssue
-Method invocation `entrySet` may produce `NullPointerException`
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/RestClientEncoder.java`
+Method invocation `createLoadBalancerRule` may produce `NullPointerException`
+in `edge/edge-core/src/main/java/org/apache/servicecomb/edge/core/CommonHttpEdgeDispatcher.java`
 #### Snippet
 ```java
 
-      StringBuilder builder = new StringBuilder();
-      for (Entry<String, String> entry : cookieMap.entrySet()) {
-        builder.append(entry.getKey())
-            .append('=')
+  private LoadBalancer createLoadBalancer(String microserviceName) {
+    RuleExt rule = BeanUtils.getBean(ExtensionsManager.class).createLoadBalancerRule(microserviceName);
+    return new LoadBalancer(rule, microserviceName);
+  }
+```
+
+### DataFlowIssue
+Condition `CseHttpEntity.class.isInstance(requestBody)` is redundant and can be replaced with a null check
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRequestCallback.java`
+#### Snippet
+```java
+    }
+
+    if (!CseHttpEntity.class.isInstance(requestBody)) {
+      return;
+    }
+```
+
+### DataFlowIssue
+Method invocation `getMessage` may produce `NullPointerException`
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/unittest/UnitTestSwaggerUtils.java`
+#### Snippet
+```java
+  public static void testException(String expectMsg, Class<?> cls, String... methods) {
+    Throwable exception = getException(cls, methods);
+    Assertions.assertEquals(expectMsg, exception.getMessage());
+  }
+}
 ```
 
 ### DataFlowIssue
@@ -3661,31 +3673,7 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
     Assertions.assertEquals(expectMsgLevel3, exception.getCause().getCause().getMessage());
 ```
 
-### DataFlowIssue
-Method invocation `getMessage` may produce `NullPointerException`
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/unittest/UnitTestSwaggerUtils.java`
-#### Snippet
-```java
-  public static void testException(String expectMsg, Class<?> cls, String... methods) {
-    Throwable exception = getException(cls, methods);
-    Assertions.assertEquals(expectMsg, exception.getMessage());
-  }
-}
-```
-
 ## RuleId[id=SimplifyStreamApiCallChains]
-### SimplifyStreamApiCallChains
-Can be replaced with 'java.util.ArrayList' constructor
-in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
-#### Snippet
-```java
-
-  public List<Microservice> getAllMicroservices() {
-    return microserviceMap.values().stream().collect(Collectors.toList());
-  }
-
-```
-
 ### SimplifyStreamApiCallChains
 'collect(toList())' can be replaced with 'toList()'
 in `clients/config-kie-client/src/main/java/org/apache/servicecomb/config/kie/client/KieClient.java`
@@ -3696,6 +3684,42 @@ in `clients/config-kie-client/src/main/java/org/apache/servicecomb/config/kie/cl
         .collect(Collectors.toList())
         .forEach(resultMap::putAll);
     return resultMap;
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `governance/src/main/java/org/apache/servicecomb/router/model/ServiceInfoCache.java`
+#### Snippet
+```java
+      policyRuleItem.setTotal(rule.stream().mapToInt(RouteItem::getWeight).sum());
+    }
+    rule.stream().forEach(RouteItem::addCurrentWeight);
+    int maxIndex = 0, maxWeight = -1;
+    for (int i = 0; i < rule.size(); i++) {
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
+#### Snippet
+```java
+      Collection<MicroserviceInstance> inUseInstances) {
+    MergedInstances mergedInstances = new MergedInstances();
+    pulledInstances.stream().forEach(mergedInstances::addInstance);
+    MicroserviceInstancePing ping = SPIServiceUtils.getPriorityHighestService(MicroserviceInstancePing.class);
+
+```
+
+### SimplifyStreamApiCallChains
+''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
+#### Snippet
+```java
+        .isEmptyInstanceProtectionEnabled()) {
+
+      inUseInstances.stream().forEach(instance -> {
+        if (!mergedInstances.instanceIdMap.containsKey(instance.getInstanceId())) {
+          if (ping.ping(instance)) {
 ```
 
 ### SimplifyStreamApiCallChains
@@ -3724,54 +3748,6 @@ in `core/src/main/java/org/apache/servicecomb/core/definition/MicroserviceMeta.j
 
 ### SimplifyStreamApiCallChains
 ''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-      Collection<MicroserviceInstance> inUseInstances) {
-    MergedInstances mergedInstances = new MergedInstances();
-    pulledInstances.stream().forEach(mergedInstances::addInstance);
-    MicroserviceInstancePing ping = SPIServiceUtils.getPriorityHighestService(MicroserviceInstancePing.class);
-
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceVersions.java`
-#### Snippet
-```java
-        .isEmptyInstanceProtectionEnabled()) {
-
-      inUseInstances.stream().forEach(instance -> {
-        if (!mergedInstances.instanceIdMap.containsKey(instance.getInstanceId())) {
-          if (ping.ping(instance)) {
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
-in `governance/src/main/java/org/apache/servicecomb/router/model/ServiceInfoCache.java`
-#### Snippet
-```java
-      policyRuleItem.setTotal(rule.stream().mapToInt(RouteItem::getWeight).sum());
-    }
-    rule.stream().forEach(RouteItem::addCurrentWeight);
-    int maxIndex = 0, maxWeight = -1;
-    for (int i = 0; i < rule.size(); i++) {
-```
-
-### SimplifyStreamApiCallChains
-'Arrays.asList().stream()' can be replaced with 'Arrays.stream()'
-in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/MeasurementGroupConfig.java`
-#### Snippet
-```java
-        Arrays
-            .asList(tagNameOrFinders)
-            .stream()
-            .map(TagFinder::build)
-            .collect(Collectors.toList()));
-```
-
-### SimplifyStreamApiCallChains
-''stream().forEach()'' can be replaced with 'forEach()'' (may change semantics)
 in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/client/http/ServiceRegistryClientImpl.java`
 #### Snippet
 ```java
@@ -3780,6 +3756,30 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
             result.value.stream().forEach(r -> schemas.put(r.getSchemaId(), r.getSchema()));
           }
           return schemas;
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with 'java.util.ArrayList' constructor
+in `service-registry/registry-local/src/main/java/org/apache/servicecomb/localregistry/LocalRegistryStore.java`
+#### Snippet
+```java
+
+  public List<Microservice> getAllMicroservices() {
+    return microserviceMap.values().stream().collect(Collectors.toList());
+  }
+
+```
+
+### SimplifyStreamApiCallChains
+'collect(toList())' can be replaced with 'toList()'
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
+#### Snippet
+```java
+    for (Annotation annotation : Arrays.stream(method.getAnnotations())
+            .sorted(Comparator.comparing(a -> a.annotationType().getName()))
+            .collect(Collectors.toList())
+    ) {
+      MethodAnnotationProcessor<Annotation> processor = findMethodAnnotationProcessor(annotation.annotationType());
 ```
 
 ### SimplifyStreamApiCallChains
@@ -3795,78 +3795,18 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
 ```
 
 ### SimplifyStreamApiCallChains
-'collect(toList())' can be replaced with 'toList()'
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractOperationGenerator.java`
+'Arrays.asList().stream()' can be replaced with 'Arrays.stream()'
+in `foundations/foundation-metrics/src/main/java/org/apache/servicecomb/foundation/metrics/publish/spectator/MeasurementGroupConfig.java`
 #### Snippet
 ```java
-    for (Annotation annotation : Arrays.stream(method.getAnnotations())
-            .sorted(Comparator.comparing(a -> a.annotationType().getName()))
-            .collect(Collectors.toList())
-    ) {
-      MethodAnnotationProcessor<Annotation> processor = findMethodAnnotationProcessor(annotation.annotationType());
+        Arrays
+            .asList(tagNameOrFinders)
+            .stream()
+            .map(TagFinder::build)
+            .collect(Collectors.toList()));
 ```
 
 ## RuleId[id=MissingSerialAnnotation]
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/exception/OperationException.java`
-#### Snippet
-```java
-public class OperationException extends RuntimeException {
-
-  private static final long serialVersionUID = 1L;
-
-  public OperationException() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/exception/RuntimeExceptionWithoutStackTrace.java`
-#### Snippet
-```java
-
-public class RuntimeExceptionWithoutStackTrace extends RuntimeException {
-  private static final long serialVersionUID = -1L;
-
-  public RuntimeExceptionWithoutStackTrace() {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestServlet.java`
-#### Snippet
-```java
- */
-public class RestServlet extends HttpServlet {
-  private static final long serialVersionUID = 5797523329773923112L;
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(RestServlet.class);
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationComparator.java`
-#### Snippet
-```java
-public class RestOperationComparator implements Serializable, Comparator<RestOperationMeta> {
-
-  private static final long serialVersionUID = -2364909265520813678L;
-
-  @Override
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `swagger/swagger-generator/generator-spring-data/src/main/java/org/apache/servicecomb/swagger/generator/springdata/SpringDataModule.java`
-#### Snippet
-```java
-
-public class SpringDataModule extends SimpleModule implements SPIOrder {
-  private static final long serialVersionUID = 1L;
-
-  @JsonDeserialize(as = PageImpl.class)
-```
-
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
 in `clients/config-common/src/main/java/org/apache/servicecomb/config/common/exception/OperationException.java`
@@ -3877,66 +3817,6 @@ public class OperationException extends RuntimeException {
   private static final long serialVersionUID = 1L;
 
   public OperationException(String message) {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/producer/codec/ArgWrapperJavaType.java`
-#### Snippet
-```java
-
-public class ArgWrapperJavaType extends SimpleType {
-  private static final long serialVersionUID = 964882360361204479L;
-
-  static class ArgInfo {
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/InvocationException.java`
-#### Snippet
-```java
- */
-public class InvocationException extends RuntimeException {
-  private static final long serialVersionUID = 8027482777502649656L;
-
-  /**
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `core/src/main/java/org/apache/servicecomb/core/executor/LinkedBlockingQueueEx.java`
-#### Snippet
-```java
-
-public class LinkedBlockingQueueEx extends LinkedBlockingQueue<Runnable> {
-  private static final long serialVersionUID = -1L;
-
-  private transient volatile ThreadPoolExecutorEx owner = null;
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `core/src/main/java/org/apache/servicecomb/core/exception/CseException.java`
-#### Snippet
-```java
-public class CseException extends RuntimeException {
-
-  private static final long serialVersionUID = 8027482777502649656L;
-
-  private final String code;
-```
-
-### MissingSerialAnnotation
-`serialVersionUID` can be annotated with '@Serial' annotation
-in `service-registry/registry-lightweight/src/main/java/org/apache/servicecomb/registry/lightweight/RegisterException.java`
-#### Snippet
-```java
-
-public class RegisterException extends RuntimeException {
-  private static final long serialVersionUID = 4130899909889771251L;
-
-  public RegisterException(String message) {
 ```
 
 ### MissingSerialAnnotation
@@ -4073,6 +3953,54 @@ public class FaultInjectionException extends RuntimeException {
 
 ### MissingSerialAnnotation
 `serialVersionUID` can be annotated with '@Serial' annotation
+in `service-registry/registry-lightweight/src/main/java/org/apache/servicecomb/registry/lightweight/RegisterException.java`
+#### Snippet
+```java
+
+public class RegisterException extends RuntimeException {
+  private static final long serialVersionUID = 4130899909889771251L;
+
+  public RegisterException(String message) {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `swagger/swagger-generator/generator-spring-data/src/main/java/org/apache/servicecomb/swagger/generator/springdata/SpringDataModule.java`
+#### Snippet
+```java
+
+public class SpringDataModule extends SimpleModule implements SPIOrder {
+  private static final long serialVersionUID = 1L;
+
+  @JsonDeserialize(as = PageImpl.class)
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `core/src/main/java/org/apache/servicecomb/core/executor/LinkedBlockingQueueEx.java`
+#### Snippet
+```java
+
+public class LinkedBlockingQueueEx extends LinkedBlockingQueue<Runnable> {
+  private static final long serialVersionUID = -1L;
+
+  private transient volatile ThreadPoolExecutorEx owner = null;
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `core/src/main/java/org/apache/servicecomb/core/exception/CseException.java`
+#### Snippet
+```java
+public class CseException extends RuntimeException {
+
+  private static final long serialVersionUID = 8027482777502649656L;
+
+  private final String code;
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
 in `clients/http-client-common/src/main/java/org/apache/servicecomb/http/client/common/MessageObjectMapper.java`
 #### Snippet
 ```java
@@ -4093,6 +4021,18 @@ public class ClientException extends Exception {
   private static final long serialVersionUID = 4579811019552389524L;
 
   public ClientException(String message) {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `foundations/foundation-test-scaffolding/src/main/java/org/apache/servicecomb/foundation/test/scaffolding/exception/RuntimeExceptionWithoutStackTrace.java`
+#### Snippet
+```java
+
+public class RuntimeExceptionWithoutStackTrace extends RuntimeException {
+  private static final long serialVersionUID = -1L;
+
+  public RuntimeExceptionWithoutStackTrace() {
 ```
 
 ### MissingSerialAnnotation
@@ -4119,6 +4059,66 @@ public class JsonPropertyIntrospector extends SwaggerAnnotationIntrospector {
   @SuppressWarnings("deprecation")
 ```
 
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/exception/OperationException.java`
+#### Snippet
+```java
+public class OperationException extends RuntimeException {
+
+  private static final long serialVersionUID = 1L;
+
+  public OperationException() {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/producer/codec/ArgWrapperJavaType.java`
+#### Snippet
+```java
+
+public class ArgWrapperJavaType extends SimpleType {
+  private static final long serialVersionUID = 964882360361204479L;
+
+  static class ArgInfo {
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/exception/InvocationException.java`
+#### Snippet
+```java
+ */
+public class InvocationException extends RuntimeException {
+  private static final long serialVersionUID = 8027482777502649656L;
+
+  /**
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestServlet.java`
+#### Snippet
+```java
+ */
+public class RestServlet extends HttpServlet {
+  private static final long serialVersionUID = 5797523329773923112L;
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(RestServlet.class);
+```
+
+### MissingSerialAnnotation
+`serialVersionUID` can be annotated with '@Serial' annotation
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/definition/RestOperationComparator.java`
+#### Snippet
+```java
+public class RestOperationComparator implements Serializable, Comparator<RestOperationMeta> {
+
+  private static final long serialVersionUID = -2364909265520813678L;
+
+  @Override
+```
+
 ## RuleId[id=TypeParameterHidesVisibleType]
 ### TypeParameterHidesVisibleType
 Type parameter `T` hides type parameter 'T'
@@ -4134,18 +4134,6 @@ in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundat
 
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
-Deprecated member 'getStage' is still used
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/registry/MicroserviceInstance.java`
-#### Snippet
-```java
-
-  @Deprecated
-  public String getStage() {
-    return stage;
-  }
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'setStage' is still used
 in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/registry/MicroserviceInstance.java`
 #### Snippet
@@ -4157,19 +4145,19 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
   }
 ```
 
-## RuleId[id=SpringXmlModelInspection]
-### SpringXmlModelInspection
-Cannot resolve class or package 'apache'
-in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
+### DeprecatedIsStillUsed
+Deprecated member 'getStage' is still used
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/api/registry/MicroserviceInstance.java`
 #### Snippet
 ```java
-    schema-id="server" interface="org.apache.servicecomb.demo.server.Test"></cse:rpc-reference>
 
-  <bean class="org.apache.servicecomb.demo.pojo.client.PojoClient">
-    <property name="testFromXml" ref="server"></property>
-  </bean>
+  @Deprecated
+  public String getStage() {
+    return stage;
+  }
 ```
 
+## RuleId[id=SpringXmlModelInspection]
 ### SpringXmlModelInspection
 Cannot resolve class or package 'apache'
 in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
@@ -4231,15 +4219,15 @@ in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.be
 ```
 
 ### SpringXmlModelInspection
-Cannot resolve class 'HelloImpl'
-in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+Cannot resolve class or package 'apache'
+in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.bean.xml`
 #### Snippet
 ```java
-		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+    schema-id="server" interface="org.apache.servicecomb.demo.server.Test"></cse:rpc-reference>
 
-  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
-  <cse:rpc-schema schema-id="helloworld.Greeter"
-    implementation="spring:hello"></cse:rpc-schema>
+  <bean class="org.apache.servicecomb.demo.pojo.client.PojoClient">
+    <property name="testFromXml" ref="server"></property>
+  </bean>
 ```
 
 ### SpringXmlModelInspection
@@ -4396,6 +4384,18 @@ in `demo/demo-pojo/pojo-client/src/main/resources/META-INF/spring/pojo.client.be
   <bean class="org.apache.servicecomb.demo.pojo.client.BeanRpcTest" init-method="init">
   </bean>
 </beans>
+```
+
+### SpringXmlModelInspection
+Cannot resolve class 'HelloImpl'
+in `demo/demo-pojo/pojo-server/src/main/resources/META-INF/spring/pojo.server.bean.xml`
+#### Snippet
+```java
+		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+
+  <bean id="hello" class="org.apache.servicecomb.demo.pojo.server.HelloImpl"></bean>
+  <cse:rpc-schema schema-id="helloworld.Greeter"
+    implementation="spring:hello"></cse:rpc-schema>
 ```
 
 ### SpringXmlModelInspection
@@ -5636,42 +5636,6 @@ in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/Co
 ## RuleId[id=TrivialIf]
 ### TrivialIf
 `if` statement can be simplified
-in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/LoadBalancer.java`
-#### Snippet
-```java
-    }
-    ServiceCombServer server = rule.choose(servers, invocation);
-    if (null == server) {
-      return null;
-    }
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/VertxTLSBuilder.java`
-#### Snippet
-```java
-    buildTCPSSLOptions(sslOption, sslCustom, clientOptionsBase);
-
-    if (sslOption.isAuthPeer()) {
-      clientOptionsBase.setTrustAll(false);
-    } else {
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `core/src/main/java/org/apache/servicecomb/core/exception/DefaultExceptionProcessor.java`
-#### Snippet
-```java
-  @Override
-  public boolean isIgnoreLog(@Nonnull Invocation invocation, @Nonnull InvocationException exception) {
-    if (!isPrintRateLimit() && exception.getStatusCode() == TOO_MANY_REQUESTS.getStatusCode()) {
-      return true;
-    }
-```
-
-### TrivialIf
-`if` statement can be simplified
 in `governance/src/main/java/org/apache/servicecomb/governance/marker/TrafficMarker.java`
 #### Snippet
 ```java
@@ -5679,6 +5643,18 @@ in `governance/src/main/java/org/apache/servicecomb/governance/marker/TrafficMar
   public boolean isValid() {
     if (matches == null || matches.isEmpty()) {
       return false;
+    }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `handlers/handler-loadbalance/src/main/java/org/apache/servicecomb/loadbalance/LoadBalancer.java`
+#### Snippet
+```java
+    }
+    ServiceCombServer server = rule.choose(servers, invocation);
+    if (null == server) {
+      return null;
     }
 ```
 
@@ -5699,6 +5675,18 @@ in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/d
 in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
 #### Snippet
 ```java
+    if (operation.getResponses().get("200").getResponseSchema() instanceof ModelImpl) {
+      ModelImpl model = (ModelImpl) operation.getResponses().get("200").getResponseSchema();
+      if ("file".equals(model.getType())) {
+        return true;
+      }
+```
+
+### TrivialIf
+`if` statement can be simplified
+in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
+#### Snippet
+```java
 
   public static boolean isValidEnum(String name) {
     if (name.contains(".") || name.contains("-")) {
@@ -5708,14 +5696,14 @@ in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/i
 
 ### TrivialIf
 `if` statement can be simplified
-in `common/common-protobuf/src/main/java/org/apache/servicecomb/codec/protobuf/internal/converter/SwaggerToProtoGenerator.java`
+in `core/src/main/java/org/apache/servicecomb/core/exception/DefaultExceptionProcessor.java`
 #### Snippet
 ```java
-    if (operation.getResponses().get("200").getResponseSchema() instanceof ModelImpl) {
-      ModelImpl model = (ModelImpl) operation.getResponses().get("200").getResponseSchema();
-      if ("file".equals(model.getType())) {
-        return true;
-      }
+  @Override
+  public boolean isIgnoreLog(@Nonnull Invocation invocation, @Nonnull InvocationException exception) {
+    if (!isPrintRateLimit() && exception.getStatusCode() == TOO_MANY_REQUESTS.getStatusCode()) {
+      return true;
+    }
 ```
 
 ### TrivialIf
@@ -5742,6 +5730,18 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
     }
 ```
 
+### TrivialIf
+`if` statement can be simplified
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/VertxTLSBuilder.java`
+#### Snippet
+```java
+    buildTCPSSLOptions(sslOption, sslCustom, clientOptionsBase);
+
+    if (sslOption.isAuthPeer()) {
+      clientOptionsBase.setTrustAll(false);
+    } else {
+```
+
 ## RuleId[id=NonStrictComparisonCanBeEquality]
 ### NonStrictComparisonCanBeEquality
 Can be replaced with equality
@@ -5758,38 +5758,26 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
 ## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
+in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/RestClientEncoder.java`
 #### Snippet
 ```java
-      headers.put("X-ConsumerId", consumerId);
-      HttpResponse response = httpClient
-          .getHttpRequest("/registry/instances?appId=" + URLEncoder.encode(appId, "UTF-8")
-                  + "&serviceName=" + HttpUtils.encodeURLParam(serviceName)
-                  + "&version=" + HttpUtils.encodeURLParam(versionRule)
-```
 
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/query/QueryCodec.java`
-#### Snippet
-```java
-public interface QueryCodec extends Ordered {
-  static String encodeValue(@Nonnull Object value) throws UnsupportedEncodingException {
-    return URLEncoder.encode(value.toString(), StandardCharsets.UTF_8.name());
-  }
+        String value = QueryCodec.convertToString(entry.getValue());
+        String encodedValue = URLEncoder.encode(value, StandardCharsets.UTF_8.name());
+        writeCharSequence(byteBuf, encodedValue);
 
 ```
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/RestClientRequestImpl.java`
+in `huawei-cloud/servicestage/src/main/java/org/apache/servicecomb/huaweicloud/servicestage/AKSKAuthHeaderProvider.java`
 #### Snippet
 ```java
-        if (entry.getValue() != null) {
-          String value = RestObjectMapperFactory.getRestObjectMapper().convertToString(entry.getValue());
-          value = URLEncoder.encode(value, StandardCharsets.UTF_8.name());
-          output.write(value.getBytes(StandardCharsets.UTF_8));
-        }
+    }
+    try {
+      return URLEncoder.encode(project, "UTF-8");
+    } catch (UnsupportedEncodingException e) {
+      return project;
 ```
 
 ### CharsetObjectCanBeUsed
@@ -5830,26 +5818,38 @@ in `service-registry/registry-service-center/src/main/java/org/apache/servicecom
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `transports/transport-rest/transport-rest-client/src/main/java/org/apache/servicecomb/transport/rest/client/RestClientEncoder.java`
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
 #### Snippet
 ```java
+      headers.put("X-ConsumerId", consumerId);
+      HttpResponse response = httpClient
+          .getHttpRequest("/registry/instances?appId=" + URLEncoder.encode(appId, "UTF-8")
+                  + "&serviceName=" + HttpUtils.encodeURLParam(serviceName)
+                  + "&version=" + HttpUtils.encodeURLParam(versionRule)
+```
 
-        String value = QueryCodec.convertToString(entry.getValue());
-        String encodedValue = URLEncoder.encode(value, StandardCharsets.UTF_8.name());
-        writeCharSequence(byteBuf, encodedValue);
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/query/QueryCodec.java`
+#### Snippet
+```java
+public interface QueryCodec extends Ordered {
+  static String encodeValue(@Nonnull Object value) throws UnsupportedEncodingException {
+    return URLEncoder.encode(value.toString(), StandardCharsets.UTF_8.name());
+  }
 
 ```
 
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
-in `huawei-cloud/servicestage/src/main/java/org/apache/servicecomb/huaweicloud/servicestage/AKSKAuthHeaderProvider.java`
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/RestClientRequestImpl.java`
 #### Snippet
 ```java
-    }
-    try {
-      return URLEncoder.encode(project, "UTF-8");
-    } catch (UnsupportedEncodingException e) {
-      return project;
+        if (entry.getValue() != null) {
+          String value = RestObjectMapperFactory.getRestObjectMapper().convertToString(entry.getValue());
+          value = URLEncoder.encode(value, StandardCharsets.UTF_8.name());
+          output.write(value.getBytes(StandardCharsets.UTF_8));
+        }
 ```
 
 ## RuleId[id=AutoCloseableResource]
@@ -5890,18 +5890,6 @@ public class SCBEngineForTest extends SCBEngine {
 ```
 
 ### AutoCloseableResource
-'Tracing' used without 'try'-with-resources statement
-in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinTracingFilter.java`
-#### Snippet
-```java
-
-    Span span = tracing.createSpan(invocation);
-    try (SpanInScope scope = tracing.tracer().tracer().withSpanInScope(span)) {
-      return nextNode.onFilter(invocation)
-          .whenComplete((response, exception) -> tracing.onResponse(span, response, Exceptions.unwrap(exception)));
-```
-
-### AutoCloseableResource
 'ValidatorFactory' used without 'try'-with-resources statement
 in `swagger/swagger-invocation/invocation-validator/src/main/java/org/apache/servicecomb/swagger/invocation/validator/ParameterValidator.java`
 #### Snippet
@@ -5911,6 +5899,18 @@ in `swagger/swagger-invocation/invocation-validator/src/main/java/org/apache/ser
                 .buildValidatorFactory();
         executableValidator = factory.getValidator().forExecutables();
       }
+```
+
+### AutoCloseableResource
+'Tracing' used without 'try'-with-resources statement
+in `handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/ZipkinTracingFilter.java`
+#### Snippet
+```java
+
+    Span span = tracing.createSpan(invocation);
+    try (SpanInScope scope = tracing.tracer().tracer().withSpanInScope(span)) {
+      return nextNode.onFilter(invocation)
+          .whenComplete((response, exception) -> tracing.onResponse(span, response, Exceptions.unwrap(exception)));
 ```
 
 ## RuleId[id=RedundantCast]
@@ -5939,294 +5939,6 @@ in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/s
 ```
 
 ## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-`@throws` tag description is missing
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
-#### Snippet
-```java
-   * Get schemas list of service
-   *
-   * @throws OperationException
-   */
-   List<SchemaInfo> getServiceSchemasList(String serviceId, boolean withContent);
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
-#### Snippet
-```java
-   * Delete a microservice instance
-   *
-   * @throws OperationException
-   */
-  void deleteMicroserviceInstance(String serviceId, String instanceId);
-```
-
-### JavadocDeclaration
-`@param heartbeatsRequest` tag description is missing
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
-#### Snippet
-```java
-   * Batch send heartbeats to service-center
-   *
-   * @param heartbeatsRequest
-   * @return
-   * @throws OperationException
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
-#### Snippet
-```java
-   *
-   * @param heartbeatsRequest
-   * @return
-   * @throws OperationException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
-#### Snippet
-```java
-   * @param heartbeatsRequest
-   * @return
-   * @throws OperationException
-   */
-  void sendHeartBeats(HeartbeatsRequest heartbeatsRequest);
-```
-
-### JavadocDeclaration
-`@param serviceId` tag description is missing
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
-#### Snippet
-```java
-   * Get one schema context of service
-   *
-   * @param serviceId
-   * @param schemaId
-   * @return
-```
-
-### JavadocDeclaration
-`@param schemaId` tag description is missing
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
-#### Snippet
-```java
-   *
-   * @param serviceId
-   * @param schemaId
-   * @return
-   * @throws OperationException
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
-#### Snippet
-```java
-   * @param serviceId
-   * @param schemaId
-   * @return
-   * @throws OperationException
-   */
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
-#### Snippet
-```java
-   * @param schemaId
-   * @return
-   * @throws OperationException
-   */
-  public String getServiceSchemaContext(String serviceId, String schemaId) {
-```
-
-### JavadocDeclaration
-`@throws` tag description is missing
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/BodyProcessorCreator.java`
-#### Snippet
-```java
-     * @param arg body param object
-     * @return the deserialized body buffer
-     * @throws IOException
-     */
-    private Buffer createBodyBuffer(String contentType, Object arg) throws IOException {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/context/ContextUtils.java`
-#### Snippet
-```java
-   *
-   * @param future must be InvocationContextCompletableFuture, that is returned from consumer api
-   * @return
-   */
-  public static InvocationContext getFromCompletableFuture(CompletableFuture<?> future) {
-```
-
-### JavadocDeclaration
-`@param providerParamIdx` tag description is missing
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
-#### Snippet
-```java
-  /**
-   *
-   * @param providerParamIdx
-   * @param providerParameter processing provider parameter
-   */
-```
-
-### JavadocDeclaration
-`@param providerParamIdx` tag description is missing
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
-#### Snippet
-```java
-  /**
-   *
-   * @param providerParamIdx
-   * @param providerParameter processing provider parameter
-   * @param parameterName
-```
-
-### JavadocDeclaration
-`@param parameterName` tag description is missing
-in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
-#### Snippet
-```java
-   * @param providerParamIdx
-   * @param providerParameter processing provider parameter
-   * @param parameterName
-   * @return true means processed
-   */
-```
-
-### JavadocDeclaration
-`@param file` tag description is missing
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
-#### Snippet
-```java
-  /**
-   *
-   * @param file
-   * @param openOptions
-   * @return future of save to file, future complete means write to file finished
-```
-
-### JavadocDeclaration
-`@param openOptions` tag description is missing
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
-#### Snippet
-```java
-   *
-   * @param file
-   * @param openOptions
-   * @return future of save to file, future complete means write to file finished
-   */
-```
-
-### JavadocDeclaration
-`@param fileName` tag description is missing
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
-#### Snippet
-```java
-  /**
-   *
-   * @param fileName
-   * @return future of save to file, future complete means write to file finished
-   */
-```
-
-### JavadocDeclaration
-`@param writeStream` tag description is missing
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
-#### Snippet
-```java
-  /**
-   *
-   * @param writeStream
-   * @return future of save action<br>
-   *
-```
-
-### JavadocDeclaration
-`@param context` tag description is missing
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
-#### Snippet
-```java
-  /**
-   *
-   * @param context
-   * @param readStream
-   * @param writeStream
-```
-
-### JavadocDeclaration
-`@param readStream` tag description is missing
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
-#### Snippet
-```java
-   *
-   * @param context
-   * @param readStream
-   * @param writeStream
-   * @return future of save action<br>
-```
-
-### JavadocDeclaration
-`@param writeStream` tag description is missing
-in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
-#### Snippet
-```java
-   * @param context
-   * @param readStream
-   * @param writeStream
-   * @return future of save action<br>
-   * <p>important:
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-   * @param microserviceName hortName, or appId:shortName when invoke cross app
-   * @param versionRule if is empty, then use configuration value
-   * @return
-   */
-  public MicroserviceReferenceConfig createMicroserviceReferenceConfig(String microserviceName, String versionRule) {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-   * for normal consumers
-   * @param microserviceName shortName, or appId:shortName when invoke cross app
-   * @return
-   */
-  public MicroserviceReferenceConfig createMicroserviceReferenceConfig(String microserviceName) {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
-#### Snippet
-```java
-   * @param microserviceName hortName, or appId:shortName when invoke cross app
-   * @param versionRule if is empty, then use configuration value
-   * @return
-   */
-  public CompletableFuture<MicroserviceReferenceConfig> createMicroserviceReferenceConfigAsync(String microserviceName,
-```
-
 ### JavadocDeclaration
 Tag `param` is not allowed here
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/base/DynamicEnumCache.java`
@@ -6300,51 +6012,27 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
 ```
 
 ### JavadocDeclaration
-`@param key` tag description is missing
-in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionUtil.java`
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/model/ServiceInfoCache.java`
 #### Snippet
 ```java
-  /**
-   * Sets the value for given config parameter.
-   * @param key
-   * @param value
-   */
+
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
 ```
 
 ### JavadocDeclaration
-`@param value` tag description is missing
-in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionUtil.java`
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/model/ServiceInfoCache.java`
 #### Snippet
 ```java
-   * Sets the value for given config parameter.
-   * @param key
-   * @param value
-   */
-  public static void setConfigCenterValue(String key, AtomicInteger value) {
-```
-
-### JavadocDeclaration
-`@param instance` tag description is missing
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceInstancePing.java`
-#### Snippet
-```java
-  /**
-   * check if this instance if valid to use
-   * @param instance
-   * @return
-   */
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceInstancePing.java`
-#### Snippet
-```java
-   * check if this instance if valid to use
-   * @param instance
-   * @return
-   */
-  boolean ping(MicroserviceInstance instance);
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public class ServiceInfoCache {
 ```
 
 ### JavadocDeclaration
@@ -6373,30 +6061,6 @@ public class RouteItem implements Comparable<RouteItem> {
 
 ### JavadocDeclaration
 Wrong tag `Author`
-in `governance/src/main/java/org/apache/servicecomb/router/model/Matcher.java`
-#### Snippet
-```java
-
-/**
- * @Author GuoYl123
- * @Date 2019/10/17
- **/
-```
-
-### JavadocDeclaration
-Wrong tag `Date`
-in `governance/src/main/java/org/apache/servicecomb/router/model/Matcher.java`
-#### Snippet
-```java
-/**
- * @Author GuoYl123
- * @Date 2019/10/17
- **/
-public class Matcher {
-```
-
-### JavadocDeclaration
-Wrong tag `Author`
 in `governance/src/main/java/org/apache/servicecomb/router/exception/RouterIllegalParamException.java`
 #### Snippet
 ```java
@@ -6421,7 +6085,7 @@ public class RouterIllegalParamException extends RuntimeException {
 
 ### JavadocDeclaration
 Wrong tag `Author`
-in `governance/src/main/java/org/apache/servicecomb/router/model/ServiceInfoCache.java`
+in `governance/src/main/java/org/apache/servicecomb/router/model/Matcher.java`
 #### Snippet
 ```java
 
@@ -6433,98 +6097,14 @@ in `governance/src/main/java/org/apache/servicecomb/router/model/ServiceInfoCach
 
 ### JavadocDeclaration
 Wrong tag `Date`
-in `governance/src/main/java/org/apache/servicecomb/router/model/ServiceInfoCache.java`
+in `governance/src/main/java/org/apache/servicecomb/router/model/Matcher.java`
 #### Snippet
 ```java
 /**
  * @Author GuoYl123
  * @Date 2019/10/17
  **/
-public class ServiceInfoCache {
-```
-
-### JavadocDeclaration
-Wrong tag `Author`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/RouterDistributor.java`
-#### Snippet
-```java
-
-/**
- * @Author GuoYl123
- * @Date 2019/10/17
- **/
-```
-
-### JavadocDeclaration
-Wrong tag `Date`
-in `governance/src/main/java/org/apache/servicecomb/router/distribute/RouterDistributor.java`
-#### Snippet
-```java
-/**
- * @Author GuoYl123
- * @Date 2019/10/17
- **/
-public interface RouterDistributor<INSTANCE> {
-```
-
-### JavadocDeclaration
-Wrong tag `Author`
-in `governance/src/main/java/org/apache/servicecomb/router/model/PolicyRuleItem.java`
-#### Snippet
-```java
-
-/**
- * @Author GuoYl123
- * @Date 2019/10/17
- **/
-```
-
-### JavadocDeclaration
-Wrong tag `Date`
-in `governance/src/main/java/org/apache/servicecomb/router/model/PolicyRuleItem.java`
-#### Snippet
-```java
-/**
- * @Author GuoYl123
- * @Date 2019/10/17
- **/
-public class PolicyRuleItem implements Comparable<PolicyRuleItem> {
-```
-
-### JavadocDeclaration
-`@param latestVersionTag` tag description is missing
-in `governance/src/main/java/org/apache/servicecomb/router/model/PolicyRuleItem.java`
-#### Snippet
-```java
-   * if weight is less than 100, fill with minimum version
-   *
-   * @param latestVersionTag
-   */
-  public void check(TagItem latestVersionTag) {
-```
-
-### JavadocDeclaration
-Wrong tag `Author`
-in `governance/src/main/java/org/apache/servicecomb/router/model/HeaderRule.java`
-#### Snippet
-```java
-
-/**
- * @Author GuoYl123
- * @Date 2019/10/17
- **/
-```
-
-### JavadocDeclaration
-Wrong tag `Date`
-in `governance/src/main/java/org/apache/servicecomb/router/model/HeaderRule.java`
-#### Snippet
-```java
-/**
- * @Author GuoYl123
- * @Date 2019/10/17
- **/
-public class HeaderRule {
+public class Matcher {
 ```
 
 ### JavadocDeclaration
@@ -6576,6 +6156,90 @@ public class TagItem {
 ```
 
 ### JavadocDeclaration
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/distribute/RouterDistributor.java`
+#### Snippet
+```java
+
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+```
+
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/distribute/RouterDistributor.java`
+#### Snippet
+```java
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public interface RouterDistributor<INSTANCE> {
+```
+
+### JavadocDeclaration
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/model/HeaderRule.java`
+#### Snippet
+```java
+
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+```
+
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/model/HeaderRule.java`
+#### Snippet
+```java
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public class HeaderRule {
+```
+
+### JavadocDeclaration
+`@param latestVersionTag` tag description is missing
+in `governance/src/main/java/org/apache/servicecomb/router/model/PolicyRuleItem.java`
+#### Snippet
+```java
+   * if weight is less than 100, fill with minimum version
+   *
+   * @param latestVersionTag
+   */
+  public void check(TagItem latestVersionTag) {
+```
+
+### JavadocDeclaration
+Wrong tag `Author`
+in `governance/src/main/java/org/apache/servicecomb/router/model/PolicyRuleItem.java`
+#### Snippet
+```java
+
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+```
+
+### JavadocDeclaration
+Wrong tag `Date`
+in `governance/src/main/java/org/apache/servicecomb/router/model/PolicyRuleItem.java`
+#### Snippet
+```java
+/**
+ * @Author GuoYl123
+ * @Date 2019/10/17
+ **/
+public class PolicyRuleItem implements Comparable<PolicyRuleItem> {
+```
+
+### JavadocDeclaration
 `@param targetStr` tag description is missing
 in `governance/src/main/java/org/apache/servicecomb/governance/marker/operator/CompareOperator.java`
 #### Snippet
@@ -6612,15 +6276,51 @@ in `governance/src/main/java/org/apache/servicecomb/governance/marker/operator/C
 ```
 
 ### JavadocDeclaration
-Wrong tag `created`
-in `foundations/foundation-protobuf/src/main/java/io/protostuff/InputEx.java`
+`@param instance` tag description is missing
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceInstancePing.java`
 #### Snippet
 ```java
- *
- * @author David Yu
- * @created Nov 9, 2009
- */
-public interface InputEx {
+  /**
+   * check if this instance if valid to use
+   * @param instance
+   * @return
+   */
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/consumer/MicroserviceInstancePing.java`
+#### Snippet
+```java
+   * check if this instance if valid to use
+   * @param instance
+   * @return
+   */
+  boolean ping(MicroserviceInstance instance);
+```
+
+### JavadocDeclaration
+`@param key` tag description is missing
+in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionUtil.java`
+#### Snippet
+```java
+  /**
+   * Sets the value for given config parameter.
+   * @param key
+   * @param value
+   */
+```
+
+### JavadocDeclaration
+`@param value` tag description is missing
+in `handlers/handler-fault-injection/src/main/java/org/apache/servicecomb/faultinjection/FaultInjectionUtil.java`
+#### Snippet
+```java
+   * Sets the value for given config parameter.
+   * @param key
+   * @param value
+   */
+  public static void setConfigCenterValue(String key, AtomicInteger value) {
 ```
 
 ### JavadocDeclaration
@@ -6633,6 +6333,18 @@ in `foundations/foundation-protobuf/src/main/java/io/protostuff/SchemaEx.java`
  * @created Nov 9, 2009
  */
 public interface SchemaEx<T> extends SchemaWriter<T>, SchemaReader<T> {
+```
+
+### JavadocDeclaration
+Wrong tag `created`
+in `foundations/foundation-protobuf/src/main/java/io/protostuff/InputEx.java`
+#### Snippet
+```java
+ *
+ * @author David Yu
+ * @created Nov 9, 2009
+ */
+public interface InputEx {
 ```
 
 ### JavadocDeclaration
@@ -6780,6 +6492,42 @@ public final class ProtobufOutputEx extends WriteSession implements OutputEx {
 ```
 
 ### JavadocDeclaration
+`@return` tag description is missing
+in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
+#### Snippet
+```java
+   * for normal consumers
+   * @param microserviceName shortName, or appId:shortName when invoke cross app
+   * @return
+   */
+  public MicroserviceReferenceConfig createMicroserviceReferenceConfig(String microserviceName) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
+#### Snippet
+```java
+   * @param microserviceName hortName, or appId:shortName when invoke cross app
+   * @param versionRule if is empty, then use configuration value
+   * @return
+   */
+  public MicroserviceReferenceConfig createMicroserviceReferenceConfig(String microserviceName, String versionRule) {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `core/src/main/java/org/apache/servicecomb/core/SCBEngine.java`
+#### Snippet
+```java
+   * @param microserviceName hortName, or appId:shortName when invoke cross app
+   * @param versionRule if is empty, then use configuration value
+   * @return
+   */
+  public CompletableFuture<MicroserviceReferenceConfig> createMicroserviceReferenceConfigAsync(String microserviceName,
+```
+
+### JavadocDeclaration
 `@param swaggerGenerator` tag description is missing
 in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/ResponseTypeProcessor.java`
 #### Snippet
@@ -6827,7 +6575,283 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
   void setBasePath(String basePath);
 ```
 
+### JavadocDeclaration
+`@param heartbeatsRequest` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
+#### Snippet
+```java
+   * Batch send heartbeats to service-center
+   *
+   * @param heartbeatsRequest
+   * @return
+   * @throws OperationException
+```
+
+### JavadocDeclaration
+Tag `return` is not allowed here
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
+#### Snippet
+```java
+   *
+   * @param heartbeatsRequest
+   * @return
+   * @throws OperationException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
+#### Snippet
+```java
+   * @param heartbeatsRequest
+   * @return
+   * @throws OperationException
+   */
+  void sendHeartBeats(HeartbeatsRequest heartbeatsRequest);
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
+#### Snippet
+```java
+   * Get schemas list of service
+   *
+   * @throws OperationException
+   */
+   List<SchemaInfo> getServiceSchemasList(String serviceId, boolean withContent);
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterOperation.java`
+#### Snippet
+```java
+   * Delete a microservice instance
+   *
+   * @throws OperationException
+   */
+  void deleteMicroserviceInstance(String serviceId, String instanceId);
+```
+
+### JavadocDeclaration
+`@param serviceId` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
+#### Snippet
+```java
+   * Get one schema context of service
+   *
+   * @param serviceId
+   * @param schemaId
+   * @return
+```
+
+### JavadocDeclaration
+`@param schemaId` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
+#### Snippet
+```java
+   *
+   * @param serviceId
+   * @param schemaId
+   * @return
+   * @throws OperationException
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
+#### Snippet
+```java
+   * @param serviceId
+   * @param schemaId
+   * @return
+   * @throws OperationException
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `clients/service-center-client/src/main/java/org/apache/servicecomb/service/center/client/ServiceCenterClient.java`
+#### Snippet
+```java
+   * @param schemaId
+   * @return
+   * @throws OperationException
+   */
+  public String getServiceSchemaContext(String serviceId, String schemaId) {
+```
+
+### JavadocDeclaration
+`@param fileName` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param fileName
+   * @return future of save to file, future complete means write to file finished
+   */
+```
+
+### JavadocDeclaration
+`@param file` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param file
+   * @param openOptions
+   * @return future of save to file, future complete means write to file finished
+```
+
+### JavadocDeclaration
+`@param openOptions` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+#### Snippet
+```java
+   *
+   * @param file
+   * @param openOptions
+   * @return future of save to file, future complete means write to file finished
+   */
+```
+
+### JavadocDeclaration
+`@param writeStream` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/http/ReadStreamPart.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param writeStream
+   * @return future of save action<br>
+   *
+```
+
+### JavadocDeclaration
+`@param context` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param context
+   * @param readStream
+   * @param writeStream
+```
+
+### JavadocDeclaration
+`@param readStream` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
+#### Snippet
+```java
+   *
+   * @param context
+   * @param readStream
+   * @param writeStream
+   * @return future of save action<br>
+```
+
+### JavadocDeclaration
+`@param writeStream` tag description is missing
+in `foundations/foundation-vertx/src/main/java/org/apache/servicecomb/foundation/vertx/stream/PumpCommon.java`
+#### Snippet
+```java
+   * @param context
+   * @param readStream
+   * @param writeStream
+   * @return future of save action<br>
+   * <p>important:
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/context/ContextUtils.java`
+#### Snippet
+```java
+   *
+   * @param future must be InvocationContextCompletableFuture, that is returned from consumer api
+   * @return
+   */
+  public static InvocationContext getFromCompletableFuture(CompletableFuture<?> future) {
+```
+
+### JavadocDeclaration
+`@param providerParamIdx` tag description is missing
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param providerParamIdx
+   * @param providerParameter processing provider parameter
+   * @param parameterName
+```
+
+### JavadocDeclaration
+`@param parameterName` tag description is missing
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
+#### Snippet
+```java
+   * @param providerParamIdx
+   * @param providerParameter processing provider parameter
+   * @param parameterName
+   * @return true means processed
+   */
+```
+
+### JavadocDeclaration
+`@param providerParamIdx` tag description is missing
+in `swagger/swagger-invocation/invocation-core/src/main/java/org/apache/servicecomb/swagger/invocation/arguments/AbstractArgumentsMapperCreator.java`
+#### Snippet
+```java
+  /**
+   *
+   * @param providerParamIdx
+   * @param providerParameter processing provider parameter
+   */
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/BodyProcessorCreator.java`
+#### Snippet
+```java
+     * @param arg body param object
+     * @return the deserialized body buffer
+     * @throws IOException
+     */
+    private Buffer createBodyBuffer(String contentType, Object arg) throws IOException {
+```
+
 ## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `allInterfaceAddresses` may be 'final'
+in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
+#### Snippet
+```java
+
+  // key is network interface name and type
+  private static Map<String, InetAddress> allInterfaceAddresses = new HashMap<>();
+
+  private static String hostName;
+```
+
+### FieldMayBeFinal
+Field `matchersService` may be 'final'
+in `governance/src/main/java/org/apache/servicecomb/governance/MatchersManager.java`
+#### Snippet
+```java
+
+public class MatchersManager {
+  private MatchersService matchersService;
+
+  public MatchersManager(MatchersService matchersService) {
+```
+
 ### FieldMayBeFinal
 Field `timeoutExceptionConverter` may be 'final'
 in `core/src/main/java/org/apache/servicecomb/core/exception/converter/ServiceCombExceptionConverter.java`
@@ -6853,18 +6877,6 @@ public class ServiceCombInstanceIsolationExtension extends AbstractInstanceIsola
 ```
 
 ### FieldMayBeFinal
-Field `allInterfaceAddresses` may be 'final'
-in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/net/NetUtils.java`
-#### Snippet
-```java
-
-  // key is network interface name and type
-  private static Map<String, InetAddress> allInterfaceAddresses = new HashMap<>();
-
-  private static String hostName;
-```
-
-### FieldMayBeFinal
 Field `authenticationTokenManager` may be 'final'
 in `handlers/handler-publickey-auth/src/main/java/org/apache/servicecomb/authentication/consumer/ConsumerAuthFilter.java`
 #### Snippet
@@ -6874,18 +6886,6 @@ public class ConsumerAuthFilter implements ConsumerFilter {
   private ConsumerTokenManager authenticationTokenManager = new ConsumerTokenManager();
 
   @Override
-```
-
-### FieldMayBeFinal
-Field `matchersService` may be 'final'
-in `governance/src/main/java/org/apache/servicecomb/governance/MatchersManager.java`
-#### Snippet
-```java
-
-public class MatchersManager {
-  private MatchersService matchersService;
-
-  public MatchersManager(MatchersService matchersService) {
 ```
 
 ### FieldMayBeFinal
@@ -6916,18 +6916,6 @@ in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/CommonRe
 ## RuleId[id=UnnecessaryContinue]
 ### UnnecessaryContinue
 `continue` is unnecessary as the last statement in a loop
-in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/SchemaDiscovery.java`
-#### Snippet
-```java
-        } catch (Exception e) {
-          LOGGER.warn("failed query schema from endpoint {}, msg {}", endpoint, e.getMessage());
-          continue;
-        }
-      }
-```
-
-### UnnecessaryContinue
-`continue` is unnecessary as the last statement in a loop
 in `core/src/main/java/org/apache/servicecomb/core/transport/TransportManager.java`
 #### Snippet
 ```java
@@ -6938,19 +6926,19 @@ in `core/src/main/java/org/apache/servicecomb/core/transport/TransportManager.ja
     }
 ```
 
-## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
-### SynchronizationOnLocalVariableOrMethodParameter
-Synchronization on local variable `requestEx`
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestAsyncListener.java`
+### UnnecessaryContinue
+`continue` is unnecessary as the last statement in a loop
+in `service-registry/registry-schema-discovery/src/main/java/org/apache/servicecomb/schemadiscovery/SchemaDiscovery.java`
 #### Snippet
 ```java
-    // Waiting till executing in executor done. This operation may block container pool and make timeout requests in executor's
-    // queue getting executed, and will cause bad performance. So default timeout is setting to -1 to disable timeout.
-    synchronized (requestEx) {
-      ServletResponse response = event.getAsyncContext().getResponse();
-      if (!response.isCommitted()) {
+        } catch (Exception e) {
+          LOGGER.warn("failed query schema from endpoint {}, msg {}", endpoint, e.getMessage());
+          continue;
+        }
+      }
 ```
 
+## RuleId[id=SynchronizationOnLocalVariableOrMethodParameter]
 ### SynchronizationOnLocalVariableOrMethodParameter
 Synchronization on method parameter `parent`
 in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registry/discovery/AbstractDiscoveryFilter.java`
@@ -6963,19 +6951,19 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
           init(context, parent);
 ```
 
-## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `api` is redundant
-in `dynamic-config/config-apollo/src/main/java/org/apache/servicecomb/config/client/ApolloClient.java`
+### SynchronizationOnLocalVariableOrMethodParameter
+Synchronization on local variable `requestEx`
+in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/RestAsyncListener.java`
 #### Snippet
 ```java
-
-    private String composeAPI() {
-      String api = serviceUri + "/openapi/v1/envs/" + env +
-          "/apps/" + serviceName +
-          "/clusters/" + clusters +
+    // Waiting till executing in executor done. This operation may block container pool and make timeout requests in executor's
+    // queue getting executed, and will cause bad performance. So default timeout is setting to -1 to disable timeout.
+    synchronized (requestEx) {
+      ServletResponse response = event.getAsyncContext().getResponse();
+      if (!response.isCommitted()) {
 ```
 
+## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `custom` is redundant
 in `foundations/foundation-ssl/src/main/java/org/apache/servicecomb/foundation/ssl/SSLCustom.java`
@@ -6998,30 +6986,6 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
           InetSocketAddress tmpSocketAddress = new InetSocketAddress(hostOrIp, port);
           socketAddress = tmpSocketAddress;
         }
-```
-
-### UnnecessaryLocalVariable
-Local variable `cseCallback` is redundant
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseRestTemplate.java`
-#### Snippet
-```java
-  public <T> RequestCallback httpEntityCallback(Object requestBody, Type responseType) {
-    RequestCallback callback = super.httpEntityCallback(requestBody, responseType);
-    CseRequestCallback cseCallback = new CseRequestCallback(requestBody, callback, responseType);
-    return cseCallback;
-  }
-```
-
-### UnnecessaryLocalVariable
-Local variable `cseCallback` is redundant
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseRestTemplate.java`
-#### Snippet
-```java
-  public <T> RequestCallback httpEntityCallback(Object requestBody) {
-    RequestCallback callback = super.httpEntityCallback(requestBody);
-    CseRequestCallback cseCallback = new CseRequestCallback(requestBody, callback, null);
-    return cseCallback;
-  }
 ```
 
 ### UnnecessaryLocalVariable
@@ -7048,19 +7012,43 @@ in `foundations/foundation-config/src/main/java/org/apache/servicecomb/config/Co
   }
 ```
 
-## RuleId[id=ArraysAsListWithZeroOrOneArgument]
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `core/src/main/java/org/apache/servicecomb/core/bootstrap/SCBEngineForTest.java`
+### UnnecessaryLocalVariable
+Local variable `api` is redundant
+in `dynamic-config/config-apollo/src/main/java/org/apache/servicecomb/config/client/ApolloClient.java`
 #### Snippet
 ```java
-    getExecutorManager().registerExecutor(EXECUTOR_GROUP_THREADPOOL, new GroupExecutor().init());
 
-    List<Filter> filters = Arrays.asList(
-        new EmptyFilter()
-    );
+    private String composeAPI() {
+      String api = serviceUri + "/openapi/v1/envs/" + env +
+          "/apps/" + serviceName +
+          "/clusters/" + clusters +
 ```
 
+### UnnecessaryLocalVariable
+Local variable `cseCallback` is redundant
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseRestTemplate.java`
+#### Snippet
+```java
+  public <T> RequestCallback httpEntityCallback(Object requestBody, Type responseType) {
+    RequestCallback callback = super.httpEntityCallback(requestBody, responseType);
+    CseRequestCallback cseCallback = new CseRequestCallback(requestBody, callback, responseType);
+    return cseCallback;
+  }
+```
+
+### UnnecessaryLocalVariable
+Local variable `cseCallback` is redundant
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/CseRestTemplate.java`
+#### Snippet
+```java
+  public <T> RequestCallback httpEntityCallback(Object requestBody) {
+    RequestCallback callback = super.httpEntityCallback(requestBody);
+    CseRequestCallback cseCallback = new CseRequestCallback(requestBody, callback, null);
+    return cseCallback;
+  }
+```
+
+## RuleId[id=ArraysAsListWithZeroOrOneArgument]
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
 in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundation/common/config/PaaSResourceUtils.java`
@@ -7087,14 +7075,38 @@ in `foundations/foundation-common/src/main/java/org/apache/servicecomb/foundatio
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRestTemplate.java`
+in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/MessageWriteSchema.java`
 #### Snippet
 ```java
-  public CseAsyncRestTemplate() {
-    super(createSimpleClientHttpRequestFactory(), createRestTemplate());
-    setMessageConverters(Arrays.asList(new CseHttpMessageConverter()));
-    setAsyncRequestFactory(new CseAsyncClientHttpRequestFactory());
-    setUriTemplateHandler(new CseUriTemplateHandler());
+    FieldSchema<T> fieldSchema = protoMapper.getSerializerSchemaManager()
+        .createSchemaField(protoField, propertyDescriptor);
+    return FieldMapEx.createFieldMap(Arrays.asList(fieldSchema));
+  }
+
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `core/src/main/java/org/apache/servicecomb/core/bootstrap/SCBEngineForTest.java`
+#### Snippet
+```java
+    getExecutorManager().registerExecutor(EXECUTOR_GROUP_THREADPOOL, new GroupExecutor().init());
+
+    List<Filter> filters = Arrays.asList(
+        new EmptyFilter()
+    );
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/collect/ServiceCenterDefaultDeploymentProvider.java`
+#### Snippet
+```java
+    List<String> urls = ConfigUtil.parseArrayValue(configuration.getString("servicecomb.service.registry.address"));
+    if (urls.isEmpty()) {
+      urls = Arrays.asList("http://127.0.0.1:30100");
+    }
+    sc.setAccessURL(urls);
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -7106,6 +7118,18 @@ public class CseRestTemplate extends AcceptableRestTemplate {
   public CseRestTemplate() {
     setMessageConverters(Arrays.asList(new CseHttpMessageConverter()));
     setRequestFactory(new CseClientHttpRequestFactory());
+    setUriTemplateHandler(new CseUriTemplateHandler());
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/springmvc/reference/async/CseAsyncRestTemplate.java`
+#### Snippet
+```java
+  public CseAsyncRestTemplate() {
+    super(createSimpleClientHttpRequestFactory(), createRestTemplate());
+    setMessageConverters(Arrays.asList(new CseHttpMessageConverter()));
+    setAsyncRequestFactory(new CseAsyncClientHttpRequestFactory());
     setUriTemplateHandler(new CseUriTemplateHandler());
 ```
 
@@ -7123,26 +7147,14 @@ in `providers/provider-springmvc/src/main/java/org/apache/servicecomb/provider/s
 
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `foundations/foundation-protobuf/src/main/java/org/apache/servicecomb/foundation/protobuf/internal/schema/serializer/MessageWriteSchema.java`
+in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
 #### Snippet
 ```java
-    FieldSchema<T> fieldSchema = protoMapper.getSerializerSchemaManager()
-        .createSchemaField(protoField, propertyDescriptor);
-    return FieldMapEx.createFieldMap(Arrays.asList(fieldSchema));
-  }
-
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `service-registry/registry-service-center/src/main/java/org/apache/servicecomb/serviceregistry/collect/ServiceCenterDefaultDeploymentProvider.java`
-#### Snippet
-```java
-    List<String> urls = ConfigUtil.parseArrayValue(configuration.getString("servicecomb.service.registry.address"));
-    if (urls.isEmpty()) {
-      urls = Arrays.asList("http://127.0.0.1:30100");
+    List<String> consumes = swagger.getConsumes();
+    if (consumes == null || consumes.isEmpty()) {
+      consumes = Arrays.asList(MediaType.APPLICATION_JSON);
+      swagger.setConsumes(consumes);
     }
-    sc.setAccessURL(urls);
 ```
 
 ### ArraysAsListWithZeroOrOneArgument
@@ -7157,16 +7169,29 @@ in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecom
     }
 ```
 
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `swagger/swagger-generator/generator-core/src/main/java/org/apache/servicecomb/swagger/generator/core/AbstractSwaggerGenerator.java`
+## RuleId[id=CastCanBeRemovedNarrowingVariableType]
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'requestEx' to 'StandardHttpServletRequestEx'
+in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletRestDispatcher.java`
 #### Snippet
 ```java
-    List<String> consumes = swagger.getConsumes();
-    if (consumes == null || consumes.isEmpty()) {
-      consumes = Arrays.asList(MediaType.APPLICATION_JSON);
-      swagger.setConsumes(consumes);
-    }
+    HttpServletResponseEx responseEx = new StandardHttpServletResponseEx(response);
+
+    ((StandardHttpServletRequestEx) requestEx).setCacheRequest(true);
+    InvocationCreator creator = new RestServletProducerInvocationCreator(microserviceMeta, transport.getEndpoint(),
+        requestEx, responseEx);
+```
+
+### CastCanBeRemovedNarrowingVariableType
+Cast may be removed by changing the type of 'value' to 'String'
+in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/QueryProcessorCreator.java`
+#### Snippet
+```java
+      Object value = request.getParameter(paramPath);
+      // make some old systems happy
+      if (emptyAsNull && StringUtils.isEmpty((String) value)) {
+        value = null;
+      }
 ```
 
 ## RuleId[id=UnstableApiUsage]
@@ -7204,30 +7229,5 @@ in `foundations/foundation-registry/src/main/java/org/apache/servicecomb/registr
     return Hashing.sha256().newHasher().putString(schemaContent, Charsets.UTF_8).hash().toString();
   }
 
-```
-
-## RuleId[id=CastCanBeRemovedNarrowingVariableType]
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'requestEx' to 'StandardHttpServletRequestEx'
-in `transports/transport-rest/transport-rest-servlet/src/main/java/org/apache/servicecomb/transport/rest/servlet/ServletRestDispatcher.java`
-#### Snippet
-```java
-    HttpServletResponseEx responseEx = new StandardHttpServletResponseEx(response);
-
-    ((StandardHttpServletRequestEx) requestEx).setCacheRequest(true);
-    InvocationCreator creator = new RestServletProducerInvocationCreator(microserviceMeta, transport.getEndpoint(),
-        requestEx, responseEx);
-```
-
-### CastCanBeRemovedNarrowingVariableType
-Cast may be removed by changing the type of 'value' to 'String'
-in `common/common-rest/src/main/java/org/apache/servicecomb/common/rest/codec/param/QueryProcessorCreator.java`
-#### Snippet
-```java
-      Object value = request.getParameter(paramPath);
-      // make some old systems happy
-      if (emptyAsNull && StringUtils.isEmpty((String) value)) {
-        value = null;
-      }
 ```
 
