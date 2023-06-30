@@ -12,21 +12,9 @@ I found 32 bad smells with 0 repairable:
 | SpringXmlAutowireExplicitlyInspection | 1 | false |
 | JavadocReference | 1 | false |
 | JavadocDeclaration | 1 | false |
-| EqualsWhichDoesntCheckParameterClass | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
+| EqualsWhichDoesntCheckParameterClass | 1 | false |
 ## RuleId[id=SpringJavaInjectionPointsAutowiringInspection]
-### SpringJavaInjectionPointsAutowiringInspection
-Could not autowire. No beans of 'RestApiFacade' type found.
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
-#### Snippet
-```java
-    private final RestApiFacade restApiFacade;
-
-    public RestApiProducer(RestApiFacade restApiFacade) {
-        this.restApiFacade = restApiFacade;
-    }
-```
-
 ### SpringJavaInjectionPointsAutowiringInspection
 Could not autowire. No beans of 'SBuildServer' type found.
 in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventListener.java`
@@ -75,19 +63,19 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksManager.
                            WebhooksEventListener eventListener) {
 ```
 
-## RuleId[id=NonFinalFieldInEnum]
-### NonFinalFieldInEnum
-Non-final field `events` in enum 'EventType'
+### SpringJavaInjectionPointsAutowiringInspection
+Could not autowire. No beans of 'RestApiFacade' type found.
 in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
 #### Snippet
 ```java
+    private final RestApiFacade restApiFacade;
 
-        private String restApiUrl;
-        private List<String> events;
-
-        EventType(List<String> events, String restApiUrl) {
+    public RestApiProducer(RestApiFacade restApiFacade) {
+        this.restApiFacade = restApiFacade;
+    }
 ```
 
+## RuleId[id=NonFinalFieldInEnum]
 ### NonFinalFieldInEnum
 Non-final field `restApiUrl` in enum 'EventType'
 in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
@@ -98,6 +86,18 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.
         private String restApiUrl;
         private List<String> events;
 
+```
+
+### NonFinalFieldInEnum
+Non-final field `events` in enum 'EventType'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+#### Snippet
+```java
+
+        private String restApiUrl;
+        private List<String> events;
+
+        EventType(List<String> events, String restApiUrl) {
 ```
 
 ## RuleId[id=SpringXmlAutowireExplicitlyInspection]
@@ -345,19 +345,6 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhookDataProdu
     String getJson(AsyncEvent event, String fields);
 ```
 
-## RuleId[id=EqualsWhichDoesntCheckParameterClass]
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
-#### Snippet
-```java
-
-            @Override
-            public boolean equals(Object obj) {
-                return listener.equals(obj);
-            }
-```
-
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'AsyncEventDispatcher' is still used
@@ -371,17 +358,30 @@ public class AsyncEventDispatcher {
     private final jetbrains.buildServer.serverSide.impl.events.async.AsyncEventDispatcher myDelegate;
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `events` may be 'final'
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
+## RuleId[id=EqualsWhichDoesntCheckParameterClass]
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/async/AsyncEventDispatcher.java`
 #### Snippet
 ```java
 
-        private String restApiUrl;
-        private List<String> events;
+            @Override
+            public boolean equals(Object obj) {
+                return listener.equals(obj);
+            }
+```
 
-        EventType(List<String> events, String restApiUrl) {
+## RuleId[id=FieldMayBeFinal]
+### FieldMayBeFinal
+Field `lastErrorCodeMap` may be 'final'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventListener.java`
+#### Snippet
+```java
+
+    private static final Logger LOG = Logger.getInstance(WebhooksEventListener.class.getName());
+    private ConcurrentHashMap<String, String> lastErrorCodeMap = new ConcurrentHashMap<>();
+
+    private final WebhookDataProducer jsonProducer;
 ```
 
 ### FieldMayBeFinal
@@ -397,14 +397,14 @@ in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.
 ```
 
 ### FieldMayBeFinal
-Field `lastErrorCodeMap` may be 'final'
-in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/WebhooksEventListener.java`
+Field `events` may be 'final'
+in `webhooks-server/src/main/java/jetbrains/buildServer/webhook/RestApiProducer.java`
 #### Snippet
 ```java
 
-    private static final Logger LOG = Logger.getInstance(WebhooksEventListener.class.getName());
-    private ConcurrentHashMap<String, String> lastErrorCodeMap = new ConcurrentHashMap<>();
+        private String restApiUrl;
+        private List<String> events;
 
-    private final WebhookDataProducer jsonProducer;
+        EventType(List<String> events, String restApiUrl) {
 ```
 
