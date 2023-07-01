@@ -61,18 +61,6 @@ import java.util.Map;
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `lookingFor` may be 'final'
-in `src/main/java/fil/iagl/opl/cocospoon/tools/ContainsSameElementFilter.java`
-#### Snippet
-```java
-public class ContainsSameElementFilter implements Filter<CtElement> {
-
-  private CtElement lookingFor;
-
-  public ContainsSameElementFilter(CtElement lookingFor) {
-```
-
-### FieldMayBeFinal
-Field `lookingFor` may be 'final'
 in `src/main/java/fil/iagl/opl/cocospoon/tools/EqualsElementFilter.java`
 #### Snippet
 ```java
@@ -81,6 +69,18 @@ public class EqualsElementFilter implements Filter<CtElement> {
   private CtElement lookingFor;
 
   public EqualsElementFilter(CtElement lookingFor) {
+```
+
+### FieldMayBeFinal
+Field `lookingFor` may be 'final'
+in `src/main/java/fil/iagl/opl/cocospoon/tools/ContainsSameElementFilter.java`
+#### Snippet
+```java
+public class ContainsSameElementFilter implements Filter<CtElement> {
+
+  private CtElement lookingFor;
+
+  public ContainsSameElementFilter(CtElement lookingFor) {
 ```
 
 ## RuleId[id=ConstantValue]
