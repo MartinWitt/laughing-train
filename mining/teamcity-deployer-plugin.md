@@ -109,9 +109,9 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/D
 in `deploy-runner-agent-smb2/src/main/java/jetbrains/buildServer/deployer/agent/smb/SMBJBuildProcessAdapter.java`
 #### Snippet
 ```java
-              .withSigningRequired(true).build();
+        config = config.withSecurityProvider(new BCSecurityProvider());
 
-      SMBClient client = new SMBClient(config);
+      SMBClient client = new SMBClient(config.build());
 
       Connection connection = client.connect(host);
 ```
@@ -122,11 +122,11 @@ Unchecked call to 'getConstructor(Class...)' as a member of raw type 'java.lang.
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/smb/SmbDeployerRunner.java`
 #### Snippet
 ```java
-    final ClassLoader processClassloader = loadClassesFrom("smb2Lib");
-    final Class smbBuildProcessClass = processClassloader.loadClass("jetbrains.buildServer.deployer.agent.smb.SMBJBuildProcessAdapter");
+    final boolean dnsOnly = Boolean.valueOf(context.getRunnerParameters().get(SMBRunnerConstants.DNS_ONLY_NAME_RESOLUTION));
+
     final Constructor constructor = smbBuildProcessClass.getConstructor(BuildRunnerContext.class,
-            String.class, String.class, String.class, String.class, List.class);
-    return (BuildProcess) constructor.newInstance(context, username, password, domain, target, artifactsCollections);
+            String.class, String.class, String.class, String.class, List.class, boolean.class);
+    return (BuildProcess) constructor.newInstance(context, username, password, domain, target, artifactsCollections, dnsOnly);
 ```
 
 ### UNCHECKED_WARNING
@@ -134,11 +134,11 @@ Unchecked call to 'getConstructor(Class...)' as a member of raw type 'java.lang.
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/smb/SmbDeployerRunner.java`
 #### Snippet
 ```java
-    final boolean dnsOnly = Boolean.valueOf(context.getRunnerParameters().get(SMBRunnerConstants.DNS_ONLY_NAME_RESOLUTION));
-
+    final ClassLoader processClassloader = loadClassesFrom("smb2Lib");
+    final Class smbBuildProcessClass = processClassloader.loadClass("jetbrains.buildServer.deployer.agent.smb.SMBJBuildProcessAdapter");
     final Constructor constructor = smbBuildProcessClass.getConstructor(BuildRunnerContext.class,
-            String.class, String.class, String.class, String.class, List.class, boolean.class);
-    return (BuildProcess) constructor.newInstance(context, username, password, domain, target, artifactsCollections, dnsOnly);
+            String.class, String.class, String.class, String.class, List.class);
+    return (BuildProcess) constructor.newInstance(context, username, password, domain, target, artifactsCollections);
 ```
 
 ### UNCHECKED_WARNING
@@ -265,18 +265,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
 ```
 
 ### FieldMayBeFinal
-Field `myEnableSshAgentForwarding` may be 'final'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
-#### Snippet
-```java
-class SSHProcessAdapterOptions {
-  private boolean myFailBuildOnExitCode;
-  private boolean myEnableSshAgentForwarding;
-
-  SSHProcessAdapterOptions(boolean myFailBuildOnExitCode, boolean myEnableSshAgentForwarding) {
-```
-
-### FieldMayBeFinal
 Field `myFailBuildOnExitCode` may be 'final'
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
 #### Snippet
@@ -286,6 +274,18 @@ class SSHProcessAdapterOptions {
   private boolean myFailBuildOnExitCode;
   private boolean myEnableSshAgentForwarding;
 
+```
+
+### FieldMayBeFinal
+Field `myEnableSshAgentForwarding` may be 'final'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
+#### Snippet
+```java
+class SSHProcessAdapterOptions {
+  private boolean myFailBuildOnExitCode;
+  private boolean myEnableSshAgentForwarding;
+
+  SSHProcessAdapterOptions(boolean myFailBuildOnExitCode, boolean myEnableSshAgentForwarding) {
 ```
 
 ### FieldMayBeFinal
@@ -301,6 +301,18 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
+### DeprecatedIsStillUsed
+Deprecated member 'PARAM_HOST' is still used
+in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/SSHRunnerConstants.java`
+#### Snippet
+```java
+
+  @Deprecated
+  public static final String PARAM_HOST = "jetbrains.buildServer.sshexec.host";
+  public static final String PARAM_PORT = "jetbrains.buildServer.sshexec.port";
+  public static final String PARAM_TIMEOUT = "jetbrains.buildServer.sshexec.timeout.seconds";
+```
+
 ### DeprecatedIsStillUsed
 Deprecated member 'PARAM_DOMAIN' is still used
 in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
@@ -325,18 +337,6 @@ in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/Dep
   public static final String PARAM_DOMAIN = "jetbrains.buildServer.deployer.domain";
 ```
 
-### DeprecatedIsStillUsed
-Deprecated member 'PARAM_HOST' is still used
-in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/SSHRunnerConstants.java`
-#### Snippet
-```java
-
-  @Deprecated
-  public static final String PARAM_HOST = "jetbrains.buildServer.sshexec.host";
-  public static final String PARAM_PORT = "jetbrains.buildServer.sshexec.port";
-  public static final String PARAM_TIMEOUT = "jetbrains.buildServer.sshexec.timeout.seconds";
-```
-
 ## RuleId[id=CStyleArrayDeclaration]
 ### CStyleArrayDeclaration
 C-style array declaration of local variable `parts`
@@ -351,6 +351,18 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpOperationBuilder.java`
+#### Snippet
+```java
+  static ScpOperation doCreatePathOperation(@NotNull final String remotePath,
+                                                    @Nullable final ScpOperation chainTailOperation) {
+    String parts[] = remotePath.replace('\\', '/').split("\\/");
+    ScpOperation rootOperation = null;
+    DirScpOperation currentOperation = null;
+```
+
 ### RegExpRedundantEscape
 Redundant character escape `\\/` in RegExp
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpProcessAdapter.java`
@@ -373,18 +385,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
       if (filePath.size() > 0 && filePath.get(0).matches("\\w\\:")) {
         // cases to of specific windows drive, like C:
         escapedRemoteBase = "/" + filePath.get(0);
-```
-
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpOperationBuilder.java`
-#### Snippet
-```java
-  static ScpOperation doCreatePathOperation(@NotNull final String remotePath,
-                                                    @Nullable final ScpOperation chainTailOperation) {
-    String parts[] = remotePath.replace('\\', '/').split("\\/");
-    ScpOperation rootOperation = null;
-    DirScpOperation currentOperation = null;
 ```
 
 ## RuleId[id=SpringBeanConstructorArgInspection]
@@ -925,8 +925,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/car
 ```java
 
   @Override
-  public String getDescription() {
-    return "Runner able to deploy WAR apps to different containers";
+  public String getDisplayName() {
+    return "Container Deployer";
   }
 ```
 
@@ -937,8 +937,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/car
 ```java
 
   @Override
-  public String getDisplayName() {
-    return "Container Deployer";
+  public String getDescription() {
+    return "Runner able to deploy WAR apps to different containers";
   }
 ```
 
@@ -973,8 +973,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SSH
 ```java
 
   @Override
-  public String getDisplayName() {
-    return "SSH Upload";
+  public String getDescription() {
+    return "Deploys files/directories via SSH";
   }
 ```
 
@@ -985,8 +985,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SSH
 ```java
 
   @Override
-  public String getDescription() {
-    return "Deploys files/directories via SSH";
+  public String getDisplayName() {
+    return "SSH Upload";
   }
 ```
 
