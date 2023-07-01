@@ -38,7 +38,7 @@ Call to `toArray()` with pre-sized array argument 'new String\[fullArgs.size()\]
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DefaultDockerCompose.java`
 #### Snippet
 ```java
-                .addAll(dockerComposeRunArgument.arguments())
+                .addAll(dockerComposeExecArgument.arguments())
                 .build();
         return fullArgs.toArray(new String[fullArgs.size()]);
     }
@@ -50,7 +50,7 @@ Call to `toArray()` with pre-sized array argument 'new String\[fullArgs.size()\]
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DefaultDockerCompose.java`
 #### Snippet
 ```java
-                .addAll(dockerComposeExecArgument.arguments())
+                .addAll(dockerComposeRunArgument.arguments())
                 .build();
         return fullArgs.toArray(new String[fullArgs.size()]);
     }
@@ -58,18 +58,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 ```
 
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'dir'
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configuration/DockerComposeRuleConfig.java`
-#### Snippet
-```java
-    private static StreamEx<File> dirAndParents(File startDir) {
-        return StreamEx.of(Stream.generate(new Supplier<Optional<File>>() {
-                    private Optional<File> dir = Optional.of(startDir.getAbsoluteFile());
-
-                    @Override
-```
-
 ### OptionalUsedAsFieldOrParameterType
 `Optional`> used as type for field 'recordedServiceNames'
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/RecordingClusterWait.java`
@@ -80,6 +68,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/Recording
     private Optional<Set<String>> recordedServiceNames = Optional.empty();
 
     RecordingClusterWait(ClusterWait clusterWait, ClusterWaitType clusterWaitType) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'dir'
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/configuration/DockerComposeRuleConfig.java`
+#### Snippet
+```java
+    private static StreamEx<File> dirAndParents(File startDir) {
+        return StreamEx.of(Stream.generate(new Supplier<Optional<File>>() {
+                    private Optional<File> dir = Optional.of(startDir.getAbsoluteFile());
+
+                    @Override
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
@@ -137,18 +137,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 ## RuleId[id=SimplifyStreamApiCallChains]
 ### SimplifyStreamApiCallChains
 Can be replaced with 'String.join'
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/waiting/ClusterHealthCheck.java`
-#### Snippet
-```java
-                if (!unhealthyContainers.isEmpty()) {
-                    return SuccessOrFailure.failure("The following containers are not healthy: "
-                            + unhealthyContainers.stream().collect(joining(", ")));
-                }
-                return SuccessOrFailure.success();
-```
-
-### SimplifyStreamApiCallChains
-Can be replaced with 'String.join'
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/Command.java`
 #### Snippet
 ```java
@@ -157,6 +145,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
         return "'" + commandName + " " + Arrays.stream(commands).collect(Collectors.joining(" "))
                 + "' returned exit code " + exitCode;
     }
+```
+
+### SimplifyStreamApiCallChains
+Can be replaced with 'String.join'
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/waiting/ClusterHealthCheck.java`
+#### Snippet
+```java
+                if (!unhealthyContainers.isEmpty()) {
+                    return SuccessOrFailure.failure("The following containers are not healthy: "
+                            + unhealthyContainers.stream().collect(joining(", ")));
+                }
+                return SuccessOrFailure.success();
 ```
 
 ## RuleId[id=DeprecatedIsStillUsed]
@@ -211,6 +211,30 @@ public final class ProcessResult {
 
 ## RuleId[id=Deprecation]
 ### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/Command.java`
+#### Snippet
+```java
+            return outputProcessing.get(HOURS_TO_WAIT_FOR_STD_OUT_TO_CLOSE, TimeUnit.HOURS);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+            throw Throwables.propagate(e);
+        }
+    }
+```
+
+### Deprecation
+'propagate(java.lang.Throwable)' is deprecated
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/EventEmitter.java`
+#### Snippet
+```java
+            emitTask(runnable, eventFunction);
+        } catch (IOException e) {
+            Throwables.propagate(e);
+        }
+    }
+```
+
+### Deprecation
 'version()' is deprecated
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerCompose.java`
 #### Snippet
@@ -236,30 +260,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/DockerCom
 
 ### Deprecation
 'propagate(java.lang.Throwable)' is deprecated
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/EventEmitter.java`
-#### Snippet
-```java
-            emitTask(runnable, eventFunction);
-        } catch (IOException e) {
-            Throwables.propagate(e);
-        }
-    }
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/Command.java`
-#### Snippet
-```java
-            return outputProcessing.get(HOURS_TO_WAIT_FOR_STD_OUT_TO_CLOSE, TimeUnit.HOURS);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            throw Throwables.propagate(e);
-        }
-    }
-```
-
-### Deprecation
-'propagate(java.lang.Throwable)' is deprecated
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/Container.java`
 #### Snippet
 ```java
@@ -271,6 +271,30 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connectio
 ```
 
 ## RuleId[id=ArraysAsListWithZeroOrOneArgument]
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeExecArgument.java`
+#### Snippet
+```java
+
+    public static DockerComposeExecArgument arguments(String... arguments) {
+        return ImmutableDockerComposeExecArgument.of(Arrays.asList(arguments));
+    }
+}
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeExecOption.java`
+#### Snippet
+```java
+
+    public static DockerComposeExecOption options(String... options) {
+        return ImmutableDockerComposeExecOption.of(Arrays.asList(options));
+    }
+
+```
+
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeRunArgument.java`
@@ -291,30 +315,6 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 
     public static DockerComposeRunOption options(String... options) {
         return ImmutableDockerComposeRunOption.of(Arrays.asList(options));
-    }
-}
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeExecOption.java`
-#### Snippet
-```java
-
-    public static DockerComposeExecOption options(String... options) {
-        return ImmutableDockerComposeExecOption.of(Arrays.asList(options));
-    }
-
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution/DockerComposeExecArgument.java`
-#### Snippet
-```java
-
-    public static DockerComposeExecArgument arguments(String... arguments) {
-        return ImmutableDockerComposeExecArgument.of(Arrays.asList(arguments));
     }
 }
 ```
@@ -396,27 +396,27 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/execution
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.Streams' is marked unstable with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/GitUtils.java`
+'com.google.common.io.CharStreams' is marked unstable with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/HttpJsonPoster.java`
 #### Snippet
 ```java
 
-        return Stream.of(parseHttp(gitRemoteUrl), parseSshOrGit(gitRemoteUrl))
-                .flatMap(Streams::stream)
-                .map(path -> path.replaceAll("(\\.git)?/?$", ""))
-                .map(path -> path.replaceAll("^/", ""))
+            if (status >= 400) {
+                String error = CharStreams.toString(
+                        new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8));
+
 ```
 
 ### UnstableApiUsage
-'stream(java.util.Optional)' is declared in unstable class 'com.google.common.collect.Streams' marked with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/GitUtils.java`
+'toString(java.lang.Readable)' is declared in unstable class 'com.google.common.io.CharStreams' marked with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/HttpJsonPoster.java`
 #### Snippet
 ```java
 
-        return Stream.of(parseHttp(gitRemoteUrl), parseSshOrGit(gitRemoteUrl))
-                .flatMap(Streams::stream)
-                .map(path -> path.replaceAll("(\\.git)?/?$", ""))
-                .map(path -> path.replaceAll("^/", ""))
+            if (status >= 400) {
+                String error = CharStreams.toString(
+                        new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8));
+
 ```
 
 ### UnstableApiUsage
@@ -456,6 +456,18 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/DockerCom
 ```
 
 ### UnstableApiUsage
+'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/ContainerName.java`
+#### Snippet
+```java
+
+    public static ContainerName fromPsLine(String psLine) {
+        List<String> lineComponents = Splitter.on(" ").splitToList(psLine);
+        String rawName = lineComponents.get(0);
+
+```
+
+### UnstableApiUsage
 'com.google.common.util.concurrent.Uninterruptibles' is marked unstable with @Beta
 in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/PostReportOnShutdown.java`
 #### Snippet
@@ -480,39 +492,27 @@ in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting
 ```
 
 ### UnstableApiUsage
-'com.google.common.io.CharStreams' is marked unstable with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/HttpJsonPoster.java`
+'com.google.common.collect.Streams' is marked unstable with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/GitUtils.java`
 #### Snippet
 ```java
 
-            if (status >= 400) {
-                String error = CharStreams.toString(
-                        new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8));
-
+        return Stream.of(parseHttp(gitRemoteUrl), parseSshOrGit(gitRemoteUrl))
+                .flatMap(Streams::stream)
+                .map(path -> path.replaceAll("(\\.git)?/?$", ""))
+                .map(path -> path.replaceAll("^/", ""))
 ```
 
 ### UnstableApiUsage
-'toString(java.lang.Readable)' is declared in unstable class 'com.google.common.io.CharStreams' marked with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/HttpJsonPoster.java`
+'stream(java.util.Optional)' is declared in unstable class 'com.google.common.collect.Streams' marked with @Beta
+in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/reporting/GitUtils.java`
 #### Snippet
 ```java
 
-            if (status >= 400) {
-                String error = CharStreams.toString(
-                        new InputStreamReader(connection.getErrorStream(), StandardCharsets.UTF_8));
-
-```
-
-### UnstableApiUsage
-'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
-in `docker-compose-rule-core/src/main/java/com/palantir/docker/compose/connection/ContainerName.java`
-#### Snippet
-```java
-
-    public static ContainerName fromPsLine(String psLine) {
-        List<String> lineComponents = Splitter.on(" ").splitToList(psLine);
-        String rawName = lineComponents.get(0);
-
+        return Stream.of(parseHttp(gitRemoteUrl), parseSshOrGit(gitRemoteUrl))
+                .flatMap(Streams::stream)
+                .map(path -> path.replaceAll("(\\.git)?/?$", ""))
+                .map(path -> path.replaceAll("^/", ""))
 ```
 
 ### UnstableApiUsage
