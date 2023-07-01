@@ -16,11 +16,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-   * @param osArch Value of system property "os.arch"
+   * @param osName Value of system property "os.name"
    */
-  static final String detectArch(String osArch) {
-    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
-      return ARCH_X64;
+  static final OperatingSystem detectOs(String javaVendor, String osName) {
+    // Detecting Android using the properties from:
+    // https://developer.android.com/reference/java/lang/System.html
 ```
 
 ### FinalMethodInFinalClass
@@ -28,11 +28,11 @@ Method declared `final` in 'final' class
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-   * @param osName Value of system property "os.name"
+   * @param osArch Value of system property "os.arch"
    */
-  static final OperatingSystem detectOs(String javaVendor, String osName) {
-    // Detecting Android using the properties from:
-    // https://developer.android.com/reference/java/lang/System.html
+  static final String detectArch(String osArch) {
+    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
+      return ARCH_X64;
 ```
 
 ## RuleId[id=DuplicatedCode]
@@ -80,11 +80,11 @@ in `src/main/java/com/uber/h3core/H3Core.java`
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-   * @param osArch Value of system property "os.arch"
+   * @param osName Value of system property "os.name"
    */
-  static final String detectArch(String osArch) {
-    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
-      return ARCH_X64;
+  static final OperatingSystem detectOs(String javaVendor, String osName) {
+    // Detecting Android using the properties from:
+    // https://developer.android.com/reference/java/lang/System.html
 ```
 
 ### FinalStaticMethod
@@ -92,11 +92,11 @@ in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 in `src/main/java/com/uber/h3core/H3CoreLoader.java`
 #### Snippet
 ```java
-   * @param osName Value of system property "os.name"
+   * @param osArch Value of system property "os.arch"
    */
-  static final OperatingSystem detectOs(String javaVendor, String osName) {
-    // Detecting Android using the properties from:
-    // https://developer.android.com/reference/java/lang/System.html
+  static final String detectArch(String osArch) {
+    if (osArch.equals("amd64") || osArch.equals("x86_64")) {
+      return ARCH_X64;
 ```
 
 ## RuleId[id=FieldMayBeFinal]
