@@ -18,10 +18,10 @@ in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
 #### Snippet
 ```java
 
-  @VisibleForTesting
-  final void reset(Instant startTimestamp) {
-    // Lock the entire set of values so that all existing values will have a consistent timestamp
-    // after this call, without the possibility of interleaving with another reset() call.
+  @Override
+  public final void set(Long value, String... labelValues) {
+    MetricsUtils.checkLabelValuesLength(this, labelValues);
+
 ```
 
 ### FinalMethodInFinalClass
@@ -34,6 +34,30 @@ in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
   public final void reset(String... labelValues) {
     MetricsUtils.checkLabelValuesLength(this, labelValues);
 
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+   */
+  @Override
+  public final ImmutableList<MetricPoint<Long>> getTimestampedValues() {
+    return getTimestampedValues(Instant.now());
+  }
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+
+  @VisibleForTesting
+  final void reset(Instant startTimestamp) {
+    // Lock the entire set of values so that all existing values will have a consistent timestamp
+    // after this call, without the possibility of interleaving with another reset() call.
 ```
 
 ### FinalMethodInFinalClass
@@ -54,22 +78,10 @@ in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
 #### Snippet
 ```java
 
-  @Override
-  public final void reset() {
-    reset(Instant.now());
-  }
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-   */
-  @Override
-  public final ImmutableList<MetricPoint<Long>> getTimestampedValues() {
-    return getTimestampedValues(Instant.now());
-  }
+  @VisibleForTesting
+  final void reset(Instant startTimestamp, ImmutableList<String> labelValues) {
+    Lock lock = valueLocks.get(labelValues);
+    lock.lock();
 ```
 
 ### FinalMethodInFinalClass
@@ -102,34 +114,10 @@ in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
 #### Snippet
 ```java
 
-  @VisibleForTesting
-  final ImmutableList<MetricPoint<Long>> getTimestampedValues(Instant endTimestamp) {
-    ImmutableList.Builder<MetricPoint<Long>> timestampedValues = new ImmutableList.Builder<>();
-    for (Entry<ImmutableList<String>, Long> entry : values.asMap().entrySet()) {
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-
-  @VisibleForTesting
-  final void reset(Instant startTimestamp, ImmutableList<String> labelValues) {
-    Lock lock = valueLocks.get(labelValues);
-    lock.lock();
-```
-
-### FinalMethodInFinalClass
-Method declared `final` in 'final' class
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-
   @Override
-  public final void set(Long value, String... labelValues) {
-    MetricsUtils.checkLabelValuesLength(this, labelValues);
-
+  public final void reset() {
+    reset(Instant.now());
+  }
 ```
 
 ### FinalMethodInFinalClass
@@ -142,6 +130,18 @@ in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
   public final void increment(String... labelValues) {
     MetricsUtils.checkLabelValuesLength(this, labelValues);
 
+```
+
+### FinalMethodInFinalClass
+Method declared `final` in 'final' class
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+
+  @VisibleForTesting
+  final ImmutableList<MetricPoint<Long>> getTimestampedValues(Instant endTimestamp) {
+    ImmutableList.Builder<MetricPoint<Long>> timestampedValues = new ImmutableList.Builder<>();
+    for (Entry<ImmutableList<String>, Long> entry : values.asMap().entrySet()) {
 ```
 
 ## RuleId[id=Deprecation]
@@ -162,6 +162,18 @@ in `contrib/src/main/java/com/google/monitoring/metrics/contrib/DistributionMetr
 in `contrib/src/main/java/com/google/monitoring/metrics/contrib/AbstractMetricSubject.java`
 #### Snippet
 ```java
+      if (!expectedNondefaultLabelTuples.contains(metricPoint.labelValues())) {
+        if (!hasDefaultValue(metricPoint)) {
+          failWithBadResults(
+              "has",
+              "no other nondefault values",
+```
+
+### Deprecation
+'failWithBadResults(java.lang.String, java.lang.Object, java.lang.String, java.lang.Object)' is deprecated
+in `contrib/src/main/java/com/google/monitoring/metrics/contrib/AbstractMetricSubject.java`
+#### Snippet
+```java
     MetricPoint<T> metricPoint = findMetricPointForLabels(ImmutableList.copyOf(labels));
     if (metricPoint == null) {
       failWithBadResults(
@@ -175,22 +187,10 @@ in `contrib/src/main/java/com/google/monitoring/metrics/contrib/AbstractMetricSu
 #### Snippet
 ```java
     }
-    if (!metricPoint.value().equals(value)) {
+    if (hasDefaultValue(metricPoint)) {
       failWithBadResults(
-          String.format("has a value of %s for labels", getMessageRepresentation(value)),
+          "has a non-default value for labels",
           Joiner.on(':').join(labels),
-```
-
-### Deprecation
-'failWithBadResults(java.lang.String, java.lang.Object, java.lang.String, java.lang.Object)' is deprecated
-in `contrib/src/main/java/com/google/monitoring/metrics/contrib/AbstractMetricSubject.java`
-#### Snippet
-```java
-      if (!expectedNondefaultLabelTuples.contains(metricPoint.labelValues())) {
-        if (!hasDefaultValue(metricPoint)) {
-          failWithBadResults(
-              "has",
-              "no other nondefault values",
 ```
 
 ### Deprecation
@@ -223,9 +223,9 @@ in `contrib/src/main/java/com/google/monitoring/metrics/contrib/AbstractMetricSu
 #### Snippet
 ```java
     }
-    if (hasDefaultValue(metricPoint)) {
+    if (!metricPoint.value().equals(value)) {
       failWithBadResults(
-          "has a non-default value for labels",
+          String.format("has a value of %s for labels", getMessageRepresentation(value)),
           Joiner.on(':').join(labels),
 ```
 
@@ -247,11 +247,11 @@ Method invocation `value` may produce `NullPointerException`
 in `contrib/src/main/java/com/google/monitoring/metrics/contrib/AbstractMetricSubject.java`
 #### Snippet
 ```java
-              metricPointConverter));
+          Joiner.on(':').join(labels),
+          "has a value of",
+          getMessageRepresentation(metricPoint.value()));
     }
-    if (!metricPoint.value().equals(value)) {
-      failWithBadResults(
-          String.format("has a value of %s for labels", getMessageRepresentation(value)),
+    expectedNondefaultLabelTuples.add(ImmutableList.copyOf(labels));
 ```
 
 ### DataFlowIssue
@@ -259,11 +259,11 @@ Method invocation `value` may produce `NullPointerException`
 in `contrib/src/main/java/com/google/monitoring/metrics/contrib/AbstractMetricSubject.java`
 #### Snippet
 ```java
-          Joiner.on(':').join(labels),
-          "has a value of",
-          getMessageRepresentation(metricPoint.value()));
+              metricPointConverter));
     }
-    expectedNondefaultLabelTuples.add(ImmutableList.copyOf(labels));
+    if (!metricPoint.value().equals(value)) {
+      failWithBadResults(
+          String.format("has a value of %s for labels", getMessageRepresentation(value)),
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -334,6 +334,18 @@ in `metrics/src/main/java/com/google/monitoring/metrics/MetricsUtils.java`
 in `metrics/src/main/java/com/google/monitoring/metrics/ImmutableDistribution.java`
 #### Snippet
 ```java
+
+  @Override
+  public abstract ImmutableRangeMap<Double, Long> intervalCounts();
+
+  @Override
+```
+
+### UnstableApiUsage
+'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/ImmutableDistribution.java`
+#### Snippet
+```java
       double sumOfSquaredDeviation,
       long count,
       ImmutableRangeMap<Double, Long> intervalCounts,
@@ -342,15 +354,303 @@ in `metrics/src/main/java/com/google/monitoring/metrics/ImmutableDistribution.ja
 ```
 
 ### UnstableApiUsage
-'com.google.common.collect.ImmutableRangeMap' is marked unstable with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/ImmutableDistribution.java`
+'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
 #### Snippet
 ```java
+  @VisibleForTesting
+  void incrementBy(long offset, Instant startTimestamp, ImmutableList<String> labelValues) {
+    Lock lock = valueLocks.get(labelValues);
+    lock.lock();
 
-  @Override
-  public abstract ImmutableRangeMap<Double, Long> intervalCounts();
+```
 
-  @Override
+### UnstableApiUsage
+'size()' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+    // Lock the entire set of values so that all existing values will have a consistent timestamp
+    // after this call, without the possibility of interleaving with another reset() call.
+    for (int i = 0; i < valueLocks.size(); i++) {
+      valueLocks.getAt(i).lock();
+    }
+```
+
+### UnstableApiUsage
+'getAt(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+    // after this call, without the possibility of interleaving with another reset() call.
+    for (int i = 0; i < valueLocks.size(); i++) {
+      valueLocks.getAt(i).lock();
+    }
+
+```
+
+### UnstableApiUsage
+'size()' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+      }
+    } finally {
+      for (int i = 0; i < valueLocks.size(); i++) {
+        valueLocks.getAt(i).unlock();
+      }
+```
+
+### UnstableApiUsage
+'getAt(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+    } finally {
+      for (int i = 0; i < valueLocks.size(); i++) {
+        valueLocks.getAt(i).unlock();
+      }
+    }
+```
+
+### UnstableApiUsage
+'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  final void set(Long value, Instant startTimestamp, ImmutableList<String> labelValues) {
+    Lock lock = valueLocks.get(labelValues);
+    lock.lock();
+
+```
+
+### UnstableApiUsage
+'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  final void reset(Instant startTimestamp, ImmutableList<String> labelValues) {
+    Lock lock = valueLocks.get(labelValues);
+    lock.lock();
+
+```
+
+### UnstableApiUsage
+'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+    for (Entry<ImmutableList<String>, Long> entry : values.asMap().entrySet()) {
+      ImmutableList<String> labelValues = entry.getKey();
+      valueLocks.get(labelValues).lock();
+
+      Instant startTimestamp;
+```
+
+### UnstableApiUsage
+'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+        startTimestamp = valueStartTimestamps.get(labelValues);
+      } finally {
+        valueLocks.get(labelValues).unlock();
+      }
+
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+   * match the default concurrency level of {@link ConcurrentHashMap}.
+   *
+   * @see Striped
+   */
+  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+   * @see Striped
+   */
+  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
+
+  /**
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+   * @see Striped
+   */
+  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
+
+  /**
+```
+
+### UnstableApiUsage
+'lock(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
+#### Snippet
+```java
+   * @see Striped
+   */
+  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
+
+  /**
+```
+
+### UnstableApiUsage
+'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+  void recordMultiple(
+      double sample, int count, Instant startTimestamp, ImmutableList<String> labelValues) {
+    Lock lock = valueLocks.get(labelValues);
+    lock.lock();
+
+```
+
+### UnstableApiUsage
+'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+    for (Entry<ImmutableList<String>, MutableDistribution> entry : values.entrySet()) {
+      ImmutableList<String> labelValues = entry.getKey();
+      Lock lock = valueLocks.get(labelValues);
+      lock.lock();
+
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+   * match the default concurrency level of {@link ConcurrentHashMap}.
+   *
+   * @see Striped
+   */
+  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+   * @see Striped
+   */
+  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
+
+  EventMetric(
+```
+
+### UnstableApiUsage
+'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+   * @see Striped
+   */
+  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
+
+  EventMetric(
+```
+
+### UnstableApiUsage
+'lock(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+   * @see Striped
+   */
+  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
+
+  EventMetric(
+```
+
+### UnstableApiUsage
+'size()' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+    // Lock the entire set of values so that all existing values will have a consistent timestamp
+    // after this call, without the possibility of interleaving with another reset() call.
+    for (int i = 0; i < valueLocks.size(); i++) {
+      valueLocks.getAt(i).lock();
+    }
+```
+
+### UnstableApiUsage
+'getAt(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+    // after this call, without the possibility of interleaving with another reset() call.
+    for (int i = 0; i < valueLocks.size(); i++) {
+      valueLocks.getAt(i).lock();
+    }
+
+```
+
+### UnstableApiUsage
+'size()' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+      }
+    } finally {
+      for (int i = 0; i < valueLocks.size(); i++) {
+        valueLocks.getAt(i).unlock();
+      }
+```
+
+### UnstableApiUsage
+'getAt(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+    } finally {
+      for (int i = 0; i < valueLocks.size(); i++) {
+        valueLocks.getAt(i).unlock();
+      }
+    }
+```
+
+### UnstableApiUsage
+'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+#### Snippet
+```java
+  @VisibleForTesting
+  final void reset(Instant startTimestamp, ImmutableList<String> labelValues) {
+    Lock lock = valueLocks.get(labelValues);
+    lock.lock();
+
+```
+
+### UnstableApiUsage
+'asMapOfRanges()' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
+in `contrib/src/main/java/com/google/monitoring/metrics/contrib/DistributionMetricSubject.java`
+#### Snippet
+```java
+    boolean first = true;
+    for (Map.Entry<Range<Double>, Long> entry :
+        distribution.intervalCounts().asMapOfRanges().entrySet()) {
+      if (entry.getValue() != 0L) {
+        if (first) {
 ```
 
 ### UnstableApiUsage
@@ -363,30 +663,6 @@ public final class MutableDistribution implements Distribution {
   private final TreeRangeMap<Double, Long> intervalCounts;
   private final DistributionFitter distributionFitter;
   private double sumOfSquaredDeviation = 0.0;
-```
-
-### UnstableApiUsage
-'getEntry(K)' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/MutableDistribution.java`
-#### Snippet
-```java
-    }
-
-    Map.Entry<Range<Double>, Long> entry = intervalCounts.getEntry(value);
-    intervalCounts.put(entry.getKey(), entry.getValue() + numSamples);
-    this.count += numSamples;
-```
-
-### UnstableApiUsage
-'put(com.google.common.collect.Range, V)' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/MutableDistribution.java`
-#### Snippet
-```java
-
-    Map.Entry<Range<Double>, Long> entry = intervalCounts.getEntry(value);
-    intervalCounts.put(entry.getKey(), entry.getValue() + numSamples);
-    this.count += numSamples;
-
 ```
 
 ### UnstableApiUsage
@@ -486,302 +762,26 @@ in `metrics/src/main/java/com/google/monitoring/metrics/MutableDistribution.java
 ```
 
 ### UnstableApiUsage
-'asMapOfRanges()' is declared in unstable class 'com.google.common.collect.ImmutableRangeMap' marked with @Beta
-in `contrib/src/main/java/com/google/monitoring/metrics/contrib/DistributionMetricSubject.java`
+'getEntry(K)' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/MutableDistribution.java`
 #### Snippet
 ```java
-    boolean first = true;
-    for (Map.Entry<Range<Double>, Long> entry :
-        distribution.intervalCounts().asMapOfRanges().entrySet()) {
-      if (entry.getValue() != 0L) {
-        if (first) {
-```
-
-### UnstableApiUsage
-'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
-#### Snippet
-```java
-    for (Entry<ImmutableList<String>, MutableDistribution> entry : values.entrySet()) {
-      ImmutableList<String> labelValues = entry.getKey();
-      Lock lock = valueLocks.get(labelValues);
-      lock.lock();
-
-```
-
-### UnstableApiUsage
-'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
-#### Snippet
-```java
-  void recordMultiple(
-      double sample, int count, Instant startTimestamp, ImmutableList<String> labelValues) {
-    Lock lock = valueLocks.get(labelValues);
-    lock.lock();
-
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
-#### Snippet
-```java
-   * match the default concurrency level of {@link ConcurrentHashMap}.
-   *
-   * @see Striped
-   */
-  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
-#### Snippet
-```java
-   * @see Striped
-   */
-  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
-
-  EventMetric(
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
-#### Snippet
-```java
-   * @see Striped
-   */
-  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
-
-  EventMetric(
-```
-
-### UnstableApiUsage
-'lock(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
-#### Snippet
-```java
-   * @see Striped
-   */
-  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
-
-  EventMetric(
-```
-
-### UnstableApiUsage
-'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  final void reset(Instant startTimestamp, ImmutableList<String> labelValues) {
-    Lock lock = valueLocks.get(labelValues);
-    lock.lock();
-
-```
-
-### UnstableApiUsage
-'size()' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
-#### Snippet
-```java
-    // Lock the entire set of values so that all existing values will have a consistent timestamp
-    // after this call, without the possibility of interleaving with another reset() call.
-    for (int i = 0; i < valueLocks.size(); i++) {
-      valueLocks.getAt(i).lock();
-    }
-```
-
-### UnstableApiUsage
-'getAt(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
-#### Snippet
-```java
-    // after this call, without the possibility of interleaving with another reset() call.
-    for (int i = 0; i < valueLocks.size(); i++) {
-      valueLocks.getAt(i).lock();
     }
 
+    Map.Entry<Range<Double>, Long> entry = intervalCounts.getEntry(value);
+    intervalCounts.put(entry.getKey(), entry.getValue() + numSamples);
+    this.count += numSamples;
 ```
 
 ### UnstableApiUsage
-'size()' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
+'put(com.google.common.collect.Range, V)' is declared in unstable class 'com.google.common.collect.TreeRangeMap' marked with @Beta
+in `metrics/src/main/java/com/google/monitoring/metrics/MutableDistribution.java`
 #### Snippet
 ```java
-      }
-    } finally {
-      for (int i = 0; i < valueLocks.size(); i++) {
-        valueLocks.getAt(i).unlock();
-      }
-```
 
-### UnstableApiUsage
-'getAt(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/EventMetric.java`
-#### Snippet
-```java
-    } finally {
-      for (int i = 0; i < valueLocks.size(); i++) {
-        valueLocks.getAt(i).unlock();
-      }
-    }
-```
-
-### UnstableApiUsage
-'size()' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-    // Lock the entire set of values so that all existing values will have a consistent timestamp
-    // after this call, without the possibility of interleaving with another reset() call.
-    for (int i = 0; i < valueLocks.size(); i++) {
-      valueLocks.getAt(i).lock();
-    }
-```
-
-### UnstableApiUsage
-'getAt(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-    // after this call, without the possibility of interleaving with another reset() call.
-    for (int i = 0; i < valueLocks.size(); i++) {
-      valueLocks.getAt(i).lock();
-    }
-
-```
-
-### UnstableApiUsage
-'size()' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-      }
-    } finally {
-      for (int i = 0; i < valueLocks.size(); i++) {
-        valueLocks.getAt(i).unlock();
-      }
-```
-
-### UnstableApiUsage
-'getAt(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-    } finally {
-      for (int i = 0; i < valueLocks.size(); i++) {
-        valueLocks.getAt(i).unlock();
-      }
-    }
-```
-
-### UnstableApiUsage
-'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  final void set(Long value, Instant startTimestamp, ImmutableList<String> labelValues) {
-    Lock lock = valueLocks.get(labelValues);
-    lock.lock();
-
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-   * match the default concurrency level of {@link ConcurrentHashMap}.
-   *
-   * @see Striped
-   */
-  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-   * @see Striped
-   */
-  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
-
-  /**
-```
-
-### UnstableApiUsage
-'com.google.common.util.concurrent.Striped' is marked unstable with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-   * @see Striped
-   */
-  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
-
-  /**
-```
-
-### UnstableApiUsage
-'lock(int)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-   * @see Striped
-   */
-  private final Striped<Lock> valueLocks = Striped.lock(DEFAULT_CONCURRENCY_LEVEL);
-
-  /**
-```
-
-### UnstableApiUsage
-'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-    for (Entry<ImmutableList<String>, Long> entry : values.asMap().entrySet()) {
-      ImmutableList<String> labelValues = entry.getKey();
-      valueLocks.get(labelValues).lock();
-
-      Instant startTimestamp;
-```
-
-### UnstableApiUsage
-'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-        startTimestamp = valueStartTimestamps.get(labelValues);
-      } finally {
-        valueLocks.get(labelValues).unlock();
-      }
-
-```
-
-### UnstableApiUsage
-'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  final void reset(Instant startTimestamp, ImmutableList<String> labelValues) {
-    Lock lock = valueLocks.get(labelValues);
-    lock.lock();
-
-```
-
-### UnstableApiUsage
-'get(java.lang.Object)' is declared in unstable class 'com.google.common.util.concurrent.Striped' marked with @Beta
-in `metrics/src/main/java/com/google/monitoring/metrics/Counter.java`
-#### Snippet
-```java
-  @VisibleForTesting
-  void incrementBy(long offset, Instant startTimestamp, ImmutableList<String> labelValues) {
-    Lock lock = valueLocks.get(labelValues);
-    lock.lock();
+    Map.Entry<Range<Double>, Long> entry = intervalCounts.getEntry(value);
+    intervalCounts.put(entry.getKey(), entry.getValue() + numSamples);
+    this.count += numSamples;
 
 ```
 
@@ -795,6 +795,18 @@ in `stackdriver/src/main/java/com/google/monitoring/metrics/stackdriver/Stackdri
     rateLimiter.acquire();
     // We try to create a descriptor, but it may have been created already, so we re-fetch it on
     // failure
+```
+
+### UnstableApiUsage
+'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
+in `stackdriver/src/main/java/com/google/monitoring/metrics/stackdriver/StackdriverWriter.java`
+#### Snippet
+```java
+    CreateTimeSeriesRequest request = new CreateTimeSeriesRequest().setTimeSeries(timeSeriesList);
+
+    rateLimiter.acquire();
+    monitoringClient.projects().timeSeries().create(projectResource, request).execute();
+
 ```
 
 ### UnstableApiUsage
@@ -818,18 +830,6 @@ in `stackdriver/src/main/java/com/google/monitoring/metrics/stackdriver/Stackdri
     this.timeSeriesBuffer = new ArrayDeque<>(maxPointsPerRequest);
     this.rateLimiter = RateLimiter.create(maxQps);
   }
-
-```
-
-### UnstableApiUsage
-'acquire()' is declared in unstable class 'com.google.common.util.concurrent.RateLimiter' marked with @Beta
-in `stackdriver/src/main/java/com/google/monitoring/metrics/stackdriver/StackdriverWriter.java`
-#### Snippet
-```java
-    CreateTimeSeriesRequest request = new CreateTimeSeriesRequest().setTimeSeries(timeSeriesList);
-
-    rateLimiter.acquire();
-    monitoringClient.projects().timeSeries().create(projectResource, request).execute();
 
 ```
 
