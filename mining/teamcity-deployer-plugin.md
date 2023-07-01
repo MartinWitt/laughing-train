@@ -15,8 +15,8 @@ I found 77 bad smells with 5 repairable:
 | DeprecatedIsStillUsed | 3 | false |
 | RegExpRedundantEscape | 3 | false |
 | SpringXmlAutowireExplicitlyInspection | 2 | false |
-| RegExpUnnecessaryNonCapturingGroup | 2 | false |
 | BusyWait | 2 | false |
+| RegExpUnnecessaryNonCapturingGroup | 2 | false |
 | DuplicateCondition | 2 | false |
 | UnnecessaryModifier | 1 | true |
 | AutoCloseableResource | 1 | false |
@@ -30,6 +30,18 @@ I found 77 bad smells with 5 repairable:
 | UnusedAssignment | 1 | false |
 | ConstantValue | 1 | false |
 ## RuleId[id=CharsetObjectCanBeUsed]
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpExecUtil.java`
+#### Snippet
+```java
+      content[0] = (byte) b;
+      final int read = in.read(content, 1, available);
+      final String message = new String(content, 0, read + 1, "UTF-8");
+      throw new IOException("Unexpected response from remote system: " + message);
+    }
+```
+
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHExecProcessAdapter.java`
@@ -64,18 +76,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
             outputStream.write("\n".getBytes(Charset.forName("UTF-8")));
           }
         } catch (InterruptedException e) {
-```
-
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpExecUtil.java`
-#### Snippet
-```java
-      content[0] = (byte) b;
-      final int read = in.read(content, 1, available);
-      final String message = new String(content, 0, read + 1, "UTF-8");
-      throw new IOException("Unexpected response from remote system: " + message);
-    }
 ```
 
 ### CharsetObjectCanBeUsed
@@ -265,18 +265,6 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/s
 ```
 
 ### FieldMayBeFinal
-Field `myFailBuildOnExitCode` may be 'final'
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
-#### Snippet
-```java
-
-class SSHProcessAdapterOptions {
-  private boolean myFailBuildOnExitCode;
-  private boolean myEnableSshAgentForwarding;
-
-```
-
-### FieldMayBeFinal
 Field `myEnableSshAgentForwarding` may be 'final'
 in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
 #### Snippet
@@ -286,6 +274,18 @@ class SSHProcessAdapterOptions {
   private boolean myEnableSshAgentForwarding;
 
   SSHProcessAdapterOptions(boolean myFailBuildOnExitCode, boolean myEnableSshAgentForwarding) {
+```
+
+### FieldMayBeFinal
+Field `myFailBuildOnExitCode` may be 'final'
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHProcessAdapterOptions.java`
+#### Snippet
+```java
+
+class SSHProcessAdapterOptions {
+  private boolean myFailBuildOnExitCode;
+  private boolean myEnableSshAgentForwarding;
+
 ```
 
 ### FieldMayBeFinal
@@ -300,19 +300,20 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/S
   private int myTimeout = 60;
 ```
 
-## RuleId[id=DeprecatedIsStillUsed]
-### DeprecatedIsStillUsed
-Deprecated member 'PARAM_HOST' is still used
-in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/SSHRunnerConstants.java`
+## RuleId[id=CStyleArrayDeclaration]
+### CStyleArrayDeclaration
+C-style array declaration of local variable `parts`
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpOperationBuilder.java`
 #### Snippet
 ```java
-
-  @Deprecated
-  public static final String PARAM_HOST = "jetbrains.buildServer.sshexec.host";
-  public static final String PARAM_PORT = "jetbrains.buildServer.sshexec.port";
-  public static final String PARAM_TIMEOUT = "jetbrains.buildServer.sshexec.timeout.seconds";
+  static ScpOperation doCreatePathOperation(@NotNull final String remotePath,
+                                                    @Nullable final ScpOperation chainTailOperation) {
+    String parts[] = remotePath.replace('\\', '/').split("\\/");
+    ScpOperation rootOperation = null;
+    DirScpOperation currentOperation = null;
 ```
 
+## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'PARAM_DOMAIN' is still used
 in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/DeployerRunnerConstants.java`
@@ -337,17 +338,16 @@ in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/Dep
   public static final String PARAM_DOMAIN = "jetbrains.buildServer.deployer.domain";
 ```
 
-## RuleId[id=CStyleArrayDeclaration]
-### CStyleArrayDeclaration
-C-style array declaration of local variable `parts`
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/scp/ScpOperationBuilder.java`
+### DeprecatedIsStillUsed
+Deprecated member 'PARAM_HOST' is still used
+in `deploy-runner-common/src/main/java/jetbrains/buildServer/deployer/common/SSHRunnerConstants.java`
 #### Snippet
 ```java
-  static ScpOperation doCreatePathOperation(@NotNull final String remotePath,
-                                                    @Nullable final ScpOperation chainTailOperation) {
-    String parts[] = remotePath.replace('\\', '/').split("\\/");
-    ScpOperation rootOperation = null;
-    DirScpOperation currentOperation = null;
+
+  @Deprecated
+  public static final String PARAM_HOST = "jetbrains.buildServer.sshexec.host";
+  public static final String PARAM_PORT = "jetbrains.buildServer.sshexec.port";
+  public static final String PARAM_TIMEOUT = "jetbrains.buildServer.sshexec.timeout.seconds";
 ```
 
 ## RuleId[id=RegExpRedundantEscape]
@@ -646,6 +646,19 @@ in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ftp/I
           } finally {
 ```
 
+## RuleId[id=StringBufferReplaceableByString]
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/FtpDeployerRunType.java`
+#### Snippet
+```java
+  @Override
+  public String describeParameters(@NotNull Map<String, String> parameters) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Target FTP server: ").append(parameters.get(DeployerRunnerConstants.PARAM_TARGET_URL));
+    return sb.toString();
+```
+
 ## RuleId[id=Deprecation]
 ### Deprecation
 'PARAM_PLAIN_PASSWORD' is deprecated
@@ -779,17 +792,29 @@ in `deploy-runner-server/src/main/resources/buildServerResources/viewSmbDeployer
 
 ```
 
-## RuleId[id=StringBufferReplaceableByString]
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/FtpDeployerRunType.java`
+## RuleId[id=BusyWait]
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHExecProcessAdapter.java`
 #### Snippet
 ```java
-  @Override
-  public String describeParameters(@NotNull Map<String, String> parameters) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("Target FTP server: ").append(parameters.get(DeployerRunnerConstants.PARAM_TARGET_URL));
-    return sb.toString();
+
+        try {
+          Thread.sleep(500);
+          // sometimes no newline chars are present, but still some output may be pending
+          final boolean hasSomePendingOutput = outputGobbler.getLastActivityTimestamp() > lastOutputTimeStamp.get();
+```
+
+### BusyWait
+Call to `Thread.sleep()` in a loop, probably busy-waiting
+in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/SyncBuildProcessAdapter.java`
+#### Snippet
+```java
+    while (!isInterrupted() && !hasFinished) {
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        throw new RunBuildException(e);
 ```
 
 ## RuleId[id=RegExpUnnecessaryNonCapturingGroup]
@@ -815,31 +840,6 @@ public class SmbDeployerRunType extends RunType {
   final private Pattern SIMPLE_UNC_REGEX = Pattern.compile("^(?:(\\\\\\\\)?%[^\\\\%\\s]+%)|(?:\\\\\\\\[^\\\\]+\\\\[^\\\\]+(\\\\[^\\\\]+)*)$");
 
   private final PluginDescriptor myDescriptor;
-```
-
-## RuleId[id=BusyWait]
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/ssh/SSHExecProcessAdapter.java`
-#### Snippet
-```java
-
-        try {
-          Thread.sleep(500);
-          // sometimes no newline chars are present, but still some output may be pending
-          final boolean hasSomePendingOutput = outputGobbler.getLastActivityTimestamp() > lastOutputTimeStamp.get();
-```
-
-### BusyWait
-Call to `Thread.sleep()` in a loop, probably busy-waiting
-in `deploy-runner-agent/src/main/java/jetbrains/buildServer/deployer/agent/SyncBuildProcessAdapter.java`
-#### Snippet
-```java
-    while (!isInterrupted() && !hasFinished) {
-      try {
-        Thread.sleep(1000);
-      } catch (InterruptedException e) {
-        throw new RunBuildException(e);
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -925,8 +925,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/car
 ```java
 
   @Override
-  public String getDisplayName() {
-    return "Container Deployer";
+  public String getDescription() {
+    return "Runner able to deploy WAR apps to different containers";
   }
 ```
 
@@ -937,8 +937,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/car
 ```java
 
   @Override
-  public String getDescription() {
-    return "Runner able to deploy WAR apps to different containers";
+  public String getDisplayName() {
+    return "Container Deployer";
   }
 ```
 
@@ -973,8 +973,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SSH
 ```java
 
   @Override
-  public String getDescription() {
-    return "Deploys files/directories via SSH";
+  public String getDisplayName() {
+    return "SSH Upload";
   }
 ```
 
@@ -985,8 +985,8 @@ in `deploy-runner-server/src/main/java/jetbrains/buildServer/deployer/server/SSH
 ```java
 
   @Override
-  public String getDisplayName() {
-    return "SSH Upload";
+  public String getDescription() {
+    return "Deploys files/directories via SSH";
   }
 ```
 
