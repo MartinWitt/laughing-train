@@ -1,24 +1,25 @@
 # junit5 
  
 # Bad smells
-I found 383 bad smells with 0 repairable:
+I found 402 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
-| JavadocReference | 87 | false |
-| FieldMayBeFinal | 46 | false |
+| JavadocReference | 102 | false |
 | OptionalUsedAsFieldOrParameterType | 45 | false |
+| FieldMayBeFinal | 44 | false |
 | NewClassNamingConvention | 24 | false |
-| Deprecation | 17 | false |
+| Deprecation | 18 | false |
 | UnstableApiUsage | 17 | false |
 | DataFlowIssue | 16 | false |
 | ThrowableNotThrown | 13 | false |
 | HasPlatformType | 12 | false |
 | UnusedSymbol | 12 | false |
-| OptionalGetWithoutIsPresent | 11 | false |
 | DeprecatedIsStillUsed | 10 | false |
+| OptionalGetWithoutIsPresent | 10 | false |
 | LeakingThis | 8 | false |
 | UnnecessarySemicolon | 7 | false |
 | DuplicatedCode | 7 | false |
+| RedundantCast | 7 | false |
 | TrivialIf | 5 | false |
 | NestedLambdaShadowedImplicitParameter | 5 | false |
 | JavadocDeclaration | 5 | false |
@@ -40,7 +41,6 @@ I found 383 bad smells with 0 repairable:
 | IgnoreResultOfCall | 1 | false |
 | PropertyName | 1 | false |
 | RedundantMethodOverride | 1 | false |
-| RemoveEmptyParenthesesFromLambdaCall | 1 | false |
 | MismatchedCollectionQueryUpdate | 1 | false |
 | KotlinUnusedImport | 1 | false |
 | UnnecessaryUnicodeEscape | 1 | false |
@@ -120,66 +120,6 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExecutionCon
 ```
 
 ### JavadocReference
-Symbol `org.junit.platform.engine.EngineExecutionListener` is inaccessible from here
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
-#### Snippet
-```java
-	 * @see #publishReportEntry(Map)
-	 * @see #publishReportEntry(String, String)
-	 * @see org.junit.platform.engine.EngineExecutionListener#reportingEntryPublished
-	 */
-	@API(status = STABLE, since = "5.3")
-```
-
-### JavadocReference
-Symbol `reportingEntryPublished` is inaccessible from here
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
-#### Snippet
-```java
-	 * @see #publishReportEntry(Map)
-	 * @see #publishReportEntry(String, String)
-	 * @see org.junit.platform.engine.EngineExecutionListener#reportingEntryPublished
-	 */
-	@API(status = STABLE, since = "5.3")
-```
-
-### JavadocReference
-Symbol `org.junit.platform.engine.EngineExecutionListener` is inaccessible from here
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
-#### Snippet
-```java
-	 * @see #publishReportEntry(String, String)
-	 * @see #publishReportEntry(String)
-	 * @see org.junit.platform.engine.EngineExecutionListener#reportingEntryPublished
-	 */
-	void publishReportEntry(Map<String, String> map);
-```
-
-### JavadocReference
-Symbol `reportingEntryPublished` is inaccessible from here
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
-#### Snippet
-```java
-	 * @see #publishReportEntry(String, String)
-	 * @see #publishReportEntry(String)
-	 * @see org.junit.platform.engine.EngineExecutionListener#reportingEntryPublished
-	 */
-	void publishReportEntry(Map<String, String> map);
-```
-
-### JavadocReference
-Symbol `org.junit.platform.engine.ConfigurationParameters` is inaccessible from here
-in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
-#### Snippet
-```java
-	 * @since 5.7
-	 * @see System#getProperty(String)
-	 * @see org.junit.platform.engine.ConfigurationParameters
-	 */
-	@API(status = STABLE, since = "5.10")
-```
-
-### JavadocReference
 Symbol `org.junit.platform.engine.ConfigurationParameters` is inaccessible from here
 in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
 #### Snippet
@@ -213,6 +153,66 @@ in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionCon
 	 * @see org.junit.platform.engine.EngineExecutionListener#reportingEntryPublished
 	 */
 	default void publishReportEntry(String key, String value) {
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.EngineExecutionListener` is inaccessible from here
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
+#### Snippet
+```java
+	 * @see #publishReportEntry(Map)
+	 * @see #publishReportEntry(String, String)
+	 * @see org.junit.platform.engine.EngineExecutionListener#reportingEntryPublished
+	 */
+	@API(status = STABLE, since = "5.3")
+```
+
+### JavadocReference
+Symbol `reportingEntryPublished` is inaccessible from here
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
+#### Snippet
+```java
+	 * @see #publishReportEntry(Map)
+	 * @see #publishReportEntry(String, String)
+	 * @see org.junit.platform.engine.EngineExecutionListener#reportingEntryPublished
+	 */
+	@API(status = STABLE, since = "5.3")
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.ConfigurationParameters` is inaccessible from here
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
+#### Snippet
+```java
+	 * @since 5.7
+	 * @see System#getProperty(String)
+	 * @see org.junit.platform.engine.ConfigurationParameters
+	 */
+	@API(status = STABLE, since = "5.10")
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.EngineExecutionListener` is inaccessible from here
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
+#### Snippet
+```java
+	 * @see #publishReportEntry(String, String)
+	 * @see #publishReportEntry(String)
+	 * @see org.junit.platform.engine.EngineExecutionListener#reportingEntryPublished
+	 */
+	void publishReportEntry(Map<String, String> map);
+```
+
+### JavadocReference
+Symbol `reportingEntryPublished` is inaccessible from here
+in `junit-jupiter-api/src/main/java/org/junit/jupiter/api/extension/ExtensionContext.java`
+#### Snippet
+```java
+	 * @see #publishReportEntry(String, String)
+	 * @see #publishReportEntry(String)
+	 * @see org.junit.platform.engine.EngineExecutionListener#reportingEntryPublished
+	 */
+	void publishReportEntry(Map<String, String> map);
 ```
 
 ### JavadocReference
@@ -302,10 +302,10 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/Clas
 
 ### JavadocReference
 Symbol `org.junit.platform.engine.TestEngine` is inaccessible from here
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/AnnotationSupport.java`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/ReflectionSupport.java`
 #### Snippet
 ```java
- * a particular annotation, etc.
+ * or module-path, loading classes, finding methods, invoking methods, etc.
  *
  * <p>{@link org.junit.platform.engine.TestEngine TestEngine} and extension
  * authors are encouraged to use these supported methods in order to align with
@@ -314,10 +314,10 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/Anno
 
 ### JavadocReference
 Symbol `org.junit.platform.engine.TestEngine` is inaccessible from here
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/ReflectionSupport.java`
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/AnnotationSupport.java`
 #### Snippet
 ```java
- * or module-path, loading classes, finding methods, invoking methods, etc.
+ * a particular annotation, etc.
  *
  * <p>{@link org.junit.platform.engine.TestEngine TestEngine} and extension
  * authors are encouraged to use these supported methods in order to align with
@@ -469,54 +469,6 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/ExcludeC
 ```
 
 ### JavadocReference
-Symbol `org.junit.platform.runner.JUnitPlatform` is inaccessible from here
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasspathResource.java`
-#### Snippet
-```java
- * @since 1.8
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)
- */
-```
-
-### JavadocReference
-Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasspathResource.java`
-#### Snippet
-```java
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)
- */
-@Retention(RetentionPolicy.RUNTIME)
-```
-
-### JavadocReference
-Cannot resolve symbol `selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)`
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasspathResource.java`
-#### Snippet
-```java
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)
- */
-@Retention(RetentionPolicy.RUNTIME)
-```
-
-### JavadocReference
-Symbol `org.junit.platform.engine.discovery.FilePosition` is inaccessible from here
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasspathResource.java`
-#### Snippet
-```java
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)
- */
-@Retention(RetentionPolicy.RUNTIME)
-```
-
-### JavadocReference
 Symbol `org.junit.platform.engine.TestEngine` is inaccessible from here
 in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeEngines.java`
 #### Snippet
@@ -560,6 +512,54 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeE
  * @see Suite
  * @see org.junit.platform.runner.JUnitPlatform
  * @see org.junit.platform.launcher.EngineFilter#includeEngines
+ */
+@Retention(RetentionPolicy.RUNTIME)
+```
+
+### JavadocReference
+Symbol `org.junit.platform.runner.JUnitPlatform` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasspathResource.java`
+#### Snippet
+```java
+ * @since 1.8
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)
+ */
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasspathResource.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)
+ */
+@Retention(RetentionPolicy.RUNTIME)
+```
+
+### JavadocReference
+Cannot resolve symbol `selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)`
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasspathResource.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)
+ */
+@Retention(RetentionPolicy.RUNTIME)
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.discovery.FilePosition` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasspathResource.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)
  */
 @Retention(RetentionPolicy.RUNTIME)
 ```
@@ -806,6 +806,66 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SuiteDis
 
 ### JavadocReference
 Symbol `org.junit.platform.runner.JUnitPlatform` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeTags.java`
+#### Snippet
+```java
+ * @since 1.0
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.launcher.TagFilter#includeTags
+ */
+```
+
+### JavadocReference
+Symbol `org.junit.platform.launcher.TagFilter` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeTags.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.launcher.TagFilter#includeTags
+ */
+@Retention(RetentionPolicy.RUNTIME)
+```
+
+### JavadocReference
+Symbol `includeTags` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeTags.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.launcher.TagFilter#includeTags
+ */
+@Retention(RetentionPolicy.RUNTIME)
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+	 * <p>Cannot be combined with any other attribute.
+	 *
+	 * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String)
+	 */
+	String value() default "";
+```
+
+### JavadocReference
+Symbol `selectMethod(String)` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+	 * <p>Cannot be combined with any other attribute.
+	 *
+	 * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String)
+	 */
+	String value() default "";
+```
+
+### JavadocReference
+Symbol `org.junit.platform.runner.JUnitPlatform` is inaccessible from here
 in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectFile.java`
 #### Snippet
 ```java
@@ -854,13 +914,169 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectFi
 
 ### JavadocReference
 Symbol `org.junit.platform.runner.JUnitPlatform` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @since 1.10
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, String)
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, Class...)
+```
+
+### JavadocReference
+Symbol `selectMethod(String)` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, Class...)
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, Class...)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, String)
+```
+
+### JavadocReference
+Symbol `selectMethod(String, String, String)` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, Class...)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, String)
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, Class...)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, Class...)
+```
+
+### JavadocReference
+Symbol `selectMethod(String, String, Class...)` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, Class...)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, Class...)
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, Class...)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, Class...)
+ */
+```
+
+### JavadocReference
+Symbol `selectMethod(Class, String, String)` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, Class...)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, Class...)
+ */
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, Class...)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, Class...)
+ */
+@Retention(RetentionPolicy.RUNTIME)
+```
+
+### JavadocReference
+Symbol `selectMethod(Class, String, Class...)` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, Class...)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(Class, String, Class...)
+ */
+@Retention(RetentionPolicy.RUNTIME)
+```
+
+### JavadocReference
+Symbol `org.junit.platform.runner.JUnitPlatform` is inaccessible from here
 in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasses.java`
 #### Snippet
 ```java
- *
  * @since 1.0
+ * @see Suite
  * @see org.junit.platform.runner.JUnitPlatform
  * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(Class)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(String)
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasses.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(Class)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(String)
+ */
+```
+
+### JavadocReference
+Symbol `selectClass(Class)` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasses.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(Class)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(String)
  */
 ```
 
@@ -869,57 +1085,21 @@ Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible 
 in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasses.java`
 #### Snippet
 ```java
- * @since 1.0
  * @see org.junit.platform.runner.JUnitPlatform
  * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(Class)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(String)
  */
 @Retention(RetentionPolicy.RUNTIME)
 ```
 
 ### JavadocReference
-Symbol `selectClass(Class)` is inaccessible from here
+Symbol `selectClass(String)` is inaccessible from here
 in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasses.java`
 #### Snippet
 ```java
- * @since 1.0
  * @see org.junit.platform.runner.JUnitPlatform
  * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(Class)
- */
-@Retention(RetentionPolicy.RUNTIME)
-```
-
-### JavadocReference
-Symbol `org.junit.platform.runner.JUnitPlatform` is inaccessible from here
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeTags.java`
-#### Snippet
-```java
- * @since 1.0
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.launcher.TagFilter#includeTags
- */
-```
-
-### JavadocReference
-Symbol `org.junit.platform.launcher.TagFilter` is inaccessible from here
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeTags.java`
-#### Snippet
-```java
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.launcher.TagFilter#includeTags
- */
-@Retention(RetentionPolicy.RUNTIME)
-```
-
-### JavadocReference
-Symbol `includeTags` is inaccessible from here
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeTags.java`
-#### Snippet
-```java
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.launcher.TagFilter#includeTags
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(String)
  */
 @Retention(RetentionPolicy.RUNTIME)
 ```
@@ -956,42 +1136,6 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/ExcludeT
  * @see Suite
  * @see org.junit.platform.runner.JUnitPlatform
  * @see org.junit.platform.launcher.TagFilter#excludeTags
- */
-@Retention(RetentionPolicy.RUNTIME)
-```
-
-### JavadocReference
-Symbol `org.junit.platform.runner.JUnitPlatform` is inaccessible from here
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectUris.java`
-#### Snippet
-```java
- * @since 1.8
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectUri(String)
- */
-```
-
-### JavadocReference
-Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectUris.java`
-#### Snippet
-```java
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectUri(String)
- */
-@Retention(RetentionPolicy.RUNTIME)
-```
-
-### JavadocReference
-Symbol `selectUri(String)` is inaccessible from here
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectUris.java`
-#### Snippet
-```java
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectUri(String)
  */
 @Retention(RetentionPolicy.RUNTIME)
 ```
@@ -1040,6 +1184,42 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/ExcludeE
  * @see Suite
  * @see org.junit.platform.runner.JUnitPlatform
  * @see org.junit.platform.launcher.EngineFilter#excludeEngines
+ */
+@Retention(RetentionPolicy.RUNTIME)
+```
+
+### JavadocReference
+Symbol `org.junit.platform.runner.JUnitPlatform` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectUris.java`
+#### Snippet
+```java
+ * @since 1.8
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectUri(String)
+ */
+```
+
+### JavadocReference
+Symbol `org.junit.platform.engine.discovery.DiscoverySelectors` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectUris.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectUri(String)
+ */
+@Retention(RetentionPolicy.RUNTIME)
+```
+
+### JavadocReference
+Symbol `selectUri(String)` is inaccessible from here
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectUris.java`
+#### Snippet
+```java
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectUri(String)
  */
 @Retention(RetentionPolicy.RUNTIME)
 ```
@@ -1420,6 +1600,18 @@ public class JUnitPlatform extends Runner implements Filterable {
 ```
 
 ### DeprecatedIsStillUsed
+Deprecated member 'getOutermostInstance' is still used
+in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
+#### Snippet
+```java
+	@API(status = DEPRECATED, since = "1.4")
+	@Deprecated
+	public static Optional<Object> getOutermostInstance(Object inner, Class<?> requiredType) {
+		Preconditions.notNull(inner, "inner object must not be null");
+		Preconditions.notNull(requiredType, "requiredType must not be null");
+```
+
+### DeprecatedIsStillUsed
 Deprecated member 'readFieldValue' is still used
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
 #### Snippet
@@ -1456,18 +1648,6 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Reflect
 ```
 
 ### DeprecatedIsStillUsed
-Deprecated member 'getOutermostInstance' is still used
-in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/ReflectionUtils.java`
-#### Snippet
-```java
-	@API(status = DEPRECATED, since = "1.4")
-	@Deprecated
-	public static Optional<Object> getOutermostInstance(Object inner, Class<?> requiredType) {
-		Preconditions.notNull(inner, "inner object must not be null");
-		Preconditions.notNull(requiredType, "requiredType must not be null");
-```
-
-### DeprecatedIsStillUsed
 Deprecated member 'LegacyReportingUtils' is still used
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/listeners/LegacyReportingUtils.java`
 #### Snippet
@@ -1494,17 +1674,6 @@ public @interface UseTechnicalNames {
 ## RuleId[id=HasPlatformType]
 ### HasPlatformType
 Declaration has type inferred from a platform call, which can lead to unchecked nullability issues. Specify type explicitly as nullable or non-nullable.
-in `gradle/plugins/settings.gradle.kts`
-#### Snippet
-```java
-val expectedJavaVersion = JavaVersion.VERSION_17
-val actualJavaVersion = JavaVersion.current()
-require(actualJavaVersion == expectedJavaVersion) {
-	"The JUnit 5 build must be executed with Java ${expectedJavaVersion.majorVersion}. Currently executing with Java ${actualJavaVersion.majorVersion}."
-```
-
-### HasPlatformType
-Declaration has type inferred from a platform call, which can lead to unchecked nullability issues. Specify type explicitly as nullable or non-nullable.
 in `gradle/plugins/common/src/main/kotlin/junitbuild.junit4-compatibility.gradle.kts`
 #### Snippet
 ```java
@@ -1517,14 +1686,25 @@ val junit_4_12 by configurations.creatingResolvable {
 
 ### HasPlatformType
 Declaration has type inferred from a platform call, which can lead to unchecked nullability issues. Specify type explicitly as nullable or non-nullable.
-in `gradle/plugins/common/src/main/kotlin/junitbuild.shadow-conventions.gradle.kts`
+in `gradle/plugins/common/src/main/kotlin/junitbuild.osgi-conventions.gradle.kts`
 #### Snippet
 ```java
 }
 
-val shadowed by configurations.creatingResolvable
+val osgiVerification by configurations.creatingResolvable {
+	extendsFrom(configurations.runtimeClasspath.get())
+}
+```
 
-configurations {
+### HasPlatformType
+Declaration has type inferred from a platform call, which can lead to unchecked nullability issues. Specify type explicitly as nullable or non-nullable.
+in `gradle/plugins/settings.gradle.kts`
+#### Snippet
+```java
+val expectedJavaVersion = JavaVersion.VERSION_17
+val actualJavaVersion = JavaVersion.current()
+require(actualJavaVersion == expectedJavaVersion) {
+	"The JUnit 5 build must be executed with Java ${expectedJavaVersion.majorVersion}. Currently executing with Java ${actualJavaVersion.majorVersion}."
 ```
 
 ### HasPlatformType
@@ -1541,14 +1721,14 @@ val buildTimeAndDate =
 
 ### HasPlatformType
 Declaration has type inferred from a platform call, which can lead to unchecked nullability issues. Specify type explicitly as nullable or non-nullable.
-in `gradle/plugins/common/src/main/kotlin/junitbuild.osgi-conventions.gradle.kts`
+in `gradle/plugins/common/src/main/kotlin/junitbuild.shadow-conventions.gradle.kts`
 #### Snippet
 ```java
 }
 
-val osgiVerification by configurations.creatingResolvable {
-	extendsFrom(configurations.runtimeClasspath.get())
-}
+val shadowed by configurations.creatingResolvable
+
+configurations {
 ```
 
 ### HasPlatformType
@@ -1810,6 +1990,22 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Reflect
 
 ### DuplicatedCode
 Duplicated code
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/ClassSelector.java`
+#### Snippet
+```java
+		if (this.javaClass == null) {
+			// @formatter:off
+			Try<Class<?>> tryToLoadClass = this.classLoader == null
+				? ReflectionUtils.tryToLoadClass(this.className)
+				: ReflectionUtils.tryToLoadClass(this.className, this.classLoader);
+			this.javaClass = tryToLoadClass.getOrThrow(cause ->
+				new PreconditionViolationException("Could not load class with name: " + this.className, cause));
+			// @formatter:on
+		}
+```
+
+### DuplicatedCode
+Duplicated code
 in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/FilePosition.java`
 #### Snippet
 ```java
@@ -1846,30 +2042,6 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/File
 			}
 		}
 		return Optional.ofNullable(result);
-```
-
-### DuplicatedCode
-Duplicated code
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/MethodSelector.java`
-#### Snippet
-```java
-		lazyLoadJavaClass();
-
-		if (this.javaMethod == null) {
-			if (StringUtils.isNotBlank(this.methodParameterTypes)) {
-				this.javaMethod = ReflectionUtils.findMethod(this.javaClass, this.methodName,
-					this.methodParameterTypes).orElseThrow(
-						() -> new PreconditionViolationException(String.format(
-							"Could not find method with name [%s] and parameter types [%s] in class [%s].",
-							this.methodName, this.methodParameterTypes, this.javaClass.getName())));
-			}
-			else {
-				this.javaMethod = ReflectionUtils.findMethod(this.javaClass, this.methodName).orElseThrow(
-					() -> new PreconditionViolationException(
-						String.format("Could not find method with name [%s] in class [%s].", this.methodName,
-							this.javaClass.getName())));
-			}
-		}
 ```
 
 ## RuleId[id=CollectionContainsUrl]
@@ -1924,18 +2096,6 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/ExcludeC
 
 ### Deprecation
 'org.junit.platform.runner.JUnitPlatform' is deprecated
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasspathResource.java`
-#### Snippet
-```java
- * @since 1.8
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)
- */
-```
-
-### Deprecation
-'org.junit.platform.runner.JUnitPlatform' is deprecated
 in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeEngines.java`
 #### Snippet
 ```java
@@ -1943,6 +2103,18 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeE
  * @see Suite
  * @see org.junit.platform.runner.JUnitPlatform
  * @see org.junit.platform.launcher.EngineFilter#includeEngines
+ */
+```
+
+### Deprecation
+'org.junit.platform.runner.JUnitPlatform' is deprecated
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasspathResource.java`
+#### Snippet
+```java
+ * @since 1.8
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClasspathResource(String, org.junit.platform.engine.discovery.FilePosition)
  */
 ```
 
@@ -2008,6 +2180,30 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SuiteDis
 
 ### Deprecation
 'org.junit.platform.runner.JUnitPlatform' is deprecated
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeTags.java`
+#### Snippet
+```java
+ * @since 1.0
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.launcher.TagFilter#includeTags
+ */
+```
+
+### Deprecation
+'org.junit.platform.runner.JUnitPlatform' is deprecated
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectMethod.java`
+#### Snippet
+```java
+ * @since 1.10
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectMethod(String, String, String)
+```
+
+### Deprecation
+'org.junit.platform.runner.JUnitPlatform' is deprecated
 in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectFile.java`
 #### Snippet
 ```java
@@ -2023,23 +2219,11 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectFi
 in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectClasses.java`
 #### Snippet
 ```java
- *
- * @since 1.0
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(Class)
- */
-```
-
-### Deprecation
-'org.junit.platform.runner.JUnitPlatform' is deprecated
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/IncludeTags.java`
-#### Snippet
-```java
  * @since 1.0
  * @see Suite
  * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.launcher.TagFilter#includeTags
- */
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(Class)
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectClass(String)
 ```
 
 ### Deprecation
@@ -2056,18 +2240,6 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/ExcludeT
 
 ### Deprecation
 'org.junit.platform.runner.JUnitPlatform' is deprecated
-in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectUris.java`
-#### Snippet
-```java
- * @since 1.8
- * @see Suite
- * @see org.junit.platform.runner.JUnitPlatform
- * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectUri(String)
- */
-```
-
-### Deprecation
-'org.junit.platform.runner.JUnitPlatform' is deprecated
 in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/ExcludeEngines.java`
 #### Snippet
 ```java
@@ -2075,6 +2247,18 @@ in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/ExcludeE
  * @see Suite
  * @see org.junit.platform.runner.JUnitPlatform
  * @see org.junit.platform.launcher.EngineFilter#excludeEngines
+ */
+```
+
+### Deprecation
+'org.junit.platform.runner.JUnitPlatform' is deprecated
+in `junit-platform-suite-api/src/main/java/org/junit/platform/suite/api/SelectUris.java`
+#### Snippet
+```java
+ * @since 1.8
+ * @see Suite
+ * @see org.junit.platform.runner.JUnitPlatform
+ * @see org.junit.platform.engine.discovery.DiscoverySelectors#selectUri(String)
  */
 ```
 
@@ -2269,6 +2453,18 @@ Call can be replaced with binary operator
 in `junit-jupiter-params/src/test/kotlin/ParameterizedTestNameFormatterIntegrationTests.kt`
 #### Snippet
 ```java
+    @ParameterizedTest(name = "{0}")
+    fun `1st argument`(param: String, info: TestInfo) {
+        if (param.equals("foo")) {
+            assertEquals("foo", info.displayName)
+        } else {
+```
+
+### ReplaceCallWithBinaryOperator
+Call can be replaced with binary operator
+in `junit-jupiter-params/src/test/kotlin/ParameterizedTestNameFormatterIntegrationTests.kt`
+#### Snippet
+```java
     @ParameterizedTest(name = "{0} - {displayName}")
     fun `1st 'argument' and displayName`(param: String, info: TestInfo) {
         if (param.equals("foo")) {
@@ -2285,18 +2481,6 @@ in `junit-jupiter-params/src/test/kotlin/ParameterizedTestNameFormatterIntegrati
     fun defaultDisplayName(param: String, info: TestInfo) {
         if (param.equals("foo")) {
             assertEquals("[1] foo", info.displayName)
-        } else {
-```
-
-### ReplaceCallWithBinaryOperator
-Call can be replaced with binary operator
-in `junit-jupiter-params/src/test/kotlin/ParameterizedTestNameFormatterIntegrationTests.kt`
-#### Snippet
-```java
-    @ParameterizedTest(name = "{0}")
-    fun `1st argument`(param: String, info: TestInfo) {
-        if (param.equals("foo")) {
-            assertEquals("foo", info.displayName)
         } else {
 ```
 
@@ -2533,15 +2717,15 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/Defaul
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'testDescriptor'
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/ClassSelectorResolver.java`
+`Optional` used as type for field 'target'
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/MethodInvocation.java`
 #### Snippet
 ```java
-	}
 
-	private Resolution toResolution(Optional<? extends ClassBasedTestDescriptor> testDescriptor) {
-		return testDescriptor.map(it -> {
-			Class<?> testClass = it.getTestClass();
+	private final Method method;
+	private final Optional<Object> target;
+	private final Object[] arguments;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2557,27 +2741,15 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/Method
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'target'
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/execution/MethodInvocation.java`
+`Optional` used as type for parameter 'testDescriptor'
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/discovery/ClassSelectorResolver.java`
 #### Snippet
 ```java
+	}
 
-	private final Method method;
-	private final Optional<Object> target;
-	private final Object[] arguments;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional`> used as type for field 'testClass'
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestInfoParameterResolver.java`
-#### Snippet
-```java
-		private final String displayName;
-		private final Set<String> tags;
-		private final Optional<Class<?>> testClass;
-		private final Optional<Method> testMethod;
-
+	private Resolution toResolution(Optional<? extends ClassBasedTestDescriptor> testDescriptor) {
+		return testDescriptor.map(it -> {
+			Class<?> testClass = it.getTestClass();
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2602,6 +2774,18 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestIn
 		private static Object nullSafeGet(Optional<?> optional) {
 			return optional != null ? optional.orElse(null) : null;
 		}
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional`> used as type for field 'testClass'
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestInfoParameterResolver.java`
+#### Snippet
+```java
+		private final String displayName;
+		private final Set<String> tags;
+		private final Optional<Class<?>> testClass;
+		private final Optional<Method> testMethod;
+
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2647,8 +2831,8 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/Class
 ```java
 	}
 
-	private Object invokeTestClassConstructor(Optional<Object> outerInstance, ExtensionRegistry registry,
-			ExtensionContext extensionContext) {
+	private Object invokeTestInstanceFactory(Optional<Object> outerInstance, ExtensionContext extensionContext) {
+		Object instance;
 
 ```
 
@@ -2659,21 +2843,9 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/descriptor/Class
 ```java
 	}
 
-	private Object invokeTestInstanceFactory(Optional<Object> outerInstance, ExtensionContext extensionContext) {
-		Object instance;
+	private Object invokeTestClassConstructor(Optional<Object> outerInstance, ExtensionRegistry registry,
+			ExtensionContext extensionContext) {
 
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'identifiedTestDescriptor'
-in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/discovery/UniqueIdFilter.java`
-#### Snippet
-```java
-	}
-
-	private Set<Description> determineDescendants(Optional<? extends TestDescriptor> identifiedTestDescriptor) {
-		// @formatter:off
-		return identifiedTestDescriptor.map(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2686,6 +2858,18 @@ in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/discovery/Unique
 			Optional<? extends TestDescriptor> identifiedTestDescriptor) {
 		Deque<Description> path = new ArrayDeque<>();
 		Optional<? extends TestDescriptor> current = identifiedTestDescriptor;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'identifiedTestDescriptor'
+in `junit-vintage-engine/src/main/java/org/junit/vintage/engine/discovery/UniqueIdFilter.java`
+#### Snippet
+```java
+	}
+
+	private Set<Description> determineDescendants(Optional<? extends TestDescriptor> identifiedTestDescriptor) {
+		// @formatter:off
+		return identifiedTestDescriptor.map(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2729,10 +2913,10 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/support/hierar
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/AnnotationUtils.java`
 #### Snippet
 ```java
-	 * @see org.junit.platform.commons.support.AnnotationSupport#findAnnotation(Optional, Class)
+	 * @see org.junit.platform.commons.support.AnnotationSupport#isAnnotated(Optional, Class)
 	 */
-	public static <A extends Annotation> Optional<A> findAnnotation(Optional<? extends AnnotatedElement> element,
-			Class<A> annotationType) {
+	public static boolean isAnnotated(Optional<? extends AnnotatedElement> element,
+			Class<? extends Annotation> annotationType) {
 
 ```
 
@@ -2741,10 +2925,10 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Annotat
 in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/AnnotationUtils.java`
 #### Snippet
 ```java
-	 * @see org.junit.platform.commons.support.AnnotationSupport#isAnnotated(Optional, Class)
+	 * @see org.junit.platform.commons.support.AnnotationSupport#findAnnotation(Optional, Class)
 	 */
-	public static boolean isAnnotated(Optional<? extends AnnotatedElement> element,
-			Class<? extends Annotation> annotationType) {
+	public static <A extends Annotation> Optional<A> findAnnotation(Optional<? extends AnnotatedElement> element,
+			Class<A> annotationType) {
 
 ```
 
@@ -2766,9 +2950,9 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/Anno
 #### Snippet
 ```java
 	 */
-	@API(status = MAINTAINED, since = "1.3")
-	public static boolean isAnnotated(Optional<? extends AnnotatedElement> element,
-			Class<? extends Annotation> annotationType) {
+	@API(status = MAINTAINED, since = "1.1")
+	public static <A extends Annotation> Optional<A> findAnnotation(Optional<? extends AnnotatedElement> element,
+			Class<A> annotationType) {
 
 ```
 
@@ -2790,10 +2974,22 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/support/Anno
 #### Snippet
 ```java
 	 */
-	@API(status = MAINTAINED, since = "1.1")
-	public static <A extends Annotation> Optional<A> findAnnotation(Optional<? extends AnnotatedElement> element,
-			Class<A> annotationType) {
+	@API(status = MAINTAINED, since = "1.3")
+	public static boolean isAnnotated(Optional<? extends AnnotatedElement> element,
+			Class<? extends Annotation> annotationType) {
 
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for parameter 'customClassLoader'
+in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/CustomContextClassLoaderExecutor.java`
+#### Snippet
+```java
+	private final Optional<ClassLoader> customClassLoader;
+
+	CustomContextClassLoaderExecutor(Optional<ClassLoader> customClassLoader) {
+		this.customClassLoader = customClassLoader;
+	}
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2809,14 +3005,14 @@ class CustomContextClassLoaderExecutor {
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'customClassLoader'
-in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/CustomContextClassLoaderExecutor.java`
+`Optional` used as type for parameter 'reportsDir'
+in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/ConsoleTestExecutor.java`
 #### Snippet
 ```java
-	private final Optional<ClassLoader> customClassLoader;
+	}
 
-	CustomContextClassLoaderExecutor(Optional<ClassLoader> customClassLoader) {
-		this.customClassLoader = customClassLoader;
+	private Optional<TestExecutionListener> createXmlWritingListener(PrintWriter out, Optional<Path> reportsDir) {
+		return reportsDir.map(it -> new LegacyXmlReportGeneratingListener(it, out));
 	}
 ```
 
@@ -2839,18 +3035,6 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/Consol
 ```java
 	}
 
-	public TestExecutionSummary execute(PrintWriter out, Optional<Path> reportsDir) {
-		return new CustomContextClassLoaderExecutor(createCustomClassLoader()) //
-				.invoke(() -> executeTests(out, reportsDir));
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for parameter 'reportsDir'
-in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/ConsoleTestExecutor.java`
-#### Snippet
-```java
-	}
-
 	private TestExecutionSummary executeTests(PrintWriter out, Optional<Path> reportsDir) {
 		Launcher launcher = launcherSupplier.get();
 		SummaryGeneratingListener summaryListener = registerListeners(out, reportsDir, launcher);
@@ -2863,9 +3047,9 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/tasks/Consol
 ```java
 	}
 
-	private Optional<TestExecutionListener> createXmlWritingListener(PrintWriter out, Optional<Path> reportsDir) {
-		return reportsDir.map(it -> new LegacyXmlReportGeneratingListener(it, out));
-	}
+	public TestExecutionSummary execute(PrintWriter out, Optional<Path> reportsDir) {
+		return new CustomContextClassLoaderExecutor(createCustomClassLoader()) //
+				.invoke(() -> executeTests(out, reportsDir));
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2893,18 +3077,6 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Strea
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'stdoutInterceptor'
-in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/StreamInterceptingTestExecutionListener.java`
-#### Snippet
-```java
-class StreamInterceptingTestExecutionListener implements EagerTestExecutionListener {
-
-	private final Optional<StreamInterceptor> stdoutInterceptor;
-	private final Optional<StreamInterceptor> stderrInterceptor;
-	private final BiConsumer<TestIdentifier, ReportEntry> reporter;
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'stdoutInterceptor'
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/StreamInterceptingTestExecutionListener.java`
 #### Snippet
@@ -2929,6 +3101,18 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Strea
 ```
 
 ### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'stdoutInterceptor'
+in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/StreamInterceptingTestExecutionListener.java`
+#### Snippet
+```java
+class StreamInterceptingTestExecutionListener implements EagerTestExecutionListener {
+
+	private final Optional<StreamInterceptor> stdoutInterceptor;
+	private final Optional<StreamInterceptor> stderrInterceptor;
+	private final BiConsumer<TestIdentifier, ReportEntry> reporter;
+```
+
+### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'reason'
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/EngineDiscoveryOrchestrator.java`
 #### Snippet
@@ -2945,11 +3129,11 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/core/Engin
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/listeners/OutputDir.java`
 #### Snippet
 ```java
-	 * Package private for testing purposes.
-	 */
-	static OutputDir createSafely(Optional<String> customDir, Supplier<Path> currentWorkingDir) throws IOException {
-		Path cwd = currentWorkingDir.get();
-		Path outputDir;
+public class OutputDir {
+
+	public static OutputDir create(Optional<String> customDir) {
+		try {
+			return createSafely(customDir, () -> Paths.get(".").toAbsolutePath());
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -2957,11 +3141,11 @@ in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/listeners/
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/listeners/OutputDir.java`
 #### Snippet
 ```java
-public class OutputDir {
-
-	public static OutputDir create(Optional<String> customDir) {
-		try {
-			return createSafely(customDir, () -> Paths.get(".").toAbsolutePath());
+	 * Package private for testing purposes.
+	 */
+	static OutputDir createSafely(Optional<String> customDir, Supplier<Path> currentWorkingDir) throws IOException {
+		Path cwd = currentWorkingDir.get();
+		Path outputDir;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -3042,18 +3226,6 @@ in `platform-tooling-support-tests/src/main/java/platform/tooling/support/Helper
 ## RuleId[id=OptionalAssignedToNull]
 ### OptionalAssignedToNull
 Optional value is compared with null
-in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TimeoutConfiguration.java`
-#### Snippet
-```java
-
-	Optional<ThreadMode> getDefaultTimeoutThreadMode() {
-		if (threadMode.get() != null) {
-			return threadMode.get();
-		}
-```
-
-### OptionalAssignedToNull
-Optional value is compared with null
 in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestInfoParameterResolver.java`
 #### Snippet
 ```java
@@ -3064,17 +3236,16 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TestIn
 
 ```
 
-## RuleId[id=RemoveEmptyParenthesesFromLambdaCall]
-### RemoveEmptyParenthesesFromLambdaCall
-Unnecessary parentheses in function call with lambda
-in `gradle/plugins/common/src/main/kotlin/junitbuild.temp-maven-repo.gradle.kts`
+### OptionalAssignedToNull
+Optional value is compared with null
+in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/TimeoutConfiguration.java`
 #### Snippet
 ```java
-subprojects {
-	pluginManager.withPlugin("maven-publish") {
-		configure<PublishingExtension>() {
-			repositories {
-				maven {
+
+	Optional<ThreadMode> getDefaultTimeoutThreadMode() {
+		if (threadMode.get() != null) {
+			return threadMode.get();
+		}
 ```
 
 ## RuleId[id=JUnitMalformedDeclaration]
@@ -3102,19 +3273,92 @@ public class JUnit3SuiteWithSubsuites extends TestCase {
 
 ```
 
-## RuleId[id=JavadocDeclaration]
-### JavadocDeclaration
-Javadoc pointing to itself
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/EngineExecutionListener.java`
+## RuleId[id=RedundantCast]
+### RedundantCast
+Casting `null` to `ClassLoader` is redundant
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DiscoverySelectors.java`
 #### Snippet
 ```java
-	 * <em>after</em> all of its children have been
-	 * {@linkplain #executionSkipped skipped} or have
-	 * {@linkplain #executionFinished finished}.
-	 *
-	 * <p>The {@link TestExecutionResult} describes the result of the execution
+	@API(status = STABLE, since = "1.6")
+	public static NestedClassSelector selectNestedClass(List<String> enclosingClassNames, String nestedClassName) {
+		return selectNestedClass((ClassLoader) null, enclosingClassNames, nestedClassName);
+	}
+
 ```
 
+### RedundantCast
+Casting `null` to `ClassLoader` is redundant
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DiscoverySelectors.java`
+#### Snippet
+```java
+	 */
+	public static MethodSelector selectMethod(String className, String methodName, String parameterTypeNames) {
+		return selectMethod((ClassLoader) null, className, methodName, parameterTypeNames);
+	}
+
+```
+
+### RedundantCast
+Casting `null` to `ClassLoader` is redundant
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DiscoverySelectors.java`
+#### Snippet
+```java
+		Preconditions.notNull(parameterTypes, "Parameter types array must not be null");
+		Preconditions.containsNoNullElements(parameterTypes, "Parameter types array must not contain null elements");
+		return new NestedMethodSelector((ClassLoader) null, enclosingClassNames, nestedClassName, methodName,
+			parameterTypes);
+	}
+```
+
+### RedundantCast
+Casting `null` to `ClassLoader` is redundant
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DiscoverySelectors.java`
+#### Snippet
+```java
+	public static NestedMethodSelector selectNestedMethod(List<String> enclosingClassNames, String nestedClassName,
+			String methodName, String parameterTypeNames) {
+		return selectNestedMethod((ClassLoader) null, enclosingClassNames, nestedClassName, methodName,
+			parameterTypeNames);
+	}
+```
+
+### RedundantCast
+Casting `null` to `ClassLoader` is redundant
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DiscoverySelectors.java`
+#### Snippet
+```java
+		Preconditions.notNull(parameterTypes, "Parameter types array must not be null");
+		Preconditions.containsNoNullElements(parameterTypes, "Parameter types array must not contain null elements");
+		return new MethodSelector((ClassLoader) null, className, methodName, parameterTypes);
+	}
+
+```
+
+### RedundantCast
+Casting `null` to `ClassLoader` is redundant
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DiscoverySelectors.java`
+#### Snippet
+```java
+	public static NestedMethodSelector selectNestedMethod(List<String> enclosingClassNames, String nestedClassName,
+			String methodName) {
+		return selectNestedMethod((ClassLoader) null, enclosingClassNames, nestedClassName, methodName);
+	}
+
+```
+
+### RedundantCast
+Casting `null` to `ClassLoader` is redundant
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/DiscoverySelectors.java`
+#### Snippet
+```java
+	 */
+	public static ClassSelector selectClass(String className) {
+		return selectClass((ClassLoader) null, className);
+	}
+
+```
+
+## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
 Javadoc pointing to itself
 in `junit-platform-engine/src/main/java/org/junit/platform/engine/EngineExecutionListener.java`
@@ -3125,6 +3369,18 @@ in `junit-platform-engine/src/main/java/org/junit/platform/engine/EngineExecutio
 	 * <em>before</em> {@linkplain #executionStarted starting} or
 	 * {@linkplain #executionSkipped skipping} any of its children.
 	 *
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `junit-platform-engine/src/main/java/org/junit/platform/engine/EngineExecutionListener.java`
+#### Snippet
+```java
+	 * <em>after</em> all of its children have been
+	 * {@linkplain #executionSkipped skipped} or have
+	 * {@linkplain #executionFinished finished}.
+	 *
+	 * <p>The {@link TestExecutionResult} describes the result of the execution
 ```
 
 ### JavadocDeclaration
@@ -3144,11 +3400,11 @@ Javadoc pointing to itself
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/TestExecutionListener.java`
 #### Snippet
 ```java
+	 * <em>after</em> all of its children have been
+	 * {@linkplain #executionSkipped skipped} or have
+	 * {@linkplain #executionFinished finished}.
 	 *
-	 * <p>This method will be called for a container {@code TestIdentifier}
-	 * <em>before</em> {@linkplain #executionStarted starting} or
-	 * {@linkplain #executionSkipped skipping} any of its children.
-	 *
+	 * <p>The {@link TestExecutionResult} describes the result of the execution
 ```
 
 ### JavadocDeclaration
@@ -3156,11 +3412,11 @@ Javadoc pointing to itself
 in `junit-platform-launcher/src/main/java/org/junit/platform/launcher/TestExecutionListener.java`
 #### Snippet
 ```java
-	 * <em>after</em> all of its children have been
-	 * {@linkplain #executionSkipped skipped} or have
-	 * {@linkplain #executionFinished finished}.
 	 *
-	 * <p>The {@link TestExecutionResult} describes the result of the execution
+	 * <p>This method will be called for a container {@code TestIdentifier}
+	 * <em>before</em> {@linkplain #executionStarted starting} or
+	 * {@linkplain #executionSkipped skipping} any of its children.
+	 *
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -3189,27 +3445,15 @@ in `documentation/src/main/java/example/domain/Person.java`
 ```
 
 ### FieldMayBeFinal
-Field `enclosingClassSelectors` may be 'final'
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/NestedClassSelector.java`
-#### Snippet
-```java
-public class NestedClassSelector implements DiscoverySelector {
-
-	private List<ClassSelector> enclosingClassSelectors;
-	private ClassSelector nestedClassSelector;
-
-```
-
-### FieldMayBeFinal
-Field `nestedClassSelector` may be 'final'
-in `junit-platform-engine/src/main/java/org/junit/platform/engine/discovery/NestedClassSelector.java`
+Field `theme2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestConsoleOutputOptionsMixin.java`
 #### Snippet
 ```java
 
-	private List<ClassSelector> enclosingClassSelectors;
-	private ClassSelector nestedClassSelector;
+		@Option(names = "-details-theme", hidden = true)
+		private Theme theme2 = DEFAULT_THEME;
 
-	NestedClassSelector(List<String> enclosingClassNames, String nestedClassName) {
+		private void applyTo(TestConsoleOutputOptions result) {
 ```
 
 ### FieldMayBeFinal
@@ -3222,18 +3466,6 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/options/Test
 		private Details details2 = DEFAULT_DETAILS;
 
 		@Option(names = "--details-theme", paramLabel = "THEME", description = "Select an output details tree theme for when tests are executed. "
-```
-
-### FieldMayBeFinal
-Field `theme2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestConsoleOutputOptionsMixin.java`
-#### Snippet
-```java
-
-		@Option(names = "-details-theme", hidden = true)
-		private Theme theme2 = DEFAULT_THEME;
-
-		private void applyTo(TestConsoleOutputOptions result) {
 ```
 
 ### FieldMayBeFinal
@@ -3273,279 +3505,15 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/options/Main
 ```
 
 ### FieldMayBeFinal
-Field `selectedClasspathResources2` may be 'final'
+Field `includeClassNamePatterns2` may be 'final'
 in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
 #### Snippet
 ```java
-		@Option(names = { "--r",
-				"-select-resource" }, arity = "1", hidden = true, converter = SelectorConverter.ClasspathResource.class)
-		private List<ClasspathResourceSelector> selectedClasspathResources2 = new ArrayList<>();
-
-		@Option(names = { "-i",
-```
-
-### FieldMayBeFinal
-Field `selectedIterations2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "--i",
-				"-select-iteration" }, arity = "1", hidden = true, converter = SelectorConverter.Iteration.class)
-		private List<IterationSelector> selectedIterations2 = new ArrayList<>();
-
-		SelectorOptions() {
-```
-
-### FieldMayBeFinal
-Field `selectedDirectories2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "--d",
-				"-select-directory" }, arity = "1", hidden = true, converter = SelectorConverter.Directory.class)
-		private List<DirectorySelector> selectedDirectories2 = new ArrayList<>();
-
-		@Option(names = { "-o",
-```
-
-### FieldMayBeFinal
-Field `includePackages` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = {
-				"--include-package" }, paramLabel = "PKG", arity = "1", description = "Provide a package to be included in the test run. This option can be repeated.")
-		private List<String> includePackages = new ArrayList<>();
-
-		@Option(names = { "-include-package" }, arity = "1", hidden = true)
-```
-
-### FieldMayBeFinal
-Field `selectedFiles2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-
-		@Option(names = { "--f", "-select-file" }, arity = "1", hidden = true, converter = SelectorConverter.File.class)
-		private List<FileSelector> selectedFiles2 = new ArrayList<>();
-
-		@Option(names = { "-d",
-```
-
-### FieldMayBeFinal
-Field `selectedUris2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-
-		@Option(names = { "--u", "-select-uri" }, arity = "1", hidden = true, converter = SelectorConverter.Uri.class)
-		private List<UriSelector> selectedUris2 = new ArrayList<>();
-
-		@Option(names = { "-f",
-```
-
-### FieldMayBeFinal
-Field `excludePackages2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-
-		@Option(names = { "-exclude-package" }, arity = "1", hidden = true)
-		private List<String> excludePackages2 = new ArrayList<>();
-
-		@Option(names = { "-t",
-```
-
-### FieldMayBeFinal
-Field `selectedMethods` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "-m",
-				"--select-method" }, paramLabel = "NAME", arity = "1", converter = SelectorConverter.Method.class, description = "Select a method for test discovery. This option can be repeated.")
-		private List<MethodSelector> selectedMethods = new ArrayList<>();
-
-		@Option(names = { "--m",
-```
-
-### FieldMayBeFinal
-Field `selectedClasspathResources` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "-r",
-				"--select-resource" }, paramLabel = "RESOURCE", arity = "1", converter = SelectorConverter.ClasspathResource.class, description = "Select a classpath resource for test discovery. This option can be repeated.")
-		private List<ClasspathResourceSelector> selectedClasspathResources = new ArrayList<>();
-
-		@Option(names = { "--r",
-```
-
-### FieldMayBeFinal
-Field `selectedModules2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "--o",
-				"-select-module" }, arity = "1", converter = SelectorConverter.Module.class, hidden = true)
-		private List<ModuleSelector> selectedModules2 = new ArrayList<>();
-
-		@Option(names = { "-p",
-```
-
-### FieldMayBeFinal
-Field `excludeClassNamePatterns2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-
-		@Option(names = { "--N", "-exclude-classname" }, arity = "1", hidden = true)
-		private List<String> excludeClassNamePatterns2 = new ArrayList<>();
-
-		@Option(names = {
-```
-
-### FieldMayBeFinal
-Field `includedTags` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-						+ //
-						"When this option is repeated, all patterns will be combined using OR semantics.")
-		private List<String> includedTags = new ArrayList<>();
-
-		@Option(names = { "--t", "-include-tag" }, arity = "1", hidden = true)
-```
-
-### FieldMayBeFinal
-Field `selectedIterations` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "-i",
-				"--select-iteration" }, paramLabel = "TYPE:VALUE[INDEX(..INDEX)?(,INDEX(..INDEX)?)*]", arity = "1", converter = SelectorConverter.Iteration.class, description = "Select iterations for test discovery (e.g. method:com.acme.Foo#m()[1..2]). This option can be repeated.")
-		private List<IterationSelector> selectedIterations = new ArrayList<>();
-
-		@Option(names = { "--i",
-```
-
-### FieldMayBeFinal
-Field `configurationParameters` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-
-		// Implementation note: the @Option annotation is on a setter method to allow validation.
-		private Map<String, String> configurationParameters = new LinkedHashMap<>();
-
-		@CommandLine.Spec
-```
-
-### FieldMayBeFinal
-Field `selectedModules` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "-o",
-				"--select-module" }, paramLabel = "NAME", arity = "1", converter = SelectorConverter.Module.class, description = "Select single module for test discovery. This option can be repeated.")
-		private List<ModuleSelector> selectedModules = new ArrayList<>();
-
-		@Option(names = { "--o",
-```
-
-### FieldMayBeFinal
-Field `selectedUris` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "-u",
-				"--select-uri" }, paramLabel = "URI", arity = "1", converter = SelectorConverter.Uri.class, description = "Select a URI for test discovery. This option can be repeated.")
-		private List<UriSelector> selectedUris = new ArrayList<>();
-
-		@Option(names = { "--u", "-select-uri" }, arity = "1", hidden = true, converter = SelectorConverter.Uri.class)
-```
-
-### FieldMayBeFinal
-Field `excludePackages` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = {
-				"--exclude-package" }, paramLabel = "PKG", arity = "1", description = "Provide a package to be excluded from the test run. This option can be repeated.")
-		private List<String> excludePackages = new ArrayList<>();
-
-		@Option(names = { "-exclude-package" }, arity = "1", hidden = true)
-```
-
-### FieldMayBeFinal
-Field `selectedDirectories` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "-d",
-				"--select-directory" }, paramLabel = "DIR", arity = "1", converter = SelectorConverter.Directory.class, description = "Select a directory for test discovery. This option can be repeated.")
-		private List<DirectorySelector> selectedDirectories = new ArrayList<>();
-
-		@Option(names = { "--d",
-```
-
-### FieldMayBeFinal
-Field `excludeClassNamePatterns` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-				"--exclude-classname" }, paramLabel = "PATTERN", arity = "1", description = "Provide a regular expression to exclude those classes whose fully qualified names match. " //
-						+ "When this option is repeated, all patterns will be combined using OR semantics.")
-		private List<String> excludeClassNamePatterns = new ArrayList<>();
-
-		@Option(names = { "--N", "-exclude-classname" }, arity = "1", hidden = true)
-```
-
-### FieldMayBeFinal
-Field `includeClassNamePatterns` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-						+ "When this option is repeated, all patterns will be combined using OR semantics. " //
-						+ "Default: ${DEFAULT-VALUE}")
-		private List<String> includeClassNamePatterns = new ArrayList<>();
 
 		@Option(names = { "--n", "-include-classname" }, arity = "1", hidden = true)
-```
+		private List<String> includeClassNamePatterns2 = new ArrayList<>();
 
-### FieldMayBeFinal
-Field `includedTags2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-
-		@Option(names = { "--t", "-include-tag" }, arity = "1", hidden = true)
-		private List<String> includedTags2 = new ArrayList<>();
-
-		@Option(names = { "-T",
-```
-
-### FieldMayBeFinal
-Field `excludedEngines2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-
-		@Option(names = { "--E", "-exclude-engine" }, arity = "1", hidden = true)
-		private List<String> excludedEngines2 = new ArrayList<>();
-
-		private void applyTo(TestDiscoveryOptions result) {
-```
-
-### FieldMayBeFinal
-Field `selectedPackages` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "-p",
-				"--select-package" }, paramLabel = "PKG", arity = "1", converter = SelectorConverter.Package.class, description = "Select a package for test discovery. This option can be repeated.")
-		private List<PackageSelector> selectedPackages = new ArrayList<>();
-
-		@Option(names = { "--p",
+		@Option(names = { "-N",
 ```
 
 ### FieldMayBeFinal
@@ -3561,63 +3529,15 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/options/Test
 ```
 
 ### FieldMayBeFinal
-Field `excludedEngines` may be 'final'
+Field `selectedClasses2` may be 'final'
 in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
 #### Snippet
 ```java
-		@Option(names = { "-E",
-				"--exclude-engine" }, paramLabel = "ID", arity = "1", description = "Provide the ID of an engine to be excluded from the test run. This option can be repeated.")
-		private List<String> excludedEngines = new ArrayList<>();
+		@Option(names = { "--c",
+				"-select-class" }, arity = "1", hidden = true, converter = SelectorConverter.Class.class)
+		private List<ClassSelector> selectedClasses2 = new ArrayList<>();
 
-		@Option(names = { "--E", "-exclude-engine" }, arity = "1", hidden = true)
-```
-
-### FieldMayBeFinal
-Field `selectedFiles` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "-f",
-				"--select-file" }, paramLabel = "FILE", arity = "1", converter = SelectorConverter.File.class, description = "Select a file for test discovery. This option can be repeated.")
-		private List<FileSelector> selectedFiles = new ArrayList<>();
-
-		@Option(names = { "--f", "-select-file" }, arity = "1", hidden = true, converter = SelectorConverter.File.class)
-```
-
-### FieldMayBeFinal
-Field `additionalClasspathEntries` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-				"--class-path" }, converter = ClasspathEntriesConverter.class, paramLabel = "PATH", arity = "1", description = "Provide additional classpath entries "
-						+ "-- for example, for adding engines and their dependencies. This option can be repeated.")
-		private List<Path> additionalClasspathEntries = new ArrayList<>();
-
-		@Option(names = { "--cp", "-classpath",
-```
-
-### FieldMayBeFinal
-Field `includedEngines2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-
-		@Option(names = { "--e", "-include-engine" }, arity = "1", hidden = true)
-		private List<String> includedEngines2 = new ArrayList<>();
-
-		@Option(names = { "-E",
-```
-
-### FieldMayBeFinal
-Field `includedEngines` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "-e",
-				"--include-engine" }, paramLabel = "ID", arity = "1", description = "Provide the ID of an engine to be included in the test run. This option can be repeated.")
-		private List<String> includedEngines = new ArrayList<>();
-
-		@Option(names = { "--e", "-include-engine" }, arity = "1", hidden = true)
+		@Option(names = { "-m",
 ```
 
 ### FieldMayBeFinal
@@ -3633,39 +3553,87 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/options/Test
 ```
 
 ### FieldMayBeFinal
-Field `includeClassNamePatterns2` may be 'final'
+Field `includePackages` may be 'final'
 in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
 #### Snippet
 ```java
+		@Option(names = {
+				"--include-package" }, paramLabel = "PKG", arity = "1", description = "Provide a package to be included in the test run. This option can be repeated.")
+		private List<String> includePackages = new ArrayList<>();
 
-		@Option(names = { "--n", "-include-classname" }, arity = "1", hidden = true)
-		private List<String> includeClassNamePatterns2 = new ArrayList<>();
-
-		@Option(names = { "-N",
+		@Option(names = { "-include-package" }, arity = "1", hidden = true)
 ```
 
 ### FieldMayBeFinal
-Field `selectedClasses` may be 'final'
+Field `configurationParameters` may be 'final'
 in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
 #### Snippet
 ```java
+
+		// Implementation note: the @Option annotation is on a setter method to allow validation.
+		private Map<String, String> configurationParameters = new LinkedHashMap<>();
+
+		@CommandLine.Spec
+```
+
+### FieldMayBeFinal
+Field `additionalClasspathEntries` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+				"--class-path" }, converter = ClasspathEntriesConverter.class, paramLabel = "PATH", arity = "1", description = "Provide additional classpath entries "
+						+ "-- for example, for adding engines and their dependencies. This option can be repeated.")
+		private List<Path> additionalClasspathEntries = new ArrayList<>();
+
+		@Option(names = { "--cp", "-classpath",
+```
+
+### FieldMayBeFinal
+Field `selectedModules` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "-o",
+				"--select-module" }, paramLabel = "NAME", arity = "1", converter = SelectorConverter.Module.class, description = "Select single module for test discovery. This option can be repeated.")
+		private List<ModuleSelector> selectedModules = new ArrayList<>();
+
+		@Option(names = { "--o",
+```
+
+### FieldMayBeFinal
+Field `excludedEngines2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+
+		@Option(names = { "--E", "-exclude-engine" }, arity = "1", hidden = true)
+		private List<String> excludedEngines2 = new ArrayList<>();
+
+		private void applyTo(TestDiscoveryOptions result) {
+```
+
+### FieldMayBeFinal
+Field `excludePackages` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = {
+				"--exclude-package" }, paramLabel = "PKG", arity = "1", description = "Provide a package to be excluded from the test run. This option can be repeated.")
+		private List<String> excludePackages = new ArrayList<>();
+
+		@Option(names = { "-exclude-package" }, arity = "1", hidden = true)
+```
+
+### FieldMayBeFinal
+Field `selectedPackages2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "--p",
+				"-select-package" }, arity = "1", hidden = true, converter = SelectorConverter.Package.class)
+		private List<PackageSelector> selectedPackages2 = new ArrayList<>();
+
 		@Option(names = { "-c",
-				"--select-class" }, paramLabel = "CLASS", arity = "1", converter = SelectorConverter.Class.class, description = "Select a class for test discovery. This option can be repeated.")
-		private List<ClassSelector> selectedClasses = new ArrayList<>();
-
-		@Option(names = { "--c",
-```
-
-### FieldMayBeFinal
-Field `selectedClasses2` may be 'final'
-in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
-#### Snippet
-```java
-		@Option(names = { "--c",
-				"-select-class" }, arity = "1", hidden = true, converter = SelectorConverter.Class.class)
-		private List<ClassSelector> selectedClasses2 = new ArrayList<>();
-
-		@Option(names = { "-m",
 ```
 
 ### FieldMayBeFinal
@@ -3678,6 +3646,90 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/options/Test
 		private List<Path> additionalClasspathEntries2 = new ArrayList<>();
 
 		// Implementation note: the @Option annotation is on a setter method to allow validation.
+```
+
+### FieldMayBeFinal
+Field `selectedModules2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "--o",
+				"-select-module" }, arity = "1", converter = SelectorConverter.Module.class, hidden = true)
+		private List<ModuleSelector> selectedModules2 = new ArrayList<>();
+
+		@Option(names = { "-p",
+```
+
+### FieldMayBeFinal
+Field `includedTags2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+
+		@Option(names = { "--t", "-include-tag" }, arity = "1", hidden = true)
+		private List<String> includedTags2 = new ArrayList<>();
+
+		@Option(names = { "-T",
+```
+
+### FieldMayBeFinal
+Field `excludePackages2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+
+		@Option(names = { "-exclude-package" }, arity = "1", hidden = true)
+		private List<String> excludePackages2 = new ArrayList<>();
+
+		@Option(names = { "-t",
+```
+
+### FieldMayBeFinal
+Field `excludedEngines` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "-E",
+				"--exclude-engine" }, paramLabel = "ID", arity = "1", description = "Provide the ID of an engine to be excluded from the test run. This option can be repeated.")
+		private List<String> excludedEngines = new ArrayList<>();
+
+		@Option(names = { "--E", "-exclude-engine" }, arity = "1", hidden = true)
+```
+
+### FieldMayBeFinal
+Field `selectedClasspathResources2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "--r",
+				"-select-resource" }, arity = "1", hidden = true, converter = SelectorConverter.ClasspathResource.class)
+		private List<ClasspathResourceSelector> selectedClasspathResources2 = new ArrayList<>();
+
+		@Option(names = { "-i",
+```
+
+### FieldMayBeFinal
+Field `selectedDirectories2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "--d",
+				"-select-directory" }, arity = "1", hidden = true, converter = SelectorConverter.Directory.class)
+		private List<DirectorySelector> selectedDirectories2 = new ArrayList<>();
+
+		@Option(names = { "-o",
+```
+
+### FieldMayBeFinal
+Field `excludeClassNamePatterns2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+
+		@Option(names = { "--N", "-exclude-classname" }, arity = "1", hidden = true)
+		private List<String> excludeClassNamePatterns2 = new ArrayList<>();
+
+		@Option(names = {
 ```
 
 ### FieldMayBeFinal
@@ -3705,15 +3757,195 @@ in `junit-platform-console/src/main/java/org/junit/platform/console/options/Test
 ```
 
 ### FieldMayBeFinal
-Field `selectedPackages2` may be 'final'
+Field `selectedClasses` may be 'final'
 in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
 #### Snippet
 ```java
-		@Option(names = { "--p",
-				"-select-package" }, arity = "1", hidden = true, converter = SelectorConverter.Package.class)
-		private List<PackageSelector> selectedPackages2 = new ArrayList<>();
-
 		@Option(names = { "-c",
+				"--select-class" }, paramLabel = "CLASS", arity = "1", converter = SelectorConverter.Class.class, description = "Select a class for test discovery. This option can be repeated.")
+		private List<ClassSelector> selectedClasses = new ArrayList<>();
+
+		@Option(names = { "--c",
+```
+
+### FieldMayBeFinal
+Field `selectedUris2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+
+		@Option(names = { "--u", "-select-uri" }, arity = "1", hidden = true, converter = SelectorConverter.Uri.class)
+		private List<UriSelector> selectedUris2 = new ArrayList<>();
+
+		@Option(names = { "-f",
+```
+
+### FieldMayBeFinal
+Field `selectedFiles2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+
+		@Option(names = { "--f", "-select-file" }, arity = "1", hidden = true, converter = SelectorConverter.File.class)
+		private List<FileSelector> selectedFiles2 = new ArrayList<>();
+
+		@Option(names = { "-d",
+```
+
+### FieldMayBeFinal
+Field `includedEngines` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "-e",
+				"--include-engine" }, paramLabel = "ID", arity = "1", description = "Provide the ID of an engine to be included in the test run. This option can be repeated.")
+		private List<String> includedEngines = new ArrayList<>();
+
+		@Option(names = { "--e", "-include-engine" }, arity = "1", hidden = true)
+```
+
+### FieldMayBeFinal
+Field `includedTags` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+						+ //
+						"When this option is repeated, all patterns will be combined using OR semantics.")
+		private List<String> includedTags = new ArrayList<>();
+
+		@Option(names = { "--t", "-include-tag" }, arity = "1", hidden = true)
+```
+
+### FieldMayBeFinal
+Field `selectedFiles` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "-f",
+				"--select-file" }, paramLabel = "FILE", arity = "1", converter = SelectorConverter.File.class, description = "Select a file for test discovery. This option can be repeated.")
+		private List<FileSelector> selectedFiles = new ArrayList<>();
+
+		@Option(names = { "--f", "-select-file" }, arity = "1", hidden = true, converter = SelectorConverter.File.class)
+```
+
+### FieldMayBeFinal
+Field `selectedMethods` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "-m",
+				"--select-method" }, paramLabel = "NAME", arity = "1", converter = SelectorConverter.Method.class, description = "Select a method for test discovery. This option can be repeated.")
+		private List<MethodSelector> selectedMethods = new ArrayList<>();
+
+		@Option(names = { "--m",
+```
+
+### FieldMayBeFinal
+Field `includeClassNamePatterns` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+						+ "When this option is repeated, all patterns will be combined using OR semantics. " //
+						+ "Default: ${DEFAULT-VALUE}")
+		private List<String> includeClassNamePatterns = new ArrayList<>();
+
+		@Option(names = { "--n", "-include-classname" }, arity = "1", hidden = true)
+```
+
+### FieldMayBeFinal
+Field `excludeClassNamePatterns` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+				"--exclude-classname" }, paramLabel = "PATTERN", arity = "1", description = "Provide a regular expression to exclude those classes whose fully qualified names match. " //
+						+ "When this option is repeated, all patterns will be combined using OR semantics.")
+		private List<String> excludeClassNamePatterns = new ArrayList<>();
+
+		@Option(names = { "--N", "-exclude-classname" }, arity = "1", hidden = true)
+```
+
+### FieldMayBeFinal
+Field `selectedIterations2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "--i",
+				"-select-iteration" }, arity = "1", hidden = true, converter = SelectorConverter.Iteration.class)
+		private List<IterationSelector> selectedIterations2 = new ArrayList<>();
+
+		SelectorOptions() {
+```
+
+### FieldMayBeFinal
+Field `selectedIterations` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "-i",
+				"--select-iteration" }, paramLabel = "TYPE:VALUE[INDEX(..INDEX)?(,INDEX(..INDEX)?)*]", arity = "1", converter = SelectorConverter.Iteration.class, description = "Select iterations for test discovery (e.g. method:com.acme.Foo#m()[1..2]). This option can be repeated.")
+		private List<IterationSelector> selectedIterations = new ArrayList<>();
+
+		@Option(names = { "--i",
+```
+
+### FieldMayBeFinal
+Field `includedEngines2` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+
+		@Option(names = { "--e", "-include-engine" }, arity = "1", hidden = true)
+		private List<String> includedEngines2 = new ArrayList<>();
+
+		@Option(names = { "-E",
+```
+
+### FieldMayBeFinal
+Field `selectedClasspathResources` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "-r",
+				"--select-resource" }, paramLabel = "RESOURCE", arity = "1", converter = SelectorConverter.ClasspathResource.class, description = "Select a classpath resource for test discovery. This option can be repeated.")
+		private List<ClasspathResourceSelector> selectedClasspathResources = new ArrayList<>();
+
+		@Option(names = { "--r",
+```
+
+### FieldMayBeFinal
+Field `selectedDirectories` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "-d",
+				"--select-directory" }, paramLabel = "DIR", arity = "1", converter = SelectorConverter.Directory.class, description = "Select a directory for test discovery. This option can be repeated.")
+		private List<DirectorySelector> selectedDirectories = new ArrayList<>();
+
+		@Option(names = { "--d",
+```
+
+### FieldMayBeFinal
+Field `selectedPackages` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "-p",
+				"--select-package" }, paramLabel = "PKG", arity = "1", converter = SelectorConverter.Package.class, description = "Select a package for test discovery. This option can be repeated.")
+		private List<PackageSelector> selectedPackages = new ArrayList<>();
+
+		@Option(names = { "--p",
+```
+
+### FieldMayBeFinal
+Field `selectedUris` may be 'final'
+in `junit-platform-console/src/main/java/org/junit/platform/console/options/TestDiscoveryOptionsMixin.java`
+#### Snippet
+```java
+		@Option(names = { "-u",
+				"--select-uri" }, paramLabel = "URI", arity = "1", converter = SelectorConverter.Uri.class, description = "Select a URI for test discovery. This option can be repeated.")
+		private List<UriSelector> selectedUris = new ArrayList<>();
+
+		@Option(names = { "--u", "-select-uri" }, arity = "1", hidden = true, converter = SelectorConverter.Uri.class)
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -3878,18 +4110,6 @@ public class JUnit4TestCaseWithErrorInBeforeClass {
 ```
 
 ### NewClassNamingConvention
-Test class name `PlainJUnit4TestCaseWithTwoTestMethods` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
-in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/PlainJUnit4TestCaseWithTwoTestMethods.java`
-#### Snippet
-```java
- */
-@FixMethodOrder(NAME_ASCENDING)
-public class PlainJUnit4TestCaseWithTwoTestMethods {
-
-	@Test
-```
-
-### NewClassNamingConvention
 Test class name `JUnit4SuiteWithExceptionThrowingRunner` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
 in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/JUnit4SuiteWithExceptionThrowingRunner.java`
 #### Snippet
@@ -3902,15 +4122,15 @@ public class JUnit4SuiteWithExceptionThrowingRunner {
 ```
 
 ### NewClassNamingConvention
-Test class name `NestedTestCase1` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
-in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/EnclosedWithParameterizedChildrenJUnit4TestCase.java`
+Test class name `PlainJUnit4TestCaseWithTwoTestMethods` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
+in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/PlainJUnit4TestCaseWithTwoTestMethods.java`
 #### Snippet
 ```java
+ */
+@FixMethodOrder(NAME_ASCENDING)
+public class PlainJUnit4TestCaseWithTwoTestMethods {
 
-	@RunWith(Parameterized.class)
-	public static class NestedTestCase1 {
-
-		@Parameters
+	@Test
 ```
 
 ### NewClassNamingConvention
@@ -3926,15 +4146,15 @@ in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/
 ```
 
 ### NewClassNamingConvention
-Test class name `JUnit4TestCaseWithErrorCollectorStoringMultipleFailures` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
-in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/JUnit4TestCaseWithErrorCollectorStoringMultipleFailures.java`
+Test class name `NestedTestCase1` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
+in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/EnclosedWithParameterizedChildrenJUnit4TestCase.java`
 #### Snippet
 ```java
-import org.junit.rules.ErrorCollector;
 
-public class JUnit4TestCaseWithErrorCollectorStoringMultipleFailures {
-	@Rule
-	public ErrorCollector collector = new ErrorCollector();
+	@RunWith(Parameterized.class)
+	public static class NestedTestCase1 {
+
+		@Parameters
 ```
 
 ### NewClassNamingConvention
@@ -3947,6 +4167,18 @@ in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/
 public class JUnit4TestCaseWithIndistinguishableOverloadedMethod {
 
 	@DataPoint
+```
+
+### NewClassNamingConvention
+Test class name `JUnit4TestCaseWithErrorCollectorStoringMultipleFailures` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
+in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/JUnit4TestCaseWithErrorCollectorStoringMultipleFailures.java`
+#### Snippet
+```java
+import org.junit.rules.ErrorCollector;
+
+public class JUnit4TestCaseWithErrorCollectorStoringMultipleFailures {
+	@Rule
+	public ErrorCollector collector = new ErrorCollector();
 ```
 
 ### NewClassNamingConvention
@@ -4010,18 +4242,6 @@ public class PlainJUnit4TestCaseWithLifecycleMethods {
 ```
 
 ### NewClassNamingConvention
-Test class name `JUnit4TestCaseWithAssumptionFailureInBeforeClass` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
-in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/JUnit4TestCaseWithAssumptionFailureInBeforeClass.java`
-#### Snippet
-```java
- * @since 4.12
- */
-public class JUnit4TestCaseWithAssumptionFailureInBeforeClass {
-
-	@BeforeClass
-```
-
-### NewClassNamingConvention
 Test class name `PlainJUnit4TestCaseWithSingleTestWhichIsIgnored` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
 in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/PlainJUnit4TestCaseWithSingleTestWhichIsIgnored.java`
 #### Snippet
@@ -4031,6 +4251,18 @@ in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/
 public class PlainJUnit4TestCaseWithSingleTestWhichIsIgnored {
 
 	@Test
+```
+
+### NewClassNamingConvention
+Test class name `JUnit4TestCaseWithAssumptionFailureInBeforeClass` doesn't match regex '\[A-Z\]\[A-Za-z\\d\]\*Test(s\|Case)?\|Test\[A-Z\]\[A-Za-z\\d\]\*\|IT(.\*)\|(.\*)IT(Case)?'
+in `junit-vintage-engine/src/testFixtures/java/org/junit/vintage/engine/samples/junit4/JUnit4TestCaseWithAssumptionFailureInBeforeClass.java`
+#### Snippet
+```java
+ * @since 4.12
+ */
+public class JUnit4TestCaseWithAssumptionFailureInBeforeClass {
+
+	@BeforeClass
 ```
 
 ### NewClassNamingConvention
@@ -4173,18 +4405,6 @@ Result of `handleCsvException()` not thrown
 in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/CsvFileArgumentsProvider.java`
 #### Snippet
 ```java
-		}
-		catch (Throwable throwable) {
-			handleCsvException(throwable, csvFileSource);
-		}
-		return this.csvParser;
-```
-
-### ThrowableNotThrown
-Result of `handleCsvException()` not thrown
-in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/CsvFileArgumentsProvider.java`
-#### Snippet
-```java
 			}
 			catch (Throwable throwable) {
 				handleCsvException(throwable, this.csvFileSource);
@@ -4202,6 +4422,18 @@ in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/CsvFile
 						handleCsvException(throwable, csvFileSource);
 					}
 				});
+```
+
+### ThrowableNotThrown
+Result of `handleCsvException()` not thrown
+in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/provider/CsvFileArgumentsProvider.java`
+#### Snippet
+```java
+		}
+		catch (Throwable throwable) {
+			handleCsvException(throwable, csvFileSource);
+		}
+		return this.csvParser;
 ```
 
 ### ThrowableNotThrown
@@ -4316,18 +4548,6 @@ in `junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/Repeat
 
 ### OptionalGetWithoutIsPresent
 `Optional.get()` without 'isPresent()' check
-in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/ParameterizedTestExtension.java`
-#### Snippet
-```java
-	private ParameterizedTestNameFormatter createNameFormatter(ExtensionContext extensionContext, Method templateMethod,
-			ParameterizedTestMethodContext methodContext, String displayName, int argumentMaxLength) {
-		ParameterizedTest parameterizedTest = findAnnotation(templateMethod, ParameterizedTest.class).get();
-		String pattern = parameterizedTest.name().equals(DEFAULT_DISPLAY_NAME)
-				? extensionContext.getConfigurationParameter(DISPLAY_NAME_PATTERN_KEY).orElse(
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
 in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/ParameterizedTestParameterResolver.java`
 #### Snippet
 ```java
@@ -4336,6 +4556,18 @@ in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/ParameterizedTes
 			ParameterizedTest.class).get();
 		if (!parameterizedTest.autoCloseArguments()) {
 			return;
+```
+
+### OptionalGetWithoutIsPresent
+`Optional.get()` without 'isPresent()' check
+in `junit-jupiter-params/src/main/java/org/junit/jupiter/params/ParameterizedTestExtension.java`
+#### Snippet
+```java
+	private ParameterizedTestNameFormatter createNameFormatter(ExtensionContext extensionContext, Method templateMethod,
+			ParameterizedTestMethodContext methodContext, String displayName, int argumentMaxLength) {
+		ParameterizedTest parameterizedTest = findAnnotation(templateMethod, ParameterizedTest.class).get();
+		String pattern = parameterizedTest.name().equals(DEFAULT_DISPLAY_NAME)
+				? extensionContext.getConfigurationParameter(DISPLAY_NAME_PATTERN_KEY).orElse(
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4384,18 +4616,6 @@ in `junit-platform-commons/src/main/java/org/junit/platform/commons/util/Annotat
 					Method method = ReflectionUtils.tryToGetMethod(candidateAnnotationType, "value").toOptional().get();
 					Annotation[] containedAnnotations = (Annotation[]) ReflectionUtils.invokeMethod(method, candidate);
 
-```
-
-### OptionalGetWithoutIsPresent
-`Optional.get()` without 'isPresent()' check
-in `junit-platform-commons/src/testFixtures/java/org/junit/platform/commons/test/TestClassLoader.java`
-#### Snippet
-```java
-				.filter(notTestClassLoader)
-				.findFirst()
-				.get()
-			);
-		// @formatter:on
 ```
 
 ### OptionalGetWithoutIsPresent
@@ -4495,6 +4715,18 @@ abstract class GenerateStandaloneConsoleLauncherShadowedArtifactsFile @Inject co
 ```
 
 ### UnusedSymbol
+Class "CaptureJavaExecOutput" is never used
+in `gradle/plugins/common/src/main/kotlin/junitbuild/exec/CaptureJavaExecOutput.kt`
+#### Snippet
+```java
+
+@CacheableTask
+abstract class CaptureJavaExecOutput @Inject constructor(private val execOperations: ExecOperations) : DefaultTask() {
+
+    @get:Classpath
+```
+
+### UnusedSymbol
 Class "WriteArtifactsFile" is never used
 in `gradle/plugins/common/src/main/kotlin/junitbuild/java/WriteArtifactsFile.kt`
 #### Snippet
@@ -4507,18 +4739,6 @@ abstract class WriteArtifactsFile : DefaultTask() {
 ```
 
 ### UnusedSymbol
-Property "javaVersion" is never used
-in `gradle/plugins/common/src/main/kotlin/junitbuild.java-library-conventions.gradle.kts`
-#### Snippet
-```java
-val combinedModuleSourceDir = layout.buildDirectory.dir("module")
-val moduleOutputDir = file("$buildDir/classes/java/module")
-val javaVersion = JavaVersion.current()
-
-eclipse {
-```
-
-### UnusedSymbol
 Class "ExecJarAction" is never used
 in `gradle/plugins/common/src/main/kotlin/junitbuild/java/ExecJarAction.kt`
 #### Snippet
@@ -4528,18 +4748,6 @@ import javax.inject.Inject
 abstract class ExecJarAction @Inject constructor(private val operations: ExecOperations): Action<Task> {
 
     abstract val javaLauncher: Property<JavaLauncher>
-```
-
-### UnusedSymbol
-Class "CaptureJavaExecOutput" is never used
-in `gradle/plugins/common/src/main/kotlin/junitbuild/exec/CaptureJavaExecOutput.kt`
-#### Snippet
-```java
-
-@CacheableTask
-abstract class CaptureJavaExecOutput @Inject constructor(private val execOperations: ExecOperations) : DefaultTask() {
-
-    @get:Classpath
 ```
 
 ### UnusedSymbol
@@ -4566,7 +4774,67 @@ abstract class RunConsoleLauncher @Inject constructor(private val execOperations
     @get:Classpath
 ```
 
+### UnusedSymbol
+Property "javaVersion" is never used
+in `gradle/plugins/common/src/main/kotlin/junitbuild.java-library-conventions.gradle.kts`
+#### Snippet
+```java
+val combinedModuleSourceDir = layout.buildDirectory.dir("module")
+val moduleOutputDir = file("$buildDir/classes/java/module")
+val javaVersion = JavaVersion.current()
+
+eclipse {
+```
+
 ## RuleId[id=UnstableApiUsage]
+### UnstableApiUsage
+'getSuites()' is declared in unstable interface 'org.gradle.testing.base.TestingExtension' marked with @Incubating
+in `gradle/plugins/common/src/main/kotlin/junitbuild.junit4-compatibility.gradle.kts`
+#### Snippet
+```java
+tasks {
+	val test_4_12 by registering(Test::class) {
+		val test by testing.suites.existing(JvmTestSuite::class)
+		testClassesDirs = files(test.map { it.sources.output.classesDirs })
+		classpath = files(test.map { it.sources.runtimeClasspath }) + junit_4_12
+```
+
+### UnstableApiUsage
+'org.gradle.api.plugins.jvm.JvmTestSuite' is marked unstable with @Incubating
+in `gradle/plugins/common/src/main/kotlin/junitbuild.junit4-compatibility.gradle.kts`
+#### Snippet
+```java
+tasks {
+	val test_4_12 by registering(Test::class) {
+		val test by testing.suites.existing(JvmTestSuite::class)
+		testClassesDirs = files(test.map { it.sources.output.classesDirs })
+		classpath = files(test.map { it.sources.runtimeClasspath }) + junit_4_12
+```
+
+### UnstableApiUsage
+'getSources()' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmTestSuite' marked with @Incubating
+in `gradle/plugins/common/src/main/kotlin/junitbuild.junit4-compatibility.gradle.kts`
+#### Snippet
+```java
+	val test_4_12 by registering(Test::class) {
+		val test by testing.suites.existing(JvmTestSuite::class)
+		testClassesDirs = files(test.map { it.sources.output.classesDirs })
+		classpath = files(test.map { it.sources.runtimeClasspath }) + junit_4_12
+	}
+```
+
+### UnstableApiUsage
+'getSources()' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmTestSuite' marked with @Incubating
+in `gradle/plugins/common/src/main/kotlin/junitbuild.junit4-compatibility.gradle.kts`
+#### Snippet
+```java
+		val test by testing.suites.existing(JvmTestSuite::class)
+		testClassesDirs = files(test.map { it.sources.output.classesDirs })
+		classpath = files(test.map { it.sources.runtimeClasspath }) + junit_4_12
+	}
+	check {
+```
+
 ### UnstableApiUsage
 'org.gradle.testing.jacoco.plugins.JacocoCoverageReport' is marked unstable with @Incubating
 in `gradle/plugins/common/src/main/kotlin/junitbuild.jacoco-aggregation-conventions.gradle.kts`
@@ -4625,54 +4893,6 @@ dependencyResolutionManagement {
 	repositories {
 		mavenCentral()
 		maven(url = "https://oss.sonatype.org/content/repositories/snapshots") {
-```
-
-### UnstableApiUsage
-'getSuites()' is declared in unstable interface 'org.gradle.testing.base.TestingExtension' marked with @Incubating
-in `gradle/plugins/common/src/main/kotlin/junitbuild.junit4-compatibility.gradle.kts`
-#### Snippet
-```java
-tasks {
-	val test_4_12 by registering(Test::class) {
-		val test by testing.suites.existing(JvmTestSuite::class)
-		testClassesDirs = files(test.map { it.sources.output.classesDirs })
-		classpath = files(test.map { it.sources.runtimeClasspath }) + junit_4_12
-```
-
-### UnstableApiUsage
-'org.gradle.api.plugins.jvm.JvmTestSuite' is marked unstable with @Incubating
-in `gradle/plugins/common/src/main/kotlin/junitbuild.junit4-compatibility.gradle.kts`
-#### Snippet
-```java
-tasks {
-	val test_4_12 by registering(Test::class) {
-		val test by testing.suites.existing(JvmTestSuite::class)
-		testClassesDirs = files(test.map { it.sources.output.classesDirs })
-		classpath = files(test.map { it.sources.runtimeClasspath }) + junit_4_12
-```
-
-### UnstableApiUsage
-'getSources()' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmTestSuite' marked with @Incubating
-in `gradle/plugins/common/src/main/kotlin/junitbuild.junit4-compatibility.gradle.kts`
-#### Snippet
-```java
-	val test_4_12 by registering(Test::class) {
-		val test by testing.suites.existing(JvmTestSuite::class)
-		testClassesDirs = files(test.map { it.sources.output.classesDirs })
-		classpath = files(test.map { it.sources.runtimeClasspath }) + junit_4_12
-	}
-```
-
-### UnstableApiUsage
-'getSources()' is declared in unstable interface 'org.gradle.api.plugins.jvm.JvmTestSuite' marked with @Incubating
-in `gradle/plugins/common/src/main/kotlin/junitbuild.junit4-compatibility.gradle.kts`
-#### Snippet
-```java
-		val test by testing.suites.existing(JvmTestSuite::class)
-		testClassesDirs = files(test.map { it.sources.output.classesDirs })
-		classpath = files(test.map { it.sources.runtimeClasspath }) + junit_4_12
-	}
-	check {
 ```
 
 ### UnstableApiUsage
