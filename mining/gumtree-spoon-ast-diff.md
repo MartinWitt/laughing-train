@@ -73,6 +73,43 @@ in `src/main/java/gumtree/spoon/builder/NodeCreator.java`
 			annotationValueNode.setMetadata(SpoonGumTreeBuilder.SPOON_OBJECT, wrapper);
 ```
 
+## RuleId[id=UnnecessarySemicolon]
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `src/main/java/gumtree/spoon/diff/operations/OperationKind.java`
+#### Snippet
+```java
+
+public enum OperationKind {
+	Insert, Update, Move, Delete;
+}
+
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+	public enum JSON_PROPERTIES {
+		label, type, op, children;
+	};
+
+	@SuppressWarnings("rawtypes")
+```
+
+### UnnecessarySemicolon
+Unnecessary semicolon `;`
+in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
+#### Snippet
+```java
+
+	public enum JSON_PROPERTIES {
+		label, type, op, children;
+	};
+
+```
+
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Argument `cu` might be null
@@ -120,43 +157,6 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 		if (element.getRoleInParent() == CtRole.SUPER_TYPE) {
 			nodeTypeName = "SUPER_TYPE";
 		}
-```
-
-## RuleId[id=UnnecessarySemicolon]
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `src/main/java/gumtree/spoon/diff/operations/OperationKind.java`
-#### Snippet
-```java
-
-public enum OperationKind {
-	Insert, Update, Move, Delete;
-}
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
-#### Snippet
-```java
-
-	public enum JSON_PROPERTIES {
-		label, type, op, children;
-	};
-
-```
-
-### UnnecessarySemicolon
-Unnecessary semicolon `;`
-in `src/main/java/gumtree/spoon/builder/Json4SpoonGenerator.java`
-#### Snippet
-```java
-	public enum JSON_PROPERTIES {
-		label, type, op, children;
-	};
-
-	@SuppressWarnings("rawtypes")
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -334,18 +334,6 @@ public class OperationNodePainter implements NodePainter {
 ```
 
 ### FieldMayBeFinal
-Field `srcUpdTrees` may be 'final'
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	// ROOT CLASSIFIER
-	// /
-	private List<Tree> srcUpdTrees = new ArrayList<>();
-	private List<Tree> dstUpdTrees = new ArrayList<>();
-	private List<Tree> srcMvTrees = new ArrayList<>();
-```
-
-### FieldMayBeFinal
 Field `srcDelTrees` may be 'final'
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -358,39 +346,15 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### FieldMayBeFinal
-Field `dstMvTrees` may be 'final'
+Field `srcUpdTrees` may be 'final'
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
 ```java
-	private List<Tree> dstUpdTrees = new ArrayList<>();
-	private List<Tree> srcMvTrees = new ArrayList<>();
-	private List<Tree> dstMvTrees = new ArrayList<>();
-	private List<Tree> srcDelTrees = new ArrayList<>();
-	private List<Tree> dstAddTrees = new ArrayList<>();
-```
-
-### FieldMayBeFinal
-Field `originalActionsSrc` may be 'final'
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
-	private List<Tree> srcDelTrees = new ArrayList<>();
-	private List<Tree> dstAddTrees = new ArrayList<>();
-	private Map<Tree, Action> originalActionsSrc = new HashMap<>();
-	private Map<Tree, Action> originalActionsDst = new HashMap<>();
-
-```
-
-### FieldMayBeFinal
-Field `srcMvTrees` may be 'final'
-in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
-#### Snippet
-```java
+	// ROOT CLASSIFIER
+	// /
 	private List<Tree> srcUpdTrees = new ArrayList<>();
 	private List<Tree> dstUpdTrees = new ArrayList<>();
 	private List<Tree> srcMvTrees = new ArrayList<>();
-	private List<Tree> dstMvTrees = new ArrayList<>();
-	private List<Tree> srcDelTrees = new ArrayList<>();
 ```
 
 ### FieldMayBeFinal
@@ -406,6 +370,18 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### FieldMayBeFinal
+Field `originalActionsSrc` may be 'final'
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	private List<Tree> srcDelTrees = new ArrayList<>();
+	private List<Tree> dstAddTrees = new ArrayList<>();
+	private Map<Tree, Action> originalActionsSrc = new HashMap<>();
+	private Map<Tree, Action> originalActionsDst = new HashMap<>();
+
+```
+
+### FieldMayBeFinal
 Field `dstAddTrees` may be 'final'
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -418,6 +394,18 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 ```
 
 ### FieldMayBeFinal
+Field `srcMvTrees` may be 'final'
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	private List<Tree> srcUpdTrees = new ArrayList<>();
+	private List<Tree> dstUpdTrees = new ArrayList<>();
+	private List<Tree> srcMvTrees = new ArrayList<>();
+	private List<Tree> dstMvTrees = new ArrayList<>();
+	private List<Tree> srcDelTrees = new ArrayList<>();
+```
+
+### FieldMayBeFinal
 Field `dstUpdTrees` may be 'final'
 in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 #### Snippet
@@ -427,6 +415,18 @@ in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
 	private List<Tree> dstUpdTrees = new ArrayList<>();
 	private List<Tree> srcMvTrees = new ArrayList<>();
 	private List<Tree> dstMvTrees = new ArrayList<>();
+```
+
+### FieldMayBeFinal
+Field `dstMvTrees` may be 'final'
+in `src/main/java/gumtree/spoon/diff/ActionClassifier.java`
+#### Snippet
+```java
+	private List<Tree> dstUpdTrees = new ArrayList<>();
+	private List<Tree> srcMvTrees = new ArrayList<>();
+	private List<Tree> dstMvTrees = new ArrayList<>();
+	private List<Tree> srcDelTrees = new ArrayList<>();
+	private List<Tree> dstAddTrees = new ArrayList<>();
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -509,6 +509,18 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 #### Snippet
 ```java
+				.findFirst();
+		if (firstNode.isPresent()) {
+			return firstNode.get().getNode();
+		}
+		throw new NoSuchElementException();
+```
+
+### Deprecation
+'getNode()' is deprecated
+in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
+#### Snippet
+```java
 		for (Operation operation : ops) {
 			Tree node = operation.getAction().getNode();
 			final CtElement nodeElement = operation.getNode();
@@ -526,18 +538,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 			CtElement el = operation.getNode();
 			if (operation instanceof InsertOperation) {
 				// we take the corresponding node in the source tree
-```
-
-### Deprecation
-'getNode()' is deprecated
-in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
-#### Snippet
-```java
-				.findFirst();
-		if (firstNode.isPresent()) {
-			return firstNode.get().getNode();
-		}
-		throw new NoSuchElementException();
 ```
 
 ## RuleId[id=UnnecessaryToStringCall]
@@ -568,18 +568,6 @@ in `src/main/java/gumtree/spoon/diff/DiffImpl.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `label` initializer `null` is redundant
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-		}
-
-		String label = null;
-		String nodeTypeName = getNodeType(element);
-
-```
-
-### UnusedAssignment
 Variable `nolabel` initializer `false` is redundant
 in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 #### Snippet
@@ -589,6 +577,18 @@ in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
 	boolean nolabel = false;
 
 	TreeScanner(TreeContext treeContext, Tree root) {
+```
+
+### UnusedAssignment
+Variable `label` initializer `null` is redundant
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+		}
+
+		String label = null;
+		String nodeTypeName = getNodeType(element);
+
 ```
 
 ## RuleId[id=EqualsBetweenInconvertibleTypes]
@@ -644,6 +644,18 @@ in `src/main/java/gumtree/spoon/diff/operations/TreeAdditionOperation.java`
 
 ### TrivialIf
 `if` statement can be simplified
+in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
+#### Snippet
+```java
+	private boolean isToIgnore(CtElement element) {
+		if (element instanceof CtStatementList && !(element instanceof CtCase)) {
+			if (element.getRoleInParent() == CtRole.ELSE || element.getRoleInParent() == CtRole.THEN) {
+				return false;
+			}
+```
+
+### TrivialIf
+`if` statement can be simplified
 in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 #### Snippet
 ```java
@@ -664,17 +676,5 @@ in `src/main/java/gumtree/spoon/diff/operations/Operation.java`
 		} else if (!node.equals(other.node))
 			return false;
 		return true;
-```
-
-### TrivialIf
-`if` statement can be simplified
-in `src/main/java/gumtree/spoon/builder/TreeScanner.java`
-#### Snippet
-```java
-	private boolean isToIgnore(CtElement element) {
-		if (element instanceof CtStatementList && !(element instanceof CtCase)) {
-			if (element.getRoleInParent() == CtRole.ELSE || element.getRoleInParent() == CtRole.THEN) {
-				return false;
-			}
 ```
 
