@@ -43,134 +43,98 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.concurrency.loadbalancer.CompletableTask.NoopCompletableTask' to 'com.uber.concurrency.loadbalancer.CompletableTask'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/CompletableTask.java`
+Unchecked assignment: 'com.uber.concurrency.loadbalancer.TallyMetricsTaskListener' to 'com.uber.concurrency.loadbalancer.TallyMetricsTaskListener'
+in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
 #### Snippet
 ```java
-     */
-    static <T> CompletableTask<T> ofNoop(@Nonnull T t) {
-        return new NoopCompletableTask(t);
+
+        TallyMetricsTaskListener<T> build(Scope scope) {
+            return new TallyMetricsTaskListener(name, scope, taskNameMapper, ticker);
+        }
     }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'TallyMetricsTaskListener(String, Scope, Function, Ticker)' as a member of raw type 'com.uber.concurrency.loadbalancer.TallyMetricsTaskListener'
+in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
+#### Snippet
+```java
+
+        TallyMetricsTaskListener<T> build(Scope scope) {
+            return new TallyMetricsTaskListener(name, scope, taskNameMapper, ticker);
+        }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.util.function.Function' to 'java.util.function.Function'
+in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
+#### Snippet
+```java
+
+    public static class Builder<T> {
+        private Function<T, String> taskNameMapper = (Function<T, String>) DEFAULT_TASK_NAME_MAPPER;
+        private String name = "unnamed";
+        private Ticker ticker = Ticker.systemTicker();
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.google.common.base.Function' to 'com.google.common.base.Function'
+in `concurrency-loadbalancer-tracing/src/main/java/com/uber/concurrency/loadbalancer/TracingTaskListener.java`
+#### Snippet
+```java
+
+    public static class Builder<T> {
+        private Function<T, String> taskNameMapper = (Function<T, String>) DEFAULT_TASK_NAME_MAPPER;
+        private String name = "unnamed";
 
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'NoopCompletableTask(T)' as a member of raw type 'com.uber.concurrency.loadbalancer.CompletableTask.NoopCompletableTask'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/CompletableTask.java`
+Unchecked assignment: 'com.uber.concurrency.loadbalancer.TracingTaskListener' to 'com.uber.concurrency.loadbalancer.TracingTaskListener'
+in `concurrency-loadbalancer-tracing/src/main/java/com/uber/concurrency/loadbalancer/TracingTaskListener.java`
 #### Snippet
 ```java
-     */
-    static <T> CompletableTask<T> ofNoop(@Nonnull T t) {
-        return new NoopCompletableTask(t);
-    }
 
+        public TracingTaskListener<T> build(Tracer tracer) {
+            return new TracingTaskListener(tracer, name, taskNameMapper);
+        }
+    }
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.concurrency.loadbalancer.ArrayConcurrencyLoadBalancer' to 'com.uber.concurrency.loadbalancer.ArrayConcurrencyLoadBalancer'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
+Unchecked call to 'TracingTaskListener(Tracer, String, Function)' as a member of raw type 'com.uber.concurrency.loadbalancer.TracingTaskListener'
+in `concurrency-loadbalancer-tracing/src/main/java/com/uber/concurrency/loadbalancer/TracingTaskListener.java`
 #### Snippet
 ```java
-                }
+
+        public TracingTaskListener<T> build(Tracer tracer) {
+            return new TracingTaskListener(tracer, name, taskNameMapper);
+        }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.uber.concurrency.loadbalancer.HeapConcurrencyLoadBalancer.TaskConcurrencyQueue.HeapTaskConcurrency' to 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/HeapConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+            @Override
+            public void syncState() {
+                syncUpdate(this, ()->super.syncState());
             }
-            return new ArrayConcurrencyLoadBalancer(tasks, taskConcurrencyMap, groupSize, listeners, scheduledCounterBuilder.getTicker());
         }
-    }
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'ArrayConcurrencyLoadBalancer(Collection, Function\>, int, List\>, Ticker)' as a member of raw type 'com.uber.concurrency.loadbalancer.ArrayConcurrencyLoadBalancer'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
+Unchecked call to 'TaskConcurrencyDelegator(TaskConcurrency)' as a member of raw type 'com.uber.concurrency.loadbalancer.internal.TaskConcurrencyDelegator'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/HeapConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-                }
+             */
+            HeapTaskConcurrency(ScheduledTaskConcurrency<T> delegate) {
+                super(delegate);
             }
-            return new ArrayConcurrencyLoadBalancer(tasks, taskConcurrencyMap, groupSize, listeners, scheduledCounterBuilder.getTicker());
-        }
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.concurrency.loadbalancer.ArrayConcurrencyLoadBalancer.TaskGroup\[\]' to 'com.uber.concurrency.loadbalancer.ArrayConcurrencyLoadBalancer.TaskGroup\[\]'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-        WeightedSelector.WeightedSelectorBuilder<TaskGroup<T>> builder = WeightedSelector.newBuilder();
-        int numTaskGroups = tasks.size() / groupSize + ( tasks.size() % groupSize == 0 ? 0 : 1 );
-        TaskGroup<T>[] taskGroups = new TaskGroup[numTaskGroups];
-        for (int i = 0 ; i < numTaskGroups ; ++i) {
-            taskGroups[i] = new TaskGroup<>();
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency' to 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-        public TaskConcurrency<T> apply(T t) {
-            Objects.requireNonNull(t);
-            return taskToTaskConcurrency.computeIfAbsent(t, o -> new ScheduledTaskConcurrency<>(taskConcurrencyBuilder.build(t), scheduledCounterBuilder));
-        }
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.ScheduledTaskConcurrency' to 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-        public TaskConcurrency<T> apply(T t) {
-            Objects.requireNonNull(t);
-            return taskToTaskConcurrency.computeIfAbsent(t, o -> new ScheduledTaskConcurrency<>(taskConcurrencyBuilder.build(t), scheduledCounterBuilder));
-        }
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'ScheduledTaskConcurrency(TaskConcurrency, Builder)' as a member of raw type 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.ScheduledTaskConcurrency'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-        public TaskConcurrency<T> apply(T t) {
-            Objects.requireNonNull(t);
-            return taskToTaskConcurrency.computeIfAbsent(t, o -> new ScheduledTaskConcurrency<>(taskConcurrencyBuilder.build(t), scheduledCounterBuilder));
-        }
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'build(T)' as a member of raw type 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency.Builder'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-        public TaskConcurrency<T> apply(T t) {
-            Objects.requireNonNull(t);
-            return taskToTaskConcurrency.computeIfAbsent(t, o -> new ScheduledTaskConcurrency<>(taskConcurrencyBuilder.build(t), scheduledCounterBuilder));
-        }
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency' to 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-            return null;
-        }
-        TaskConcurrency<T> leastTaskConcurrency = LEAST_TASK_CONCURRENCY;
-        ReservoirSampler<TaskConcurrency<T>> sampler = new ReservoirSampler<>();
-        for(TaskConcurrency<T> taskConcurrency : taskGroup) {
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.ConcurrentTaskImpl' to 'com.uber.concurrency.loadbalancer.CompletableTask'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-            return null; // no tasks or all tasks reached concurrency limits
-        }
-        return new ConcurrentTaskImpl(ticker.read(), result);
-    }
 
 ```
 
@@ -208,18 +172,6 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
                 syncUpdate(this, ()->super.acquire());
             }
 
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.concurrency.loadbalancer.HeapConcurrencyLoadBalancer.TaskConcurrencyQueue.HeapTaskConcurrency' to 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/HeapConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-            @Override
-            public void syncState() {
-                syncUpdate(this, ()->super.syncState());
-            }
-        }
 ```
 
 ### UNCHECKED_WARNING
@@ -295,87 +247,147 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'TaskConcurrencyDelegator(TaskConcurrency)' as a member of raw type 'com.uber.concurrency.loadbalancer.internal.TaskConcurrencyDelegator'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/HeapConcurrencyLoadBalancer.java`
+Unchecked assignment: 'com.uber.concurrency.loadbalancer.CompletableTask.NoopCompletableTask' to 'com.uber.concurrency.loadbalancer.CompletableTask'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/CompletableTask.java`
 #### Snippet
 ```java
-             */
-            HeapTaskConcurrency(ScheduledTaskConcurrency<T> delegate) {
-                super(delegate);
+     */
+    static <T> CompletableTask<T> ofNoop(@Nonnull T t) {
+        return new NoopCompletableTask(t);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'NoopCompletableTask(T)' as a member of raw type 'com.uber.concurrency.loadbalancer.CompletableTask.NoopCompletableTask'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/CompletableTask.java`
+#### Snippet
+```java
+     */
+    static <T> CompletableTask<T> ofNoop(@Nonnull T t) {
+        return new NoopCompletableTask(t);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency' to 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+        public TaskConcurrency<T> apply(T t) {
+            Objects.requireNonNull(t);
+            return taskToTaskConcurrency.computeIfAbsent(t, o -> new ScheduledTaskConcurrency<>(taskConcurrencyBuilder.build(t), scheduledCounterBuilder));
+        }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.ScheduledTaskConcurrency' to 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+        public TaskConcurrency<T> apply(T t) {
+            Objects.requireNonNull(t);
+            return taskToTaskConcurrency.computeIfAbsent(t, o -> new ScheduledTaskConcurrency<>(taskConcurrencyBuilder.build(t), scheduledCounterBuilder));
+        }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'ScheduledTaskConcurrency(TaskConcurrency, Builder)' as a member of raw type 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.ScheduledTaskConcurrency'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+        public TaskConcurrency<T> apply(T t) {
+            Objects.requireNonNull(t);
+            return taskToTaskConcurrency.computeIfAbsent(t, o -> new ScheduledTaskConcurrency<>(taskConcurrencyBuilder.build(t), scheduledCounterBuilder));
+        }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked call to 'build(T)' as a member of raw type 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency.Builder'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+        public TaskConcurrency<T> apply(T t) {
+            Objects.requireNonNull(t);
+            return taskToTaskConcurrency.computeIfAbsent(t, o -> new ScheduledTaskConcurrency<>(taskConcurrencyBuilder.build(t), scheduledCounterBuilder));
+        }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.uber.concurrency.loadbalancer.ArrayConcurrencyLoadBalancer' to 'com.uber.concurrency.loadbalancer.ArrayConcurrencyLoadBalancer'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+                }
             }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.concurrency.loadbalancer.TallyMetricsTaskListener' to 'com.uber.concurrency.loadbalancer.TallyMetricsTaskListener'
-in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
-#### Snippet
-```java
-
-        TallyMetricsTaskListener<T> build(Scope scope) {
-            return new TallyMetricsTaskListener(name, scope, taskNameMapper, ticker);
+            return new ArrayConcurrencyLoadBalancer(tasks, taskConcurrencyMap, groupSize, listeners, scheduledCounterBuilder.getTicker());
         }
     }
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'TallyMetricsTaskListener(String, Scope, Function, Ticker)' as a member of raw type 'com.uber.concurrency.loadbalancer.TallyMetricsTaskListener'
-in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
+Unchecked call to 'ArrayConcurrencyLoadBalancer(Collection, Function\>, int, List\>, Ticker)' as a member of raw type 'com.uber.concurrency.loadbalancer.ArrayConcurrencyLoadBalancer'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-
-        TallyMetricsTaskListener<T> build(Scope scope) {
-            return new TallyMetricsTaskListener(name, scope, taskNameMapper, ticker);
+                }
+            }
+            return new ArrayConcurrencyLoadBalancer(tasks, taskConcurrencyMap, groupSize, listeners, scheduledCounterBuilder.getTicker());
         }
     }
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'java.util.function.Function' to 'java.util.function.Function'
-in `concurrency-loadbalancer-m3/src/main/java/com/uber/concurrency/loadbalancer/TallyMetricsTaskListener.java`
+Unchecked assignment: 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency' to 'com.uber.concurrency.loadbalancer.internal.TaskConcurrency'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-
-    public static class Builder<T> {
-        private Function<T, String> taskNameMapper = (Function<T, String>) DEFAULT_TASK_NAME_MAPPER;
-        private String name = "unnamed";
-        private Ticker ticker = Ticker.systemTicker();
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'com.google.common.base.Function' to 'com.google.common.base.Function'
-in `concurrency-loadbalancer-tracing/src/main/java/com/uber/concurrency/loadbalancer/TracingTaskListener.java`
-#### Snippet
-```java
-
-    public static class Builder<T> {
-        private Function<T, String> taskNameMapper = (Function<T, String>) DEFAULT_TASK_NAME_MAPPER;
-        private String name = "unnamed";
-
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'com.uber.concurrency.loadbalancer.TracingTaskListener' to 'com.uber.concurrency.loadbalancer.TracingTaskListener'
-in `concurrency-loadbalancer-tracing/src/main/java/com/uber/concurrency/loadbalancer/TracingTaskListener.java`
-#### Snippet
-```java
-
-        public TracingTaskListener<T> build(Tracer tracer) {
-            return new TracingTaskListener(tracer, name, taskNameMapper);
+            return null;
         }
-    }
+        TaskConcurrency<T> leastTaskConcurrency = LEAST_TASK_CONCURRENCY;
+        ReservoirSampler<TaskConcurrency<T>> sampler = new ReservoirSampler<>();
+        for(TaskConcurrency<T> taskConcurrency : taskGroup) {
 ```
 
 ### UNCHECKED_WARNING
-Unchecked call to 'TracingTaskListener(Tracer, String, Function)' as a member of raw type 'com.uber.concurrency.loadbalancer.TracingTaskListener'
-in `concurrency-loadbalancer-tracing/src/main/java/com/uber/concurrency/loadbalancer/TracingTaskListener.java`
+Unchecked assignment: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.ConcurrentTaskImpl' to 'com.uber.concurrency.loadbalancer.CompletableTask'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-
-        public TracingTaskListener<T> build(Tracer tracer) {
-            return new TracingTaskListener(tracer, name, taskNameMapper);
+            return null; // no tasks or all tasks reached concurrency limits
         }
+        return new ConcurrentTaskImpl(ticker.read(), result);
     }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'com.uber.concurrency.loadbalancer.ArrayConcurrencyLoadBalancer.TaskGroup\[\]' to 'com.uber.concurrency.loadbalancer.ArrayConcurrencyLoadBalancer.TaskGroup\[\]'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/ArrayConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+        WeightedSelector.WeightedSelectorBuilder<TaskGroup<T>> builder = WeightedSelector.newBuilder();
+        int numTaskGroups = tasks.size() / groupSize + ( tasks.size() % groupSize == 0 ? 0 : 1 );
+        TaskGroup<T>[] taskGroups = new TaskGroup[numTaskGroups];
+        for (int i = 0 ; i < numTaskGroups ; ++i) {
+            taskGroups[i] = new TaskGroup<>();
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.lang.Comparable' to 'java.lang.Comparable'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/utils/HashIndexedPriorityQueue.java`
+#### Snippet
+```java
+        if (comparator == null) {
+            this.comparator = (o1, o2) -> {
+                Comparable<E> c1 = (Comparable)o1;
+                return c1.compareTo(o2);
+            };
 ```
 
 ### UNCHECKED_WARNING
@@ -383,8 +395,8 @@ Unchecked cast: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalanc
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-            }
-            this.scheduledCounterBuilder.withMaxDelay(latency);
+            withSubStrategy(subStrategy);
+            this.lookBackTime = lookBackTime;
             return (B)this;
         }
 
@@ -395,20 +407,8 @@ Unchecked cast: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalanc
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-            }
-            this.scheduledCounterBuilder.withNumWindow(windowCount);
-            return (B)this;
-        }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.AbstractBuilder' to 'B'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-        public B withSubStrategy(SubStrategy subStrategy) {
-            this.subStrategy = subStrategy;
+        protected B withTicker(Ticker ticker) {
+            this.scheduledCounterBuilder.withTicker(ticker);
             return (B)this;
         }
 
@@ -427,27 +427,15 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ```
 
 ### UNCHECKED_WARNING
-Unchecked cast: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.AbstractBuilder' to 'B'
+Unchecked call to 'of(Consumer)' as a member of raw type 'com.uber.concurrency.loadbalancer.timedcounter.ScheduledCounter.Builder'
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-        public B withTasks(Collection<T> tasks) {
-            this.tasks = tasks;
-            return (B)this;
-        }
-
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'MetricsImpl(Collection, Ticker)' as a member of raw type 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.MetricsImpl'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-        this.listeners = listeners;
-        this.ticker = ticker;
-        this.metrics = new MetricsImpl(tasks, ticker);
-    }
-
+            super(delegate);
+            this.timeout = builder.getMaxDelay();
+            this.scheduledCounter = builder.of(new Consumer<Long>() {
+                @Override
+                public void accept(Long n) {
 ```
 
 ### UNCHECKED_WARNING
@@ -455,8 +443,8 @@ Unchecked cast: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalanc
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-        protected B withTicker(Ticker ticker) {
-            this.scheduledCounterBuilder.withTicker(ticker);
+            }
+            this.scheduledCounterBuilder.withNumWindow(windowCount);
             return (B)this;
         }
 
@@ -491,35 +479,11 @@ Unchecked cast: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalanc
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-        public B withTaskListener(CompletableTask.Listener<T> listener) {
-            listeners.add(listener);
-            return (B)this;
-        }
-    }
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.AbstractBuilder' to 'B'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-            withSubStrategy(subStrategy);
-            this.lookBackTime = lookBackTime;
+        public B withTasks(Collection<T> tasks) {
+            this.tasks = tasks;
             return (B)this;
         }
 
-```
-
-### UNCHECKED_WARNING
-Unchecked call to 'of(Consumer)' as a member of raw type 'com.uber.concurrency.loadbalancer.timedcounter.ScheduledCounter.Builder'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-            super(delegate);
-            this.timeout = builder.getMaxDelay();
-            this.scheduledCounter = builder.of(new Consumer<Long>() {
-                @Override
-                public void accept(Long n) {
 ```
 
 ### UNCHECKED_WARNING
@@ -535,15 +499,51 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ```
 
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.lang.Comparable' to 'java.lang.Comparable'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/utils/HashIndexedPriorityQueue.java`
+Unchecked call to 'MetricsImpl(Collection, Ticker)' as a member of raw type 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.MetricsImpl'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
 #### Snippet
 ```java
-        if (comparator == null) {
-            this.comparator = (o1, o2) -> {
-                Comparable<E> c1 = (Comparable)o1;
-                return c1.compareTo(o2);
-            };
+        this.listeners = listeners;
+        this.ticker = ticker;
+        this.metrics = new MetricsImpl(tasks, ticker);
+    }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.AbstractBuilder' to 'B'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+        public B withTaskListener(CompletableTask.Listener<T> listener) {
+            listeners.add(listener);
+            return (B)this;
+        }
+    }
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.AbstractBuilder' to 'B'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+            }
+            this.scheduledCounterBuilder.withMaxDelay(latency);
+            return (B)this;
+        }
+
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'com.uber.concurrency.loadbalancer.AbstractConcurrencyLoadBalancer.AbstractBuilder' to 'B'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+        public B withSubStrategy(SubStrategy subStrategy) {
+            this.subStrategy = subStrategy;
+            return (B)this;
+        }
+
 ```
 
 ## RuleId[id=UnnecessarySemicolon]
@@ -616,18 +616,6 @@ Tag `return` is not allowed here
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/internal/TaskConcurrency.java`
 #### Snippet
 ```java
-     * @param n        number of requests
-     * @param latency total duration
-     * @return concurrency
-     */
-    void complete(int n, Duration latency);
-```
-
-### JavadocDeclaration
-Tag `return` is not allowed here
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/internal/TaskConcurrency.java`
-#### Snippet
-```java
      * @param succeed the result
      * @param latency the latency
      * @return concurrency
@@ -640,11 +628,11 @@ Tag `return` is not allowed here
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/internal/TaskConcurrency.java`
 #### Snippet
 ```java
-     * Acquire task
-     *
+     * @param n        number of requests
+     * @param latency total duration
      * @return concurrency
      */
-    default void acquire() {
+    void complete(int n, Duration latency);
 ```
 
 ### JavadocDeclaration
@@ -660,6 +648,18 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ```
 
 ### JavadocDeclaration
+Tag `return` is not allowed here
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/internal/TaskConcurrency.java`
+#### Snippet
+```java
+     * Acquire task
+     *
+     * @return concurrency
+     */
+    default void acquire() {
+```
+
+### JavadocDeclaration
 Wrong tag `ThreadSafe`
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/timedcounter/LifespanTracker.java`
 #### Snippet
@@ -672,18 +672,6 @@ class LifespanTracker {
 ```
 
 ### JavadocDeclaration
-Wrong tag `ThreadSafe`
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/RoundRobinLoadBalancer.java`
-#### Snippet
-```java
- * return lb.next();
- *
- * @ThreadSafe
- *
- * @param <T> the type parameter
-```
-
-### JavadocDeclaration
 Wrong tag `TheadSafe`
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/timedcounter/WindowScheduledCounter.java`
 #### Snippet
@@ -693,6 +681,18 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
  * @TheadSafe
  */
 public class WindowScheduledCounter implements ScheduledCounter {
+```
+
+### JavadocDeclaration
+Wrong tag `ThreadSafe`
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/RoundRobinLoadBalancer.java`
+#### Snippet
+```java
+ * return lb.next();
+ *
+ * @ThreadSafe
+ *
+ * @param <T> the type parameter
 ```
 
 ### JavadocDeclaration
@@ -721,18 +721,6 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ```
 
 ### NullableProblems
-Not annotated method overrides method annotated with @Nonnull
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
-#### Snippet
-```java
-
-        @Override
-        public T getTask() {
-            return task;
-        }
-```
-
-### NullableProblems
 Non-annotated parameter 'c' in method 'addAll' from 'AbstractQueue' should not override non-null parameter from 'Set'
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/utils/HashIndexedPriorityQueue.java`
 #### Snippet
@@ -742,6 +730,18 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 public class HashIndexedPriorityQueue<E> extends AbstractQueue<E> implements Set<E> {
     private static final int INDEX_NOT_FOUND = -1;
     private final HashMap<E, Integer> entityToIndex;
+```
+
+### NullableProblems
+Not annotated method overrides method annotated with @Nonnull
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/AbstractConcurrencyLoadBalancer.java`
+#### Snippet
+```java
+
+        @Override
+        public T getTask() {
+            return task;
+        }
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -770,18 +770,6 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
 ```
 
 ### FieldMayBeFinal
-Field `concurrency` may be 'final'
-in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/internal/TaskConcurrency.java`
-#### Snippet
-```java
-    class Noop<T> implements TaskConcurrency<T> {
-        public static final Noop INSTANCE = new Noop(0);
-        private int concurrency;
-
-        public Noop(int init) {
-```
-
-### FieldMayBeFinal
 Field `scheduledCounterBuilder` may be 'final'
 in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/internal/FrequencyTaskConcurrency.java`
 #### Snippet
@@ -803,6 +791,18 @@ in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalance
         private WindowScheduledCounter.Builder scheduledCounterBuilder = WindowScheduledCounter.newBuilder();
 
         @Override
+```
+
+### FieldMayBeFinal
+Field `concurrency` may be 'final'
+in `concurrency-loadbalancer-core/src/main/java/com/uber/concurrency/loadbalancer/internal/TaskConcurrency.java`
+#### Snippet
+```java
+    class Noop<T> implements TaskConcurrency<T> {
+        public static final Noop INSTANCE = new Noop(0);
+        private int concurrency;
+
+        public Noop(int init) {
 ```
 
 ### FieldMayBeFinal
