@@ -50,11 +50,11 @@ Modifier `public` is redundant for interface members
 in `api/src/main/java/org/apache/karaf/decanter/api/Scheduler.java`
 #### Snippet
 ```java
-     * @throws Exception in case of stopping failure.
+     * @throws Exception in case of state retrieval failure.
      */
-    public void stop() throws Exception;
+    public String state() throws Exception;
 
-    /**
+}
 ```
 
 ### UnnecessaryModifier
@@ -86,11 +86,11 @@ Modifier `public` is redundant for interface members
 in `api/src/main/java/org/apache/karaf/decanter/api/Scheduler.java`
 #### Snippet
 ```java
-     * @throws Exception in case of state retrieval failure.
+     * @throws Exception in case of stopping failure.
      */
-    public String state() throws Exception;
+    public void stop() throws Exception;
 
-}
+    /**
 ```
 
 ### UnnecessaryModifier
@@ -144,30 +144,6 @@ in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPo
 
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'. Reason: 'props' has raw type, so result of keys is erased
-in `collector/configadmin/src/main/java/org/apache/karaf/decanter/collector/configadmin/ConfigAdminCollector.java`
-#### Snippet
-```java
-            Dictionary props = configuration.getProperties();
-            if (props != null) {
-                Enumeration<String> keys = props.keys();
-                while (keys.hasMoreElements()) {
-                    String key = keys.nextElement();
-```
-
-### UNCHECKED_WARNING
-Unchecked assignment: 'java.util.Map' to 'java.util.Map'. Reason: 'hit' has raw type, so result of fields is erased
-in `collector/elasticsearch/src/main/java/org/apache/karaf/decanter/collector/elasticsearch/ElasticsearchCollector.java`
-#### Snippet
-```java
-                        data.put("failedShards", response.shards().failed().intValue());
-                        for (Hit hit : response.hits().hits()) {
-                            data.putAll(hit.fields());
-                        }
-                        return null;
-```
-
-### UNCHECKED_WARNING
 Unchecked assignment: 'java.util.Map' to 'java.util.Map'
 in `appender/prometheus/src/main/java/org/apache/karaf/decanter/appender/prometheus/PrometheusServlet.java`
 #### Snippet
@@ -215,6 +191,30 @@ in `processor/groupby/src/main/java/org/apache/karaf/decanter/processor/groupby/
                             Map<String,Object> properties = new HashMap<>();
 ```
 
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Enumeration' to 'java.util.Enumeration'. Reason: 'props' has raw type, so result of keys is erased
+in `collector/configadmin/src/main/java/org/apache/karaf/decanter/collector/configadmin/ConfigAdminCollector.java`
+#### Snippet
+```java
+            Dictionary props = configuration.getProperties();
+            if (props != null) {
+                Enumeration<String> keys = props.keys();
+                while (keys.hasMoreElements()) {
+                    String key = keys.nextElement();
+```
+
+### UNCHECKED_WARNING
+Unchecked assignment: 'java.util.Map' to 'java.util.Map'. Reason: 'hit' has raw type, so result of fields is erased
+in `collector/elasticsearch/src/main/java/org/apache/karaf/decanter/collector/elasticsearch/ElasticsearchCollector.java`
+#### Snippet
+```java
+                        data.put("failedShards", response.shards().failed().intValue());
+                        for (Hit hit : response.hits().hits()) {
+                            data.putAll(hit.fields());
+                        }
+                        return null;
+```
+
 ## RuleId[id=UnnecessarySemicolon]
 ### UnnecessarySemicolon
 Unnecessary semicolon `;`
@@ -230,39 +230,15 @@ in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/So
 
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
-Casting `value` to `long[]` may produce `ClassCastException`
-in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonMarshaller.java`
+Method invocation `equalsIgnoreCase` may produce `NullPointerException`
+in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
 #### Snippet
 ```java
-        } else if (value instanceof long[] || value instanceof Long[]) {
-            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-            long[] array = (long[])value;
-            for (long l : array) {
-                arrayBuilder.add(l);
-```
-
-### DataFlowIssue
-Casting `value` to `int[]` may produce `ClassCastException`
-in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonMarshaller.java`
-#### Snippet
-```java
-        } else if (value instanceof int[] || value instanceof Integer[]) {
-            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-            int[] array = (int[])value;
-            for (int i : array) {
-                arrayBuilder.add(i);
-```
-
-### DataFlowIssue
-Method invocation `close` may produce `NullPointerException`
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
-#### Snippet
-```java
-
-        try {
-            connector.close();
-        } catch (Exception e) {
-            LOGGER.trace("Can't close JMX connector", e);
+        for(Row row : all) {
+            String table = row.getString("table_name");
+            if (table.equalsIgnoreCase(tableName)) {
+                found = true;
+                break;
 ```
 
 ### DataFlowIssue
@@ -302,15 +278,39 @@ in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/st
 ```
 
 ### DataFlowIssue
-Method invocation `equalsIgnoreCase` may produce `NullPointerException`
-in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
+Method invocation `close` may produce `NullPointerException`
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/JmxCollector.java`
 #### Snippet
 ```java
-        for(Row row : all) {
-            String table = row.getString("table_name");
-            if (table.equalsIgnoreCase(tableName)) {
-                found = true;
-                break;
+
+        try {
+            connector.close();
+        } catch (Exception e) {
+            LOGGER.trace("Can't close JMX connector", e);
+```
+
+### DataFlowIssue
+Casting `value` to `long[]` may produce `ClassCastException`
+in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonMarshaller.java`
+#### Snippet
+```java
+        } else if (value instanceof long[] || value instanceof Long[]) {
+            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+            long[] array = (long[])value;
+            for (long l : array) {
+                arrayBuilder.add(l);
+```
+
+### DataFlowIssue
+Casting `value` to `int[]` may produce `ClassCastException`
+in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonMarshaller.java`
+#### Snippet
+```java
+        } else if (value instanceof int[] || value instanceof Integer[]) {
+            JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+            int[] array = (int[])value;
+            for (int i : array) {
+                arrayBuilder.add(i);
 ```
 
 ## RuleId[id=SimplifyStreamApiCallChains]
@@ -448,6 +448,102 @@ in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPo
 ## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
 ### CollectionAddAllCanBeReplacedWithConstructor
 'putAll()' call can be replaced with parametrized constructor call
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/event/Handler.java`
+#### Snippet
+```java
+    private Event prepareEvent(Alert alert, Rule rule, boolean recover) {
+        HashMap<String, Object> data = new HashMap<>();
+        data.putAll(alert.get());
+        data.put("alertLevel", rule.getLevel());
+        data.put("alertPattern", rule.getCondition());
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(blockStorage + "/" + project + "/limits", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(compute + "/os-server-groups", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(blockStorage + "/" + project + "/resource_filters", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(compute + "/os-hypervisors/detail", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(blockStorage + "/" + project + "/attachments/detail", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(blockStorage + "/" + project + "/group_snapshots/detail", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(image + "/v2/tasks", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
@@ -463,7 +559,7 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-        String response = request(blockStorage + "/" + project + "/backups/detail", token);
+        String response = request(blockStorage + "/" + project + "/os-services", token);
         Map<String, Object> data = new HashMap<>();
         data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
         PropertiesPreparator.prepare(data, config);
@@ -475,7 +571,19 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-        String response = request(compute + "/os-services", token);
+        String response = request(blockStorage + "/" + project + "/volumes/detail", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(metric + "/v1/metric", token);
         Map<String, Object> data = new HashMap<>();
         data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
         PropertiesPreparator.prepare(data, config);
@@ -511,151 +619,7 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-        String response = request(compute + "/os-server-groups", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(image + "/v2/info/stores", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(compute + "/os-instance_usage_audit_log", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(compute + "/os-hypervisors/detail", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(blockStorage + "/" + project + "/limits", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(image + "/v2/images", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(blockStorage + "/" + project + "/volume-transfers/detail", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(blockStorage + "/" + project + "/snapshots/detail", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(blockStorage + "/" + project + "/group_snapshots/detail", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(compute + "/os-aggregates", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(image + "/v2/tasks", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(compute + "/servers/detail", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(blockStorage + "/" + project + "/group_types", token);
+        String response = request(compute + "/flavors/detail", token);
         Map<String, Object> data = new HashMap<>();
         data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
         PropertiesPreparator.prepare(data, config);
@@ -679,7 +643,7 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-        String response = request(blockStorage + "/" + project + "/os-services", token);
+        String response = request(image + "/v2/info/stores", token);
         Map<String, Object> data = new HashMap<>();
         data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
         PropertiesPreparator.prepare(data, config);
@@ -691,7 +655,7 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-        String response = request(compute + "/os-migrations", token);
+        String response = request(compute + "/os-aggregates", token);
         Map<String, Object> data = new HashMap<>();
         data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
         PropertiesPreparator.prepare(data, config);
@@ -703,7 +667,7 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-        String response = request(compute + "/limits", token);
+        String response = request(blockStorage + "/" + project + "/group_types", token);
         Map<String, Object> data = new HashMap<>();
         data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
         PropertiesPreparator.prepare(data, config);
@@ -727,7 +691,7 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-        String response = request(blockStorage + "/" + project + "/resource_filters", token);
+        String response = request(compute + "/os-instance_usage_audit_log", token);
         Map<String, Object> data = new HashMap<>();
         data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
         PropertiesPreparator.prepare(data, config);
@@ -751,43 +715,7 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-        String response = request(metric + "/v1/metric", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(compute + "/os-keypairs", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(blockStorage + "/" + project + "/volumes/detail", token);
-        Map<String, Object> data = new HashMap<>();
-        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
-        PropertiesPreparator.prepare(data, config);
-        dispatcher.postEvent(new Event(topic, data));
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'putAll()' call can be replaced with parametrized constructor call
-in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
-#### Snippet
-```java
-        String response = request(blockStorage + "/" + project + "/os-hosts", token);
+        String response = request(image + "/v2/images", token);
         Map<String, Object> data = new HashMap<>();
         data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
         PropertiesPreparator.prepare(data, config);
@@ -811,7 +739,7 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-        String response = request(blockStorage + "/" + project + "/attachments/detail", token);
+        String response = request(compute + "/os-migrations", token);
         Map<String, Object> data = new HashMap<>();
         data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
         PropertiesPreparator.prepare(data, config);
@@ -823,7 +751,7 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-        String response = request(compute + "/flavors/detail", token);
+        String response = request(blockStorage + "/" + project + "/snapshots/detail", token);
         Map<String, Object> data = new HashMap<>();
         data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
         PropertiesPreparator.prepare(data, config);
@@ -832,14 +760,86 @@ in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openst
 
 ### CollectionAddAllCanBeReplacedWithConstructor
 'putAll()' call can be replaced with parametrized constructor call
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/event/Handler.java`
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
 #### Snippet
 ```java
-    private Event prepareEvent(Alert alert, Rule rule, boolean recover) {
-        HashMap<String, Object> data = new HashMap<>();
-        data.putAll(alert.get());
-        data.put("alertLevel", rule.getLevel());
-        data.put("alertPattern", rule.getCondition());
+        String response = request(blockStorage + "/" + project + "/backups/detail", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(compute + "/os-services", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(compute + "/servers/detail", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(blockStorage + "/" + project + "/os-hosts", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(compute + "/limits", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(compute + "/os-keypairs", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'putAll()' call can be replaced with parametrized constructor call
+in `collector/openstack/src/main/java/org/apache/karaf/decanter/collector/openstack/OpenstackCollector.java`
+#### Snippet
+```java
+        String response = request(blockStorage + "/" + project + "/volume-transfers/detail", token);
+        Map<String, Object> data = new HashMap<>();
+        data.putAll(unmarshaller.unmarshal(new ByteArrayInputStream(response.getBytes())));
+        PropertiesPreparator.prepare(data, config);
+        dispatcher.postEvent(new Event(topic, data));
 ```
 
 ### CollectionAddAllCanBeReplacedWithConstructor
@@ -856,15 +856,15 @@ in `appender/influxdb/src/main/java/org/apache/karaf/decanter/appender/influxdb/
 
 ## RuleId[id=Deprecation]
 ### Deprecation
-'com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx' is deprecated
-in `appender/orientdb/src/main/java/org/apache/karaf/decanter/appender/orientdb/OrientDBAppender.java`
+'COALESCER_MAX_RUNS' is deprecated
+in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
 #### Snippet
 ```java
-    public Marshaller marshaller;
-
-    private ODatabaseDocumentTx database;
-
-    private Dictionary<String, Object> config;
+                        .withString(DefaultDriverOption.HEARTBEAT_TIMEOUT, "500 milliseconds")
+                        .withString(DefaultDriverOption.COALESCER_INTERVAL, "10 microseconds")
+                        .withInt(DefaultDriverOption.COALESCER_MAX_RUNS, 5)
+                        .withString(DefaultDriverOption.RECONNECTION_POLICY_CLASS, "ExponentialReconnectionPolicy")
+                        .withString(DefaultDriverOption.RECONNECTION_BASE_DELAY, "1 second")
 ```
 
 ### Deprecation
@@ -892,40 +892,89 @@ in `appender/orientdb/src/main/java/org/apache/karaf/decanter/appender/orientdb/
 ```
 
 ### Deprecation
-'COALESCER_MAX_RUNS' is deprecated
-in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
+'com.orientechnologies.orient.core.db.document.ODatabaseDocumentTx' is deprecated
+in `appender/orientdb/src/main/java/org/apache/karaf/decanter/appender/orientdb/OrientDBAppender.java`
 #### Snippet
 ```java
-                        .withString(DefaultDriverOption.HEARTBEAT_TIMEOUT, "500 milliseconds")
-                        .withString(DefaultDriverOption.COALESCER_INTERVAL, "10 microseconds")
-                        .withInt(DefaultDriverOption.COALESCER_MAX_RUNS, 5)
-                        .withString(DefaultDriverOption.RECONNECTION_POLICY_CLASS, "ExponentialReconnectionPolicy")
-                        .withString(DefaultDriverOption.RECONNECTION_BASE_DELAY, "1 second")
+    public Marshaller marshaller;
+
+    private ODatabaseDocumentTx database;
+
+    private Dictionary<String, Object> config;
+```
+
+## RuleId[id=UnnecessaryToStringCall]
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `marshaller/csv/src/main/java/org/apache/karaf/decanter/marshaller/csv/CsvMarshaller.java`
+#### Snippet
+```java
+            Object propertyValue = event.getProperty(propertyName);
+            if (propertyValue != null) {
+                builder.append(propertyName).append("=").append(propertyValue.toString()).append(separator);
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `marshaller/raw/src/main/java/org/apache/karaf/decanter/marshaller/raw/RawMarshaller.java`
+#### Snippet
+```java
+            Object propertyValue = event.getProperty(propertyName);
+            if (propertyName != null && propertyValue != null) {
+                builder.append(propertyName).append("=").append(propertyValue.toString()).append("\n");
+            }
+        }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `appender/s3/src/main/java/org/apache/karaf/decanter/appender/s3/S3Appender.java`
+#### Snippet
+```java
+                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+                .build();
+        String key = "decanter-" + System.currentTimeMillis() + "-" + UUID.randomUUID().toString();
+        s3.putObject(bucket, key, marshaller.marshal(event));
+    }
+```
+
+### UnnecessaryToStringCall
+Unnecessary `toString()` call
+in `collector/druid/src/main/java/org/apache/karaf/decanter/collector/druid/DruidCollector.java`
+#### Snippet
+```java
+            }
+        }
+        String jsonResult = "{ \"result\": " + result.toString() + "}";
+        return unmarshaller.unmarshal(new ByteArrayInputStream(jsonResult.getBytes()));
+    }
 ```
 
 ## RuleId[id=SimplifiableConditionalExpression]
 ### SimplifiableConditionalExpression
-`(configuration.get("treelist") != null) ? Boolean.parseBoolean((String) configuration.get("treelist")) : false` can be simplified to 'configuration.get("treelist") != null \&\& Boolean.parseBoolean((String) configuration.get("treelist"))'
-in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPoller.java`
+`(config.get(APPEND_PROPERTY) != null) ? Boolean.parseBoolean((String) config.get(APPEND_PROPERTY)) : true` can be simplified to 'config.get(APPEND_PROPERTY)==null \|\| Boolean.parseBoolean((String) config.get(APPEND_PROPERTY))'
+in `appender/file/src/main/java/org/apache/karaf/decanter/appender/file/FileAppender.java`
 #### Snippet
 ```java
-        int retries = (configuration.get("retries") != null) ? Integer.parseInt((String) configuration.get("retries")) : 2;
-        long timeout = (configuration.get("timeout") != null) ? Long.parseLong((String) configuration.get("timeout")) : 1500;
-        treeList = (configuration.get("treelist") != null) ? Boolean.parseBoolean((String) configuration.get("treelist")) : false;
-        oids = (configuration.get("oids") != null) ? (String) configuration.get("oids") : "";
 
+        String filename = (config.get(FILENAME_PROPERTY) != null) ? (String) config.get(FILENAME_PROPERTY) : System.getProperty("karaf.data") + File.separator + "decanter" + File.separator + "appender.csv";
+        boolean append = (config.get(APPEND_PROPERTY) != null) ? Boolean.parseBoolean((String) config.get(APPEND_PROPERTY)) : true;
+
+        File file = new File(filename);
 ```
 
 ### SimplifiableConditionalExpression
-`(config.get("useDefaultKey") != null) ? Boolean.parseBoolean((String) config.get("useDefaultKey")) : false` can be simplified to 'config.get("useDefaultKey") != null \&\& Boolean.parseBoolean((String) config.get("useDefaultKey"))'
-in `parser/split/src/main/java/org/apache/karaf/decanter/parser/split/SplitParser.java`
+`(configuration.get("flat") != null) ? Boolean.parseBoolean(configuration.get("flat").toString()) : true` can be simplified to 'configuration.get("flat")==null \|\| Boolean.parseBoolean(configuration.get("flat").toString())'
+in `processor/groupby/src/main/java/org/apache/karaf/decanter/processor/groupby/GroupByProcessor.java`
 #### Snippet
 ```java
-        this.separator = (config.get("separator") != null) ? (String) config.get("separator") : ",";
-        this.keys = (config.get("keys") != null) ? (String) config.get("keys") : null;
-        this.useDefaultKey = (config.get("useDefaultKey") != null) ? Boolean.parseBoolean((String) config.get("useDefaultKey")) : false;
-    }
-
+        long period = (configuration.get("period") != null) ? Long.parseLong(configuration.get("period").toString()) : 60L;
+        groupBy = (configuration.get("groupBy") != null) ? configuration.get("groupBy").toString() : null;
+        flat = (configuration.get("flat") != null) ? Boolean.parseBoolean(configuration.get("flat").toString()) : true;
+        scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        scheduledExecutorService.scheduleAtFixedRate(new GroupByTask(), 0, period, TimeUnit.SECONDS);
 ```
 
 ### SimplifiableConditionalExpression
@@ -941,15 +990,27 @@ in `processor/aggregate/src/main/java/org/apache/karaf/decanter/processor/aggreg
 ```
 
 ### SimplifiableConditionalExpression
-`(configuration.get("flat") != null) ? Boolean.parseBoolean(configuration.get("flat").toString()) : true` can be simplified to 'configuration.get("flat")==null \|\| Boolean.parseBoolean(configuration.get("flat").toString())'
-in `processor/groupby/src/main/java/org/apache/karaf/decanter/processor/groupby/GroupByProcessor.java`
+`(config.get("useDefaultKey") != null) ? Boolean.parseBoolean((String) config.get("useDefaultKey")) : false` can be simplified to 'config.get("useDefaultKey") != null \&\& Boolean.parseBoolean((String) config.get("useDefaultKey"))'
+in `parser/split/src/main/java/org/apache/karaf/decanter/parser/split/SplitParser.java`
 #### Snippet
 ```java
-        long period = (configuration.get("period") != null) ? Long.parseLong(configuration.get("period").toString()) : 60L;
-        groupBy = (configuration.get("groupBy") != null) ? configuration.get("groupBy").toString() : null;
-        flat = (configuration.get("flat") != null) ? Boolean.parseBoolean(configuration.get("flat").toString()) : true;
-        scheduledExecutorService = Executors.newScheduledThreadPool(1);
-        scheduledExecutorService.scheduleAtFixedRate(new GroupByTask(), 0, period, TimeUnit.SECONDS);
+        this.separator = (config.get("separator") != null) ? (String) config.get("separator") : ",";
+        this.keys = (config.get("keys") != null) ? (String) config.get("keys") : null;
+        this.useDefaultKey = (config.get("useDefaultKey") != null) ? Boolean.parseBoolean((String) config.get("useDefaultKey")) : false;
+    }
+
+```
+
+### SimplifiableConditionalExpression
+`(configuration.get("treelist") != null) ? Boolean.parseBoolean((String) configuration.get("treelist")) : false` can be simplified to 'configuration.get("treelist") != null \&\& Boolean.parseBoolean((String) configuration.get("treelist"))'
+in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPoller.java`
+#### Snippet
+```java
+        int retries = (configuration.get("retries") != null) ? Integer.parseInt((String) configuration.get("retries")) : 2;
+        long timeout = (configuration.get("timeout") != null) ? Long.parseLong((String) configuration.get("timeout")) : 1500;
+        treeList = (configuration.get("treelist") != null) ? Boolean.parseBoolean((String) configuration.get("treelist")) : false;
+        oids = (configuration.get("oids") != null) ? (String) configuration.get("oids") : "";
+
 ```
 
 ### SimplifiableConditionalExpression
@@ -1192,80 +1253,7 @@ in `collector/oshi/src/main/java/org/apache/karaf/decanter/collector/oshi/OshiCo
                     for (OSService service : os.getServices()) {
 ```
 
-### SimplifiableConditionalExpression
-`(config.get(APPEND_PROPERTY) != null) ? Boolean.parseBoolean((String) config.get(APPEND_PROPERTY)) : true` can be simplified to 'config.get(APPEND_PROPERTY)==null \|\| Boolean.parseBoolean((String) config.get(APPEND_PROPERTY))'
-in `appender/file/src/main/java/org/apache/karaf/decanter/appender/file/FileAppender.java`
-#### Snippet
-```java
-
-        String filename = (config.get(FILENAME_PROPERTY) != null) ? (String) config.get(FILENAME_PROPERTY) : System.getProperty("karaf.data") + File.separator + "decanter" + File.separator + "appender.csv";
-        boolean append = (config.get(APPEND_PROPERTY) != null) ? Boolean.parseBoolean((String) config.get(APPEND_PROPERTY)) : true;
-
-        File file = new File(filename);
-```
-
-## RuleId[id=UnnecessaryToStringCall]
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `marshaller/csv/src/main/java/org/apache/karaf/decanter/marshaller/csv/CsvMarshaller.java`
-#### Snippet
-```java
-            Object propertyValue = event.getProperty(propertyName);
-            if (propertyValue != null) {
-                builder.append(propertyName).append("=").append(propertyValue.toString()).append(separator);
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `collector/druid/src/main/java/org/apache/karaf/decanter/collector/druid/DruidCollector.java`
-#### Snippet
-```java
-            }
-        }
-        String jsonResult = "{ \"result\": " + result.toString() + "}";
-        return unmarshaller.unmarshal(new ByteArrayInputStream(jsonResult.getBytes()));
-    }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `marshaller/raw/src/main/java/org/apache/karaf/decanter/marshaller/raw/RawMarshaller.java`
-#### Snippet
-```java
-            Object propertyValue = event.getProperty(propertyName);
-            if (propertyName != null && propertyValue != null) {
-                builder.append(propertyName).append("=").append(propertyValue.toString()).append("\n");
-            }
-        }
-```
-
-### UnnecessaryToStringCall
-Unnecessary `toString()` call
-in `appender/s3/src/main/java/org/apache/karaf/decanter/appender/s3/S3Appender.java`
-#### Snippet
-```java
-                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
-                .build();
-        String key = "decanter-" + System.currentTimeMillis() + "-" + UUID.randomUUID().toString();
-        s3.putObject(bucket, key, marshaller.marshal(event));
-    }
-```
-
 ## RuleId[id=NullableProblems]
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/BoundedInputStream.java`
-#### Snippet
-```java
-
-    @Override
-    public int read(final byte[] b, final int off, final int len) throws IOException {
-        if (max >= 0 && pos >= max) {
-            LOGGER.warn("Reach socket read input stream limit");
-```
-
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
 in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/BoundedInputStream.java`
@@ -1278,17 +1266,41 @@ in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/Bo
     }
 ```
 
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/BoundedInputStream.java`
+#### Snippet
+```java
+
+    @Override
+    public int read(final byte[] b, final int off, final int len) throws IOException {
+        if (max >= 0 && pos >= max) {
+            LOGGER.warn("Reach socket read input stream limit");
+```
+
 ## RuleId[id=FieldCanBeLocal]
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
+in `appender/mongodb/src/main/java/org/apache/karaf/decanter/appender/mongodb/MongoDbAppender.java`
 #### Snippet
 ```java
-    private Dictionary<String, Object> properties;
-    private KafkaConsumer<String, String> consumer;
-    private String topic;
-    private String eventAdminTopic;
-    private boolean consuming = false;
+
+    private MongoClient mongoClient;
+    private MongoDatabase mongoDatabase;
+    private MongoCollection mongoCollection;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
+#### Snippet
+```java
+    private final static Logger LOGGER = LoggerFactory.getLogger(LuceneStoreImpl.class);
+
+    private Directory directory;
+    private IndexWriter indexWriter;
+    private Map<String, PointsConfig> points;
 ```
 
 ### FieldCanBeLocal
@@ -1305,26 +1317,14 @@ in `appender/kafka/src/main/java/org/apache/karaf/decanter/appender/kafka/KafkaA
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
-in `appender/mongodb/src/main/java/org/apache/karaf/decanter/appender/mongodb/MongoDbAppender.java`
+in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
 #### Snippet
 ```java
-
-    private MongoClient mongoClient;
-    private MongoDatabase mongoDatabase;
-    private MongoCollection mongoCollection;
-
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpTrap.java`
-#### Snippet
-```java
-
-    private Address address;
-    private Snmp snmp;
-    private TransportMapping<? extends Address> transport;
-
+    private Dictionary<String, Object> properties;
+    private KafkaConsumer<String, String> consumer;
+    private String topic;
+    private String eventAdminTopic;
+    private boolean consuming = false;
 ```
 
 ### FieldCanBeLocal
@@ -1341,6 +1341,18 @@ in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpTr
 
 ### FieldCanBeLocal
 Field can be converted to a local variable
+in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpTrap.java`
+#### Snippet
+```java
+
+    private Address address;
+    private Snmp snmp;
+    private TransportMapping<? extends Address> transport;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
 in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPoller.java`
 #### Snippet
 ```java
@@ -1349,18 +1361,6 @@ in `collector/snmp/src/main/java/org/apache/karaf/decanter/collector/snmp/SnmpPo
     private Address address;
     private TransportMapping<? extends Address> transport;
     private Snmp snmp;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
-#### Snippet
-```java
-    private final static Logger LOGGER = LoggerFactory.getLogger(LuceneStoreImpl.class);
-
-    private Directory directory;
-    private IndexWriter indexWriter;
-    private Map<String, PointsConfig> points;
 ```
 
 ## RuleId[id=TrivialIf]
@@ -1377,30 +1377,6 @@ in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/Deca
 ```
 
 ## RuleId[id=IgnoreResultOfCall]
-### IgnoreResultOfCall
-Result of `InputStream.read()` is ignored
-in `appender/rest/src/main/java/org/apache/karaf/decanter/appender/rest/RestAppender.java`
-#### Snippet
-```java
-                }
-                InputStream is = connection.getInputStream();
-                is.read();
-                is.close();
-            } catch (Exception e) {
-```
-
-### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
-#### Snippet
-```java
-            this.executor.shutdown();
-            try {
-                this.executor.awaitTermination(5, TimeUnit.SECONDS);
-            } catch (InterruptedException e) {
-                // nothing to do
-```
-
 ### IgnoreResultOfCall
 Result of `File.mkdirs()` is ignored
 in `appender/file/src/main/java/org/apache/karaf/decanter/appender/file/FileAppender.java`
@@ -1437,19 +1413,31 @@ in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log
                 // Ignore
 ```
 
-## RuleId[id=CharsetObjectCanBeUsed]
-### CharsetObjectCanBeUsed
-StandardCharsets.UTF_8 can be used instead
-in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
+### IgnoreResultOfCall
+Result of `InputStream.read()` is ignored
+in `appender/rest/src/main/java/org/apache/karaf/decanter/appender/rest/RestAppender.java`
 #### Snippet
 ```java
-            String value = record.value();
-            if (messageType.equalsIgnoreCase("text")) {
-                ByteArrayInputStream is = new ByteArrayInputStream(value.getBytes("utf-8"));
-                data.putAll(unmarshaller.unmarshal(is));
-            } else {
+                }
+                InputStream is = connection.getInputStream();
+                is.read();
+                is.close();
+            } catch (Exception e) {
 ```
 
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+#### Snippet
+```java
+            this.executor.shutdown();
+            try {
+                this.executor.awaitTermination(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                // nothing to do
+```
+
+## RuleId[id=CharsetObjectCanBeUsed]
 ### CharsetObjectCanBeUsed
 StandardCharsets.UTF_8 can be used instead
 in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/store/LuceneStoreImpl.java`
@@ -1484,6 +1472,18 @@ in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/st
                         stringValue = new String(stringValue.getBytes("UTF-8"), 0, 32766, "UTF-8");
                     }
                     document.add(new StringField(property, stringValue, Field.Store.YES));
+```
+
+### CharsetObjectCanBeUsed
+StandardCharsets.UTF_8 can be used instead
+in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
+#### Snippet
+```java
+            String value = record.value();
+            if (messageType.equalsIgnoreCase("text")) {
+                ByteArrayInputStream is = new ByteArrayInputStream(value.getBytes("utf-8"));
+                data.putAll(unmarshaller.unmarshal(is));
+            } else {
 ```
 
 ## RuleId[id=ConditionCoveredByFurtherCondition]
@@ -1792,15 +1792,15 @@ in `api/src/main/java/org/apache/karaf/decanter/api/Scheduler.java`
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `unmarshaller` may be 'final'
-in `collector/jms/src/main/java/org/apache/karaf/decanter/collector/jms/JmsCollector.java`
+Field `consuming` may be 'final'
+in `collector/mqtt/src/main/java/org/apache/karaf/decanter/collector/mqtt/MqttCollector.java`
 #### Snippet
 ```java
+    private MqttClient client;
+    private String dispatcherTopic;
+    private boolean consuming = false;
 
-        private EventAdmin dispatcher;
-        private Unmarshaller unmarshaller;
-
-        public DecanterMessageListener(EventAdmin dispatcher, Unmarshaller unmarshaller) {
+    @Activate
 ```
 
 ### FieldMayBeFinal
@@ -1816,39 +1816,15 @@ in `collector/jms/src/main/java/org/apache/karaf/decanter/collector/jms/JmsColle
 ```
 
 ### FieldMayBeFinal
-Field `config` may be 'final'
-in `appender/kafka/src/main/java/org/apache/karaf/decanter/appender/kafka/ConfigMapper.java`
+Field `unmarshaller` may be 'final'
+in `collector/jms/src/main/java/org/apache/karaf/decanter/collector/jms/JmsCollector.java`
 #### Snippet
 ```java
 
-public class ConfigMapper {
-    private Properties config;
-    private Dictionary<String, Object> confSource;
-    
-```
+        private EventAdmin dispatcher;
+        private Unmarshaller unmarshaller;
 
-### FieldMayBeFinal
-Field `confSource` may be 'final'
-in `appender/kafka/src/main/java/org/apache/karaf/decanter/appender/kafka/ConfigMapper.java`
-#### Snippet
-```java
-public class ConfigMapper {
-    private Properties config;
-    private Dictionary<String, Object> confSource;
-    
-    public static Properties map(Dictionary<String, Object> conf) {
-```
-
-### FieldMayBeFinal
-Field `consuming` may be 'final'
-in `collector/mqtt/src/main/java/org/apache/karaf/decanter/collector/mqtt/MqttCollector.java`
-#### Snippet
-```java
-    private MqttClient client;
-    private String dispatcherTopic;
-    private boolean consuming = false;
-
-    @Activate
+        public DecanterMessageListener(EventAdmin dispatcher, Unmarshaller unmarshaller) {
 ```
 
 ### FieldMayBeFinal
@@ -1864,15 +1840,15 @@ public class EmailFormatter {
 ```
 
 ### FieldMayBeFinal
-Field `tsFormat` may be 'final'
-in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonMarshaller.java`
+Field `gauges` may be 'final'
+in `appender/prometheus/src/main/java/org/apache/karaf/decanter/appender/prometheus/PrometheusServlet.java`
 #### Snippet
 ```java
-public class JsonMarshaller implements Marshaller {
+    private boolean filtered = false;
 
-    private SimpleDateFormat tsFormat;
-    
-    boolean replaceDotsByUnderscores = true;
+    private Map<String, Gauge> gauges = new HashMap<>();
+
+    @Activate
 ```
 
 ### FieldMayBeFinal
@@ -1888,27 +1864,51 @@ public class Alert {
 ```
 
 ### FieldMayBeFinal
-Field `mergedData` may be 'final'
-in `processor/aggregate/src/main/java/org/apache/karaf/decanter/processor/aggregate/AggregateProcessor.java`
+Field `clientSocket` may be 'final'
+in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log/socket/SocketCollector.java`
 #### Snippet
 ```java
 
-    private int index = 0;
-    private ConcurrentHashMap<String, Object> mergedData = new ConcurrentHashMap<>();
-    private ScheduledExecutorService scheduledExecutorService;
+    private class SocketRunnable implements Runnable {
+        private Socket clientSocket;
 
+        public SocketRunnable(Socket clientSocket) {
 ```
 
 ### FieldMayBeFinal
-Field `type` may be 'final'
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/BeanHarvester.java`
+Field `accumulation` may be 'final'
+in `processor/groupby/src/main/java/org/apache/karaf/decanter/processor/groupby/GroupByProcessor.java`
+#### Snippet
+```java
+    private boolean flat;
+
+    private ConcurrentHashMap<Integer, List<Event>> accumulation = new ConcurrentHashMap<>();
+
+    private ScheduledExecutorService scheduledExecutorService;
+```
+
+### FieldMayBeFinal
+Field `confSource` may be 'final'
+in `appender/kafka/src/main/java/org/apache/karaf/decanter/appender/kafka/ConfigMapper.java`
+#### Snippet
+```java
+public class ConfigMapper {
+    private Properties config;
+    private Dictionary<String, Object> confSource;
+    
+    public static Properties map(Dictionary<String, Object> conf) {
+```
+
+### FieldMayBeFinal
+Field `config` may be 'final'
+in `appender/kafka/src/main/java/org/apache/karaf/decanter/appender/kafka/ConfigMapper.java`
 #### Snippet
 ```java
 
-    private MBeanServerConnection connection;
-    private String type;
+public class ConfigMapper {
+    private Properties config;
+    private Dictionary<String, Object> confSource;
     
-    BeanHarvester(MBeanServerConnection connection, String type) throws UnknownHostException {
 ```
 
 ### FieldMayBeFinal
@@ -1924,51 +1924,39 @@ in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/BeanHarv
 ```
 
 ### FieldMayBeFinal
-Field `packet` may be 'final'
-in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+Field `type` may be 'final'
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/BeanHarvester.java`
 #### Snippet
 ```java
-    private class DatagramRunnable implements Runnable {
 
-        private DatagramPacket packet;
-
-        public DatagramRunnable(DatagramPacket packet) {
+    private MBeanServerConnection connection;
+    private String type;
+    
+    BeanHarvester(MBeanServerConnection connection, String type) throws UnknownHostException {
 ```
 
 ### FieldMayBeFinal
-Field `clientSocket` may be 'final'
-in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+Field `mergedData` may be 'final'
+in `processor/aggregate/src/main/java/org/apache/karaf/decanter/processor/aggregate/AggregateProcessor.java`
 #### Snippet
 ```java
-    private class SocketRunnable implements Runnable {
 
-        private Socket clientSocket;
-        private final long maxRequestSize;
+    private int index = 0;
+    private ConcurrentHashMap<String, Object> mergedData = new ConcurrentHashMap<>();
+    private ScheduledExecutorService scheduledExecutorService;
 
 ```
 
 ### FieldMayBeFinal
-Field `globalTags` may be 'final'
-in `appender/influxdb/src/main/java/org/apache/karaf/decanter/appender/influxdb/InfluxDbAppender.java`
+Field `tsFormat` may be 'final'
+in `marshaller/json/src/main/java/org/apache/karaf/decanter/marshaller/json/JsonMarshaller.java`
 #### Snippet
 ```java
-    private Dictionary<String, Object> config;
+public class JsonMarshaller implements Marshaller {
 
-    private Map<String, String> globalTags = new HashMap<>();
-
-    private InfluxDB influxDB;
-```
-
-### FieldMayBeFinal
-Field `gauges` may be 'final'
-in `appender/prometheus/src/main/java/org/apache/karaf/decanter/appender/prometheus/PrometheusServlet.java`
-#### Snippet
-```java
-    private boolean filtered = false;
-
-    private Map<String, Gauge> gauges = new HashMap<>();
-
-    @Activate
+    private SimpleDateFormat tsFormat;
+    
+    boolean replaceDotsByUnderscores = true;
 ```
 
 ### FieldMayBeFinal
@@ -1981,18 +1969,6 @@ in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/Deca
     private DefaultExchangeExtender dextender = new DefaultExchangeExtender();
     private DecanterCamelEventExtender extender;
 
-```
-
-### FieldMayBeFinal
-Field `accumulation` may be 'final'
-in `processor/groupby/src/main/java/org/apache/karaf/decanter/processor/groupby/GroupByProcessor.java`
-#### Snippet
-```java
-    private boolean flat;
-
-    private ConcurrentHashMap<Integer, List<Event>> accumulation = new ConcurrentHashMap<>();
-
-    private ScheduledExecutorService scheduledExecutorService;
 ```
 
 ### FieldMayBeFinal
@@ -2020,30 +1996,42 @@ in `collector/utils/src/main/java/org/apache/karaf/decanter/collector/utils/Prop
 ```
 
 ### FieldMayBeFinal
-Field `clientSocket` may be 'final'
-in `collector/log4j-socket/src/main/java/org/apache/karaf/decanter/collector/log/socket/SocketCollector.java`
+Field `globalTags` may be 'final'
+in `appender/influxdb/src/main/java/org/apache/karaf/decanter/appender/influxdb/InfluxDbAppender.java`
 #### Snippet
 ```java
+    private Dictionary<String, Object> config;
 
+    private Map<String, String> globalTags = new HashMap<>();
+
+    private InfluxDB influxDB;
+```
+
+### FieldMayBeFinal
+Field `packet` may be 'final'
+in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+#### Snippet
+```java
+    private class DatagramRunnable implements Runnable {
+
+        private DatagramPacket packet;
+
+        public DatagramRunnable(DatagramPacket packet) {
+```
+
+### FieldMayBeFinal
+Field `clientSocket` may be 'final'
+in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+#### Snippet
+```java
     private class SocketRunnable implements Runnable {
-        private Socket clientSocket;
 
-        public SocketRunnable(Socket clientSocket) {
+        private Socket clientSocket;
+        private final long maxRequestSize;
+
 ```
 
 ## RuleId[id=UnnecessaryLocalVariable]
-### UnnecessaryLocalVariable
-Local variable `date` is redundant
-in `appender/elasticsearch/src/main/java/org/apache/karaf/decanter/appender/elasticsearch/ElasticsearchAppender.java`
-#### Snippet
-```java
-    private Date getDate(Event event) {
-        Long ts = (Long)event.getProperty("timestamp");
-        Date date = ts != null ? new Date(ts) : new Date();
-        return date;
-    }
-```
-
 ### UnnecessaryLocalVariable
 Local variable `event` is redundant
 in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/event/Handler.java`
@@ -2053,6 +2041,18 @@ in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/ev
         data.put("alertBackToNormal", recover);
         Event event = new Event("decanter/alert/" + rule.getLevel(), data);
         return event;
+    }
+```
+
+### UnnecessaryLocalVariable
+Local variable `date` is redundant
+in `appender/elasticsearch/src/main/java/org/apache/karaf/decanter/appender/elasticsearch/ElasticsearchAppender.java`
+#### Snippet
+```java
+    private Date getDate(Event event) {
+        Long ts = (Long)event.getProperty("timestamp");
+        Date date = ts != null ? new Date(ts) : new Date();
+        return date;
     }
 ```
 
@@ -2095,18 +2095,6 @@ in `appender/timescaledb/src/main/java/org/apache/karaf/decanter/appender/timesc
 ## RuleId[id=ArraysAsListWithZeroOrOneArgument]
 ### ArraysAsListWithZeroOrOneArgument
 Call to `asList()` with only one argument
-in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
-#### Snippet
-```java
-            Thread.currentThread().setContextClassLoader(null);
-            consumer = new KafkaConsumer<String, String>(config);
-            consumer.subscribe(Arrays.asList(topic));
-        } finally {
-            Thread.currentThread().setContextClassLoader(originClassLoader);
-```
-
-### ArraysAsListWithZeroOrOneArgument
-Call to `asList()` with only one argument
 in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandra/CassandraAppender.java`
 #### Snippet
 ```java
@@ -2115,6 +2103,18 @@ in `appender/cassandra/src/main/java/org/apache/karaf/decanter/appender/cassandr
                         .withStringList(DefaultDriverOption.CONTACT_POINTS, Arrays.asList(host + ":" + port))
                         .withString(DefaultDriverOption.PROTOCOL_VERSION, "V3")
                         .withString(DefaultDriverOption.PROTOCOL_MAX_FRAME_LENGTH, "256 MB")
+```
+
+### ArraysAsListWithZeroOrOneArgument
+Call to `asList()` with only one argument
+in `collector/kafka/src/main/java/org/apache/karaf/decanter/collector/kafka/KafkaCollector.java`
+#### Snippet
+```java
+            Thread.currentThread().setContextClassLoader(null);
+            consumer = new KafkaConsumer<String, String>(config);
+            consumer.subscribe(Arrays.asList(topic));
+        } finally {
+            Thread.currentThread().setContextClassLoader(originClassLoader);
 ```
 
 ## RuleId[id=UnusedAssignment]
@@ -2156,15 +2156,15 @@ in `collector/jms/src/main/java/org/apache/karaf/decanter/collector/jms/JmsColle
 ```
 
 ### ConstantValue
-Condition `attributeObject instanceof String[]` is always `false`
-in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/BeanHarvester.java`
+Condition `filtered` is always `true` when reached
+in `appender/prometheus/src/main/java/org/apache/karaf/decanter/appender/prometheus/PrometheusServlet.java`
 #### Snippet
 ```java
-                } else if (attributeObject instanceof long[]) {
-                    data.put(attribute.getName(), (long[]) attributeObject);
-                } else if (attributeObject instanceof String[]) {
-                    data.put(attribute.getName(), (String[]) attributeObject);
-                } else if (attributeObject instanceof int[]) {
+    public void handleEvent(Event event) {
+        for (String property : event.getPropertyNames()) {
+            if (!filtered || (filtered && config.get("prometheus.key." + property) != null)) {
+                if (event.getProperty(property) instanceof Map) {
+                    Map<String, Object> map = (Map) event.getProperty(property);
 ```
 
 ### ConstantValue
@@ -2180,27 +2180,15 @@ in `alerting/service/src/main/java/org/apache/karaf/decanter/alerting/service/mo
 ```
 
 ### ConstantValue
-Condition `this.protocol == null` is always `false`
-in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+Condition `attributeObject instanceof String[]` is always `false`
+in `collector/jmx/src/main/java/org/apache/karaf/decanter/collector/jmx/BeanHarvester.java`
 #### Snippet
 ```java
-        this.protocol = Protocol.valueOf(getProperty(this.properties, "protocol", "tcp").toUpperCase());
-        // force TCP protocol if value not in Enum
-        if (this.protocol == null) {
-            this.protocol = Protocol.TCP;
-        }
-```
-
-### ConstantValue
-Condition `filtered` is always `true` when reached
-in `appender/prometheus/src/main/java/org/apache/karaf/decanter/appender/prometheus/PrometheusServlet.java`
-#### Snippet
-```java
-    public void handleEvent(Event event) {
-        for (String property : event.getPropertyNames()) {
-            if (!filtered || (filtered && config.get("prometheus.key." + property) != null)) {
-                if (event.getProperty(property) instanceof Map) {
-                    Map<String, Object> map = (Map) event.getProperty(property);
+                } else if (attributeObject instanceof long[]) {
+                    data.put(attribute.getName(), (long[]) attributeObject);
+                } else if (attributeObject instanceof String[]) {
+                    data.put(attribute.getName(), (String[]) attributeObject);
+                } else if (attributeObject instanceof int[]) {
 ```
 
 ### ConstantValue
@@ -2225,5 +2213,17 @@ in `collector/camel/src/main/java/org/apache/karaf/decanter/collector/camel/Deca
         } else if (source instanceof Route) {
             Route route = (Route)source;
             boolean contextMatches = route.getCamelContext().getName().matches(camelContextMatcher);
+```
+
+### ConstantValue
+Condition `this.protocol == null` is always `false`
+in `collector/socket/src/main/java/org/apache/karaf/decanter/collector/socket/SocketCollector.java`
+#### Snippet
+```java
+        this.protocol = Protocol.valueOf(getProperty(this.properties, "protocol", "tcp").toUpperCase());
+        // force TCP protocol if value not in Enum
+        if (this.protocol == null) {
+            this.protocol = Protocol.TCP;
+        }
 ```
 
