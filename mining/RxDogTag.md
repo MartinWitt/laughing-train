@@ -92,6 +92,78 @@ in `rxdogtag/src/main/java/rxdogtag2/RxDogTagErrorReceiver.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
+in `rxdogtag/src/jmh/java/rxdogtag2/util/PerfObserver.java`
+#### Snippet
+```java
+
+  @Override
+  public void onSubscribe(Disposable d) {
+    bh.consume(d);
+  }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `rxdogtag/src/jmh/java/rxdogtag2/util/PerfObserver.java`
+#### Snippet
+```java
+
+  @Override
+  public void onNext(Object value) {
+    bh.consume(value);
+  }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `rxdogtag/src/jmh/java/rxdogtag2/util/PerfObserver.java`
+#### Snippet
+```java
+
+  @Override
+  public void onError(Throwable e) {
+    bh.consume(e);
+  }
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `rxdogtag/src/main/java/rxdogtag2/DogTagSingleObserver.java`
+#### Snippet
+```java
+
+  @Override
+  public void onSubscribe(Disposable d) {
+    if (config.guardObserverCallbacks) {
+      guardedDelegateCall(
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `rxdogtag/src/main/java/rxdogtag2/DogTagSingleObserver.java`
+#### Snippet
+```java
+
+  @Override
+  public void onSuccess(T t) {
+    if (config.guardObserverCallbacks) {
+      guardedDelegateCall(
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
+in `rxdogtag/src/main/java/rxdogtag2/DogTagSingleObserver.java`
+#### Snippet
+```java
+
+  @Override
+  public void onError(Throwable e) {
+    if (delegate instanceof RxDogTagErrorReceiver) {
+      if (delegate instanceof RxDogTagTaggedExceptionReceiver) {
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNull parameter
 in `rxdogtag/src/main/java/rxdogtag2/DogTagObserver.java`
 #### Snippet
 ```java
@@ -128,66 +200,6 @@ in `rxdogtag/src/main/java/rxdogtag2/DogTagObserver.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `rxdogtag/src/main/java/rxdogtag2/DogTagCompletableObserver.java`
-#### Snippet
-```java
-
-  @Override
-  public void onSubscribe(Disposable d) {
-    if (config.guardObserverCallbacks) {
-      guardedDelegateCall(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `rxdogtag/src/main/java/rxdogtag2/DogTagCompletableObserver.java`
-#### Snippet
-```java
-
-  @Override
-  public void onError(Throwable e) {
-    if (delegate instanceof RxDogTagErrorReceiver) {
-      if (delegate instanceof RxDogTagTaggedExceptionReceiver) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `rxdogtag/src/main/java/rxdogtag2/DogTagSingleObserver.java`
-#### Snippet
-```java
-
-  @Override
-  public void onSubscribe(Disposable d) {
-    if (config.guardObserverCallbacks) {
-      guardedDelegateCall(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `rxdogtag/src/main/java/rxdogtag2/DogTagSingleObserver.java`
-#### Snippet
-```java
-
-  @Override
-  public void onSuccess(T t) {
-    if (config.guardObserverCallbacks) {
-      guardedDelegateCall(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `rxdogtag/src/main/java/rxdogtag2/DogTagSingleObserver.java`
-#### Snippet
-```java
-
-  @Override
-  public void onError(Throwable e) {
-    if (delegate instanceof RxDogTagErrorReceiver) {
-      if (delegate instanceof RxDogTagTaggedExceptionReceiver) {
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
 in `rxdogtag/src/main/java/rxdogtag2/DogTagSubscriber.java`
 #### Snippet
 ```java
@@ -205,18 +217,6 @@ in `rxdogtag/src/main/java/rxdogtag2/DogTagMaybeObserver.java`
 ```java
 
   @Override
-  public void onSuccess(T t) {
-    if (config.guardObserverCallbacks) {
-      guardedDelegateCall(
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNull parameter
-in `rxdogtag/src/main/java/rxdogtag2/DogTagMaybeObserver.java`
-#### Snippet
-```java
-
-  @Override
   public void onSubscribe(Disposable d) {
     if (config.guardObserverCallbacks) {
       guardedDelegateCall(
@@ -236,37 +236,37 @@ in `rxdogtag/src/main/java/rxdogtag2/DogTagMaybeObserver.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `rxdogtag/src/jmh/java/rxdogtag2/util/PerfObserver.java`
+in `rxdogtag/src/main/java/rxdogtag2/DogTagMaybeObserver.java`
 #### Snippet
 ```java
 
   @Override
-  public void onSubscribe(Disposable d) {
-    bh.consume(d);
-  }
+  public void onSuccess(T t) {
+    if (config.guardObserverCallbacks) {
+      guardedDelegateCall(
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `rxdogtag/src/jmh/java/rxdogtag2/util/PerfObserver.java`
+in `rxdogtag/src/main/java/rxdogtag2/DogTagCompletableObserver.java`
 #### Snippet
 ```java
 
   @Override
   public void onError(Throwable e) {
-    bh.consume(e);
-  }
+    if (delegate instanceof RxDogTagErrorReceiver) {
+      if (delegate instanceof RxDogTagTaggedExceptionReceiver) {
 ```
 
 ### NullableProblems
 Not annotated parameter overrides @NonNull parameter
-in `rxdogtag/src/jmh/java/rxdogtag2/util/PerfObserver.java`
+in `rxdogtag/src/main/java/rxdogtag2/DogTagCompletableObserver.java`
 #### Snippet
 ```java
 
   @Override
-  public void onNext(Object value) {
-    bh.consume(value);
-  }
+  public void onSubscribe(Disposable d) {
+    if (config.guardObserverCallbacks) {
+      guardedDelegateCall(
 ```
 
