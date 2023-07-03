@@ -11,30 +11,6 @@ I found 27 bad smells with 0 repairable:
 | JavaReflectionMemberAccess | 2 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'networkNameOverride'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
-#### Snippet
-```java
-    private final ProjectName projectName;
-    private final Optional<String> imageNameOverride;
-    private final Optional<String> networkNameOverride;
-
-    public ProjectBasedDockerContainerInfo(
-```
-
-### OptionalUsedAsFieldOrParameterType
-`Optional` used as type for field 'imageNameOverride'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
-#### Snippet
-```java
-    private final DockerExecutable docker;
-    private final ProjectName projectName;
-    private final Optional<String> imageNameOverride;
-    private final Optional<String> networkNameOverride;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
 `Optional` used as type for parameter 'imageNameOverride'
 in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
 #### Snippet
@@ -56,6 +32,30 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedD
             Optional<String> networkNameOverride) {
         this.docker = docker;
         this.projectName = projectName;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'imageNameOverride'
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
+#### Snippet
+```java
+    private final DockerExecutable docker;
+    private final ProjectName projectName;
+    private final Optional<String> imageNameOverride;
+    private final Optional<String> networkNameOverride;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`Optional` used as type for field 'networkNameOverride'
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/ProjectBasedDockerContainerInfo.java`
+#### Snippet
+```java
+    private final ProjectName projectName;
+    private final Optional<String> imageNameOverride;
+    private final Optional<String> networkNameOverride;
+
+    public ProjectBasedDockerContainerInfo(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -85,11 +85,11 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/NetworkBasedD
 ## RuleId[id=Deprecation]
 ### Deprecation
 'propagate(java.lang.Throwable)' is deprecated
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerProxyManager.java`
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
 #### Snippet
 ```java
-            return proxyFile;
-        } catch (IOException e) {
+            return Splitter.on(CharMatcher.anyOf(",/")).omitEmptyStrings().splitToList(labelsString);
+        } catch (IOException | InterruptedException e) {
             throw Throwables.propagate(e);
         }
     }
@@ -97,11 +97,11 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerProxyMa
 
 ### Deprecation
 'propagate(java.lang.Throwable)' is deprecated
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerProxyManager.java`
 #### Snippet
 ```java
-            return Splitter.on(CharMatcher.anyOf(",/")).omitEmptyStrings().splitToList(labelsString);
-        } catch (IOException | InterruptedException e) {
+            return proxyFile;
+        } catch (IOException e) {
             throw Throwables.propagate(e);
         }
     }
@@ -144,7 +144,104 @@ in `docker-proxy-rule-junit4/src/main/java/com/palantir/docker/proxy/DockerProxy
             @Override
 ```
 
+## RuleId[id=JavaReflectionMemberAccess]
+### JavaReflectionMemberAccess
+Cannot resolve field 'nameService'
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerProxyManager.java`
+#### Snippet
+```java
+    private static Object getJava9NameService() {
+        try {
+            Field nameService = InetAddress.class.getDeclaredField("nameService");
+            nameService.setAccessible(true);
+            return nameService.get(null);
+```
+
+### JavaReflectionMemberAccess
+Cannot resolve field 'nameService'
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerProxyManager.java`
+#### Snippet
+```java
+    private static void setJava9NameService(Object newNameService) {
+        try {
+            Field nameService = InetAddress.class.getDeclaredField("nameService");
+            nameService.setAccessible(true);
+            nameService.set(null, newNameService);
+```
+
 ## RuleId[id=UnstableApiUsage]
+### UnstableApiUsage
+'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+                    networkName));
+
+            return Splitter.on(',').omitEmptyStrings().splitToList(containersOnNetworkString);
+        } catch (InterruptedException | IOException | RuntimeException e) {
+            throw new IllegalStateException("Unable to find the container IDs on the network " + networkName, e);
+```
+
+### UnstableApiUsage
+'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+            String labelsString = Iterables.getOnlyElement(
+                    runDockerProcess(docker, "inspect", "--format", labelsFormat, containerId));
+            return Splitter.on(CharMatcher.anyOf(",/")).omitEmptyStrings().splitToList(labelsString);
+        } catch (IOException | InterruptedException e) {
+            throw Throwables.propagate(e);
+```
+
+### UnstableApiUsage
+'com.google.common.net.InetAddresses' is marked unstable with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+            }
+
+            Preconditions.checkState(InetAddresses.isInetAddress(ip), "IP address is not valid: %s", ip);
+            return Optional.of(ip);
+        } catch (InterruptedException | IOException | RuntimeException e) {
+```
+
+### UnstableApiUsage
+'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+            }
+
+            Preconditions.checkState(InetAddresses.isInetAddress(ip), "IP address is not valid: %s", ip);
+            return Optional.of(ip);
+        } catch (InterruptedException | IOException | RuntimeException e) {
+```
+
+### UnstableApiUsage
+'com.google.common.io.CharStreams' is marked unstable with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
+        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+            return CharStreams.readLines(inputStreamReader);
+        }
+    }
+```
+
+### UnstableApiUsage
+'readLines(java.lang.Readable)' is declared in unstable class 'com.google.common.io.CharStreams' marked with @Beta
+in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
+#### Snippet
+```java
+    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
+        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+            return CharStreams.readLines(inputStreamReader);
+        }
+    }
+```
+
 ### UnstableApiUsage
 'com.google.common.io.Resources' is marked unstable with @Beta
 in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerProxyManager.java`
@@ -218,78 +315,6 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerProxyMa
 ```
 
 ### UnstableApiUsage
-'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-            String labelsString = Iterables.getOnlyElement(
-                    runDockerProcess(docker, "inspect", "--format", labelsFormat, containerId));
-            return Splitter.on(CharMatcher.anyOf(",/")).omitEmptyStrings().splitToList(labelsString);
-        } catch (IOException | InterruptedException e) {
-            throw Throwables.propagate(e);
-```
-
-### UnstableApiUsage
-'splitToList(java.lang.CharSequence)' is marked unstable with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-                    networkName));
-
-            return Splitter.on(',').omitEmptyStrings().splitToList(containersOnNetworkString);
-        } catch (InterruptedException | IOException | RuntimeException e) {
-            throw new IllegalStateException("Unable to find the container IDs on the network " + networkName, e);
-```
-
-### UnstableApiUsage
-'com.google.common.net.InetAddresses' is marked unstable with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-            }
-
-            Preconditions.checkState(InetAddresses.isInetAddress(ip), "IP address is not valid: %s", ip);
-            return Optional.of(ip);
-        } catch (InterruptedException | IOException | RuntimeException e) {
-```
-
-### UnstableApiUsage
-'isInetAddress(java.lang.String)' is declared in unstable class 'com.google.common.net.InetAddresses' marked with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-            }
-
-            Preconditions.checkState(InetAddresses.isInetAddress(ip), "IP address is not valid: %s", ip);
-            return Optional.of(ip);
-        } catch (InterruptedException | IOException | RuntimeException e) {
-```
-
-### UnstableApiUsage
-'com.google.common.io.CharStreams' is marked unstable with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
-        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
-            return CharStreams.readLines(inputStreamReader);
-        }
-    }
-```
-
-### UnstableApiUsage
-'readLines(java.lang.Readable)' is declared in unstable class 'com.google.common.io.CharStreams' marked with @Beta
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerContainerInfoUtils.java`
-#### Snippet
-```java
-    private static List<String> getLinesFromInputStream(InputStream inputStream) throws IOException {
-        try (InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
-            return CharStreams.readLines(inputStreamReader);
-        }
-    }
-```
-
-### UnstableApiUsage
 'com.google.common.net.InetAddresses' is marked unstable with @Beta
 in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerNameService.java`
 #### Snippet
@@ -311,30 +336,5 @@ in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerNameSer
             return new InetAddress[] {InetAddresses.forString(containerIp.get())};
         }
         throw new UnknownHostException(hostname);
-```
-
-## RuleId[id=JavaReflectionMemberAccess]
-### JavaReflectionMemberAccess
-Cannot resolve field 'nameService'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerProxyManager.java`
-#### Snippet
-```java
-    private static void setJava9NameService(Object newNameService) {
-        try {
-            Field nameService = InetAddress.class.getDeclaredField("nameService");
-            nameService.setAccessible(true);
-            nameService.set(null, newNameService);
-```
-
-### JavaReflectionMemberAccess
-Cannot resolve field 'nameService'
-in `docker-proxy-rule-core/src/main/java/com/palantir/docker/proxy/DockerProxyManager.java`
-#### Snippet
-```java
-    private static Object getJava9NameService() {
-        try {
-            Field nameService = InetAddress.class.getDeclaredField("nameService");
-            nameService.setAccessible(true);
-            return nameService.get(null);
 ```
 
