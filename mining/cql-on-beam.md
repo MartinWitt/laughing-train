@@ -39,14 +39,14 @@ public final class KeyForContextFn extends DoFn<String, KV<ResourceTypeAndId, St
 
 ### JavadocReference
 Cannot resolve symbol `https`
-in `src/main/java/com/google/fhir/cql/beam/types/ResourceTypeAndId.java`
+in `src/main/java/com/google/fhir/cql/beam/types/CqlLibraryId.java`
 #### Snippet
 ```java
-   * Returns the resource's logical ID.
+   * Returns the library's name.
    *
-   * @see https://www.hl7.org/fhir/resource.html#id
+   * @see https://cql.hl7.org/02-authorsguide.html#library
    */
-  public String getId() {
+  @JsonProperty("name")
 ```
 
 ### JavadocReference
@@ -63,14 +63,14 @@ in `src/main/java/com/google/fhir/cql/beam/types/CqlLibraryId.java`
 
 ### JavadocReference
 Cannot resolve symbol `https`
-in `src/main/java/com/google/fhir/cql/beam/types/CqlLibraryId.java`
+in `src/main/java/com/google/fhir/cql/beam/types/ResourceTypeAndId.java`
 #### Snippet
 ```java
-   * Returns the library's name.
+   * Returns the resource's logical ID.
    *
-   * @see https://cql.hl7.org/02-authorsguide.html#library
+   * @see https://www.hl7.org/fhir/resource.html#id
    */
-  @JsonProperty("name")
+  public String getId() {
 ```
 
 ## RuleId[id=DataFlowIssue]
