@@ -9,8 +9,8 @@ I found 9 bad smells with 1 repairable:
 | Deprecation | 1 | false |
 | DataFlowIssue | 1 | false |
 | InfiniteRecursion | 1 | false |
-| NullableProblems | 1 | false |
 | EqualsWhichDoesntCheckParameterClass | 1 | false |
+| NullableProblems | 1 | false |
 | JavadocLinkAsPlainText | 1 | false |
 | IgnoreResultOfCall | 1 | false |
 ## RuleId[id=JavadocReference]
@@ -78,19 +78,6 @@ in `src/main/java/com/palantir/gradle/revapi/config/AcceptedBreak.java`
             return this;
 ```
 
-## RuleId[id=NullableProblems]
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
-in `src/main/java/com/palantir/gradle/revapi/config/AcceptedBreak.java`
-#### Snippet
-```java
-
-    @Override
-    default int compareTo(AcceptedBreak other) {
-        return comparator().compare(this, other);
-    }
-```
-
 ## RuleId[id=EqualsWhichDoesntCheckParameterClass]
 ### EqualsWhichDoesntCheckParameterClass
 `equals()` should check the class of its parameter
@@ -102,6 +89,19 @@ in `src/main/java/com/palantir/gradle/revapi/PreviousVersionResolutionHelpers.ja
         public boolean equals(Object obj) {
             return group.get().equals(obj);
         }
+```
+
+## RuleId[id=NullableProblems]
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `src/main/java/com/palantir/gradle/revapi/config/AcceptedBreak.java`
+#### Snippet
+```java
+
+    @Override
+    default int compareTo(AcceptedBreak other) {
+        return comparator().compare(this, other);
+    }
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
