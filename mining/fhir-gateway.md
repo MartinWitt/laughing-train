@@ -130,30 +130,6 @@ in `server/src/main/java/com/google/fhir/gateway/BearerAuthorizationInterceptor.
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
-#### Snippet
-```java
-   * SMART Permission to specify the kind of permission that is allowed on a Resource. The order of
-   * the Permission is important to us in the way it has been listed here. Please see:
-   * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
-   * The given order of Permissions is how it is expected that permissions will be specified in the
-   * token claim
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
-#### Snippet
-```java
- * This class models the SMART-on-FHIR permission scopes that are meant ot be used for accessing
- * clinical data. The constraints in this class are according to the official guidelines here:
- * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
- */
-@Getter
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
 #### Snippet
 ```java
@@ -174,6 +150,30 @@ in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
    * https://hapifhir.io/hapi-fhir/docs/security/cors.html. The drawback of this is the extra Spring
    * dependency. It is probably okay as it increased the size of the war file from 35 MB to 38 MB
    * (and opens the door to other Spring goodies too).
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+   * SMART Permission to specify the kind of permission that is allowed on a Resource. The order of
+   * the Permission is important to us in the way it has been listed here. Please see:
+   * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
+   * The given order of Permissions is how it is expected that permissions will be specified in the
+   * token claim
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+ * This class models the SMART-on-FHIR permission scopes that are meant ot be used for accessing
+ * clinical data. The constraints in this class are according to the official guidelines here:
+ * https://build.fhir.org/ig/HL7/smart-app-launch/scopes-and-launch-context.html#scopes-for-requesting-clinical-data
+ */
+@Getter
 ```
 
 ## RuleId[id=MismatchedCollectionQueryUpdate]
@@ -201,17 +201,66 @@ in `server/src/main/java/com/google/fhir/gateway/FhirProxyServer.java`
   static boolean isDevMode() {
 ```
 
+## RuleId[id=RegExpRedundantEscape]
+### RegExpRedundantEscape
+Redundant character escape `\\/` in RegExp
+in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
+#### Snippet
+```java
+  private static final Pattern VALID_SCOPE_PATTERN =
+      Pattern.compile(
+          "(\\buser|patient|system\\b)(\\/((\\*)|([a-zA-Z]+)))(\\.((\\*)|([cruds]+)|(\\bread|write\\b)))");
+  static final String ALL_RESOURCE_TYPES_WILDCARD = "*";
+  private static final String ALL_RESOURCE_PERMISSIONS_WILDCARD = "*";
+```
+
 ## RuleId[id=FieldCanBeLocal]
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
+#### Snippet
+```java
+public class BundlePatients {
+
+  private final ImmutableList<ImmutableSet<String>> referencedPatients;
+  private final ImmutableSet<String> updatedPatients;
+  private final boolean patientsToCreate;
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
+#### Snippet
+```java
+
+  private final ImmutableList<ImmutableSet<String>> referencedPatients;
+  private final ImmutableSet<String> updatedPatients;
+  private final boolean patientsToCreate;
+
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
+#### Snippet
+```java
+  private final boolean patientsToCreate;
+
+  private final ImmutableSet<String> deletedPatients;
+
+  private BundlePatients(
+```
+
 ### FieldCanBeLocal
 Field can be converted to a local variable
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
+
   private final Principal principal;
   private final String resourceType;
   private final Set<Permission> permissions;
 
-  private SmartFhirScope(
 ```
 
 ### FieldCanBeLocal
@@ -231,60 +280,11 @@ Field can be converted to a local variable
 in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
 #### Snippet
 ```java
-
   private final Principal principal;
   private final String resourceType;
   private final Set<Permission> permissions;
 
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
-#### Snippet
-```java
-public class BundlePatients {
-
-  private final ImmutableList<ImmutableSet<String>> referencedPatients;
-  private final ImmutableSet<String> updatedPatients;
-  private final boolean patientsToCreate;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
-#### Snippet
-```java
-  private final boolean patientsToCreate;
-
-  private final ImmutableSet<String> deletedPatients;
-
-  private BundlePatients(
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `server/src/main/java/com/google/fhir/gateway/BundlePatients.java`
-#### Snippet
-```java
-
-  private final ImmutableList<ImmutableSet<String>> referencedPatients;
-  private final ImmutableSet<String> updatedPatients;
-  private final boolean patientsToCreate;
-
-```
-
-## RuleId[id=RegExpRedundantEscape]
-### RegExpRedundantEscape
-Redundant character escape `\\/` in RegExp
-in `plugins/src/main/java/com/google/fhir/gateway/plugin/SmartFhirScope.java`
-#### Snippet
-```java
-  private static final Pattern VALID_SCOPE_PATTERN =
-      Pattern.compile(
-          "(\\buser|patient|system\\b)(\\/((\\*)|([a-zA-Z]+)))(\\.((\\*)|([cruds]+)|(\\bread|write\\b)))");
-  static final String ALL_RESOURCE_TYPES_WILDCARD = "*";
-  private static final String ALL_RESOURCE_PERMISSIONS_WILDCARD = "*";
+  private SmartFhirScope(
 ```
 
 ## RuleId[id=UnstableApiUsage]
