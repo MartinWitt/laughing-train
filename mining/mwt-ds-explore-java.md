@@ -163,19 +163,20 @@ in `src/main/java/com/mwt/explorers/EpsilonGreedyExplorer.java`
     if (random.uniformUnitInterval() < (1.0f - epsilon)) {
 ```
 
-## RuleId[id=FieldMayBeFinal]
-### FieldMayBeFinal
-Field `value` may be 'final'
+## RuleId[id=EqualsWhichDoesntCheckParameterClass]
+### EqualsWhichDoesntCheckParameterClass
+`equals()` should check the class of its parameter
 in `src/main/java/com/mwt/misc/Feature.java`
 #### Snippet
 ```java
- */
-final public class Feature {
-  private float value;
-  private int id;
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null) return false;
 ```
 
+## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `id` may be 'final'
 in `src/main/java/com/mwt/misc/Feature.java`
@@ -186,6 +187,18 @@ final public class Feature {
   private int id;
 
   public Feature(int id, float value) {
+```
+
+### FieldMayBeFinal
+Field `value` may be 'final'
+in `src/main/java/com/mwt/misc/Feature.java`
+#### Snippet
+```java
+ */
+final public class Feature {
+  private float value;
+  private int id;
+
 ```
 
 ### FieldMayBeFinal
@@ -225,15 +238,15 @@ in `src/main/java/com/mwt/explorers/TauFirstExplorer.java`
 ```
 
 ### FieldMayBeFinal
-Field `action` may be 'final'
-in `src/main/java/com/mwt/misc/DecisionTuple.java`
+Field `interactions` may be 'final'
+in `src/main/java/com/mwt/sample/MyRecorder.java`
 #### Snippet
 ```java
  */
-public class DecisionTuple {
-  private int action;
-  private float probability;
-  private boolean record;
+class MyRecorder implements Recorder<MyContext> {
+  private List<Interaction<MyContext>> interactions = new ArrayList<Interaction<MyContext>>();
+  public void record(MyContext context, int action, float probability, String uniqueKey) {
+    interactions.add(new Interaction<MyContext>(context, action, probability, uniqueKey));
 ```
 
 ### FieldMayBeFinal
@@ -261,15 +274,15 @@ public class DecisionTuple {
 ```
 
 ### FieldMayBeFinal
-Field `interactions` may be 'final'
-in `src/main/java/com/mwt/sample/MyRecorder.java`
+Field `action` may be 'final'
+in `src/main/java/com/mwt/misc/DecisionTuple.java`
 #### Snippet
 ```java
  */
-class MyRecorder implements Recorder<MyContext> {
-  private List<Interaction<MyContext>> interactions = new ArrayList<Interaction<MyContext>>();
-  public void record(MyContext context, int action, float probability, String uniqueKey) {
-    interactions.add(new Interaction<MyContext>(context, action, probability, uniqueKey));
+public class DecisionTuple {
+  private int action;
+  private float probability;
+  private boolean record;
 ```
 
 ### FieldMayBeFinal
@@ -285,13 +298,13 @@ public class SimpleContext {
 ```
 
 ### FieldMayBeFinal
-Field `recorder` may be 'final'
-in `src/main/java/com/mwt/explorers/MwtExplorer.java`
+Field `numActions` may be 'final'
+in `src/main/java/com/mwt/explorers/EpsilonGreedyExplorer.java`
 #### Snippet
 ```java
-public class MwtExplorer<T> {
-  private long appId;
-  private Recorder<T> recorder;
+  private final float epsilon;
+  private boolean explore = true;
+  private int numActions;
 
   /**
 ```
@@ -309,28 +322,15 @@ public class MwtExplorer<T> {
 ```
 
 ### FieldMayBeFinal
-Field `numActions` may be 'final'
-in `src/main/java/com/mwt/explorers/EpsilonGreedyExplorer.java`
+Field `recorder` may be 'final'
+in `src/main/java/com/mwt/explorers/MwtExplorer.java`
 #### Snippet
 ```java
-  private final float epsilon;
-  private boolean explore = true;
-  private int numActions;
+public class MwtExplorer<T> {
+  private long appId;
+  private Recorder<T> recorder;
 
   /**
-```
-
-## RuleId[id=EqualsWhichDoesntCheckParameterClass]
-### EqualsWhichDoesntCheckParameterClass
-`equals()` should check the class of its parameter
-in `src/main/java/com/mwt/misc/Feature.java`
-#### Snippet
-```java
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null) return false;
 ```
 
 ## RuleId[id=JavadocLinkAsPlainText]
