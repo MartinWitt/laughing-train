@@ -13,6 +13,25 @@ I found 19 bad smells with 0 repairable:
 | CommentedOutCode | 1 | false |
 ## RuleId[id=SpringBeanConstructorArgInspection]
 ### SpringBeanConstructorArgInspection
+No matching constructor found in class 'PowerShellRunType'#treeend
+
+*** ** * ** ***
+
+|-----------------------------|---|-----------|
+| **PowerShellRunType(...):** |   | **Bean:** |
+| RunTypeRegistry reg         |   | **???**   |
+| PluginDescriptor descriptor |   | **???**   |
+in `powershell-server/src/main/resources/META-INF/build-server-plugin-powershell.xml`
+#### Snippet
+```java
+       default-autowire="constructor">
+
+  <bean class="jetbrains.buildServer.powershell.server.PowerShellRunType"/>
+  <bean class="jetbrains.buildServer.powershell.server.PowerShellRunnerDiscoverer"/>
+
+```
+
+### SpringBeanConstructorArgInspection
 No matching constructor found in class 'PowerShellInfoProvider'#treeend
 
 *** ** * ** ***
@@ -21,7 +40,7 @@ No matching constructor found in class 'PowerShellInfoProvider'#treeend
 | **PowerShellInfoProvider(...):**                          |   | **Bean:**                                                                        |
 | BuildAgentConfiguration config                            |   | **???**                                                                          |
 | ExtensionHolder extensionHolder                           |   | **???**                                                                          |
-| List\<PowerShellDetector\> detectors                      |   | Autowired: null(RegistryPowerShellDetector); null(CommandLinePowerShellDetector) |
+| List\<PowerShellDetector\> detectors                      |   | Autowired: null(CommandLinePowerShellDetector); null(RegistryPowerShellDetector) |
 | EventDispatcher\<AgentLifeCycleListener\> eventDispatcher |   | **???**                                                                          |
 | ShellInfoHolder holder                                    |   | Autowired: null(ShellInfoHolder)                                                 |
 in `powershell-agent/src/main/resources/META-INF/build-agent-plugin-powershell.xml`
@@ -72,26 +91,19 @@ in `powershell-agent/src/main/resources/META-INF/build-agent-plugin-powershell.x
 </beans>
 ```
 
-### SpringBeanConstructorArgInspection
-No matching constructor found in class 'PowerShellRunType'#treeend
-
-*** ** * ** ***
-
-|-----------------------------|---|-----------|
-| **PowerShellRunType(...):** |   | **Bean:** |
-| RunTypeRegistry reg         |   | **???**   |
-| PluginDescriptor descriptor |   | **???**   |
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
 in `powershell-server/src/main/resources/META-INF/build-server-plugin-powershell.xml`
 #### Snippet
 ```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
        default-autowire="constructor">
 
   <bean class="jetbrains.buildServer.powershell.server.PowerShellRunType"/>
-  <bean class="jetbrains.buildServer.powershell.server.PowerShellRunnerDiscoverer"/>
-
 ```
 
-## RuleId[id=SpringXmlAutowireExplicitlyInspection]
 ### SpringXmlAutowireExplicitlyInspection
 Make autowired dependency explicit
 in `powershell-server/fake-teamcity-server-plugin-context.xml`
@@ -114,18 +126,6 @@ in `powershell-agent/src/main/resources/META-INF/build-agent-plugin-powershell.x
        default-autowire="constructor">
 
   <bean class="jetbrains.buildServer.powershell.agent.PowerShellInfoProvider"/>
-```
-
-### SpringXmlAutowireExplicitlyInspection
-Make autowired dependency explicit
-in `powershell-server/src/main/resources/META-INF/build-server-plugin-powershell.xml`
-#### Snippet
-```java
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd"
-       default-autowire="constructor">
-
-  <bean class="jetbrains.buildServer.powershell.server.PowerShellRunType"/>
 ```
 
 ## RuleId[id=IOStreamConstructor]
@@ -170,18 +170,6 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/Script
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/registry/PowerShellRegistry.java`
-#### Snippet
-```java
- *
- * Implements PowerShell detection logic is described at
- * http://blogs.msdn.com/b/powershell/archive/2009/06/25/detection-logic-poweshell-installation.aspx
- *
- * @author Eugene Petrenko (eugene.petrenko@jetbrains.com)
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
 in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/cmd/DetectionPaths.java`
 #### Snippet
 ```java
@@ -202,6 +190,18 @@ in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect
    * https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux?view=powershell-7.1
    */
   private static final List<String> ADDITIONAL_ROOTS = Collections.singletonList(
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `powershell-agent/src/main/java/jetbrains/buildServer/powershell/agent/detect/registry/PowerShellRegistry.java`
+#### Snippet
+```java
+ *
+ * Implements PowerShell detection logic is described at
+ * http://blogs.msdn.com/b/powershell/archive/2009/06/25/detection-logic-poweshell-installation.aspx
+ *
+ * @author Eugene Petrenko (eugene.petrenko@jetbrains.com)
 ```
 
 ### JavadocLinkAsPlainText
