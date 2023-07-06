@@ -18,8 +18,8 @@ I found 57 bad smells with 17 repairable:
 | SpringBeanAttributesInspection | 2 | false |
 | JavadocDeclaration | 1 | false |
 | CommentedOutCode | 1 | false |
-| UnnecessaryCallToStringValueOf | 1 | false |
 | RegExpRedundantEscape | 1 | false |
+| UnnecessaryCallToStringValueOf | 1 | false |
 | SwitchStatementWithTooFewBranches | 1 | false |
 | ArraysAsListWithZeroOrOneArgument | 1 | false |
 | RedundantTypeArguments | 1 | false |
@@ -30,30 +30,6 @@ Modifier `static` is redundant for interface fields
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
 #### Snippet
 ```java
-public interface Constants {
-  static final String CONF_PARAMETER_PREFIX = "rbenv.";
-  static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
-  static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
-  static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
-```
-
-### UnnecessaryModifier
-Modifier `final` is redundant for interface fields
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
-#### Snippet
-```java
-public interface Constants {
-  static final String CONF_PARAMETER_PREFIX = "rbenv.";
-  static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
-  static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
-  static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
-```
-
-### UnnecessaryModifier
-Modifier `static` is redundant for interface fields
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
-#### Snippet
-```java
   static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
   static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
   static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
@@ -78,11 +54,11 @@ Modifier `static` is redundant for interface fields
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
 #### Snippet
 ```java
+public interface Constants {
   static final String CONF_PARAMETER_PREFIX = "rbenv.";
   static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
   static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
   static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
-}
 ```
 
 ### UnnecessaryModifier
@@ -90,11 +66,11 @@ Modifier `final` is redundant for interface fields
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
 #### Snippet
 ```java
+public interface Constants {
   static final String CONF_PARAMETER_PREFIX = "rbenv.";
   static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
   static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
   static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
-}
 ```
 
 ### UnnecessaryModifier
@@ -119,6 +95,30 @@ public interface Constants {
   static final String CONF_PARAMETER_PREFIX = "rbenv.";
   static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
   static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for interface fields
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
+#### Snippet
+```java
+  static final String CONF_PARAMETER_PREFIX = "rbenv.";
+  static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
+  static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
+  static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
+}
+```
+
+### UnnecessaryModifier
+Modifier `final` is redundant for interface fields
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/Constants.java`
+#### Snippet
+```java
+  static final String CONF_PARAMETER_PREFIX = "rbenv.";
+  static final String CONF_RBENV_RUBIES_LIST = CONF_PARAMETER_PREFIX + "versions.list";
+  static final String RBENV_ROOT_ENV_VARIABLE = "RBENV_ROOT";
+  static final String RBENV_VERSION_ENV_VARIABLE = "RBENV_VERSION";
+}
 ```
 
 ### UnnecessaryModifier
@@ -294,19 +294,6 @@ in `rake-runner-server/src/jetbrains/buildServer/runner/rakerunner/RakeRunnerRun
         //    ret.add(new InvalidProperty(RakeRunnerConstants.SERVER_UI_RUBY_INTERPRETER_PATH, "Interpeter path must be specified."));
 ```
 
-## RuleId[id=UnnecessaryCallToStringValueOf]
-### UnnecessaryCallToStringValueOf
-Unnecessary `String.valueOf()` call
-in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/InternalRubySdkUtil.java`
-#### Snippet
-```java
-    throws RakeTasksBuildService.MyBuildFailureException {
-    final String msg = "Ruby interpreter '"
-                       + String.valueOf(rubyInterpreterPath)
-                       + "' doesn't exist or isn't a file or isn't a valid RVM interpreter name.";
-    throw new RakeTasksBuildService.MyBuildFailureException(msg);
-```
-
 ## RuleId[id=RegExpRedundantEscape]
 ### RegExpRedundantEscape
 Redundant character escape `\\-` in RegExp
@@ -318,6 +305,19 @@ in `rake-runner-agent/src/org/jetbrains/plugins/ruby/rvm/SharedRVMUtil.java`
     final Matcher matcher = Pattern.compile("(.*)\\-p([0-9]+)").matcher(sdkRef);
     if (matcher.matches()) {
       // sdkRef have patchversion
+```
+
+## RuleId[id=UnnecessaryCallToStringValueOf]
+### UnnecessaryCallToStringValueOf
+Unnecessary `String.valueOf()` call
+in `rake-runner-agent/src/jetbrains/buildServer/agent/rakerunner/utils/InternalRubySdkUtil.java`
+#### Snippet
+```java
+    throws RakeTasksBuildService.MyBuildFailureException {
+    final String msg = "Ruby interpreter '"
+                       + String.valueOf(rubyInterpreterPath)
+                       + "' doesn't exist or isn't a file or isn't a valid RVM interpreter name.";
+    throw new RakeTasksBuildService.MyBuildFailureException(msg);
 ```
 
 ## RuleId[id=SpringBeanConstructorArgInspection]
@@ -418,44 +418,6 @@ in `rake-runner-agent/src/META-INF/build-agent-plugin-rakerunner.xml`
   <!-- Path patcher -->
 ```
 
-## RuleId[id=SwitchStatementWithTooFewBranches]
-### SwitchStatementWithTooFewBranches
-'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
-in `rake-runner-server/src/jetbrains/buildServer/runner/rakerunner/RakeRunnerRunType.java`
-#### Snippet
-```java
-      final Collection<InvalidProperty> ret = new ArrayList<InvalidProperty>(1);
-      final RakeRunnerUtils.RubyConfigMode mode = RakeRunnerUtils.getRubyInterpreterConfigMode(properties);
-      switch (mode) {
-        //case INTERPRETER_PATH: {
-        //  if (StringUtil.isEmpty(RakeRunnerUtils.getRubySdkPath(properties))) {
-```
-
-## RuleId[id=SpringXmlAutowireExplicitlyInspection]
-### SpringXmlAutowireExplicitlyInspection
-Make autowired dependency explicit
-in `rake-runner-server/src/META-INF/build-server-plugin-rakerunner.xml`
-#### Snippet
-```java
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
-           default-autowire="constructor">
-
-  <bean id="rakeRunnerRunType" class="jetbrains.buildServer.runner.rakerunner.RakeRunnerRunType"/>
-```
-
-### SpringXmlAutowireExplicitlyInspection
-Make autowired dependency explicit
-in `rake-runner-agent/src/META-INF/build-agent-plugin-rakerunner.xml`
-#### Snippet
-```java
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
-       default-autowire="constructor">
-  <!-- Rake Runner -->
-  <bean id="rakeBuildServiceFactory"
-```
-
 ## RuleId[id=DuplicatedCode]
 ### DuplicatedCode
 Duplicated code
@@ -527,6 +489,44 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/InstalledRVM.java
           return !data.contains(" ");
         }
       });
+```
+
+## RuleId[id=SwitchStatementWithTooFewBranches]
+### SwitchStatementWithTooFewBranches
+'switch' statement has too few case labels (1), and should probably be replaced with an 'if' statement
+in `rake-runner-server/src/jetbrains/buildServer/runner/rakerunner/RakeRunnerRunType.java`
+#### Snippet
+```java
+      final Collection<InvalidProperty> ret = new ArrayList<InvalidProperty>(1);
+      final RakeRunnerUtils.RubyConfigMode mode = RakeRunnerUtils.getRubyInterpreterConfigMode(properties);
+      switch (mode) {
+        //case INTERPRETER_PATH: {
+        //  if (StringUtil.isEmpty(RakeRunnerUtils.getRubySdkPath(properties))) {
+```
+
+## RuleId[id=SpringXmlAutowireExplicitlyInspection]
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `rake-runner-server/src/META-INF/build-server-plugin-rakerunner.xml`
+#### Snippet
+```java
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+           default-autowire="constructor">
+
+  <bean id="rakeRunnerRunType" class="jetbrains.buildServer.runner.rakerunner.RakeRunnerRunType"/>
+```
+
+### SpringXmlAutowireExplicitlyInspection
+Make autowired dependency explicit
+in `rake-runner-agent/src/META-INF/build-agent-plugin-rakerunner.xml`
+#### Snippet
+```java
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+       default-autowire="constructor">
+  <!-- Rake Runner -->
+  <bean id="rakeBuildServiceFactory"
 ```
 
 ## RuleId[id=SpringBeanAttributesInspection]
@@ -609,6 +609,18 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rbenv/InstalledRbEnv.
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/impl/RVMRCBasedRubySdkImpl.java`
 #### Snippet
 ```java
+                          @NotNull final String workingDirectory,
+                          @Nullable final Map<String, String> environment) {
+      StringBuilder sb = new StringBuilder();
+      sb.append("cd ").append(workingDirectory).append('\n');
+      sb.append(script);
+```
+
+### StringBufferReplaceableByString
+`StringBuilder sb` can be replaced with 'String'
+in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/impl/RVMRCBasedRubySdkImpl.java`
+#### Snippet
+```java
 
       if (LOG.isDebugEnabled()) {
         StringBuilder sb = new StringBuilder();
@@ -626,18 +638,6 @@ in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/impl/RVMRCBasedRu
         StringBuilder sb = new StringBuilder();
         sb.append("\n\t").append("Configuring rvm interpreter with .rvmrc");
         sb.append("\n\t").append("PathToRVMRCFolder = ").append(pathToRVMRCFolder);
-```
-
-### StringBufferReplaceableByString
-`StringBuilder sb` can be replaced with 'String'
-in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/impl/RVMRCBasedRubySdkImpl.java`
-#### Snippet
-```java
-                          @NotNull final String workingDirectory,
-                          @Nullable final Map<String, String> environment) {
-      StringBuilder sb = new StringBuilder();
-      sb.append("cd ").append(workingDirectory).append('\n');
-      sb.append(script);
 ```
 
 ### StringBufferReplaceableByString
@@ -719,11 +719,11 @@ Unnecessary `toString()` call
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/RVMCommandLineProcessor.java`
 #### Snippet
 ```java
-      setPermissions(script, SCRIPT_PERMISSIONS); // script needs to be made executable for all (chmod a+x)
-    } catch (IOException e) {
-      throw new RunBuildException("Failed to create temp file, error: " + e.toString());
+      process.waitFor();
+    } catch (InterruptedException e) {
+      Loggers.AGENT.warn("Failed to execute chmod " + perms + " " + script.getAbsolutePath() + ", error: " + e.toString());
     }
-    return script;
+  }
 ```
 
 ### UnnecessaryToStringCall
@@ -731,11 +731,11 @@ Unnecessary `toString()` call
 in `rake-runner-agent/src/jetbrains/buildServer/agent/ruby/rvm/RVMCommandLineProcessor.java`
 #### Snippet
 ```java
-      process.waitFor();
-    } catch (InterruptedException e) {
-      Loggers.AGENT.warn("Failed to execute chmod " + perms + " " + script.getAbsolutePath() + ", error: " + e.toString());
+      setPermissions(script, SCRIPT_PERMISSIONS); // script needs to be made executable for all (chmod a+x)
+    } catch (IOException e) {
+      throw new RunBuildException("Failed to create temp file, error: " + e.toString());
     }
-  }
+    return script;
 ```
 
 ### UnnecessaryToStringCall
