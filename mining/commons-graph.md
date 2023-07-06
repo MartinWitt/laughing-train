@@ -23,15 +23,15 @@ I found 136 bad smells with 0 repairable:
 | UseBulkOperation | 1 | false |
 ## RuleId[id=SuspiciousNameCombination]
 ### SuspiciousNameCombination
-'x' should probably not be assigned to 'y'
+'y' should probably not be passed as parameter 'x'
 in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
 #### Snippet
 ```java
-                    // 9  exchange x <-> y
-                    FibonacciHeapNode<E> pointer = y;
-                    y = x;
-                    x = pointer;
-                }
+            {
+                // else CUT(H,y,z)
+                cut( y, z );
+                // CASCADING-CUT(H,z)
+                cascadingCut( z );
 ```
 
 ### SuspiciousNameCombination
@@ -83,15 +83,15 @@ in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
 ```
 
 ### SuspiciousNameCombination
-'y' should probably not be passed as parameter 'x'
+'x' should probably not be assigned to 'y'
 in `src/main/java/org/apache/commons/graph/collections/FibonacciHeap.java`
 #### Snippet
 ```java
-            {
-                // else CUT(H,y,z)
-                cut( y, z );
-                // CASCADING-CUT(H,z)
-                cascadingCut( z );
+                    // 9  exchange x <-> y
+                    FibonacciHeapNode<E> pointer = y;
+                    y = x;
+                    x = pointer;
+                }
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
@@ -121,15 +121,15 @@ public final class NegativeWeightedCycleException
 ```
 
 ### JavadocReference
-Cannot resolve symbol `FloydWarshall`
-in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
+Cannot resolve symbol `hasWeight`
+in `src/main/java/org/apache/commons/graph/spanning/ShortestEdges.java`
 #### Snippet
 ```java
-
-/**
- * Represents all shortest paths between all vertex pairs calculated by {@link FloydWarshall} algorithm.
- *
- * @param <V> the Graph vertices type
+     * Returns the distance related to input vertex, or null if it does not exist.
+     *
+     * <b>NOTE</b>: the method {@link hasWeight} should be used first to check if
+     * the input vertex has an assiged weight.
+     *
 ```
 
 ### JavadocReference
@@ -145,15 +145,87 @@ in `src/main/java/org/apache/commons/graph/spanning/ShortestEdges.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `hasWeight`
-in `src/main/java/org/apache/commons/graph/spanning/ShortestEdges.java`
+Cannot resolve symbol `FloydWarshall`
+in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
 #### Snippet
 ```java
-     * Returns the distance related to input vertex, or null if it does not exist.
-     *
-     * <b>NOTE</b>: the method {@link hasWeight} should be used first to check if
-     * the input vertex has an assiged weight.
-     *
+
+/**
+ * Represents all shortest paths between all vertex pairs calculated by {@link FloydWarshall} algorithm.
+ *
+ * @param <V> the Graph vertices type
+```
+
+### JavadocReference
+Cannot resolve symbol `VisitState.ABORT`
+in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
+#### Snippet
+```java
+     * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
+     * visiting the input vertex.
+     * @return {@link VisitState.ABORT} if the search algorithm should be terminated after visiting the input vertex, {@link VisitState.CONTINUE} otherwise
+     */
+    VisitState finishVertex( V vertex );
+```
+
+### JavadocReference
+Cannot resolve symbol `VisitState.CONTINUE`
+in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
+#### Snippet
+```java
+     * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
+     * visiting the input vertex.
+     * @return {@link VisitState.ABORT} if the search algorithm should be terminated after visiting the input vertex, {@link VisitState.CONTINUE} otherwise
+     */
+    VisitState finishVertex( V vertex );
+```
+
+### JavadocReference
+Cannot resolve symbol `VisitState.CONTINUE`
+in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
+#### Snippet
+```java
+     * based on the return value:
+     * <ul>
+     *   <li>{@link VisitState.CONTINUE} continues the visit normally;</li> 
+     *   <li>{@link VisitState.SKIP} continues the visit skipping the input edge;</li>
+     *   <li>{@link VisitState.ABORT} terminates the visit.</li>
+```
+
+### JavadocReference
+Cannot resolve symbol `VisitState.SKIP`
+in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
+#### Snippet
+```java
+     * <ul>
+     *   <li>{@link VisitState.CONTINUE} continues the visit normally;</li> 
+     *   <li>{@link VisitState.SKIP} continues the visit skipping the input edge;</li>
+     *   <li>{@link VisitState.ABORT} terminates the visit.</li>
+     * </ul>
+```
+
+### JavadocReference
+Cannot resolve symbol `VisitState.ABORT`
+in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
+#### Snippet
+```java
+     *   <li>{@link VisitState.CONTINUE} continues the visit normally;</li> 
+     *   <li>{@link VisitState.SKIP} continues the visit skipping the input edge;</li>
+     *   <li>{@link VisitState.ABORT} terminates the visit.</li>
+     * </ul>
+     * @return the state of the visit after operations on the edge
+```
+
+### JavadocReference
+Cannot resolve symbol `Visit`
+in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
+#### Snippet
+```java
+/**
+ * A {@link GraphVisitHandler} controls the execution of breadth-first and depth-first search
+ * algorithms in {@link Visit}.
+ */
+public interface GraphVisitHandler<V, E, G extends Graph<V, E>, O>
 ```
 
 ### JavadocReference
@@ -198,30 +270,6 @@ in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
 #### Snippet
 ```java
      * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
-     * visiting the input vertex.
-     * @return {@link VisitState.ABORT} if the search algorithm should be terminated after visiting the input vertex, {@link VisitState.CONTINUE} otherwise
-     */
-    VisitState finishVertex( V vertex );
-```
-
-### JavadocReference
-Cannot resolve symbol `VisitState.CONTINUE`
-in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
-#### Snippet
-```java
-     * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
-     * visiting the input vertex.
-     * @return {@link VisitState.ABORT} if the search algorithm should be terminated after visiting the input vertex, {@link VisitState.CONTINUE} otherwise
-     */
-    VisitState finishVertex( V vertex );
-```
-
-### JavadocReference
-Cannot resolve symbol `VisitState.ABORT`
-in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
-#### Snippet
-```java
-     * Checks if the search algorithm should be terminated. Called after the search algorithm has finished
      * visiting the input edge.
      * @return {@link VisitState.ABORT} if the search algorithm should be terminated after visiting the input edge, {@link VisitState.CONTINUE} otherwise
      */
@@ -238,54 +286,6 @@ in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
      * @return {@link VisitState.ABORT} if the search algorithm should be terminated after visiting the input edge, {@link VisitState.CONTINUE} otherwise
      */
     VisitState finishEdge( V head, E edge, V tail );
-```
-
-### JavadocReference
-Cannot resolve symbol `Visit`
-in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
-#### Snippet
-```java
-/**
- * A {@link GraphVisitHandler} controls the execution of breadth-first and depth-first search
- * algorithms in {@link Visit}.
- */
-public interface GraphVisitHandler<V, E, G extends Graph<V, E>, O>
-```
-
-### JavadocReference
-Cannot resolve symbol `VisitState.CONTINUE`
-in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
-#### Snippet
-```java
-     * based on the return value:
-     * <ul>
-     *   <li>{@link VisitState.CONTINUE} continues the visit normally;</li> 
-     *   <li>{@link VisitState.SKIP} continues the visit skipping the input edge;</li>
-     *   <li>{@link VisitState.ABORT} terminates the visit.</li>
-```
-
-### JavadocReference
-Cannot resolve symbol `VisitState.SKIP`
-in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
-#### Snippet
-```java
-     * <ul>
-     *   <li>{@link VisitState.CONTINUE} continues the visit normally;</li> 
-     *   <li>{@link VisitState.SKIP} continues the visit skipping the input edge;</li>
-     *   <li>{@link VisitState.ABORT} terminates the visit.</li>
-     * </ul>
-```
-
-### JavadocReference
-Cannot resolve symbol `VisitState.ABORT`
-in `src/main/java/org/apache/commons/graph/visit/GraphVisitHandler.java`
-#### Snippet
-```java
-     *   <li>{@link VisitState.CONTINUE} continues the visit normally;</li> 
-     *   <li>{@link VisitState.SKIP} continues the visit skipping the input edge;</li>
-     *   <li>{@link VisitState.ABORT} terminates the visit.</li>
-     * </ul>
-     * @return the state of the visit after operations on the edge
 ```
 
 ### JavadocReference
@@ -361,15 +361,15 @@ class SuperVertex<V, W, WE>
 ```
 
 ### JavadocReference
-Cannot resolve symbol `alreadyVisited`
-in `src/main/java/org/apache/commons/graph/shortestpath/ShortestDistances.java`
+Cannot resolve symbol
+in `src/main/java/org/apache/commons/graph/scc/KosarajuSharirAlgorithm.java`
 #### Snippet
 ```java
-     * Returns the distance related to input vertex, or null if it wasn't previously visited.
-     *
-     * <b>NOTE</b>: the method {@link alreadyVisited} should be used first to check if
-     * the input vertex was already visited and a distance value is available for it.
-     *
+ * @param <V> the Graph vertices type.
+ * @param <E> the Graph edges type.
+ * @param <G> the directed graph type
+ */
+final class KosarajuSharirAlgorithm<V, E>
 ```
 
 ### JavadocReference
@@ -397,15 +397,15 @@ in `src/main/java/org/apache/commons/graph/weight/Monoid.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol
-in `src/main/java/org/apache/commons/graph/scc/KosarajuSharirAlgorithm.java`
+Cannot resolve symbol `alreadyVisited`
+in `src/main/java/org/apache/commons/graph/shortestpath/ShortestDistances.java`
 #### Snippet
 ```java
- * @param <V> the Graph vertices type.
- * @param <E> the Graph edges type.
- * @param <G> the directed graph type
- */
-final class KosarajuSharirAlgorithm<V, E>
+     * Returns the distance related to input vertex, or null if it wasn't previously visited.
+     *
+     * <b>NOTE</b>: the method {@link alreadyVisited} should be used first to check if
+     * the input vertex was already visited and a distance value is available for it.
+     *
 ```
 
 ### JavadocReference
@@ -496,10 +496,34 @@ in `src/main/java/org/apache/commons/graph/flow/DefaultFlowWeightedEdgesBuilder.
 
 ### DataFlowIssue
 Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
+#### Snippet
+```java
+    public <T extends V> ShortestPathAlgorithmSelector<V, WE, W> to( T target )
+    {
+        target = checkNotNull( target, "Shortest path can not be calculated to a null target" );
+        return new DefaultShortestPathAlgorithmSelector<V, WE, W>( graph, weightedEdges, source, target );
+    }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
+#### Snippet
+```java
+    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( WO weightOperations )
+    {
+        weightOperations = checkNotNull( weightOperations, "Belmann-Ford algorithm can not be applied using null weight operations" );
+
+        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
 in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
 #### Snippet
 ```java
-    boolean hasShortestDistance( V source, V target )
+    W getShortestDistance( V source, V target )
     {
         source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
         target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
@@ -583,7 +607,7 @@ Variable is already assigned to this value
 in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPath.java`
 #### Snippet
 ```java
-    W getShortestDistance( V source, V target )
+    boolean hasShortestDistance( V source, V target )
     {
         source = checkNotNull( source, "Impossible to add a shortest path from a null source" );
         target = checkNotNull( target, "Impossible to add a shortest path to a null target" );
@@ -636,30 +660,6 @@ in `src/main/java/org/apache/commons/graph/shortestpath/AllVertexPairsShortestPa
         distance = checkNotNull( distance, "Impossible to add a shortest distance with a null distance" );
 
         shortestDistances.put( new VertexPair<V>( source, target ), distance );
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
-#### Snippet
-```java
-    public <T extends V> ShortestPathAlgorithmSelector<V, WE, W> to( T target )
-    {
-        target = checkNotNull( target, "Shortest path can not be calculated to a null target" );
-        return new DefaultShortestPathAlgorithmSelector<V, WE, W>( graph, weightedEdges, source, target );
-    }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultTargetSourceSelector.java`
-#### Snippet
-```java
-    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingBelmannFord( WO weightOperations )
-    {
-        weightOperations = checkNotNull( weightOperations, "Belmann-Ford algorithm can not be applied using null weight operations" );
-
-        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
 ```
 
 ### DataFlowIssue
@@ -724,26 +724,14 @@ in `src/main/java/org/apache/commons/graph/builder/DefaultGrapher.java`
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/coloring/DefaultColoringAlgorithmsSelector.java`
+in `src/main/java/org/apache/commons/graph/elo/DefaultRankingSelector.java`
 #### Snippet
 ```java
-    public ColoredVertices<V, C> applyingBackTrackingAlgorithm( ColoredVertices<V, C> partialColoredVertex )
+    public KFactorBuilder<P> wherePlayersAreRankedIn( PlayersRank<P> playersRank )
     {
-        partialColoredVertex = checkNotNull( partialColoredVertex, "PartialColoredVertex must be not null" );
-
-        final List<V> verticesList = new ArrayList<V>();
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
-#### Snippet
-```java
-    public Iterable<V> getConnectedVertices( V v )
-    {
-        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
-
-        if ( target.equals( v ) )
+        playersRank = checkNotNull( playersRank, "ELO ranking can not be applied if players can not be ranked!" );
+        return new DefaultKFactorBuilder<P>( tournamentGraph, playersRank );
+    }
 ```
 
 ### DataFlowIssue
@@ -760,13 +748,85 @@ in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/elo/DefaultRankingSelector.java`
+in `src/main/java/org/apache/commons/graph/model/InMemoryPath.java`
 #### Snippet
 ```java
-    public KFactorBuilder<P> wherePlayersAreRankedIn( PlayersRank<P> playersRank )
+    public Iterable<V> getConnectedVertices( V v )
     {
-        playersRank = checkNotNull( playersRank, "ELO ranking can not be applied if players can not be ranked!" );
-        return new DefaultKFactorBuilder<P>( tournamentGraph, playersRank );
+        v = checkNotNull( v, "Impossible to get the degree of a null vertex" );
+
+        if ( target.equals( v ) )
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E> findStronglyConnectedComponent( G graph )
+    {
+        graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a null graph" );
+        return new DefaultSccAlgorithmSelector<V, E>( graph );
+    }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E> coloring( G graph )
+    {
+        graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
+        return new DefaultColorsBuilder<V, E>( graph );
+    }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E> findConnectedComponent( G graph )
+    {
+        graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
+        return new DefaultConnectivityBuilder<V, E>( graph );
+    }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, E, G extends Graph<V, E>> NamedExportSelector<V, E> export( G graph )
+    {
+        graph = checkNotNull( graph, "Null graph can not be exported" );
+        return new DefaultExportSelector<V, E>( graph );
+    }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE> findShortestPath( G graph )
+    {
+        graph = checkNotNull( graph, "Shortest path can not be calculated on null graph" );
+        return new DefaultWeightedEdgesSelector<V, WE>( graph );
+    }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
+#### Snippet
+```java
+    public static <P, TG extends DirectedGraph<P, GameResult>> RankingSelector<P> eloRate( TG tournamentGraph )
+    {
+        tournamentGraph = checkNotNull( tournamentGraph, "ELO ranking can not be applied on null graph!" );
+        return new DefaultRankingSelector<P>( tournamentGraph );
     }
 ```
 
@@ -799,83 +859,23 @@ Variable is already assigned to this value
 in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
 #### Snippet
 ```java
-    public static <P, TG extends DirectedGraph<P, GameResult>> RankingSelector<P> eloRate( TG tournamentGraph )
-    {
-        tournamentGraph = checkNotNull( tournamentGraph, "ELO ranking can not be applied on null graph!" );
-        return new DefaultRankingSelector<P>( tournamentGraph );
-    }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, WE, G extends Graph<V, WE>> PathWeightedEdgesBuilder<V, WE> findShortestPath( G graph )
-    {
-        graph = checkNotNull( graph, "Shortest path can not be calculated on null graph" );
-        return new DefaultWeightedEdgesSelector<V, WE>( graph );
-    }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends Graph<V, E>> NamedExportSelector<V, E> export( G graph )
-    {
-        graph = checkNotNull( graph, "Null graph can not be exported" );
-        return new DefaultExportSelector<V, E>( graph );
-    }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends DirectedGraph<V, E>> SccAlgorithmSelector<V, E> findStronglyConnectedComponent( G graph )
-    {
-        graph = checkNotNull( graph, "Strongly Connected Component cannot be calculated from a null graph" );
-        return new DefaultSccAlgorithmSelector<V, E>( graph );
-    }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends Graph<V, E>> ConnectivityBuilder<V, E> findConnectedComponent( G graph )
-    {
-        graph = checkNotNull( graph, "Connected Component cannot be calculated from a null graph" );
-        return new DefaultConnectivityBuilder<V, E>( graph );
-    }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
-    public static <V, E, G extends UndirectedGraph<V, E>> ColorsBuilder<V, E> coloring( G graph )
-    {
-        graph = checkNotNull( graph, "Coloring can not be calculated on null graph"  );
-        return new DefaultColorsBuilder<V, E>( graph );
-    }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/CommonsGraph.java`
-#### Snippet
-```java
     public static <V, WE, G extends Graph<V, WE>> SpanningWeightedEdgeMapperBuilder<V, WE> minimumSpanningTree( G graph )
     {
         graph = checkNotNull( graph, "Minimum spanning tree can not be calculated on null graph" );
         return new DefaultSpanningWeightedEdgeMapperBuilder<V, WE>( graph );
     }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/coloring/DefaultColoringAlgorithmsSelector.java`
+#### Snippet
+```java
+    public ColoredVertices<V, C> applyingBackTrackingAlgorithm( ColoredVertices<V, C> partialColoredVertex )
+    {
+        partialColoredVertex = checkNotNull( partialColoredVertex, "PartialColoredVertex must be not null" );
+
+        final List<V> verticesList = new ArrayList<V>();
 ```
 
 ### DataFlowIssue
@@ -916,30 +916,6 @@ in `src/main/java/org/apache/commons/graph/builder/DefaultTailVertexConnector.ja
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultPathSourceSelector.java`
-#### Snippet
-```java
-    public <H extends V> TargetSourceSelector<V, WE, W> from( H source )
-    {
-        source = checkNotNull( source, "Shortest path can not be calculated from a null source" );
-        return new DefaultTargetSourceSelector<V, WE, W>( graph, weightedEdges, source );
-    }
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultPathSourceSelector.java`
-#### Snippet
-```java
-    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingFloydWarshall( WO weightOperations )
-    {
-        weightOperations = checkNotNull( weightOperations, "Floyd-Warshall algorithm can not be applied using null weight operations" );
-
-        AllVertexPairsShortestPath<V, WE, W> shortestPaths = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
 in `src/main/java/org/apache/commons/graph/coloring/ColoredVertices.java`
 #### Snippet
 ```java
@@ -948,30 +924,6 @@ in `src/main/java/org/apache/commons/graph/coloring/ColoredVertices.java`
         v = checkNotNull( v, "Impossible to get the color for a null Vertex" );
 
         return coloredVertices.get( v );
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
-#### Snippet
-```java
-    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
-    {
-        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
-
-        handler.discoverGraph( graph );
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/visit/DefaultVisitSourceSelector.java`
-#### Snippet
-```java
-    public <S extends V> VisitAlgorithmsSelector<V, E, G> from( S source )
-    {
-        source = checkNotNull( source, "Impossible to visit input graph %s with null source", graph );
-        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
-        return new DefaultVisitAlgorithmsSelector<V, E, G>( graph, source );
 ```
 
 ### DataFlowIssue
@@ -988,13 +940,25 @@ in `src/main/java/org/apache/commons/graph/spanning/DefaultSpanningTreeSourceSel
 
 ### DataFlowIssue
 Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/coloring/DefaultColorsBuilder.java`
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultPathSourceSelector.java`
 #### Snippet
 ```java
-    public <C> ColoringAlgorithmsSelector<V, E, C> withColors( Set<C> colors )
+    public <WO extends OrderedMonoid<W>> AllVertexPairsShortestPath<V, WE, W> applyingFloydWarshall( WO weightOperations )
     {
-        colors = checkNotNull( colors, "Colors set must be not null" );
-        return new DefaultColoringAlgorithmsSelector<V, E, C>( graph, colors );
+        weightOperations = checkNotNull( weightOperations, "Floyd-Warshall algorithm can not be applied using null weight operations" );
+
+        AllVertexPairsShortestPath<V, WE, W> shortestPaths = new AllVertexPairsShortestPath<V, WE, W>( weightOperations );
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultPathSourceSelector.java`
+#### Snippet
+```java
+    public <H extends V> TargetSourceSelector<V, WE, W> from( H source )
+    {
+        source = checkNotNull( source, "Shortest path can not be calculated from a null source" );
+        return new DefaultTargetSourceSelector<V, WE, W>( graph, weightedEdges, source );
     }
 ```
 
@@ -1008,6 +972,54 @@ in `src/main/java/org/apache/commons/graph/shortestpath/DefaultHeuristicBuilder.
         heuristic = checkNotNull( heuristic, "A* algorithm can not be applied using a null heuristic" );
 
         // Cost from start along best known path.
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/visit/DefaultVisitSourceSelector.java`
+#### Snippet
+```java
+    public <S extends V> VisitAlgorithmsSelector<V, E, G> from( S source )
+    {
+        source = checkNotNull( source, "Impossible to visit input graph %s with null source", graph );
+        checkState( graph.containsVertex( source ), "Vertex %s does not exist in the Graph", source );
+        return new DefaultVisitAlgorithmsSelector<V, E, G>( graph, source );
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/visit/DefaultVisitAlgorithmsSelector.java`
+#### Snippet
+```java
+    private <O> O applyingSearch( GraphVisitHandler<V, E, G, O> handler, boolean enqueue )
+    {
+        handler = checkNotNull( handler, "Graph visitor handler can not be null." );
+
+        handler.discoverGraph( graph );
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/coloring/DefaultColorsBuilder.java`
+#### Snippet
+```java
+    public <C> ColoringAlgorithmsSelector<V, E, C> withColors( Set<C> colors )
+    {
+        colors = checkNotNull( colors, "Colors set must be not null" );
+        return new DefaultColoringAlgorithmsSelector<V, E, C>( graph, colors );
+    }
+```
+
+### DataFlowIssue
+Variable is already assigned to this value
+in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
+#### Snippet
+```java
+    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
+    {
+        weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
+
+        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
 ```
 
 ### DataFlowIssue
@@ -1032,18 +1044,6 @@ in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgor
         weightOperations = checkNotNull( weightOperations, "Bidirectional Dijkstra algorithm can not be applied using null weight operations" );
 
         final ShortestDistances<V, W> shortestDistancesForward = new ShortestDistances<V, W>( weightOperations );
-```
-
-### DataFlowIssue
-Variable is already assigned to this value
-in `src/main/java/org/apache/commons/graph/shortestpath/DefaultShortestPathAlgorithmSelector.java`
-#### Snippet
-```java
-    public <WO extends OrderedMonoid<W>> WeightedPath<V, WE, W> applyingDijkstra( WO weightOperations )
-    {
-        weightOperations = checkNotNull( weightOperations, "Dijkstra algorithm can not be applied using null weight operations" );
-
-        final ShortestDistances<V, W> shortestDistances = new ShortestDistances<V, W>( weightOperations );
 ```
 
 ## RuleId[id=JavadocDeclaration]
@@ -1240,27 +1240,15 @@ in `src/main/java/org/apache/commons/graph/shortestpath/HeuristicBuilder.java`
 ```
 
 ### JavadocDeclaration
-`@param algorithm` tag description is missing
-in `src/main/java/org/apache/commons/graph/scc/DefaultSccAlgorithmSelector.java`
-#### Snippet
-```java
-     * Just calculates the SCC depending on the selected algorithm.
-     *
-     * @param algorithm
-     * @return
-     */
-```
-
-### JavadocDeclaration
 `@return` tag description is missing
-in `src/main/java/org/apache/commons/graph/scc/DefaultSccAlgorithmSelector.java`
+in `src/main/java/org/apache/commons/graph/shortestpath/ShortestPathAlgorithmSelector.java`
 #### Snippet
 ```java
-     *
-     * @param algorithm
+     * @param <WO> the type of weight operations
+     * @param weightOperations the class responsible for operations on weights
      * @return
      */
-    private Set<Set<V>> applying( SccAlgorithm<V> algorithm )
+    <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W> applyingAStar( WO weightOperations );
 ```
 
 ### JavadocDeclaration
@@ -1288,15 +1276,27 @@ in `src/main/java/org/apache/commons/graph/model/MutableSpanningTree.java`
 ```
 
 ### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/org/apache/commons/graph/shortestpath/ShortestPathAlgorithmSelector.java`
+`@param algorithm` tag description is missing
+in `src/main/java/org/apache/commons/graph/scc/DefaultSccAlgorithmSelector.java`
 #### Snippet
 ```java
-     * @param <WO> the type of weight operations
-     * @param weightOperations the class responsible for operations on weights
+     * Just calculates the SCC depending on the selected algorithm.
+     *
+     * @param algorithm
      * @return
      */
-    <WO extends OrderedMonoid<W>> HeuristicBuilder<V, WE, W> applyingAStar( WO weightOperations );
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/org/apache/commons/graph/scc/DefaultSccAlgorithmSelector.java`
+#### Snippet
+```java
+     *
+     * @param algorithm
+     * @return
+     */
+    private Set<Set<V>> applying( SccAlgorithm<V> algorithm )
 ```
 
 ### JavadocDeclaration
@@ -1389,10 +1389,10 @@ in `src/main/java/org/apache/commons/graph/export/ExportSelector.java`
 #### Snippet
 ```java
      *
-     * @return {@link GraphMLExporter} instance
+     * @return {@link DotExporter} instance
      * @throws GraphExportException
      */
-    GraphMLExporter<V, E> usingGraphMLFormat()
+    DotExporter<V, E> usingDotNotation()
 ```
 
 ### JavadocDeclaration
@@ -1401,10 +1401,10 @@ in `src/main/java/org/apache/commons/graph/export/ExportSelector.java`
 #### Snippet
 ```java
      *
-     * @return {@link DotExporter} instance
+     * @return {@link GraphMLExporter} instance
      * @throws GraphExportException
      */
-    DotExporter<V, E> usingDotNotation()
+    GraphMLExporter<V, E> usingGraphMLFormat()
 ```
 
 ### JavadocDeclaration
