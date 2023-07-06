@@ -15,10 +15,10 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/common/monitor
 #### Snippet
 ```java
       Duration responseTime,
-      HttpResponseStatus responseCode,
+      DnsResponseCode responseCode,
       Optional<Exception> ex);
 
-  default void onFailedHttpRpc(
+  default void onFailedDnsRpc(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -27,10 +27,10 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/common/monitor
 #### Snippet
 ```java
       Duration responseTime,
-      DnsResponseCode responseCode,
+      HttpResponseStatus responseCode,
       Optional<Exception> ex);
 
-  default void onFailedDnsRpc(
+  default void onFailedHttpRpc(
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -97,18 +97,6 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/common/HttpHan
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NotNull parameter
-in `server/src/main/java/com/google/tsunami/callbackserver/server/common/HttpServer.java`
-#### Snippet
-```java
-            new ChannelInitializer<SocketChannel>() {
-              @Override
-              protected void initChannel(SocketChannel ch) {
-                ChannelPipeline p = ch.pipeline();
-                p.addLast(name() + "HttpServerCodec", new HttpServerCodec());
-```
-
-### NullableProblems
-Not annotated parameter overrides @NotNull parameter
 in `server/src/main/java/com/google/tsunami/callbackserver/server/common/DnsServer.java`
 #### Snippet
 ```java
@@ -119,91 +107,19 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/common/DnsServ
                 p.addLast(name() + "DnsQueryDecoder", new DatagramDnsQueryDecoder());
 ```
 
+### NullableProblems
+Not annotated parameter overrides @NotNull parameter
+in `server/src/main/java/com/google/tsunami/callbackserver/server/common/HttpServer.java`
+#### Snippet
+```java
+            new ChannelInitializer<SocketChannel>() {
+              @Override
+              protected void initChannel(SocketChannel ch) {
+                ChannelPipeline p = ch.pipeline();
+                p.addLast(name() + "HttpServerCodec", new HttpServerCodec());
+```
+
 ## RuleId[id=UnstableApiUsage]
-### UnstableApiUsage
-'newReader(java.io.File, java.nio.charset.Charset)' is marked unstable with @Beta
-in `common/src/main/java/com/google/tsunami/callbackserver/common/config/TcsConfig.java`
-#### Snippet
-```java
-  public static TcsConfig fromYamlFile(String configFile) throws FileNotFoundException {
-    Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));
-    Map<String, Object> rawYamlData = yaml.load(Files.newReader(new File(configFile), UTF_8));
-    return fromRawData(rawYamlData);
-  }
-```
-
-### UnstableApiUsage
-'com.google.common.net.InternetDomainName' is marked unstable with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    // Best-effort normalization of domain names.
-    try {
-      questionDomain = InternetDomainName.from(questionDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
-### UnstableApiUsage
-'from(java.lang.String)' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    // Best-effort normalization of domain names.
-    try {
-      questionDomain = InternetDomainName.from(questionDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    // Best-effort normalization of domain names.
-    try {
-      questionDomain = InternetDomainName.from(questionDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
-### UnstableApiUsage
-'com.google.common.net.InternetDomainName' is marked unstable with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    }
-    try {
-      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
-### UnstableApiUsage
-'from(java.lang.String)' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    }
-    try {
-      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
-### UnstableApiUsage
-'toString()' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
-in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
-#### Snippet
-```java
-    }
-    try {
-      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
-    } catch (IllegalArgumentException e) {
-      // pass
-```
-
 ### UnstableApiUsage
 'com.google.common.net.InetAddresses' is marked unstable with @Beta
 in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
@@ -226,6 +142,90 @@ in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsR
     InetAddress answerIpAddr = InetAddresses.forString(answerIp);
     if (answerIpAddr instanceof Inet4Address) {
       return new DefaultDnsRawRecord(
+```
+
+### UnstableApiUsage
+'com.google.common.net.InternetDomainName' is marked unstable with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    // Best-effort normalization of domain names.
+    try {
+      questionDomain = InternetDomainName.from(questionDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'from(java.lang.String)' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    // Best-effort normalization of domain names.
+    try {
+      questionDomain = InternetDomainName.from(questionDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    // Best-effort normalization of domain names.
+    try {
+      questionDomain = InternetDomainName.from(questionDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'com.google.common.net.InternetDomainName' is marked unstable with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    }
+    try {
+      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'from(java.lang.String)' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    }
+    try {
+      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'toString()' is declared in unstable class 'com.google.common.net.InternetDomainName' marked with @Beta
+in `server/src/main/java/com/google/tsunami/callbackserver/server/recording/DnsRecordingHandler.java`
+#### Snippet
+```java
+    }
+    try {
+      authoritativeDnsDomain = InternetDomainName.from(authoritativeDnsDomain).toString();
+    } catch (IllegalArgumentException e) {
+      // pass
+```
+
+### UnstableApiUsage
+'newReader(java.io.File, java.nio.charset.Charset)' is marked unstable with @Beta
+in `common/src/main/java/com/google/tsunami/callbackserver/common/config/TcsConfig.java`
+#### Snippet
+```java
+  public static TcsConfig fromYamlFile(String configFile) throws FileNotFoundException {
+    Yaml yaml = new Yaml(new SafeConstructor(new LoaderOptions()));
+    Map<String, Object> rawYamlData = yaml.load(Files.newReader(new File(configFile), UTF_8));
+    return fromRawData(rawYamlData);
+  }
 ```
 
 ### UnstableApiUsage
@@ -257,10 +257,10 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/config/CommonC
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an HTTP interaction URL with the given CBID.
+   * @return an interaction hostname with the given CBID.
    */
-  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
-    return String.format("http://%s/%s", hostAndPort, cbid);
+  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
+    return String.format("%s.%s", cbid, hostAndPort);
   }
 ```
 
@@ -269,10 +269,10 @@ in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.
 in `common/src/main/java/com/google/tsunami/callbackserver/common/CbidProcessor.java`
 #### Snippet
 ```java
-   * @return an interaction hostname with the given CBID.
+   * @return an HTTP interaction URL with the given CBID.
    */
-  public static String addCbidToSubdomain(String cbid, HostAndPort hostAndPort) {
-    return String.format("%s.%s", cbid, hostAndPort);
+  public static String addCbidToUrl(String cbid, HostAndPort hostAndPort) {
+    return String.format("http://%s/%s", hostAndPort, cbid);
   }
 ```
 
