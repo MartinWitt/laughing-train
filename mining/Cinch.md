@@ -69,14 +69,26 @@ in `src/main/java/com/palantir/ptoss/cinch/swing/OnFocusChange.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/com/palantir/ptoss/cinch/swing/Action.java`
+Modifier `public` is redundant for interface members
+in `src/main/java/com/palantir/ptoss/cinch/swing/BoundLocation.java`
 #### Snippet
 ```java
-     * Inner utility class used to wire {@link Action} bindings.
+     * @see Bindings#STANDARD_BINDINGS
      */
-    static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(Action.class);
+    public static class Wiring implements BindingWiring {
+        private static final Logger logger = LoggerFactory.getLogger(BoundLocation.class);
+
+```
+
+### UnnecessaryModifier
+Modifier `static` is redundant for inner classes of interfaces
+in `src/main/java/com/palantir/ptoss/cinch/swing/BoundLocation.java`
+#### Snippet
+```java
+     * @see Bindings#STANDARD_BINDINGS
+     */
+    public static class Wiring implements BindingWiring {
+        private static final Logger logger = LoggerFactory.getLogger(BoundLocation.class);
 
 ```
 
@@ -93,26 +105,14 @@ in `src/main/java/com/palantir/ptoss/cinch/core/BindingWiring.java`
 ```
 
 ### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/palantir/ptoss/cinch/swing/VisibleIf.java`
-#### Snippet
-```java
-     * Inner utility class that performs the runtime wiring of all {@link VisibleIf} bindings.
-     */
-    public static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(VisibleIf.class);
-
-```
-
-### UnnecessaryModifier
 Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/com/palantir/ptoss/cinch/swing/VisibleIf.java`
+in `src/main/java/com/palantir/ptoss/cinch/swing/Action.java`
 #### Snippet
 ```java
-     * Inner utility class that performs the runtime wiring of all {@link VisibleIf} bindings.
+     * Inner utility class used to wire {@link Action} bindings.
      */
-    public static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(VisibleIf.class);
+    static class Wiring implements BindingWiring {
+        private static final Logger logger = LoggerFactory.getLogger(Action.class);
 
 ```
 
@@ -130,25 +130,25 @@ in `src/main/java/com/palantir/ptoss/cinch/swing/VisibleIf.java`
 
 ### UnnecessaryModifier
 Modifier `public` is redundant for interface members
-in `src/main/java/com/palantir/ptoss/cinch/swing/BoundLocation.java`
+in `src/main/java/com/palantir/ptoss/cinch/swing/VisibleIf.java`
 #### Snippet
 ```java
-     * @see Bindings#STANDARD_BINDINGS
+     * Inner utility class that performs the runtime wiring of all {@link VisibleIf} bindings.
      */
     public static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(BoundLocation.class);
+        private static final Logger logger = LoggerFactory.getLogger(VisibleIf.class);
 
 ```
 
 ### UnnecessaryModifier
 Modifier `static` is redundant for inner classes of interfaces
-in `src/main/java/com/palantir/ptoss/cinch/swing/BoundLocation.java`
+in `src/main/java/com/palantir/ptoss/cinch/swing/VisibleIf.java`
 #### Snippet
 ```java
-     * @see Bindings#STANDARD_BINDINGS
+     * Inner utility class that performs the runtime wiring of all {@link VisibleIf} bindings.
      */
     public static class Wiring implements BindingWiring {
-        private static final Logger logger = LoggerFactory.getLogger(BoundLocation.class);
+        private static final Logger logger = LoggerFactory.getLogger(VisibleIf.class);
 
 ```
 
@@ -193,18 +193,6 @@ Modifier `public` is redundant for interface members
 in `src/main/java/com/palantir/ptoss/cinch/swing/EnabledIf.java`
 #### Snippet
 ```java
-     * Enum to specify if normal or inverted comparisons should be used.
-     */
-    public enum Type { NORMAL, INVERTED };
-    /**
-     * The model boolean property to bind to.
-```
-
-### UnnecessaryModifier
-Modifier `public` is redundant for interface members
-in `src/main/java/com/palantir/ptoss/cinch/swing/EnabledIf.java`
-#### Snippet
-```java
      * @see Bindings#STANDARD_BINDINGS
      */
     public static class Wiring implements BindingWiring {
@@ -222,6 +210,18 @@ in `src/main/java/com/palantir/ptoss/cinch/swing/EnabledIf.java`
     public static class Wiring implements BindingWiring {
         private static final Logger logger = LoggerFactory.getLogger(EnabledIf.class);
 
+```
+
+### UnnecessaryModifier
+Modifier `public` is redundant for interface members
+in `src/main/java/com/palantir/ptoss/cinch/swing/EnabledIf.java`
+#### Snippet
+```java
+     * Enum to specify if normal or inverted comparisons should be used.
+     */
+    public enum Type { NORMAL, INVERTED };
+    /**
+     * The model boolean property to bind to.
 ```
 
 ### UnnecessaryModifier
@@ -566,15 +566,15 @@ in `src/main/java/com/palantir/ptoss/cinch/core/SimpleBinding.java`
 ```
 
 ### JavadocDeclaration
-`@throws` tag description is missing
-in `src/main/java/com/palantir/ptoss/util/Mutator.java`
+`@param binding` tag description is missing
+in `src/main/java/com/palantir/ptoss/cinch/core/WeakBindableModel.java`
 #### Snippet
 ```java
-     * @param target the model and field to bind this {@link Mutator} to.
-     * @return the {@link Mutator}
-     * @throws IntrospectionException
+     * the various {@link WiringHarness} objects to bind individual components to this model.
+     *
+     * @param binding
      */
-    public static Mutator create(BindingContext context, String target) throws IntrospectionException {
+    public void bind(Binding binding) {
 ```
 
 ### JavadocDeclaration
@@ -590,18 +590,6 @@ in `src/main/java/com/palantir/ptoss/cinch/core/WeakBindableModel.java`
 ```
 
 ### JavadocDeclaration
-`@param binding` tag description is missing
-in `src/main/java/com/palantir/ptoss/cinch/core/WeakBindableModel.java`
-#### Snippet
-```java
-     * the various {@link WiringHarness} objects to bind individual components to this model.
-     *
-     * @param binding
-     */
-    public void bind(Binding binding) {
-```
-
-### JavadocDeclaration
 `@param context` tag description is missing
 in `src/main/java/com/palantir/ptoss/cinch/swing/Action.java`
 #### Snippet
@@ -611,6 +599,18 @@ in `src/main/java/com/palantir/ptoss/cinch/swing/Action.java`
          * @param context
          */
         public Collection<Binding> wire(BindingContext context) {
+```
+
+### JavadocDeclaration
+`@throws` tag description is missing
+in `src/main/java/com/palantir/ptoss/util/Mutator.java`
+#### Snippet
+```java
+     * @param target the model and field to bind this {@link Mutator} to.
+     * @return the {@link Mutator}
+     * @throws IntrospectionException
+     */
+    public static Mutator create(BindingContext context, String target) throws IntrospectionException {
 ```
 
 ### JavadocDeclaration
@@ -686,18 +686,6 @@ in `src/main/java/com/palantir/ptoss/cinch/swing/Bound.java`
 ```
 
 ### JavadocDeclaration
-`@param model` tag description is missing
-in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
-#### Snippet
-```java
-     * a {@link Bound} annotation to an Enum object in this runtime.
-     * @param on <code>on</code> parameter from a {@link Bound} annotation.
-     * @param model
-     * @return the resolved object
-     * @throws IllegalArgumentException if the referenced object can't be found.
-```
-
-### JavadocDeclaration
 `@param modelClass` tag description is missing
 in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
 #### Snippet
@@ -707,6 +695,18 @@ in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
      * @param modelClass
      * @return the of {@link Class}es that implement {@link ModelUpdate} in this binding context.
      */
+```
+
+### JavadocDeclaration
+`@param model` tag description is missing
+in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
+#### Snippet
+```java
+     * a {@link Bound} annotation to an Enum object in this runtime.
+     * @param on <code>on</code> parameter from a {@link Bound} annotation.
+     * @param model
+     * @return the resolved object
+     * @throws IllegalArgumentException if the referenced object can't be found.
 ```
 
 ## RuleId[id=FieldMayBeFinal]
@@ -768,6 +768,127 @@ in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
         return true;
 ```
 
+## RuleId[id=Deprecation]
+### Deprecation
+'getSelectedValues()' is deprecated
+in `src/main/java/com/palantir/ptoss/cinch/swing/JListWiringHarness.java`
+#### Snippet
+```java
+            return;
+        }
+        Object[] selected = list.getSelectedValues();
+        DefaultListModel listModel = new DefaultListModel();
+        listModel.ensureCapacity(newContents.size());
+```
+
+### Deprecation
+'isAccessible()' is deprecated
+in `src/main/java/com/palantir/ptoss/cinch/swing/OnFocusChange.java`
+#### Snippet
+```java
+                        try {
+                            if (gainedOFM != null) {
+                                boolean accessible = gainedOFM.getMethod().isAccessible();
+                                gainedOFM.getMethod().setAccessible(true);
+                                gainedOFM.getMethod().invoke(gainedOFM.getObject());
+```
+
+### Deprecation
+'isAccessible()' is deprecated
+in `src/main/java/com/palantir/ptoss/cinch/swing/OnFocusChange.java`
+#### Snippet
+```java
+                        try {
+                            if (lostOFM != null) {
+                                boolean accessible = lostOFM.getMethod().isAccessible();
+                                lostOFM.getMethod().setAccessible(true);
+                                lostOFM.getMethod().invoke(lostOFM.getObject());
+```
+
+### Deprecation
+'isAccessible()' is deprecated
+in `src/main/java/com/palantir/ptoss/cinch/swing/Action.java`
+#### Snippet
+```java
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        boolean accessible = ofm.getMethod().isAccessible();
+                        ofm.getMethod().setAccessible(true);
+                        ofm.getMethod().invoke(ofm.getObject());
+```
+
+### Deprecation
+'isAccessible()' is deprecated
+in `src/main/java/com/palantir/ptoss/util/Mutator.java`
+#### Snippet
+```java
+            throw new IllegalStateException("can not call set() with no setter.");
+        }
+        boolean accessible = setter.getMethod().isAccessible();
+        setter.getMethod().setAccessible(true);
+        setter.getMethod().invoke(model, value);
+```
+
+### Deprecation
+'isAccessible()' is deprecated
+in `src/main/java/com/palantir/ptoss/util/Mutator.java`
+#### Snippet
+```java
+            throw new IllegalStateException("can not call get() with no getter.");
+        }
+        boolean accessible = getter.getMethod().isAccessible();
+        getter.getMethod().setAccessible(true);
+        Object value = getter.getMethod().invoke(model);
+```
+
+### Deprecation
+'getSelectedValues()' is deprecated
+in `src/main/java/com/palantir/ptoss/cinch/swing/BoundSelection.java`
+#### Snippet
+```java
+                        try {
+                            if (multi) {
+                                mutator.set(ImmutableList.copyOf(list.getSelectedValues()));
+                            } else {
+                                mutator.set(list.getSelectedValue());
+```
+
+### Deprecation
+'getSelectedValues()' is deprecated
+in `src/main/java/com/palantir/ptoss/cinch/swing/BoundSelection.java`
+#### Snippet
+```java
+                    try {
+                        if (multi) {
+                            Object[] selVals = list.getSelectedValues();
+                            ImmutableList<Object> listCurrent = ImmutableList.copyOf(selVals);
+                            Collection<?> current = (Collection<?>)mutator.get();
+```
+
+### Deprecation
+'isAccessible()' is deprecated
+in `src/main/java/com/palantir/ptoss/util/Reflections.java`
+#### Snippet
+```java
+    public static <T> T getFieldObject(Object object, Field field, Class<T> klass) {
+        try {
+            boolean accessible = field.isAccessible();
+            field.setAccessible(true);
+            Object fieldObject = field.get(object);
+```
+
+### Deprecation
+'isAccessible()' is deprecated
+in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
+#### Snippet
+```java
+        Map<String, Object> map = Maps.newHashMap();
+        for (Field field : object.getClass().getDeclaredFields()) {
+            boolean accessible = field.isAccessible();
+            field.setAccessible(true);
+            if (Reflections.isFieldFinal(field) && Reflections.isFieldStatic(field)) {
+```
+
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `binding` is redundant
@@ -815,127 +936,6 @@ in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
         ObjectFieldMethod ofm = bindableMethods.get(key);
         return ofm;
     }
-```
-
-## RuleId[id=Deprecation]
-### Deprecation
-'getSelectedValues()' is deprecated
-in `src/main/java/com/palantir/ptoss/cinch/swing/JListWiringHarness.java`
-#### Snippet
-```java
-            return;
-        }
-        Object[] selected = list.getSelectedValues();
-        DefaultListModel listModel = new DefaultListModel();
-        listModel.ensureCapacity(newContents.size());
-```
-
-### Deprecation
-'isAccessible()' is deprecated
-in `src/main/java/com/palantir/ptoss/cinch/swing/OnFocusChange.java`
-#### Snippet
-```java
-                        try {
-                            if (lostOFM != null) {
-                                boolean accessible = lostOFM.getMethod().isAccessible();
-                                lostOFM.getMethod().setAccessible(true);
-                                lostOFM.getMethod().invoke(lostOFM.getObject());
-```
-
-### Deprecation
-'isAccessible()' is deprecated
-in `src/main/java/com/palantir/ptoss/cinch/swing/OnFocusChange.java`
-#### Snippet
-```java
-                        try {
-                            if (gainedOFM != null) {
-                                boolean accessible = gainedOFM.getMethod().isAccessible();
-                                gainedOFM.getMethod().setAccessible(true);
-                                gainedOFM.getMethod().invoke(gainedOFM.getObject());
-```
-
-### Deprecation
-'isAccessible()' is deprecated
-in `src/main/java/com/palantir/ptoss/util/Mutator.java`
-#### Snippet
-```java
-            throw new IllegalStateException("can not call set() with no setter.");
-        }
-        boolean accessible = setter.getMethod().isAccessible();
-        setter.getMethod().setAccessible(true);
-        setter.getMethod().invoke(model, value);
-```
-
-### Deprecation
-'isAccessible()' is deprecated
-in `src/main/java/com/palantir/ptoss/util/Mutator.java`
-#### Snippet
-```java
-            throw new IllegalStateException("can not call get() with no getter.");
-        }
-        boolean accessible = getter.getMethod().isAccessible();
-        getter.getMethod().setAccessible(true);
-        Object value = getter.getMethod().invoke(model);
-```
-
-### Deprecation
-'isAccessible()' is deprecated
-in `src/main/java/com/palantir/ptoss/cinch/swing/Action.java`
-#### Snippet
-```java
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        boolean accessible = ofm.getMethod().isAccessible();
-                        ofm.getMethod().setAccessible(true);
-                        ofm.getMethod().invoke(ofm.getObject());
-```
-
-### Deprecation
-'isAccessible()' is deprecated
-in `src/main/java/com/palantir/ptoss/util/Reflections.java`
-#### Snippet
-```java
-    public static <T> T getFieldObject(Object object, Field field, Class<T> klass) {
-        try {
-            boolean accessible = field.isAccessible();
-            field.setAccessible(true);
-            Object fieldObject = field.get(object);
-```
-
-### Deprecation
-'getSelectedValues()' is deprecated
-in `src/main/java/com/palantir/ptoss/cinch/swing/BoundSelection.java`
-#### Snippet
-```java
-                        try {
-                            if (multi) {
-                                mutator.set(ImmutableList.copyOf(list.getSelectedValues()));
-                            } else {
-                                mutator.set(list.getSelectedValue());
-```
-
-### Deprecation
-'getSelectedValues()' is deprecated
-in `src/main/java/com/palantir/ptoss/cinch/swing/BoundSelection.java`
-#### Snippet
-```java
-                    try {
-                        if (multi) {
-                            Object[] selVals = list.getSelectedValues();
-                            ImmutableList<Object> listCurrent = ImmutableList.copyOf(selVals);
-                            Collection<?> current = (Collection<?>)mutator.get();
-```
-
-### Deprecation
-'isAccessible()' is deprecated
-in `src/main/java/com/palantir/ptoss/cinch/core/BindingContext.java`
-#### Snippet
-```java
-        Map<String, Object> map = Maps.newHashMap();
-        for (Field field : object.getClass().getDeclaredFields()) {
-            boolean accessible = field.isAccessible();
-            field.setAccessible(true);
-            if (Reflections.isFieldFinal(field) && Reflections.isFieldStatic(field)) {
 ```
 
 ## RuleId[id=SuspiciousMethodCalls]
