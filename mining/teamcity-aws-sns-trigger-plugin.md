@@ -105,18 +105,6 @@ in `amazon-sns-trigger-server/src/main/resources/META-INF/build-server-plugin-aw
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
 Unchecked cast: 'java.lang.Object' to 'java.util.Map'
-in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/utils/AwsSnsMessageDetailsHelper.java`
-#### Snippet
-```java
-    Instant timestamp = Instant.parse((String) payload.get(AwsSnsTriggerConstants.NOTIFICATION_TIMESTAMP_KEY));
-    String unsubscribeUrl = (String) payload.get(AwsSnsTriggerConstants.UNSUBSCRIBE_URL_KEY);
-    Map<String, Object> attributes = (Map<String, Object>) payload.get(AwsSnsTriggerConstants.NOTIFICATION_ATTRIBUTES_KEY);
-
-    return new SnsNotificationDto(
-```
-
-### UNCHECKED_WARNING
-Unchecked cast: 'java.lang.Object' to 'java.util.Map'
 in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/service/SnsBuildTriggeringPolicy.java`
 #### Snippet
 ```java
@@ -125,6 +113,18 @@ in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/
         String stringValue = (String) ((Map<String, Object>) value).get("Value");
         result.put(AwsSnsTriggerConstants.SNS_MESSAGE_ATTRIBUTES_PARAMETER_PLACEHOLDER + key, stringValue);
       });
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'java.lang.Object' to 'java.util.Map'
+in `amazon-sns-trigger-server/src/main/java/jetbrains/buildServer/clouds/amazon/sns/trigger/utils/AwsSnsMessageDetailsHelper.java`
+#### Snippet
+```java
+    Instant timestamp = Instant.parse((String) payload.get(AwsSnsTriggerConstants.NOTIFICATION_TIMESTAMP_KEY));
+    String unsubscribeUrl = (String) payload.get(AwsSnsTriggerConstants.UNSUBSCRIBE_URL_KEY);
+    Map<String, Object> attributes = (Map<String, Object>) payload.get(AwsSnsTriggerConstants.NOTIFICATION_ATTRIBUTES_KEY);
+
+    return new SnsNotificationDto(
 ```
 
 ## RuleId[id=DataFlowIssue]
