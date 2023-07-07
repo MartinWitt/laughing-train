@@ -45,18 +45,6 @@ in `src/main/java/com/uber/jenkins/phabricator/tasks/ApplyPatchTask.java`
 ## RuleId[id=WrapperTypeMayBePrimitive]
 ### WrapperTypeMayBePrimitive
 Type may be primitive
-in `src/main/java/com/uber/jenkins/phabricator/CommentBuilder.java`
-#### Snippet
-```java
-        }
-
-        Float lineCoveragePercent = currentCoverage.getLineCoveragePercent();
-
-        logger.info(UBERALLS_TAG, "line coverage: " + lineCoveragePercent);
-```
-
-### WrapperTypeMayBePrimitive
-Type may be primitive
 in `src/main/java/com/uber/jenkins/phabricator/conduit/ConduitAPIClient.java`
 #### Snippet
 ```java
@@ -65,6 +53,18 @@ in `src/main/java/com/uber/jenkins/phabricator/conduit/ConduitAPIClient.java`
         Integer responseCode = response.getStatusLine().getStatusCode();
         if (responseCode != HttpStatus.SC_OK) {
             throw new ConduitAPIException(IOUtils.toString(responseBody, Charset.defaultCharset()), responseCode);
+```
+
+### WrapperTypeMayBePrimitive
+Type may be primitive
+in `src/main/java/com/uber/jenkins/phabricator/CommentBuilder.java`
+#### Snippet
+```java
+        }
+
+        Float lineCoveragePercent = currentCoverage.getLineCoveragePercent();
+
+        logger.info(UBERALLS_TAG, "line coverage: " + lineCoveragePercent);
 ```
 
 ## RuleId[id=PointlessArithmeticExpression]
@@ -207,15 +207,87 @@ in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsNam
 ```
 
 ### Deprecation
-'edu.umd.cs.findbugs.annotations.Nullable' is deprecated
-in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
+'getInstance()' is deprecated
+in `src/main/java/com/uber/jenkins/phabricator/provider/InstanceProvider.java`
 #### Snippet
 ```java
-    }
 
-    @Nullable
-    public String getGateway() {
-        return !CommonUtils.isBlank(gateway) ? gateway : getUrl();
+    public static UnitTestProvider getUnitTestProvider(Logger logger) {
+        return new InstanceProvider<UnitTestProvider>(Jenkins.getInstance(),
+                JUNIT_PLUGIN_NAME, logger) {
+            @Override
+```
+
+### Deprecation
+'StringEntity(java.lang.String, java.lang.String, java.lang.String)' is deprecated
+in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
+#### Snippet
+```java
+                HttpPost request = new HttpPost(getBuilder().build().toString());
+                request.addHeader("Content-Type", "application/json");
+                StringEntity requestEntity = new StringEntity(
+                        params.toString(),
+                        ContentType.APPLICATION_JSON.toString(),
+```
+
+### Deprecation
+'withEmptySelection()' is deprecated
+in `src/main/java/com/uber/jenkins/phabricator/ConduitCredentialsDescriptor.java`
+#### Snippet
+```java
+        List<DomainRequirement> domainRequirements = new ArrayList<DomainRequirement>();
+        return new StandardListBoxModel()
+                .withEmptySelection()
+                .withMatching(
+                        CredentialsMatchers.anyOf(
+```
+
+### Deprecation
+'withMatching(com.cloudbees.plugins.credentials.CredentialsMatcher, java.lang.Iterable)' is deprecated
+in `src/main/java/com/uber/jenkins/phabricator/ConduitCredentialsDescriptor.java`
+#### Snippet
+```java
+        return new StandardListBoxModel()
+                .withEmptySelection()
+                .withMatching(
+                        CredentialsMatchers.anyOf(
+                                CredentialsMatchers.instanceOf(ConduitCredentials.class)),
+```
+
+### Deprecation
+'SYSTEM' is deprecated
+in `src/main/java/com/uber/jenkins/phabricator/ConduitCredentialsDescriptor.java`
+#### Snippet
+```java
+                                StandardCredentials.class,
+                                context,
+                                ACL.SYSTEM,
+                                domainRequirements));
+    }
+```
+
+### Deprecation
+'Plugin()' is deprecated
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPlugin.java`
+#### Snippet
+```java
+import jenkins.model.Jenkins;
+
+public class PhabricatorPlugin extends Plugin {
+
+    // Diff ID (not differential ID)
+```
+
+### Deprecation
+'getInstance()' is deprecated
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPlugin.java`
+#### Snippet
+```java
+
+        // Try plugin images dir, fallback to Hudson images dir
+        PluginWrapper wrapper = Jenkins.getInstance().getPluginManager().getPlugin(PhabricatorPlugin.class);
+
+        boolean pluginIconExists =
 ```
 
 ### Deprecation
@@ -226,8 +298,32 @@ in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImp
     }
 
     @NonNull
-    public String getUrl() {
-        return url;
+    public Secret getToken() {
+        return token;
+```
+
+### Deprecation
+'edu.umd.cs.findbugs.annotations.NonNull' is deprecated
+in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
+#### Snippet
+```java
+    private final String gateway;
+
+    @NonNull
+    private final String url;
+
+```
+
+### Deprecation
+'edu.umd.cs.findbugs.annotations.Nullable' is deprecated
+in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
+#### Snippet
+```java
+    }
+
+    @Nullable
+    public String getGateway() {
+        return !CommonUtils.isBlank(gateway) ? gateway : getUrl();
 ```
 
 ### Deprecation
@@ -307,23 +403,11 @@ in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImp
 in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
 #### Snippet
 ```java
-    private final String gateway;
+public class ConduitCredentialsImpl extends BaseStandardCredentials implements ConduitCredentials {
 
     @NonNull
-    private final String url;
+    private final Secret token;
 
-```
-
-### Deprecation
-'edu.umd.cs.findbugs.annotations.NonNull' is deprecated
-in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
-#### Snippet
-```java
-    }
-
-    @NonNull
-    public Secret getToken() {
-        return token;
 ```
 
 ### Deprecation
@@ -343,107 +427,11 @@ in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImp
 in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
 #### Snippet
 ```java
-public class ConduitCredentialsImpl extends BaseStandardCredentials implements ConduitCredentials {
+    }
 
     @NonNull
-    private final Secret token;
-
-```
-
-### Deprecation
-'StringEntity(java.lang.String, java.lang.String, java.lang.String)' is deprecated
-in `src/main/java/com/uber/jenkins/phabricator/uberalls/UberallsClient.java`
-#### Snippet
-```java
-                HttpPost request = new HttpPost(getBuilder().build().toString());
-                request.addHeader("Content-Type", "application/json");
-                StringEntity requestEntity = new StringEntity(
-                        params.toString(),
-                        ContentType.APPLICATION_JSON.toString(),
-```
-
-### Deprecation
-'Plugin()' is deprecated
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPlugin.java`
-#### Snippet
-```java
-import jenkins.model.Jenkins;
-
-public class PhabricatorPlugin extends Plugin {
-
-    // Diff ID (not differential ID)
-```
-
-### Deprecation
-'getInstance()' is deprecated
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPlugin.java`
-#### Snippet
-```java
-
-        // Try plugin images dir, fallback to Hudson images dir
-        PluginWrapper wrapper = Jenkins.getInstance().getPluginManager().getPlugin(PhabricatorPlugin.class);
-
-        boolean pluginIconExists =
-```
-
-### Deprecation
-'getInstance()' is deprecated
-in `src/main/java/com/uber/jenkins/phabricator/provider/InstanceProvider.java`
-#### Snippet
-```java
-
-    public static UnitTestProvider getUnitTestProvider(Logger logger) {
-        return new InstanceProvider<UnitTestProvider>(Jenkins.getInstance(),
-                JUNIT_PLUGIN_NAME, logger) {
-            @Override
-```
-
-### Deprecation
-'withEmptySelection()' is deprecated
-in `src/main/java/com/uber/jenkins/phabricator/ConduitCredentialsDescriptor.java`
-#### Snippet
-```java
-        List<DomainRequirement> domainRequirements = new ArrayList<DomainRequirement>();
-        return new StandardListBoxModel()
-                .withEmptySelection()
-                .withMatching(
-                        CredentialsMatchers.anyOf(
-```
-
-### Deprecation
-'withMatching(com.cloudbees.plugins.credentials.CredentialsMatcher, java.lang.Iterable)' is deprecated
-in `src/main/java/com/uber/jenkins/phabricator/ConduitCredentialsDescriptor.java`
-#### Snippet
-```java
-        return new StandardListBoxModel()
-                .withEmptySelection()
-                .withMatching(
-                        CredentialsMatchers.anyOf(
-                                CredentialsMatchers.instanceOf(ConduitCredentials.class)),
-```
-
-### Deprecation
-'SYSTEM' is deprecated
-in `src/main/java/com/uber/jenkins/phabricator/ConduitCredentialsDescriptor.java`
-#### Snippet
-```java
-                                StandardCredentials.class,
-                                context,
-                                ACL.SYSTEM,
-                                domainRequirements));
-    }
-```
-
-### Deprecation
-Overrides deprecated method in 'jenkins.tasks.SimpleBuildStep'
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
-#### Snippet
-```java
-
-    @Override
-    public final void perform(
-            final Run<?, ?> build, FilePath workspace, final Launcher launcher,
-            final TaskListener listener) throws InterruptedException, IOException {
+    public String getUrl() {
+        return url;
 ```
 
 ### Deprecation
@@ -468,6 +456,18 @@ in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
         if (coverageProvider == null && Jenkins.getInstance().getPlugin("jacoco") != null) {
             JacocoBuildAction jacocoBuildAction = build.getAction(JacocoBuildAction.class);
             if (jacocoBuildAction != null) {
+```
+
+### Deprecation
+Overrides deprecated method in 'jenkins.tasks.SimpleBuildStep'
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifier.java`
+#### Snippet
+```java
+
+    @Override
+    public final void perform(
+            final Run<?, ?> build, FilePath workspace, final Launcher launcher,
+            final TaskListener listener) throws InterruptedException, IOException {
 ```
 
 ## RuleId[id=StringBufferReplaceableByString]
@@ -509,18 +509,6 @@ in `src/main/java/com/uber/jenkins/phabricator/PhabricatorNotifierDescriptor.jav
 ```
 
 ### NullableProblems
-Cannot annotate with both @NonNull and @CheckForNull
-in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
-#### Snippet
-```java
-    public ConduitCredentialsImpl(
-            @CheckForNull String id,
-            @NonNull @CheckForNull String url,
-            @Nullable String gateway,
-            @CheckForNull String description,
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@edu.umd.cs.findbugs.annotations.NonNull'
 in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
 #### Snippet
@@ -529,18 +517,6 @@ in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImp
 
     @NonNull
     private final String url;
-
-```
-
-### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@edu.umd.cs.findbugs.annotations.Nullable'
-in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
-#### Snippet
-```java
-    private final Secret token;
-
-    @Nullable
-    private final String gateway;
 
 ```
 
@@ -557,6 +533,18 @@ in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImp
 ```
 
 ### NullableProblems
+Cannot annotate with both @NonNull and @CheckForNull
+in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
+#### Snippet
+```java
+    public ConduitCredentialsImpl(
+            @CheckForNull String id,
+            @NonNull @CheckForNull String url,
+            @Nullable String gateway,
+            @CheckForNull String description,
+```
+
+### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@edu.umd.cs.findbugs.annotations.NonNull'
 in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
 #### Snippet
@@ -565,6 +553,18 @@ public class ConduitCredentialsImpl extends BaseStandardCredentials implements C
 
     @NonNull
     private final Secret token;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@edu.umd.cs.findbugs.annotations.Nullable'
+in `src/main/java/com/uber/jenkins/phabricator/credentials/ConduitCredentialsImpl.java`
+#### Snippet
+```java
+    private final Secret token;
+
+    @Nullable
+    private final String gateway;
 
 ```
 
@@ -659,30 +659,6 @@ Field can be converted to a local variable
 in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
 #### Snippet
 ```java
-    private final String text;
-    private final String color = "#1FBAD6";
-    private final String background = "transparent";
-    private final String border = "0";
-    private final String borderColor = "transparent";
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
-#### Snippet
-```java
-    private final String color = "#1FBAD6";
-    private final String background = "transparent";
-    private final String border = "0";
-    private final String borderColor = "transparent";
-    private final String link;
-```
-
-### FieldCanBeLocal
-Field can be converted to a local variable
-in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
-#### Snippet
-```java
     private final String iconPath;
     private final String text;
     private final String color = "#1FBAD6";
@@ -700,6 +676,30 @@ in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
     private final String borderColor = "transparent";
     private final String link;
 
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
+#### Snippet
+```java
+    private final String text;
+    private final String color = "#1FBAD6";
+    private final String background = "transparent";
+    private final String border = "0";
+    private final String borderColor = "transparent";
+```
+
+### FieldCanBeLocal
+Field can be converted to a local variable
+in `src/main/java/com/uber/jenkins/phabricator/PhabricatorPostbuildAction.java`
+#### Snippet
+```java
+    private final String color = "#1FBAD6";
+    private final String background = "transparent";
+    private final String border = "0";
+    private final String borderColor = "transparent";
+    private final String link;
 ```
 
 ### FieldCanBeLocal
@@ -768,6 +768,18 @@ in `src/main/java/com/uber/jenkins/phabricator/conduit/ConduitAPIClient.java`
 
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/jenkins/phabricator/BuildResultProcessor.java`
+#### Snippet
+```java
+     *
+     * @param uberalls the client to the Uberalls instance
+     * @return
+     */
+    public boolean processParentCoverage(UberallsClient uberalls) {
+```
+
+### JavadocDeclaration
 `@param lintResults` tag description is missing
 in `src/main/java/com/uber/jenkins/phabricator/conduit/HarbormasterClient.java`
 #### Snippet
@@ -777,54 +789,6 @@ in `src/main/java/com/uber/jenkins/phabricator/conduit/HarbormasterClient.java`
      * @param lintResults
      * @return the Conduit API response
      * @throws IOException if there is a network error talking to Conduit
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/jenkins/phabricator/CommentBuilder.java`
-#### Snippet
-```java
-     * Determine if there exists a comment already
-     *
-     * @return
-     */
-    boolean hasComment() {
-```
-
-### JavadocDeclaration
-`@param baseCommit` tag description is missing
-in `src/main/java/com/uber/jenkins/phabricator/CommentBuilder.java`
-#### Snippet
-```java
-     *
-     * @param parentCoverage the parent coverage returned from uberalls
-     * @param baseCommit
-     * @param branchName the name of the current branch
-     * @return boolean if we fail coverage reporting from threshold
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/jenkins/phabricator/CommentBuilder.java`
-#### Snippet
-```java
-     * Determine whether to attempt to process coverage
-     *
-     * @return
-     */
-    boolean hasCoverageAvailable() {
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `src/main/java/com/uber/jenkins/phabricator/CommentBuilder.java`
-#### Snippet
-```java
-     * Get the final comment to post to Phabricator
-     *
-     * @return
-     */
-    String getComment() {
 ```
 
 ### JavadocDeclaration
@@ -853,14 +817,50 @@ in `src/main/java/com/uber/jenkins/phabricator/conduit/DifferentialClient.java`
 
 ### JavadocDeclaration
 `@return` tag description is missing
-in `src/main/java/com/uber/jenkins/phabricator/BuildResultProcessor.java`
+in `src/main/java/com/uber/jenkins/phabricator/CommentBuilder.java`
+#### Snippet
+```java
+     * Determine if there exists a comment already
+     *
+     * @return
+     */
+    boolean hasComment() {
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/jenkins/phabricator/CommentBuilder.java`
+#### Snippet
+```java
+     * Get the final comment to post to Phabricator
+     *
+     * @return
+     */
+    String getComment() {
+```
+
+### JavadocDeclaration
+`@param baseCommit` tag description is missing
+in `src/main/java/com/uber/jenkins/phabricator/CommentBuilder.java`
 #### Snippet
 ```java
      *
-     * @param uberalls the client to the Uberalls instance
+     * @param parentCoverage the parent coverage returned from uberalls
+     * @param baseCommit
+     * @param branchName the name of the current branch
+     * @return boolean if we fail coverage reporting from threshold
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `src/main/java/com/uber/jenkins/phabricator/CommentBuilder.java`
+#### Snippet
+```java
+     * Determine whether to attempt to process coverage
+     *
      * @return
      */
-    public boolean processParentCoverage(UberallsClient uberalls) {
+    boolean hasCoverageAvailable() {
 ```
 
 ### JavadocDeclaration
