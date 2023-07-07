@@ -60,18 +60,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/GpgSigningKey.java`
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishCustomPlugin.java`
-#### Snippet
-```java
-public final class ExternalPublishCustomPlugin implements Plugin<Project> {
-    @Override
-    public void apply(Project project) {
-        ExternalPublishBasePlugin basePlugin = ExternalPublishBasePlugin.applyTo(project);
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.java`
 #### Snippet
 ```java
@@ -84,6 +72,18 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishDistPlugin.
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishCustomPlugin.java`
+#### Snippet
+```java
+public final class ExternalPublishCustomPlugin implements Plugin<Project> {
+    @Override
+    public void apply(Project project) {
+        ExternalPublishBasePlugin basePlugin = ExternalPublishBasePlugin.applyTo(project);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
 in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.java`
 #### Snippet
 ```java
@@ -91,18 +91,6 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishJarPlugin.j
     @Override
     public final void apply(Project project) {
         configureJars(project);
-
-```
-
-### NullableProblems
-Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
-#### Snippet
-```java
-
-    @Override
-    public final void apply(Project rootProjectVal) {
-        this.rootProject = rootProjectVal;
 
 ```
 
@@ -132,13 +120,13 @@ in `src/main/java/com/palantir/gradle/externalpublish/CircleCiContextDeadlineAvo
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishRootPlugin.java`
 #### Snippet
 ```java
 
     @Override
-    public void apply(Project projectVal) {
-        this.project = projectVal;
+    public final void apply(Project rootProjectVal) {
+        this.rootProject = rootProjectVal;
 
 ```
 
@@ -163,6 +151,18 @@ in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishApplication
     @Override
     public final void apply(Project project) {
         configureApplicationDist(project);
+
+```
+
+### NullableProblems
+Not annotated parameter overrides @NonNullApi parameter
+in `src/main/java/com/palantir/gradle/externalpublish/ExternalPublishBasePlugin.java`
+#### Snippet
+```java
+
+    @Override
+    public void apply(Project projectVal) {
+        this.project = projectVal;
 
 ```
 
