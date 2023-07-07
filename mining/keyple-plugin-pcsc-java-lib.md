@@ -51,18 +51,6 @@ Result of `Assert.notEmpty()` is ignored
 in `src/main/java/org/eclipse/keyple/plugin/pcsc/PcscPluginFactoryBuilder.java`
 #### Snippet
 ```java
-    public Builder updateProtocolIdentificationRule(
-        String readerProtocolName, String protocolRule) {
-      Assert.getInstance().notEmpty(readerProtocolName, "readerProtocolName");
-      if (protocolRule == null) {
-        // disable the protocol by defining a regex that always fails.
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notEmpty()` is ignored
-in `src/main/java/org/eclipse/keyple/plugin/pcsc/PcscPluginFactoryBuilder.java`
-#### Snippet
-```java
         String contactlessReaderIdentificationFilter) {
       Assert.getInstance()
           .notEmpty(contactlessReaderIdentificationFilter, "contactlessReaderIdentificationFilter");
@@ -71,27 +59,15 @@ in `src/main/java/org/eclipse/keyple/plugin/pcsc/PcscPluginFactoryBuilder.java`
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/plugin/pcsc/AbstractPcscReaderAdapter.java`
+Result of `Assert.notEmpty()` is ignored
+in `src/main/java/org/eclipse/keyple/plugin/pcsc/PcscPluginFactoryBuilder.java`
 #### Snippet
 ```java
-  @Override
-  public final PcscReader setIsoProtocol(IsoProtocol isoProtocol) {
-    Assert.getInstance().notNull(isoProtocol, "isoProtocol");
-    if (logger.isTraceEnabled()) {
-      logger.trace(
-```
-
-### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
-in `src/main/java/org/eclipse/keyple/plugin/pcsc/AbstractPcscReaderAdapter.java`
-#### Snippet
-```java
-  @Override
-  public final PcscReader setDisconnectionMode(DisconnectionMode disconnectionMode) {
-    Assert.getInstance().notNull(disconnectionMode, "disconnectionMode");
-    if (logger.isTraceEnabled()) {
-      logger.trace("{}: set disconnection to {}", getName(), disconnectionMode.name());
+    public Builder updateProtocolIdentificationRule(
+        String readerProtocolName, String protocolRule) {
+      Assert.getInstance().notEmpty(readerProtocolName, "readerProtocolName");
+      if (protocolRule == null) {
+        // disable the protocol by defining a regex that always fails.
 ```
 
 ### IgnoreResultOfCall
@@ -116,5 +92,29 @@ in `src/main/java/org/eclipse/keyple/plugin/pcsc/AbstractPcscReaderAdapter.java`
     Assert.getInstance().notNull(sharingMode, "sharingMode");
     if (logger.isTraceEnabled()) {
       logger.trace("{}: set sharing mode to {}", getName(), sharingMode.name());
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/plugin/pcsc/AbstractPcscReaderAdapter.java`
+#### Snippet
+```java
+  @Override
+  public final PcscReader setIsoProtocol(IsoProtocol isoProtocol) {
+    Assert.getInstance().notNull(isoProtocol, "isoProtocol");
+    if (logger.isTraceEnabled()) {
+      logger.trace(
+```
+
+### IgnoreResultOfCall
+Result of `Assert.notNull()` is ignored
+in `src/main/java/org/eclipse/keyple/plugin/pcsc/AbstractPcscReaderAdapter.java`
+#### Snippet
+```java
+  @Override
+  public final PcscReader setDisconnectionMode(DisconnectionMode disconnectionMode) {
+    Assert.getInstance().notNull(disconnectionMode, "disconnectionMode");
+    if (logger.isTraceEnabled()) {
+      logger.trace("{}: set disconnection to {}", getName(), disconnectionMode.name());
 ```
 
