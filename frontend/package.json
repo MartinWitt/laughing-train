@@ -29,7 +29,7 @@
     "react-scripts": "5.0.1",
     "react-syntax-highlighter": "15.5.0",
     "typescript": "4.9.5",
-    "typography": "0.16.21",
+    "typography": "0.16.24",
     "web-vitals": "3.3.2"
   },
   "scripts": {
