@@ -101,7 +101,7 @@ in `src/main/java/com/palantir/gradle/graal/GraalExtension.java`
 ## RuleId[id=NullableProblems]
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/graal/NativeImageTask.java`
+in `src/main/java/com/palantir/gradle/graal/SharedLibraryTask.java`
 #### Snippet
 ```java
     private final class LogAction implements Action<Task> {
@@ -113,7 +113,7 @@ in `src/main/java/com/palantir/gradle/graal/NativeImageTask.java`
 
 ### NullableProblems
 Not annotated parameter overrides @NonNullApi parameter
-in `src/main/java/com/palantir/gradle/graal/SharedLibraryTask.java`
+in `src/main/java/com/palantir/gradle/graal/NativeImageTask.java`
 #### Snippet
 ```java
     private final class LogAction implements Action<Task> {
