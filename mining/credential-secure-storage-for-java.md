@@ -59,18 +59,6 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/G
 ```
 
 ### DataFlowIssue
-Method invocation `gnome_keyring_find_password_sync` may produce `NullPointerException`
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedSecureStore.java`
-#### Snippet
-```java
-        try {
-            GnomeKeyringLibrary.PointerToPointer pPassword = new GnomeKeyringLibrary.PointerToPointer();
-            INSTANCE.gnome_keyring_find_password_sync(
-                    SCHEMA,
-                    pPassword,
-```
-
-### DataFlowIssue
 Method invocation `gnome_keyring_info_get_is_locked` may produce `NullPointerException`
 in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedSecureStore.java`
 #### Snippet
@@ -83,6 +71,18 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/G
 ```
 
 ### DataFlowIssue
+Method invocation `gnome_keyring_find_password_sync` may produce `NullPointerException`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedSecureStore.java`
+#### Snippet
+```java
+        try {
+            GnomeKeyringLibrary.PointerToPointer pPassword = new GnomeKeyringLibrary.PointerToPointer();
+            INSTANCE.gnome_keyring_find_password_sync(
+                    SCHEMA,
+                    pPassword,
+```
+
+### DataFlowIssue
 Method invocation `gnome_keyring_get_info_sync` may produce `NullPointerException`
 in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringBackedSecureStore.java`
 #### Snippet
@@ -92,18 +92,6 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/G
         final int ret  = INSTANCE.gnome_keyring_get_info_sync(
                 GnomeKeyringLibrary.GNOME_KEYRING_DEFAULT, keyring_info_container);
 
-```
-
-### DataFlowIssue
-Method invocation `secret_service_get_sync` may produce `NullPointerException`
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
-#### Snippet
-```java
-        Pointer secretService = null;
-        try {
-            secretService = INSTANCE.secret_service_get_sync(LibSecretLibrary.SECRET_SERVICE_NONE, null, error);
-
-            if (secretService != null && checkResult(error, "Cannot get service")) {
 ```
 
 ### DataFlowIssue
@@ -130,6 +118,18 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret
                     null,
 ```
 
+### DataFlowIssue
+Method invocation `secret_service_get_sync` may produce `NullPointerException`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretBackedSecureStore.java`
+#### Snippet
+```java
+        Pointer secretService = null;
+        try {
+            secretService = INSTANCE.secret_service_get_sync(LibSecretLibrary.SECRET_SERVICE_NONE, null, error);
+
+            if (secretService != null && checkResult(error, "Cannot get service")) {
+```
+
 ## RuleId[id=StringOperationCanBeSimplified]
 ### StringOperationCanBeSimplified
 `toString()` call can be replaced with 'contentEquals()'
@@ -146,26 +146,14 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/macosx/Keychain
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredAdvapi32.java`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
 #### Snippet
 ```java
-     * associated with the logon session of the current token. The token must not have the user's SID disabled.
+     * Storing a secret, without paraphrasing, please read:
      *
-     * https://msdn.microsoft.com/en-us/library/windows/desktop/aa374787(v=vs.85).aspx
+     * https://www.manpagez.com/html/libsecret-1/libsecret-1-0.18.6/libsecret-Password-storage.php#secret_password_lookup_sync
      *
-     * @param targetName
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredAdvapi32.java`
-#### Snippet
-```java
-     * user's security identifier (SID) disabled.
-     *
-     * https://msdn.microsoft.com/en-us/library/windows/desktop/aa375187(v=vs.85).aspx
-     *
-     * @param credential
+     * @param schema
 ```
 
 ### JavadocLinkAsPlainText
@@ -197,23 +185,23 @@ Link specified as plain text
 in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredAdvapi32.java`
 #### Snippet
 ```java
-     * Credential attributes
+     * user's security identifier (SID) disabled.
      *
-     * https://msdn.microsoft.com/en-us/library/windows/desktop/aa374790(v=vs.85).aspx
+     * https://msdn.microsoft.com/en-us/library/windows/desktop/aa375187(v=vs.85).aspx
      *
-     * typedef struct _CREDENTIAL_ATTRIBUTE {
+     * @param credential
 ```
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredAdvapi32.java`
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
 #### Snippet
 ```java
-     * The token must not have the user's SID disabled.
+     * Item Attributes — Attributes of individual keyring items.
      *
-     * https://msdn.microsoft.com/en-us/library/windows/desktop/aa374804(v=vs.85).aspx
-     *
-     * @param targetName
+     * https://www.manpagez.com/html/libsecret-1/libsecret-1-0.18.6/libsecret-SecretSchema.php#SecretSchemaAttribute
+     */
+    class SecretSchemaAttribute extends Structure {
 ```
 
 ### JavadocLinkAsPlainText
@@ -233,71 +221,11 @@ Link specified as plain text
 in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
 #### Snippet
 ```java
-     * Schema for secret
-     *
-     * https://www.manpagez.com/html/libsecret-1/libsecret-1-0.18.6/libsecret-SecretSchema.php#SecretSchema
-     */
-    class SecretSchema extends Structure {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
-#### Snippet
-```java
      * Delete a stored secret, without paraphrasing, please read:
      *
      * https://www.manpagez.com/html/libsecret-1/libsecret-1-0.18.6/libsecret-Password-storage.php#secret-password-clear-sync
      *
      * @param schema
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
-#### Snippet
-```java
-     * A error object.
-     *
-     * https://www.manpagez.com/html/glib/glib-2.56.0/glib-Error-Reporting.php#GError
-     */
-    class GError extends Structure {
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
-#### Snippet
-```java
-     * Storing a secret, without paraphrasing, please read:
-     *
-     * https://www.manpagez.com/html/libsecret-1/libsecret-1-0.18.6/libsecret-Password-storage.php#secret_password_lookup_sync
-     *
-     * @param schema
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
-#### Snippet
-```java
-     * Search for items matching the attributes.
-     *
-     * http://www.manpagez.com/html/libsecret-1/libsecret-1-0.18.6/SecretService.php#secret-service-search-sync
-     *
-     * @param secret_service
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
-#### Snippet
-```java
-     * Item Attributes — Attributes of individual keyring items.
-     *
-     * https://www.manpagez.com/html/libsecret-1/libsecret-1-0.18.6/libsecret-SecretSchema.php#SecretSchemaAttribute
-     */
-    class SecretSchemaAttribute extends Structure {
 ```
 
 ### JavadocLinkAsPlainText
@@ -326,36 +254,84 @@ public interface LibSecretLibrary extends Library {
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
+#### Snippet
+```java
+     * Search for items matching the attributes.
+     *
+     * http://www.manpagez.com/html/libsecret-1/libsecret-1-0.18.6/SecretService.php#secret-service-search-sync
+     *
+     * @param secret_service
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
+#### Snippet
+```java
+     * A error object.
+     *
+     * https://www.manpagez.com/html/glib/glib-2.56.0/glib-Error-Reporting.php#GError
+     */
+    class GError extends Structure {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/libsecret/LibSecretLibrary.java`
+#### Snippet
+```java
+     * Schema for secret
+     *
+     * https://www.manpagez.com/html/libsecret-1/libsecret-1-0.18.6/libsecret-SecretSchema.php#SecretSchema
+     */
+    class SecretSchema extends Structure {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredAdvapi32.java`
+#### Snippet
+```java
+     * associated with the logon session of the current token. The token must not have the user's SID disabled.
+     *
+     * https://msdn.microsoft.com/en-us/library/windows/desktop/aa374787(v=vs.85).aspx
+     *
+     * @param targetName
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredAdvapi32.java`
+#### Snippet
+```java
+     * The token must not have the user's SID disabled.
+     *
+     * https://msdn.microsoft.com/en-us/library/windows/desktop/aa374804(v=vs.85).aspx
+     *
+     * @param targetName
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/microsoft/credentialstorage/implementation/windows/CredAdvapi32.java`
+#### Snippet
+```java
+     * Credential attributes
+     *
+     * https://msdn.microsoft.com/en-us/library/windows/desktop/aa374790(v=vs.85).aspx
+     *
+     * typedef struct _CREDENTIAL_ATTRIBUTE {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
 in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringLibrary.java`
 #### Snippet
 ```java
      * Delete a stored secret, without paraphrasing, please read:
      *
      * https://developer.gnome.org/gnome-keyring/stable/gnome-keyring-Simple-Password-Storage.html#gnome-keyring-delete-password-sync
-     *
-     * @param schema
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringLibrary.java`
-#### Snippet
-```java
-     * Retrieving a stored secret, without paraphrasing, please read:
-     *
-     * https://developer.gnome.org/gnome-keyring/stable/gnome-keyring-Simple-Password-Storage.html#gnome-keyring-find-password-sync
-     *
-     * @param schema
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringLibrary.java`
-#### Snippet
-```java
-     * Storing a secret, without paraphrasing, please read:
-     *
-     * https://developer.gnome.org/gnome-keyring/stable/gnome-keyring-Simple-Password-Storage.html#gnome-keyring-store-password-sync
      *
      * @param schema
 ```
@@ -389,11 +365,11 @@ Link specified as plain text
 in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringLibrary.java`
 #### Snippet
 ```java
-     * Free the in memory secret pointer, without paraphrasing, please read:
+     * Retrieving a stored secret, without paraphrasing, please read:
      *
-     * https://developer.gnome.org/gnome-keyring/stable/gnome-keyring-Simple-Password-Storage.html#gnome-keyring-free-password
+     * https://developer.gnome.org/gnome-keyring/stable/gnome-keyring-Simple-Password-Storage.html#gnome-keyring-find-password-sync
      *
-     * @param password
+     * @param schema
 ```
 
 ### JavadocLinkAsPlainText
@@ -406,5 +382,29 @@ in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/G
      * https://developer.gnome.org/gnome-keyring/stable/gnome-keyring-Item-Attributes.html
      */
     class GnomeKeyringPasswordSchemaAttribute extends Structure {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringLibrary.java`
+#### Snippet
+```java
+     * Free the in memory secret pointer, without paraphrasing, please read:
+     *
+     * https://developer.gnome.org/gnome-keyring/stable/gnome-keyring-Simple-Password-Storage.html#gnome-keyring-free-password
+     *
+     * @param password
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `src/main/java/com/microsoft/credentialstorage/implementation/posix/keyring/GnomeKeyringLibrary.java`
+#### Snippet
+```java
+     * Storing a secret, without paraphrasing, please read:
+     *
+     * https://developer.gnome.org/gnome-keyring/stable/gnome-keyring-Simple-Password-Storage.html#gnome-keyring-store-password-sync
+     *
+     * @param schema
 ```
 
