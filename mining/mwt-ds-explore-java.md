@@ -178,15 +178,15 @@ in `src/main/java/com/mwt/misc/Feature.java`
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `id` may be 'final'
-in `src/main/java/com/mwt/misc/Feature.java`
+Field `numActions` may be 'final'
+in `src/main/java/com/mwt/sample/MyScorer.java`
 #### Snippet
 ```java
-final public class Feature {
-  private float value;
-  private int id;
+ */
+class MyScorer implements Scorer<MyContext> {
+  private int numActions;
 
-  public Feature(int id, float value) {
+  public MyScorer(int numActions) {
 ```
 
 ### FieldMayBeFinal
@@ -202,15 +202,15 @@ final public class Feature {
 ```
 
 ### FieldMayBeFinal
-Field `numActions` may be 'final'
-in `src/main/java/com/mwt/sample/MyScorer.java`
+Field `id` may be 'final'
+in `src/main/java/com/mwt/misc/Feature.java`
 #### Snippet
 ```java
- */
-class MyScorer implements Scorer<MyContext> {
-  private int numActions;
+final public class Feature {
+  private float value;
+  private int id;
 
-  public MyScorer(int numActions) {
+  public Feature(int id, float value) {
 ```
 
 ### FieldMayBeFinal
@@ -226,18 +226,6 @@ class MyPolicy implements Policy<MyContext> {
 ```
 
 ### FieldMayBeFinal
-Field `numActions` may be 'final'
-in `src/main/java/com/mwt/explorers/TauFirstExplorer.java`
-#### Snippet
-```java
-  private int tau;
-  private boolean explore = true;
-  private int numActions;
-
-  /**
-```
-
-### FieldMayBeFinal
 Field `interactions` may be 'final'
 in `src/main/java/com/mwt/sample/MyRecorder.java`
 #### Snippet
@@ -247,42 +235,6 @@ class MyRecorder implements Recorder<MyContext> {
   private List<Interaction<MyContext>> interactions = new ArrayList<Interaction<MyContext>>();
   public void record(MyContext context, int action, float probability, String uniqueKey) {
     interactions.add(new Interaction<MyContext>(context, action, probability, uniqueKey));
-```
-
-### FieldMayBeFinal
-Field `record` may be 'final'
-in `src/main/java/com/mwt/misc/DecisionTuple.java`
-#### Snippet
-```java
-  private int action;
-  private float probability;
-  private boolean record;
-
-  public DecisionTuple(int action, float probability, boolean record) {
-```
-
-### FieldMayBeFinal
-Field `probability` may be 'final'
-in `src/main/java/com/mwt/misc/DecisionTuple.java`
-#### Snippet
-```java
-public class DecisionTuple {
-  private int action;
-  private float probability;
-  private boolean record;
-
-```
-
-### FieldMayBeFinal
-Field `action` may be 'final'
-in `src/main/java/com/mwt/misc/DecisionTuple.java`
-#### Snippet
-```java
- */
-public class DecisionTuple {
-  private int action;
-  private float probability;
-  private boolean record;
 ```
 
 ### FieldMayBeFinal
@@ -299,14 +251,50 @@ public class SimpleContext {
 
 ### FieldMayBeFinal
 Field `numActions` may be 'final'
-in `src/main/java/com/mwt/explorers/EpsilonGreedyExplorer.java`
+in `src/main/java/com/mwt/explorers/TauFirstExplorer.java`
 #### Snippet
 ```java
-  private final float epsilon;
+  private int tau;
   private boolean explore = true;
   private int numActions;
 
   /**
+```
+
+### FieldMayBeFinal
+Field `record` may be 'final'
+in `src/main/java/com/mwt/misc/DecisionTuple.java`
+#### Snippet
+```java
+  private int action;
+  private float probability;
+  private boolean record;
+
+  public DecisionTuple(int action, float probability, boolean record) {
+```
+
+### FieldMayBeFinal
+Field `action` may be 'final'
+in `src/main/java/com/mwt/misc/DecisionTuple.java`
+#### Snippet
+```java
+ */
+public class DecisionTuple {
+  private int action;
+  private float probability;
+  private boolean record;
+```
+
+### FieldMayBeFinal
+Field `probability` may be 'final'
+in `src/main/java/com/mwt/misc/DecisionTuple.java`
+#### Snippet
+```java
+public class DecisionTuple {
+  private int action;
+  private float probability;
+  private boolean record;
+
 ```
 
 ### FieldMayBeFinal
@@ -329,6 +317,18 @@ in `src/main/java/com/mwt/explorers/MwtExplorer.java`
 public class MwtExplorer<T> {
   private long appId;
   private Recorder<T> recorder;
+
+  /**
+```
+
+### FieldMayBeFinal
+Field `numActions` may be 'final'
+in `src/main/java/com/mwt/explorers/EpsilonGreedyExplorer.java`
+#### Snippet
+```java
+  private final float epsilon;
+  private boolean explore = true;
+  private int numActions;
 
   /**
 ```
