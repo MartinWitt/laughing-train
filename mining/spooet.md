@@ -254,18 +254,6 @@ import spoon.reflect.visitor.PrettyPrinter;
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
-Field `contexts` may be 'final'
-in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
-#### Snippet
-```java
-public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, PrettyPrinter {
-
-	private Stack<Context> contexts = new Stack<>();
-
-	Environment env;
-```
-
-### FieldMayBeFinal
 Field `builder` may be 'final'
 in `src/main/java/spoon/reflect/visitor/internal/TypeContext.java`
 #### Snippet
@@ -275,6 +263,18 @@ public class TypeContext extends AbstractContext {
 	private TypeSpec.Builder builder;
 
 	public TypeContext(TypeSpec.Builder builder) {
+```
+
+### FieldMayBeFinal
+Field `contexts` may be 'final'
+in `src/main/java/spoon/reflect/visitor/JavaPoetPrettyPrinter.java`
+#### Snippet
+```java
+public class JavaPoetPrettyPrinter extends CtScanner implements CtVisitor, PrettyPrinter {
+
+	private Stack<Context> contexts = new Stack<>();
+
+	Environment env;
 ```
 
 ## RuleId[id=ConstantValue]
