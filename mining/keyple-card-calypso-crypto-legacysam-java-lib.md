@@ -11,18 +11,6 @@ I found 22 bad smells with 0 repairable:
 | ReplaceCallWithBinaryOperator | 1 | false |
 ## RuleId[id=UNCHECKED_WARNING]
 ### UNCHECKED_WARNING
-Unchecked cast: 'org.eclipse.keyple.card.calypso.crypto.legacysam.DtoAdapters.CommonSignatureComputationDataAdapter' to 'T'
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/DtoAdapters.java`
-#### Snippet
-```java
-      implements CommonSignatureComputationData<T> {
-
-    private final T currentInstance = (T) this;
-    private byte[] data;
-    private byte kif;
-```
-
-### UNCHECKED_WARNING
 Unchecked cast: 'org.eclipse.keyple.card.calypso.crypto.legacysam.DtoAdapters.CommonSignatureVerificationDataAdapter' to 'T'
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/DtoAdapters.java`
 #### Snippet
@@ -32,6 +20,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/DtoAdapters.j
     private final T currentInstance = (T) this;
     private byte[] data;
     private byte[] signature;
+```
+
+### UNCHECKED_WARNING
+Unchecked cast: 'org.eclipse.keyple.card.calypso.crypto.legacysam.DtoAdapters.CommonSignatureComputationDataAdapter' to 'T'
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/DtoAdapters.java`
+#### Snippet
+```java
+      implements CommonSignatureComputationData<T> {
+
+    private final T currentInstance = (T) this;
+    private byte[] data;
+    private byte kif;
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -127,11 +127,11 @@ Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSTransactionManagerFactoryAdapter.java`
 #### Snippet
 ```java
-    Assert.getInstance()
-        .notNull(targetSamContext, "targetSamContext")
-        .notNull(securitySetting, "securitySetting");
-    return new LSAsyncTransactionCreatorManagerAdapter(targetSamContext, securitySetting);
-  }
+          "The provided 'sam' must be an instance of 'LegacySamAdapter'");
+    }
+    Assert.getInstance().notNull(samCommands, "samCommands");
+    return new LSAsyncTransactionExecutorManagerAdapter(
+        (ProxyReaderApi) samReader, (LegacySamAdapter) sam, samCommands);
 ```
 
 ### IgnoreResultOfCall
@@ -139,11 +139,11 @@ Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSTransactionManagerFactoryAdapter.java`
 #### Snippet
 ```java
-          "The provided 'sam' must be an instance of 'LegacySamAdapter'");
-    }
-    Assert.getInstance().notNull(samCommands, "samCommands");
-    return new LSAsyncTransactionExecutorManagerAdapter(
-        (ProxyReaderApi) samReader, (LegacySamAdapter) sam, samCommands);
+    Assert.getInstance()
+        .notNull(targetSamContext, "targetSamContext")
+        .notNull(securitySetting, "securitySetting");
+    return new LSAsyncTransactionCreatorManagerAdapter(targetSamContext, securitySetting);
+  }
 ```
 
 ### IgnoreResultOfCall
@@ -171,15 +171,15 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/KeyParameterA
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.notNull()` is ignored
+Result of `Assert.isHexString()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamSelectionAdapter.java`
 #### Snippet
 ```java
-  public LegacySamSelection filterByProductType(LegacySam.ProductType productType) {
-
-    Assert.getInstance().notNull(productType, "productType");
-
-    this.productType = productType;
+            unlockData.length() == 16 || unlockData.length() == 32,
+            "unlock data length == 16 or 32")
+        .isHexString(unlockData, "unlockData");
+    unlockCommand = new CommandUnlock(productType, HexUtil.toByteArray(unlockData));
+    return this;
 ```
 
 ### IgnoreResultOfCall
@@ -195,15 +195,15 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamSele
 ```
 
 ### IgnoreResultOfCall
-Result of `Assert.isHexString()` is ignored
+Result of `Assert.notNull()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LegacySamSelectionAdapter.java`
 #### Snippet
 ```java
-            unlockData.length() == 16 || unlockData.length() == 32,
-            "unlock data length == 16 or 32")
-        .isHexString(unlockData, "unlockData");
-    unlockCommand = new CommandUnlock(productType, HexUtil.toByteArray(unlockData));
-    return this;
+  public LegacySamSelection filterByProductType(LegacySam.ProductType productType) {
+
+    Assert.getInstance().notNull(productType, "productType");
+
+    this.productType = productType;
 ```
 
 ### IgnoreResultOfCall
