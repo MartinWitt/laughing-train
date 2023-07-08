@@ -49,18 +49,6 @@ in `core/src/main/java/org/apache/mahout/math/ssvd/SequentialBigSvd.java`
 
 ## RuleId[id=JavadocReference]
 ### JavadocReference
-Cannot resolve symbol `IntComparator`
-in `core/src/main/java/org/apache/mahout/math/Sorting.java`
-#### Snippet
-```java
-   * @param c         the comparator to determine the order of the generic data.
-   * @param swapper   an object that knows how to swap the elements at any two indexes (a,b).
-   * @see IntComparator
-   * @see Swapper
-   */
-```
-
-### JavadocReference
 Cannot resolve symbol `RandomGenerator`
 in `core/src/main/java/org/apache/mahout/common/RandomWrapper.java`
 #### Snippet
@@ -96,6 +84,18 @@ in `core/src/main/java/org/apache/mahout/math/function/Functions.java`
  *
 ```
 
+### JavadocReference
+Cannot resolve symbol `IntComparator`
+in `core/src/main/java/org/apache/mahout/math/Sorting.java`
+#### Snippet
+```java
+   * @param c         the comparator to determine the order of the generic data.
+   * @param swapper   an object that knows how to swap the elements at any two indexes (a,b).
+   * @see IntComparator
+   * @see Swapper
+   */
+```
+
 ## RuleId[id=DataFlowIssue]
 ### DataFlowIssue
 Dereference of `tScoredItem` may produce `NullPointerException`
@@ -122,18 +122,6 @@ in `core/src/main/java/org/apache/mahout/math/stats/LogLikelihood.java`
 ```
 
 ### DataFlowIssue
-Method invocation `assign` may produce `NullPointerException`
-in `core/src/main/java/org/apache/mahout/math/solver/ConjugateGradientSolver.java`
-#### Snippet
-```java
-        
-        // updateDirection = residual + beta * updateDirection
-        updateDirection.assign(Functions.MULT, beta);
-        updateDirection.assign(conditionedResidual, Functions.PLUS);
-      }
-```
-
-### DataFlowIssue
 Variable is already assigned to this value
 in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
 #### Snippet
@@ -143,6 +131,18 @@ in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
     modified[0] = false;
     forEachKey(new ObjectProcedure<T>() {
       @Override
+```
+
+### DataFlowIssue
+Method invocation `assign` may produce `NullPointerException`
+in `core/src/main/java/org/apache/mahout/math/solver/ConjugateGradientSolver.java`
+#### Snippet
+```java
+        
+        // updateDirection = residual + beta * updateDirection
+        updateDirection.assign(Functions.MULT, beta);
+        updateDirection.assign(conditionedResidual, Functions.PLUS);
+      }
 ```
 
 ### DataFlowIssue
@@ -222,6 +222,18 @@ public class LanczosSolver {
 ## RuleId[id=CommentedOutCode]
 ### CommentedOutCode
 Commented out code (2 lines)
+in `core/src/main/java/org/apache/mahout/math/Vector.java`
+#### Snippet
+```java
+  // void foreachNonZero(IntDoubleFunction f);
+  // DoubleDoubleFunction map);
+  // NewVector assign(Vector y, DoubleDoubleFunction function, IntArrayList
+  // nonZeroIndexes);
+
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
 in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
 #### Snippet
 ```java
@@ -257,18 +269,6 @@ in `core/src/main/java/org/apache/mahout/math/OldQRDecomposition.java`
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `core/src/main/java/org/apache/mahout/math/Vector.java`
-#### Snippet
-```java
-  // void foreachNonZero(IntDoubleFunction f);
-  // DoubleDoubleFunction map);
-  // NewVector assign(Vector y, DoubleDoubleFunction function, IntArrayList
-  // nonZeroIndexes);
-
-```
-
-### CommentedOutCode
 Commented out code (7 lines)
 in `core/src/main/java/org/apache/mahout/math/Matrix.java`
 #### Snippet
@@ -293,18 +293,6 @@ in `core/src/main/java/org/apache/mahout/math/RandomAccessSparseVector.java`
 ```
 
 ### CommentedOutCode
-Commented out code (2 lines)
-in `core/src/main/java/org/apache/mahout/math/jet/random/Poisson.java`
-#### Snippet
-```java
-      //static double        my_last = -1.0;
-      //static long int      m,  k2, k4, k1, k5;
-      //static double        dl, dr, r1, r2, r4, r5, ll, lr, l_my, c_pm,
-      //             f1, f2, f4, f5, p1, p2, p3, p4, p5, p6;
-
-```
-
-### CommentedOutCode
 Commented out code (6 lines)
 in `core/src/main/java/org/apache/mahout/math/map/HashFunctions.java`
 #### Snippet
@@ -314,6 +302,18 @@ in `core/src/main/java/org/apache/mahout/math/map/HashFunctions.java`
     /*
     value &= 0x7FFFFFFFFFFFFFFFL; // make it >=0 (0x7FFFFFFFFFFFFFFFL==Long.MAX_VALUE)
     int hashCode = 0;
+```
+
+### CommentedOutCode
+Commented out code (2 lines)
+in `core/src/main/java/org/apache/mahout/math/jet/random/Poisson.java`
+#### Snippet
+```java
+      //static double        my_last = -1.0;
+      //static long int      m,  k2, k4, k1, k5;
+      //static double        dl, dr, r1, r2, r4, r5, ll, lr, l_my, c_pm,
+      //             f1, f2, f4, f5, p1, p2, p3, p4, p5, p6;
+
 ```
 
 ### CommentedOutCode
@@ -464,13 +464,13 @@ in `core/src/main/java/org/apache/mahout/math/SingularValueDecomposition.java`
 ## RuleId[id=RefusedBequest]
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
-in `core/src/main/java/org/apache/mahout/math/RandomAccessSparseVector.java`
+in `engine/hdfs/src/main/java/org/apache/mahout/math/VarIntWritable.java`
 #### Snippet
 ```java
 
   @Override
-  public RandomAccessSparseVector clone() {
-    return new RandomAccessSparseVector(size(), values.clone());
+  public VarIntWritable clone() {
+    return new VarIntWritable(value);
   }
 ```
 
@@ -488,6 +488,18 @@ in `core/src/main/java/org/apache/mahout/math/SparseMatrix.java`
 
 ### RefusedBequest
 Method `clone()` does not call 'super.clone()'
+in `core/src/main/java/org/apache/mahout/math/RandomAccessSparseVector.java`
+#### Snippet
+```java
+
+  @Override
+  public RandomAccessSparseVector clone() {
+    return new RandomAccessSparseVector(size(), values.clone());
+  }
+```
+
+### RefusedBequest
+Method `clone()` does not call 'super.clone()'
 in `core/src/main/java/org/apache/mahout/math/list/ObjectArrayList.java`
 #### Snippet
 ```java
@@ -496,18 +508,6 @@ in `core/src/main/java/org/apache/mahout/math/list/ObjectArrayList.java`
   public Object clone() {
     // overridden for performance only.
     return new ObjectArrayList<>((T[]) elements.clone());
-```
-
-### RefusedBequest
-Method `clone()` does not call 'super.clone()'
-in `engine/hdfs/src/main/java/org/apache/mahout/math/VarIntWritable.java`
-#### Snippet
-```java
-
-  @Override
-  public VarIntWritable clone() {
-    return new VarIntWritable(value);
-  }
 ```
 
 ## RuleId[id=ForLoopReplaceableByWhile]
@@ -1761,9 +1761,9 @@ in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
 ```java
 
   @Override
-  public boolean retainAll(Collection<?> c) {
-    final Collection<?> finalCollection = c;
-    final boolean[] modified = new boolean[1];
+  public <T1> T1[] toArray(T1[] a) {
+    return keys().toArray(a);
+  }
 ```
 
 ### NullableProblems
@@ -1773,9 +1773,9 @@ in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
 ```java
 
   @Override
-  public <T1> T1[] toArray(T1[] a) {
-    return keys().toArray(a);
-  }
+  public boolean retainAll(Collection<?> c) {
+    final Collection<?> finalCollection = c;
+    final boolean[] modified = new boolean[1];
 ```
 
 ### NullableProblems
@@ -1793,38 +1793,14 @@ in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
 ## RuleId[id=JavadocLinkAsPlainText]
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `core/src/main/java/org/apache/mahout/math/MurmurHash3.java`
+in `core/src/main/java/org/apache/mahout/math/Vector.java`
 #### Snippet
 ```java
- *  algorithms are optimized for their respective platforms.
- *  <p>
- *  See also http://github.com/yonik/java_util for future updates to this file.
- */
-public final class MurmurHash3 {
-```
 
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `core/src/main/java/org/apache/mahout/math/MurmurHash.java`
-#### Snippet
-```java
-/**
- * <p>This is a very fast, non-cryptographic hash suitable for general hash-based
- * lookup.  See http://murmurhash.googlepages.com/ for more details.
- * </p>
- * <p>The C version of MurmurHash 2.0 found at that site was ported
-```
-
-### JavadocLinkAsPlainText
-Link specified as plain text
-in `core/src/main/java/org/apache/mahout/math/Algebra.java`
-#### Snippet
-```java
   /**
-   * Compute Maximum Absolute Row Sum Norm of input Matrix m
-   * http://mathworld.wolfram.com/MaximumAbsoluteRowSumNorm.html 
-   */
-  public static double getNorm(Matrix m) {
+   * Return the k-norm of the vector. <p/> See http://en.wikipedia.org/wiki/Lp_space <p>
+   * Technically, when {@code 0 > power < 1}, we don't have a norm, just a metric, but we'll overload this here. Also supports power == 0 (number of
+   * non-zero elements) and power = {@link Double#POSITIVE_INFINITY} (max element). Again, see the Wikipedia page for
 ```
 
 ### JavadocLinkAsPlainText
@@ -1841,26 +1817,38 @@ in `core/src/main/java/org/apache/mahout/math/Vector.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `core/src/main/java/org/apache/mahout/math/Vector.java`
+in `core/src/main/java/org/apache/mahout/math/MurmurHash.java`
 #### Snippet
 ```java
-
-  /**
-   * Return the k-norm of the vector. <p/> See http://en.wikipedia.org/wiki/Lp_space <p>
-   * Technically, when {@code 0 > power < 1}, we don't have a norm, just a metric, but we'll overload this here. Also supports power == 0 (number of
-   * non-zero elements) and power = {@link Double#POSITIVE_INFINITY} (max element). Again, see the Wikipedia page for
+/**
+ * <p>This is a very fast, non-cryptographic hash suitable for general hash-based
+ * lookup.  See http://murmurhash.googlepages.com/ for more details.
+ * </p>
+ * <p>The C version of MurmurHash 2.0 found at that site was ported
 ```
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `core/src/main/java/org/apache/mahout/math/VectorBinaryAggregate.java`
+in `core/src/main/java/org/apache/mahout/math/MurmurHash3.java`
 #### Snippet
 ```java
- * The best one will be selected through assignBest(), which is itself called through Vector.assign().
- *
- * See https://docs.google.com/document/d/1g1PjUuvjyh2LBdq2_rKLIcUiDbeOORA1sCJiSsz-JVU/edit# for a more detailed
- * explanation.
+ *  algorithms are optimized for their respective platforms.
+ *  <p>
+ *  See also http://github.com/yonik/java_util for future updates to this file.
  */
+public final class MurmurHash3 {
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `core/src/main/java/org/apache/mahout/math/Algebra.java`
+#### Snippet
+```java
+  /**
+   * Compute Maximum Absolute Row Sum Norm of input Matrix m
+   * http://mathworld.wolfram.com/MaximumAbsoluteRowSumNorm.html 
+   */
+  public static double getNorm(Matrix m) {
 ```
 
 ### JavadocLinkAsPlainText
@@ -1901,14 +1889,14 @@ in `core/src/main/java/org/apache/mahout/math/jet/stat/Probability.java`
 
 ### JavadocLinkAsPlainText
 Link specified as plain text
-in `core/src/main/java/org/apache/mahout/math/jet/random/NegativeBinomial.java`
+in `core/src/main/java/org/apache/mahout/math/VectorBinaryAggregate.java`
 #### Snippet
 ```java
-   *
-   * This algorithm is essentially the same as described at
-   * http://en.wikipedia.org/wiki/Negative_binomial_distribution#Gamma.E2.80.93Poisson_mixture
-   * except that the notion of positive and negative outcomes is uniformly
-   * inverted.  Because the inversion is complete and consistent, this
+ * The best one will be selected through assignBest(), which is itself called through Vector.assign().
+ *
+ * See https://docs.google.com/document/d/1g1PjUuvjyh2LBdq2_rKLIcUiDbeOORA1sCJiSsz-JVU/edit# for a more detailed
+ * explanation.
+ */
 ```
 
 ### JavadocLinkAsPlainText
@@ -1921,6 +1909,18 @@ in `core/src/main/java/org/apache/mahout/math/VectorBinaryAssign.java`
  * See https://docs.google.com/document/d/1g1PjUuvjyh2LBdq2_rKLIcUiDbeOORA1sCJiSsz-JVU/edit# for a more detailed
  * explanation.
  */
+```
+
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `core/src/main/java/org/apache/mahout/math/jet/random/NegativeBinomial.java`
+#### Snippet
+```java
+   *
+   * This algorithm is essentially the same as described at
+   * http://en.wikipedia.org/wiki/Negative_binomial_distribution#Gamma.E2.80.93Poisson_mixture
+   * except that the notion of positive and negative outcomes is uniformly
+   * inverted.  Because the inversion is complete and consistent, this
 ```
 
 ### JavadocLinkAsPlainText
@@ -2045,18 +2045,6 @@ public final class IndianBuffet<T> implements Sampler<List<T>> {
 
 ## RuleId[id=IgnoreResultOfCall]
 ### IgnoreResultOfCall
-Result of `ExecutorService.awaitTermination()` is ignored
-in `core/src/main/java/org/apache/mahout/math/als/ImplicitFeedbackAlternatingLeastSquaresSolver.java`
-#### Snippet
-```java
-    queue.shutdown();
-    try {
-      queue.awaitTermination(1, TimeUnit.DAYS);
-    } catch (InterruptedException e) {
-      log.error("Error during Y'Y queue shutdown", e);
-```
-
-### IgnoreResultOfCall
 Result of `File.delete()` is ignored
 in `engine/hdfs/src/main/java/org/apache/mahout/common/IOUtils.java`
 #### Snippet
@@ -2066,6 +2054,18 @@ in `engine/hdfs/src/main/java/org/apache/mahout/common/IOUtils.java`
         file.delete();
       }
     }
+```
+
+### IgnoreResultOfCall
+Result of `ExecutorService.awaitTermination()` is ignored
+in `core/src/main/java/org/apache/mahout/math/als/ImplicitFeedbackAlternatingLeastSquaresSolver.java`
+#### Snippet
+```java
+    queue.shutdown();
+    try {
+      queue.awaitTermination(1, TimeUnit.DAYS);
+    } catch (InterruptedException e) {
+      log.error("Error during Y'Y queue shutdown", e);
 ```
 
 ## RuleId[id=RedundantMethodOverride]
@@ -2081,19 +2081,20 @@ in `core/src/main/java/org/apache/mahout/math/MatrixView.java`
 
 ```
 
-## RuleId[id=AutoCloseableResource]
-### AutoCloseableResource
-'FileInputStream' used without 'try'-with-resources statement
+## RuleId[id=IntegerMultiplicationImplicitCastToLong]
+### IntegerMultiplicationImplicitCastToLong
+columns \* 8: integer multiplication implicitly cast to long
 in `core/src/main/java/org/apache/mahout/math/FileBasedMatrix.java`
 #### Snippet
 ```java
-      long start = i * rowsPerBlock * columns * 8L;
-      long size = rowsPerBlock * columns * 8L;
-      MappedByteBuffer buf = new FileInputStream(f).getChannel().map(FileChannel.MapMode.READ_ONLY, start,
-                                                                     Math.min(f.length() - start, size));
-      if (loadNow) {
+  public FileBasedMatrix(int rows, int columns) {
+    super(rows, columns);
+    long maxRows = ((1L << 31) - 1) / (columns * 8);
+    if (rows > maxRows) {
+      rowsPerBlock = (int) maxRows;
 ```
 
+## RuleId[id=AutoCloseableResource]
 ### AutoCloseableResource
 'FileInputStream' used without 'try'-with-resources statement
 in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
@@ -2106,17 +2107,16 @@ in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
     buffers.add(input.map(FileChannel.MapMode.READ_ONLY, 0, Math.min(Integer.MAX_VALUE, f.length())));
 ```
 
-## RuleId[id=IntegerMultiplicationImplicitCastToLong]
-### IntegerMultiplicationImplicitCastToLong
-columns \* 8: integer multiplication implicitly cast to long
+### AutoCloseableResource
+'FileInputStream' used without 'try'-with-resources statement
 in `core/src/main/java/org/apache/mahout/math/FileBasedMatrix.java`
 #### Snippet
 ```java
-  public FileBasedMatrix(int rows, int columns) {
-    super(rows, columns);
-    long maxRows = ((1L << 31) - 1) / (columns * 8);
-    if (rows > maxRows) {
-      rowsPerBlock = (int) maxRows;
+      long start = i * rowsPerBlock * columns * 8L;
+      long size = rowsPerBlock * columns * 8L;
+      MappedByteBuffer buf = new FileInputStream(f).getChannel().map(FileChannel.MapMode.READ_ONLY, start,
+                                                                     Math.min(f.length() - start, size));
+      if (loadNow) {
 ```
 
 ## RuleId[id=UNUSED_IMPORT]
@@ -2302,6 +2302,30 @@ in `core/src/main/java/org/apache/mahout/math/set/OpenHashSet.java`
 ```
 
 ### JavadocDeclaration
+`@param n` tag description is missing
+in `core/src/main/java/org/apache/mahout/collections/Arithmetic.java`
+#### Snippet
+```java
+   * </ul>
+   *
+     * @param n
+     * @param k
+   * @return the binomial coefficient.
+```
+
+### JavadocDeclaration
+`@param k` tag description is missing
+in `core/src/main/java/org/apache/mahout/collections/Arithmetic.java`
+#### Snippet
+```java
+   *
+     * @param n
+     * @param k
+   * @return the binomial coefficient.
+   */
+```
+
+### JavadocDeclaration
 `@param a` tag description is missing
 in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
@@ -2361,30 +2385,6 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
   private static int med3(int a, int b, int c, IntComparator comp) {
 ```
 
-### JavadocDeclaration
-`@param n` tag description is missing
-in `core/src/main/java/org/apache/mahout/collections/Arithmetic.java`
-#### Snippet
-```java
-   * </ul>
-   *
-     * @param n
-     * @param k
-   * @return the binomial coefficient.
-```
-
-### JavadocDeclaration
-`@param k` tag description is missing
-in `core/src/main/java/org/apache/mahout/collections/Arithmetic.java`
-#### Snippet
-```java
-   *
-     * @param n
-     * @param k
-   * @return the binomial coefficient.
-   */
-```
-
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
 Field `data` may be 'final'
@@ -2396,30 +2396,6 @@ in `core/src/main/java/org/apache/mahout/math/Matrices.java`
       private byte[] data = new byte[8];
 
       @Override
-```
-
-### FieldMayBeFinal
-Field `index` may be 'final'
-in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
-#### Snippet
-```java
-          if (i < maxIndex) {
-            return new Element() {
-              int index = i++;
-              /**
-               * @return the value of this vector element.
-```
-
-### FieldMayBeFinal
-Field `denseLike` may be 'final'
-in `core/src/main/java/org/apache/mahout/math/FunctionalMatrixView.java`
-#### Snippet
-```java
-   */
-  private IntIntFunction gf;
-  private boolean denseLike;
-  private MatrixFlavor flavor;
-
 ```
 
 ### FieldMayBeFinal
@@ -2447,6 +2423,18 @@ in `core/src/main/java/org/apache/mahout/math/FunctionalMatrixView.java`
 ```
 
 ### FieldMayBeFinal
+Field `denseLike` may be 'final'
+in `core/src/main/java/org/apache/mahout/math/FunctionalMatrixView.java`
+#### Snippet
+```java
+   */
+  private IntIntFunction gf;
+  private boolean denseLike;
+  private MatrixFlavor flavor;
+
+```
+
+### FieldMayBeFinal
 Field `index` may be 'final'
 in `core/src/main/java/org/apache/mahout/math/MatrixSlice.java`
 #### Snippet
@@ -2456,6 +2444,18 @@ public class MatrixSlice extends DelegatingVector {
   private int index;
 
   public MatrixSlice(Vector v, int index) {
+```
+
+### FieldMayBeFinal
+Field `index` may be 'final'
+in `core/src/main/java/org/apache/mahout/math/FileBasedSparseBinaryMatrix.java`
+#### Snippet
+```java
+          if (i < maxIndex) {
+            return new Element() {
+              int index = i++;
+              /**
+               * @return the value of this vector element.
 ```
 
 ### FieldMayBeFinal
@@ -2471,18 +2471,6 @@ public class SparseMatrix extends AbstractMatrix {
 ```
 
 ### FieldMayBeFinal
-Field `r` may be 'final'
-in `core/src/main/java/org/apache/mahout/math/DiagonalMatrix.java`
-#### Snippet
-```java
-        int i = 0;
-
-        Element r = new Element() {
-          @Override
-          public double get() {
-```
-
-### FieldMayBeFinal
 Field `index` may be 'final'
 in `core/src/main/java/org/apache/mahout/math/DiagonalMatrix.java`
 #### Snippet
@@ -2492,6 +2480,18 @@ in `core/src/main/java/org/apache/mahout/math/DiagonalMatrix.java`
     private int index;
 
     public SingleElementVector(int index) {
+```
+
+### FieldMayBeFinal
+Field `r` may be 'final'
+in `core/src/main/java/org/apache/mahout/math/DiagonalMatrix.java`
+#### Snippet
+```java
+        int i = 0;
+
+        Element r = new Element() {
+          @Override
+          public double get() {
 ```
 
 ### FieldMayBeFinal
@@ -2519,18 +2519,6 @@ in `core/src/main/java/org/apache/mahout/math/TransposedMatrixView.java`
 ```
 
 ### FieldMayBeFinal
-Field `pBacking` may be 'final'
-in `core/src/main/java/org/apache/mahout/math/flavor/MatrixFlavor.java`
-#### Snippet
-```java
-
-  final class FlavorImpl implements MatrixFlavor {
-    private BackEnum pBacking;
-    private TraversingStructureEnum pStructure;
-    private boolean pDense;
-```
-
-### FieldMayBeFinal
 Field `pStructure` may be 'final'
 in `core/src/main/java/org/apache/mahout/math/flavor/MatrixFlavor.java`
 #### Snippet
@@ -2552,6 +2540,18 @@ in `core/src/main/java/org/apache/mahout/math/flavor/MatrixFlavor.java`
     private boolean pDense;
 
     public FlavorImpl(BackEnum backing, TraversingStructureEnum structure, boolean dense) {
+```
+
+### FieldMayBeFinal
+Field `pBacking` may be 'final'
+in `core/src/main/java/org/apache/mahout/math/flavor/MatrixFlavor.java`
+#### Snippet
+```java
+
+  final class FlavorImpl implements MatrixFlavor {
+    private BackEnum pBacking;
+    private TraversingStructureEnum pStructure;
+    private boolean pDense;
 ```
 
 ### FieldMayBeFinal
@@ -2860,6 +2860,30 @@ in `core/src/main/java/org/apache/mahout/math/list/ObjectArrayList.java`
 ```
 
 ### ConstantValue
+Condition `realEigen != null` is always `true`
+in `core/src/main/java/org/apache/mahout/math/decomposer/lanczos/LanczosSolver.java`
+#### Snippet
+```java
+
+      Preconditions.checkState(realEigen != null);
+      assert realEigen != null;
+
+      realEigen = realEigen.normalize();
+```
+
+### ConstantValue
+Value `corpus` is always 'null'
+in `core/src/main/java/org/apache/mahout/math/decomposer/hebbian/HebbianSolver.java`
+#### Snippet
+```java
+     */
+    long now = System.currentTimeMillis();
+    TrainingState finalState = solver.solve(corpus, rank);
+    long time = (System.currentTimeMillis() - now) / 1000;
+    log.info("Solved {} eigenVectors in {} seconds.  Persisted to {}",
+```
+
+### ConstantValue
 Condition `comparison == 0` is always `false`
 in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 #### Snippet
@@ -2908,30 +2932,6 @@ in `core/src/main/java/org/apache/mahout/math/Sorting.java`
 ```
 
 ### ConstantValue
-Condition `realEigen != null` is always `true`
-in `core/src/main/java/org/apache/mahout/math/decomposer/lanczos/LanczosSolver.java`
-#### Snippet
-```java
-
-      Preconditions.checkState(realEigen != null);
-      assert realEigen != null;
-
-      realEigen = realEigen.normalize();
-```
-
-### ConstantValue
-Value `corpus` is always 'null'
-in `core/src/main/java/org/apache/mahout/math/decomposer/hebbian/HebbianSolver.java`
-#### Snippet
-```java
-     */
-    long now = System.currentTimeMillis();
-    TrainingState finalState = solver.solve(corpus, rank);
-    long time = (System.currentTimeMillis() - now) / 1000;
-    log.info("Solved {} eigenVectors in {} seconds.  Persisted to {}",
-```
-
-### ConstantValue
 Condition `i < low` is always `false`
 in `core/src/main/java/org/apache/mahout/math/solver/EigenDecomposition.java`
 #### Snippet
@@ -2944,6 +2944,18 @@ in `core/src/main/java/org/apache/mahout/math/solver/EigenDecomposition.java`
 ```
 
 ## RuleId[id=UnstableApiUsage]
+### UnstableApiUsage
+Overridden method 'processLine(java.lang.String)' is declared in unstable interface 'com.google.common.io.LineProcessor' marked with @Beta
+in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
+#### Snippet
+```java
+
+            @Override
+            public boolean processLine(String line) {
+              Iterables.addAll(theWords, onSpace.split(line));
+              return true;
+```
+
 ### UnstableApiUsage
 'on(com.google.common.base.CharMatcher)' is unstable because its signature references unstable class 'com.google.common.base.CharMatcher' marked with @Beta
 in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
@@ -2978,30 +2990,6 @@ in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
     private final Splitter onSpace = Splitter.on(CharMatcher.WHITESPACE).omitEmptyStrings().trimResults();
     private final List<String> words;
 
-```
-
-### UnstableApiUsage
-Overridden method 'getResult()' is declared in unstable interface 'com.google.common.io.LineProcessor' marked with @Beta
-in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
-#### Snippet
-```java
-
-            @Override
-            public List<String> getResult() {
-              return theWords;
-            }
-```
-
-### UnstableApiUsage
-Overridden method 'processLine(java.lang.String)' is declared in unstable interface 'com.google.common.io.LineProcessor' marked with @Beta
-in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
-#### Snippet
-```java
-
-            @Override
-            public boolean processLine(String line) {
-              Iterables.addAll(theWords, onSpace.split(line));
-              return true;
 ```
 
 ### UnstableApiUsage
@@ -3050,6 +3038,18 @@ in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
         words = Resources.readLines(Resources.getResource("words.txt"), Charsets.UTF_8,
                                     new LineProcessor<List<String>>() {
             private final List<String> theWords = Lists.newArrayList();
+```
+
+### UnstableApiUsage
+Overridden method 'getResult()' is declared in unstable interface 'com.google.common.io.LineProcessor' marked with @Beta
+in `core/src/main/java/org/apache/mahout/math/random/IndianBuffet.java`
+#### Snippet
+```java
+
+            @Override
+            public List<String> getResult() {
+              return theWords;
+            }
 ```
 
 ### UnstableApiUsage
