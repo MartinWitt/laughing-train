@@ -26,15 +26,51 @@ I found 94 bad smells with 9 repairable:
 | JavadocLinkAsPlainText | 1 | false |
 ## RuleId[id=OptionalUsedAsFieldOrParameterType]
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'statusCode'
-in `identity/src/main/java/com/android/identity/mdoc/sessionencryption/SessionEncryption.java`
+`OptionalLong` used as type for field 'mChannelInfoOperatingClass'
+in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethodWifiAware.java`
+#### Snippet
+```java
+    private final String mPassphraseInfoPassphrase;
+    private final OptionalLong mChannelInfoChannelNumber;
+    private final OptionalLong mChannelInfoOperatingClass;
+    private final byte[] mBandInfoSupportedBands;
+
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for parameter 'channelInfoChannelNumber'
+in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethodWifiAware.java`
 #### Snippet
 ```java
      */
-    public @NonNull byte[] encryptMessage(@Nullable byte[] messagePlaintext,
-                                          @NonNull OptionalLong statusCode) {
-        return encryptMessageHelper(messagePlaintext, statusCode, false);
-    }
+    public ConnectionMethodWifiAware(@Nullable String passphraseInfoPassphrase,
+                                     OptionalLong channelInfoChannelNumber,
+                                     OptionalLong channelInfoOperatingClass,
+                                     @Nullable byte[] bandInfoSupportedBands) {
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for parameter 'channelInfoOperatingClass'
+in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethodWifiAware.java`
+#### Snippet
+```java
+    public ConnectionMethodWifiAware(@Nullable String passphraseInfoPassphrase,
+                                     OptionalLong channelInfoChannelNumber,
+                                     OptionalLong channelInfoOperatingClass,
+                                     @Nullable byte[] bandInfoSupportedBands) {
+        mPassphraseInfoPassphrase = passphraseInfoPassphrase;
+```
+
+### OptionalUsedAsFieldOrParameterType
+`OptionalLong` used as type for field 'mChannelInfoChannelNumber'
+in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethodWifiAware.java`
+#### Snippet
+```java
+    private static final String TAG = "ConnectionMethodWifiNAN";    // limit to <= 23 chars
+    private final String mPassphraseInfoPassphrase;
+    private final OptionalLong mChannelInfoChannelNumber;
+    private final OptionalLong mChannelInfoOperatingClass;
+    private final byte[] mBandInfoSupportedBands;
 ```
 
 ### OptionalUsedAsFieldOrParameterType
@@ -86,51 +122,15 @@ in `identity/src/main/java/com/android/identity/mdoc/sessionencryption/SessionEn
 ```
 
 ### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'channelInfoChannelNumber'
-in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethodWifiAware.java`
+`OptionalLong` used as type for parameter 'statusCode'
+in `identity/src/main/java/com/android/identity/mdoc/sessionencryption/SessionEncryption.java`
 #### Snippet
 ```java
      */
-    public ConnectionMethodWifiAware(@Nullable String passphraseInfoPassphrase,
-                                     OptionalLong channelInfoChannelNumber,
-                                     OptionalLong channelInfoOperatingClass,
-                                     @Nullable byte[] bandInfoSupportedBands) {
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for parameter 'channelInfoOperatingClass'
-in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethodWifiAware.java`
-#### Snippet
-```java
-    public ConnectionMethodWifiAware(@Nullable String passphraseInfoPassphrase,
-                                     OptionalLong channelInfoChannelNumber,
-                                     OptionalLong channelInfoOperatingClass,
-                                     @Nullable byte[] bandInfoSupportedBands) {
-        mPassphraseInfoPassphrase = passphraseInfoPassphrase;
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for field 'mChannelInfoOperatingClass'
-in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethodWifiAware.java`
-#### Snippet
-```java
-    private final String mPassphraseInfoPassphrase;
-    private final OptionalLong mChannelInfoChannelNumber;
-    private final OptionalLong mChannelInfoOperatingClass;
-    private final byte[] mBandInfoSupportedBands;
-
-```
-
-### OptionalUsedAsFieldOrParameterType
-`OptionalLong` used as type for field 'mChannelInfoChannelNumber'
-in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethodWifiAware.java`
-#### Snippet
-```java
-    private static final String TAG = "ConnectionMethodWifiNAN";    // limit to <= 23 chars
-    private final String mPassphraseInfoPassphrase;
-    private final OptionalLong mChannelInfoChannelNumber;
-    private final OptionalLong mChannelInfoOperatingClass;
-    private final byte[] mBandInfoSupportedBands;
+    public @NonNull byte[] encryptMessage(@Nullable byte[] messagePlaintext,
+                                          @NonNull OptionalLong statusCode) {
+        return encryptMessageHelper(messagePlaintext, statusCode, false);
+    }
 ```
 
 ## RuleId[id=UNCHECKED_WARNING]
@@ -284,30 +284,6 @@ in `identity/src/main/java/com/android/identity/internal/Util.java`
 
 ## RuleId[id=JavadocDeclaration]
 ### JavadocDeclaration
-Javadoc pointing to itself
-in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethod.java`
-#### Snippet
-```java
-     * {@code DeviceRetrievalMethod} CBOR is defined.
-     *
-     * <p>This is the reverse operation of {@link #toDeviceEngagement()}.
-     *
-     * @return
-```
-
-### JavadocDeclaration
-`@return` tag description is missing
-in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethod.java`
-#### Snippet
-```java
-     * <p>This is the reverse operation of {@link #toDeviceEngagement()}.
-     *
-     * @return
-     */
-    public abstract @NonNull
-```
-
-### JavadocDeclaration
 Tag `hidden` is not allowed here
 in `identity/src/main/java/com/android/identity/util/Constants.java`
 #### Snippet
@@ -341,6 +317,30 @@ in `identity/src/main/java/com/android/identity/util/Constants.java`
      * @hidden
      */
     @Retention(SOURCE)
+```
+
+### JavadocDeclaration
+Javadoc pointing to itself
+in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethod.java`
+#### Snippet
+```java
+     * {@code DeviceRetrievalMethod} CBOR is defined.
+     *
+     * <p>This is the reverse operation of {@link #toDeviceEngagement()}.
+     *
+     * @return
+```
+
+### JavadocDeclaration
+`@return` tag description is missing
+in `identity/src/main/java/com/android/identity/mdoc/connectionmethod/ConnectionMethod.java`
+#### Snippet
+```java
+     * <p>This is the reverse operation of {@link #toDeviceEngagement()}.
+     *
+     * @return
+     */
+    public abstract @NonNull
 ```
 
 ### JavadocDeclaration
@@ -393,6 +393,18 @@ in `identity/src/main/java/com/android/identity/credential/Credential.java`
 
 ## RuleId[id=FieldMayBeFinal]
 ### FieldMayBeFinal
+Field `mAttestation` may be 'final'
+in `identity/src/main/java/com/android/identity/keystore/KeystoreEngine.java`
+#### Snippet
+```java
+     */
+    class KeyInfo {
+        private List<X509Certificate> mAttestation;
+        private final @KeyPurpose int mKeyPurposes;
+        private final @EcCurve int mEcCurve;
+```
+
+### FieldMayBeFinal
 Field `mMap` may be 'final'
 in `identity/src/main/java/com/android/identity/credential/NameSpacedData.java`
 #### Snippet
@@ -414,18 +426,6 @@ public class StaticAuthDataParser {
     private byte[] mEncodedStaticAuthData;
 
     /**
-```
-
-### FieldMayBeFinal
-Field `mAttestation` may be 'final'
-in `identity/src/main/java/com/android/identity/keystore/KeystoreEngine.java`
-#### Snippet
-```java
-     */
-    class KeyInfo {
-        private List<X509Certificate> mAttestation;
-        private final @KeyPurpose int mKeyPurposes;
-        private final @EcCurve int mEcCurve;
 ```
 
 ### FieldMayBeFinal
@@ -515,18 +515,6 @@ in `identity/src/main/java/com/android/identity/keystore/BouncyCastleKeystore.ja
 
 ## RuleId[id=PointlessBitwiseExpression]
 ### PointlessBitwiseExpression
-`1<<0` can be replaced with '1'
-in `identity/src/main/java/com/android/identity/keystore/KeystoreEngine.java`
-#### Snippet
-```java
-     * Purpose of key: signing.
-     */
-    int KEY_PURPOSE_SIGN = 1<<0;
-
-    /**
-```
-
-### PointlessBitwiseExpression
 `1 << 0` can be replaced with '1'
 in `identity/src/main/java/com/android/identity/util/Constants.java`
 #### Snippet
@@ -536,6 +524,18 @@ in `identity/src/main/java/com/android/identity/util/Constants.java`
     public static final int BLE_DATA_RETRIEVAL_OPTION_MDOC_CENTRAL_CLIENT_MODE = (1 << 0);
     /**
      * Flag indicating that the <em>mdoc peripheral server mode</em> should be supported
+```
+
+### PointlessBitwiseExpression
+`1<<0` can be replaced with '1'
+in `identity/src/main/java/com/android/identity/keystore/KeystoreEngine.java`
+#### Snippet
+```java
+     * Purpose of key: signing.
+     */
+    int KEY_PURPOSE_SIGN = 1<<0;
+
+    /**
 ```
 
 ### PointlessBitwiseExpression
@@ -811,31 +811,6 @@ in `identity/src/main/java/com/android/identity/mdoc/sessionencryption/SessionEn
 
 ```
 
-## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
-### CollectionAddAllCanBeReplacedWithConstructor
-'addAll()' call can be replaced with parametrized constructor call
-in `identity/src/main/java/com/android/identity/mdoc/mso/MobileSecurityObjectGenerator.java`
-#### Snippet
-```java
-
-        Set<String> namespaceSet = new HashSet<>();
-        namespaceSet.addAll(authorizedDataElements.keySet());
-        namespaceSet.retainAll(mAuthorizedNameSpaces);
-
-```
-
-### CollectionAddAllCanBeReplacedWithConstructor
-'addAll()' call can be replaced with parametrized constructor call
-in `identity/src/main/java/com/android/identity/mdoc/mso/MobileSecurityObjectGenerator.java`
-#### Snippet
-```java
-
-        Set<String> namespaceSet = new HashSet<>();
-        namespaceSet.addAll(mAuthorizedDataElements.keySet());
-        namespaceSet.retainAll(authorizedNameSpaces);
-
-```
-
 ## RuleId[id=UnnecessaryLocalVariable]
 ### UnnecessaryLocalVariable
 Local variable `staticAuthData` is redundant
@@ -850,18 +825,6 @@ in `identity/src/main/java/com/android/identity/mdoc/mso/StaticAuthDataGenerator
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `ecPublicKey` is redundant
-in `identity/src/main/java/com/android/identity/internal/Util.java`
-#### Snippet
-```java
-            ECPublicKeySpec keySpec = new ECPublicKeySpec(ecPoint, ecParameters);
-            KeyFactory kf = KeyFactory.getInstance("EC");
-            ECPublicKey ecPublicKey = (ECPublicKey) kf.generatePublic(keySpec);
-            return ecPublicKey;
-        } catch (NoSuchAlgorithmException
-```
-
-### UnnecessaryLocalVariable
 Local variable `result` is redundant
 in `identity/src/main/java/com/android/identity/internal/Util.java`
 #### Snippet
@@ -871,6 +834,30 @@ in `identity/src/main/java/com/android/identity/internal/Util.java`
             X509Certificate result = (X509Certificate) cf.generateCertificate(bais);
             return result;
         } catch (IOException
+```
+
+### UnnecessaryLocalVariable
+Local variable `item` is redundant
+in `identity/src/main/java/com/android/identity/internal/Util.java`
+#### Snippet
+```java
+        byte[] x = sec1EncodeFieldElementAsOctetString(32, w.getAffineX());
+        byte[] y = sec1EncodeFieldElementAsOctetString(32, w.getAffineY());
+        DataItem item = new CborBuilder()
+                .addMap()
+                .put(COSE_KEY_KTY, COSE_KEY_TYPE_EC2)
+```
+
+### UnnecessaryLocalVariable
+Local variable `embeddedItem` is redundant
+in `identity/src/main/java/com/android/identity/internal/Util.java`
+#### Snippet
+```java
+        }
+        byte[] encodedCbor = itemByteString.getBytes();
+        DataItem embeddedItem = cborDecode(encodedCbor);
+        return embeddedItem;
+    }
 ```
 
 ### UnnecessaryLocalVariable
@@ -903,18 +890,6 @@ in `identity/src/main/java/com/android/identity/internal/Util.java`
 #### Snippet
 ```java
         byte[] x = sec1EncodeFieldElementAsOctetString(32, w.getAffineX());
-        byte[] y = sec1EncodeFieldElementAsOctetString(32, w.getAffineY());
-        DataItem item = new CborBuilder()
-                .addMap()
-                .put(COSE_KEY_KTY, COSE_KEY_TYPE_EC2)
-```
-
-### UnnecessaryLocalVariable
-Local variable `item` is redundant
-in `identity/src/main/java/com/android/identity/internal/Util.java`
-#### Snippet
-```java
-        byte[] x = sec1EncodeFieldElementAsOctetString(32, w.getAffineX());
         byte[] y = sec1EncodeFieldElementAsOctetString(32, malformedY);
         DataItem item = new CborBuilder()
                 .addMap()
@@ -922,15 +897,40 @@ in `identity/src/main/java/com/android/identity/internal/Util.java`
 ```
 
 ### UnnecessaryLocalVariable
-Local variable `embeddedItem` is redundant
+Local variable `ecPublicKey` is redundant
 in `identity/src/main/java/com/android/identity/internal/Util.java`
 #### Snippet
 ```java
-        }
-        byte[] encodedCbor = itemByteString.getBytes();
-        DataItem embeddedItem = cborDecode(encodedCbor);
-        return embeddedItem;
-    }
+            ECPublicKeySpec keySpec = new ECPublicKeySpec(ecPoint, ecParameters);
+            KeyFactory kf = KeyFactory.getInstance("EC");
+            ECPublicKey ecPublicKey = (ECPublicKey) kf.generatePublic(keySpec);
+            return ecPublicKey;
+        } catch (NoSuchAlgorithmException
+```
+
+## RuleId[id=CollectionAddAllCanBeReplacedWithConstructor]
+### CollectionAddAllCanBeReplacedWithConstructor
+'addAll()' call can be replaced with parametrized constructor call
+in `identity/src/main/java/com/android/identity/mdoc/mso/MobileSecurityObjectGenerator.java`
+#### Snippet
+```java
+
+        Set<String> namespaceSet = new HashSet<>();
+        namespaceSet.addAll(mAuthorizedDataElements.keySet());
+        namespaceSet.retainAll(authorizedNameSpaces);
+
+```
+
+### CollectionAddAllCanBeReplacedWithConstructor
+'addAll()' call can be replaced with parametrized constructor call
+in `identity/src/main/java/com/android/identity/mdoc/mso/MobileSecurityObjectGenerator.java`
+#### Snippet
+```java
+
+        Set<String> namespaceSet = new HashSet<>();
+        namespaceSet.addAll(authorizedDataElements.keySet());
+        namespaceSet.retainAll(mAuthorizedNameSpaces);
+
 ```
 
 ## RuleId[id=UnnecessaryUnaryMinus]
@@ -948,15 +948,15 @@ in `identity/src/main/java/com/android/identity/internal/Util.java`
 
 ## RuleId[id=UnusedAssignment]
 ### UnusedAssignment
-Variable `mDigestIDMapping` initializer `new HashMap<>()` is redundant
-in `identity/src/main/java/com/android/identity/mdoc/mso/StaticAuthDataGenerator.java`
+Variable `dataItems` initializer `null` is redundant
+in `identity/src/main/java/com/android/identity/util/CborUtil.java`
 #### Snippet
 ```java
-public class StaticAuthDataGenerator {
 
-    private Map<String, List<byte[]>> mDigestIDMapping = new HashMap<>();
-    private byte[] mEncodedIssuerAuth;
-
+        ByteArrayInputStream bais = new ByteArrayInputStream(encodedCbor);
+        List<DataItem> dataItems = null;
+        try {
+            dataItems = new CborDecoder(bais).decode();
 ```
 
 ### UnusedAssignment
@@ -969,18 +969,6 @@ in `identity/src/main/java/com/android/identity/util/CborUtil.java`
                     List<DataItem> dataItems = null;
                     try {
                         dataItems = new CborDecoder(bais).decode();
-```
-
-### UnusedAssignment
-Variable `dataItems` initializer `null` is redundant
-in `identity/src/main/java/com/android/identity/util/CborUtil.java`
-#### Snippet
-```java
-
-        ByteArrayInputStream bais = new ByteArrayInputStream(encodedCbor);
-        List<DataItem> dataItems = null;
-        try {
-            dataItems = new CborDecoder(bais).decode();
 ```
 
 ### UnusedAssignment
@@ -1008,6 +996,18 @@ in `identity/src/main/java/com/android/identity/mdoc/response/DeviceResponseGene
 ```
 
 ### UnusedAssignment
+Variable `mDigestIDMapping` initializer `new HashMap<>()` is redundant
+in `identity/src/main/java/com/android/identity/mdoc/mso/StaticAuthDataGenerator.java`
+#### Snippet
+```java
+public class StaticAuthDataGenerator {
+
+    private Map<String, List<byte[]>> mDigestIDMapping = new HashMap<>();
+    private byte[] mEncodedIssuerAuth;
+
+```
+
+### UnusedAssignment
 Variable `ks` initializer `null` is redundant
 in `identity/src/main/java/com/android/identity/internal/Util.java`
 #### Snippet
@@ -1017,30 +1017,6 @@ in `identity/src/main/java/com/android/identity/internal/Util.java`
         KeyStore ks = null;
         try {
             ks = KeyStore.getInstance("AndroidKeyStore");
-```
-
-### UnusedAssignment
-Variable `dataItems` initializer `null` is redundant
-in `identity/src/main/java/com/android/identity/internal/Util.java`
-#### Snippet
-```java
-
-        ByteArrayInputStream bais = new ByteArrayInputStream(encodedBytes);
-        List<DataItem> dataItems = null;
-        try {
-            dataItems = new CborDecoder(bais).decode();
-```
-
-### UnusedAssignment
-Variable `date` initializer `null` is redundant
-in `identity/src/main/java/com/android/identity/internal/Util.java`
-#### Snippet
-```java
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
-        df.setTimeZone(parsedTz);
-        Date date = null;
-        try {
-            date = df.parse(dateString);
 ```
 
 ### UnusedAssignment
@@ -1068,18 +1044,6 @@ in `identity/src/main/java/com/android/identity/internal/Util.java`
 ```
 
 ### UnusedAssignment
-Variable `dataItem` initializer `null` is redundant
-in `identity/src/main/java/com/android/identity/internal/Util.java`
-#### Snippet
-```java
-    public static int cborGetLength(byte[] data) {
-        ByteArrayInputStream bais = new ByteArrayInputStream(data);
-        DataItem dataItem = null;
-        try {
-            dataItem = new CborDecoder(bais).decodeNext();
-```
-
-### UnusedAssignment
 Variable `coseSignature` initializer `null` is redundant
 in `identity/src/main/java/com/android/identity/internal/Util.java`
 #### Snippet
@@ -1091,30 +1055,53 @@ in `identity/src/main/java/com/android/identity/internal/Util.java`
             s.update(toBeSigned);
 ```
 
-## RuleId[id=JavadocLinkAsPlainText]
-### JavadocLinkAsPlainText
-Link specified as plain text
+### UnusedAssignment
+Variable `date` initializer `null` is redundant
 in `identity/src/main/java/com/android/identity/internal/Util.java`
 #### Snippet
 ```java
-     * Computes an HKDF.
-     *
-     * This is based on https://github.com/google/tink/blob/master/java/src/main/java/com/google
-     * /crypto/tink/subtle/Hkdf.java
-     * which is also Copyright (c) Google and also licensed under the Apache 2 license.
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+        df.setTimeZone(parsedTz);
+        Date date = null;
+        try {
+            date = df.parse(dateString);
+```
+
+### UnusedAssignment
+Variable `dataItems` initializer `null` is redundant
+in `identity/src/main/java/com/android/identity/internal/Util.java`
+#### Snippet
+```java
+
+        ByteArrayInputStream bais = new ByteArrayInputStream(encodedBytes);
+        List<DataItem> dataItems = null;
+        try {
+            dataItems = new CborDecoder(bais).decode();
+```
+
+### UnusedAssignment
+Variable `dataItem` initializer `null` is redundant
+in `identity/src/main/java/com/android/identity/internal/Util.java`
+#### Snippet
+```java
+    public static int cborGetLength(byte[] data) {
+        ByteArrayInputStream bais = new ByteArrayInputStream(data);
+        DataItem dataItem = null;
+        try {
+            dataItem = new CborDecoder(bais).decodeNext();
 ```
 
 ## RuleId[id=ConstantValue]
 ### ConstantValue
-Condition `data == null` is always `false`
+Condition `salt == null` is always `false`
 in `identity/src/main/java/com/android/identity/internal/Util.java`
 #### Snippet
 ```java
-        /* MapBuilder<ArrayBuilder<CborBuilder>> unprotectedHeaders = */
-        array.addMap();
-        if (data == null || data.length == 0) {
-            array.add(new SimpleValue(SimpleValueType.NULL));
-        } else {
+        }
+        try {
+            if (salt == null || salt.length == 0) {
+                // According to RFC 5869, Section 2.2 the salt is optional. If no salt is provided
+                // then HKDF uses a salt that is an array of zeros of the same length as the hash
 ```
 
 ### ConstantValue
@@ -1142,15 +1129,28 @@ in `identity/src/main/java/com/android/identity/internal/Util.java`
 ```
 
 ### ConstantValue
-Condition `salt == null` is always `false`
+Condition `data == null` is always `false`
 in `identity/src/main/java/com/android/identity/internal/Util.java`
 #### Snippet
 ```java
-        }
-        try {
-            if (salt == null || salt.length == 0) {
-                // According to RFC 5869, Section 2.2 the salt is optional. If no salt is provided
-                // then HKDF uses a salt that is an array of zeros of the same length as the hash
+        /* MapBuilder<ArrayBuilder<CborBuilder>> unprotectedHeaders = */
+        array.addMap();
+        if (data == null || data.length == 0) {
+            array.add(new SimpleValue(SimpleValueType.NULL));
+        } else {
+```
+
+## RuleId[id=JavadocLinkAsPlainText]
+### JavadocLinkAsPlainText
+Link specified as plain text
+in `identity/src/main/java/com/android/identity/internal/Util.java`
+#### Snippet
+```java
+     * Computes an HKDF.
+     *
+     * This is based on https://github.com/google/tink/blob/master/java/src/main/java/com/google
+     * /crypto/tink/subtle/Hkdf.java
+     * which is also Copyright (c) Google and also licensed under the Apache 2 license.
 ```
 
 ## RuleId[id=UseBulkOperation]
