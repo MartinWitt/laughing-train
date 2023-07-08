@@ -13,8 +13,8 @@ import spoon.reflect.visitor.Filter;
  */
 public class ConstructorMatcher implements Filter<CtConstructorCall<?>> {
 
-    private String fqTargetType;
-    private String[] argsFQN;
+    private final String fqTargetType;
+    private final String[] argsFQN;
 
     /**
      * Creates a new constructor matcher with the given target type and argument types.
