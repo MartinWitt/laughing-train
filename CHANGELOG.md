@@ -1,5 +1,64 @@
 # Changelog
 
+## [1.1.0](https://github.com/MartinWitt/laughing-train/compare/v1.0.0...v1.1.0) (2023-07-08)
+
+
+### Features
+
+* ✨ Add pattern based spoon analyzer ([#719](https://github.com/MartinWitt/laughing-train/issues/719)) ([66b9a08](https://github.com/MartinWitt/laughing-train/commit/66b9a08e33bbaa280a7017dff1fec1358332e959))
+* ✨ Remove old analyzer ([19910fc](https://github.com/MartinWitt/laughing-train/commit/19910fc80eb5847427cd6293c2de97d9839b8d9d))
+* ✨ Separated Qodana and Spoon mining ([#729](https://github.com/MartinWitt/laughing-train/issues/729)) ([dda44b2](https://github.com/MartinWitt/laughing-train/commit/dda44b233f64e6d50fe068cd52994515777e60aa))
+* **matcher:** Add new matchers for spoon elements ([#804](https://github.com/MartinWitt/laughing-train/issues/804)) ([43a8483](https://github.com/MartinWitt/laughing-train/commit/43a84830b4f6b6f958e5bc13478f0f5daf95c6be))
+* Merge persistence with github-bot ([#800](https://github.com/MartinWitt/laughing-train/issues/800)) ([b862681](https://github.com/MartinWitt/laughing-train/commit/b862681c12733fa86c8889e8cfc47b5ae6d5ab5c))
+* **pattern:** ✨ Persist spoon pattern results and expose them in the API ([#725](https://github.com/MartinWitt/laughing-train/issues/725)) ([74feb39](https://github.com/MartinWitt/laughing-train/commit/74feb39cb06367eacd12152ddc16b9540e450a46))
+* **qodana:** ✨ Dont remine old repositories again if hash is already analyzed ([0f602e9](https://github.com/MartinWitt/laughing-train/commit/0f602e96eb5cc91a055d1f7f9848fc32b6a85b7e))
+* **quarkus:** ✨ Add logging UI ([#766](https://github.com/MartinWitt/laughing-train/issues/766)) ([5c5c541](https://github.com/MartinWitt/laughing-train/commit/5c5c541cf563da6c4a883fe2753c812319f565ff))
+
+
+### Bug Fixes
+
+* 🐛 Catch Exception during Pattern load ([#722](https://github.com/MartinWitt/laughing-train/issues/722)) ([ae517c0](https://github.com/MartinWitt/laughing-train/commit/ae517c0d78846e34ac76157d8bfc5c57dcfa32c9))
+* 🚑️ Fix FileSystemnotFound for resource files ([#723](https://github.com/MartinWitt/laughing-train/issues/723)) ([d39076d](https://github.com/MartinWitt/laughing-train/commit/d39076de0042fe963707abca8fb472e2e880a144))
+* 🚑️ Fix logging of errors ([a370d2b](https://github.com/MartinWitt/laughing-train/commit/a370d2bdc6135e81d784ed4d7d57a3233dbe5733))
+* **git:** 🐛 Fix newlines after refactoring and cleaning diff ([#769](https://github.com/MartinWitt/laughing-train/issues/769)) ([c925285](https://github.com/MartinWitt/laughing-train/commit/c9252852a35d0a2ce1798c5e10b9409082de83c3))
+* **git:** 🐛 Improve commit message for single badsmell PRs ([#767](https://github.com/MartinWitt/laughing-train/issues/767)) ([b11d8a8](https://github.com/MartinWitt/laughing-train/commit/b11d8a8c69efda974e0b22caf7e962ea4825c320))
+* **printing:** 🐛 Fix extra newlines after printing ([#765](https://github.com/MartinWitt/laughing-train/issues/765)) ([89d75c0](https://github.com/MartinWitt/laughing-train/commit/89d75c039eacf333fc1c4c29493959cc6ba8068d))
+* **printing:** 🐛 Simplifies handling of newlines in diff cleaned files ([#770](https://github.com/MartinWitt/laughing-train/issues/770)) ([2d17740](https://github.com/MartinWitt/laughing-train/commit/2d177404413c4ea17a05e287fe11efa094af7964))
+* **quarkus:** 🐛 Remove opentelemetry ([50c7727](https://github.com/MartinWitt/laughing-train/commit/50c772741813f2aef0bb2238a30108e5b61f7d0a))
+* **test:** 🚑️ Disable testcase again ([dc67fd7](https://github.com/MartinWitt/laughing-train/commit/dc67fd762421650bba19bd5483e7e56981c97a39))
+
+
+### Dependencies
+
+* :bookmark:(deps): update actions/checkout digest to c85c95e ([#718](https://github.com/MartinWitt/laughing-train/issues/718)) ([02bd8e2](https://github.com/MartinWitt/laughing-train/commit/02bd8e263362864b3206a120ce3ae8b95ac34cd5))
+* :bookmark:(deps): update docker/build-push-action digest to 2eb1c19 ([#737](https://github.com/MartinWitt/laughing-train/issues/737)) ([7e9e1b9](https://github.com/MartinWitt/laughing-train/commit/7e9e1b93aa4f5609016370913f1d7153fa182bab))
+* :bookmark:(deps): update docker/build-push-action digest to 44ea916 ([#711](https://github.com/MartinWitt/laughing-train/issues/711)) ([2d75e7d](https://github.com/MartinWitt/laughing-train/commit/2d75e7d41f7dda7479e1db0d44abdf4f8bc290a8))
+* :bookmark:(deps): update docker/build-push-action digest to a799b4d ([#698](https://github.com/MartinWitt/laughing-train/issues/698)) ([5b5f697](https://github.com/MartinWitt/laughing-train/commit/5b5f697ca0430da997f16e409be1bc7856e0bdd0))
+* :bookmark:(deps): update docker/build-push-action digest to f05b754 ([#788](https://github.com/MartinWitt/laughing-train/issues/788)) ([62b09eb](https://github.com/MartinWitt/laughing-train/commit/62b09eb6fe9c75827d0a9b005406a377ed9262b1))
+* :bookmark:(deps): update docker/login-action digest to 0a5a6d5 ([#791](https://github.com/MartinWitt/laughing-train/issues/791)) ([68a4c99](https://github.com/MartinWitt/laughing-train/commit/68a4c991c448bde4d305bcb1b60c9366cba7e41a))
+* :bookmark:(deps): update docker/login-action digest to 465a078 ([#707](https://github.com/MartinWitt/laughing-train/issues/707)) ([74aff2f](https://github.com/MartinWitt/laughing-train/commit/74aff2fc6c0daff1e8ebbc5d364e597210b1ca9a))
+* :bookmark:(deps): update docker/metadata-action digest to 2c0bd77 ([#709](https://github.com/MartinWitt/laughing-train/issues/709)) ([ab27f08](https://github.com/MartinWitt/laughing-train/commit/ab27f08071ad3855958e878b495f56652c592e62))
+* :bookmark:(deps): update docker/metadata-action digest to 35e9aff ([#792](https://github.com/MartinWitt/laughing-train/issues/792)) ([5ac884d](https://github.com/MartinWitt/laughing-train/commit/5ac884d89794c9cf9f6858eb32beb335a74d3e93))
+* :bookmark:(deps): update docker/metadata-action digest to 818d4b7 ([#738](https://github.com/MartinWitt/laughing-train/issues/738)) ([1646bdf](https://github.com/MartinWitt/laughing-train/commit/1646bdf6a9d2f3154559147de531a18875d599de))
+* :bookmark:(deps): update docker/metadata-action digest to ef25336 ([#772](https://github.com/MartinWitt/laughing-train/issues/772)) ([9390307](https://github.com/MartinWitt/laughing-train/commit/939030757d69a8d81de675f5d7974c756c657ae8))
+* :bookmark:(deps): update docker/setup-buildx-action digest to 16c0bc4 ([#775](https://github.com/MartinWitt/laughing-train/issues/775)) ([76e27d1](https://github.com/MartinWitt/laughing-train/commit/76e27d12be09adcbd257e3759e697ca455b44b02))
+* :bookmark:(deps): update docker/setup-buildx-action digest to 2a1a44a ([#794](https://github.com/MartinWitt/laughing-train/issues/794)) ([e7d33ac](https://github.com/MartinWitt/laughing-train/commit/e7d33ac4c644b45585aa443a69a9573c0256c4f0))
+* :bookmark:(deps): update docker/setup-buildx-action digest to 2a81c53 ([#702](https://github.com/MartinWitt/laughing-train/issues/702)) ([b23c0bb](https://github.com/MartinWitt/laughing-train/commit/b23c0bb9f286387550ce4f9fa0491d1218dd7284))
+* :bookmark:(deps): update docker/setup-buildx-action digest to 6a58db7 ([#710](https://github.com/MartinWitt/laughing-train/issues/710)) ([22258d9](https://github.com/MartinWitt/laughing-train/commit/22258d953a975cfce0bd2f075088f52b55aa1928))
+* :bookmark:(deps): update docker/setup-buildx-action digest to bdd549b ([#726](https://github.com/MartinWitt/laughing-train/issues/726)) ([2d6af9a](https://github.com/MartinWitt/laughing-train/commit/2d6af9a4c2d0c75b15f0c4b0e71caf9d8a3f82fd))
+* :bookmark:(deps): update docker/setup-buildx-action digest to ecf9528 ([#739](https://github.com/MartinWitt/laughing-train/issues/739)) ([ef4af75](https://github.com/MartinWitt/laughing-train/commit/ef4af75a5edd7625269f55a888eaebe6b775213e))
+* :bookmark:(deps): update github/codeql-action digest to 004c5de ([#787](https://github.com/MartinWitt/laughing-train/issues/787)) ([a70f48f](https://github.com/MartinWitt/laughing-train/commit/a70f48faa772b665f32ef1197b7482e73f056a38))
+* :bookmark:(deps): update github/codeql-action digest to 46ed16d ([#793](https://github.com/MartinWitt/laughing-train/issues/793)) ([7b26ae7](https://github.com/MartinWitt/laughing-train/commit/7b26ae78eb50df1cbc2b900e08374eaebf5252d3))
+* :bookmark:(deps): update github/codeql-action digest to 6c089f5 ([#741](https://github.com/MartinWitt/laughing-train/issues/741)) ([51a224a](https://github.com/MartinWitt/laughing-train/commit/51a224a4e2adc8bb0ca6441621dc6e4e0e17972c))
+* :bookmark:(deps): update github/codeql-action digest to f6e388e ([#752](https://github.com/MartinWitt/laughing-train/issues/752)) ([e4579e1](https://github.com/MartinWitt/laughing-train/commit/e4579e1767699ed523d58053d3f98cc52a0d5eda))
+* :bookmark:(deps): update google-github-actions/release-please-action digest to 8016a66 ([#760](https://github.com/MartinWitt/laughing-train/issues/760)) ([b840b9e](https://github.com/MartinWitt/laughing-train/commit/b840b9e49fd3f018afa72be723f39a58629067f3))
+* :bookmark:(deps): update gradle/gradle-build-action digest to 40b6781 ([#780](https://github.com/MartinWitt/laughing-train/issues/780)) ([3ddd630](https://github.com/MartinWitt/laughing-train/commit/3ddd6300fa68cd2783beaff1a2ea6d5464371500))
+* :bookmark:(deps): update gradle/gradle-build-action digest to 8e02c82 ([#779](https://github.com/MartinWitt/laughing-train/issues/779)) ([eec02c0](https://github.com/MartinWitt/laughing-train/commit/eec02c0891035a371b74aff8c700194fead98514))
+* :bookmark:(deps): update sigstore/cosign-installer digest to 6e04d22 ([#773](https://github.com/MartinWitt/laughing-train/issues/773)) ([49dac43](https://github.com/MartinWitt/laughing-train/commit/49dac434c71b0a8e67c3fbaa7f384def48cbac80))
+* :bookmark:(deps): update sigstore/cosign-installer digest to 871cdc7 ([#701](https://github.com/MartinWitt/laughing-train/issues/701)) ([5b319a1](https://github.com/MartinWitt/laughing-train/commit/5b319a13a814b932bfa988454d47cf129e655d3a))
+* :bookmark:(deps): update sigstore/cosign-installer digest to d130283 ([#763](https://github.com/MartinWitt/laughing-train/issues/763)) ([1c8735d](https://github.com/MartinWitt/laughing-train/commit/1c8735d9212539c1ffc3b94acd9a1544c8e19fdb))
+* :bookmark:(deps): update sigstore/cosign-installer digest to ef0e969 ([#731](https://github.com/MartinWitt/laughing-train/issues/731)) ([2833bd7](https://github.com/MartinWitt/laughing-train/commit/2833bd744feb28ae3e784e235dd3f00737ce4f0f))
+
 ## 1.0.0 (2023-06-05)
 
 
