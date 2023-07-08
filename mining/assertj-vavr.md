@@ -193,6 +193,18 @@ in `src/main/java/org/assertj/vavr/api/SeqShouldBeAtIndex.java`
 ```
 
 ### JavadocReference
+Cannot resolve symbol `org.assertj.core.api.Condition`
+in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
+#### Snippet
+```java
+
+    /**
+     * Verifies that the actual {@link io.vavr.control.Try} contains a value which satisfies the given {@link org.assertj.core.api.Condition}.
+     *
+     * @param condition the given condition.
+```
+
+### JavadocReference
 Cannot resolve symbol `org.assertj.core.api.Assertions`
 in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
 #### Snippet
@@ -214,18 +226,6 @@ in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
      * {@link org.assertj.core.api.Assertions#setAllowExtractingPrivateFields(boolean)}.
      *
      * @return {@code this} assertion object.
-```
-
-### JavadocReference
-Cannot resolve symbol `org.assertj.core.api.Condition`
-in `src/main/java/org/assertj/vavr/api/AbstractTryAssert.java`
-#### Snippet
-```java
-
-    /**
-     * Verifies that the actual {@link io.vavr.control.Try} contains a value which satisfies the given {@link org.assertj.core.api.Condition}.
-     *
-     * @param condition the given condition.
 ```
 
 ### JavadocReference
@@ -301,15 +301,63 @@ in `src/main/java/org/assertj/vavr/api/soft/JUnitSoftVavrAssertions.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `org.assertj.core.api.Condition`
-in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
+Cannot resolve symbol `Assertions`
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+     * actual type A <code>equals</code> method to compare the {@link Either} value's object for incoming assertion
+     * checks. Private fields are included but this can be disabled using
+     * {@link Assertions#setAllowExtractingPrivateFields(boolean)}.
+     *
+     * @return {@code this} assertion object.
+```
+
+### JavadocReference
+Cannot resolve symbol `setAllowExtractingPrivateFields(boolean)`
+in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
+#### Snippet
+```java
+     * actual type A <code>equals</code> method to compare the {@link Either} value's object for incoming assertion
+     * checks. Private fields are included but this can be disabled using
+     * {@link Assertions#setAllowExtractingPrivateFields(boolean)}.
+     *
+     * @return {@code this} assertion object.
+```
+
+### JavadocReference
+Cannot resolve symbol `Condition`
+in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
 #### Snippet
 ```java
 
     /**
-     * Verifies that the actual {@link io.vavr.control.Validation} contains an invalid value which satisfies the given {@link org.assertj.core.api.Condition}.
+     * Verifies that the actual {@link Option} contains a value which satisfies the given {@link Condition}.
      *
      * @param condition the given condition.
+```
+
+### JavadocReference
+Cannot resolve symbol `Assertions`
+in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
+#### Snippet
+```java
+     * actual type A <code>equals</code> method to compare the {@link Option} value's object for incoming assertion
+     * checks. Private fields are included but this can be disabled using
+     * {@link Assertions#setAllowExtractingPrivateFields(boolean)}.
+     *
+     * @return {@code this} assertion object.
+```
+
+### JavadocReference
+Cannot resolve symbol `setAllowExtractingPrivateFields(boolean)`
+in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
+#### Snippet
+```java
+     * actual type A <code>equals</code> method to compare the {@link Option} value's object for incoming assertion
+     * checks. Private fields are included but this can be disabled using
+     * {@link Assertions#setAllowExtractingPrivateFields(boolean)}.
+     *
+     * @return {@code this} assertion object.
 ```
 
 ### JavadocReference
@@ -349,61 +397,13 @@ in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
 ```
 
 ### JavadocReference
-Cannot resolve symbol `Assertions`
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-     * actual type A <code>equals</code> method to compare the {@link Either} value's object for incoming assertion
-     * checks. Private fields are included but this can be disabled using
-     * {@link Assertions#setAllowExtractingPrivateFields(boolean)}.
-     *
-     * @return {@code this} assertion object.
-```
-
-### JavadocReference
-Cannot resolve symbol `setAllowExtractingPrivateFields(boolean)`
-in `src/main/java/org/assertj/vavr/api/AbstractEitherAssert.java`
-#### Snippet
-```java
-     * actual type A <code>equals</code> method to compare the {@link Either} value's object for incoming assertion
-     * checks. Private fields are included but this can be disabled using
-     * {@link Assertions#setAllowExtractingPrivateFields(boolean)}.
-     *
-     * @return {@code this} assertion object.
-```
-
-### JavadocReference
-Cannot resolve symbol `Assertions`
-in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
-#### Snippet
-```java
-     * actual type A <code>equals</code> method to compare the {@link Option} value's object for incoming assertion
-     * checks. Private fields are included but this can be disabled using
-     * {@link Assertions#setAllowExtractingPrivateFields(boolean)}.
-     *
-     * @return {@code this} assertion object.
-```
-
-### JavadocReference
-Cannot resolve symbol `setAllowExtractingPrivateFields(boolean)`
-in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
-#### Snippet
-```java
-     * actual type A <code>equals</code> method to compare the {@link Option} value's object for incoming assertion
-     * checks. Private fields are included but this can be disabled using
-     * {@link Assertions#setAllowExtractingPrivateFields(boolean)}.
-     *
-     * @return {@code this} assertion object.
-```
-
-### JavadocReference
-Cannot resolve symbol `Condition`
-in `src/main/java/org/assertj/vavr/api/AbstractOptionAssert.java`
+Cannot resolve symbol `org.assertj.core.api.Condition`
+in `src/main/java/org/assertj/vavr/api/AbstractValidationAssert.java`
 #### Snippet
 ```java
 
     /**
-     * Verifies that the actual {@link Option} contains a value which satisfies the given {@link Condition}.
+     * Verifies that the actual {@link io.vavr.control.Validation} contains an invalid value which satisfies the given {@link org.assertj.core.api.Condition}.
      *
      * @param condition the given condition.
 ```
@@ -460,18 +460,6 @@ in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
 ```
 
 ### FieldMayBeFinal
-Field `failures` may be 'final'
-in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
-#### Snippet
-```java
-    private static final Multimaps INSTANCE = new Multimaps();
-
-    private Failures failures = Failures.instance();
-
-    private Conditions conditions = Conditions.instance();
-```
-
-### FieldMayBeFinal
 Field `conditions` may be 'final'
 in `src/main/java/org/assertj/vavr/internal/Maps.java`
 #### Snippet
@@ -481,6 +469,18 @@ in `src/main/java/org/assertj/vavr/internal/Maps.java`
     private Conditions conditions = Conditions.instance();
 
     private Maps() {}
+```
+
+### FieldMayBeFinal
+Field `failures` may be 'final'
+in `src/main/java/org/assertj/vavr/internal/Multimaps.java`
+#### Snippet
+```java
+    private static final Multimaps INSTANCE = new Multimaps();
+
+    private Failures failures = Failures.instance();
+
+    private Conditions conditions = Conditions.instance();
 ```
 
 ### FieldMayBeFinal
