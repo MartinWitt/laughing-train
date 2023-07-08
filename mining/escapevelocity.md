@@ -1,11 +1,10 @@
 # escapevelocity 
  
 # Bad smells
-I found 16 bad smells with 0 repairable:
+I found 13 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | JavadocReference | 6 | false |
-| UnstableApiUsage | 3 | false |
 | NullableProblems | 2 | false |
 | StringBufferReplaceableByString | 1 | false |
 | RedundantTypeArguments | 1 | false |
@@ -160,43 +159,6 @@ in `src/main/java/com/google/escapevelocity/Parser.java`
     assert c == ')';
     next();
     return new MethodReferenceNode(lhs, id, args.build(), silent);
-```
-
-## RuleId[id=UnstableApiUsage]
-### UnstableApiUsage
-'tryParse(java.lang.String)' is marked unstable with @Beta
-in `src/main/java/com/google/escapevelocity/Parser.java`
-#### Snippet
-```java
-      next();
-    }
-    Integer value = Ints.tryParse(sb.toString());
-    if (value == null) {
-      throw parseException("Invalid integer: " + sb);
-```
-
-### UnstableApiUsage
-'closed(int, int)' is marked unstable with @Beta
-in `src/main/java/com/google/escapevelocity/Parser.java`
-#### Snippet
-```java
-      ImmutableSortedSet<Integer> set =
-          (from <= to)
-              ? ContiguousSet.closed(from, to)
-              : ContiguousSet.closed(to, from).descendingSet();
-      return new ForwardingSortedSet<Integer>() {
-```
-
-### UnstableApiUsage
-'closed(int, int)' is marked unstable with @Beta
-in `src/main/java/com/google/escapevelocity/Parser.java`
-#### Snippet
-```java
-          (from <= to)
-              ? ContiguousSet.closed(from, to)
-              : ContiguousSet.closed(to, from).descendingSet();
-      return new ForwardingSortedSet<Integer>() {
-        @Override
 ```
 
 ## RuleId[id=JavaReflectionMemberAccess]
