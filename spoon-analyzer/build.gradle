@@ -1,0 +1,8 @@
+
+
+plugins {
+	id 'xyz.keksdose.spoon.code_solver.java-common-conventions'
+}
+dependencies {
+     implementation project (":matcher")
+}

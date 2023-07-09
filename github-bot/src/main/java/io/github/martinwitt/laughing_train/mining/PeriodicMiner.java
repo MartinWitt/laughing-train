@@ -1,15 +1,18 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.data.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
+import io.github.martinwitt.laughing_train.data.ProjectResult.Success;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
+import io.github.martinwitt.laughing_train.data.request.AnalyzerRequest;
+import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectService;
 import io.github.martinwitt.laughing_train.services.QodanaService;
+import io.github.martinwitt.laughing_train.services.SpoonAnalyzerService;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.runtime.StartupEvent;
 import io.vertx.core.Vertx;
@@ -17,8 +20,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import java.io.IOException;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -37,7 +40,7 @@ public class PeriodicMiner {
     final ProjectRepository projectRepository;
     final QodanaService qodanaService;
     final ProjectService projectService;
-
+    final SpoonAnalyzerService spoonAnalyzerService;
     MeterRegistry registry;
 
     private final Random random = new Random();
@@ -50,7 +53,8 @@ public class PeriodicMiner {
             ProjectRepository projectRepository,
             QodanaService qodanaService,
             ProjectService projectService,
-            MiningPrinter miningPrinter) {
+            MiningPrinter miningPrinter,
+            SpoonAnalyzerService spoonAnalyzerService) {
         this.registry = registry;
         this.vertx = vertx;
         this.searchProjectService = searchProjectService;
@@ -58,6 +62,7 @@ public class PeriodicMiner {
         this.qodanaService = qodanaService;
         this.projectService = projectService;
         this.miningPrinter = miningPrinter;
+        this.spoonAnalyzerService = spoonAnalyzerService;
     }
 
     private Project getRandomProject() throws IOException {
@@ -97,17 +102,32 @@ public class PeriodicMiner {
                 }
                 logger.atInfo().log("Successfully checked out project %s", success.project());
                 var qodanaResult = analyzeProject(success);
+                var spoonResult = analyzeProjectWithSpoon(success);
+                List<AnalyzerResult> results = new ArrayList<>();
                 if (qodanaResult instanceof QodanaResult.Failure failure) {
                     logger.atWarning().log("Failed to analyze project %s", failure.message());
-                    registry.counter("mining.qodana.error").increment();
                     tryDeleteProject(success);
-                    return;
+                }
+                if (spoonResult instanceof CodeAnalyzerResult.Failure error) {
+                    logger.atWarning().log("Failed to analyze project with spoon %s", error.message());
+                    tryDeleteProject(success);
+                }
+                if (spoonResult instanceof CodeAnalyzerResult.Success successResult) {
+                    results.addAll(successResult.results());
                 }
                 if (qodanaResult instanceof QodanaResult.Success successResult) {
                     logger.atInfo().log("Successfully analyzed project %s", success.project());
-                    saveQodanaResults(successResult);
-                    addOrUpdateCommitHash(success);
+                    results.addAll(successResult.result());
                 }
+                if (results.isEmpty()) {
+                    logger.atWarning().log("No results for project %s", success.project());
+                    tryDeleteProject(success);
+                    mineRandomRepo();
+                    return;
+                }
+                saveResults(results, project);
+                addOrUpdateCommitHash(success);
+                tryDeleteProject(success);
             }
         } catch (Exception e) {
             logger.atWarning().withCause(e).log("Failed to mine random repo");
@@ -117,6 +137,10 @@ public class PeriodicMiner {
             logger.atInfo().log("Mining next repo in 1 minute");
             vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepo()));
         }
+    }
+
+    private CodeAnalyzerResult analyzeProjectWithSpoon(Success success) {
+        return spoonAnalyzerService.analyze(new AnalyzerRequest.WithProject(success.project()));
     }
 
     private boolean isAlreadyMined(ProjectResult.Success success, String commitHash) {
@@ -157,28 +181,18 @@ public class PeriodicMiner {
         }
     }
 
-    private void saveQodanaResults(QodanaResult.Success success) {
-        success.project().runInContext(() -> {
-            try {
-                List<AnalyzerResult> results = success.result();
-                registry.summary("mining.qodana", "result", Integer.toString(results.size()));
-                if (results.isEmpty()) {
-                    logger.atInfo().log("No results for %s", success);
-                    return Optional.empty();
-                }
-                String content = printFormattedResults(success, results);
-                var laughingRepo = getLaughingRepo();
-                updateOrCreateContent(laughingRepo, success.project().name(), content);
-            } catch (Exception e) {
-                logger.atSevere().withCause(e).log("Error while updating content");
-            }
-            return Optional.empty();
-        });
+    private void saveResults(List<AnalyzerResult> results, Project project) {
+        try {
+            String content = printFormattedResults(project, results);
+            var laughingRepo = getLaughingRepo();
+            updateOrCreateContent(laughingRepo, project.getProjectName(), content);
+        } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Error while updating content");
+        }
     }
 
-    private String printFormattedResults(QodanaResult.Success success, List<AnalyzerResult> results) {
-        return "# %s %n %s"
-                .formatted(success.project().name(), miningPrinter.printAllResults(results, success.project()));
+    private String printFormattedResults(Project project, List<AnalyzerResult> results) {
+        return "# %s %n %s".formatted(project.getProjectName(), miningPrinter.printAllResults(results));
     }
 
     private GHRepository getLaughingRepo() throws IOException {
