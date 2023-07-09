@@ -47,6 +47,7 @@ public class SpoonAnalyzerService {
                 return new CodeAnalyzerResult.Failure("Unknown request type");
             }
         } catch (Exception e) {
+            logger.atSevere().withCause(e).log("Error while analyzing code");
             return new CodeAnalyzerResult.Failure(Strings.nullToEmpty(e.getMessage()));
         }
     }
