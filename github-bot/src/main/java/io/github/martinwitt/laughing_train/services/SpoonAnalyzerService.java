@@ -8,6 +8,7 @@ import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.io.File;
 import java.util.List;
+import java.util.stream.Collectors;
 import xyz.keksdose.spoon.code_solver.analyzer.spoon.SpoonBasedAnalyzer;
 
 @ApplicationScoped
@@ -31,6 +32,11 @@ public class SpoonAnalyzerService {
                 File folder = project.project().folder();
                 SpoonBasedAnalyzer analyzer = new SpoonBasedAnalyzer();
                 List<AnalyzerResult> analyze = analyzer.analyze(folder.toPath());
+                logger.atInfo().log(
+                        "Spoon found %s results with the following rules: %s",
+                        analyze.size(),
+                        analyze.stream().map(v -> v.getName()).disctinct().collect(Collectors.joining(",")));
+
                 CodeAnalyzerResult.Success success = new CodeAnalyzerResult.Success(analyze, project.project());
                 analyzerResultPersistenceService.persistResults(success);
                 return success;
