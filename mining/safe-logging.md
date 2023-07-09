@@ -1,10 +1,11 @@
 # safe-logging 
  
 # Bad smells
-I found 7 bad smells with 0 repairable:
+I found 9 bad smells with 0 repairable:
 | ruleID | number | fixable |
 | --- | --- | --- |
 | DuplicatedCode | 3 | false |
+| DataFlowIssue | 2 | false |
 | NullableProblems | 2 | false |
 | Deprecation | 1 | false |
 | DeprecatedIsStillUsed | 1 | false |
@@ -94,6 +95,31 @@ in `preconditions-assertj/src/main/java/com/palantir/logsafe/testing/LoggableExc
                     "Expecting safe logging message:%n <%s>%nbut was:%n <%s>", logMessage, actualMessage));
 ```
 
+## RuleId[id=DataFlowIssue]
+### DataFlowIssue
+Argument `cause` might be null
+in `preconditions/src/main/java/com/palantir/logsafe/exceptions/SafeUncheckedIoException.java`
+#### Snippet
+```java
+
+    public SafeUncheckedIoException(@Nullable IOException cause) {
+        super("", cause);
+        this.logMessage = "";
+        this.arguments = Collections.emptyList();
+```
+
+### DataFlowIssue
+Argument `cause` might be null
+in `preconditions/src/main/java/com/palantir/logsafe/exceptions/SafeUncheckedIoException.java`
+#### Snippet
+```java
+    public SafeUncheckedIoException(
+            @CompileTimeConstant String message, @Nullable IOException cause, Arg<?>... arguments) {
+        super(SafeExceptions.renderMessage(message, arguments), cause);
+        this.logMessage = message;
+        this.arguments = Collections.unmodifiableList(Arrays.asList(arguments));
+```
+
 ## RuleId[id=DeprecatedIsStillUsed]
 ### DeprecatedIsStillUsed
 Deprecated member 'hasArgs' is still used
@@ -109,18 +135,6 @@ in `preconditions-assertj/src/main/java/com/palantir/logsafe/testing/LoggableExc
 
 ## RuleId[id=NullableProblems]
 ### NullableProblems
-The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
-in `safe-logging/src/main/java/com/palantir/logsafe/Arg.java`
-#### Snippet
-```java
-    private final String name;
-
-    @Nullable
-    private final T value;
-
-```
-
-### NullableProblems
 The generated code will use '@org.jetbrains.annotations.NotNull' instead of '@javax.annotation.Nonnull'
 in `safe-logging/src/main/java/com/palantir/logsafe/Arg.java`
 #### Snippet
@@ -129,6 +143,18 @@ public abstract class Arg<T> implements Serializable {
 
     @Nonnull
     private final String name;
+
+```
+
+### NullableProblems
+The generated code will use '@org.jetbrains.annotations.Nullable' instead of '@javax.annotation.Nullable'
+in `safe-logging/src/main/java/com/palantir/logsafe/Arg.java`
+#### Snippet
+```java
+    private final String name;
+
+    @Nullable
+    private final T value;
 
 ```
 
