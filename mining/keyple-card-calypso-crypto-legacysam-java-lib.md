@@ -231,6 +231,18 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransac
 ```
 
 ### IgnoreResultOfCall
+Result of `Assert.isInRange()` is ignored
+in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
+#### Snippet
+```java
+  public LSFreeTransactionManager prepareReadCounterStatus(int counterNumber) {
+    Assert.getInstance()
+        .isInRange(counterNumber, MIN_COUNTER_NUMBER, MAX_COUNTER_NUMBER, "counterNumber");
+    for (Command command : getTargetSamCommands()) {
+      if (command instanceof CommandReadCounter
+```
+
+### IgnoreResultOfCall
 Result of `Assert.isTrue()` is ignored
 in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
 #### Snippet
@@ -264,17 +276,5 @@ in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransac
     Assert.getInstance().notNull(systemKeyType, "systemKeyType");
     addTargetSamCommand(new CommandReadKeyParameters(getContext(), systemKeyType));
     return this;
-```
-
-### IgnoreResultOfCall
-Result of `Assert.isInRange()` is ignored
-in `src/main/java/org/eclipse/keyple/card/calypso/crypto/legacysam/LSFreeTransactionManagerAdapter.java`
-#### Snippet
-```java
-  public LSFreeTransactionManager prepareReadCounterStatus(int counterNumber) {
-    Assert.getInstance()
-        .isInRange(counterNumber, MIN_COUNTER_NUMBER, MAX_COUNTER_NUMBER, "counterNumber");
-    for (Command command : getTargetSamCommands()) {
-      if (command instanceof CommandReadCounter
 ```
 
