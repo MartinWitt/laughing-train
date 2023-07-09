@@ -23,6 +23,7 @@ dependencies {
 	implementation "com.contrastsecurity:java-sarif:+"
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
 	implementation project(":commons")
+	implementation project(":spoon-analyzer")
 	implementation 'io.github.java-diff-utils:java-diff-utils:4.12'
 }
 

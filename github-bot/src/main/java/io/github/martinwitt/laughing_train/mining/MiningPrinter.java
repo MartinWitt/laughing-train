@@ -2,7 +2,6 @@ package io.github.martinwitt.laughing_train.mining;
 
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.MarkdownPrinter;
-import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -25,7 +24,7 @@ public class MiningPrinter {
     @Inject
     Config config;
 
-    public String printAllResults(List<AnalyzerResult> results, Project project) {
+    public String printAllResults(List<AnalyzerResult> results) {
         StringBuilder sb = new StringBuilder();
         List<RuleId> ruleIds = config.getRules().keySet().stream()
                 .map(QodanaRules::getRuleId)
