@@ -1,5 +1,6 @@
 package io.github.martinwitt.spoon_analyzer;
 
+import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.spoon_analyzer.badsmells.Index_off_replaceable_by_contains.IndexOfReplaceableByContainsAnalyzer;
 import io.github.martinwitt.spoon_analyzer.badsmells.access_static_via_instance.AccessStaticViaInstanceAnalyzer;
 import io.github.martinwitt.spoon_analyzer.badsmells.array_can_be_replaced_with_enum_values.ArrayCanBeReplacedWithEnumValuesAnalyzer;
@@ -19,6 +20,7 @@ import spoon.reflect.declaration.CtType;
 
 public class SpoonAnalyzer {
 
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private final List<LocalAnalyzer> localAnalyzers;
 
     public SpoonAnalyzer() {
@@ -41,7 +43,7 @@ public class SpoonAnalyzer {
         try {
             List<Path> files =
                     Files.walk(Path.of(path)).filter(v -> Files.isDirectory(v)).toList();
-            files = PathUtils.removeRedundantPaths(PathUtils.filterResourcePaths(files));
+            files = PathUtils.filterResourcePaths(files);
 
             Launcher launcher = new Launcher();
             for (Path p : files) {
@@ -53,7 +55,7 @@ public class SpoonAnalyzer {
             launcher.getEnvironment().setComplianceLevel(17);
             launcher.getEnvironment().setIgnoreSyntaxErrors(true);
             var model = launcher.buildModel();
-            System.out.println("Found " + model.getAllTypes().size() + " types.");
+            logger.atInfo().log("Found %s types.", model.getAllTypes().size());
             for (CtType<?> type : model.getAllTypes()) {
                 for (LocalAnalyzer analyzer : localAnalyzers) {
                     var badSmell = analyzer.analyze(type);
@@ -63,7 +65,7 @@ public class SpoonAnalyzer {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.atSevere().withCause(e).log("Error while analyzing.");
         }
         return badSmells;
     }

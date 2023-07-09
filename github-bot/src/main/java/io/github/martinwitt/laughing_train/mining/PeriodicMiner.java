@@ -140,7 +140,10 @@ public class PeriodicMiner {
     }
 
     private CodeAnalyzerResult analyzeProjectWithSpoon(Success success) {
-        return spoonAnalyzerService.analyze(new AnalyzerRequest.WithProject(success.project()));
+        logger.atInfo().log("Analyzing project %s with spoon", success.project());
+        CodeAnalyzerResult analyze = spoonAnalyzerService.analyze(new AnalyzerRequest.WithProject(success.project()));
+        logger.atInfo().log("Successfully analyzed project %s with spoon", success.project());
+        return analyze;
     }
 
     private boolean isAlreadyMined(ProjectResult.Success success, String commitHash) {
