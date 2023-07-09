@@ -44,10 +44,7 @@ public class ArrayCanBeReplacedWithEnumValuesAnalyzer implements LocalAnalyzer {
             if (declaration == null) {
                 return false;
             }
-            if (declaration.getEnumValues().size() != count) {
-                return false;
-            }
-            return true;
+            return !(declaration.getEnumValues().size() != count);
         }
     }
 }

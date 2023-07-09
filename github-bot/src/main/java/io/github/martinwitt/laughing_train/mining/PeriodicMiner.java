@@ -117,7 +117,7 @@ public class PeriodicMiner {
                 }
                 if (qodanaResult instanceof QodanaResult.Success successResult) {
                     logger.atInfo().log("Successfully analyzed project %s", success.project());
-                    successResult.result().forEach(results::add);
+                    results.addAll(successResult.result());
                 }
                 if (results.isEmpty()) {
                     logger.atWarning().log("No results for project %s", success.project());

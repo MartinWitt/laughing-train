@@ -19,7 +19,7 @@ import spoon.reflect.declaration.CtType;
 
 public class SpoonAnalyzer {
 
-    private List<LocalAnalyzer> localAnalyzers;
+    private final List<LocalAnalyzer> localAnalyzers;
 
     public SpoonAnalyzer() {
         this.localAnalyzers = new ArrayList<>();

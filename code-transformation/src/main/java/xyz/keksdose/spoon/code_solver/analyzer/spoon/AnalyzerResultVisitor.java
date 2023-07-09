@@ -23,18 +23,13 @@ import spoon.reflect.declaration.CtType;
 
 class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
 
-    private static AnalyzerResultVisitor analyzerResultVisitor = new AnalyzerResultVisitor();
+    private static final AnalyzerResultVisitor analyzerResultVisitor = new AnalyzerResultVisitor();
 
     public static Optional<AnalyzerResult> toAnalyzerResult(BadSmell badSmell) {
         return Optional.ofNullable(badSmell.accept(analyzerResultVisitor));
     }
 
     private AnalyzerResultVisitor() {}
-
-    @Override
-    public AnalyzerResult emptyResult() {
-        return null;
-    }
 
     @Override
     public AnalyzerResult visit(IndexOfReplaceableByContains badSmell) {
@@ -55,7 +50,6 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
         int sourceStart = position.getSourceStart();
         int sourceEnd = position.getSourceEnd();
         int line = position.getLine();
-        ;
         int column = position.getColumn();
         int endColumn = position.getEndColumn();
         int endLine = position.getEndLine();
