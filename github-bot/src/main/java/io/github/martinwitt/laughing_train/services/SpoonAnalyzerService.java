@@ -35,7 +35,10 @@ public class SpoonAnalyzerService {
                 logger.atInfo().log(
                         "Spoon found %s results with the following rules: %s",
                         analyze.size(),
-                        analyze.stream().map(v -> v.getName()).disctinct().collect(Collectors.joining(",")));
+                        analyze.stream()
+                                .map(v -> v.ruleID().toString())
+                                .distinct()
+                                .collect(Collectors.joining(",")));
 
                 CodeAnalyzerResult.Success success = new CodeAnalyzerResult.Success(analyze, project.project());
                 analyzerResultPersistenceService.persistResults(success);
