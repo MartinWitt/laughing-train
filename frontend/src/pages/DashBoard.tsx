@@ -15,7 +15,7 @@ export default function DashBoard() {
         container
         marginLeft={"5%"}
       >
-        <Grid item xs={2} >
+        <Grid item xs={2} padding={1}>
           <Typography variant="h4"> Search</Typography>
           <br />
           <TextField label="Filter" value={filter} onChange={(e) => setFilter(e.target.value)} />
