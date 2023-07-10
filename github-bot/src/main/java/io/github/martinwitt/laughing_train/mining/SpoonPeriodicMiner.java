@@ -28,7 +28,7 @@ import org.apache.commons.io.FileUtils;
 
 @Unremovable
 @ApplicationScoped
-public abstract class SpoonPeriodicMiner {
+public class SpoonPeriodicMiner {
 
     static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private static final String ANALYZER_NAME = "spoon-analyzer";
