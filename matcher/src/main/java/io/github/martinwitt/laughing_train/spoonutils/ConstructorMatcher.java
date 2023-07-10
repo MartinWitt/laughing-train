@@ -48,7 +48,7 @@ public class ConstructorMatcher implements Filter<CtConstructorCall<?>> {
         if (element.getArguments().size() != argsFQN.length) {
             return false;
         }
-        if(element.getArguments().stream().anyMatch(arg -> arg.getType() == null)) {
+        if (element.getArguments().stream().anyMatch(arg -> arg.getType() == null)) {
             return false;
         }
         List<Pair<CtTypeReference<?>, CtExpression<?>>> zipped = new ArrayList<>();
