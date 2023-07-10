@@ -78,8 +78,12 @@ public class QodanaPeriodicMiner {
     }
 
     void mine(@Observes StartupEvent event) {
-        logger.atInfo().log("Starting Qodana periodic miner");
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepo()));
+        try {
+            logger.atInfo().log("Starting Qodana periodic miner");
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepo()));
+        } catch (Exception e) {
+            logger.atWarning().withCause(e).log("Failed to repo with Qodana");
+        }
     }
 
     private void mineRandomRepo() {
