@@ -81,7 +81,8 @@ public class QodanaPeriodicMiner {
         try {
             logger.atInfo().log("Starting Qodana periodic miner");
             vertx.exceptionHandler(it -> logger.atWarning().withCause(it).log("Exception in vertx"));
-            vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.createSharedWorkerExecutor("MINING", 5, 30L)
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.createSharedWorkerExecutor(
+                            "MINING", 5, 30L, TimeUnit.MINUTES)
                     .executeBlocking(it -> mineRandomRepo()));
         } catch (Exception e) {
             logger.atWarning().withCause(e).log("Failed to repo with Qodana");
@@ -126,7 +127,8 @@ public class QodanaPeriodicMiner {
         } finally {
             logger.atInfo().log("Queue size: %s", queue.size());
             logger.atInfo().log("Mining next repo in 1 minute");
-            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.createSharedWorkerExecutor("MINING", 5, 30L)
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.createSharedWorkerExecutor(
+                            "MINING", 5, 30L, TimeUnit.MINUTES)
                     .executeBlocking(it -> mineRandomRepo()));
         }
     }
