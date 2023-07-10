@@ -10,11 +10,13 @@ public class Project implements Serializable {
     private String projectName;
     private String projectUrl;
     private List<String> commitHashes;
+    private List<GitHubCommit> commits;
 
     public Project(String projectName, String projectUrl) {
         this.projectName = Objects.requireNonNull(projectName);
         this.projectUrl = Objects.requireNonNull(projectUrl);
         commitHashes = new ArrayList<>();
+        commits = new ArrayList<>();
     }
 
     /**
@@ -42,6 +44,17 @@ public class Project implements Serializable {
 
     public boolean removeCommitHash(String commitHash) {
         return commitHashes.remove(commitHash);
+    }
+
+    /**
+     * @return the commits
+     */
+    public List<GitHubCommit> getCommits() {
+        return commits;
+    }
+
+    public boolean addCommitHash(GitHubCommit commit) {
+        return commits.add(commit);
     }
 
     /**
