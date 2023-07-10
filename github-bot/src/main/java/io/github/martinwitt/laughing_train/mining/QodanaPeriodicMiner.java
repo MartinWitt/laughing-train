@@ -13,6 +13,7 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectReposit
 import io.github.martinwitt.laughing_train.services.ProjectService;
 import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.quarkus.arc.Unremovable;
 import io.quarkus.runtime.StartupEvent;
 import io.vertx.core.Vertx;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -28,6 +29,7 @@ import org.apache.commons.io.FileUtils;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
+@Unremovable
 @ApplicationScoped
 public class QodanaPeriodicMiner {
 
@@ -76,11 +78,13 @@ public class QodanaPeriodicMiner {
     }
 
     void mine(@Observes StartupEvent event) {
+        logger.atInfo().log("Starting Qodana periodic miner");
         vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepo()));
     }
 
     private void mineRandomRepo() {
         try {
+            logger.atInfo().log("Mining repository with qodana");
             var project = queue.isEmpty() ? getRandomProject() : queue.poll();
             var checkoutResult = checkoutProject(project);
             if (checkoutResult instanceof ProjectResult.Error) {

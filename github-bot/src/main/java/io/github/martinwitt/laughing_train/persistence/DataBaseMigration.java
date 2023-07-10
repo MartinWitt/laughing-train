@@ -2,7 +2,6 @@ package io.github.martinwitt.laughing_train.persistence;
 
 import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.result.DeleteResult;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.impl.MongoBadSmellRepository;
@@ -68,7 +67,6 @@ public class DataBaseMigration {
         removeProjectHashesWithoutResults();
         removeProjectsWithOutHashes();
         removeDuplicatedProjects();
-        removeBadSmellsFromSpoon();
         logger.atInfo().log("Finished migrating database");
         promise.complete();
     }
@@ -121,13 +119,5 @@ public class DataBaseMigration {
                 .flatMap(Collection::stream)
                 .forEach(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()));
         logger.atInfo().log("Finished removing duplicated projects");
-    }
-
-    private void removeBadSmellsFromSpoon() {
-        logger.atInfo().log("Removing bad smells from spoon");
-        DeleteResult deleteMany =
-                badSmellRepositoryImpl.mongoCollection().deleteMany(Filters.eq("analyzer", "SpoonAnalyzer"));
-        ;
-        logger.atInfo().log("Finished removing bad smells from spoon" + deleteMany);
     }
 }
