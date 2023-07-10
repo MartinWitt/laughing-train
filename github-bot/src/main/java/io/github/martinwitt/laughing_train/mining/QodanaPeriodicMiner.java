@@ -43,6 +43,7 @@ public class QodanaPeriodicMiner {
     final QodanaService qodanaService;
     final ProjectService projectService;
     MeterRegistry registry;
+    final SpoonPeriodicMiner spoonPeriodicMiner;
 
     private final Random random = new Random();
     private Queue<Project> queue = new ArrayDeque<>();
@@ -54,7 +55,8 @@ public class QodanaPeriodicMiner {
             ProjectRepository projectRepository,
             QodanaService qodanaService,
             ProjectService projectService,
-            MiningPrinter miningPrinter) {
+            MiningPrinter miningPrinter,
+            SpoonPeriodicMiner spoonPeriodicMiner) {
         this.registry = registry;
         this.vertx = vertx;
         this.searchProjectService = searchProjectService;
@@ -62,6 +64,7 @@ public class QodanaPeriodicMiner {
         this.qodanaService = qodanaService;
         this.projectService = projectService;
         this.miningPrinter = miningPrinter;
+        this.spoonPeriodicMiner = spoonPeriodicMiner;
     }
 
     private Project getRandomProject() throws IOException {
@@ -81,9 +84,7 @@ public class QodanaPeriodicMiner {
         try {
             logger.atInfo().log("Starting Qodana periodic miner");
             vertx.exceptionHandler(it -> logger.atWarning().withCause(it).log("Exception in vertx"));
-            vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.createSharedWorkerExecutor(
-                            "MINING", 5, 30L, TimeUnit.MINUTES)
-                    .executeBlocking(it -> mineRandomRepo()));
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.executeBlocking(it -> mineRandomRepo()));
         } catch (Exception e) {
             logger.atWarning().withCause(e).log("Failed to repo with Qodana");
         }
@@ -101,6 +102,7 @@ public class QodanaPeriodicMiner {
             }
             if (checkoutResult instanceof ProjectResult.Success success) {
                 String commitHash = success.project().commitHash();
+                spoonPeriodicMiner.mineRandomRepo(success);
                 if (isAlreadyMined(success, commitHash, ANALYZER_NAME)) {
                     logger.atInfo().log(
                             "Project %s already analyzed with commit hash %s", success.project(), commitHash);
@@ -125,11 +127,8 @@ public class QodanaPeriodicMiner {
             logger.atWarning().withCause(e).log("Failed to mine random repo");
             registry.counter("mining.error").increment();
         } finally {
-            logger.atInfo().log("Queue size: %s", queue.size());
             logger.atInfo().log("Mining next repo in 1 minute");
-            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.createSharedWorkerExecutor(
-                            "MINING", 5, 30L, TimeUnit.MINUTES)
-                    .executeBlocking(it -> mineRandomRepo()));
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepo()));
         }
     }
 
