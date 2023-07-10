@@ -73,8 +73,12 @@ public class SpoonPeriodicMiner {
     }
 
     void mine(@Observes StartupEvent event) {
-        logger.atInfo().log("Start mining with spoon");
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepo()));
+        try {
+            logger.atInfo().log("Start mining with spoon");
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepo()));
+        } catch (Exception e) {
+            logger.atWarning().withCause(e).log("Failed to repo with spoon");
+        }
     }
 
     private void mineRandomRepo() {
