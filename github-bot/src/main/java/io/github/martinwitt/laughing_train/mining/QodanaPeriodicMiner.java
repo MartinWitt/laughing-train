@@ -3,16 +3,15 @@ package io.github.martinwitt.laughing_train.mining;
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
-import io.github.martinwitt.laughing_train.data.ProjectResult.Success;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.data.request.AnalyzerRequest;
-import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
+import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectService;
 import io.github.martinwitt.laughing_train.services.QodanaService;
-import io.github.martinwitt.laughing_train.services.SpoonAnalyzerService;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.runtime.StartupEvent;
 import io.vertx.core.Vertx;
@@ -30,9 +29,10 @@ import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 
 @ApplicationScoped
-public class PeriodicMiner {
+public class QodanaPeriodicMiner {
 
     static final FluentLogger logger = FluentLogger.forEnclosingClass();
+    private static final String ANALYZER_NAME = "Qodana";
 
     final MiningPrinter miningPrinter;
     final Vertx vertx;
@@ -40,21 +40,19 @@ public class PeriodicMiner {
     final ProjectRepository projectRepository;
     final QodanaService qodanaService;
     final ProjectService projectService;
-    final SpoonAnalyzerService spoonAnalyzerService;
     MeterRegistry registry;
 
     private final Random random = new Random();
     private Queue<Project> queue = new ArrayDeque<>();
 
-    public PeriodicMiner(
+    public QodanaPeriodicMiner(
             MeterRegistry registry,
             Vertx vertx,
             SearchProjectService searchProjectService,
             ProjectRepository projectRepository,
             QodanaService qodanaService,
             ProjectService projectService,
-            MiningPrinter miningPrinter,
-            SpoonAnalyzerService spoonAnalyzerService) {
+            MiningPrinter miningPrinter) {
         this.registry = registry;
         this.vertx = vertx;
         this.searchProjectService = searchProjectService;
@@ -62,7 +60,6 @@ public class PeriodicMiner {
         this.qodanaService = qodanaService;
         this.projectService = projectService;
         this.miningPrinter = miningPrinter;
-        this.spoonAnalyzerService = spoonAnalyzerService;
     }
 
     private Project getRandomProject() throws IOException {
@@ -91,10 +88,9 @@ public class PeriodicMiner {
                 mineRandomRepo();
                 return;
             }
-
             if (checkoutResult instanceof ProjectResult.Success success) {
                 String commitHash = success.project().commitHash();
-                if (isAlreadyMined(success, commitHash)) {
+                if (isAlreadyMined(success, commitHash, ANALYZER_NAME)) {
                     logger.atInfo().log(
                             "Project %s already analyzed with commit hash %s", success.project(), commitHash);
                     tryDeleteProject(success);
@@ -102,32 +98,17 @@ public class PeriodicMiner {
                 }
                 logger.atInfo().log("Successfully checked out project %s", success.project());
                 var qodanaResult = analyzeProject(success);
-                var spoonResult = analyzeProjectWithSpoon(success);
                 List<AnalyzerResult> results = new ArrayList<>();
                 if (qodanaResult instanceof QodanaResult.Failure failure) {
                     logger.atWarning().log("Failed to analyze project %s", failure.message());
                     tryDeleteProject(success);
                 }
-                if (spoonResult instanceof CodeAnalyzerResult.Failure error) {
-                    logger.atWarning().log("Failed to analyze project with spoon %s", error.message());
-                    tryDeleteProject(success);
-                }
-                if (spoonResult instanceof CodeAnalyzerResult.Success successResult) {
-                    results.addAll(successResult.results());
-                }
                 if (qodanaResult instanceof QodanaResult.Success successResult) {
                     logger.atInfo().log("Successfully analyzed project %s", success.project());
-                    results.addAll(successResult.result());
-                }
-                if (results.isEmpty()) {
-                    logger.atWarning().log("No results for project %s", success.project());
+                    saveResults(results, project);
                     tryDeleteProject(success);
-                    mineRandomRepo();
-                    return;
                 }
-                saveResults(results, project);
-                addOrUpdateCommitHash(success);
-                tryDeleteProject(success);
+                addOrUpdateCommitHash(success, qodanaResult);
             }
         } catch (Exception e) {
             logger.atWarning().withCause(e).log("Failed to mine random repo");
@@ -137,18 +118,6 @@ public class PeriodicMiner {
             logger.atInfo().log("Mining next repo in 1 minute");
             vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepo()));
         }
-    }
-
-    private CodeAnalyzerResult analyzeProjectWithSpoon(Success success) {
-        logger.atInfo().log("Analyzing project %s with spoon", success.project());
-        CodeAnalyzerResult analyze = spoonAnalyzerService.analyze(new AnalyzerRequest.WithProject(success.project()));
-        logger.atInfo().log("Successfully analyzed project %s with spoon", success.project());
-        return analyze;
-    }
-
-    private boolean isAlreadyMined(ProjectResult.Success success, String commitHash) {
-        return projectRepository.findByProjectUrl(success.project().url()).stream()
-                .anyMatch(it -> !it.getCommitHashes().contains(commitHash));
     }
 
     private ProjectResult checkoutProject(Project project) throws IOException {
@@ -165,22 +134,6 @@ public class PeriodicMiner {
         } catch (IOException e) {
             logger.atWarning().log(
                     "Failed to delete project " + project.project().folder());
-        }
-    }
-
-    private void addOrUpdateCommitHash(ProjectResult.Success projectResult) {
-        String name = projectResult.project().name();
-        String commitHash = projectResult.project().commitHash();
-        var list = projectRepository.findByProjectName(name);
-        if (list.isEmpty()) {
-            Project newProject = new Project(name, projectResult.project().url());
-            newProject.addCommitHash(commitHash);
-            projectRepository.create(newProject);
-        } else {
-            logger.atInfo().log("Updating commit hash for %s", name);
-            var oldProject = list.get(0);
-            oldProject.addCommitHash(commitHash);
-            projectRepository.save(oldProject);
         }
     }
 
@@ -226,5 +179,53 @@ public class PeriodicMiner {
             return;
         }
         queue.add(project);
+    }
+
+    private void addOrUpdateCommitHash(ProjectResult.Success projectResult, QodanaResult spoonResult) {
+        String name = projectResult.project().name();
+        String commitHash = projectResult.project().commitHash();
+        var list = projectRepository.findByProjectUrl(projectResult.project().url());
+        AnalyzerStatus analyzerStatus = getAnalyzerStatus(spoonResult);
+        if (list.isEmpty()) {
+            Project newProject = new Project(name, projectResult.project().url());
+            newProject.addCommitHash(commitHash);
+            var commits = newProject.getCommits();
+            commits.stream()
+                    .filter(v -> v.getCommitHash().equals(commitHash))
+                    .findFirst()
+                    .ifPresent(v -> {
+                        v.addAnalyzerStatus(analyzerStatus);
+                    });
+            projectRepository.create(newProject);
+        } else {
+            logger.atInfo().log("Updating commit hash for %s", name);
+            var oldProject = list.get(0);
+            oldProject.addCommitHash(commitHash);
+            var commits = oldProject.getCommits();
+            GitHubCommit gitHubCommit = new GitHubCommit(commitHash, new ArrayList<>());
+            commits.add(gitHubCommit);
+            gitHubCommit.addAnalyzerStatus(analyzerStatus);
+            oldProject.addCommitHash(gitHubCommit);
+            projectRepository.save(oldProject);
+        }
+    }
+
+    private AnalyzerStatus getAnalyzerStatus(QodanaResult spoonResult) {
+        AnalyzerStatus analyzerStatus = null;
+        if (spoonResult instanceof QodanaResult.Success success) {
+            analyzerStatus =
+                    AnalyzerStatus.success(ANALYZER_NAME, success.result().size());
+        } else if (spoonResult instanceof QodanaResult.Failure failure) {
+            analyzerStatus = AnalyzerStatus.failure(ANALYZER_NAME, 0);
+        }
+        return analyzerStatus;
+    }
+
+    private boolean isAlreadyMined(ProjectResult.Success success, String commitHash, String analyzerName) {
+        return projectRepository.findByProjectUrl(success.project().url()).stream()
+                .flatMap(v -> v.getCommits().stream())
+                .filter(v -> v.getCommitHash().equals(commitHash))
+                .flatMap(v -> v.getAnalyzerStatuses().stream())
+                .anyMatch(v -> v.getAnalyzerName().equals(analyzerName));
     }
 }

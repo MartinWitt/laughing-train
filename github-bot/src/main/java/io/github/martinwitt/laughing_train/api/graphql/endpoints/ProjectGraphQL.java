@@ -6,7 +6,7 @@ import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLD
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectGraphQLDto;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
-import io.github.martinwitt.laughing_train.mining.PeriodicMiner;
+import io.github.martinwitt.laughing_train.mining.QodanaPeriodicMiner;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectConfigService;
@@ -40,7 +40,7 @@ public class ProjectGraphQL {
     ProjectConfigRepository projectConfigRepository;
 
     @Inject
-    PeriodicMiner periodicMiner;
+    QodanaPeriodicMiner periodicMiner;
 
     @Query("getProjects")
     @Description("Gets all projects from the database")
