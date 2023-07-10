@@ -80,6 +80,7 @@ public class QodanaPeriodicMiner {
     void mine(@Observes StartupEvent event) {
         try {
             logger.atInfo().log("Starting Qodana periodic miner");
+            vertx.exceptionHandler(it -> logger.atWarning().withCause(it).log("Exception in vertx"));
             vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.createSharedWorkerExecutor("MINING", 5, 30L)
                     .executeBlocking(it -> mineRandomRepo()));
         } catch (Exception e) {
