@@ -75,7 +75,9 @@ public class SpoonPeriodicMiner {
     void mine(@Observes StartupEvent event) {
         try {
             logger.atInfo().log("Start mining with spoon");
-            vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepo()));
+            vertx.exceptionHandler(it -> logger.atWarning().withCause(it).log("Exception in vertx"));
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.createSharedWorkerExecutor("MINING", 5, 30L)
+                    .executeBlocking(it -> mineRandomRepo()));
         } catch (Exception e) {
             logger.atWarning().withCause(e).log("Failed to repo with spoon");
         }
@@ -116,7 +118,8 @@ public class SpoonPeriodicMiner {
         } finally {
             logger.atInfo().log("Queue size: %s", queue.size());
             logger.atInfo().log("Mining next repo in 1 minute");
-            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.executeBlocking(it -> mineRandomRepo()));
+            vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.createSharedWorkerExecutor("MINING", 5, 30L)
+                    .executeBlocking(it -> mineRandomRepo()));
         }
     }
 
