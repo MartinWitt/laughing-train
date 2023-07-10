@@ -11,9 +11,9 @@ import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectService;
-import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.github.martinwitt.laughing_train.services.SpoonAnalyzerService;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.quarkus.arc.Unremovable;
 import io.quarkus.runtime.StartupEvent;
 import io.vertx.core.Vertx;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -26,6 +26,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 
+@Unremovable
 @ApplicationScoped
 public abstract class SpoonPeriodicMiner {
 
@@ -46,7 +47,6 @@ public abstract class SpoonPeriodicMiner {
             Vertx vertx,
             SearchProjectService searchProjectService,
             ProjectRepository projectRepository,
-            QodanaService qodanaService,
             ProjectService projectService,
             MiningPrinter miningPrinter,
             SpoonAnalyzerService spoonAnalyzerService) {
@@ -73,11 +73,13 @@ public abstract class SpoonPeriodicMiner {
     }
 
     void mine(@Observes StartupEvent event) {
+        logger.atInfo().log("Start mining with spoon");
         vertx.setTimer(TimeUnit.MINUTES.toMillis(5), v -> vertx.executeBlocking(it -> mineRandomRepo()));
     }
 
     private void mineRandomRepo() {
         try {
+            logger.atInfo().log("Start mining with spoon");
             var project = queue.isEmpty() ? getRandomProject() : queue.poll();
             var checkoutResult = checkoutProject(project);
             if (checkoutResult instanceof ProjectResult.Error) {
@@ -85,7 +87,6 @@ public abstract class SpoonPeriodicMiner {
                 mineRandomRepo();
                 return;
             }
-
             if (checkoutResult instanceof ProjectResult.Success success) {
                 String commitHash = success.project().commitHash();
                 if (isAlreadyMined(success, commitHash, ANALYZER_NAME)) {
