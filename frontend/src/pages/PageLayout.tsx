@@ -31,11 +31,10 @@ function Navigation({ links }: NavigationProps) {
             <ListItemText primary={link.name} />
             
         </ListItem>
-          <Divider sx={{ height: 1, backgroundColor: 'white' }} />
-
+          <Divider sx={{ height: 1, backgroundColor: 'white'}} />
         </>
       ))}
-      <LoginButton />
+      <LoginButton/>
     </List>
   );
 }

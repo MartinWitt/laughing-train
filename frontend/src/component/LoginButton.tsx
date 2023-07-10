@@ -32,7 +32,7 @@ export function LoginButton() {
   };
 
   return (
-    <Button onClick={handleAuth}>
+    <Button onClick={handleAuth} sx={{ margin: "5px" }}>
       <Typography sx={{ color:"white" }}   >
         {getButtonText()}
       </Typography>
