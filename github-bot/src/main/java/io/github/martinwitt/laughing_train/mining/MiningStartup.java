@@ -33,9 +33,13 @@ public class MiningStartup {
         vertx.deployVerticle(spoonPeriodicMiner, options);
         vertx.deployVerticle(persistence, options);
         vertx.deployVerticle(projectSupplier, options);
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.eventBus()
-                .send("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.eventBus()
-                .send("miner", new MineNextProject(SpoonPeriodicMiner.ANALYZER_NAME)));
+        vertx.eventBus().addInboundInterceptor(v -> {
+            System.out.println("Received message: " + v.toString());
+            v.next();
+        });
+        vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.eventBus()
+                .publish("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
+        vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.eventBus()
+                .publish("miner", new MineNextProject(SpoonPeriodicMiner.ANALYZER_NAME)));
     }
 }
