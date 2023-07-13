@@ -19,12 +19,11 @@ import java.util.Random;
 public class ProjectSupplier extends AbstractVerticle {
 
     public static final String SERVICE_NAME = "projectSupplier";
-
+    private static final Random random = new Random();
     final SearchProjectService searchProjectService;
     final ProjectRepository projectRepository;
     final ProjectService projectService;
     final Vertx vertx;
-    final Random random;
 
     @Produces
     Random random() {
@@ -35,13 +34,11 @@ public class ProjectSupplier extends AbstractVerticle {
             SearchProjectService searchProjectService,
             ProjectRepository projectRepository,
             ProjectService projectService,
-            Vertx vertx,
-            Random random) {
+            Vertx vertx) {
         this.searchProjectService = searchProjectService;
         this.projectRepository = projectRepository;
         this.projectService = projectService;
         this.vertx = vertx;
-        this.random = random;
     }
 
     @Override
