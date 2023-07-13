@@ -5,7 +5,6 @@ import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
-import io.github.martinwitt.laughing_train.mining.requests.MineNextProject;
 import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.vertx.core.AbstractVerticle;
@@ -42,7 +41,6 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
         } else if (result instanceof CodeAnalyzerResult.Success success) {
             logger.atInfo().log("Analyzer %s succeeded for project %s", SERVICE_NAME, project.name());
         }
-        eventBus.publish("miner", new MineNextProject(storeResults.analyzerName()));
     }
 
     private AnalyzerStatus getAnalyzerStatus(CodeAnalyzerResult spoonResult, String name) {

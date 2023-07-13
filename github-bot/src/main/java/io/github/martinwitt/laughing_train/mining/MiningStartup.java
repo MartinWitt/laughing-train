@@ -37,9 +37,9 @@ public class MiningStartup {
             System.out.println("Received message: " + v.toString());
             v.next();
         });
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.eventBus()
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(3), TimeUnit.MINUTES.toMillis(25), v -> vertx.eventBus()
                 .publish("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.eventBus()
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(3), TimeUnit.MINUTES.toMillis(15), v -> vertx.eventBus()
                 .publish("miner", new MineNextProject(SpoonPeriodicMiner.ANALYZER_NAME)));
     }
 }
