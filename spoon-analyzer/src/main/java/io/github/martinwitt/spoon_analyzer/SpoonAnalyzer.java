@@ -25,16 +25,16 @@ public class SpoonAnalyzer {
 
     public SpoonAnalyzer() {
         this.localAnalyzers = new ArrayList<>();
-        localAnalyzers.add(new IndexOfReplaceableByContainsAnalyzer());
         localAnalyzers.add(new AccessStaticViaInstanceAnalyzer());
         localAnalyzers.add(new ArrayCanBeReplacedWithEnumValuesAnalyzer());
         localAnalyzers.add(new CharsetObjectCanBeUsedAnalyzer());
+        localAnalyzers.add(new IndexOfReplaceableByContainsAnalyzer());
         localAnalyzers.add(new InnerClassMayBeStaticAnalyzer());
-        localAnalyzers.add(new UnnecessaryImplementsAnalyzer());
-        localAnalyzers.add(new UnnecessaryTostringAnalyzer());
         localAnalyzers.add(new NonProtectedConstructorInAbstractClassAnalyzer());
         localAnalyzers.add(new PrivateFinalMethodAnalyzer());
         localAnalyzers.add(new SizeReplaceableByIsEmptyAnalyzer());
+        localAnalyzers.add(new UnnecessaryImplementsAnalyzer());
+        localAnalyzers.add(new UnnecessaryTostringAnalyzer());
     }
 
     public List<BadSmell> analyze(String path) {
