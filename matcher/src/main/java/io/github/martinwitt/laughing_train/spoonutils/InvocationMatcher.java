@@ -70,7 +70,9 @@ public class InvocationMatcher implements Filter<CtInvocation<?>> {
         if (element.getArguments().size() != argsFQN.length) {
             return false;
         }
-
+        if (element.getArguments().stream().anyMatch(arg -> arg.getType() == null)) {
+            return false;
+        }
         List<Pair<CtTypeReference<?>, CtExpression<?>>> zipped = new ArrayList<>();
         for (int i = 0; i < argsFQN.length && i < element.getArguments().size(); i++) {
             zipped.add(Pair.of(
