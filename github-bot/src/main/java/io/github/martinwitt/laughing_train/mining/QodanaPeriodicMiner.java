@@ -14,9 +14,11 @@ import io.quarkus.arc.Unremovable;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.DeliveryOptions;
 import io.vertx.core.eventbus.Message;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import org.apache.commons.io.FileUtils;
 
 @Unremovable
@@ -59,8 +61,11 @@ public class QodanaPeriodicMiner extends AbstractVerticle {
             return;
         }
         logger.atInfo().log("Start mining with qodana");
-        Future<Message<ProjectResult>> request =
-                vertx.eventBus().request(ProjectSupplier.SERVICE_NAME, new GetProject(ANALYZER_NAME));
+        Future<Message<ProjectResult>> request = vertx.eventBus()
+                .request(
+                        ProjectSupplier.SERVICE_NAME,
+                        new GetProject(ANALYZER_NAME),
+                        new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(5)));
         request.onSuccess(v -> {
             if (v.body() instanceof ProjectResult.Success success) {
                 var qodanaResult = analyzeProject(success);

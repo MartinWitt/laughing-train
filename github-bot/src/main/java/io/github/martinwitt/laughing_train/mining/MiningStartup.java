@@ -39,7 +39,7 @@ public class MiningStartup {
         });
         vertx.setPeriodic(TimeUnit.MINUTES.toMillis(3), TimeUnit.MINUTES.toMillis(25), v -> vertx.eventBus()
                 .publish("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
-        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(3), TimeUnit.MINUTES.toMillis(15), v -> vertx.eventBus()
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(2), TimeUnit.MINUTES.toMillis(15), v -> vertx.eventBus()
                 .publish("miner", new MineNextProject(SpoonPeriodicMiner.ANALYZER_NAME)));
     }
 }
