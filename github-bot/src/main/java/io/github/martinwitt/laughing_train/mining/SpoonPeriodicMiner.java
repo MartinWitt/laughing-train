@@ -5,20 +5,17 @@ import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.data.ProjectResult.Success;
 import io.github.martinwitt.laughing_train.data.request.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
-import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
-import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
-import io.github.martinwitt.laughing_train.domain.entity.Project;
-import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
-import io.github.martinwitt.laughing_train.services.ProjectService;
+import io.github.martinwitt.laughing_train.mining.requests.GetProject;
+import io.github.martinwitt.laughing_train.mining.requests.MineNextProject;
+import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
 import io.github.martinwitt.laughing_train.services.SpoonAnalyzerService;
-import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.arc.Unremovable;
+import io.quarkus.vertx.ConsumeEvent;
+import io.vertx.core.Future;
 import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.Message;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.io.IOException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Queue;
 import org.apache.commons.io.FileUtils;
 
 @Unremovable
@@ -26,55 +23,13 @@ import org.apache.commons.io.FileUtils;
 public class SpoonPeriodicMiner {
 
     static final FluentLogger logger = FluentLogger.forEnclosingClass();
-    private static final String ANALYZER_NAME = "spoon-analyzer";
-    final MiningPrinter miningPrinter;
+    public static final String ANALYZER_NAME = "spoon-analyzer";
     final Vertx vertx;
-    final SearchProjectService searchProjectService;
-    final ProjectRepository projectRepository;
-    final ProjectService projectService;
-    MeterRegistry registry;
     final SpoonAnalyzerService spoonAnalyzerService;
-    private Queue<Project> queue = new ArrayDeque<>();
 
-    public SpoonPeriodicMiner(
-            MeterRegistry registry,
-            Vertx vertx,
-            SearchProjectService searchProjectService,
-            ProjectRepository projectRepository,
-            ProjectService projectService,
-            MiningPrinter miningPrinter,
-            SpoonAnalyzerService spoonAnalyzerService) {
-        this.registry = registry;
+    public SpoonPeriodicMiner(Vertx vertx, SpoonAnalyzerService spoonAnalyzerService) {
         this.vertx = vertx;
-        this.searchProjectService = searchProjectService;
-        this.projectRepository = projectRepository;
-        this.projectService = projectService;
-        this.miningPrinter = miningPrinter;
         this.spoonAnalyzerService = spoonAnalyzerService;
-    }
-
-    void mineRandomRepo(ProjectResult.Success success) {
-        try {
-            logger.atInfo().log("Start mining with spoon");
-            String commitHash = success.project().commitHash();
-            if (isAlreadyMined(success, commitHash, ANALYZER_NAME)) {
-                logger.atInfo().log("Project %s already analyzed with commit hash %s", success.project(), commitHash);
-            }
-            logger.atInfo().log("Successfully checked out project %s", success.project());
-            var spoonResult = analyzeProjectWithSpoon(success);
-            if (spoonResult instanceof CodeAnalyzerResult.Failure error) {
-                logger.atWarning().log("Failed to analyze project with spoon %s", error.message());
-                tryDeleteProject(success);
-            }
-            if (spoonResult instanceof CodeAnalyzerResult.Success successResult) {
-                addOrUpdateCommitHash(success, spoonResult);
-            }
-        } catch (Exception e) {
-            logger.atWarning().withCause(e).log("Failed to mine random repo");
-            registry.counter("mining.error").increment();
-        } finally {
-            logger.atInfo().log("Finished mining with spoon");
-        }
     }
 
     private CodeAnalyzerResult analyzeProjectWithSpoon(Success success) {
@@ -82,14 +37,6 @@ public class SpoonPeriodicMiner {
         CodeAnalyzerResult analyze = spoonAnalyzerService.analyze(new AnalyzerRequest.WithProject(success.project()));
         logger.atInfo().log("Successfully analyzed project %s with spoon", success.project());
         return analyze;
-    }
-
-    private boolean isAlreadyMined(ProjectResult.Success success, String commitHash, String analyzerName) {
-        return projectRepository.findByProjectUrl(success.project().url()).stream()
-                .flatMap(v -> v.getCommits().stream())
-                .filter(v -> v.getCommitHash().equals(commitHash))
-                .flatMap(v -> v.getAnalyzerStatuses().stream())
-                .anyMatch(v -> v.getAnalyzerName().equals(analyzerName));
     }
 
     private void tryDeleteProject(ProjectResult.Success project) {
@@ -101,43 +48,43 @@ public class SpoonPeriodicMiner {
         }
     }
 
-    private void addOrUpdateCommitHash(ProjectResult.Success projectResult, CodeAnalyzerResult spoonResult) {
-        String name = projectResult.project().name();
-        String commitHash = projectResult.project().commitHash();
-        var list = projectRepository.findByProjectUrl(projectResult.project().url());
-        AnalyzerStatus analyzerStatus = getAnalyzerStatus(spoonResult);
-        if (list.isEmpty()) {
-            Project newProject = new Project(name, projectResult.project().url());
-            newProject.addCommitHash(commitHash);
-            var commits = newProject.getCommits();
-            commits.stream()
-                    .filter(v -> v.getCommitHash().equals(commitHash))
-                    .findFirst()
-                    .ifPresent(v -> {
-                        v.addAnalyzerStatus(analyzerStatus);
-                    });
-            projectRepository.create(newProject);
-        } else {
-            logger.atInfo().log("Updating commit hash for %s", name);
-            var oldProject = list.get(0);
-            oldProject.addCommitHash(commitHash);
-            var commits = oldProject.getCommits();
-            GitHubCommit gitHubCommit = new GitHubCommit(commitHash, new ArrayList<>());
-            commits.add(gitHubCommit);
-            gitHubCommit.addAnalyzerStatus(analyzerStatus);
-            oldProject.addCommitHash(gitHubCommit);
-            projectRepository.save(oldProject);
+    @ConsumeEvent(value = "miner", blocking = true)
+    void mineWithSpoon(MineNextProject event) {
+        if (!event.analyzerName().equals(ANALYZER_NAME)) {
+            return;
         }
+        logger.atInfo().log("Start mining with spoon");
+        Future<Message<ProjectResult>> request =
+                vertx.eventBus().request(ProjectSupplier.SERVICE_NAME, new GetProject(ANALYZER_NAME));
+        request.onSuccess(v -> {
+            if (v.body() instanceof ProjectResult.Success success) {
+                var spoonResult = analyzeProjectWithSpoon(success);
+                if (spoonResult instanceof CodeAnalyzerResult.Success spoonSuccess) {
+                    storeSuccess(success, spoonSuccess);
+                } else {
+                    if (spoonResult instanceof CodeAnalyzerResult.Failure error) {
+                        storeFailure(success, error);
+                    }
+                }
+            }
+        });
+        request.onFailure(v -> {
+            logger.atWarning().withCause(v).log("Failed to get project");
+        });
     }
 
-    private AnalyzerStatus getAnalyzerStatus(CodeAnalyzerResult spoonResult) {
-        AnalyzerStatus analyzerStatus = null;
-        if (spoonResult instanceof CodeAnalyzerResult.Success success) {
-            analyzerStatus =
-                    AnalyzerStatus.success(ANALYZER_NAME, success.results().size());
-        } else if (spoonResult instanceof CodeAnalyzerResult.Failure failure) {
-            analyzerStatus = AnalyzerStatus.failure(ANALYZER_NAME, 0);
-        }
-        return analyzerStatus;
+    private void storeFailure(ProjectResult.Success success, CodeAnalyzerResult.Failure error) {
+        logger.atWarning().log("Failed to analyze project with spoon %s", error.message());
+        tryDeleteProject(success);
+        StoreResults storeResults =
+                new StoreResults(success.project(), new CodeAnalyzerResult.Failure(error.message()));
+        vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
+    }
+
+    private void storeSuccess(ProjectResult.Success success, CodeAnalyzerResult.Success spoonSuccess) {
+        logger.atInfo().log("Successfully analyzed project %s with spoon", success.project());
+        StoreResults storeResults = new StoreResults(
+                success.project(), new CodeAnalyzerResult.Success(spoonSuccess.results(), success.project()));
+        vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
     }
 }
