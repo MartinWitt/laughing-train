@@ -10,9 +10,11 @@ import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.List;
 
+@ApplicationScoped
 public class AnalyzerResultsPersistence extends AbstractVerticle {
 
     public static final String SERVICE_NAME = "analyzerResultsPersistence";

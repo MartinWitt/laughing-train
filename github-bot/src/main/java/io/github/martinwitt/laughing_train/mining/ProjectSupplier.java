@@ -8,9 +8,11 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectReposit
 import io.github.martinwitt.laughing_train.services.ProjectService;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.util.Random;
 
+@ApplicationScoped
 public class ProjectSupplier extends AbstractVerticle {
 
     public static final String SERVICE_NAME = "projectSupplier";
