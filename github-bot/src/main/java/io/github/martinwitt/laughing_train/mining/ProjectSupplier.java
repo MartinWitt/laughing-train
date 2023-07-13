@@ -11,6 +11,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.Message;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 import java.io.IOException;
 import java.util.Random;
 
@@ -24,6 +25,11 @@ public class ProjectSupplier extends AbstractVerticle {
     final ProjectService projectService;
     final Vertx vertx;
     final Random random;
+
+    @Produces
+    Random random() {
+        return new Random();
+    }
 
     ProjectSupplier(
             SearchProjectService searchProjectService,
