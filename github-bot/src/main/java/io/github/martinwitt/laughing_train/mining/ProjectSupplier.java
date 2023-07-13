@@ -6,11 +6,12 @@ import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.mining.requests.GetProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectService;
-import io.quarkus.vertx.ConsumeEvent;
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Vertx;
 import java.io.IOException;
 import java.util.Random;
 
-public class ProjectSupplier {
+public class ProjectSupplier extends AbstractVerticle {
 
     public static final String SERVICE_NAME = "projectSupplier";
 
@@ -18,17 +19,24 @@ public class ProjectSupplier {
     final ProjectRepository projectRepository;
     final ProjectService projectService;
     private static final Random random = new Random();
+    final Vertx vertx;
 
     ProjectSupplier(
             SearchProjectService searchProjectService,
             ProjectRepository projectRepository,
-            ProjectService projectService) {
+            ProjectService projectService,
+            Vertx vertx) {
         this.searchProjectService = searchProjectService;
         this.projectRepository = projectRepository;
         this.projectService = projectService;
+        this.vertx = vertx;
     }
 
-    @ConsumeEvent(value = SERVICE_NAME, blocking = true)
+    @Override
+    public void start() throws Exception {
+        vertx.eventBus().<GetProject>consumer(SERVICE_NAME, v -> supplyProject(v.body()));
+    }
+
     ProjectResult supplyProject(GetProject getProject) {
         try {
             Project project = getRandomProject();

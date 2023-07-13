@@ -11,7 +11,7 @@ import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.quarkus.arc.Unremovable;
-import io.quarkus.vertx.ConsumeEvent;
+import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.Message;
@@ -21,7 +21,7 @@ import org.apache.commons.io.FileUtils;
 
 @Unremovable
 @ApplicationScoped
-public class QodanaPeriodicMiner {
+public class QodanaPeriodicMiner extends AbstractVerticle {
 
     static final FluentLogger logger = FluentLogger.forEnclosingClass();
     public static final String ANALYZER_NAME = "Qodana";
@@ -49,7 +49,11 @@ public class QodanaPeriodicMiner {
         }
     }
 
-    @ConsumeEvent(value = "miner", blocking = true)
+    @Override
+    public void start() throws Exception {
+        vertx.eventBus().<MineNextProject>consumer("miner", v -> mineWithQodana(v.body()));
+    }
+
     void mineWithQodana(MineNextProject event) {
         if (!event.analyzerName().equals(ANALYZER_NAME)) {
             return;
