@@ -7,6 +7,7 @@ import io.vertx.core.Vertx;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
+import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
 public class MiningStartup {
@@ -32,7 +33,9 @@ public class MiningStartup {
         vertx.deployVerticle(spoonPeriodicMiner, options);
         vertx.deployVerticle(persistence, options);
         vertx.deployVerticle(projectSupplier, options);
-        vertx.eventBus().send("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME));
-        vertx.eventBus().send("miner", new MineNextProject(SpoonPeriodicMiner.ANALYZER_NAME));
+        vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.eventBus()
+                .send("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
+        vertx.setTimer(TimeUnit.MINUTES.toMillis(1), v -> vertx.eventBus()
+                .send("miner", new MineNextProject(SpoonPeriodicMiner.ANALYZER_NAME)));
     }
 }
