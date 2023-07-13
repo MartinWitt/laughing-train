@@ -6,8 +6,10 @@ import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.mining.requests.GetProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectService;
+import io.quarkus.logging.Log;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.Message;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.io.IOException;
 import java.util.Random;
@@ -20,31 +22,35 @@ public class ProjectSupplier extends AbstractVerticle {
     final SearchProjectService searchProjectService;
     final ProjectRepository projectRepository;
     final ProjectService projectService;
-    private static final Random random = new Random();
     final Vertx vertx;
+    final Random random;
 
     ProjectSupplier(
             SearchProjectService searchProjectService,
             ProjectRepository projectRepository,
             ProjectService projectService,
-            Vertx vertx) {
+            Vertx vertx,
+            Random random) {
         this.searchProjectService = searchProjectService;
         this.projectRepository = projectRepository;
         this.projectService = projectService;
         this.vertx = vertx;
+        this.random = random;
     }
 
     @Override
     public void start() throws Exception {
-        vertx.eventBus().<GetProject>consumer(SERVICE_NAME, v -> supplyProject(v.body()));
+        vertx.eventBus().<GetProject>consumer(SERVICE_NAME, v -> supplyProject(v));
     }
 
-    ProjectResult supplyProject(GetProject getProject) {
+    void supplyProject(Message<GetProject> getProject) {
         try {
             Project project = getRandomProject();
-            return checkoutProject(project);
+            ProjectResult checkoutProject = checkoutProject(project);
+            Log.info("Project %s checked out".formatted(project.getProjectUrl()));
+            getProject.reply(checkoutProject);
         } catch (IOException e) {
-            return new ProjectResult.Error(e.getMessage());
+            getProject.reply(new ProjectResult.Error(e.getMessage()));
         }
     }
 
