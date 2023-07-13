@@ -74,12 +74,8 @@ public class ProjectGraphQL {
         if (!projectRepository.existsByProjectUrl(projectUrl)) {
             logger.atInfo().log("Project does not exist yet, creating it");
             Project project = new Project(projectUrl, projectName);
-            periodicMiner.addToQueue(project);
             return mapToDto(projectRepository.create(project));
         } else {
-            periodicMiner.addToQueue(
-                    projectRepository.findByProjectUrl(projectUrl).get(0));
-
             logger.atInfo().log("Project %s already exists", projectName);
             throw new RuntimeException("Project already exists");
         }
