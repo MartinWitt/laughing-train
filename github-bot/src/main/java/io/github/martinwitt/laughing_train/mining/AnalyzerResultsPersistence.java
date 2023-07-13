@@ -8,12 +8,14 @@ import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.mining.requests.MineNextProject;
 import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
-import io.quarkus.vertx.ConsumeEvent;
+import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnalyzerResultsPersistence {
+@ApplicationScoped
+public class AnalyzerResultsPersistence extends AbstractVerticle {
 
     public static final String SERVICE_NAME = "analyzerResultsPersistence";
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
@@ -25,7 +27,11 @@ public class AnalyzerResultsPersistence {
         this.eventBus = eventBus;
     }
 
-    @ConsumeEvent(value = SERVICE_NAME, blocking = true)
+    @Override
+    public void start() throws Exception {
+        vertx.eventBus().<StoreResults>consumer(SERVICE_NAME, v -> persistResults(v.body()));
+    }
+
     void persistResults(StoreResults storeResults) {
         Project project = storeResults.project();
         CodeAnalyzerResult result = storeResults.result();
