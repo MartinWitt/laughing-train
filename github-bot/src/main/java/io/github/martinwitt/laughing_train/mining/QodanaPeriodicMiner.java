@@ -78,14 +78,16 @@ public class QodanaPeriodicMiner {
         logger.atWarning().log("Failed to analyze project with qodana %s", error.message());
         tryDeleteProject(success);
         StoreResults storeResults =
-                new StoreResults(success.project(), new CodeAnalyzerResult.Failure(error.message()));
+                new StoreResults(success.project(), new CodeAnalyzerResult.Failure(error.message()), ANALYZER_NAME);
         vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
     }
 
     private void storeSuccess(ProjectResult.Success success, QodanaResult.Success qodanaSuccess) {
         logger.atInfo().log("Successfully analyzed project %s with qodana", success.project());
         StoreResults storeResults = new StoreResults(
-                success.project(), new CodeAnalyzerResult.Success(qodanaSuccess.result(), success.project()));
+                success.project(),
+                new CodeAnalyzerResult.Success(qodanaSuccess.result(), success.project()),
+                ANALYZER_NAME);
         vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
     }
 }

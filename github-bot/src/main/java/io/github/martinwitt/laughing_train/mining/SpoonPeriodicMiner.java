@@ -77,14 +77,16 @@ public class SpoonPeriodicMiner {
         logger.atWarning().log("Failed to analyze project with spoon %s", error.message());
         tryDeleteProject(success);
         StoreResults storeResults =
-                new StoreResults(success.project(), new CodeAnalyzerResult.Failure(error.message()));
+                new StoreResults(success.project(), new CodeAnalyzerResult.Failure(error.message()), ANALYZER_NAME);
         vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
     }
 
     private void storeSuccess(ProjectResult.Success success, CodeAnalyzerResult.Success spoonSuccess) {
         logger.atInfo().log("Successfully analyzed project %s with spoon", success.project());
         StoreResults storeResults = new StoreResults(
-                success.project(), new CodeAnalyzerResult.Success(spoonSuccess.results(), success.project()));
+                success.project(),
+                new CodeAnalyzerResult.Success(spoonSuccess.results(), success.project()),
+                ANALYZER_NAME);
         vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
     }
 }
