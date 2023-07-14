@@ -92,6 +92,7 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
 
     private void storeSuccess(ProjectResult.Success success, CodeAnalyzerResult.Success spoonSuccess) {
         logger.atInfo().log("Successfully analyzed project %s with spoon", success.project());
+        tryDeleteProject(success);
         StoreResults storeResults = new StoreResults(
                 success.project(),
                 new CodeAnalyzerResult.Success(spoonSuccess.results(), success.project()),

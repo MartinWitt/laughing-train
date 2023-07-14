@@ -93,6 +93,7 @@ public class QodanaPeriodicMiner extends AbstractVerticle {
 
     private void storeSuccess(ProjectResult.Success success, QodanaResult.Success qodanaSuccess) {
         logger.atInfo().log("Successfully analyzed project %s with qodana", success.project());
+        tryDeleteProject(success);
         StoreResults storeResults = new StoreResults(
                 success.project(),
                 new CodeAnalyzerResult.Success(qodanaSuccess.result(), success.project()),
