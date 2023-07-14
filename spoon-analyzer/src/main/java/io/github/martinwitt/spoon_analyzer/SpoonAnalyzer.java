@@ -54,6 +54,7 @@ public class SpoonAnalyzer {
             launcher.getEnvironment().setNoClasspath(true);
             launcher.getEnvironment().setComplianceLevel(17);
             launcher.getEnvironment().setIgnoreSyntaxErrors(true);
+            launcher.getEnvironment().setLevel("ERROR");
             var model = launcher.buildModel();
             logger.atInfo().log("Found %s types.", model.getAllTypes().size());
             for (CtType<?> type : model.getAllTypes()) {

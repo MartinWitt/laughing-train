@@ -38,12 +38,8 @@ public class PathUtils {
      */
     public static List<Path> filterResourcePaths(List<Path> paths) {
         return paths.stream()
-                .filter(path -> {
-                    String pathString = path.toString();
-                    return !pathString.contains("src/main/resources")
-                            && !pathString.contains("src/test/resources")
-                            && !pathString.contains("src/test/java");
-                })
+                .filter(path -> path.toString().endsWith("src/main/java")
+                        || path.toString().endsWith("src/test/java"))
                 .collect(Collectors.toList());
     }
 }
