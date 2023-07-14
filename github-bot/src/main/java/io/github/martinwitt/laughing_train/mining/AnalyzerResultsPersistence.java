@@ -34,13 +34,14 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
     void persistResults(StoreResults storeResults) {
         Project project = storeResults.project();
         CodeAnalyzerResult result = storeResults.result();
-        addOrUpdateCommitHash(project, result, SERVICE_NAME);
+        addOrUpdateCommitHash(project, result, storeResults.analyzerName());
         if (result instanceof CodeAnalyzerResult.Failure failure) {
-            logger.atInfo().log("Analyzer %s failed for project %s", SERVICE_NAME, project.name());
+            logger.atInfo().log("Analyzer %s failed for project %s", storeResults.analyzerName(), project.name());
 
         } else if (result instanceof CodeAnalyzerResult.Success success) {
-            logger.atInfo().log("Analyzer %s succeeded for project %s", SERVICE_NAME, project.name());
+            logger.atInfo().log("Analyzer %s succeeded for project %s", storeResults.analyzerName(), project.name());
         }
+        vertx.eventBus().send(MiningStartup.SERVICE_NAME, storeResults.analyzerName());
     }
 
     private AnalyzerStatus getAnalyzerStatus(CodeAnalyzerResult spoonResult, String name) {
@@ -82,5 +83,6 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
             oldProject.addCommitHash(gitHubCommit);
             projectRepository.save(oldProject);
         }
+        vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, project);
     }
 }
