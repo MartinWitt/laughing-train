@@ -83,6 +83,6 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
             oldProject.addCommitHash(gitHubCommit);
             projectRepository.save(oldProject);
         }
-        vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, project);
+        vertx.eventBus().send(MiningStartup.SERVICE_NAME, analyzerName);
     }
 }
