@@ -87,7 +87,7 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
         tryDeleteProject(success);
         StoreResults storeResults =
                 new StoreResults(success.project(), new CodeAnalyzerResult.Failure(error.message()), ANALYZER_NAME);
-        vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
+        vertx.eventBus().publish(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
     }
 
     private void storeSuccess(ProjectResult.Success success, CodeAnalyzerResult.Success spoonSuccess) {
@@ -96,6 +96,6 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
                 success.project(),
                 new CodeAnalyzerResult.Success(spoonSuccess.results(), success.project()),
                 ANALYZER_NAME);
-        vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
+        vertx.eventBus().publish(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
     }
 }

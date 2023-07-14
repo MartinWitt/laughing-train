@@ -88,7 +88,7 @@ public class QodanaPeriodicMiner extends AbstractVerticle {
         tryDeleteProject(success);
         StoreResults storeResults =
                 new StoreResults(success.project(), new CodeAnalyzerResult.Failure(error.message()), ANALYZER_NAME);
-        vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
+        vertx.eventBus().publish(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
     }
 
     private void storeSuccess(ProjectResult.Success success, QodanaResult.Success qodanaSuccess) {
@@ -97,6 +97,6 @@ public class QodanaPeriodicMiner extends AbstractVerticle {
                 success.project(),
                 new CodeAnalyzerResult.Success(qodanaSuccess.result(), success.project()),
                 ANALYZER_NAME);
-        vertx.eventBus().send(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
+        vertx.eventBus().publish(AnalyzerResultsPersistence.SERVICE_NAME, storeResults);
     }
 }
