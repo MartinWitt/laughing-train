@@ -17,6 +17,10 @@ public interface BadSmellRepository {
 
     List<BadSmell> findByIdentifier(String identifier);
 
+    List<BadSmell> findByCommitHash(String commitHash, String analyzerName);
+
+    List<BadSmell> findByCommitHash(String commitHash, String analyzerName, String ruleId);
+
     long deleteByIdentifier(String identifier);
 
     BadSmell save(BadSmell badSmell);
