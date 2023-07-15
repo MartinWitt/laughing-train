@@ -42,8 +42,9 @@ public class MiningStartup {
                         vertx.deployVerticle(qodanaPeriodicMiner, options),
                         vertx.deployVerticle(spoonPeriodicMiner, options),
                         vertx.deployVerticle(persistence, options),
-                        vertx.deployVerticle(projectSupplier, options),
-                        vertx.deployVerticle(miningEventConsumer, options))
+                        vertx.deployVerticle(projectSupplier, options)
+                        // vertx.deployVerticle(miningEventConsumer, options)
+                        )
                 .onFailure(Throwable::printStackTrace)
                 .onComplete(v -> System.out.println("All verticles deployed"))
                 .onSuccess(v -> startMining());

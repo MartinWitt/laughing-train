@@ -41,7 +41,6 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
         } else if (result instanceof CodeAnalyzerResult.Success success) {
             logger.atInfo().log("Analyzer %s succeeded for project %s", storeResults.analyzerName(), project.name());
         }
-        vertx.eventBus().publish(MiningStartup.SERVICE_NAME, storeResults.analyzerName());
     }
 
     private AnalyzerStatus getAnalyzerStatus(CodeAnalyzerResult spoonResult, String name) {
