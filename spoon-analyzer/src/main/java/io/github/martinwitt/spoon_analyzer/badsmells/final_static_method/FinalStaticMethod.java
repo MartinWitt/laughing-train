@@ -9,11 +9,12 @@ public class FinalStaticMethod implements BadSmell {
     private static final String NAME = "FinalStaticMethod";
     private static final String description =
             "A final method is a method that cannot be overridden in a subclass. As static methods are bound to the class the cant be overridden only hidden.";
-    private CtMethod<?> method;
-    private CtType<?> affectedType;
+    private final CtMethod<?> method;
+    private final CtType<?> affectedType;
 
     public FinalStaticMethod(CtMethod<?> method, CtType<?> affectedType) {
         this.method = method;
+        this.affectedType = affectedType;
     }
 
     @Override
