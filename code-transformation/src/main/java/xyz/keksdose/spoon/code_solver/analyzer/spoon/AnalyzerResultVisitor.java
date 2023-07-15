@@ -38,7 +38,7 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
             return Optional.ofNullable(badSmell.accept(analyzerResultVisitor));
 
         } catch (Exception e) {
-            logger.atWarning().withCause(e).withStackTrace(StackSize.SMALL).log(
+            logger.atWarning().withCause(e).withStackTrace(StackSize.NONE).log(
                     "Could not convert bad smell to analyzer result");
             return Optional.empty();
         }

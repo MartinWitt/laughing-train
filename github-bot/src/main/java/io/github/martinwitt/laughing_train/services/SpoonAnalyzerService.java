@@ -40,7 +40,6 @@ public class SpoonAnalyzerService {
                                 .map(v -> v.ruleID().toString())
                                 .distinct()
                                 .collect(Collectors.joining(",")));
-
                 CodeAnalyzerResult.Success success = new CodeAnalyzerResult.Success(analyze, project.project());
                 analyzerResultPersistenceService.persistResults(success);
                 return success;
