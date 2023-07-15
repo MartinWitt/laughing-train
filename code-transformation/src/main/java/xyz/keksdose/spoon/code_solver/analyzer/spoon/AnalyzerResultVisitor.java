@@ -1,5 +1,7 @@
 package xyz.keksdose.spoon.code_solver.analyzer.spoon;
 
+import com.google.common.flogger.FluentLogger;
+import com.google.common.flogger.StackSize;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
@@ -29,9 +31,17 @@ import spoon.reflect.declaration.CtType;
 class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
 
     private static final AnalyzerResultVisitor analyzerResultVisitor = new AnalyzerResultVisitor();
+    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
     public static Optional<AnalyzerResult> toAnalyzerResult(BadSmell badSmell) {
-        return Optional.ofNullable(badSmell.accept(analyzerResultVisitor));
+        try {
+            return Optional.ofNullable(badSmell.accept(analyzerResultVisitor));
+
+        } catch (Exception e) {
+            logger.atWarning().withCause(e).withStackTrace(StackSize.SMALL).log(
+                    "Could not convert bad smell to analyzer result");
+            return Optional.empty();
+        }
     }
 
     private AnalyzerResultVisitor() {}
@@ -106,7 +116,7 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
         CtType<?> clone = badSmell.getAffectedType().clone();
         clone.setTypeMembers(new ArrayList<>());
         String snippet = clone.toString();
-        return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedType().getPosition(), snippet);
+        return toSpoonAnalyzerResult(badSmell, badSmell.getInnerClass().getPosition(), snippet);
     }
 
     @Override
