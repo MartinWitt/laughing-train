@@ -72,5 +72,4 @@ public class SpoonAnalyzer {
         }
         return badSmells;
     }
-
 }
