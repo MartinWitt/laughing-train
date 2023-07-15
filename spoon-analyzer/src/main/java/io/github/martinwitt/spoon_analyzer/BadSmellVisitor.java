@@ -19,15 +19,6 @@ import io.github.martinwitt.spoon_analyzer.badsmells.unnecessary_tostring.Unnece
  */
 public interface BadSmellVisitor<U> extends Visitor<BadSmell, U> {
 
-    /**
-     * Visits a generic bad smell, which is not further specified. This method is called if no other method is more specific.
-     * @param badSmell  the bad smell to visit
-     * @return  the result of the visit
-     */
-    default U visit(BadSmell badSmell) {
-        return emptyResult();
-    }
-
     default U visit(IndexOfReplaceableByContains badSmell) {
         return emptyResult();
     }

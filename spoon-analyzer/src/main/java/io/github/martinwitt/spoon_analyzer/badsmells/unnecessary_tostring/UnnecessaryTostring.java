@@ -1,6 +1,7 @@
 package io.github.martinwitt.spoon_analyzer.badsmells.unnecessary_tostring;
 
 import io.github.martinwitt.spoon_analyzer.BadSmell;
+import io.github.martinwitt.spoon_analyzer.BadSmellVisitor;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 
@@ -46,5 +47,10 @@ public class UnnecessaryTostring implements BadSmell {
     @Override
     public boolean isFixable() {
         return true;
+    }
+
+    @Override
+    public <T> T accept(BadSmellVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

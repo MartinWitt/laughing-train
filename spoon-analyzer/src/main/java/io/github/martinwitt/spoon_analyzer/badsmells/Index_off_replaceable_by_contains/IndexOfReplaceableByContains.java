@@ -1,6 +1,7 @@
 package io.github.martinwitt.spoon_analyzer.badsmells.Index_off_replaceable_by_contains;
 
 import io.github.martinwitt.spoon_analyzer.BadSmell;
+import io.github.martinwitt.spoon_analyzer.BadSmellVisitor;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.declaration.CtType;
 
@@ -59,5 +60,10 @@ public class IndexOfReplaceableByContains implements BadSmell {
     @Override
     public boolean isFixable() {
         return true;
+    }
+
+    @Override
+    public <T> T accept(BadSmellVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

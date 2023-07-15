@@ -1,6 +1,7 @@
 package io.github.martinwitt.spoon_analyzer.badsmells.array_can_be_replaced_with_enum_values;
 
 import io.github.martinwitt.spoon_analyzer.BadSmell;
+import io.github.martinwitt.spoon_analyzer.BadSmellVisitor;
 import spoon.reflect.code.CtNewArray;
 import spoon.reflect.declaration.CtType;
 
@@ -36,5 +37,10 @@ public class ArrayCanBeReplacedWithEnumValues implements BadSmell {
 
     public CtNewArray<?> getAffectedElement() {
         return affectedElement;
+    }
+
+    @Override
+    public <T> T accept(BadSmellVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

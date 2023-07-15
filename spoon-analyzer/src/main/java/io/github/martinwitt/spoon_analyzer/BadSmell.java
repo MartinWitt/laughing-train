@@ -10,9 +10,7 @@ public interface BadSmell {
 
     CtType<?> getAffectedType();
 
-    default <T> T accept(BadSmellVisitor<T> visitor) {
-        return visitor.visit(this);
-    }
+    <T> T accept(BadSmellVisitor<T> visitor);
 
     /**
      * Fixes the bad smell. Fixing means changing the source code in a way that the bad smell is not present anymore.
