@@ -16,10 +16,14 @@ import io.github.martinwitt.spoon_analyzer.badsmells.private_final_method.Privat
 import io.github.martinwitt.spoon_analyzer.badsmells.size_replaceable_by_is_empty.SizeReplaceableByIsEmpty;
 import io.github.martinwitt.spoon_analyzer.badsmells.unnecessary_implements.UnnecessaryImplements;
 import io.github.martinwitt.spoon_analyzer.badsmells.unnecessary_tostring.UnnecessaryTostring;
+import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Optional;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.cu.SourcePosition;
+import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
 
 class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
@@ -37,10 +41,10 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
         return toSpoonAnalyzerResult(
                 badSmell,
                 badSmell.getIndexOfCall().getPosition(),
-                badSmell.getIndexOfCall()
-                        .getParent(CtBinaryOperator.class)
-                        .getOriginalSourceFragment()
-                        .toString());
+                trygetOriginalSourceCode(badSmell.getIndexOfCall())
+                        .orElse(badSmell.getIndexOfCall()
+                                .getParent(CtBinaryOperator.class)
+                                .toString()));
     }
 
     private String getAbsolutePath(BadSmell badSmell) {
@@ -71,27 +75,28 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
 
     @Override
     public AnalyzerResult visit(AccessStaticViaInstance badSmell) {
-        String snippet =
-                badSmell.getAffectedCtInvocation().getOriginalSourceFragment().toString();
+        String snippet = trygetOriginalSourceCode(badSmell.getAffectedCtInvocation())
+                .orElse(badSmell.getAffectedCtInvocation().toString());
         return toSpoonAnalyzerResult(
                 badSmell, badSmell.getAffectedCtInvocation().getPosition(), snippet);
     }
 
     @Override
     public AnalyzerResult visit(ArrayCanBeReplacedWithEnumValues badSmell) {
-        String snippet =
-                badSmell.getAffectedElement().getOriginalSourceFragment().toString();
+        String snippet = trygetOriginalSourceCode(badSmell.getAffectedElement())
+                .orElse(badSmell.getAffectedElement().toString());
         return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedElement().getPosition(), snippet);
     }
 
     @Override
     public AnalyzerResult visit(CharsetObjectCanBeUsed badSmell) {
         if (badSmell.getInvocation() != null) {
-            String snippet =
-                    badSmell.getInvocation().getOriginalSourceFragment().toString();
+            String snippet = trygetOriginalSourceCode(badSmell.getInvocation())
+                    .orElse(badSmell.getInvocation().toString());
             return toSpoonAnalyzerResult(badSmell, badSmell.getInvocation().getPosition(), snippet);
         } else {
-            String snippet = badSmell.getCtorCall().getOriginalSourceFragment().toString();
+            String snippet = trygetOriginalSourceCode(badSmell.getCtorCall())
+                    .orElse(badSmell.getCtorCall().toString());
             return toSpoonAnalyzerResult(badSmell, badSmell.getCtorCall().getPosition(), snippet);
         }
     }
@@ -106,21 +111,22 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
 
     @Override
     public AnalyzerResult visit(NonProtectedConstructorInAbstractClass badSmell) {
-        String snippet = badSmell.getCtConstructor().getOriginalSourceFragment().toString();
+        String snippet = trygetOriginalSourceCode(badSmell.getCtConstructor())
+                .orElse(badSmell.getCtConstructor().toString());
         return toSpoonAnalyzerResult(badSmell, badSmell.getCtConstructor().getPosition(), snippet);
     }
 
     @Override
     public AnalyzerResult visit(PrivateFinalMethod badSmell) {
-        String snippet =
-                badSmell.getAffectedMethod().getOriginalSourceFragment().toString();
+        String snippet = trygetOriginalSourceCode(badSmell.getAffectedMethod())
+                .orElse(badSmell.getAffectedMethod().toString());
         return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedMethod().getPosition(), snippet);
     }
 
     @Override
     public AnalyzerResult visit(SizeReplaceableByIsEmpty badSmell) {
-        String snippet =
-                badSmell.getSizeInvocation().getOriginalSourceFragment().toString();
+        String snippet = trygetOriginalSourceCode(badSmell.getSizeInvocation())
+                .orElse(badSmell.getSizeInvocation().toString());
         return toSpoonAnalyzerResult(badSmell, badSmell.getSizeInvocation().getPosition(), snippet);
     }
 
@@ -135,8 +141,8 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
 
     @Override
     public AnalyzerResult visit(UnnecessaryTostring badSmell) {
-        String snippet =
-                badSmell.getNotNeededTostring().getOriginalSourceFragment().toString();
+        String snippet = trygetOriginalSourceCode(badSmell.getNotNeededTostring())
+                .orElse(badSmell.getNotNeededTostring().toString());
         return toSpoonAnalyzerResult(badSmell, badSmell.getNotNeededTostring().getPosition(), snippet);
     }
 
@@ -144,5 +150,25 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
     public AnalyzerResult visit(FinalStaticMethod badSmell) {
         String snippet = badSmell.getMethod().getSignature();
         return toSpoonAnalyzerResult(badSmell, badSmell.getMethod().getPosition(), snippet);
+    }
+
+    private Optional<String> trygetOriginalSourceCode(CtElement element) {
+        try {
+            File file = element.getPosition().getCompilationUnit().getFile();
+            String sourceCode = Files.readString(file.toPath());
+            int lineNumber = element.getPosition().getLine();
+
+            // Split the source code into lines
+            String[] lines = sourceCode.split("\\r?\\n");
+
+            // Extract the two lines before and after the given line number
+            int startIndex = Math.max(0, lineNumber - 3);
+            int endIndex = Math.min(lines.length - 1, lineNumber + 2);
+            String context = String.join("\n", Arrays.copyOfRange(lines, startIndex, endIndex + 1));
+
+            return Optional.ofNullable(context);
+        } catch (Throwable e) {
+            return Optional.empty();
+        }
     }
 }
