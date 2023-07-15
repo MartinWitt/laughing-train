@@ -87,5 +87,5 @@ jar {
 }
 group 'io.github.martinwitt'
 // x-release-please-start-version
-version '1.2.0'
+version '1.2.1-SNAPSHOT'
 // x-release-please-end
