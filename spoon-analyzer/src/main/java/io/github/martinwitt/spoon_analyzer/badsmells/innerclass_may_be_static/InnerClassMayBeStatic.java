@@ -1,6 +1,7 @@
 package io.github.martinwitt.spoon_analyzer.badsmells.innerclass_may_be_static;
 
 import io.github.martinwitt.spoon_analyzer.BadSmell;
+import io.github.martinwitt.spoon_analyzer.BadSmellVisitor;
 import spoon.reflect.declaration.CtType;
 
 public class InnerClassMayBeStatic implements BadSmell {
@@ -49,5 +50,10 @@ public class InnerClassMayBeStatic implements BadSmell {
     @Override
     public boolean isFixable() {
         return true;
+    }
+
+    @Override
+    public <T> T accept(BadSmellVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

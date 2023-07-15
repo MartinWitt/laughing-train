@@ -1,6 +1,7 @@
 package io.github.martinwitt.spoon_analyzer.badsmells.size_replaceable_by_is_empty;
 
 import io.github.martinwitt.spoon_analyzer.BadSmell;
+import io.github.martinwitt.spoon_analyzer.BadSmellVisitor;
 import spoon.reflect.code.CtBinaryOperator;
 import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtInvocation;
@@ -61,5 +62,10 @@ public class SizeReplaceableByIsEmpty implements BadSmell {
     @Override
     public boolean isFixable() {
         return true;
+    }
+
+    @Override
+    public <T> T accept(BadSmellVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

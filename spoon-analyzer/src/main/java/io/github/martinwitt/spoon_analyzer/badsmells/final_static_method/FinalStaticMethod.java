@@ -1,6 +1,7 @@
 package io.github.martinwitt.spoon_analyzer.badsmells.final_static_method;
 
 import io.github.martinwitt.spoon_analyzer.BadSmell;
+import io.github.martinwitt.spoon_analyzer.BadSmellVisitor;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 
@@ -37,5 +38,10 @@ public class FinalStaticMethod implements BadSmell {
      */
     public CtMethod<?> getMethod() {
         return method;
+    }
+
+    @Override
+    public <T> T accept(BadSmellVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

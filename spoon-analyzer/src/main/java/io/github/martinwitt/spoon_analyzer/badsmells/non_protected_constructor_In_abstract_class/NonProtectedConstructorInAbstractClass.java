@@ -1,6 +1,7 @@
 package io.github.martinwitt.spoon_analyzer.badsmells.non_protected_constructor_In_abstract_class;
 
 import io.github.martinwitt.spoon_analyzer.BadSmell;
+import io.github.martinwitt.spoon_analyzer.BadSmellVisitor;
 import spoon.reflect.declaration.CtConstructor;
 import spoon.reflect.declaration.CtType;
 
@@ -50,5 +51,10 @@ public class NonProtectedConstructorInAbstractClass implements BadSmell {
     @Override
     public boolean isFixable() {
         return true;
+    }
+
+    @Override
+    public <T> T accept(BadSmellVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

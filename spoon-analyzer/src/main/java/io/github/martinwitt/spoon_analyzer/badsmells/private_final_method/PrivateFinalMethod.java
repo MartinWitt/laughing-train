@@ -1,6 +1,7 @@
 package io.github.martinwitt.spoon_analyzer.badsmells.private_final_method;
 
 import io.github.martinwitt.spoon_analyzer.BadSmell;
+import io.github.martinwitt.spoon_analyzer.BadSmellVisitor;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 
@@ -50,5 +51,10 @@ public class PrivateFinalMethod implements BadSmell {
     @Override
     public boolean isFixable() {
         return true;
+    }
+
+    @Override
+    public <T> T accept(BadSmellVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

@@ -72,12 +72,4 @@ public class SpoonAnalyzer {
         }
         return badSmells;
     }
-
-    public static void main(String[] args) {
-        var analyzer = new SpoonAnalyzer();
-        var badSmells = analyzer.analyze("./assertj-assertions-generator-maven-plugin");
-        for (BadSmell badSmell : badSmells) {
-            logger.atInfo().log(badSmell.toString());
-        }
-    }
 }

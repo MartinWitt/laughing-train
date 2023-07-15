@@ -1,6 +1,7 @@
 package io.github.martinwitt.spoon_analyzer.badsmells.access_static_via_instance;
 
 import io.github.martinwitt.spoon_analyzer.BadSmell;
+import io.github.martinwitt.spoon_analyzer.BadSmellVisitor;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 
@@ -53,5 +54,10 @@ public class AccessStaticViaInstance implements BadSmell {
     @Override
     public boolean isFixable() {
         return true;
+    }
+
+    @Override
+    public <T> T accept(BadSmellVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }

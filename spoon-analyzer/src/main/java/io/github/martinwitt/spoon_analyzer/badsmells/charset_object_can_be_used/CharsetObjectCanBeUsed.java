@@ -1,6 +1,7 @@
 package io.github.martinwitt.spoon_analyzer.badsmells.charset_object_can_be_used;
 
 import io.github.martinwitt.spoon_analyzer.BadSmell;
+import io.github.martinwitt.spoon_analyzer.BadSmellVisitor;
 import spoon.reflect.code.CtConstructorCall;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
@@ -70,5 +71,10 @@ public class CharsetObjectCanBeUsed implements BadSmell {
         }
         return "CharsetObjectCanBeUsed [affectedType=" + affectedType.getQualifiedName() + ", invocation=" + invocation
                 + "]";
+    }
+
+    @Override
+    public <T> T accept(BadSmellVisitor<T> visitor) {
+        return visitor.visit(this);
     }
 }
