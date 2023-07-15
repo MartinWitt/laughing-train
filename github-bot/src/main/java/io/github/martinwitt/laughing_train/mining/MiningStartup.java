@@ -1,7 +1,6 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import io.github.martinwitt.laughing_train.mining.requests.MineNextProject;
-import io.quarkus.logging.Log;
 import io.quarkus.runtime.StartupEvent;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
@@ -47,11 +46,18 @@ public class MiningStartup {
                         vertx.deployVerticle(miningEventConsumer, options))
                 .onFailure(Throwable::printStackTrace)
                 .onComplete(v -> System.out.println("All verticles deployed"))
-                .onSuccess(v -> Log.info("Starting periodic mining"));
+                .onSuccess(v -> startMining());
         vertx.eventBus().addInboundInterceptor(v -> {
             System.out.println("Received message: " + v.toString());
             v.next();
         });
+    }
+
+    private void startMining() {
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(3), TimeUnit.MINUTES.toMillis(25), v -> vertx.eventBus()
+                .publish("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(2), TimeUnit.MINUTES.toMillis(10), v -> vertx.eventBus()
+                .publish("miner", new MineNextProject(SpoonPeriodicMiner.ANALYZER_NAME)));
     }
 
     @ApplicationScoped
