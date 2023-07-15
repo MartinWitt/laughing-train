@@ -67,19 +67,21 @@ public class QodanaPeriodicMiner extends AbstractVerticle {
                         new GetProject(ANALYZER_NAME),
                         new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(5)));
         request.onSuccess(v -> {
-            if (v.body() instanceof ProjectResult.Success success) {
-                var qodanaResult = analyzeProject(success);
-                if (qodanaResult instanceof QodanaResult.Success qodanaSuccess) {
-                    storeSuccess(success, qodanaSuccess);
-                } else {
-                    if (qodanaResult instanceof QodanaResult.Failure error) {
-                        storeFailure(success, error);
+                    if (v.body() instanceof ProjectResult.Success success) {
+                        var qodanaResult = analyzeProject(success);
+                        if (qodanaResult instanceof QodanaResult.Success qodanaSuccess) {
+                            storeSuccess(success, qodanaSuccess);
+                        } else {
+                            if (qodanaResult instanceof QodanaResult.Failure error) {
+                                storeFailure(success, error);
+                            }
+                        }
                     }
-                }
-            }
-        });
+                })
+                .onComplete(v -> vertx.eventBus().publish("miner", new MineNextProject(ANALYZER_NAME)));
         request.onFailure(v -> {
             logger.atWarning().withCause(v).log("Failed to get project");
+            vertx.eventBus().publish("miner", new MineNextProject(ANALYZER_NAME));
         });
     }
 
