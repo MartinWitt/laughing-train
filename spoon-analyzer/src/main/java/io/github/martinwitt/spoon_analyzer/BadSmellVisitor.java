@@ -4,6 +4,7 @@ import io.github.martinwitt.spoon_analyzer.badsmells.Index_off_replaceable_by_co
 import io.github.martinwitt.spoon_analyzer.badsmells.access_static_via_instance.AccessStaticViaInstance;
 import io.github.martinwitt.spoon_analyzer.badsmells.array_can_be_replaced_with_enum_values.ArrayCanBeReplacedWithEnumValues;
 import io.github.martinwitt.spoon_analyzer.badsmells.charset_object_can_be_used.CharsetObjectCanBeUsed;
+import io.github.martinwitt.spoon_analyzer.badsmells.final_static_method.FinalStaticMethod;
 import io.github.martinwitt.spoon_analyzer.badsmells.innerclass_may_be_static.InnerClassMayBeStatic;
 import io.github.martinwitt.spoon_analyzer.badsmells.non_protected_constructor_In_abstract_class.NonProtectedConstructorInAbstractClass;
 import io.github.martinwitt.spoon_analyzer.badsmells.private_final_method.PrivateFinalMethod;
@@ -64,6 +65,10 @@ public interface BadSmellVisitor<U> extends Visitor<BadSmell, U> {
     }
 
     default U visit(UnnecessaryTostring badSmell) {
+        return emptyResult();
+    }
+
+    default U visit(FinalStaticMethod badSmell) {
         return emptyResult();
     }
 

@@ -60,6 +60,15 @@ public final class Matchers {
     }
 
     /**
+     * Returns a matcher that matches elements that are static.
+     *
+     * @return a matcher that matches elements that are static
+     */
+    public static Matcher<CtModifiable> isStatic() {
+        return v -> v.isStatic();
+    }
+
+    /**
      * Returns a matcher that matches elements that match all of the given matchers.
      *
      * @param matchers the matchers to match
