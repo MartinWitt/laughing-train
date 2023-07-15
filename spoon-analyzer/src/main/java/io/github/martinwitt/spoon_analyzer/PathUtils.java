@@ -38,20 +38,18 @@ public class PathUtils {
      * @return a new list of paths without resources or test files
      */
     public static List<Path> filterResourcePaths(List<Path> paths) {
-        return paths.stream()
-                .filter(path -> filterNonSourcePath(path))
-                .collect(Collectors.toList());
+        return paths.stream().filter(path -> filterNonSourcePath(path)).collect(Collectors.toList());
     }
 
     private static boolean filterNonSourcePath(Path path) {
-        return isSourceDirectory(path)
-                || isTestDirectory(path);
+        return isSourceDirectory(path) || isTestDirectory(path);
     }
 
     private static boolean isSourceDirectory(Path path) {
         return path.endsWith("src" + File.separator + "main" + File.separator + "java");
     }
-        private static boolean isTestDirectory(Path path) {
+
+    private static boolean isTestDirectory(Path path) {
         return path.endsWith("src" + File.separator + "test" + File.separator + "java");
     }
 }

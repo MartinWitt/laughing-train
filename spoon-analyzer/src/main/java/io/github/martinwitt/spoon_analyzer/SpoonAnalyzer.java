@@ -41,7 +41,8 @@ public class SpoonAnalyzer {
 
         List<BadSmell> badSmells = new ArrayList<>();
         try {
-            List<Path> files = Files.walk(Path.of(path)).filter(v -> Files.isDirectory(v)).toList();
+            List<Path> files =
+                    Files.walk(Path.of(path)).filter(v -> Files.isDirectory(v)).toList();
             files = PathUtils.filterResourcePaths(files);
 
             Launcher launcher = new Launcher();
