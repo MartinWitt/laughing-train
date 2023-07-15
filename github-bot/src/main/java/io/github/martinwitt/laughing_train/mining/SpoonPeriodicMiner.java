@@ -66,19 +66,21 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
                         new GetProject(ANALYZER_NAME),
                         new DeliveryOptions().setSendTimeout(TimeUnit.MINUTES.toMillis(5)));
         request.onSuccess(v -> {
-            if (v.body() instanceof ProjectResult.Success success) {
-                var spoonResult = analyzeProjectWithSpoon(success);
-                if (spoonResult instanceof CodeAnalyzerResult.Success spoonSuccess) {
-                    storeSuccess(success, spoonSuccess);
-                } else {
-                    if (spoonResult instanceof CodeAnalyzerResult.Failure error) {
-                        storeFailure(success, error);
+                    if (v.body() instanceof ProjectResult.Success success) {
+                        var spoonResult = analyzeProjectWithSpoon(success);
+                        if (spoonResult instanceof CodeAnalyzerResult.Success spoonSuccess) {
+                            storeSuccess(success, spoonSuccess);
+                        } else {
+                            if (spoonResult instanceof CodeAnalyzerResult.Failure error) {
+                                storeFailure(success, error);
+                            }
+                        }
                     }
-                }
-            }
-        });
+                })
+                .onComplete(v -> vertx.eventBus().publish("miner", new MineNextProject(ANALYZER_NAME)));
         request.onFailure(v -> {
             logger.atWarning().withCause(v).log("Failed to get project");
+            vertx.eventBus().publish("miner", new MineNextProject(ANALYZER_NAME));
         });
     }
 

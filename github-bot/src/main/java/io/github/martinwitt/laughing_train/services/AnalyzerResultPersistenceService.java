@@ -38,6 +38,9 @@ public class AnalyzerResultPersistenceService {
 
     void persistResults(CodeAnalyzerResult result) {
         if (result instanceof CodeAnalyzerResult.Success success) {
+            logger.atInfo().log(
+                    "Persisting %s results for project %s",
+                    success.results().size(), success.project().name());
             Project project = success.project();
             Multi.createFrom()
                     .iterable(success.results())
