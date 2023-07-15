@@ -1,5 +1,6 @@
 package io.github.martinwitt.spoon_analyzer;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +39,19 @@ public class PathUtils {
      */
     public static List<Path> filterResourcePaths(List<Path> paths) {
         return paths.stream()
-                .filter(path -> path.toString().endsWith("src/main/java")
-                        || path.toString().endsWith("src/test/java"))
+                .filter(path -> filterNonSourcePath(path))
                 .collect(Collectors.toList());
+    }
+
+    private static boolean filterNonSourcePath(Path path) {
+        return isSourceDirectory(path)
+                || isTestDirectory(path);
+    }
+
+    private static boolean isSourceDirectory(Path path) {
+        return path.endsWith("src" + File.separator + "main" + File.separator + "java");
+    }
+        private static boolean isTestDirectory(Path path) {
+        return path.endsWith("src" + File.separator + "test" + File.separator + "java");
     }
 }

@@ -41,8 +41,7 @@ public class SpoonAnalyzer {
 
         List<BadSmell> badSmells = new ArrayList<>();
         try {
-            List<Path> files =
-                    Files.walk(Path.of(path)).filter(v -> Files.isDirectory(v)).toList();
+            List<Path> files = Files.walk(Path.of(path)).filter(v -> Files.isDirectory(v)).toList();
             files = PathUtils.filterResourcePaths(files);
 
             Launcher launcher = new Launcher();
@@ -69,5 +68,13 @@ public class SpoonAnalyzer {
             logger.atSevere().withCause(e).log("Error while analyzing.");
         }
         return badSmells;
+    }
+
+    public static void main(String[] args) {
+        var analyzer = new SpoonAnalyzer();
+        var badSmells = analyzer.analyze("./assertj-assertions-generator-maven-plugin");
+        for (BadSmell badSmell : badSmells) {
+            logger.atInfo().log(badSmell.toString());
+        }
     }
 }
