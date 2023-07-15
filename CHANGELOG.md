@@ -1,5 +1,54 @@
 # Changelog
 
+## [1.2.0](https://github.com/MartinWitt/laughing-train/compare/v1.1.0...v1.2.0) (2023-07-15)
+
+
+### Features
+
+* Refactor spoon/qodana mining to event based strategy ([#829](https://github.com/MartinWitt/laughing-train/issues/829)) ([b776ccc](https://github.com/MartinWitt/laughing-train/commit/b776ccc59c0bc1687349f41cdc20d433961db699))
+* **spoon:** Add spoon based analyzer ([#806](https://github.com/MartinWitt/laughing-train/issues/806)) ([24affc8](https://github.com/MartinWitt/laughing-train/commit/24affc8059ee972c072795c1d1eccc99646d6860))
+* **spoon:** Seperated Qodana and Spoon mining ([#814](https://github.com/MartinWitt/laughing-train/issues/814)) ([3d352f1](https://github.com/MartinWitt/laughing-train/commit/3d352f1c1f67c967c4d596c6ca708469d190a3fa))
+* **vertx:** Start mining directly after finishing it again ([#841](https://github.com/MartinWitt/laughing-train/issues/841)) ([072053f](https://github.com/MartinWitt/laughing-train/commit/072053f08eba16b651038a10de8cfbcf0275413e))
+* **vertx:** Start mining earlier if current run finishes faster ([#838](https://github.com/MartinWitt/laughing-train/issues/838)) ([0722974](https://github.com/MartinWitt/laughing-train/commit/0722974358c7d6d5adffc863d4495798ddcd7ccf))
+* **vertx:** Use more robust time constrained mining instead of result based ([#833](https://github.com/MartinWitt/laughing-train/issues/833)) ([8aeb521](https://github.com/MartinWitt/laughing-train/commit/8aeb521503d52ba95bebc20939b9c18680308c67))
+
+
+### Bug Fixes
+
+* **frontend:** Fix layout in frontend ([#818](https://github.com/MartinWitt/laughing-train/issues/818)) ([ec80525](https://github.com/MartinWitt/laughing-train/commit/ec80525b79d05685cf12b27f723d496afd918f97))
+* **spoon:** Add logging to spoon analyzer ([#808](https://github.com/MartinWitt/laughing-train/issues/808)) ([f474284](https://github.com/MartinWitt/laughing-train/commit/f474284ab9a4f263e514333e20626b9f7c196864))
+* **spoon:** Fix cleaning of repositories ([c9c9811](https://github.com/MartinWitt/laughing-train/commit/c9c9811b0cc0139093517208c9a6fc25e48098a4))
+* **spoon:** Fix filtering of non source path for spoon analyzer ([#840](https://github.com/MartinWitt/laughing-train/issues/840)) ([5a5600d](https://github.com/MartinWitt/laughing-train/commit/5a5600d51e9dd44cc5e292775b994799fe3f6510))
+* **spoon:** Fix NPE in ConstructorMatcher ([#813](https://github.com/MartinWitt/laughing-train/issues/813)) ([72e3525](https://github.com/MartinWitt/laughing-train/commit/72e35259e09ee9a9874ce65120893f15698f8efa))
+* **spoon:** Improve logging for spoon based analyzer ([#809](https://github.com/MartinWitt/laughing-train/issues/809)) ([acaae6d](https://github.com/MartinWitt/laughing-train/commit/acaae6d436d8444c8832ab75ae16effef0a01c58))
+* **spoon:** Mark class as non abstract ([#817](https://github.com/MartinWitt/laughing-train/issues/817)) ([35b988f](https://github.com/MartinWitt/laughing-train/commit/35b988f149ac57b1cb7fdef70308da24b49e773d))
+* **spoon:** Mark SpoonMiner as @Unremovable ([#816](https://github.com/MartinWitt/laughing-train/issues/816)) ([7431304](https://github.com/MartinWitt/laughing-train/commit/7431304e95ee50acf7d188a3677f35f1fd3f2450))
+* **spoon:** NPE in InvocationMatcher ([#830](https://github.com/MartinWitt/laughing-train/issues/830)) ([b333709](https://github.com/MartinWitt/laughing-train/commit/b333709016ed01c472b98ae4494b97e863674979))
+* **spoon:** Reduce logging from spoon to error ([74d9afb](https://github.com/MartinWitt/laughing-train/commit/74d9afbf68442099a5fa5ab4d04dfc49678087c5))
+* **vertx:** Add error logging to exceptions in vertx ([#819](https://github.com/MartinWitt/laughing-train/issues/819)) ([3b3f843](https://github.com/MartinWitt/laughing-train/commit/3b3f8434108f4246e04d1793e93a1e4fac305289))
+* **vertx:** Fix blocking thread issues for vertx verticle ([#832](https://github.com/MartinWitt/laughing-train/issues/832)) ([77f22d8](https://github.com/MartinWitt/laughing-train/commit/77f22d8d2799693496b3b0aefa329d9d87b6f36f))
+* **vertx:** Fix duplication of vertx events ([b247909](https://github.com/MartinWitt/laughing-train/commit/b24790952e59960bd0c5f7bb761c975d04c33c08))
+* **vertx:** Fix event duplication during spoon mining ([27ab435](https://github.com/MartinWitt/laughing-train/commit/27ab4354bd6ddca2fc8fc8a65fd95ef431204133))
+* **vertx:** Fix quarkus config, with spec conform config key ([4f7f147](https://github.com/MartinWitt/laughing-train/commit/4f7f147b1f85c1672494b6fa5638b9d942b21aa5))
+* **vertx:** Fix vertx thread blocker warninings ([#831](https://github.com/MartinWitt/laughing-train/issues/831)) ([ba340a0](https://github.com/MartinWitt/laughing-train/commit/ba340a0098f09a21798690ba53e38e1a639a63e1))
+* **vertx:** Fix wrong message for vertx eventbus ([#839](https://github.com/MartinWitt/laughing-train/issues/839)) ([5e9f3b3](https://github.com/MartinWitt/laughing-train/commit/5e9f3b30bfef9ab83b735281710149fed83f5f58))
+* **vertx:** Increase timeout for git clone operation ([#834](https://github.com/MartinWitt/laughing-train/issues/834)) ([3eb5c6e](https://github.com/MartinWitt/laughing-train/commit/3eb5c6e04918c0711a26187fe9f786fb9ab43540))
+* **vertx:** Run Spoon and Qodana mining in sync ([#822](https://github.com/MartinWitt/laughing-train/issues/822)) ([46529d2](https://github.com/MartinWitt/laughing-train/commit/46529d290c92eb19c7e2a57b0e3eeebc9814677e))
+* **vertx:** Use a worker pool for mining ([#820](https://github.com/MartinWitt/laughing-train/issues/820)) ([1026247](https://github.com/MartinWitt/laughing-train/commit/1026247ddde37152937ff3332a85798d4169677c))
+* **vertx:** Use publish instead of send ([7b89a83](https://github.com/MartinWitt/laughing-train/commit/7b89a83656fb97c6cc11ae37e410bbb700d7447d))
+* **vertx:** Use reply instead of return ([#835](https://github.com/MartinWitt/laughing-train/issues/835)) ([297cf25](https://github.com/MartinWitt/laughing-train/commit/297cf25f7b4fd0a590bc3c1281bfb9fd10293666))
+* **vertx:** Use timeunits for max blocking time ([#821](https://github.com/MartinWitt/laughing-train/issues/821)) ([26dcf19](https://github.com/MartinWitt/laughing-train/commit/26dcf19ba5eb1a04f7fa3e9f867748f961a21952))
+* **vertx:** Wait with mining till all verticles are deployed ([#836](https://github.com/MartinWitt/laughing-train/issues/836)) ([1a4ba5b](https://github.com/MartinWitt/laughing-train/commit/1a4ba5bb9067227ae86f5c68450964bc7d1ac8ab))
+
+
+### Dependencies
+
+* :bookmark:(deps): update docker/build-push-action digest to 4fad532 ([#823](https://github.com/MartinWitt/laughing-train/issues/823)) ([8c0818a](https://github.com/MartinWitt/laughing-train/commit/8c0818a1a8b00a764b921ac09488d601b9986a19))
+* :bookmark:(deps): update docker/login-action digest to a979406 ([#824](https://github.com/MartinWitt/laughing-train/issues/824)) ([c6feb9f](https://github.com/MartinWitt/laughing-train/commit/c6feb9fb98b71012dfc677bd24ba6eba0417a933))
+* :bookmark:(deps): update docker/setup-buildx-action digest to 4c0219f ([#827](https://github.com/MartinWitt/laughing-train/issues/827)) ([75d79e6](https://github.com/MartinWitt/laughing-train/commit/75d79e647ea53570ac98bf5d842185e50308fbb1))
+* :bookmark:(deps): update github/codeql-action digest to 489225d ([#837](https://github.com/MartinWitt/laughing-train/issues/837)) ([eef7a87](https://github.com/MartinWitt/laughing-train/commit/eef7a8735f3177480d1eea8c9f9f7aad939b05c4))
+* :bookmark:(deps): update gradle/gradle-build-action digest to bd57605 ([#811](https://github.com/MartinWitt/laughing-train/issues/811)) ([828c21d](https://github.com/MartinWitt/laughing-train/commit/828c21dc8ca11c30fbcd9159cf53aa0491ae6577))
+
 ## [1.1.0](https://github.com/MartinWitt/laughing-train/compare/v1.0.0...v1.1.0) (2023-07-08)
 
 
