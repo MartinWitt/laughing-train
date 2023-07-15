@@ -27,16 +27,28 @@ public class BadSmellGraphQL {
     @Inject
     ProjectRepository projectRepository;
 
-    @Query("allBadSmells")
-    @Description("Gets all bad smells from the database")
-    public List<BadSmellGraphQLDto> getAllBadSmells() {
-        return badSmellRepository.getAll().map(BadSmellGraphQLDto::new).toList();
-    }
-
     @Query("byRuleID")
     @Description("Gets all bad smells from the database by ruleID")
     public List<BadSmellGraphQLDto> getAllBadSmellsByRuleID(@Name("ruleID") String ruleID) {
         return badSmellRepository.findByRuleID(new RuleId(ruleID)).stream()
+                .map(this::mapToDto)
+                .toList();
+    }
+
+    @Query("byRuleIDAndAnalyzerAndCommitHash")
+    @Description("Gets all bad smells from the database by ruleID and analyzer and commitHash")
+    public List<BadSmellGraphQLDto> getBadSmellsByRuleIdAndAnalyzer(
+            @Name("ruleID") String ruleID, @Name("analyzer") String analyzer, @Name("commitHash") String commitHash) {
+        return badSmellRepository.findByCommitHash(commitHash, analyzer, ruleID).stream()
+                .map(this::mapToDto)
+                .toList();
+    }
+
+    @Query("byAndAnalyzerAndCommitHash")
+    @Description("Gets all bad smells from the database by analyzer and commitHash")
+    public List<BadSmellGraphQLDto> getBadSmellsByRuleIdAndAnalyzer(
+            @Name("analyzer") String analyzer, @Name("commitHash") String commitHash) {
+        return badSmellRepository.findByCommitHash(commitHash, analyzer).stream()
                 .map(this::mapToDto)
                 .toList();
     }

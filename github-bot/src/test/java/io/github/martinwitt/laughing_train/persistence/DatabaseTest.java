@@ -72,6 +72,16 @@ class DatabaseTest {
                 .isNotNull();
     }
 
+    @Test
+    void testMultiSearchQuery() {
+        cleanDB();
+        var badSmell = createWithMessage("PointLessBoolean");
+        badSmellRepository.save(badSmell);
+        var badSmell2 = createWithMessage("PointLessBoolean");
+        badSmellRepository.save(badSmell2);
+        assertThat(badSmellRepository.findByCommitHash("test", "JUNIT")).size().isEqualTo(2);
+    }
+
     /**
      * Cleans the database before each test.
      */
