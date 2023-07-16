@@ -10,9 +10,10 @@ public class SpoonBasedAnalyzer {
 
     public List<AnalyzerResult> analyze(Path sourceRoot) {
         SpoonAnalyzer analyzer = new SpoonAnalyzer();
+        AnalyzerResultVisitor analyzerResultVisitor = new AnalyzerResultVisitor(sourceRoot);
         List<BadSmell> analyze = analyzer.analyze(sourceRoot.toAbsolutePath().toString());
         return analyze.stream()
-                .map(AnalyzerResultVisitor::toAnalyzerResult)
+                .map(analyzerResultVisitor::toAnalyzerResult)
                 .filter(v -> v.isPresent())
                 .map(v -> v.get())
                 .toList();

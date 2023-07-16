@@ -69,6 +69,7 @@ public class DataBaseMigration {
         removeProjectsWithOutHashes();
         removeDuplicatedProjects();
         removeRuleIdsWithSpaces();
+        removeBadSmellsWithWrongFolder();
         logger.atInfo().log("Finished migrating database");
         promise.complete();
     }
@@ -127,6 +128,13 @@ public class DataBaseMigration {
         DeleteResult deleteMany = badSmellRepositoryImpl
                 .mongoCollection()
                 .deleteMany(Filters.and(Filters.regex("ruleID", ".*\s.*"), Filters.eq("analyzer", "Spoon")));
+        logger.atInfo().log("Removed %d bad smells with ruleId containing spaces", deleteMany.getDeletedCount());
+    }
+
+    private void removeBadSmellsWithWrongFolder() {
+        DeleteResult deleteMany = badSmellRepositoryImpl
+                .mongoCollection()
+                .deleteMany(Filters.and(Filters.regex("filePath", ".*/tmp/.*"), Filters.eq("analyzer", "Spoon")));
         logger.atInfo().log("Removed %d bad smells with ruleId containing spaces", deleteMany.getDeletedCount());
     }
 }
