@@ -2,6 +2,7 @@ package io.github.martinwitt.laughing_train.persistence;
 
 import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
 import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.persistence.impl.MongoBadSmellRepository;
@@ -67,6 +68,7 @@ public class DataBaseMigration {
         removeProjectHashesWithoutResults();
         removeProjectsWithOutHashes();
         removeDuplicatedProjects();
+        removeRuleIdsWithSpaces();
         logger.atInfo().log("Finished migrating database");
         promise.complete();
     }
@@ -119,5 +121,12 @@ public class DataBaseMigration {
                 .flatMap(Collection::stream)
                 .forEach(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()));
         logger.atInfo().log("Finished removing duplicated projects");
+    }
+
+    private void removeRuleIdsWithSpaces() {
+        DeleteResult deleteMany = badSmellRepositoryImpl
+                .mongoCollection()
+                .deleteMany(Filters.and(Filters.regex("ruleID", ".*\s.*"), Filters.eq("analyzer", "Spoon")));
+        logger.atInfo().log("Removed %d bad smells with ruleId containing spaces", deleteMany.getDeletedCount());
     }
 }

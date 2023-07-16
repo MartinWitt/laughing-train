@@ -7,7 +7,7 @@ import spoon.reflect.reference.CtTypeReference;
 
 public class UnnecessaryImplements implements BadSmell {
 
-    private final String name = "Unnecessary Implements";
+    private final String name = "UnnecessaryImplements";
     private final String description = "This class has 1 or more interfaces which are already implemented.";
 
     private final CtTypeReference<?> lowerType;
