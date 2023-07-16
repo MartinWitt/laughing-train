@@ -16,6 +16,7 @@ import io.vertx.core.Vertx;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -101,7 +102,7 @@ public class DataBaseMigration {
     private void removeProjectHashesWithoutResults() {
         logger.atInfo().log("Removing project hashes without results");
         for (Project project : projectRepository.getAll()) {
-            List<String> commitHashes = project.getCommitHashes();
+            List<String> commitHashes = new ArrayList<>(project.getCommitHashes());
             for (String commitHash : commitHashes) {
                 if (badSmellRepositoryImpl
                                 .mongoCollection()
