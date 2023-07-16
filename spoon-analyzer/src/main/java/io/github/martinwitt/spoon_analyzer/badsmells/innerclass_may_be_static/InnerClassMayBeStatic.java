@@ -8,7 +8,7 @@ public class InnerClassMayBeStatic implements BadSmell {
 
     private final CtType<?> affectedType;
     private final CtType<?> innerClass;
-    private static final String name = "Inner Class May Be Static";
+    private static final String name = "InnerClassMayBeStatic";
     private static final String description =
             "This class is an inner class and may be static. Static inner classes dont need the reference to the outer class.";
 
