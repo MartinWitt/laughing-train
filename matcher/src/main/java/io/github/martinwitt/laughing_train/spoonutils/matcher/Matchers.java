@@ -4,7 +4,9 @@ import spoon.reflect.code.CtExpression;
 import spoon.reflect.code.CtLiteral;
 import spoon.reflect.declaration.CtModifiable;
 import spoon.reflect.declaration.CtType;
+import spoon.reflect.declaration.CtTypedElement;
 import spoon.reflect.declaration.ModifierKind;
+import spoon.reflect.factory.Factory;
 
 /**
  * A utility class for creating matchers for Spoon elements.
@@ -66,6 +68,27 @@ public final class Matchers {
      */
     public static Matcher<CtModifiable> isStatic() {
         return v -> v.isStatic();
+    }
+
+    /**
+     * Returns a matcher that matches elements that are subtypes of the given class.
+     * @param fqClassname  fully qualified classname of the class to match e.g. java.lang.String
+     * @param factory    spoon factory to create a reference to the class
+     * @return  a matcher that matches elements that are subtypes of the given class
+     */
+    public static Matcher<CtTypedElement<?>> isSubtypeOf(String fqClassname, Factory factory) {
+        return v ->
+                v.getType() != null && v.getType().isSubtypeOf(factory.Type().createReference(fqClassname));
+    }
+
+    /**
+     * Returns a matcher that matches elements that are the type.
+     * @param fqClassname  fully qualified classname of the class to match e.g. java.lang.String
+     * @param factory    spoon factory to create a reference to the class
+     * @return  a matcher that matches elements that are the same type as the matched element
+     */
+    public static Matcher<CtTypedElement<?>> isType(String fqClassname, Factory factory) {
+        return v -> v.getType() != null && v.getType().getQualifiedName().equals(fqClassname);
     }
 
     /**
