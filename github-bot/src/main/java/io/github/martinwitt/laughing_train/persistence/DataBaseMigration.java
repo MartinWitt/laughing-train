@@ -30,23 +30,29 @@ public class DataBaseMigration {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @Inject
     ProjectConfigRepository projectConfigRepository;
-
-    @Inject
     ProjectRepository projectRepository;
-
-    @Inject
     BadSmellRepository badSmellRepository;
     // we use this for faster mongodb access
-    @Inject
     MongoBadSmellRepository badSmellRepositoryImpl;
-
-    @Inject
     MongoProjectRepository projectRepositoryImpl;
+    Vertx vertx;
 
     @Inject
-    Vertx vertx;
+    public DataBaseMigration(
+            ProjectConfigRepository projectConfigRepository,
+            ProjectRepository projectRepository,
+            BadSmellRepository badSmellRepository,
+            MongoBadSmellRepository badSmellRepositoryImpl,
+            MongoProjectRepository projectRepositoryImpl,
+            Vertx vertx) {
+        this.projectConfigRepository = projectConfigRepository;
+        this.projectRepository = projectRepository;
+        this.badSmellRepository = badSmellRepository;
+        this.badSmellRepositoryImpl = badSmellRepositoryImpl;
+        this.projectRepositoryImpl = projectRepositoryImpl;
+        this.vertx = vertx;
+    }
 
     /**
      * This method is called by the quarkus framework to migrate the database.
@@ -56,10 +62,9 @@ public class DataBaseMigration {
     }
 
     public void checkPeriodic() {
-        vertx.setPeriodic(
-                TimeUnit.MINUTES.toMillis(2),
-                TimeUnit.MINUTES.toMillis(60),
-                id -> vertx.executeBlocking(promise -> migrateDataBase(promise)));
+        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(2), TimeUnit.MINUTES.toMillis(60), id -> vertx.executeBlocking(
+                        promise -> migrateDataBase(promise))
+                .onFailure(v -> logger.atSevere().withCause(v).log("Error while migrating database")));
     }
 
     private void migrateDataBase(Promise<Object> promise) {
