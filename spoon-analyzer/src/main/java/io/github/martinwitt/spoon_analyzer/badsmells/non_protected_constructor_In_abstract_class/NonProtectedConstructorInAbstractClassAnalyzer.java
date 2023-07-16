@@ -21,7 +21,7 @@ public class NonProtectedConstructorInAbstractClassAnalyzer
         }
         List<CtConstructor<?>> elements = clazz.getElements(new TypeFilter<>(CtConstructor.class));
         for (CtConstructor<?> ctConstructor : elements) {
-            if (!ctConstructor.isProtected() && ctConstructor.isPublic()) {
+            if (!ctConstructor.isProtected() && ctConstructor.isPublic() && !ctConstructor.isImplicit()) {
                 badSmells.add(new NonProtectedConstructorInAbstractClass(clazz, ctConstructor));
             }
         }
