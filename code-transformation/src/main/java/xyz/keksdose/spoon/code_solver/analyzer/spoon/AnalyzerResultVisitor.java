@@ -20,6 +20,8 @@ import io.github.martinwitt.spoon_analyzer.badsmells.unnecessary_implements.Unne
 import io.github.martinwitt.spoon_analyzer.badsmells.unnecessary_tostring.UnnecessaryTostring;
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
@@ -30,12 +32,16 @@ import spoon.reflect.declaration.CtType;
 
 class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
 
-    private static final AnalyzerResultVisitor analyzerResultVisitor = new AnalyzerResultVisitor();
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+    private final Path rootPath;
 
-    public static Optional<AnalyzerResult> toAnalyzerResult(BadSmell badSmell) {
+    public AnalyzerResultVisitor(Path rootPath) {
+        this.rootPath = rootPath;
+    }
+
+    Optional<AnalyzerResult> toAnalyzerResult(BadSmell badSmell) {
         try {
-            return Optional.ofNullable(badSmell.accept(analyzerResultVisitor));
+            return Optional.ofNullable(badSmell.accept(this));
 
         } catch (Exception e) {
             logger.atWarning().withStackTrace(StackSize.NONE).log(
@@ -44,8 +50,6 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
             return Optional.empty();
         }
     }
-
-    private AnalyzerResultVisitor() {}
 
     @Override
     public AnalyzerResult visit(IndexOfReplaceableByContains badSmell) {
@@ -58,8 +62,23 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
                                 .toString()));
     }
 
-    private String getAbsolutePath(BadSmell badSmell) {
-        return badSmell.getAffectedType().getPosition().getFile().getAbsolutePath();
+    private Optional<String> getAbsolutePath(BadSmell badSmell) {
+        return getRelativeFilePath(badSmell, rootPath.toAbsolutePath().toString());
+    }
+
+    private Optional<String> getRelativeFilePath(BadSmell badSmell, String rootPath) {
+        try {
+            File file = badSmell.getAffectedType().getPosition().getFile();
+            Path filePath = Paths.get(file.getAbsolutePath());
+            Path rootPathObj = Paths.get(rootPath);
+
+            // Get the relative path of the file relative to the root path
+            Path relativePath = rootPathObj.relativize(filePath);
+
+            return Optional.ofNullable(relativePath.toString());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 
     private Position toPosition(SourcePosition position) {
@@ -73,7 +92,7 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
     }
 
     public AnalyzerResult toSpoonAnalyzerResult(BadSmell badSmell, SourcePosition position, String snippet) {
-        String absolutePath = getAbsolutePath(badSmell);
+        String absolutePath = getAbsolutePath(badSmell).orElse("unknown");
         RuleId ruleId = new RuleId(badSmell.getName());
         return new SpoonAnalyzerResult(
                 ruleId,
