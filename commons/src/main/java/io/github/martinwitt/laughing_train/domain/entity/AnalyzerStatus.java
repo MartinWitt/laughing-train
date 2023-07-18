@@ -11,6 +11,10 @@ public class AnalyzerStatus implements Serializable {
     private String commitHash;
     private LocalDateTime localDateTime;
 
+    public AnalyzerStatus() {
+        // for JPA
+    }
+
     AnalyzerStatus(
             String analyzerName, Status status, int numberOfIssues, String commitHash, LocalDateTime localDateTime) {
         this.analyzerName = analyzerName;
