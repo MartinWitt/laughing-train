@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.persistence.dao;
 
+import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
 import java.util.List;
@@ -10,6 +11,7 @@ public class ProjectDao extends PanacheMongoEntity {
     private String projectName;
     private String projectUrl;
     private List<String> commitHashes;
+    private List<GitHubCommit> commits;
 
     public ProjectDao() {
         // for JPA
@@ -55,6 +57,19 @@ public class ProjectDao extends PanacheMongoEntity {
      */
     public void setCommitHashes(List<String> commitHashes) {
         this.commitHashes = commitHashes;
+    }
+
+    /**
+     * @return the commits
+     */
+    public List<GitHubCommit> getCommits() {
+        return commits;
+    }
+    /**
+     * @param commits the commits to set
+     */
+    public void setCommits(List<GitHubCommit> commits) {
+        this.commits = commits;
     }
 
     @Override

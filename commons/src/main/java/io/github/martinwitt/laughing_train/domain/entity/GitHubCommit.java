@@ -8,9 +8,11 @@ public class GitHubCommit implements Serializable {
     private String commitHash;
     private List<AnalyzerStatus> analyzerStatuses;
 
+    public GitHubCommit() {
+        // for JPA
+    }
     /**
      * @param commitHash
-     * @param localDateTime
      * @param analyzerStatuses
      */
     public GitHubCommit(String commitHash, List<AnalyzerStatus> analyzerStatuses) {

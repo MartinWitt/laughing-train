@@ -63,10 +63,15 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
             RemoteProject newProject = new RemoteProject(name, project.url());
             newProject.addCommitHash(commitHash);
             List<GitHubCommit> commits = newProject.getCommits();
-            commits.stream()
+            var selectedCommit = commits.stream()
                     .filter(v -> v.getCommitHash().equals(commitHash))
-                    .findFirst()
-                    .ifPresent(v -> v.addAnalyzerStatus(analyzerStatus));
+                    .findFirst();
+            if (selectedCommit.isPresent()) {
+                selectedCommit.get().addAnalyzerStatus(analyzerStatus);
+                logger.atInfo().log(
+                        "Adding new commit hash for %s with status %s for analyzer %s",
+                        name, analyzerStatus.getStatus(), analyzerStatus.getAnalyzerName());
+            }
             projectRepository.create(newProject);
         } else {
             logger.atInfo().log("Updating commit hash for %s", name);

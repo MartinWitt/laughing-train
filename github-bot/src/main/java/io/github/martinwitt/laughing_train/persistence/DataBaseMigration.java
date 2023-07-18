@@ -3,8 +3,6 @@ package io.github.martinwitt.laughing_train.persistence;
 import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
-import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
-import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.impl.MongoBadSmellRepository;
@@ -78,7 +76,6 @@ public class DataBaseMigration {
         removeDuplicatedProjects();
         removeRuleIdsWithSpaces();
         removeBadSmellsWithWrongFolder();
-        removeAnalyzerStatusWithoutLocalDataTime();
         logger.atInfo().log("Finished migrating database");
         promise.complete();
     }
@@ -148,24 +145,5 @@ public class DataBaseMigration {
                 .mongoCollection()
                 .deleteMany(Filters.and(Filters.regex("filePath", ".*/tmp/.*"), Filters.eq("analyzer", "Spoon")));
         logger.atInfo().log("Removed %d bad smells with ruleId containing spaces", deleteMany.getDeletedCount());
-    }
-
-    private void removeAnalyzerStatusWithoutLocalDataTime() {
-        logger.atInfo().log("Removing analyzer status without local data");
-        for (RemoteProject remoteProject : projectRepository.getAll()) {
-            for (GitHubCommit commits : remoteProject.getCommits()) {
-                List<AnalyzerStatus> list = new ArrayList<>();
-                for (AnalyzerStatus analyzerStatus : commits.getAnalyzerStatuses()) {
-                    if (analyzerStatus.getLocalDateTime() != null) {
-                        list.add(analyzerStatus);
-                    }
-                }
-                if (list.size() != commits.getAnalyzerStatuses().size()) {
-                    commits.setAnalyzerStatuses(list);
-                    projectRepository.deleteByProjectUrl(remoteProject.getProjectUrl());
-                    projectRepository.save(remoteProject);
-                }
-            }
-        }
     }
 }
