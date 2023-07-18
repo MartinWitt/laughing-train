@@ -2,7 +2,6 @@ package io.github.martinwitt.laughing_train.services;
 
 import com.google.common.base.Strings;
 import com.google.common.flogger.FluentLogger;
-import com.google.common.flogger.StackSize;
 import io.github.martinwitt.laughing_train.data.request.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
@@ -47,7 +46,7 @@ public class SpoonAnalyzerService {
                 return new CodeAnalyzerResult.Failure("Unknown request type");
             }
         } catch (Throwable e) {
-            logger.atSevere().withStackTrace(StackSize.SMALL).withCause(e).log("Error while analyzing code");
+            logger.atSevere().log("Error while analyzing code analyzer %s", e.getMessage());
             return new CodeAnalyzerResult.Failure(Strings.nullToEmpty(e.getMessage()));
         }
     }
