@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train.persistence.dao;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import io.quarkus.mongodb.panache.common.MongoEntity;
+import java.util.ArrayList;
 import java.util.List;
 
 @MongoEntity(database = "Laughing-Train", collection = "Project")
@@ -10,10 +11,11 @@ import java.util.List;
 public class ProjectDao extends PanacheMongoEntity {
     private String projectName;
     private String projectUrl;
-    private List<String> commitHashes;
-    private List<GitHubCommit> commits;
+    private List<String> commitHashes = new ArrayList<>();
+    private List<GitHubCommit> commits = new ArrayList<>();
 
     public ProjectDao() {
+
         // for JPA
     }
 
