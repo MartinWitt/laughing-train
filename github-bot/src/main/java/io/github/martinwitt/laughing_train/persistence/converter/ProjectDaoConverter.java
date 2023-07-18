@@ -11,6 +11,7 @@ public class ProjectDaoConverter implements DaoConverter<RemoteProject, ProjectD
         dao.setProjectName(entity.getProjectName());
         dao.setProjectUrl(entity.getProjectUrl());
         dao.setCommitHashes(entity.getCommitHashes());
+        dao.setCommits(entity.getCommits());
         return dao;
     }
 
@@ -18,6 +19,7 @@ public class ProjectDaoConverter implements DaoConverter<RemoteProject, ProjectD
     public RemoteProject convertToEntity(ProjectDao dao) {
         var project = new RemoteProject(dao.getProjectName(), dao.getProjectUrl());
         dao.getCommitHashes().forEach(project::addCommitHash);
+        dao.getCommits().forEach(project::addCommitHash);
         return project;
     }
 }
