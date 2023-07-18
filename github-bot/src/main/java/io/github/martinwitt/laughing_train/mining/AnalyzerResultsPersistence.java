@@ -5,6 +5,7 @@ import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.vertx.core.AbstractVerticle;
@@ -43,12 +44,12 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
         }
     }
 
-    private AnalyzerStatus getAnalyzerStatus(CodeAnalyzerResult spoonResult, String name) {
+    private AnalyzerStatus getAnalyzerStatus(CodeAnalyzerResult spoonResult, String name, String commitHash) {
         AnalyzerStatus analyzerStatus = null;
         if (spoonResult instanceof CodeAnalyzerResult.Success success) {
-            analyzerStatus = AnalyzerStatus.success(name, success.results().size());
+            analyzerStatus = AnalyzerStatus.success(name, success.results().size(), commitHash);
         } else if (spoonResult instanceof CodeAnalyzerResult.Failure failure) {
-            analyzerStatus = AnalyzerStatus.failure(name, 0);
+            analyzerStatus = AnalyzerStatus.failure(name, 0, commitHash);
         }
         return analyzerStatus;
     }
@@ -56,20 +57,16 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
     private void addOrUpdateCommitHash(Project project, CodeAnalyzerResult spoonResult, String analyzerName) {
         String name = project.name();
         String commitHash = project.commitHash();
-        List<io.github.martinwitt.laughing_train.domain.entity.Project> list =
-                projectRepository.findByProjectUrl(project.url());
-        AnalyzerStatus analyzerStatus = getAnalyzerStatus(spoonResult, analyzerName);
+        List<RemoteProject> list = projectRepository.findByProjectUrl(project.url());
+        AnalyzerStatus analyzerStatus = getAnalyzerStatus(spoonResult, analyzerName, commitHash);
         if (list.isEmpty()) {
-            io.github.martinwitt.laughing_train.domain.entity.Project newProject =
-                    new io.github.martinwitt.laughing_train.domain.entity.Project(name, project.url());
+            RemoteProject newProject = new RemoteProject(name, project.url());
             newProject.addCommitHash(commitHash);
-            var commits = newProject.getCommits();
+            List<GitHubCommit> commits = newProject.getCommits();
             commits.stream()
                     .filter(v -> v.getCommitHash().equals(commitHash))
                     .findFirst()
-                    .ifPresent(v -> {
-                        v.addAnalyzerStatus(analyzerStatus);
-                    });
+                    .ifPresent(v -> v.addAnalyzerStatus(analyzerStatus));
             projectRepository.create(newProject);
         } else {
             logger.atInfo().log("Updating commit hash for %s", name);

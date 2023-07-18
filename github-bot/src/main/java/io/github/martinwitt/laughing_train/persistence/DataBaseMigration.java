@@ -3,8 +3,10 @@ package io.github.martinwitt.laughing_train.persistence;
 import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.result.DeleteResult;
-import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
+import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.impl.MongoBadSmellRepository;
 import io.github.martinwitt.laughing_train.persistence.impl.MongoProjectRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
@@ -76,6 +78,7 @@ public class DataBaseMigration {
         removeDuplicatedProjects();
         removeRuleIdsWithSpaces();
         removeBadSmellsWithWrongFolder();
+        removeAnalyzerStatusWithoutLocalDataTime();
         logger.atInfo().log("Finished migrating database");
         promise.complete();
     }
@@ -91,7 +94,7 @@ public class DataBaseMigration {
 
     private void createConfigsIfMissing() {
         long value = projectRepository.getAll().stream()
-                .map(Project::getProjectUrl)
+                .map(RemoteProject::getProjectUrl)
                 .filter(projectUrl ->
                         projectConfigRepository.findByProjectUrl(projectUrl).isEmpty())
                 .map(v -> projectConfigRepository.create(ProjectConfig.ofProjectUrl(v)))
@@ -101,7 +104,7 @@ public class DataBaseMigration {
 
     private void removeProjectHashesWithoutResults() {
         logger.atInfo().log("Removing project hashes without results");
-        for (Project project : projectRepository.getAll()) {
+        for (RemoteProject project : projectRepository.getAll()) {
             List<String> commitHashes = new ArrayList<>(project.getCommitHashes());
             for (String commitHash : commitHashes) {
                 if (badSmellRepositoryImpl
@@ -120,7 +123,10 @@ public class DataBaseMigration {
 
     private void removeDuplicatedProjects() {
         logger.atInfo().log("Removing duplicated projects");
-        projectRepository.getAll().stream().collect(Collectors.groupingBy(Project::getProjectUrl)).entrySet().stream()
+        projectRepository.getAll().stream()
+                .collect(Collectors.groupingBy(RemoteProject::getProjectUrl))
+                .entrySet()
+                .stream()
                 .filter(entry -> entry.getValue().size() > 1)
                 .peek(entry -> logger.atInfo().log(
                         "Found %d projects with url %s", entry.getValue().size(), entry.getKey()))
@@ -142,5 +148,24 @@ public class DataBaseMigration {
                 .mongoCollection()
                 .deleteMany(Filters.and(Filters.regex("filePath", ".*/tmp/.*"), Filters.eq("analyzer", "Spoon")));
         logger.atInfo().log("Removed %d bad smells with ruleId containing spaces", deleteMany.getDeletedCount());
+    }
+
+    private void removeAnalyzerStatusWithoutLocalDataTime() {
+        logger.atInfo().log("Removing analyzer status without local data");
+        for (RemoteProject remoteProject : projectRepository.getAll()) {
+            for (GitHubCommit commits : remoteProject.getCommits()) {
+                List<AnalyzerStatus> list = new ArrayList<>();
+                for (AnalyzerStatus analyzerStatus : commits.getAnalyzerStatuses()) {
+                    if (analyzerStatus.getLocalDateTime() != null) {
+                        list.add(analyzerStatus);
+                    }
+                }
+                if (list.size() != commits.getAnalyzerStatuses().size()) {
+                    commits.setAnalyzerStatuses(list);
+                    projectRepository.deleteByProjectUrl(remoteProject.getProjectUrl());
+                    projectRepository.save(remoteProject);
+                }
+            }
+        }
     }
 }

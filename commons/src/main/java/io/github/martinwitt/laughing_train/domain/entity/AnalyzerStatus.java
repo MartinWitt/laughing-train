@@ -1,25 +1,31 @@
 package io.github.martinwitt.laughing_train.domain.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class AnalyzerStatus implements Serializable {
 
     private String analyzerName;
     private Status status;
     private int numberOfIssues;
+    private String commitHash;
+    private LocalDateTime localDateTime;
 
-    AnalyzerStatus(String analyzerName, Status status, int numberOfIssues) {
+    AnalyzerStatus(
+            String analyzerName, Status status, int numberOfIssues, String commitHash, LocalDateTime localDateTime) {
         this.analyzerName = analyzerName;
         this.status = status;
         this.numberOfIssues = numberOfIssues;
+        this.commitHash = commitHash;
+        this.localDateTime = localDateTime;
     }
 
-    public static AnalyzerStatus success(String analyzerName, int numberOfIssues) {
-        return new AnalyzerStatus(analyzerName, Status.SUCCESS, numberOfIssues);
+    public static AnalyzerStatus success(String analyzerName, int numberOfIssues, String commitHash) {
+        return new AnalyzerStatus(analyzerName, Status.SUCCESS, numberOfIssues, commitHash, LocalDateTime.now());
     }
 
-    public static AnalyzerStatus failure(String analyzerName, int numberOfIssues) {
-        return new AnalyzerStatus(analyzerName, Status.FAILURE, numberOfIssues);
+    public static AnalyzerStatus failure(String analyzerName, int numberOfIssues, String commitHash) {
+        return new AnalyzerStatus(analyzerName, Status.FAILURE, numberOfIssues, commitHash, LocalDateTime.now());
     }
 
     enum Status {
@@ -67,5 +73,32 @@ public class AnalyzerStatus implements Serializable {
      */
     public void setNumberOfIssues(int numberOfIssues) {
         this.numberOfIssues = numberOfIssues;
+    }
+
+    /**
+     * @return the commitHash
+     */
+    public String getCommitHash() {
+        return commitHash;
+    }
+    /**
+     * @param commitHash the commitHash to set
+     */
+    public void setCommitHash(String commitHash) {
+        this.commitHash = commitHash;
+    }
+
+    /**
+     * @return the localDateTime
+     */
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    /**
+     * @param localDateTime the localDateTime to set
+     */
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 }

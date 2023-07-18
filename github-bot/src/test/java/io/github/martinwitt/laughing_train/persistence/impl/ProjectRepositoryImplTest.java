@@ -2,7 +2,7 @@ package io.github.martinwitt.laughing_train.persistence.impl;
 
 import static org.assertj.core.api.Assertions.*;
 
-import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
@@ -18,14 +18,14 @@ public class ProjectRepositoryImplTest {
 
     @Test
     void testCreate() {
-        Project project = createMockProject();
+        RemoteProject project = createMockProject();
         assertThat(projectRepository.create(project)).isEqualTo(project);
     }
 
     @Test
     void testDeleteByProjectUrl() {
         assertThat(projectRepository.getAll()).isEmpty();
-        Project project = createMockProject();
+        RemoteProject project = createMockProject();
         projectRepository.create(project);
         assertThat(projectRepository.getAll()).isNotEmpty();
         assertThat(projectRepository.deleteByProjectUrl(project.getProjectUrl()))
@@ -36,7 +36,7 @@ public class ProjectRepositoryImplTest {
 
     @Test
     void testFindByProjectUrl() {
-        Project project = createMockProject();
+        RemoteProject project = createMockProject();
         projectRepository.create(project);
 
         assertThat(projectRepository.findByProjectUrl(project.getProjectUrl()))
@@ -44,13 +44,13 @@ public class ProjectRepositoryImplTest {
                 .allMatch(v -> v.getProjectUrl().equals(project.getProjectUrl()));
     }
 
-    private Project createMockProject() {
-        return Instancio.create(Project.class);
+    private RemoteProject createMockProject() {
+        return Instancio.create(RemoteProject.class);
     }
 
     @Test
     void addCommitHashTest() {
-        Project project = createMockProject();
+        RemoteProject project = createMockProject();
         assertThat(projectRepository.create(project)).isEqualTo(project);
         project.addCommitHash("aaaa231adasdas");
         projectRepository.save(project);

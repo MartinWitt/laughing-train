@@ -1,12 +1,12 @@
 package io.github.martinwitt.laughing_train.persistence.converter;
 
-import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.dao.ProjectDao;
 
-public class ProjectDaoConverter implements DaoConverter<Project, ProjectDao> {
+public class ProjectDaoConverter implements DaoConverter<RemoteProject, ProjectDao> {
 
     @Override
-    public ProjectDao convertToDao(Project entity) {
+    public ProjectDao convertToDao(RemoteProject entity) {
         ProjectDao dao = new ProjectDao();
         dao.setProjectName(entity.getProjectName());
         dao.setProjectUrl(entity.getProjectUrl());
@@ -15,8 +15,8 @@ public class ProjectDaoConverter implements DaoConverter<Project, ProjectDao> {
     }
 
     @Override
-    public Project convertToEntity(ProjectDao dao) {
-        var project = new Project(dao.getProjectName(), dao.getProjectUrl());
+    public RemoteProject convertToEntity(ProjectDao dao) {
+        var project = new RemoteProject(dao.getProjectName(), dao.getProjectUrl());
         dao.getCommitHashes().forEach(project::addCommitHash);
         return project;
     }

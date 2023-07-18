@@ -1,6 +1,6 @@
 package io.github.martinwitt.laughing_train.summary;
 
-import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
@@ -41,7 +41,7 @@ public class PeriodicRefactoringSummary {
 
         StringBuilder summary = new StringBuilder();
         summary.append("# Summary of all refactoring opportunities:\n");
-        for (Project project : projectRepository.getAll()) {
+        for (RemoteProject project : projectRepository.getAll()) {
             List<BadSmell> badSmells = getFixableBadSmells.getFixableBadSmells(project);
             Map<RuleId, List<BadSmell>> badSmellByRuleId =
                     badSmells.stream().collect(Collectors.groupingBy(BadSmell::ruleID));
