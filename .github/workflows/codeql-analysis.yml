@@ -30,7 +30,7 @@ jobs:
        java-version: 17
        distribution: microsoft
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2
+      uses: gradle/gradle-build-action@915a66c096a03101667f9df2e56c9efef558b165 # v2
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@489225d82a57396c6f426a40e66d461b16b3461d # v2
