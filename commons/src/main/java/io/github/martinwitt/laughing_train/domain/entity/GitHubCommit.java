@@ -44,6 +44,17 @@ public class GitHubCommit implements Serializable {
     }
 
     public void addAnalyzerStatus(AnalyzerStatus analyzerStatus) {
-        this.analyzerStatuses.add(analyzerStatus);
+        analyzerStatuses.stream()
+                .filter(v -> v.getCommitHash().equals(analyzerStatus.getCommitHash()))
+                .filter(v -> v.getAnalyzerName().equals(analyzerStatus.getAnalyzerName()))
+                .findFirst()
+                .ifPresentOrElse(
+                        v -> {
+                            analyzerStatuses.remove(v);
+                            analyzerStatuses.add(analyzerStatus);
+                        },
+                        () -> {
+                            analyzerStatuses.add(analyzerStatus);
+                        });
     }
 }

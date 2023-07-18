@@ -1,7 +1,7 @@
 package io.github.martinwitt.laughing_train.persistence.impl;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.converter.ProjectDaoConverter;
 import io.github.martinwitt.laughing_train.persistence.dao.ProjectDao;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
@@ -15,7 +15,7 @@ public class MongoProjectRepository implements ProjectRepository, PanacheMongoRe
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
     private ProjectDaoConverter projectDaoConverter = new ProjectDaoConverter();
 
-    public List<Project> findByProjectName(String projectName) {
+    public List<RemoteProject> findByProjectName(String projectName) {
         return find("projectName", projectName).stream()
                 .map(projectDaoConverter::convertToEntity)
                 .toList();
@@ -32,7 +32,7 @@ public class MongoProjectRepository implements ProjectRepository, PanacheMongoRe
     }
 
     @Override
-    public Project create(Project project) {
+    public RemoteProject create(RemoteProject project) {
         var list = findByProjectUrl(project.getProjectUrl());
         if (list.isEmpty()) {
             persist(projectDaoConverter.convertToDao(project));
@@ -43,7 +43,7 @@ public class MongoProjectRepository implements ProjectRepository, PanacheMongoRe
     }
 
     @Override
-    public Project save(Project project) {
+    public RemoteProject save(RemoteProject project) {
         var list = find("projectUrl", project.getProjectUrl()).list();
         if (list.isEmpty()) {
             persist(projectDaoConverter.convertToDao(project));
@@ -66,14 +66,14 @@ public class MongoProjectRepository implements ProjectRepository, PanacheMongoRe
     }
 
     @Override
-    public List<Project> findByProjectUrl(String projectUrl) {
+    public List<RemoteProject> findByProjectUrl(String projectUrl) {
         return find("projectUrl", projectUrl).stream()
                 .map(projectDaoConverter::convertToEntity)
                 .toList();
     }
 
     @Override
-    public List<Project> getAll() {
+    public List<RemoteProject> getAll() {
         return streamAll().map(projectDaoConverter::convertToEntity).toList();
     }
 }

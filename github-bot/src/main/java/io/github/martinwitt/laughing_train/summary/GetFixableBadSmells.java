@@ -1,6 +1,6 @@
 package io.github.martinwitt.laughing_train.summary;
 
-import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
@@ -29,8 +29,8 @@ public class GetFixableBadSmells {
      * Returns a map of all projects and their fixable bad smells. A bad smell is fixable if there is a refactoring available.
      * @return  Map of all projects and their fixable bad smells.
      */
-    public Map<Project, List<BadSmell>> getFixableBadSmells() {
-        List<Project> allProjects = getAllProjects();
+    public Map<RemoteProject, List<BadSmell>> getFixableBadSmells() {
+        List<RemoteProject> allProjects = getAllProjects();
         return allProjects.stream()
                 .filter(v -> !v.getCommitHashes().isEmpty())
                 .collect(Collectors.toMap(
@@ -42,7 +42,7 @@ public class GetFixableBadSmells {
      * @param project  Project to get the fixable bad smells from.
      * @return  List of all fixable bad smells of a project.
      */
-    public List<BadSmell> getFixableBadSmells(Project project) {
+    public List<BadSmell> getFixableBadSmells(RemoteProject project) {
         return getFixableBadSmells(project, getNewestHash(project).orElse(""));
     }
 
@@ -51,7 +51,7 @@ public class GetFixableBadSmells {
      * @param project  Project to get the fixable bad smells from.
      * @return  List of all fixable bad smells of a project.
      */
-    public List<BadSmell> getFixableBadSmells(Project project, String commitHash) {
+    public List<BadSmell> getFixableBadSmells(RemoteProject project, String commitHash) {
         return getFixableBadSmells(commitHash);
     }
 
@@ -59,7 +59,7 @@ public class GetFixableBadSmells {
      * Returns a list of all projects.
      * @return List of all projects.
      */
-    private List<Project> getAllProjects() {
+    private List<RemoteProject> getAllProjects() {
         return projectRepository.getAll();
     }
     /**
@@ -67,7 +67,7 @@ public class GetFixableBadSmells {
      * @param project  Project to get the newest commit hash from.
      * @return  Newest commit hash of the project.
      */
-    private Optional<String> getNewestHash(Project project) {
+    private Optional<String> getNewestHash(RemoteProject project) {
         if (project.getCommitHashes().isEmpty()) {
             return Optional.empty();
         }

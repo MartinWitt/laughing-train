@@ -4,8 +4,9 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLDto;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLDtoInput;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectGraphQLDto;
-import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.mining.QodanaPeriodicMiner;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
@@ -62,7 +63,16 @@ public class ProjectGraphQL {
     public List<String> getHashesForProject(String projectName) {
         return projectRepository.findByProjectName(projectName).stream()
                 .findFirst()
-                .map(Project::getCommitHashes)
+                .map(RemoteProject::getCommitHashes)
+                .orElseThrow();
+    }
+
+    @Query("getGitHubCommitsForProject")
+    @Description("Returns all github commits for a project from the database")
+    public List<GitHubCommit> getGitHubCommitsForProject(String projectName) {
+        return projectRepository.findByProjectName(projectName).stream()
+                .findFirst()
+                .map(RemoteProject::getCommits)
                 .orElseThrow();
     }
 
@@ -73,7 +83,7 @@ public class ProjectGraphQL {
         logger.atInfo().log("Adding project %s with url %s", projectName, projectUrl);
         if (!projectRepository.existsByProjectUrl(projectUrl)) {
             logger.atInfo().log("Project does not exist yet, creating it");
-            Project project = new Project(projectUrl, projectName);
+            RemoteProject project = new RemoteProject(projectUrl, projectName);
             return mapToDto(projectRepository.create(project));
         } else {
             logger.atInfo().log("Project %s already exists", projectName);
@@ -85,7 +95,7 @@ public class ProjectGraphQL {
     @Authenticated
     @Description("Deletes a project from the database")
     public List<ProjectGraphQLDto> removeProjectByName(String projectName) {
-        List<Project> projects = projectRepository.findByProjectName(projectName);
+        List<RemoteProject> projects = projectRepository.findByProjectName(projectName);
         projectRepository.deleteByProjectName(projectName);
         return projects.stream().map(this::mapToDto).toList();
     }
@@ -130,7 +140,7 @@ public class ProjectGraphQL {
         return config;
     }
 
-    private ProjectGraphQLDto mapToDto(Project project) {
+    private ProjectGraphQLDto mapToDto(RemoteProject project) {
         return new ProjectGraphQLDto(project);
     }
 }

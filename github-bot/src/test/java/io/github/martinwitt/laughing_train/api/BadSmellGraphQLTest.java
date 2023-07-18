@@ -4,7 +4,7 @@ import static io.smallrye.graphql.client.core.Document.document;
 import static io.smallrye.graphql.client.core.Field.field;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
@@ -86,7 +86,7 @@ public class BadSmellGraphQLTest {
                 // .url("http://www.keksdose.xyz:8080/graphql")
                 .url("http://localhost:8081/graphql")
                 .build();
-        Project project = new Project("aaa", "bbb");
+        RemoteProject project = new RemoteProject("aaa", "bbb");
         projectRepository.create(project);
         project.addCommitHash("aaaa");
         projectRepository.save(project);

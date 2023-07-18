@@ -5,14 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Project implements Serializable {
+public class RemoteProject implements Serializable {
 
     private String projectName;
     private String projectUrl;
     private List<String> commitHashes;
     private List<GitHubCommit> commits;
 
-    public Project(String projectName, String projectUrl) {
+    public RemoteProject(String projectName, String projectUrl) {
         this.projectName = Objects.requireNonNull(projectName);
         this.projectUrl = Objects.requireNonNull(projectUrl);
         commitHashes = new ArrayList<>();
@@ -80,7 +80,7 @@ public class Project implements Serializable {
         if (this == obj) {
             return true;
         }
-        if (obj instanceof Project project) {
+        if (obj instanceof RemoteProject project) {
             return Objects.equals(projectName, project.projectName)
                     && Objects.equals(projectUrl, project.projectUrl)
                     && Objects.equals(commitHashes, project.commitHashes);
@@ -88,7 +88,7 @@ public class Project implements Serializable {
         return false;
     }
 
-    public Project withProjectUrl(String projectUrl) {
-        return new Project(projectName, projectUrl);
+    public RemoteProject withProjectUrl(String projectUrl) {
+        return new RemoteProject(projectName, projectUrl);
     }
 }

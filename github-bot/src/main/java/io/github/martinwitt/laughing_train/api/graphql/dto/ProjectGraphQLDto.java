@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.api.graphql.dto;
 
-import io.github.martinwitt.laughing_train.domain.entity.Project;
+import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import java.util.List;
 import org.eclipse.microprofile.graphql.Name;
 
@@ -10,14 +11,16 @@ public class ProjectGraphQLDto {
     private String projectName;
     private String projectUrl;
     private List<String> commitHashes;
+    private List<GitHubCommit> commits;
 
     @SuppressWarnings("NullAway")
     public ProjectGraphQLDto() {}
 
-    public ProjectGraphQLDto(Project project) {
+    public ProjectGraphQLDto(RemoteProject project) {
         this.projectName = project.getProjectName();
         this.projectUrl = project.getProjectUrl();
         this.commitHashes = project.getCommitHashes();
+        this.commits = project.getCommits();
     }
 
     public String getProjectName() {
@@ -42,5 +45,19 @@ public class ProjectGraphQLDto {
 
     public void setCommitHashes(List<String> commitHashes) {
         this.commitHashes = commitHashes;
+    }
+
+    /**
+     * @return the commits
+     */
+    public List<GitHubCommit> getCommits() {
+        return commits;
+    }
+
+    /**
+     * @param commits the commits to set
+     */
+    public void setCommits(List<GitHubCommit> commits) {
+        this.commits = commits;
     }
 }

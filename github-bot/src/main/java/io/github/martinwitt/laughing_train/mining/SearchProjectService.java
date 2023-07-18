@@ -1,8 +1,8 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.domain.entity.Project;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
+import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.logging.Log;
@@ -45,12 +45,12 @@ public class SearchProjectService {
     }
 
     /**
-     * Searches for a random project on github and returns it as a {@link Project}.
+     * Searches for a random project on github and returns it as a {@link RemoteProject}.
      * Only projects from the config property {@code mining.github.search.orgs} are considered.
-     * @return  a random project from github as a {@link Project}
+     * @return  a random project from github as a {@link RemoteProject}
      * @throws IOException
      */
-    public Project searchProjectOnGithub() throws IOException {
+    public RemoteProject searchProjectOnGithub() throws IOException {
         var repo = findRandomRepositoryOnGithub();
         if (repo == null) {
             throw new IOException("No project found on github");
@@ -65,7 +65,7 @@ public class SearchProjectService {
      * @param ghRepo  the repository to search for
      * @return the repository if it exists, null otherwise
      */
-    private Project getProject(GHRepository ghRepo) {
+    private RemoteProject getProject(GHRepository ghRepo) {
         var list = projectRepository.findByProjectUrl(ghRepo.getHtmlUrl().toString());
         if (list.isEmpty()) {
             return projectRepository.create(toProject(ghRepo));
@@ -78,7 +78,7 @@ public class SearchProjectService {
      * @param project  the project to persist
      * @return  the persisted project or the project from the database if it already existed
      */
-    private Project persistProject(Project project) {
+    private RemoteProject persistProject(RemoteProject project) {
         var list = projectRepository.findByProjectUrl(project.getProjectUrl());
         if (list.isEmpty()) {
             return projectRepository.create(project);
@@ -87,7 +87,7 @@ public class SearchProjectService {
         }
     }
 
-    private void persistProjectConfigIfMissing(Project project) {
+    private void persistProjectConfigIfMissing(RemoteProject project) {
         String projectUrl = project.getProjectUrl();
         var projectConfig = projectConfigRepository.findByProjectUrl(projectUrl);
         if (projectConfig.isEmpty()) {
@@ -120,9 +120,9 @@ public class SearchProjectService {
         return org;
     }
 
-    private Project toProject(GHRepository ghRepo) {
+    private RemoteProject toProject(GHRepository ghRepo) {
         String ghRepoUrl = ghRepo.getHtmlUrl().toString();
-        return new Project(ghRepo.getName(), ghRepoUrl);
+        return new RemoteProject(ghRepo.getName(), ghRepoUrl);
     }
 
     @Readiness
