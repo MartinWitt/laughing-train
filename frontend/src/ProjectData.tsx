@@ -12,6 +12,17 @@ export const fetchProjectQuery = gql`
    projectName
    projectUrl
    commitHashes
+   commits {
+    analyzerStatuses {
+      analyzerName
+      commitHash
+      localDateTime
+      numberOfIssues
+      status
+    }
+    commitHash
+   }
+
    }
 }
 `;
@@ -87,5 +98,20 @@ export const addProjectConfigQuery = gql`
     projectUrl
     sourceFolder
   }
+}
+`;
+
+export const getGitHubCommitsQuery = gql`
+  query getGitHubCommitsForProject($projectName: String!) {
+    getGitHubCommitsForProject(projectName: $projectName) {
+    analyzerStatuses {
+      analyzerName
+      commitHash
+      localDateTime
+      numberOfIssues
+      status
+    }
+    commitHash
+    }
 }
 `;

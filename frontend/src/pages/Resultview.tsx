@@ -63,7 +63,8 @@ function projectWithSingleHash(project: Project, hash: string | undefined): Proj
         return {
             projectName: project.projectName,
             commitHashes: [hash],
-            projectUrl: project.projectUrl
+            projectUrl: project.projectUrl,
+            commits: project.commits
         }
     }
     return project;
