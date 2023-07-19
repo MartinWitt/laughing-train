@@ -14,7 +14,7 @@ dependencies {
 	implementation 'io.quarkus:quarkus-smallrye-health'
 	testImplementation 'io.quarkus:quarkus-junit5'
 	implementation project(":code-transformation")
-	implementation 'io.quarkus:quarkus-mongodb-panache:3.2.0.Final'
+	implementation 'io.quarkus:quarkus-mongodb-panache:3.2.1.Final'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-smallrye-graphql")
 	implementation("io.quarkus:quarkus-smallrye-graphql-client")
