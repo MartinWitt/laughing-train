@@ -1,12 +1,10 @@
-import { useQuery } from "@apollo/client";
-import { fetchProjectQuery } from "../ProjectData";
-import { Project } from "../data/Project";
-import React, { useMemo } from "react";
-import ProjectTable from "./ProjectTable";
-
+import { useQuery } from '@apollo/client';
+import { fetchProjectQuery } from '../ProjectData';
+import { Project } from '../data/Project';
+import React, { useMemo } from 'react';
+import ProjectTable from './ProjectTable';
 
 export function ProjectList({ filter }: { filter: string }) {
-
   const { data, loading, error } = useQuery(fetchProjectQuery);
 
   const filteredProjects = useMemo(() => {
@@ -17,8 +15,6 @@ export function ProjectList({ filter }: { filter: string }) {
       return project.projectName.toLowerCase().match(filter.toLowerCase());
     });
   }, [data, filter]);
-
-
 
   if (error) {
     console.error(error);

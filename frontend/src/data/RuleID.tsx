@@ -1,3 +1,3 @@
 export type RuleID = {
-  ruleId: string
-}
+  ruleId: string;
+};

@@ -1,6 +1,6 @@
-import { AnalyzerStatus } from "./AnalyzerStatus"
+import { AnalyzerStatus } from './AnalyzerStatus';
 
 export type GitHubCommit = {
-  analyzerStatuses: AnalyzerStatus[]
-  commitHash: String
-}
+  analyzerStatuses: AnalyzerStatus[];
+  commitHash: String;
+};

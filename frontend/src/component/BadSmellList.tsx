@@ -1,22 +1,30 @@
-
 import { useQuery } from '@apollo/client';
-import { Accordion, AccordionDetails, AccordionSummary, Box, Card, CircularProgress, Divider, Link, Stack, Typography } from '@mui/material';
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Card,
+  CircularProgress,
+  Divider,
+  Link,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { BadSmell } from '../data/BadSmell';
-import { Project } from "../data/Project";
+import { Project } from '../data/Project';
 import { fetchBadSmellsforHashQuery } from '../ProjectData';
 import JavaCodeBlock from './JavaCodeBlock';
 import React, { useMemo, useState } from 'react';
 import { StyledDivider } from './StyledDivider';
 
-
-
 export default function BadSmellList(project: Project) {
-  const [badSmellFilter] = useState([""]);
+  const [badSmellFilter] = useState(['']);
 
   const { data, error, loading } = useQuery(fetchBadSmellsforHashQuery, {
     variables: {
-      hash: project.commitHashes[0]
-    }
+      hash: project.commitHashes[0],
+    },
   });
   const filteredBadSmells = useMemo(() => {
     if (!data) {
@@ -36,52 +44,69 @@ export default function BadSmellList(project: Project) {
     console.error(error);
   }
   if (loading) {
-    return <CircularProgress />
+    return <CircularProgress />;
   }
 
   return (
     <div>
-      <Typography variant='h2' align='center'>Bad Smells</Typography>
+      <Typography variant="h2" align="center">
+        Bad Smells
+      </Typography>
       <br />
-      <Box display={"flex"} flexDirection={"row"} >
-        <Box display="inline-block" width={"100%"}>
+      <Box display={'flex'} flexDirection={'row'}>
+        <Box display="inline-block" width={'100%'}>
           <BadSmellBlocks badSmells={filteredBadSmells} project={project} />
         </Box>
-      </ Box>
+      </Box>
     </div>
   );
 }
 
-
-function BadSmellBlocks({ badSmells, project }: { badSmells: BadSmell[]; project: Project }) {
-  return <>
-    {CodeBlocks(badSmells, project)}
-  </>
+function BadSmellBlocks({
+  badSmells,
+  project,
+}: {
+  badSmells: BadSmell[];
+  project: Project;
+}) {
+  return <>{CodeBlocks(badSmells, project)}</>;
 }
 function CodeBlocks(params: BadSmell[], project: Project) {
   return Array.from(groupByRuleID(params)).map((badSmell) => {
     return (
       <div key={badSmell[0].toString()}>
         <Accordion key={badSmell[0].toString()}>
-          <AccordionSummary sx={{ justifyContent: "center" }}>
-            <Typography variant="h5" align='center' alignContent={"center"} >{badSmell[0]} {badSmell[1].length}</Typography>
+          <AccordionSummary sx={{ justifyContent: 'center' }}>
+            <Typography variant="h5" align="center" alignContent={'center'}>
+              {badSmell[0]} {badSmell[1].length}
+            </Typography>
           </AccordionSummary>
           <Divider />
-          <AccordionDetails sx={{ justifyContent: "center" }}>
-            <Stack spacing={2} direction='column' alignItems={"center"}>
+          <AccordionDetails sx={{ justifyContent: 'center' }}>
+            <Stack spacing={2} direction="column" alignItems={'center'}>
               {badSmell[1].map((badSmell) => {
                 return (
-                  <Card key={badSmell.identifier} sx={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    alignContent: "center",
-                    width: "100%",
-                  }} elevation={10}>
-                    <BadSmellCardHeader  {...badSmell} />
-                    <Typography padding="10px" fontSize={18} >{badSmell.messageMarkdown}</Typography>
+                  <Card
+                    key={badSmell.identifier}
+                    sx={{
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      alignContent: 'center',
+                      width: '100%',
+                    }}
+                    elevation={10}
+                  >
+                    <BadSmellCardHeader {...badSmell} />
+                    <Typography padding="10px" fontSize={18}>
+                      {badSmell.messageMarkdown}
+                    </Typography>
                     <JavaCodeBlock code={badSmell.snippet} />
                     <BadSmellCardFooter badSmell={badSmell} project={project} />
-                    <StyledDivider thickness={2} color="orange" orientation="horizontal" />
+                    <StyledDivider
+                      thickness={2}
+                      color="orange"
+                      orientation="horizontal"
+                    />
                   </Card>
                 );
               })}
@@ -89,14 +114,20 @@ function CodeBlocks(params: BadSmell[], project: Project) {
           </AccordionDetails>
         </Accordion>
       </div>
-    )
+    );
   });
 }
 
-
 function createGithubLink(badSmell: BadSmell, project: Project) {
-  return project.projectUrl + "/tree/" + project.commitHashes[0] + "/" + badSmell.filePath + "#L" + badSmell.position.startLine;
-
+  return (
+    project.projectUrl +
+    '/tree/' +
+    project.commitHashes[0] +
+    '/' +
+    badSmell.filePath +
+    '#L' +
+    badSmell.position.startLine
+  );
 }
 
 function groupByRuleID(projects: BadSmell[]): Map<string, BadSmell[]> {
@@ -114,22 +145,45 @@ function groupByRuleID(projects: BadSmell[]): Map<string, BadSmell[]> {
 }
 
 function BadSmellCardHeader(badSmell: BadSmell) {
-  return (<>
-    <StyledDivider thickness={2} color="orange" orientation="horizontal" />
-    <Typography padding="10px" variant='h4' fontSize={24}>{badSmell.ruleID}</Typography>
-    <Typography padding="10px" justifyContent={"flex-start"}>{badSmell.identifier}</Typography>
-    <StyledDivider thickness={2} color="black" orientation="horizontal" />
- </>);
+  return (
+    <>
+      <StyledDivider thickness={2} color="orange" orientation="horizontal" />
+      <Typography padding="10px" variant="h4" fontSize={24}>
+        {badSmell.ruleID}
+      </Typography>
+      <Typography padding="10px" justifyContent={'flex-start'}>
+        {badSmell.identifier}
+      </Typography>
+      <StyledDivider thickness={2} color="black" orientation="horizontal" />
+    </>
+  );
 }
 
-function BadSmellCardFooter({ badSmell, project }: { badSmell: BadSmell; project: Project; }) {
-  return (<>
-    <StyledDivider thickness={2} color="black" orientation="horizontal" />
-    <Typography padding="10px" fontSize={18} >In file {badSmell.filePath} at line {badSmell.position.startLine}</Typography>
-    {GitHubLink(badSmell, project)}
-  </>);
+function BadSmellCardFooter({
+  badSmell,
+  project,
+}: {
+  badSmell: BadSmell;
+  project: Project;
+}) {
+  return (
+    <>
+      <StyledDivider thickness={2} color="black" orientation="horizontal" />
+      <Typography padding="10px" fontSize={18}>
+        In file {badSmell.filePath} at line {badSmell.position.startLine}
+      </Typography>
+      {GitHubLink(badSmell, project)}
+    </>
+  );
 }
 function GitHubLink(badSmell: BadSmell, project: Project) {
-  return <Link padding="10px" href={createGithubLink(badSmell, project)} underline='hover'>See on GitHub</Link>;
+  return (
+    <Link
+      padding="10px"
+      href={createGithubLink(badSmell, project)}
+      underline="hover"
+    >
+      See on GitHub
+    </Link>
+  );
 }
-

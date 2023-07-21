@@ -1,8 +1,23 @@
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import { Project } from "../data/Project";
-import { AnalyzerStatus } from "../data/AnalyzerStatus";
-import { useState } from "react";
-import { DateTimeFormatter, Duration, LocalDateTime, TemporalAccessor, ZoneOffset} from "@js-joda/core";
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from '@mui/material';
+import { Project } from '../data/Project';
+import { AnalyzerStatus } from '../data/AnalyzerStatus';
+import { useState } from 'react';
+import {
+  DateTimeFormatter,
+  Duration,
+  LocalDateTime,
+  TemporalAccessor,
+  ZoneOffset,
+} from '@js-joda/core';
 
 interface ProjectTableProps {
   projects: Project[];
@@ -10,7 +25,10 @@ interface ProjectTableProps {
 
 function ProjectTable(props: ProjectTableProps) {
   const { projects } = props;
-  const [sortConfig, setSortConfig] = useState<{ key: string; direction: string }>({ key: "", direction: "" });
+  const [sortConfig, setSortConfig] = useState<{
+    key: string;
+    direction: string;
+  }>({ key: '', direction: '' });
 
   const sortedProjects = projects.sort((a, b) => {
     const aStatus = getSpoonAnalyzerResult(a);
@@ -21,36 +39,36 @@ function ProjectTable(props: ProjectTableProps) {
     if (aStatus !== undefined && bStatus === undefined) {
       return -1;
     }
-    if (sortConfig.direction === "ascending") {
-      if (sortConfig.key === "projectUrl") {
+    if (sortConfig.direction === 'ascending') {
+      if (sortConfig.key === 'projectUrl') {
         return a[sortConfig.key] > b[sortConfig.key] ? 1 : -1;
       }
-      if (sortConfig.key === "analyzerDate") {
+      if (sortConfig.key === 'analyzerDate') {
         if (aStatus && bStatus) {
           return aStatus.localDateTime > bStatus.localDateTime ? 1 : -1;
         }
         return 0;
       }
-      if (sortConfig.key === "resultCount") {
+      if (sortConfig.key === 'resultCount') {
         if (aStatus && bStatus) {
           return aStatus.numberOfIssues > bStatus.numberOfIssues ? 1 : -1;
         }
         return 0;
       }
     }
-    if (sortConfig.direction === "descending") {
-      if (sortConfig.key === "projectUrl") {
+    if (sortConfig.direction === 'descending') {
+      if (sortConfig.key === 'projectUrl') {
         return a[sortConfig.key] < b[sortConfig.key] ? 1 : -1;
       }
-      if (sortConfig.key === "analyzerDate") {
+      if (sortConfig.key === 'analyzerDate') {
         if (aStatus && bStatus) {
           return aStatus.localDateTime < bStatus.localDateTime ? 1 : -1;
         }
         return 0;
       }
-      if (sortConfig.key === "resultCount") {
+      if (sortConfig.key === 'resultCount') {
         if (aStatus && bStatus) {
-          return aStatus.numberOfIssues < bStatus. numberOfIssues ? 1 : -1;
+          return aStatus.numberOfIssues < bStatus.numberOfIssues ? 1 : -1;
         }
         return 0;
       }
@@ -59,45 +77,43 @@ function ProjectTable(props: ProjectTableProps) {
   });
 
   const requestSort = (key: string) => {
-    let direction = "ascending";
-    if (sortConfig.key === key && sortConfig.direction === "ascending") {
-      direction = "descending";
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
     }
     setSortConfig({ key, direction });
   };
 
   return (
-      <TableContainer sx={{overflow:"hidden"}}>
-        <Table>
-        <TableHead sx={{ background: "#f5f5f5" }}>
-            <TableRow>
-              <SortableTableCell
-                label="Project"
-                sortConfig={sortConfig}
-                requestSort={requestSort}
-                sortKey="projectUrl"
-              />
-              <SortableTableCell
-                label="Date of Analyzer"
-                sortConfig={sortConfig}
-                requestSort={requestSort}
-                sortKey="analyzerDate"
-              />
-              <SortableTableCell
-                label="Number of Results"
-                sortConfig={sortConfig}
-                requestSort={requestSort}
-                sortKey="resultCount"
-              />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {sortedProjects.map((project) => (
-              tableCell(project)
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+    <TableContainer sx={{ overflow: 'hidden' }}>
+      <Table>
+        <TableHead sx={{ background: '#f5f5f5' }}>
+          <TableRow>
+            <SortableTableCell
+              label="Project"
+              sortConfig={sortConfig}
+              requestSort={requestSort}
+              sortKey="projectUrl"
+            />
+            <SortableTableCell
+              label="Date of Analyzer"
+              sortConfig={sortConfig}
+              requestSort={requestSort}
+              sortKey="analyzerDate"
+            />
+            <SortableTableCell
+              label="Number of Results"
+              sortConfig={sortConfig}
+              requestSort={requestSort}
+              sortKey="resultCount"
+            />
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {sortedProjects.map((project) => tableCell(project))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }
 
@@ -111,44 +127,49 @@ interface SortableTableCellProps {
 function tableCell(project: Project) {
   const status = getSpoonAnalyzerResult(project);
   if (status === undefined) {
-    return <></>
+    return <></>;
   }
-  return <TableRow key={project.projectUrl} onClick={() => window.location.href = toLink(project)}>
-    <TableCell>{project.projectUrl}</TableCell>
-    <TableCell>{toDateTime(status.localDateTime)}</TableCell>
-    <TableCell>{status.numberOfIssues}</TableCell>
-  </TableRow>;
+  return (
+    <TableRow
+      key={project.projectUrl}
+      onClick={() => (window.location.href = toLink(project))}
+    >
+      <TableCell>{project.projectUrl}</TableCell>
+      <TableCell>{toDateTime(status.localDateTime)}</TableCell>
+      <TableCell>{status.numberOfIssues}</TableCell>
+    </TableRow>
+  );
 }
 
 function SortableTableCell(props: SortableTableCellProps) {
   const { label, sortConfig, requestSort, sortKey } = props;
   const isSorted = sortConfig.key === sortKey;
-  const direction = isSorted ? sortConfig.direction : "none";
+  const direction = isSorted ? sortConfig.direction : 'none';
 
   return (
     <TableCell onClick={() => requestSort(sortKey)}>
       {label}
-      {isSorted && (
-        <span>
-          {direction === "ascending" ? " ▲" : " ▼"}
-        </span>
-      )}
+      {isSorted && <span>{direction === 'ascending' ? ' ▲' : ' ▼'}</span>}
     </TableCell>
   );
 }
 
 export default ProjectTable;
 
-
 function getSpoonAnalyzerResult(project: Project): AnalyzerStatus | undefined {
   if (project.commits.length === 0) {
     return undefined;
   }
   const lastCommit = project.commits[project.commits.length - 1];
-  if (lastCommit.analyzerStatuses === undefined || lastCommit.analyzerStatuses === null) {
+  if (
+    lastCommit.analyzerStatuses === undefined ||
+    lastCommit.analyzerStatuses === null
+  ) {
     return undefined;
   }
-  return lastCommit.analyzerStatuses.find((status) => status.analyzerName === "spoon-analyzer");
+  return lastCommit.analyzerStatuses.find(
+    (status) => status.analyzerName === 'spoon-analyzer'
+  );
 }
 
 function toDateTime(date: string) {
@@ -162,5 +183,5 @@ function toDateTime(date: string) {
 }
 
 function toLink(project: Project): string {
-  return "/resultview/" + project.projectName;
+  return '/resultview/' + project.projectName;
 }
