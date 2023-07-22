@@ -1,4 +1,4 @@
 export type ProjectConfig = {
-  projectUrl: string,
-  sourceFolder: string
-}
+  projectUrl: string;
+  sourceFolder: string;
+};

@@ -6,6 +6,7 @@
     "@apollo/client": "3.7.17",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
+    "@js-joda/core": "^5.5.3",
     "@mui/icons-material": "5.14.1",
     "@mui/lab": "5.0.0-alpha.137",
     "@mui/material": "5.14.1",
@@ -36,7 +37,8 @@
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write \"src/**/*.tsx\""
   },
   "eslintConfig": {
     "extends": [
@@ -57,6 +59,7 @@
     ]
   },
   "devDependencies": {
-    "@types/babel__core": "^7.1.20"
+    "@types/babel__core": "^7.1.20",
+    "prettier": "^3.0.0"
   }
 }

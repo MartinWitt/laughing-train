@@ -40,6 +40,10 @@ jobs:
         uses: gradle/gradle-build-action@915a66c096a03101667f9df2e56c9efef558b165 # v2
         with:
           gradle-version: release-candidate
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18.4'
       - uses: actions/setup-java@5ffc13f4174014e2d4d4572b3d74c3fa61aeb2c2 # v3
         with:
           distribution: 'temurin'
@@ -53,7 +57,7 @@ jobs:
           cosign-release: 'v1.13.1'
       # Build Quarkus
       - name: Build
-        run: cd ./github-bot/ && gradle assemble
+        run: cd ./github-bot/ && gradle assemble --stacktrace --info
       # Workaround: https://github.com/docker/build-push-action/issues/461
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@4c0219f9ac95b02789c1075625400b2acbff50b1

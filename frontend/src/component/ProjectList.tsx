@@ -1,13 +1,10 @@
-import { useQuery } from "@apollo/client";
-import { Stack } from "@mui/material";
-import { fetchProjectQuery } from "../ProjectData";
-import { Project } from "../data/Project";
-import DashBoardItem from "./DashBoardItem";
-import React, { useMemo } from "react";
-
+import { useQuery } from '@apollo/client';
+import { fetchProjectQuery } from '../ProjectData';
+import { Project } from '../data/Project';
+import React, { useMemo } from 'react';
+import ProjectTable from './ProjectTable';
 
 export function ProjectList({ filter }: { filter: string }) {
-
   const { data, loading, error } = useQuery(fetchProjectQuery);
 
   const filteredProjects = useMemo(() => {
@@ -19,22 +16,11 @@ export function ProjectList({ filter }: { filter: string }) {
     });
   }, [data, filter]);
 
-
-
   if (error) {
     console.error(error);
   }
   if (loading) {
     return <div>Loading...</div>;
   }
-  
-  return <Stack
-    alignItems="stretch"
-    spacing={5}>
-    {filteredProjects.map((project : Project) => {
-      return (
-        <DashBoardItem key={project.projectUrl} {...project} />
-      );
-    })}
-  </Stack>;
+  return <ProjectTable projects={filteredProjects} />;
 }

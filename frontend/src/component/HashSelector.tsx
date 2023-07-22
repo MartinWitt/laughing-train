@@ -1,7 +1,14 @@
-import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { useNavigate } from "react-router";
-import { Project } from "../data/Project";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from '@mui/material';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
+import { Project } from '../data/Project';
 
 function HashSelector(project: Project) {
   const navigate = useNavigate();
@@ -12,7 +19,9 @@ function HashSelector(project: Project) {
         Choose a hash to view the results
       </Typography>
       <br />
-      <FormControl sx={{ display: 'flex', justifyContent: 'center', minWidth: 200 }}>
+      <FormControl
+        sx={{ display: 'flex', justifyContent: 'center', minWidth: 200 }}
+      >
         <InputLabel id="hash-select-label">Commit Hash</InputLabel>
         <Select
           labelId="hash-select-label"
@@ -29,7 +38,10 @@ function HashSelector(project: Project) {
       </FormControl>
       <br />
       <br />
-      <Button variant="contained" onClick={() => navigate(toLink(project, selectedHash))}>
+      <Button
+        variant="contained"
+        onClick={() => navigate(toLink(project, selectedHash))}
+      >
         View Results
       </Button>
     </div>
@@ -43,5 +55,5 @@ function HashSelector(project: Project) {
 export default HashSelector;
 
 function toLink(project: Project, hash: string): string {
-  return "/resultview/" + project.projectName + "/" + hash;
+  return '/resultview/' + project.projectName + '/' + hash;
 }
