@@ -6,7 +6,6 @@ import io.github.martinwitt.spoon_analyzer.badsmells.access_static_via_instance.
 import io.github.martinwitt.spoon_analyzer.badsmells.array_can_be_replaced_with_enum_values.ArrayCanBeReplacedWithEnumValuesAnalyzer;
 import io.github.martinwitt.spoon_analyzer.badsmells.charset_object_can_be_used.CharsetObjectCanBeUsedAnalyzer;
 import io.github.martinwitt.spoon_analyzer.badsmells.final_static_method.FinalStaticMethodAnalyzer;
-import io.github.martinwitt.spoon_analyzer.badsmells.innerclass_may_be_static.InnerClassMayBeStaticAnalyzer;
 import io.github.martinwitt.spoon_analyzer.badsmells.non_protected_constructor_In_abstract_class.NonProtectedConstructorInAbstractClassAnalyzer;
 import io.github.martinwitt.spoon_analyzer.badsmells.private_final_method.PrivateFinalMethodAnalyzer;
 import io.github.martinwitt.spoon_analyzer.badsmells.size_replaceable_by_is_empty.SizeReplaceableByIsEmptyAnalyzer;
@@ -31,7 +30,8 @@ public class SpoonAnalyzer {
         localAnalyzers.add(new CharsetObjectCanBeUsedAnalyzer());
         localAnalyzers.add(new FinalStaticMethodAnalyzer());
         localAnalyzers.add(new IndexOfReplaceableByContainsAnalyzer());
-        localAnalyzers.add(new InnerClassMayBeStaticAnalyzer());
+        // currently produces too many false positives
+        // localAnalyzers.add(new InnerClassMayBeStaticAnalyzer());
         localAnalyzers.add(new NonProtectedConstructorInAbstractClassAnalyzer());
         localAnalyzers.add(new PrivateFinalMethodAnalyzer());
         localAnalyzers.add(new SizeReplaceableByIsEmptyAnalyzer());
