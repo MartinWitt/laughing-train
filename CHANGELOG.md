@@ -1,5 +1,45 @@
 # Changelog
 
+## [1.3.0](https://github.com/MartinWitt/laughing-train/compare/v1.2.0...v1.3.0) (2023-07-26)
+
+
+### Features
+
+* **graphql:** Add 2 new graphql endpoints to get results for analyzers ([#852](https://github.com/MartinWitt/laughing-train/issues/852)) ([5078a48](https://github.com/MartinWitt/laughing-train/commit/5078a48b0df2a73ecb62820e240b509f7cd69806))
+* **graphql:** Add graphql endpoint for analyzerstatus ([#863](https://github.com/MartinWitt/laughing-train/issues/863)) ([fc89ddf](https://github.com/MartinWitt/laughing-train/commit/fc89ddfb821a482da0191729a883f64c35bf6e3a))
+* **react:** Change dashboard UI to new table ([#876](https://github.com/MartinWitt/laughing-train/issues/876)) ([a9b3c9c](https://github.com/MartinWitt/laughing-train/commit/a9b3c9cafac5215fa54914537d2df29421deb18e))
+* **spoon:** Add EqualsHashcode badsmell ([#899](https://github.com/MartinWitt/laughing-train/issues/899)) ([83ae327](https://github.com/MartinWitt/laughing-train/commit/83ae327679a984460167911b257aff84b98abd53))
+* **spoon:** Add FinalStaticMethod analyzer ([#845](https://github.com/MartinWitt/laughing-train/issues/845)) ([c4ea0e8](https://github.com/MartinWitt/laughing-train/commit/c4ea0e83c1de31dd12c5e73d92036daa1cc0b40e))
+* **spoon:** Improve snippet generation for spoon-analyzer ([#848](https://github.com/MartinWitt/laughing-train/issues/848)) ([3fa3323](https://github.com/MartinWitt/laughing-train/commit/3fa3323b84a0565e60e313d590eccfa1a8e98263))
+
+
+### Bug Fixes
+
+* **database:** Fix ConcurrentModificationException during database migration ([#857](https://github.com/MartinWitt/laughing-train/issues/857)) ([504e1c4](https://github.com/MartinWitt/laughing-train/commit/504e1c4c9196d2784c5d014923f5d2c72105ace5))
+* **database:** Fix NPE in ProjectDao ([#867](https://github.com/MartinWitt/laughing-train/issues/867)) ([fde7a40](https://github.com/MartinWitt/laughing-train/commit/fde7a403a1008f466c9b238d5d0ba2fdf897b0ac))
+* **spoon:** Also persist analyzerresults in database ([#866](https://github.com/MartinWitt/laughing-train/issues/866)) ([6e588ea](https://github.com/MartinWitt/laughing-train/commit/6e588ea88e4ccf13cb973b3034265ea8b5b47afd))
+* **spoon:** Disable InnerClassMayBeStatic rule ([#896](https://github.com/MartinWitt/laughing-train/issues/896)) ([5484232](https://github.com/MartinWitt/laughing-train/commit/5484232eb7e8338efcc33eba887f3311a36092b1))
+* **spoon:** Fix visitor not returning any result because of correct implemented visitor ([#847](https://github.com/MartinWitt/laughing-train/issues/847)) ([c65ac44](https://github.com/MartinWitt/laughing-train/commit/c65ac4428eceea1bd6f9dfce053aa84a10bbfe2e))
+* **spoon:** Fix whitespaces in ruleIDs for spoon analyzer ([#854](https://github.com/MartinWitt/laughing-train/issues/854)) ([b7245a9](https://github.com/MartinWitt/laughing-train/commit/b7245a9c08f86ce5349c2f36c6a2427447c38214))
+* **spoon:** Fix wrong filepath for badsmells ([#855](https://github.com/MartinWitt/laughing-train/issues/855)) ([e208bbe](https://github.com/MartinWitt/laughing-train/commit/e208bbe0c8db48bd6378174f7e4230dcdbe00830))
+* **spoon:** Handle implicit ctors correct ([#853](https://github.com/MartinWitt/laughing-train/issues/853)) ([5452a96](https://github.com/MartinWitt/laughing-train/commit/5452a964d70bdcfdd80c1fae650d71c0787f87c4))
+* **spoon:** Improve error logging to contain badsmell classname ([e2f53e5](https://github.com/MartinWitt/laughing-train/commit/e2f53e5ba268e1352184a5eb9343e76e9b89a09b))
+* **spoon:** Improve error logging to contain badsmell classname ([#851](https://github.com/MartinWitt/laughing-train/issues/851)) ([a493511](https://github.com/MartinWitt/laughing-train/commit/a493511040631bc46a15e9da8a7154da6bf68094))
+* **spoon:** Improve logging of spoon analyzer with too large stacktraces ([#865](https://github.com/MartinWitt/laughing-train/issues/865)) ([3b3b95a](https://github.com/MartinWitt/laughing-train/commit/3b3b95a5ba7dfd7822a08d6128945ee3cb44733f))
+* **spoon:** Make conversion of spoon-analyzer more robust ([#849](https://github.com/MartinWitt/laughing-train/issues/849)) ([d45f858](https://github.com/MartinWitt/laughing-train/commit/d45f8580633ce65da1e48522df9f08ad24dd463e))
+* **spoon:** Reduce logging noise for conversion ([#850](https://github.com/MartinWitt/laughing-train/issues/850)) ([0984601](https://github.com/MartinWitt/laughing-train/commit/09846016819aa9660416cf2f1fe7dbd7ce425e1d))
+
+
+### Dependencies
+
+* :bookmark:(deps): update actions/setup-java digest to cd89f46 ([#891](https://github.com/MartinWitt/laughing-train/issues/891)) ([cd8bbb4](https://github.com/MartinWitt/laughing-train/commit/cd8bbb4af6eb246b0ebe2cc523d5a5c0e9d8cd88))
+* :bookmark:(deps): update github/codeql-action digest to 1813ca7 ([#873](https://github.com/MartinWitt/laughing-train/issues/873)) ([cfb72e3](https://github.com/MartinWitt/laughing-train/commit/cfb72e3dcbd944498785963f5d493a0699366e71))
+* :bookmark:(deps): update github/codeql-action digest to 6ca1aa8 ([#900](https://github.com/MartinWitt/laughing-train/issues/900)) ([6b2497a](https://github.com/MartinWitt/laughing-train/commit/6b2497af876c48bb69c034479f963f290770aa6d))
+* :bookmark:(deps): update google-github-actions/release-please-action digest to ca6063f ([#878](https://github.com/MartinWitt/laughing-train/issues/878)) ([8d0e9c1](https://github.com/MartinWitt/laughing-train/commit/8d0e9c1d31be89d5c1b9517f1972668adbae0bb1))
+* :bookmark:(deps): update gradle/gradle-build-action digest to 915a66c ([#859](https://github.com/MartinWitt/laughing-train/issues/859)) ([d982f61](https://github.com/MartinWitt/laughing-train/commit/d982f616d7e6b239c237a58f86f6f541290a46ae))
+* :bookmark:(deps): update gradle/gradle-build-action digest to a4cf152 ([#892](https://github.com/MartinWitt/laughing-train/issues/892)) ([276db32](https://github.com/MartinWitt/laughing-train/commit/276db328e2151f208868db691f11f86b00e2a674))
+* :bookmark:(deps): update sigstore/cosign-installer digest to a5d81fb ([#877](https://github.com/MartinWitt/laughing-train/issues/877)) ([aa61ec9](https://github.com/MartinWitt/laughing-train/commit/aa61ec9a005d236d7387cc353485981edb5730eb))
+
 ## [1.2.0](https://github.com/MartinWitt/laughing-train/compare/v1.1.0...v1.2.0) (2023-07-15)
 
 
