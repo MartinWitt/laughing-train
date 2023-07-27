@@ -1,66 +1,14 @@
-## ArraysToString
-`array.toString()` is not the best way to print an array. Use `Arrays.toString(array)` instead.
-[https://rules.sonarsource.com/java/RSPEC-2116]
-
-## CollectionEmptyCheck
-Checking if a collection is empty should be done by `Collection.isEmpty()`.
-
-## EmptyStringCheck
-Checking if a string is empty should be done by `String#isEmpty` instead of `String.equals("")`
-
-## ExpectedException
-The expected annotation value should be removed from test methods, and replaced with JUnit 5 `assertThrows`.
-
-## JUnit4-@Test
-The JUnit 4 `@Test` annotation should be replaced with JUnit 5 `@Test` annotation.
-
-## JUnit4-AssertThat
-`AssertThat` in Junit 4 is deprecated. Use `AssertThat` in Hamcrest instead.
-
-## JUnit4Assertion
-The JUnit4 assertion should be replaced with JUnit5 Assertions.
-
-## Junit4-@After
-The JUnit 4 `@After` annotation should be replaced with JUnit 5 `@AfterEach` annotation.
-
-## Junit4-@AfterClass
-The JUnit 4 `@AfterClass` annotation should be replaced with JUnit 5 `@AfterAll` annotation.
-
-## Junit4-@Before
-The JUnit 4 `@Before` annotation should be replaced with JUnit 5 `@BeforeEach` annotation.
-
-## Junit4-@BeforeClass
-The JUnit 4 `@BeforeClass` annotation should be replaced with JUnit 5 `@BeforeAll` annotation.
-
-## Junit4-@Ignore
-The JUnit 4 `@Ignore` annotation should be replaced with JUnit 5 `@Disabled` annotation.
-
-## LambdaInsteadOfExecutableReference
-Lambda is used instead of executable reference
-[https://rules.sonarsource.com/java/RSPEC-1612]
-
-## NonStaticAccess
-Static methods should be access via the class name, not the instance variable.
-
-## Protected-In-Final-Class
-A protected member is used in a final class. Final classes are not allowed to be extended.
-
-## RedundantFieldInitialization
-Primitive types have default values and setting them to the same value is redundant.
-
-## Static inner class
-Inner classes should be static if possible
-
-## String-ValueOf-Primitive
-Primitive types are converted to String using concationation with `""`.  `String.valueOf(primitive)` is the preferred way to convert a primitive to a String.
-
-## StringBuilderDirectUse
-`StringBuilder` offers a lot of methods directly and `toString` is not everytime needed
-
-## TempoaryFolderAsParameter
-`@TempDir` can be used as a method parameter removing fields from test classes
-
-## ThreadLocalWithInitialValue
-`ThreadLocal` with initialValue override shall be replaced by `ThreadLocal.withInitialValue`
-[https://rules.sonarsource.com/java/RSPEC-4065]
-
+| Bad Smell | Description |
+| --- | --- |
+| IndexOfReplaceableByContains | The indexOf method returns -1 if the substring is not found. This can be replaced by the contains method. | 
+| AccessStaticViaInstance | Accessing static methods should be done via the class name, not via an instance. | 
+| ArrayCanBeReplacedWithEnumValues | Instead of listing all enum values in an array, you can use the `Enum.values() directly. This makes the code more readable and less error prone. There are no updates needed if there is a new enum value. | 
+| CharsetObjectCanBeUsed | The Charset object can be used instead of the String object. | 
+| EqualsHashcode | This class does not override equals() and hashcode() methods together. | 
+| FinalStaticMethod | A final method is a method that cannot be overridden in a subclass. As static methods are bound to the class the cant be overridden only hidden. | 
+| InnerClassMayBeStatic | This class is an inner class and may be static. Static inner classes dont need the reference to the outer class. | 
+| NonProtectedConstructorInAbstractClass | A non-protected constructor in an abstract class is not accessible from outside the package. Adding the modifier public is not needed, as only subclasses can call the constructor. | 
+| PrivateFinalMethod | Private method cant be overridden, so there is no reason for the final. Less modifiers are easier to read. | 
+| SizeReplaceableByIsEmpty | Checking if an collection is empty by comparing its size to 0 is redundant. Use isEmpty() instead. | 
+| UnnecessaryImplements | This class has 1 or more interfaces which are already implemented. | 
+| UnnecessaryTostring | Calling to String on a String object is unnecessary. | 
