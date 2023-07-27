@@ -6,8 +6,10 @@ import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.summary.GetFixableBadSmells;
+import io.github.martinwitt.spoon_analyzer.badsmells.SpoonRules;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
+import java.util.Arrays;
 import java.util.List;
 import org.eclipse.microprofile.graphql.Description;
 import org.eclipse.microprofile.graphql.GraphQLApi;
@@ -87,6 +89,12 @@ public class BadSmellGraphQL {
         return getFixableBadSmells.getFixableBadSmells(projects.get(0)).stream()
                 .map(this::mapToDto)
                 .toList();
+    }
+
+    @Query("fixableBadSmells")
+    @Description("Gets all fixable bad smells rules")
+    public List<String> getAllFixableBadSmells() {
+        return Arrays.stream(SpoonRules.values()).map(SpoonRules::getRuleID).toList();
     }
 
     private BadSmellGraphQLDto mapToDto(BadSmell badSmell) {
