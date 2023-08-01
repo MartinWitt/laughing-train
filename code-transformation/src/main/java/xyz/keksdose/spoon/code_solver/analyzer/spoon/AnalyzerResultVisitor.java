@@ -13,6 +13,7 @@ import io.github.martinwitt.spoon_analyzer.badsmells.array_can_be_replaced_with_
 import io.github.martinwitt.spoon_analyzer.badsmells.charset_object_can_be_used.CharsetObjectCanBeUsed;
 import io.github.martinwitt.spoon_analyzer.badsmells.equals_hashcode.EqualsHashcode;
 import io.github.martinwitt.spoon_analyzer.badsmells.final_static_method.FinalStaticMethod;
+import io.github.martinwitt.spoon_analyzer.badsmells.implicit_array_to_string.ImplicitArrayToString;
 import io.github.martinwitt.spoon_analyzer.badsmells.innerclass_may_be_static.InnerClassMayBeStatic;
 import io.github.martinwitt.spoon_analyzer.badsmells.non_protected_constructor_In_abstract_class.NonProtectedConstructorInAbstractClass;
 import io.github.martinwitt.spoon_analyzer.badsmells.private_final_method.PrivateFinalMethod;
@@ -189,6 +190,14 @@ class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
         clone.setTypeMembers(new ArrayList<>());
         String snippet = clone.toString();
         return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedType().getPosition(), snippet);
+    }
+
+    @Override
+    public AnalyzerResult visit(ImplicitArrayToString badSmell) {
+        String snippet = trygetOriginalSourceCode(badSmell.getImplicitToStringCaller())
+                .orElse(badSmell.getImplicitToStringCaller().toString());
+        return toSpoonAnalyzerResult(
+                badSmell, badSmell.getImplicitToStringCaller().getPosition(), snippet);
     }
 
     private Optional<String> trygetOriginalSourceCode(CtElement element) {
