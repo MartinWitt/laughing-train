@@ -7,8 +7,8 @@ import spoon.reflect.declaration.CtType;
 
 public class ImplicitArrayToString implements BadSmell {
 
-    private CtType<?> clazz;
-    private CtInvocation<?> implicitToStringCaller;
+    private final CtType<?> clazz;
+    private final CtInvocation<?> implicitToStringCaller;
 
     public ImplicitArrayToString(CtType<?> clazz, CtInvocation<?> implicitToStringCaller) {
         this.clazz = clazz;
