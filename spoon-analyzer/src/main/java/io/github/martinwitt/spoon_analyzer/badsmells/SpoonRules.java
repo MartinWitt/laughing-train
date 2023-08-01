@@ -31,6 +31,9 @@ public enum SpoonRules {
     SIZE_REPLACEABLE_BY_IS_EMPTY(
             "SizeReplaceableByIsEmpty",
             "Checking if an collection is empty by comparing its size to 0 is redundant. Use isEmpty() instead."),
+    IMPLICIT_ARRAY_TO_STRING(
+            "ImplicitArrayToString",
+            "Calling toString() on an array returns not the content but the toString from the array object itself."),
     UNNECESSARY_IMPLEMENTS(
             "UnnecessaryImplements", "This class has 1 or more interfaces which are already implemented."),
     UNNECESSARY_TOSTRING("UnnecessaryTostring", "Calling to String on a String object is unnecessary.");

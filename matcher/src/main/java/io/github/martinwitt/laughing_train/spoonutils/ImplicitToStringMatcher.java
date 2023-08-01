@@ -91,7 +91,7 @@ public class ImplicitToStringMatcher implements Filter<CtInvocation<?>> {
      * @return  true if the specified {@link CtInvocation} object is a call to one of the methods above, false otherwise
      */
     private boolean printMethod(CtInvocation<?> element, String qualifiedName) {
-        CtTypeReference<?> type = element.getType();
+        CtTypeReference<?> type = element.getExecutable().getDeclaringType();
         if (type == null) {
             return false;
         }

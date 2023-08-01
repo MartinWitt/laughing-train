@@ -6,6 +6,7 @@ import io.github.martinwitt.spoon_analyzer.badsmells.array_can_be_replaced_with_
 import io.github.martinwitt.spoon_analyzer.badsmells.charset_object_can_be_used.CharsetObjectCanBeUsed;
 import io.github.martinwitt.spoon_analyzer.badsmells.equals_hashcode.EqualsHashcode;
 import io.github.martinwitt.spoon_analyzer.badsmells.final_static_method.FinalStaticMethod;
+import io.github.martinwitt.spoon_analyzer.badsmells.implicit_array_to_string.ImplicitArrayToString;
 import io.github.martinwitt.spoon_analyzer.badsmells.innerclass_may_be_static.InnerClassMayBeStatic;
 import io.github.martinwitt.spoon_analyzer.badsmells.non_protected_constructor_In_abstract_class.NonProtectedConstructorInAbstractClass;
 import io.github.martinwitt.spoon_analyzer.badsmells.private_final_method.PrivateFinalMethod;
@@ -65,6 +66,10 @@ public interface BadSmellVisitor<U> extends Visitor<BadSmell, U> {
     }
 
     default U visit(EqualsHashcode badSmell) {
+        return emptyResult();
+    }
+
+    default U visit(ImplicitArrayToString badSmell) {
         return emptyResult();
     }
 
