@@ -62,12 +62,8 @@ public class ImplicitToStringMatcher implements Filter<CtInvocation<?>> {
      * @return  true if the specified {@link CtInvocation} object is a call to one of the methods above, false otherwise
      */
     private boolean appendMethod(CtInvocation<?> element, String qualifiedName) {
-        if (qualifiedName.equals("java.lang.StringBuilder") || qualifiedName.equals("java.lang.StringBuffer")) {
-            if (element.getArguments().size() == 1) {
-                return true;
-            }
-        }
-        return false;
+        return (qualifiedName.equals("java.lang.StringBuilder") || qualifiedName.equals("java.lang.StringBuffer"))
+                && element.getArguments().size() == 1;
     }
 
     /**
