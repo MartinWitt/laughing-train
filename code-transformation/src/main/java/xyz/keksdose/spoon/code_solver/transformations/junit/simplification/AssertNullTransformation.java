@@ -66,13 +66,13 @@ public class AssertNullTransformation extends TransformationProcessor<CtInvocati
         CtType<?> parent = element.getParent(CtType.class);
         CtCompilationUnit compilationUnit = element.getPosition().getCompilationUnit();
 
-        if (parent != null && !hasJunit5AsserTrueLeft(parent)) {
+        if (parent != null && !hasJunit5AssertTrueLeft(parent)) {
             ImportHelper.removeImport("org.junit.jupiter.api.Assertions.assertTrue", true, compilationUnit);
         }
         ImportHelper.addImport("org.junit.jupiter.api.Assertions.assertNull", true, compilationUnit);
     }
 
-    private boolean hasJunit5AsserTrueLeft(CtType<?> parent) {
+    private boolean hasJunit5AssertTrueLeft(CtType<?> parent) {
         return parent.getElements(new TypeFilter<>(CtInvocation.class)).stream()
                 .filter(v -> v.getExecutable() != null)
                 .anyMatch(v -> JunitHelper.isJunit5AssertTrue(v.getExecutable()));
