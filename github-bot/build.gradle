@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.315.0'
+	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.316.0'
 	implementation 'io.quarkiverse.githubapp:quarkus-github-app:2.0.5'
 	implementation 'io.quarkiverse.githubapp:quarkus-github-app-command-airline:2.0.5'
 	implementation 'io.quarkus:quarkus-arc'
