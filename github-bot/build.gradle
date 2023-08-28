@@ -24,8 +24,6 @@ dependencies {
 	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
 	implementation("io.quarkus:quarkus-opentelemetry")
-	implementation("io.quarkus:quarkus-liquibase-mongodb")
-	implementation("io.quarkus:quarkus-mongodb-client")
 	implementation project(":application")
 	implementation project(":commons")
 	implementation "io.quarkiverse.loggingmanager:quarkus-logging-manager:3.0.1"
