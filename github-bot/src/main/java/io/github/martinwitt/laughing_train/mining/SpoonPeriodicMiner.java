@@ -75,6 +75,7 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
                                 storeFailure(success, error);
                             }
                         }
+                        FileUtils.deleteQuietly(success.project().folder());
                     }
                 })
                 .onComplete(v -> vertx.eventBus().publish("miner", new MineNextProject(ANALYZER_NAME)));
