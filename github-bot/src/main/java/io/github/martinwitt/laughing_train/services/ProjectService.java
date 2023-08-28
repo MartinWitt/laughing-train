@@ -52,9 +52,10 @@ public class ProjectService {
     }
 
     private void cleanAfter60min(Path dir) {
-        vertx.setTimer(Duration.ofMinutes(60).toMillis(), v -> {
+        vertx.setTimer(Duration.ofMinutes(30).toMillis(), v -> {
             if (Files.exists(dir)) {
-                vertx.fileSystem().deleteRecursive(dir.toAbsolutePath().toString(), true);
+                FileUtils.deleteQuietly(dir.toFile());
+                logger.atInfo().log("Deleted %s", dir);
             }
         });
     }
