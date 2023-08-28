@@ -1,0 +1,23 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                      http://www.liquibase.org/xml/ns/dbchangelog-ext https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <changeSet id="1" author="martinwitt">
+    <ext:createIndex collectionName="BadSmell">
+      <ext:keys>{commitHash: 1}</ext:keys>
+      <ext:options>{name: "commitHash_idx"}</ext:options>
+    </ext:createIndex>
+    <ext:createIndex collectionName="BadSmell">
+      <ext:keys>{ruleID: 1}</ext:keys>
+      <ext:options>{name: "ruleID_idx"}</ext:options>
+    </ext:createIndex>
+    <ext:createIndex collectionName="BadSmell">
+      <ext:keys>{commitHash: 1, ruleID:1}</ext:keys>
+      <ext:options>{name: "commitHash_ruleID_idx"}</ext:options>
+    </ext:createIndex>
+  </changeSet>
+</databaseChangeLog>
