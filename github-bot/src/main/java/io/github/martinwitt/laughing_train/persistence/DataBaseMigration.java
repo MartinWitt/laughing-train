@@ -97,6 +97,9 @@ public class DataBaseMigration {
                     .createIndex(
                             BsonDocument.parse("{commitHash: 1, ruleID: 1}"),
                             new IndexOptions().name("commitHash_ruleID_idx"));
+            badSmellRepositoryImpl
+                    .mongoCollection()
+                    .createIndex(BsonDocument.parse("{identifier: 1}"), new IndexOptions().name("identifier_idx"));
         } catch (Exception e) {
 
             logger.atSevere().withCause(e).log("Error while creating indexes");
