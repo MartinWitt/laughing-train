@@ -2,6 +2,7 @@ package io.github.martinwitt.laughing_train.persistence;
 
 import com.google.common.flogger.FluentLogger;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.IndexOptions;
 import com.mongodb.client.result.DeleteResult;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.bson.BsonDocument;
 
 /**
  * This class is used to migrate the database to the latest version.
@@ -70,6 +72,7 @@ public class DataBaseMigration {
 
     private void migrateDataBase(Promise<Object> promise) {
         logger.atInfo().log("Migrating database");
+        createIndexes();
         createConfigsIfMissing();
         removeProjectHashesWithoutResults();
         removeProjectsWithOutHashes();
@@ -79,6 +82,25 @@ public class DataBaseMigration {
         deleteBadSmellWithManyFalsePositives();
         logger.atInfo().log("Finished migrating database");
         promise.complete();
+    }
+
+    public void createIndexes() {
+        try {
+            badSmellRepositoryImpl
+                    .mongoCollection()
+                    .createIndex(BsonDocument.parse("{commitHash: 1}"), new IndexOptions().name("commitHash_idx"));
+            badSmellRepositoryImpl
+                    .mongoCollection()
+                    .createIndex(BsonDocument.parse("{ruleID: 1}"), new IndexOptions().name("ruleID_idx"));
+            badSmellRepositoryImpl
+                    .mongoCollection()
+                    .createIndex(
+                            BsonDocument.parse("{commitHash: 1, ruleID: 1}"),
+                            new IndexOptions().name("commitHash_ruleID_idx"));
+        } catch (Exception e) {
+
+            logger.atSevere().withCause(e).log("Error while creating indexes");
+        }
     }
 
     private void removeProjectsWithOutHashes() {
