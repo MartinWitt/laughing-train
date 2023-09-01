@@ -38,7 +38,7 @@ public class MiningStartup {
     void startup(@Observes StartupEvent event) {
         DeploymentOptions options = new DeploymentOptions().setWorker(true);
         Future.join(
-                        vertx.deployVerticle(qodanaPeriodicMiner, options),
+                        // vertx.deployVerticle(qodanaPeriodicMiner, options),
                         vertx.deployVerticle(spoonPeriodicMiner, options),
                         vertx.deployVerticle(persistence, options),
                         vertx.deployVerticle(projectSupplier, options))
@@ -52,8 +52,8 @@ public class MiningStartup {
     }
 
     private void startMining() {
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.eventBus()
-                .publish("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
+        // vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.eventBus()
+        //         .publish("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
         vertx.setTimer(TimeUnit.MINUTES.toMillis(2), v -> vertx.eventBus()
                 .publish("miner", new MineNextProject(SpoonPeriodicMiner.ANALYZER_NAME)));
     }
