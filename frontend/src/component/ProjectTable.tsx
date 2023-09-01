@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow,
   Typography,
+  useTheme,
 } from '@mui/material';
 import { Project } from '../data/Project';
 import { AnalyzerStatus } from '../data/AnalyzerStatus';
@@ -86,7 +87,7 @@ function ProjectTable(props: ProjectTableProps) {
   return (
     <TableContainer sx={{ overflow: 'hidden' }}>
       <Table>
-        <TableHead sx={{ background: '#f5f5f5' }}>
+        <TableHead sx={{fontSize:"Medium"}}>
           <TableRow>
             <SortableTableCell
               label="Project"
@@ -144,9 +145,10 @@ function SortableTableCell(props: SortableTableCellProps) {
   const { label, sortConfig, requestSort, sortKey } = props;
   const isSorted = sortConfig.key === sortKey;
   const direction = isSorted ? sortConfig.direction : 'none';
+  const theme = useTheme();
 
   return (
-    <TableCell onClick={() => requestSort(sortKey)}>
+    <TableCell onClick={() => requestSort(sortKey)} style={{ fontWeight: 'bold', fontSize: '16px', color: 'white', backgroundColor: theme.palette.secondary.main }}>
       {label}
       {isSorted && <span>{direction === 'ascending' ? ' ▲' : ' ▼'}</span>}
     </TableCell>
