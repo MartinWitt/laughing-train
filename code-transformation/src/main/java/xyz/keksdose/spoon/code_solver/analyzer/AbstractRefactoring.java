@@ -1,4 +1,4 @@
-package xyz.keksdose.spoon.code_solver.analyzer.qodana.rules;
+package xyz.keksdose.spoon.code_solver.analyzer;
 
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.nio.file.Path;

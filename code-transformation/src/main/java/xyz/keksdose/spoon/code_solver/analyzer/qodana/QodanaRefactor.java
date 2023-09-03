@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import spoon.reflect.declaration.CtType;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
+import xyz.keksdose.spoon.code_solver.analyzer.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.MethodMayBeStatic;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonProtectedConstructorInAbstractClass;
 import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.NonStrictComparisonCanBeEquality;

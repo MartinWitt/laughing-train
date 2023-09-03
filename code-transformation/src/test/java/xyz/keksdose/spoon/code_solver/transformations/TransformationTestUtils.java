@@ -11,7 +11,7 @@ import java.util.function.Function;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.TestHelper;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
+import xyz.keksdose.spoon.code_solver.analyzer.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 
 /**

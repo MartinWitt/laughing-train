@@ -14,7 +14,6 @@ import io.github.martinwitt.laughing_train.UserWhitelist;
 import io.github.martinwitt.laughing_train.services.QodanaService;
 import io.quarkiverse.githubapp.event.Issue;
 import jakarta.inject.Inject;
-import java.io.Closeable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -23,19 +22,13 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import org.apache.commons.io.FileUtils;
 import org.kohsuke.github.GHEventPayload;
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHRef;
 import org.kohsuke.github.GHRepository;
 import spoon.reflect.declaration.CtType;
-import xyz.keksdose.spoon.code_solver.TransformationEngine;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
 import xyz.keksdose.spoon.code_solver.history.Change;
-import xyz.keksdose.spoon.code_solver.history.ChangeListener;
-import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class App {
 
@@ -78,31 +71,10 @@ public class App {
             issueComment.getIssue().setBody(config.regenerateConfig());
         }
         refreshConfig(issueComment);
-        if (containsFlag(issueComment.getIssue(), CREATE_FIXES_BUTTON)) {
-            issueComment.getIssue().setBody(refreshFlag(issueComment.getIssue().getBody(), CREATE_FIXES_BUTTON));
-            createFixes(issueComment);
-            logger.atInfo().log("Fixes created");
-        }
         if (containsFlag(issueComment.getIssue(), DISABLE_ALL_RULES_BUTTON)) {
             issueComment.getIssue().setBody(refreshFlag(issueComment.getIssue().getBody(), DISABLE_ALL_RULES_BUTTON));
             disableAllRules();
             issueComment.getIssue().setBody(config.regenerateConfig());
-        }
-    }
-
-    private void createFixes(GHEventPayload.Issue issueComment) throws IOException {
-        Path dir = Files.createTempDirectory(Constants.TEMP_FOLDER_PREFIX);
-        try (Closeable closeable = () -> FileUtils.deleteDirectory(dir.toFile())) {
-            List<Change> changes = refactorRepo(issueComment.getRepository().getHttpTransportUrl(), dir)
-                    .getChangelog()
-                    .getChanges();
-            GHRepository repo = issueComment.getRepository();
-            GitHubUtils.createLabelIfMissing(repo);
-            if (config.isGroupyByType()) {
-                createPullRequestForAffectedType(repo, dir, groupChangesByType(changes));
-            } else {
-                createSinglePullRequest(repo, dir, changes);
-            }
         }
     }
 
@@ -167,23 +139,6 @@ public class App {
         createCommit(repo, dir, changes.stream().map(Change::getAffectedType).collect(Collectors.toList()), ref);
         body.append(changelogPrinter.printChangeLogShort(changes));
         createPullRequest(repo, branchName, body.toString());
-    }
-
-    private ChangeListener refactorRepo(String repoUrl, Path dir) {
-        ChangeListener changeListener = new ChangeListener();
-        try {
-            var results = qodanaService.runQodana(repoUrl, dir);
-            System.out.println(config.getActiveRules());
-            Function<ChangeListener, TransformationProcessor<?>> function =
-                    (v -> new QodanaRefactor(config.getActiveRules(), v, results));
-            TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
-            transformationEngine.setChangeListener(changeListener);
-            System.out.println("refactorRepo: " + dir + "/" + config.getSrcFolder());
-            transformationEngine.applyToGivenPath(dir + "/" + config.getSrcFolder());
-        } catch (Exception e) {
-            logger.atSevere().withCause(e).log("Failed to refactor repo");
-        }
-        return changeListener;
     }
 
     private Map<CtType<?>, List<Change>> groupChangesByType(List<? extends Change> changes) {

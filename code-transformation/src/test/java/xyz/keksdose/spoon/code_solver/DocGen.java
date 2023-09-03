@@ -13,7 +13,7 @@ import spoon.reflect.CtModel;
 import spoon.reflect.declaration.CtMethod;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.visitor.filter.TypeFilter;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.AbstractRefactoring;
+import xyz.keksdose.spoon.code_solver.analyzer.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
