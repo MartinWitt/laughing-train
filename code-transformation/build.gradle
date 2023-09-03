@@ -15,7 +15,7 @@ jar {
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 dependencies {
-	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.6.0.202305301015-r'
+	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.6.1.202309021850-r'
 	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ssh.apache', version: '6.6.1.202309021850-r'
 	testImplementation "com.google.truth:truth:1.1.5"
 	implementation "com.github.docker-java:docker-java-core:+"
