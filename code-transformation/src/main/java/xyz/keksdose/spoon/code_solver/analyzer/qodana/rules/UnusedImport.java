@@ -6,6 +6,7 @@ import java.util.List;
 import spoon.reflect.declaration.CtImport;
 import spoon.reflect.declaration.CtType;
 import spoon.support.util.ModelList;
+import xyz.keksdose.spoon.code_solver.analyzer.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;

@@ -25,9 +25,7 @@ import java.nio.file.Path;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Date;
-import java.util.EnumSet;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.microprofile.health.HealthCheckResponse;
@@ -36,14 +34,10 @@ import org.kohsuke.github.GHRef;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
 import spoon.reflect.declaration.CtType;
-import xyz.keksdose.spoon.code_solver.TransformationEngine;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
+import xyz.keksdose.spoon.code_solver.api.CodeRefactoring;
 import xyz.keksdose.spoon.code_solver.diffs.DiffCleaner;
 import xyz.keksdose.spoon.code_solver.history.Change;
-import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
-import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 @ApplicationScoped
 public class RefactorService {
@@ -121,18 +115,11 @@ public class RefactorService {
         }
 
         if (message instanceof ProjectResult.Success success) {
-            ChangeListener listener = new ChangeListener();
-            QodanaRefactor refactor = new QodanaRefactor(EnumSet.allOf(QodanaRules.class), listener, badSmells);
-            String refactorPath = success.project().folder().getAbsolutePath() + "/" + config.getSourceFolder();
-            logger.atInfo().log("Refactoring %s", refactorPath);
-            Function<ChangeListener, TransformationProcessor<?>> function = (v -> refactor);
-            TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
-            transformationEngine.setChangeListener(listener);
-            Changelog log = transformationEngine.applyToGivenPath(refactorPath);
-            log.getChanges()
-                    .forEach(change ->
-                            diffCleaner.clean(success.project().folder().toPath(), change));
             try {
+                CodeRefactoring codeRefactoring = new CodeRefactoring();
+                Changelog log = codeRefactoring.refactorBadSmells(
+                        success.project().folder().toPath(), badSmells);
+
                 GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
                 GHRepository repository = createForkIfMissing(success, github);
                 GitHubUtils.createLabelIfMissing(repository);

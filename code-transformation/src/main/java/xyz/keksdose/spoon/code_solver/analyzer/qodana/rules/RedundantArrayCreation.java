@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.util.List;
 import spoon.reflect.code.CtNewArray;
 import spoon.reflect.declaration.CtType;
+import xyz.keksdose.spoon.code_solver.analyzer.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
