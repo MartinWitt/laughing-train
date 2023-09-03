@@ -24,8 +24,8 @@ public class CodeRefactoring {
 
     private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    private final List<BiFunction<ChangeListener, List<AnalyzerResult>, TransformationProcessor<?>>> refactor =
-            new ArrayList<>();
+    private final List<BiFunction<ChangeListener, List<? extends AnalyzerResult>, TransformationProcessor<?>>>
+            refactor = new ArrayList<>();
 
     public CodeRefactoring() {
         refactor.add((u, v) -> new QodanaRefactor(EnumSet.allOf(QodanaRules.class), u, v));
@@ -36,8 +36,12 @@ public class CodeRefactoring {
         ChangeListener listener = new ChangeListener();
         logger.atInfo().log("Refactoring %s", repository);
         DiffCleaner diffCleaner = new DiffCleaner();
-        Function<ChangeListener, TransformationProcessor<?>> function = null;
-        TransformationEngine transformationEngine = new TransformationEngine(List.of(function));
+        List<Function<ChangeListener, TransformationProcessor<?>>> function = new ArrayList<>();
+        for (BiFunction<ChangeListener, List<? extends AnalyzerResult>, TransformationProcessor<?>> refactorSupplier :
+                refactor) {
+            function.add(v -> refactorSupplier.apply(v, results));
+        }
+        TransformationEngine transformationEngine = new TransformationEngine(function);
         transformationEngine.setChangeListener(listener);
         Changelog log = transformationEngine.applyToGivenPath(repository.toString());
         log.getChanges().forEach(change -> diffCleaner.clean(repository, change));
