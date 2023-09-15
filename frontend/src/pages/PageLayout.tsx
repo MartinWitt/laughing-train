@@ -67,17 +67,11 @@ interface NavigationProps {
 
 export default function PageLayout({ children }: PageLayoutProps) {
   const navigationItems: Link[] = [
-    { name: 'Home', href: '/' },
+    { name: 'Home', href: '/'},
     { name: 'Statistics', href: '/statistics' },
   ];
   return (
     <div style={{ height: '100vh' }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Logo src="/logo512.jpg" alt="Logo" />
-          <Name name="Laughing-Train" />
-        </Toolbar>
-      </AppBar>
       <Grid
         container
         spacing={2}
@@ -85,18 +79,18 @@ export default function PageLayout({ children }: PageLayoutProps) {
       >
         <Grid
           item
-          sx={{ width: '200px', backgroundColor: '#272727' }}
-          color={'#272727'}
+          sx={{ width: '200px'}}
         >
           <Box
             sx={{
               height: '100%',
-              width: '100%',
               bgcolor: '#272727',
               overflow: 'hidden',
+              position: 'fixed',
             }}
           >
-            <AppBar position="static">
+            <AppBar position="static" elevation={0} sx={{ bgcolor: '#272727', marginTop:"10px", marginLeft:"10px"}}>
+              <Name name="Laughing-Train" />
               <Toolbar>
                 <Navigation links={navigationItems} />
               </Toolbar>
