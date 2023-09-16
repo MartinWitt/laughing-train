@@ -17,11 +17,6 @@ interface LogoProps {
   alt: string;
 }
 
-function Logo({ src, alt }: LogoProps) {
-  return (
-    <img src={src} alt={alt} style={{ height: '40px', marginRight: '5px' }} />
-  );
-}
 
 interface NameProps {
   name: string;
