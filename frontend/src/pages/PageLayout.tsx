@@ -12,10 +12,6 @@ import {
 import { LoginButton } from '../component/LoginButton';
 import { useNavigate } from 'react-router';
 
-interface LogoProps {
-  src: string;
-  alt: string;
-}
 
 
 interface NameProps {
