@@ -46,9 +46,8 @@ jobs:
           node-version: '18.4'
       - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # v3
         with:
-          distribution: 'temurin'
+          distribution: 'oracle'
           java-version: '21'
-          vendor: 'oracle'
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
