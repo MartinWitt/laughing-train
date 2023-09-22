@@ -6,7 +6,7 @@ RUN curl https://repo1.maven.org/maven2/io/fabric8/run-java-sh/${RUN_JAVA_VERSIO
 
 
 # FROM eclipse-temurin:11-jdk-alpine
-FROM eclipse-temurin:21-jdk-alpine
+FROM container-registry.oracle.com/graalvm/jdk:latest
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 RUN mkdir /deployments \
