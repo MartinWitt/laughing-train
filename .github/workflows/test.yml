@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # v3
         with:
           java-version: 21
-          distribution: microsoft
+          distribution: oracle
       - name: Run Tests
         run: |
           gradle test

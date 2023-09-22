@@ -48,6 +48,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '21'
+          vendor: 'oracle'
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
