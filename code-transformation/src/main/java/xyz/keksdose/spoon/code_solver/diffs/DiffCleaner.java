@@ -3,6 +3,7 @@ package xyz.keksdose.spoon.code_solver.diffs;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.PeekingIterator;
 import com.google.common.flogger.FluentLogger;
+import com.google.errorprone.annotations.Var;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -104,7 +105,7 @@ public class DiffCleaner {
   }
 
   private void printResult(
-      Path filePath, String cleanResult, boolean hasLineEnding, String lineEnding)
+      Path filePath, @Var String cleanResult, boolean hasLineEnding, String lineEnding)
       throws IOException {
     if (hasLineEnding) {
       cleanResult += lineEnding;

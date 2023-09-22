@@ -1,19 +1,16 @@
 package xyz.keksdose.spoon.code_solver.printing;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 import spoon.compiler.Environment;
 import spoon.processing.Processor;
 import spoon.reflect.CtModel;
 import spoon.reflect.declaration.CtElement;
-import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.DefaultJavaPrettyPrinter;
 import spoon.reflect.visitor.ImportConflictDetector;
 import spoon.reflect.visitor.PrettyPrinter;
 import xyz.keksdose.spoon.code_solver.spoon.FragmentAwareChangeCollector;
 import xyz.keksdose.spoon.code_solver.spoon.ImportAwareSniperPrinter;
-import xyz.keksdose.spoon.code_solver.spoon.SelectiveForceImport;
 
 public class PrinterCreation {
   public static void setPrettyPrinter(Environment env, CtModel model) {
@@ -26,10 +23,9 @@ public class PrinterCreation {
 
   private static Supplier<PrettyPrinter> applyCommonPrinterOptions(
       Supplier<? extends DefaultJavaPrettyPrinter> prettyPrinterCreator, CtModel model) {
-    Collection<CtTypeReference<?>> existingReferences = model.getElements(e -> true);
     List<Processor<CtElement>> preprocessors =
         List.of( // new ImportCleaning()
-            new SelectiveForceImport(existingReferences), new ImportConflictDetector()
+            new ImportConflictDetector()
             // new ImportGrouper(new SpoonStyle())
             // )
             );
