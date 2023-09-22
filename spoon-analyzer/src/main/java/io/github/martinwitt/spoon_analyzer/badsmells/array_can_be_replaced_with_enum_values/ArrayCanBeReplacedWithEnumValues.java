@@ -8,39 +8,39 @@ import spoon.reflect.declaration.CtType;
 // https://github.com/JetBrains/intellij-community/blob/master/plugins/InspectionGadgets/src/inspectionDescriptions/ArrayCanBeReplacedWithEnumValues.html
 public class ArrayCanBeReplacedWithEnumValues implements BadSmell {
 
-    private static final String NAME = "ArrayCanBeReplacedWithEnumValues";
-    private static final String DESCRIPTION =
-            "Instead of listing all enum values in an array, you can use the `Enum.values() directly. This makes the code more readable and less error prone. There are no updates needed if there is a new enum value.";
+  private static final String NAME = "ArrayCanBeReplacedWithEnumValues";
+  private static final String DESCRIPTION =
+      "Instead of listing all enum values in an array, you can use the `Enum.values() directly. This makes the code more readable and less error prone. There are no updates needed if there is a new enum value.";
 
-    private final CtType<?> affectedType;
-    private final CtNewArray<?> affectedElement;
+  private final CtType<?> affectedType;
+  private final CtNewArray<?> affectedElement;
 
-    public ArrayCanBeReplacedWithEnumValues(CtType<?> affectedType, CtNewArray<?> affectedElement) {
-        this.affectedType = affectedType;
-        this.affectedElement = affectedElement;
-    }
+  public ArrayCanBeReplacedWithEnumValues(CtType<?> affectedType, CtNewArray<?> affectedElement) {
+    this.affectedType = affectedType;
+    this.affectedElement = affectedElement;
+  }
 
-    @Override
-    public String getName() {
-        return NAME;
-    }
+  @Override
+  public String getName() {
+    return NAME;
+  }
 
-    @Override
-    public String getDescription() {
-        return DESCRIPTION;
-    }
+  @Override
+  public String getDescription() {
+    return DESCRIPTION;
+  }
 
-    @Override
-    public CtType<?> getAffectedType() {
-        return affectedType;
-    }
+  @Override
+  public CtType<?> getAffectedType() {
+    return affectedType;
+  }
 
-    public CtNewArray<?> getAffectedElement() {
-        return affectedElement;
-    }
+  public CtNewArray<?> getAffectedElement() {
+    return affectedElement;
+  }
 
-    @Override
-    public <T> T accept(BadSmellVisitor<T> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public <T> T accept(BadSmellVisitor<T> visitor) {
+    return visitor.visit(this);
+  }
 }

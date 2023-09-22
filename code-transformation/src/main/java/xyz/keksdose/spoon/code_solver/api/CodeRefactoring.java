@@ -18,33 +18,35 @@ import xyz.keksdose.spoon.code_solver.history.Changelog;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 /**
- * This class is the entry point for the code transformation. It takes a repository and a list of badsmells. It then applies the transformations to the repository and returns a changelog.
+ * This class is the entry point for the code transformation. It takes a repository and a list of
+ * badsmells. It then applies the transformations to the repository and returns a changelog.
  */
 public class CodeRefactoring {
 
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    private final List<BiFunction<ChangeListener, List<? extends AnalyzerResult>, TransformationProcessor<?>>>
-            refactor = new ArrayList<>();
+  private final List<
+          BiFunction<ChangeListener, List<? extends AnalyzerResult>, TransformationProcessor<?>>>
+      refactor = new ArrayList<>();
 
-    public CodeRefactoring() {
-        refactor.add((u, v) -> new QodanaRefactor(EnumSet.allOf(QodanaRules.class), u, v));
-        refactor.add((u, v) -> new SpoonRefactor(u, v));
+  public CodeRefactoring() {
+    refactor.add((u, v) -> new QodanaRefactor(EnumSet.allOf(QodanaRules.class), u, v));
+    refactor.add((u, v) -> new SpoonRefactor(u, v));
+  }
+
+  public Changelog refactorBadSmells(Path repository, List<? extends AnalyzerResult> results) {
+    ChangeListener listener = new ChangeListener();
+    logger.atInfo().log("Refactoring %s", repository);
+    DiffCleaner diffCleaner = new DiffCleaner();
+    List<Function<ChangeListener, TransformationProcessor<?>>> function = new ArrayList<>();
+    for (BiFunction<ChangeListener, List<? extends AnalyzerResult>, TransformationProcessor<?>>
+        refactorSupplier : refactor) {
+      function.add(v -> refactorSupplier.apply(v, results));
     }
-
-    public Changelog refactorBadSmells(Path repository, List<? extends AnalyzerResult> results) {
-        ChangeListener listener = new ChangeListener();
-        logger.atInfo().log("Refactoring %s", repository);
-        DiffCleaner diffCleaner = new DiffCleaner();
-        List<Function<ChangeListener, TransformationProcessor<?>>> function = new ArrayList<>();
-        for (BiFunction<ChangeListener, List<? extends AnalyzerResult>, TransformationProcessor<?>> refactorSupplier :
-                refactor) {
-            function.add(v -> refactorSupplier.apply(v, results));
-        }
-        TransformationEngine transformationEngine = new TransformationEngine(function);
-        transformationEngine.setChangeListener(listener);
-        Changelog log = transformationEngine.applyToGivenPath(repository.toString());
-        log.getChanges().forEach(change -> diffCleaner.clean(repository, change));
-        return log;
-    }
+    TransformationEngine transformationEngine = new TransformationEngine(function);
+    transformationEngine.setChangeListener(listener);
+    Changelog log = transformationEngine.applyToGivenPath(repository.toString());
+    log.getChanges().forEach(change -> diffCleaner.clean(repository, change));
+    return log;
+  }
 }

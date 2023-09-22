@@ -23,35 +23,31 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 @GraphQLApi
 @RequestScoped
 public class RefactorGraphQL {
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @Inject
-    RefactorService refactorService;
+  @Inject RefactorService refactorService;
 
-    @Inject
-    BadSmellRepository badSmellRepository;
+  @Inject BadSmellRepository badSmellRepository;
 
-    @Query
-    @Description("Returns a list of all available refactorings")
-    public List<? extends AnalyzerRule> getAvailableRefactorings() {
-        return Arrays.stream(QodanaRules.values()).toList();
-    }
+  @Query
+  @Description("Returns a list of all available refactorings")
+  public List<? extends AnalyzerRule> getAvailableRefactorings() {
+    return Arrays.stream(QodanaRules.values()).toList();
+  }
 
-    @Mutation
-    @Description("Refactoring the given bad smells")
-    @Authenticated
-    public String refactor(List<String> badSmellIdentifier) {
-        Set<BadSmell> badSmellsToRefactor = badSmellIdentifier.stream()
-                .map(badSmellRepository::findByIdentifier)
-                .collect(Collectors.flatMapping(Collection::stream, Collectors.toSet()));
-        logger.atInfo().log(
-                "Refactoring %s",
-                badSmellsToRefactor.stream()
-                        .map(BadSmell::ruleID)
-                        .map(RuleId::id)
-                        .toList());
-        refactorService.refactor(badSmellsToRefactor);
+  @Mutation
+  @Description("Refactoring the given bad smells")
+  @Authenticated
+  public String refactor(List<String> badSmellIdentifier) {
+    Set<BadSmell> badSmellsToRefactor =
+        badSmellIdentifier.stream()
+            .map(badSmellRepository::findByIdentifier)
+            .collect(Collectors.flatMapping(Collection::stream, Collectors.toSet()));
+    logger.atInfo().log(
+        "Refactoring %s",
+        badSmellsToRefactor.stream().map(BadSmell::ruleID).map(RuleId::id).toList());
+    refactorService.refactor(badSmellsToRefactor);
 
-        return "Refactoring done";
-    }
+    return "Refactoring done";
+  }
 }

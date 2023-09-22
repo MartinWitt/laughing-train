@@ -34,189 +34,197 @@ import spoon.reflect.declaration.CtType;
 
 class AnalyzerResultVisitor implements BadSmellVisitor<AnalyzerResult> {
 
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-    private final Path rootPath;
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private final Path rootPath;
 
-    public AnalyzerResultVisitor(Path rootPath) {
-        this.rootPath = rootPath;
+  public AnalyzerResultVisitor(Path rootPath) {
+    this.rootPath = rootPath;
+  }
+
+  Optional<AnalyzerResult> toAnalyzerResult(BadSmell badSmell) {
+    try {
+      return Optional.ofNullable(badSmell.accept(this));
+
+    } catch (Exception e) {
+      logger.atWarning().withStackTrace(StackSize.NONE).log(
+          "Could not convert bad smell to analyzer result %s",
+          badSmell.getClass().getCanonicalName());
+      return Optional.empty();
     }
+  }
 
-    Optional<AnalyzerResult> toAnalyzerResult(BadSmell badSmell) {
-        try {
-            return Optional.ofNullable(badSmell.accept(this));
+  @Override
+  public AnalyzerResult visit(IndexOfReplaceableByContains badSmell) {
+    return toSpoonAnalyzerResult(
+        badSmell,
+        badSmell.getIndexOfCall().getPosition(),
+        trygetOriginalSourceCode(badSmell.getIndexOfCall())
+            .orElse(badSmell.getIndexOfCall().getParent(CtBinaryOperator.class).toString()));
+  }
 
-        } catch (Exception e) {
-            logger.atWarning().withStackTrace(StackSize.NONE).log(
-                    "Could not convert bad smell to analyzer result %s",
-                    badSmell.getClass().getCanonicalName());
-            return Optional.empty();
-        }
+  private Optional<String> getAbsolutePath(BadSmell badSmell) {
+    return getRelativeFilePath(badSmell, rootPath.toAbsolutePath().toString());
+  }
+
+  private Optional<String> getRelativeFilePath(BadSmell badSmell, String rootPath) {
+    try {
+      File file = badSmell.getAffectedType().getPosition().getFile();
+      Path filePath = Paths.get(file.getAbsolutePath());
+      Path rootPathObj = Paths.get(rootPath);
+
+      // Get the relative path of the file relative to the root path
+      Path relativePath = rootPathObj.relativize(filePath);
+
+      return Optional.ofNullable(relativePath.toString());
+    } catch (Exception e) {
+      return Optional.empty();
     }
+  }
 
-    @Override
-    public AnalyzerResult visit(IndexOfReplaceableByContains badSmell) {
-        return toSpoonAnalyzerResult(
-                badSmell,
-                badSmell.getIndexOfCall().getPosition(),
-                trygetOriginalSourceCode(badSmell.getIndexOfCall())
-                        .orElse(badSmell.getIndexOfCall()
-                                .getParent(CtBinaryOperator.class)
-                                .toString()));
+  private Position toPosition(SourcePosition position) {
+    int sourceStart = position.getSourceStart();
+    int sourceEnd = position.getSourceEnd();
+    int line = position.getLine();
+    int column = position.getColumn();
+    int endColumn = position.getEndColumn();
+    int endLine = position.getEndLine();
+    return new Position(line, endLine, column, endColumn, sourceStart, sourceEnd - sourceStart);
+  }
+
+  public AnalyzerResult toSpoonAnalyzerResult(
+      BadSmell badSmell, SourcePosition position, String snippet) {
+    String absolutePath = getAbsolutePath(badSmell).orElse("unknown");
+    RuleId ruleId = new RuleId(badSmell.getName());
+    return new SpoonAnalyzerResult(
+        ruleId,
+        absolutePath,
+        toPosition(position),
+        badSmell.getDescription(),
+        badSmell.getDescription(),
+        snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(AccessStaticViaInstance badSmell) {
+    String snippet =
+        trygetOriginalSourceCode(badSmell.getAffectedCtInvocation())
+            .orElse(badSmell.getAffectedCtInvocation().toString());
+    return toSpoonAnalyzerResult(
+        badSmell, badSmell.getAffectedCtInvocation().getPosition(), snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(ArrayCanBeReplacedWithEnumValues badSmell) {
+    String snippet =
+        trygetOriginalSourceCode(badSmell.getAffectedElement())
+            .orElse(badSmell.getAffectedElement().toString());
+    return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedElement().getPosition(), snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(CharsetObjectCanBeUsed badSmell) {
+    if (badSmell.getInvocation() != null) {
+      String snippet =
+          trygetOriginalSourceCode(badSmell.getInvocation())
+              .orElse(badSmell.getInvocation().toString());
+      return toSpoonAnalyzerResult(badSmell, badSmell.getInvocation().getPosition(), snippet);
+    } else {
+      String snippet =
+          trygetOriginalSourceCode(badSmell.getCtorCall())
+              .orElse(badSmell.getCtorCall().toString());
+      return toSpoonAnalyzerResult(badSmell, badSmell.getCtorCall().getPosition(), snippet);
     }
+  }
 
-    private Optional<String> getAbsolutePath(BadSmell badSmell) {
-        return getRelativeFilePath(badSmell, rootPath.toAbsolutePath().toString());
+  @Override
+  public AnalyzerResult visit(InnerClassMayBeStatic badSmell) {
+    CtType<?> clone = badSmell.getAffectedType().clone();
+    clone.setTypeMembers(new ArrayList<>());
+    String snippet = clone.toString();
+    return toSpoonAnalyzerResult(badSmell, badSmell.getInnerClass().getPosition(), snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(NonProtectedConstructorInAbstractClass badSmell) {
+    String snippet =
+        trygetOriginalSourceCode(badSmell.getCtConstructor())
+            .orElse(badSmell.getCtConstructor().toString());
+    return toSpoonAnalyzerResult(badSmell, badSmell.getCtConstructor().getPosition(), snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(PrivateFinalMethod badSmell) {
+    String snippet =
+        trygetOriginalSourceCode(badSmell.getAffectedMethod())
+            .orElse(badSmell.getAffectedMethod().toString());
+    return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedMethod().getPosition(), snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(SizeReplaceableByIsEmpty badSmell) {
+    String snippet =
+        trygetOriginalSourceCode(badSmell.getSizeInvocation())
+            .orElse(badSmell.getSizeInvocation().toString());
+    return toSpoonAnalyzerResult(badSmell, badSmell.getSizeInvocation().getPosition(), snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(UnnecessaryImplements badSmell) {
+
+    CtType<?> clone = badSmell.getAffectedType().clone();
+    clone.setTypeMembers(new ArrayList<>());
+    String snippet = clone.toString();
+    return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedType().getPosition(), snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(UnnecessaryTostring badSmell) {
+    String snippet =
+        trygetOriginalSourceCode(badSmell.getNotNeededTostring())
+            .orElse(badSmell.getNotNeededTostring().toString());
+    return toSpoonAnalyzerResult(badSmell, badSmell.getNotNeededTostring().getPosition(), snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(FinalStaticMethod badSmell) {
+    String snippet = badSmell.getMethod().getSignature();
+    return toSpoonAnalyzerResult(badSmell, badSmell.getMethod().getPosition(), snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(EqualsHashcode badSmell) {
+    CtType<?> clone = badSmell.getAffectedType().clone();
+    clone.setTypeMembers(new ArrayList<>());
+    String snippet = clone.toString();
+    return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedType().getPosition(), snippet);
+  }
+
+  @Override
+  public AnalyzerResult visit(ImplicitArrayToString badSmell) {
+    String snippet =
+        trygetOriginalSourceCode(badSmell.getImplicitToStringCaller())
+            .orElse(badSmell.getImplicitToStringCaller().toString());
+    return toSpoonAnalyzerResult(
+        badSmell, badSmell.getImplicitToStringCaller().getPosition(), snippet);
+  }
+
+  private Optional<String> trygetOriginalSourceCode(CtElement element) {
+    try {
+      File file = element.getPosition().getCompilationUnit().getFile();
+      String sourceCode = Files.readString(file.toPath());
+      int lineNumber = element.getPosition().getLine();
+
+      // Split the source code into lines
+      String[] lines = sourceCode.split("\\r?\\n");
+
+      // Extract the two lines before and after the given line number
+      int startIndex = Math.max(0, lineNumber - 3);
+      int endIndex = Math.min(lines.length - 1, lineNumber + 2);
+      String context = String.join("\n", Arrays.copyOfRange(lines, startIndex, endIndex + 1));
+
+      return Optional.ofNullable(context);
+    } catch (Throwable e) {
+      return Optional.empty();
     }
-
-    private Optional<String> getRelativeFilePath(BadSmell badSmell, String rootPath) {
-        try {
-            File file = badSmell.getAffectedType().getPosition().getFile();
-            Path filePath = Paths.get(file.getAbsolutePath());
-            Path rootPathObj = Paths.get(rootPath);
-
-            // Get the relative path of the file relative to the root path
-            Path relativePath = rootPathObj.relativize(filePath);
-
-            return Optional.ofNullable(relativePath.toString());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-    }
-
-    private Position toPosition(SourcePosition position) {
-        int sourceStart = position.getSourceStart();
-        int sourceEnd = position.getSourceEnd();
-        int line = position.getLine();
-        int column = position.getColumn();
-        int endColumn = position.getEndColumn();
-        int endLine = position.getEndLine();
-        return new Position(line, endLine, column, endColumn, sourceStart, sourceEnd - sourceStart);
-    }
-
-    public AnalyzerResult toSpoonAnalyzerResult(BadSmell badSmell, SourcePosition position, String snippet) {
-        String absolutePath = getAbsolutePath(badSmell).orElse("unknown");
-        RuleId ruleId = new RuleId(badSmell.getName());
-        return new SpoonAnalyzerResult(
-                ruleId,
-                absolutePath,
-                toPosition(position),
-                badSmell.getDescription(),
-                badSmell.getDescription(),
-                snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(AccessStaticViaInstance badSmell) {
-        String snippet = trygetOriginalSourceCode(badSmell.getAffectedCtInvocation())
-                .orElse(badSmell.getAffectedCtInvocation().toString());
-        return toSpoonAnalyzerResult(
-                badSmell, badSmell.getAffectedCtInvocation().getPosition(), snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(ArrayCanBeReplacedWithEnumValues badSmell) {
-        String snippet = trygetOriginalSourceCode(badSmell.getAffectedElement())
-                .orElse(badSmell.getAffectedElement().toString());
-        return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedElement().getPosition(), snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(CharsetObjectCanBeUsed badSmell) {
-        if (badSmell.getInvocation() != null) {
-            String snippet = trygetOriginalSourceCode(badSmell.getInvocation())
-                    .orElse(badSmell.getInvocation().toString());
-            return toSpoonAnalyzerResult(badSmell, badSmell.getInvocation().getPosition(), snippet);
-        } else {
-            String snippet = trygetOriginalSourceCode(badSmell.getCtorCall())
-                    .orElse(badSmell.getCtorCall().toString());
-            return toSpoonAnalyzerResult(badSmell, badSmell.getCtorCall().getPosition(), snippet);
-        }
-    }
-
-    @Override
-    public AnalyzerResult visit(InnerClassMayBeStatic badSmell) {
-        CtType<?> clone = badSmell.getAffectedType().clone();
-        clone.setTypeMembers(new ArrayList<>());
-        String snippet = clone.toString();
-        return toSpoonAnalyzerResult(badSmell, badSmell.getInnerClass().getPosition(), snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(NonProtectedConstructorInAbstractClass badSmell) {
-        String snippet = trygetOriginalSourceCode(badSmell.getCtConstructor())
-                .orElse(badSmell.getCtConstructor().toString());
-        return toSpoonAnalyzerResult(badSmell, badSmell.getCtConstructor().getPosition(), snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(PrivateFinalMethod badSmell) {
-        String snippet = trygetOriginalSourceCode(badSmell.getAffectedMethod())
-                .orElse(badSmell.getAffectedMethod().toString());
-        return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedMethod().getPosition(), snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(SizeReplaceableByIsEmpty badSmell) {
-        String snippet = trygetOriginalSourceCode(badSmell.getSizeInvocation())
-                .orElse(badSmell.getSizeInvocation().toString());
-        return toSpoonAnalyzerResult(badSmell, badSmell.getSizeInvocation().getPosition(), snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(UnnecessaryImplements badSmell) {
-
-        CtType<?> clone = badSmell.getAffectedType().clone();
-        clone.setTypeMembers(new ArrayList<>());
-        String snippet = clone.toString();
-        return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedType().getPosition(), snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(UnnecessaryTostring badSmell) {
-        String snippet = trygetOriginalSourceCode(badSmell.getNotNeededTostring())
-                .orElse(badSmell.getNotNeededTostring().toString());
-        return toSpoonAnalyzerResult(badSmell, badSmell.getNotNeededTostring().getPosition(), snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(FinalStaticMethod badSmell) {
-        String snippet = badSmell.getMethod().getSignature();
-        return toSpoonAnalyzerResult(badSmell, badSmell.getMethod().getPosition(), snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(EqualsHashcode badSmell) {
-        CtType<?> clone = badSmell.getAffectedType().clone();
-        clone.setTypeMembers(new ArrayList<>());
-        String snippet = clone.toString();
-        return toSpoonAnalyzerResult(badSmell, badSmell.getAffectedType().getPosition(), snippet);
-    }
-
-    @Override
-    public AnalyzerResult visit(ImplicitArrayToString badSmell) {
-        String snippet = trygetOriginalSourceCode(badSmell.getImplicitToStringCaller())
-                .orElse(badSmell.getImplicitToStringCaller().toString());
-        return toSpoonAnalyzerResult(
-                badSmell, badSmell.getImplicitToStringCaller().getPosition(), snippet);
-    }
-
-    private Optional<String> trygetOriginalSourceCode(CtElement element) {
-        try {
-            File file = element.getPosition().getCompilationUnit().getFile();
-            String sourceCode = Files.readString(file.toPath());
-            int lineNumber = element.getPosition().getLine();
-
-            // Split the source code into lines
-            String[] lines = sourceCode.split("\\r?\\n");
-
-            // Extract the two lines before and after the given line number
-            int startIndex = Math.max(0, lineNumber - 3);
-            int endIndex = Math.min(lines.length - 1, lineNumber + 2);
-            String context = String.join("\n", Arrays.copyOfRange(lines, startIndex, endIndex + 1));
-
-            return Optional.ofNullable(context);
-        } catch (Throwable e) {
-            return Optional.empty();
-        }
-    }
+  }
 }

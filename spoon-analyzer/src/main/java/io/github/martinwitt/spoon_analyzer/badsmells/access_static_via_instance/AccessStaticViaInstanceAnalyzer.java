@@ -13,41 +13,42 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 import spoon.reflect.visitor.Filter;
 
-public class AccessStaticViaInstanceAnalyzer implements LocalAnalyzer, LocalRefactor<AccessStaticViaInstance> {
+public class AccessStaticViaInstanceAnalyzer
+    implements LocalAnalyzer, LocalRefactor<AccessStaticViaInstance> {
+
+  @Override
+  public List<BadSmell> analyze(CtType<?> clazz) {
+    List<CtInvocation<?>> elements = clazz.getElements(new StaticInvocationFilter());
+    List<BadSmell> results = new ArrayList<>();
+    for (CtInvocation<?> element : elements) {
+      results.add(new AccessStaticViaInstance(clazz, element));
+    }
+    return results;
+  }
+
+  private final class StaticInvocationFilter implements Filter<CtInvocation<?>> {
 
     @Override
-    public List<BadSmell> analyze(CtType<?> clazz) {
-        List<CtInvocation<?>> elements = clazz.getElements(new StaticInvocationFilter());
-        List<BadSmell> results = new ArrayList<>();
-        for (CtInvocation<?> element : elements) {
-            results.add(new AccessStaticViaInstance(clazz, element));
-        }
-        return results;
+    public boolean matches(CtInvocation<?> element) {
+      if (!Optional.ofNullable(element.getExecutable())
+          .map(v -> v.getExecutableDeclaration())
+          .filter(v -> v instanceof CtMethod)
+          .map(v -> (CtMethod<?>) v)
+          .map(v -> v.isStatic())
+          .orElse(false)) {
+        return false;
+      }
+      return element.getTarget() != null && !(element.getTarget() instanceof CtTypeAccess);
     }
+  }
 
-    private final class StaticInvocationFilter implements Filter<CtInvocation<?>> {
-
-        @Override
-        public boolean matches(CtInvocation<?> element) {
-            if (!Optional.ofNullable(element.getExecutable())
-                    .map(v -> v.getExecutableDeclaration())
-                    .filter(v -> v instanceof CtMethod)
-                    .map(v -> (CtMethod<?>) v)
-                    .map(v -> v.isStatic())
-                    .orElse(false)) {
-                return false;
-            }
-            return element.getTarget() != null && !(element.getTarget() instanceof CtTypeAccess);
-        }
-    }
-
-    @Override
-    public void refactor(AccessStaticViaInstance badSmell) {
-        CtInvocation<?> affectedCtInvocation = badSmell.getAffectedCtInvocation();
-        CtTypeReference<?> target = affectedCtInvocation.getTarget().getType();
-        CtTypeAccess<?> typeAccess =
-                badSmell.getAffectedType().getFactory().Code().createTypeAccess(target);
-        typeAccess.getAccessedType().setSimplyQualified(true);
-        affectedCtInvocation.setTarget(typeAccess);
-    }
+  @Override
+  public void refactor(AccessStaticViaInstance badSmell) {
+    CtInvocation<?> affectedCtInvocation = badSmell.getAffectedCtInvocation();
+    CtTypeReference<?> target = affectedCtInvocation.getTarget().getType();
+    CtTypeAccess<?> typeAccess =
+        badSmell.getAffectedType().getFactory().Code().createTypeAccess(target);
+    typeAccess.getAccessedType().setSimplyQualified(true);
+    affectedCtInvocation.setTarget(typeAccess);
+  }
 }

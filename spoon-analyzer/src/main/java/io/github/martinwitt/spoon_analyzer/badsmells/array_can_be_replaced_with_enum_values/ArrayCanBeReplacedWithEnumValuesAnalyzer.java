@@ -13,38 +13,36 @@ import spoon.reflect.visitor.Filter;
 
 public class ArrayCanBeReplacedWithEnumValuesAnalyzer implements LocalAnalyzer {
 
+  @Override
+  public List<BadSmell> analyze(CtType<?> clazz) {
+    List<BadSmell> badSmells = new ArrayList<>();
+    EnumArrayInitializer filter = new EnumArrayInitializer();
+    for (CtNewArray<?> element : clazz.getElements(filter)) {
+      badSmells.add(new ArrayCanBeReplacedWithEnumValues(clazz, element));
+    }
+    return badSmells;
+  }
+
+  private static final class EnumArrayInitializer implements Filter<CtNewArray<?>> {
+
     @Override
-    public List<BadSmell> analyze(CtType<?> clazz) {
-        List<BadSmell> badSmells = new ArrayList<>();
-        EnumArrayInitializer filter = new EnumArrayInitializer();
-        for (CtNewArray<?> element : clazz.getElements(filter)) {
-            badSmells.add(new ArrayCanBeReplacedWithEnumValues(clazz, element));
+    public boolean matches(CtNewArray<?> element) {
+      List<CtExpression<?>> elements = element.getElements();
+      if (elements.isEmpty()) {
+        return false;
+      }
+      // check if all elements are enum values
+      for (CtExpression<?> ctExpression : elements) {
+        if (!Optional.ofNullable(ctExpression.getType()).map(v -> v.isEnum()).orElse(false)) {
+          return false;
         }
-        return badSmells;
+      }
+      long count = elements.stream().map(CtExpression::getType).distinct().count();
+      CtEnum<?> declaration = (CtEnum<?>) elements.get(0).getType().getTypeDeclaration();
+      if (declaration == null) {
+        return false;
+      }
+      return !(declaration.getEnumValues().size() != count);
     }
-
-    private static final class EnumArrayInitializer implements Filter<CtNewArray<?>> {
-
-        @Override
-        public boolean matches(CtNewArray<?> element) {
-            List<CtExpression<?>> elements = element.getElements();
-            if (elements.isEmpty()) {
-                return false;
-            }
-            // check if all elements are enum values
-            for (CtExpression<?> ctExpression : elements) {
-                if (!Optional.ofNullable(ctExpression.getType())
-                        .map(v -> v.isEnum())
-                        .orElse(false)) {
-                    return false;
-                }
-            }
-            long count = elements.stream().map(CtExpression::getType).distinct().count();
-            CtEnum<?> declaration = (CtEnum<?>) elements.get(0).getType().getTypeDeclaration();
-            if (declaration == null) {
-                return false;
-            }
-            return !(declaration.getEnumValues().size() != count);
-        }
-    }
+  }
 }

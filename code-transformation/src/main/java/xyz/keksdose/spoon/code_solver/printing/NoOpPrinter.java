@@ -5,8 +5,8 @@ import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 
 public class NoOpPrinter implements IPrinting {
 
-    @Override
-    public void printChangedTypes(ChangeListener listener, Iterable<CtType<?>> newTypes) {
-        // do nothing
-    }
+  @Override
+  public void printChangedTypes(ChangeListener listener, Iterable<CtType<?>> newTypes) {
+    // do nothing
+  }
 }

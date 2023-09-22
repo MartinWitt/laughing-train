@@ -16,76 +16,71 @@ import java.util.stream.StreamSupport;
 import org.bson.conversions.Bson;
 
 @ApplicationScoped
-public class MongoBadSmellRepository implements BadSmellRepository, PanacheMongoRepository<BadSmellDao> {
+public class MongoBadSmellRepository
+    implements BadSmellRepository, PanacheMongoRepository<BadSmellDao> {
 
-    private static final BadSmellDaoConverter badSmellConverter = new BadSmellDaoConverter();
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final BadSmellDaoConverter badSmellConverter = new BadSmellDaoConverter();
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    public List<BadSmell> findByRuleID(RuleId ruleID) {
-        return find("ruleID", ruleID.id()).stream()
-                .map(badSmellConverter::convertToEntity)
-                .toList();
+  public List<BadSmell> findByRuleID(RuleId ruleID) {
+    return find("ruleID", ruleID.id()).stream().map(badSmellConverter::convertToEntity).toList();
+  }
+
+  public List<BadSmell> findByProjectName(String projectName) {
+    return find("projectName", projectName).stream()
+        .map(badSmellConverter::convertToEntity)
+        .toList();
+  }
+
+  public List<BadSmell> findByProjectUrl(String projectUrl) {
+    return find("projectUrl", projectUrl).stream().map(badSmellConverter::convertToEntity).toList();
+  }
+
+  public List<BadSmell> findByCommitHash(String commitHash) {
+    return find("commitHash", commitHash).stream().map(badSmellConverter::convertToEntity).toList();
+  }
+
+  public List<BadSmell> findByIdentifier(String identifier) {
+    return find("identifier", identifier).stream().map(badSmellConverter::convertToEntity).toList();
+  }
+
+  @Override
+  public long deleteByIdentifier(String identifier) {
+    return delete("identifier", identifier);
+  }
+
+  @Override
+  public BadSmell save(BadSmell badSmell) {
+    var list = find("identifier", badSmell.getIdentifier()).list();
+    if (list.isEmpty()) {
+      persist(badSmellConverter.convertToDao(badSmell));
     }
+    return badSmell;
+  }
 
-    public List<BadSmell> findByProjectName(String projectName) {
-        return find("projectName", projectName).stream()
-                .map(badSmellConverter::convertToEntity)
-                .toList();
-    }
+  @Override
+  public Stream<BadSmell> getAll() {
+    return streamAll().map(badSmellConverter::convertToEntity);
+  }
 
-    public List<BadSmell> findByProjectUrl(String projectUrl) {
-        return find("projectUrl", projectUrl).stream()
-                .map(badSmellConverter::convertToEntity)
-                .toList();
-    }
+  @Override
+  public List<BadSmell> findByCommitHash(String commitHash, String analyzerName) {
+    Bson filter =
+        Filters.and(Filters.eq("commitHash", commitHash), Filters.eq("analyzer", analyzerName));
+    return StreamSupport.stream(mongoCollection().find(filter).spliterator(), false)
+        .map(badSmellConverter::convertToEntity)
+        .collect(Collectors.toList());
+  }
 
-    public List<BadSmell> findByCommitHash(String commitHash) {
-        return find("commitHash", commitHash).stream()
-                .map(badSmellConverter::convertToEntity)
-                .toList();
-    }
-
-    public List<BadSmell> findByIdentifier(String identifier) {
-        return find("identifier", identifier).stream()
-                .map(badSmellConverter::convertToEntity)
-                .toList();
-    }
-
-    @Override
-    public long deleteByIdentifier(String identifier) {
-        return delete("identifier", identifier);
-    }
-
-    @Override
-    public BadSmell save(BadSmell badSmell) {
-        var list = find("identifier", badSmell.getIdentifier()).list();
-        if (list.isEmpty()) {
-            persist(badSmellConverter.convertToDao(badSmell));
-        }
-        return badSmell;
-    }
-
-    @Override
-    public Stream<BadSmell> getAll() {
-        return streamAll().map(badSmellConverter::convertToEntity);
-    }
-
-    @Override
-    public List<BadSmell> findByCommitHash(String commitHash, String analyzerName) {
-        Bson filter = Filters.and(Filters.eq("commitHash", commitHash), Filters.eq("analyzer", analyzerName));
-        return StreamSupport.stream(mongoCollection().find(filter).spliterator(), false)
-                .map(badSmellConverter::convertToEntity)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<BadSmell> findByCommitHash(String commitHash, String analyzerName, String ruleId) {
-        Bson filter = Filters.and(
-                Filters.eq("commitHash", commitHash),
-                Filters.eq("analyzer", analyzerName),
-                Filters.eq("ruleID", ruleId));
-        return StreamSupport.stream(mongoCollection().find(filter).spliterator(), false)
-                .map(badSmellConverter::convertToEntity)
-                .collect(Collectors.toList());
-    }
+  @Override
+  public List<BadSmell> findByCommitHash(String commitHash, String analyzerName, String ruleId) {
+    Bson filter =
+        Filters.and(
+            Filters.eq("commitHash", commitHash),
+            Filters.eq("analyzer", analyzerName),
+            Filters.eq("ruleID", ruleId));
+    return StreamSupport.stream(mongoCollection().find(filter).spliterator(), false)
+        .map(badSmellConverter::convertToEntity)
+        .collect(Collectors.toList());
+  }
 }

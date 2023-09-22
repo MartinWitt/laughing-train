@@ -9,23 +9,23 @@ import spoon.reflect.declaration.CtImport;
 
 public class ImportGrouper extends AbstractProcessor<CtElement> {
 
-    private ImportGrouping style;
+  private ImportGrouping style;
 
-    public ImportGrouper(ImportGrouping style) {
-        this.style = style;
-    }
+  public ImportGrouper(ImportGrouping style) {
+    this.style = style;
+  }
 
-    @Override
-    public void process(CtElement element) {
-        if (element instanceof CtCompilationUnit) {
-            CtCompilationUnit compilationUnit = (CtCompilationUnit) element;
-            compilationUnit.setImports(cloneImports(compilationUnit));
-        }
+  @Override
+  public void process(CtElement element) {
+    if (element instanceof CtCompilationUnit) {
+      CtCompilationUnit compilationUnit = (CtCompilationUnit) element;
+      compilationUnit.setImports(cloneImports(compilationUnit));
     }
+  }
 
-    private List<CtImport> cloneImports(CtCompilationUnit compilationUnit) {
-        return style.group(compilationUnit.getImports()).stream()
-                .map(CtImport::clone)
-                .collect(Collectors.toList());
-    }
+  private List<CtImport> cloneImports(CtCompilationUnit compilationUnit) {
+    return style.group(compilationUnit.getImports()).stream()
+        .map(CtImport::clone)
+        .collect(Collectors.toList());
+  }
 }

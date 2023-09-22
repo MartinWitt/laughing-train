@@ -9,23 +9,23 @@ import spoon.support.compiler.VirtualFile;
 
 public class EqualsHashcodeAnalyzerTest {
 
-    @Test
-    void noEqualsNoHashcode() {
-        String code = "public class A { }";
+  @Test
+  void noEqualsNoHashcode() {
+    String code = "public class A { }";
 
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        EqualsHashcodeAnalyzer analyzer = new EqualsHashcodeAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        var result = analyzer.analyze(simpleClass);
-        assertEquals(0, result.size());
-    }
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    EqualsHashcodeAnalyzer analyzer = new EqualsHashcodeAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    var result = analyzer.analyze(simpleClass);
+    assertEquals(0, result.size());
+  }
 
-    @Test
-    void UpperClassEqualsNoHashcode() {
-        String code =
-                """
+  @Test
+  void UpperClassEqualsNoHashcode() {
+    String code =
+        """
             class A {
 
             @Override
@@ -39,13 +39,13 @@ public class EqualsHashcodeAnalyzerTest {
           }
         """;
 
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        EqualsHashcodeAnalyzer analyzer = new EqualsHashcodeAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        var result = analyzer.analyze(simpleClass);
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    EqualsHashcodeAnalyzer analyzer = new EqualsHashcodeAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    var result = analyzer.analyze(simpleClass);
 
-        assertEquals(1, result.size());
-    }
+    assertEquals(1, result.size());
+  }
 }

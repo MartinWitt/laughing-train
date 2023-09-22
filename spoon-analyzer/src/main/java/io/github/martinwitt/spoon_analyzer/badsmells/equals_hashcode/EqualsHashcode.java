@@ -10,30 +10,30 @@ import spoon.reflect.declaration.CtType;
  */
 public class EqualsHashcode implements BadSmell {
 
-    private CtType<?> affectedType;
+  private CtType<?> affectedType;
 
-    public EqualsHashcode(CtType<?> affectedType) {
-        this.affectedType = affectedType;
-    }
+  public EqualsHashcode(CtType<?> affectedType) {
+    this.affectedType = affectedType;
+  }
 
-    @Override
-    public String getName() {
-        return "EqualsHashcode";
-    }
+  @Override
+  public String getName() {
+    return "EqualsHashcode";
+  }
 
-    @Override
-    public String getDescription() {
-        return "This class does not override equals() and hashcode() methods together.";
-    }
+  @Override
+  public String getDescription() {
+    return "This class does not override equals() and hashcode() methods together.";
+  }
 
-    @Override
-    public CtType<?> getAffectedType() {
-        return affectedType;
-    }
+  @Override
+  public CtType<?> getAffectedType() {
+    return affectedType;
+  }
 
-    @Override
-    public <T> T accept(BadSmellVisitor<T> visitor) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'accept'");
-    }
+  @Override
+  public <T> T accept(BadSmellVisitor<T> visitor) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'accept'");
+  }
 }

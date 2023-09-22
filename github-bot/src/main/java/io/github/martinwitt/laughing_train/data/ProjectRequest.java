@@ -4,5 +4,5 @@ import java.io.Serializable;
 
 public sealed interface ProjectRequest extends Serializable {
 
-    record WithUrl(String url) implements ProjectRequest {}
+  record WithUrl(String url) implements ProjectRequest {}
 }

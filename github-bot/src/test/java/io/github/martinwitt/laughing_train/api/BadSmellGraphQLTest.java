@@ -27,72 +27,82 @@ import org.junit.jupiter.api.Test;
 @QuarkusTest
 public class BadSmellGraphQLTest {
 
-    DynamicGraphQLClient client;
+  DynamicGraphQLClient client;
 
-    @Inject
-    ProjectRepository projectRepository;
+  @Inject ProjectRepository projectRepository;
 
-    @Inject
-    BadSmellRepository badSmellRepository;
+  @Inject BadSmellRepository badSmellRepository;
 
-    @Test
-    void testGetAllBadSmells() throws Exception {
-        client = DynamicGraphQLClientBuilder.newBuilder()
-                // .url("http://89.58.49.108:8080/graphql")
-                .url("http://localhost:8081/graphql")
-                .build();
-        badSmellRepository.save(createWithMessage("UnnecessaryLocalVariable"));
-        badSmellRepository.save(createWithMessage("UnnecessaryLocalVariable"));
+  @Test
+  void testGetAllBadSmells() throws Exception {
+    client =
+        DynamicGraphQLClientBuilder.newBuilder()
+            // .url("http://89.58.49.108:8080/graphql")
+            .url("http://localhost:8081/graphql")
+            .build();
+    badSmellRepository.save(createWithMessage("UnnecessaryLocalVariable"));
+    badSmellRepository.save(createWithMessage("UnnecessaryLocalVariable"));
 
-        Document document = document(Operation.operation(
-                OperationType.QUERY,
-                field("byRuleID", Argument.args(Argument.arg("ruleID", "UnnecessaryLocalVariable")), field("ruleID"))));
-        Response response = client.executeSync(document);
-        assertTrue(response.getData().toString().contains("UnnecessaryLocalVariable"));
-    }
-
-    private BadSmell createWithMessage(String ruleID) {
-        RuleId ruleId = new RuleId(ruleID);
-        TestAnalyzerResult testAnalyzerResult =
-                new TestAnalyzerResult(ruleId, "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
-        return new BadSmell(testAnalyzerResult, "test", "test", "0xaaaa");
-    }
-
-    @Test
-    @Disabled
-    void getBadSmellFromLive() throws Exception {
-        client = DynamicGraphQLClientBuilder.newBuilder()
-                .url("https://laughing-train.keksdose.xyz/graphql")
-                // .url("http://localhost:8081/graphql")
-                .build();
-        Document document = document(Operation.operation(
+    Document document =
+        document(
+            Operation.operation(
                 OperationType.QUERY,
                 field(
-                        "byRuleID",
-                        Argument.args(Argument.arg("ruleID", "UNNECESSARY_TOSTRING_CALL")),
-                        field("ruleID"),
-                        field("name"),
-                        field("identifier"),
-                        field("messageMarkdown"),
-                        field("position", field("startLine")))));
-        Response response = client.executeSync(document);
-        System.out.println(response.getData().toString().replaceAll(Pattern.quote("},{"), "\n"));
-    }
+                    "byRuleID",
+                    Argument.args(Argument.arg("ruleID", "UnnecessaryLocalVariable")),
+                    field("ruleID"))));
+    Response response = client.executeSync(document);
+    assertTrue(response.getData().toString().contains("UnnecessaryLocalVariable"));
+  }
 
-    @Test
-    void queryInsertedProject() throws Exception {
+  private BadSmell createWithMessage(String ruleID) {
+    RuleId ruleId = new RuleId(ruleID);
+    TestAnalyzerResult testAnalyzerResult =
+        new TestAnalyzerResult(ruleId, "filePath", new Position(0, 0, 0, 0, 0, 0), "test");
+    return new BadSmell(testAnalyzerResult, "test", "test", "0xaaaa");
+  }
 
-        client = DynamicGraphQLClientBuilder.newBuilder()
-                // .url("http://www.keksdose.xyz:8080/graphql")
-                .url("http://localhost:8081/graphql")
-                .build();
-        RemoteProject project = new RemoteProject("aaa", "bbb");
-        projectRepository.create(project);
-        project.addCommitHash("aaaa");
-        projectRepository.save(project);
+  @Test
+  @Disabled
+  void getBadSmellFromLive() throws Exception {
+    client =
+        DynamicGraphQLClientBuilder.newBuilder()
+            .url("https://laughing-train.keksdose.xyz/graphql")
+            // .url("http://localhost:8081/graphql")
+            .build();
+    Document document =
+        document(
+            Operation.operation(
+                OperationType.QUERY,
+                field(
+                    "byRuleID",
+                    Argument.args(Argument.arg("ruleID", "UNNECESSARY_TOSTRING_CALL")),
+                    field("ruleID"),
+                    field("name"),
+                    field("identifier"),
+                    field("messageMarkdown"),
+                    field("position", field("startLine")))));
+    Response response = client.executeSync(document);
+    System.out.println(response.getData().toString().replaceAll(Pattern.quote("},{"), "\n"));
+  }
 
-        assertTrue(client.executeSync(
-                        """
+  @Test
+  void queryInsertedProject() throws Exception {
+
+    client =
+        DynamicGraphQLClientBuilder.newBuilder()
+            // .url("http://www.keksdose.xyz:8080/graphql")
+            .url("http://localhost:8081/graphql")
+            .build();
+    RemoteProject project = new RemoteProject("aaa", "bbb");
+    projectRepository.create(project);
+    project.addCommitHash("aaaa");
+    projectRepository.save(project);
+
+    assertTrue(
+        client
+            .executeSync(
+                """
                         query getProjects {
                             getProjects {
                                 projectName
@@ -101,8 +111,8 @@ public class BadSmellGraphQLTest {
                             }
                         }
                          """)
-                .getData()
-                .toString()
-                .contains("aaa"));
-    }
+            .getData()
+            .toString()
+            .contains("aaa"));
+  }
 }

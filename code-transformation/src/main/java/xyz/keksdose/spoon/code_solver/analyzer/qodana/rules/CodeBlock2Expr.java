@@ -17,16 +17,17 @@ import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class CodeBlock2Expr extends AbstractRefactoring {
 
-    private static final BadSmell BAD_SMELL = new BadSmell() {
+  private static final BadSmell BAD_SMELL =
+      new BadSmell() {
         @Override
         public MarkdownString getName() {
-            return MarkdownString.fromRaw("CodeBlock2Expr");
+          return MarkdownString.fromRaw("CodeBlock2Expr");
         }
 
         @Override
         public MarkdownString getDescription() {
-            return MarkdownString.fromRaw(
-                    """
+          return MarkdownString.fromRaw(
+              """
               Single line lambda expressions can be written without curly braces. This improves readability.
             The follwing code:
             ```java
@@ -40,48 +41,51 @@ public class CodeBlock2Expr extends AbstractRefactoring {
             ```
               """);
         }
-    };
+      };
 
-    public CodeBlock2Expr(AnalyzerResult result) {
-        super(result);
-    }
+  public CodeBlock2Expr(AnalyzerResult result) {
+    super(result);
+  }
 
-    @Override
-    public void refactor(ChangeListener listener, CtType<?> type) {
-        if (!isSameType(type, Path.of(result.filePath()))) {
-            return;
-        }
-        for (CtLambda lambda : findMatchingElements(type)) {
-            if (lambda.getBody() != null
-                    && lambda.getBody().getStatements().size() == 1
-                    && lambda.getExpression() == null) {
-                CtExpression<?> statement = ((CtReturn) lambda.getBody().getStatement(0)).getReturnedExpression();
-                lambda.setBody(null);
-                lambda.setExpression(statement);
-                String message =
-                        "Lambda expression in %s was rewritten as statement".formatted(type.getQualifiedName());
-                String messageMarkdown =
-                        "Lambda expression in `%s` was rewritten as statement".formatted(type.getQualifiedName());
-                listener.setChanged(
-                        type,
-                        new Change(BAD_SMELL, MarkdownString.fromMarkdown(message, messageMarkdown), type, result));
-            }
-        }
+  @Override
+  public void refactor(ChangeListener listener, CtType<?> type) {
+    if (!isSameType(type, Path.of(result.filePath()))) {
+      return;
     }
+    for (CtLambda lambda : findMatchingElements(type)) {
+      if (lambda.getBody() != null
+          && lambda.getBody().getStatements().size() == 1
+          && lambda.getExpression() == null) {
+        CtExpression<?> statement =
+            ((CtReturn) lambda.getBody().getStatement(0)).getReturnedExpression();
+        lambda.setBody(null);
+        lambda.setExpression(statement);
+        String message =
+            "Lambda expression in %s was rewritten as statement".formatted(type.getQualifiedName());
+        String messageMarkdown =
+            "Lambda expression in `%s` was rewritten as statement"
+                .formatted(type.getQualifiedName());
+        listener.setChanged(
+            type,
+            new Change(
+                BAD_SMELL, MarkdownString.fromMarkdown(message, messageMarkdown), type, result));
+      }
+    }
+  }
 
-    private List<CtLambda> findMatchingElements(CtType<?> type) {
-        return PositionScanner.findLineOnly(type, toStartLinePosition(result.position())).stream()
-                .filter(v -> v instanceof CtLambda<?>)
-                .map(CtLambda.class::cast)
-                .toList();
-    }
+  private List<CtLambda> findMatchingElements(CtType<?> type) {
+    return PositionScanner.findLineOnly(type, toStartLinePosition(result.position())).stream()
+        .filter(v -> v instanceof CtLambda<?>)
+        .map(CtLambda.class::cast)
+        .toList();
+  }
 
-    @Override
-    public List<BadSmell> getHandledBadSmells() {
-        return List.of(BAD_SMELL);
-    }
+  @Override
+  public List<BadSmell> getHandledBadSmells() {
+    return List.of(BAD_SMELL);
+  }
 
-    private Position toStartLinePosition(Position position) {
-        return new Position(position.startLine() - 1, position.startLine() + 1, 0, 0, 0, 0);
-    }
+  private Position toStartLinePosition(Position position) {
+    return new Position(position.startLine() - 1, position.startLine() + 1, 0, 0, 0, 0);
+  }
 }

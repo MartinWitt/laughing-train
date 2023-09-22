@@ -11,16 +11,16 @@ import java.util.List;
 
 @ApplicationScoped
 public class ProjectConfigService {
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @Inject
-    ProjectConfigRepository projectConfigRepository;
+  @Inject ProjectConfigRepository projectConfigRepository;
 
-    public Uni<List<ProjectConfig>> getConfig(FindProjectConfigRequest request) {
-        if (request instanceof FindProjectConfigRequest.ByProjectUrl byProjectUrl) {
-            return Uni.createFrom().item(projectConfigRepository.findByProjectUrl(byProjectUrl.projectUrl()));
-        }
-        logger.atWarning().log("Unknown request type %s", request.getClass());
-        return Uni.createFrom().failure(new IllegalArgumentException("Unknown request type"));
+  public Uni<List<ProjectConfig>> getConfig(FindProjectConfigRequest request) {
+    if (request instanceof FindProjectConfigRequest.ByProjectUrl byProjectUrl) {
+      return Uni.createFrom()
+          .item(projectConfigRepository.findByProjectUrl(byProjectUrl.projectUrl()));
     }
+    logger.atWarning().log("Unknown request type %s", request.getClass());
+    return Uni.createFrom().failure(new IllegalArgumentException("Unknown request type"));
+  }
 }

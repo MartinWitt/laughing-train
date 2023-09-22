@@ -5,13 +5,13 @@ import java.util.List;
 
 public interface ProjectConfigRepository {
 
-    List<ProjectConfig> findByProjectUrl(String projectUrl);
+  List<ProjectConfig> findByProjectUrl(String projectUrl);
 
-    boolean existsByProjectUrl(String projectUrl);
+  boolean existsByProjectUrl(String projectUrl);
 
-    long deleteByProjectUrl(String projectUrl);
+  long deleteByProjectUrl(String projectUrl);
 
-    ProjectConfig create(ProjectConfig projectConfig);
+  ProjectConfig create(ProjectConfig projectConfig);
 
-    ProjectConfig save(ProjectConfig projectConfig);
+  ProjectConfig save(ProjectConfig projectConfig);
 }

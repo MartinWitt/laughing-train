@@ -12,23 +12,25 @@ import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class UnusedAssignment extends TransformationProcessor<CtType<?>> {
 
-    public UnusedAssignment(ChangeListener listener) {
-        super(listener);
-    }
+  public UnusedAssignment(ChangeListener listener) {
+    super(listener);
+  }
 
-    @Override
-    public void process(CtType<?> element) {
-        List<CtAssignment<?, ?>> assignments = element.getElements(new TypeFilter<>(CtAssignment.class));
-        for (CtAssignment<?, ?> ctAssignment : assignments) {
-            var assigned = ctAssignment.getAssigned();
-            if (assigned instanceof CtVariableWrite) {
-                CtVariableWrite<?> localVariable = (CtVariableWrite<?>) assigned;
-                if (element.getElements(new VariableAccessFilter<>(localVariable.getVariable()))
-                        .isEmpty()) {
-                    ctAssignment.replace(ctAssignment.getAssignment());
-                    setChanged(element, new Change("Removed assignment", "UnusedAssignment", element));
-                }
-            }
+  @Override
+  public void process(CtType<?> element) {
+    List<CtAssignment<?, ?>> assignments =
+        element.getElements(new TypeFilter<>(CtAssignment.class));
+    for (CtAssignment<?, ?> ctAssignment : assignments) {
+      var assigned = ctAssignment.getAssigned();
+      if (assigned instanceof CtVariableWrite) {
+        CtVariableWrite<?> localVariable = (CtVariableWrite<?>) assigned;
+        if (element
+            .getElements(new VariableAccessFilter<>(localVariable.getVariable()))
+            .isEmpty()) {
+          ctAssignment.replace(ctAssignment.getAssignment());
+          setChanged(element, new Change("Removed assignment", "UnusedAssignment", element));
         }
+      }
     }
+  }
 }

@@ -16,71 +16,75 @@ import org.kohsuke.github.GitHub;
 
 public class PeriodicRefactoringSummary {
 
-    private static final String LABEL_NAME = "laughing-train-refactoring-summary";
+  private static final String LABEL_NAME = "laughing-train-refactoring-summary";
 
-    ProjectRepository projectRepository;
-    BadSmellRepository badSmellRepository;
-    GetFixableBadSmells getFixableBadSmells;
+  ProjectRepository projectRepository;
+  BadSmellRepository badSmellRepository;
+  GetFixableBadSmells getFixableBadSmells;
 
-    PeriodicRefactoringSummary(
-            ProjectRepository projectRepository,
-            BadSmellRepository badSmellRepository,
-            GetFixableBadSmells getFixableBadSmells) {
-        this.projectRepository = projectRepository;
-        this.badSmellRepository = badSmellRepository;
-        this.getFixableBadSmells = getFixableBadSmells;
-    }
+  PeriodicRefactoringSummary(
+      ProjectRepository projectRepository,
+      BadSmellRepository badSmellRepository,
+      GetFixableBadSmells getFixableBadSmells) {
+    this.projectRepository = projectRepository;
+    this.badSmellRepository = badSmellRepository;
+    this.getFixableBadSmells = getFixableBadSmells;
+  }
 
-    @Scheduled(every = "2h", delay = 10)
-    void createSummary() throws IOException {
-        var issue = searchSummaryIssueOnGithub();
-        issue.setBody(createSummaryBody());
-    }
+  @Scheduled(every = "2h", delay = 10)
+  void createSummary() throws IOException {
+    var issue = searchSummaryIssueOnGithub();
+    issue.setBody(createSummaryBody());
+  }
 
-    private String createSummaryBody() {
+  private String createSummaryBody() {
 
-        StringBuilder summary = new StringBuilder();
-        summary.append("# Summary of all refactoring opportunities:\n");
-        for (RemoteProject project : projectRepository.getAll()) {
-            List<BadSmell> badSmells = getFixableBadSmells.getFixableBadSmells(project);
-            Map<RuleId, List<BadSmell>> badSmellByRuleId =
-                    badSmells.stream().collect(Collectors.groupingBy(BadSmell::ruleID));
-            if (badSmells.isEmpty()) {
-                continue;
-            }
-            summary.append("## Project: ").append(project.getProjectName()).append("\n");
-            summary.append("| Rule | Occurrences |\n");
-            summary.append("| --- | --- |\n");
-            for (var entry : badSmellByRuleId.entrySet()) {
-                if (entry.getValue().isEmpty()) {
-                    continue;
-                }
-                summary.append("| ")
-                        .append(entry.getKey().id())
-                        .append(" | ")
-                        .append(entry.getValue().size())
-                        .append(" |\n");
-            }
+    StringBuilder summary = new StringBuilder();
+    summary.append("# Summary of all refactoring opportunities:\n");
+    for (RemoteProject project : projectRepository.getAll()) {
+      List<BadSmell> badSmells = getFixableBadSmells.getFixableBadSmells(project);
+      Map<RuleId, List<BadSmell>> badSmellByRuleId =
+          badSmells.stream().collect(Collectors.groupingBy(BadSmell::ruleID));
+      if (badSmells.isEmpty()) {
+        continue;
+      }
+      summary.append("## Project: ").append(project.getProjectName()).append("\n");
+      summary.append("| Rule | Occurrences |\n");
+      summary.append("| --- | --- |\n");
+      for (var entry : badSmellByRuleId.entrySet()) {
+        if (entry.getValue().isEmpty()) {
+          continue;
         }
-        return summary.toString();
+        summary
+            .append("| ")
+            .append(entry.getKey().id())
+            .append(" | ")
+            .append(entry.getValue().size())
+            .append(" |\n");
+      }
     }
+    return summary.toString();
+  }
 
-    /**
-     * Search for the summary issue on github. The summary issue contains an overview over all refactoring opportunities.
-     * @return the summary issue on github never null
-     */
-    private GHIssue searchSummaryIssueOnGithub() throws IOException {
-        var list = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
-                .getRepository("MartinWitt/laughing-train")
-                .queryIssues()
-                .pageSize(1)
-                .label(LABEL_NAME)
-                .state(GHIssueState.OPEN)
-                .list()
-                .toList();
-        if (list.isEmpty()) {
-            throw new IllegalStateException("No summary issue found");
-        }
-        return list.get(0);
+  /**
+   * Search for the summary issue on github. The summary issue contains an overview over all
+   * refactoring opportunities.
+   *
+   * @return the summary issue on github never null
+   */
+  private GHIssue searchSummaryIssueOnGithub() throws IOException {
+    var list =
+        GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+            .getRepository("MartinWitt/laughing-train")
+            .queryIssues()
+            .pageSize(1)
+            .label(LABEL_NAME)
+            .state(GHIssueState.OPEN)
+            .list()
+            .toList();
+    if (list.isEmpty()) {
+      throw new IllegalStateException("No summary issue found");
     }
+    return list.get(0);
+  }
 }

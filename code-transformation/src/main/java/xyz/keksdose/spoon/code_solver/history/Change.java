@@ -10,108 +10,112 @@ import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class Change {
 
-    private MarkdownString text;
-    private String issue;
-    private CtType<?> affectedType;
-    private BadSmell badsmell = BadSmell.emptyRule();
-    private AnalyzerResult analyzerResult;
-    private List<DiffCleanModes> modes = List.of();
+  private MarkdownString text;
+  private String issue;
+  private CtType<?> affectedType;
+  private BadSmell badsmell = BadSmell.emptyRule();
+  private AnalyzerResult analyzerResult;
+  private List<DiffCleanModes> modes = List.of();
 
-    public Change(String text, String issue, CtType<?> affectedType) {
-        this.text = MarkdownString.fromRaw(text);
-        this.issue = issue;
-        this.affectedType = getMostOuterType(affectedType);
+  public Change(String text, String issue, CtType<?> affectedType) {
+    this.text = MarkdownString.fromRaw(text);
+    this.issue = issue;
+    this.affectedType = getMostOuterType(affectedType);
+  }
+
+  public Change(BadSmell badSmell, MarkdownString text, CtType<?> affectedType) {
+    this.text = text;
+    this.issue = badSmell.getName().asText();
+    this.badsmell = badSmell;
+    this.affectedType = getMostOuterType(affectedType);
+  }
+
+  public Change(
+      BadSmell badSmell,
+      MarkdownString text,
+      CtType<?> affectedType,
+      AnalyzerResult analyzerResult) {
+    this(badSmell, text, affectedType);
+    this.analyzerResult = analyzerResult;
+  }
+
+  public Change(
+      BadSmell badSmell,
+      MarkdownString text,
+      CtType<?> affectedType,
+      AnalyzerResult analyzerResult,
+      List<DiffCleanModes> modes) {
+    this(badSmell, text, affectedType);
+    this.analyzerResult = analyzerResult;
+    this.modes = modes;
+  }
+
+  /**
+   * @return the modes
+   */
+  public List<DiffCleanModes> getModes() {
+    return modes;
+  }
+
+  public MarkdownString getChangeText() {
+    return text;
+  }
+
+  /**
+   * @return the affectedType
+   */
+  public CtType<?> getAffectedType() {
+    return affectedType;
+  }
+
+  public String getIssue() {
+    return issue;
+  }
+
+  public BadSmell getBadSmell() {
+    return badsmell;
+  }
+
+  /* (non-Javadoc)
+   * @see java.lang.Object#hashCode()
+   */
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(affectedType, badsmell, issue, text);
+  }
+
+  /* (non-Javadoc)
+   * @see java.lang.Object#equals(java.lang.Object)
+   */
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
     }
-
-    public Change(BadSmell badSmell, MarkdownString text, CtType<?> affectedType) {
-        this.text = text;
-        this.issue = badSmell.getName().asText();
-        this.badsmell = badSmell;
-        this.affectedType = getMostOuterType(affectedType);
+    if (!(obj instanceof Change)) {
+      return false;
     }
+    Change other = (Change) obj;
+    return Objects.equals(affectedType, other.affectedType)
+        && Objects.equals(badsmell, other.badsmell)
+        && Objects.equals(issue, other.issue)
+        && Objects.equals(text, other.text);
+  }
 
-    public Change(BadSmell badSmell, MarkdownString text, CtType<?> affectedType, AnalyzerResult analyzerResult) {
-        this(badSmell, text, affectedType);
-        this.analyzerResult = analyzerResult;
+  /**
+   * @return the analyzerResult
+   */
+  public @Nullable AnalyzerResult getAnalyzerResult() {
+    return analyzerResult;
+  }
+
+  private CtType<?> getMostOuterType(CtType<?> inner) {
+    if (inner.getDeclaringType() == null) {
+      return inner;
+    } else {
+      return getMostOuterType(inner.getDeclaringType());
     }
-
-    public Change(
-            BadSmell badSmell,
-            MarkdownString text,
-            CtType<?> affectedType,
-            AnalyzerResult analyzerResult,
-            List<DiffCleanModes> modes) {
-        this(badSmell, text, affectedType);
-        this.analyzerResult = analyzerResult;
-        this.modes = modes;
-    }
-
-    /**
-     * @return the modes
-     */
-    public List<DiffCleanModes> getModes() {
-        return modes;
-    }
-
-    public MarkdownString getChangeText() {
-        return text;
-    }
-
-    /**
-     * @return the affectedType
-     */
-    public CtType<?> getAffectedType() {
-        return affectedType;
-    }
-
-    public String getIssue() {
-        return issue;
-    }
-
-    public BadSmell getBadSmell() {
-        return badsmell;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(affectedType, badsmell, issue, text);
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof Change)) {
-            return false;
-        }
-        Change other = (Change) obj;
-        return Objects.equals(affectedType, other.affectedType)
-                && Objects.equals(badsmell, other.badsmell)
-                && Objects.equals(issue, other.issue)
-                && Objects.equals(text, other.text);
-    }
-
-    /**
-     * @return the analyzerResult
-     */
-    public @Nullable AnalyzerResult getAnalyzerResult() {
-        return analyzerResult;
-    }
-
-    private CtType<?> getMostOuterType(CtType<?> inner) {
-        if (inner.getDeclaringType() == null) {
-            return inner;
-        } else {
-            return getMostOuterType(inner.getDeclaringType());
-        }
-    }
+  }
 }

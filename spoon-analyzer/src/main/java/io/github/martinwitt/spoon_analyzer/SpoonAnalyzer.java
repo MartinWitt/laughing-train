@@ -20,56 +20,55 @@ import spoon.reflect.declaration.CtType;
 
 public class SpoonAnalyzer {
 
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-    private final List<LocalAnalyzer> localAnalyzers;
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private final List<LocalAnalyzer> localAnalyzers;
 
-    public SpoonAnalyzer() {
-        this.localAnalyzers = new ArrayList<>();
-        localAnalyzers.add(new AccessStaticViaInstanceAnalyzer());
-        localAnalyzers.add(new ArrayCanBeReplacedWithEnumValuesAnalyzer());
-        localAnalyzers.add(new CharsetObjectCanBeUsedAnalyzer());
-        localAnalyzers.add(new FinalStaticMethodAnalyzer());
-        localAnalyzers.add(new IndexOfReplaceableByContainsAnalyzer());
-        // currently produces too many false positives
-        // localAnalyzers.add(new InnerClassMayBeStaticAnalyzer());
-        localAnalyzers.add(new NonProtectedConstructorInAbstractClassAnalyzer());
-        localAnalyzers.add(new PrivateFinalMethodAnalyzer());
-        localAnalyzers.add(new SizeReplaceableByIsEmptyAnalyzer());
-        localAnalyzers.add(new UnnecessaryImplementsAnalyzer());
-        localAnalyzers.add(new UnnecessaryTostringAnalyzer());
-    }
+  public SpoonAnalyzer() {
+    this.localAnalyzers = new ArrayList<>();
+    localAnalyzers.add(new AccessStaticViaInstanceAnalyzer());
+    localAnalyzers.add(new ArrayCanBeReplacedWithEnumValuesAnalyzer());
+    localAnalyzers.add(new CharsetObjectCanBeUsedAnalyzer());
+    localAnalyzers.add(new FinalStaticMethodAnalyzer());
+    localAnalyzers.add(new IndexOfReplaceableByContainsAnalyzer());
+    // currently produces too many false positives
+    // localAnalyzers.add(new InnerClassMayBeStaticAnalyzer());
+    localAnalyzers.add(new NonProtectedConstructorInAbstractClassAnalyzer());
+    localAnalyzers.add(new PrivateFinalMethodAnalyzer());
+    localAnalyzers.add(new SizeReplaceableByIsEmptyAnalyzer());
+    localAnalyzers.add(new UnnecessaryImplementsAnalyzer());
+    localAnalyzers.add(new UnnecessaryTostringAnalyzer());
+  }
 
-    public List<BadSmell> analyze(String path) {
+  public List<BadSmell> analyze(String path) {
 
-        List<BadSmell> badSmells = new ArrayList<>();
-        try {
-            List<Path> files =
-                    Files.walk(Path.of(path)).filter(v -> Files.isDirectory(v)).toList();
-            files = PathUtils.filterResourcePaths(files);
+    List<BadSmell> badSmells = new ArrayList<>();
+    try {
+      List<Path> files = Files.walk(Path.of(path)).filter(v -> Files.isDirectory(v)).toList();
+      files = PathUtils.filterResourcePaths(files);
 
-            Launcher launcher = new Launcher();
-            for (Path p : files) {
-                launcher.addInputResource(p.toString());
-            }
-            launcher.getEnvironment().setAutoImports(true);
-            launcher.getEnvironment().setIgnoreDuplicateDeclarations(true);
-            launcher.getEnvironment().setNoClasspath(true);
-            launcher.getEnvironment().setComplianceLevel(17);
-            launcher.getEnvironment().setIgnoreSyntaxErrors(true);
-            launcher.getEnvironment().setLevel("ERROR");
-            var model = launcher.buildModel();
-            logger.atInfo().log("Found %s types.", model.getAllTypes().size());
-            for (CtType<?> type : model.getAllTypes()) {
-                for (LocalAnalyzer analyzer : localAnalyzers) {
-                    var badSmell = analyzer.analyze(type);
-                    if (badSmell != null) {
-                        badSmells.addAll(badSmell);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            logger.atSevere().withCause(e).log("Error while analyzing.");
+      Launcher launcher = new Launcher();
+      for (Path p : files) {
+        launcher.addInputResource(p.toString());
+      }
+      launcher.getEnvironment().setAutoImports(true);
+      launcher.getEnvironment().setIgnoreDuplicateDeclarations(true);
+      launcher.getEnvironment().setNoClasspath(true);
+      launcher.getEnvironment().setComplianceLevel(17);
+      launcher.getEnvironment().setIgnoreSyntaxErrors(true);
+      launcher.getEnvironment().setLevel("ERROR");
+      var model = launcher.buildModel();
+      logger.atInfo().log("Found %s types.", model.getAllTypes().size());
+      for (CtType<?> type : model.getAllTypes()) {
+        for (LocalAnalyzer analyzer : localAnalyzers) {
+          var badSmell = analyzer.analyze(type);
+          if (badSmell != null) {
+            badSmells.addAll(badSmell);
+          }
         }
-        return badSmells;
+      }
+    } catch (Exception e) {
+      logger.atSevere().withCause(e).log("Error while analyzing.");
     }
+    return badSmells;
+  }
 }

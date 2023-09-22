@@ -4,9 +4,9 @@ import java.util.List;
 
 public sealed interface FindPrResult {
 
-    record Success(List<PullRequest> pullRequest) implements FindPrResult {}
+  record Success(List<PullRequest> pullRequest) implements FindPrResult {}
 
-    record NoPrFound() implements FindPrResult {}
+  record NoPrFound() implements FindPrResult {}
 
-    record Error(String message) implements FindPrResult {}
+  record Error(String message) implements FindPrResult {}
 }

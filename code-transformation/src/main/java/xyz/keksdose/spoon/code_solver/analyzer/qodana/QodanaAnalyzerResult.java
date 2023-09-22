@@ -7,52 +7,54 @@ import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 
 public record QodanaAnalyzerResult(
-        RuleId ruleID, String filePath, Position position, String message, String messageMarkdown, String snippet)
-        implements AnalyzerResult {
+    RuleId ruleID,
+    String filePath,
+    Position position,
+    String message,
+    String messageMarkdown,
+    String snippet)
+    implements AnalyzerResult {
 
-    public QodanaAnalyzerResult(Result result) {
-        this(
-                new RuleId(result.getRuleId()),
-                getFilePathFromResult(result),
-                fromResult(result),
-                result.getMessage().getText(),
-                result.getMessage().getMarkdown(),
-                regionFromResult(result));
-    }
+  public QodanaAnalyzerResult(Result result) {
+    this(
+        new RuleId(result.getRuleId()),
+        getFilePathFromResult(result),
+        fromResult(result),
+        result.getMessage().getText(),
+        result.getMessage().getMarkdown(),
+        regionFromResult(result));
+  }
 
-    private static String getFilePathFromResult(Result result) {
-        return result.getLocations()
-                .get(0)
-                .getPhysicalLocation()
-                .getArtifactLocation()
-                .getUri();
-    }
+  private static String getFilePathFromResult(Result result) {
+    return result.getLocations().get(0).getPhysicalLocation().getArtifactLocation().getUri();
+  }
 
-    private static String regionFromResult(Result result) {
-        return result.getLocations()
-                .get(0)
-                .getPhysicalLocation()
-                .getContextRegion()
-                .getSnippet()
-                .getText();
-    }
+  private static String regionFromResult(Result result) {
+    return result
+        .getLocations()
+        .get(0)
+        .getPhysicalLocation()
+        .getContextRegion()
+        .getSnippet()
+        .getText();
+  }
 
-    private static Position fromResult(Result result) {
-        Region region = result.getLocations().get(0).getPhysicalLocation().getRegion();
-        return new Position(
-                nullToZero(region.getStartLine()),
-                nullToZero(region.getEndLine()),
-                nullToZero(region.getStartColumn()),
-                nullToZero(region.getEndColumn()),
-                nullToZero(region.getCharOffset()),
-                nullToZero(region.getCharLength()));
-    }
+  private static Position fromResult(Result result) {
+    Region region = result.getLocations().get(0).getPhysicalLocation().getRegion();
+    return new Position(
+        nullToZero(region.getStartLine()),
+        nullToZero(region.getEndLine()),
+        nullToZero(region.getStartColumn()),
+        nullToZero(region.getEndColumn()),
+        nullToZero(region.getCharOffset()),
+        nullToZero(region.getCharLength()));
+  }
 
-    private static int nullToZero(Integer value) {
-        return value == null ? 0 : value;
-    }
+  private static int nullToZero(Integer value) {
+    return value == null ? 0 : value;
+  }
 
-    public String getAnalyzer() {
-        return "Qodana";
-    }
+  public String getAnalyzer() {
+    return "Qodana";
+  }
 }

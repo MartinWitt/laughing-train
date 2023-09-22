@@ -9,10 +9,10 @@ import spoon.support.compiler.VirtualFile;
 
 public class ImplicitArrayToStringAnalyzerTest {
 
-    @Test
-    void UpperClassEqualsNoHashcode() {
-        String code =
-                """
+  @Test
+  void UpperClassEqualsNoHashcode() {
+    String code =
+        """
             class A {
             public void print(Object[] obj) {
               System.out.println(obj);
@@ -20,13 +20,13 @@ public class ImplicitArrayToStringAnalyzerTest {
           }
         """;
 
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        ImplicitArrayToStringAnalyzer analyzer = new ImplicitArrayToStringAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        var result = analyzer.analyze(simpleClass);
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    ImplicitArrayToStringAnalyzer analyzer = new ImplicitArrayToStringAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    var result = analyzer.analyze(simpleClass);
 
-        assertEquals(1, result.size());
-    }
+    assertEquals(1, result.size());
+  }
 }

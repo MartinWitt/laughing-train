@@ -7,23 +7,23 @@ import java.util.stream.Stream;
 
 public interface BadSmellRepository {
 
-    List<BadSmell> findByRuleID(RuleId ruleID);
+  List<BadSmell> findByRuleID(RuleId ruleID);
 
-    List<BadSmell> findByProjectName(String projectName);
+  List<BadSmell> findByProjectName(String projectName);
 
-    List<BadSmell> findByProjectUrl(String projectUrl);
+  List<BadSmell> findByProjectUrl(String projectUrl);
 
-    List<BadSmell> findByCommitHash(String commitHash);
+  List<BadSmell> findByCommitHash(String commitHash);
 
-    List<BadSmell> findByIdentifier(String identifier);
+  List<BadSmell> findByIdentifier(String identifier);
 
-    List<BadSmell> findByCommitHash(String commitHash, String analyzerName);
+  List<BadSmell> findByCommitHash(String commitHash, String analyzerName);
 
-    List<BadSmell> findByCommitHash(String commitHash, String analyzerName, String ruleId);
+  List<BadSmell> findByCommitHash(String commitHash, String analyzerName, String ruleId);
 
-    long deleteByIdentifier(String identifier);
+  long deleteByIdentifier(String identifier);
 
-    BadSmell save(BadSmell badSmell);
+  BadSmell save(BadSmell badSmell);
 
-    Stream<BadSmell> getAll();
+  Stream<BadSmell> getAll();
 }

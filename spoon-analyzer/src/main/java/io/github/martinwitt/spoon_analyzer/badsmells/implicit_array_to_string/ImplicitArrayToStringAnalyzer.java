@@ -11,19 +11,19 @@ import spoon.reflect.visitor.filter.TypeFilter;
 
 public class ImplicitArrayToStringAnalyzer implements LocalAnalyzer {
 
-    @Override
-    public List<BadSmell> analyze(CtType<?> clazz) {
-        List<BadSmell> badSmells = new ArrayList<BadSmell>();
-        ImplicitToStringMatcher matcher = new ImplicitToStringMatcher();
-        List<CtInvocation<?>> invocations = clazz.getElements(new TypeFilter<>(CtInvocation.class));
-        for (CtInvocation<?> invocation : invocations) {
-            if (matcher.matches(invocation)) {
-                if (invocation.getArguments().stream()
-                        .anyMatch(v -> v.getType() != null && v.getType().isArray())) {
-                    badSmells.add(new ImplicitArrayToString(clazz, invocation));
-                }
-            }
+  @Override
+  public List<BadSmell> analyze(CtType<?> clazz) {
+    List<BadSmell> badSmells = new ArrayList<BadSmell>();
+    ImplicitToStringMatcher matcher = new ImplicitToStringMatcher();
+    List<CtInvocation<?>> invocations = clazz.getElements(new TypeFilter<>(CtInvocation.class));
+    for (CtInvocation<?> invocation : invocations) {
+      if (matcher.matches(invocation)) {
+        if (invocation.getArguments().stream()
+            .anyMatch(v -> v.getType() != null && v.getType().isArray())) {
+          badSmells.add(new ImplicitArrayToString(clazz, invocation));
         }
-        return badSmells;
+      }
     }
+    return badSmells;
+  }
 }

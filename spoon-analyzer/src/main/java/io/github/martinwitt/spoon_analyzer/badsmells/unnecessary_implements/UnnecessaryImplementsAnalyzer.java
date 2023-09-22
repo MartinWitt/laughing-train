@@ -9,32 +9,33 @@ import java.util.Set;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.reference.CtTypeReference;
 
-public class UnnecessaryImplementsAnalyzer implements LocalAnalyzer, LocalRefactor<UnnecessaryImplements> {
+public class UnnecessaryImplementsAnalyzer
+    implements LocalAnalyzer, LocalRefactor<UnnecessaryImplements> {
 
-    @Override
-    public List<BadSmell> analyze(CtType<?> clazz) {
-        Set<CtTypeReference<?>> superInterfaces = clazz.getSuperInterfaces();
-        ;
-        if (superInterfaces.isEmpty()) {
-            return List.of();
-        }
-        List<BadSmell> badSmells = new ArrayList<>();
-        for (CtTypeReference<?> ctTypeReference : superInterfaces) {
-            for (CtTypeReference<?> needed : superInterfaces) {
-                if (ctTypeReference.equals(needed)) {
-                    continue;
-                }
-                if (ctTypeReference.isSubtypeOf(needed)) {
-                    badSmells.add(new UnnecessaryImplements(ctTypeReference, needed, clazz));
-                }
-            }
-        }
-        return badSmells;
+  @Override
+  public List<BadSmell> analyze(CtType<?> clazz) {
+    Set<CtTypeReference<?>> superInterfaces = clazz.getSuperInterfaces();
+    ;
+    if (superInterfaces.isEmpty()) {
+      return List.of();
     }
+    List<BadSmell> badSmells = new ArrayList<>();
+    for (CtTypeReference<?> ctTypeReference : superInterfaces) {
+      for (CtTypeReference<?> needed : superInterfaces) {
+        if (ctTypeReference.equals(needed)) {
+          continue;
+        }
+        if (ctTypeReference.isSubtypeOf(needed)) {
+          badSmells.add(new UnnecessaryImplements(ctTypeReference, needed, clazz));
+        }
+      }
+    }
+    return badSmells;
+  }
 
-    @Override
-    public void refactor(UnnecessaryImplements badSmell) {
-        CtTypeReference<?> notNeededImplements = badSmell.getNotNeededImplements();
-        badSmell.getAffectedType().getSuperInterfaces().remove(notNeededImplements);
-    }
+  @Override
+  public void refactor(UnnecessaryImplements badSmell) {
+    CtTypeReference<?> notNeededImplements = badSmell.getNotNeededImplements();
+    badSmell.getAffectedType().getSuperInterfaces().remove(notNeededImplements);
+  }
 }

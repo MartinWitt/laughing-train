@@ -12,12 +12,13 @@ import xyz.keksdose.spoon.code_solver.transformations.TransformationTestUtils;
 
 public class InnerClassMayBeStaticTest {
 
-    @Test
-    void landLordInnerClassMabyBeStatic(@TempDir File dir) throws IOException {
-        Position position = new Position(296, 0, 0, 0, 0, 80);
-        AnalyzerResult result = new TestAnalyzerResult("Landlordbase.java", position);
-        String resourcePath = "projects/refactorings/InnerClassMayBeStatic/Landlordbase.java";
-        var copy = TransformationTestUtils.transform(new InnerClassMayBeStatic(result), resourcePath, dir);
-        TransformationTestUtils.compareContent(copy, resourcePath);
-    }
+  @Test
+  void landLordInnerClassMabyBeStatic(@TempDir File dir) throws IOException {
+    Position position = new Position(296, 0, 0, 0, 0, 80);
+    AnalyzerResult result = new TestAnalyzerResult("Landlordbase.java", position);
+    String resourcePath = "projects/refactorings/InnerClassMayBeStatic/Landlordbase.java";
+    var copy =
+        TransformationTestUtils.transform(new InnerClassMayBeStatic(result), resourcePath, dir);
+    TransformationTestUtils.compareContent(copy, resourcePath);
+  }
 }

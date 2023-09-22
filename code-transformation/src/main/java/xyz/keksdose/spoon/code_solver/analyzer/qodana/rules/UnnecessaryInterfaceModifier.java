@@ -18,49 +18,51 @@ import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class UnnecessaryInterfaceModifier extends AbstractRefactoring {
 
-    private static final BadSmell UNNECESSARY_INTERFACE_MODIFIER = new BadSmell() {
+  private static final BadSmell UNNECESSARY_INTERFACE_MODIFIER =
+      new BadSmell() {
         @Override
         public MarkdownString getName() {
-            return MarkdownString.fromRaw("Unnecessary-Interface-Modifier");
+          return MarkdownString.fromRaw("Unnecessary-Interface-Modifier");
         }
 
         @Override
         public MarkdownString getDescription() {
-            return MarkdownString.fromRaw(
-                    "An public modifier on methods is not needed, because all methods in interfaces are already public");
+          return MarkdownString.fromRaw(
+              "An public modifier on methods is not needed, because all methods in interfaces are already public");
         }
-    };
+      };
 
-    public UnnecessaryInterfaceModifier(AnalyzerResult result) {
-        super(result);
-    }
+  public UnnecessaryInterfaceModifier(AnalyzerResult result) {
+    super(result);
+  }
 
-    @Override
-    public void refactor(ChangeListener listener, CtType<?> type) {
-        if (type.isAnonymous() || !isSameType(type, Path.of(result.filePath()))) {
-            return;
-        }
-        for (CtTypeMember member : type.getTypeMembers()) {
-            if (member.getPosition().getSourceStart() == result.position().charOffset() && member.isPublic()) {
-                Set<CtExtendedModifier> modifiers = new HashSet<>(member.getExtendedModifiers());
-                modifiers.removeIf(v -> v.getKind() == ModifierKind.PUBLIC);
-                member.setExtendedModifiers(modifiers);
-                SourcePosition position = member.getPosition();
-                member.setPosition(SourcePosition.NOPOSITION);
-                member.setPosition(position);
-                listener.setChanged(
-                        type.getTopLevelType(),
-                        new Change(
-                                UNNECESSARY_INTERFACE_MODIFIER,
-                                MarkdownString.fromMarkdown(result.message(), result.messageMarkdown()),
-                                type.getTopLevelType(),
-                                result));
-            }
-        }
+  @Override
+  public void refactor(ChangeListener listener, CtType<?> type) {
+    if (type.isAnonymous() || !isSameType(type, Path.of(result.filePath()))) {
+      return;
     }
+    for (CtTypeMember member : type.getTypeMembers()) {
+      if (member.getPosition().getSourceStart() == result.position().charOffset()
+          && member.isPublic()) {
+        Set<CtExtendedModifier> modifiers = new HashSet<>(member.getExtendedModifiers());
+        modifiers.removeIf(v -> v.getKind() == ModifierKind.PUBLIC);
+        member.setExtendedModifiers(modifiers);
+        SourcePosition position = member.getPosition();
+        member.setPosition(SourcePosition.NOPOSITION);
+        member.setPosition(position);
+        listener.setChanged(
+            type.getTopLevelType(),
+            new Change(
+                UNNECESSARY_INTERFACE_MODIFIER,
+                MarkdownString.fromMarkdown(result.message(), result.messageMarkdown()),
+                type.getTopLevelType(),
+                result));
+      }
+    }
+  }
 
-    @Override
-    public List<BadSmell> getHandledBadSmells() {
-        return List.of(UNNECESSARY_INTERFACE_MODIFIER);
-    }
+  @Override
+  public List<BadSmell> getHandledBadSmells() {
+    return List.of(UNNECESSARY_INTERFACE_MODIFIER);
+  }
 }

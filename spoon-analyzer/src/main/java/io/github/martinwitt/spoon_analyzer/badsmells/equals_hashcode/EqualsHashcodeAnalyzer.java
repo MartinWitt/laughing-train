@@ -8,31 +8,31 @@ import spoon.reflect.declaration.CtType;
 
 public class EqualsHashcodeAnalyzer implements LocalAnalyzer {
 
-    @Override
-    public List<BadSmell> analyze(CtType<?> clazz) {
+  @Override
+  public List<BadSmell> analyze(CtType<?> clazz) {
 
-        boolean hasEquals = false;
-        boolean hasHashcode = false;
-        for (CtMethod<?> methods : clazz.getMethods()) {
-            if (isEqualsMethod(methods)) {
-                hasEquals = true;
-            }
-            if (isHashcodeMethod(methods)) {
-                hasHashcode = true;
-            }
-        }
-        // if only one of them is present, it is a badsmell, otherwise not
-        if ((!hasEquals && hasHashcode) || (hasEquals && !hasHashcode)) {
-            return List.of(new EqualsHashcode(clazz));
-        }
-        return List.of();
+    boolean hasEquals = false;
+    boolean hasHashcode = false;
+    for (CtMethod<?> methods : clazz.getMethods()) {
+      if (isEqualsMethod(methods)) {
+        hasEquals = true;
+      }
+      if (isHashcodeMethod(methods)) {
+        hasHashcode = true;
+      }
     }
+    // if only one of them is present, it is a badsmell, otherwise not
+    if ((!hasEquals && hasHashcode) || (hasEquals && !hasHashcode)) {
+      return List.of(new EqualsHashcode(clazz));
+    }
+    return List.of();
+  }
 
-    private boolean isEqualsMethod(CtMethod<?> method) {
-        return method.getSimpleName().equals("equals");
-    }
+  private boolean isEqualsMethod(CtMethod<?> method) {
+    return method.getSimpleName().equals("equals");
+  }
 
-    private boolean isHashcodeMethod(CtMethod<?> method) {
-        return method.getSimpleName().equals("hashCode");
-    }
+  private boolean isHashcodeMethod(CtMethod<?> method) {
+    return method.getSimpleName().equals("hashCode");
+  }
 }

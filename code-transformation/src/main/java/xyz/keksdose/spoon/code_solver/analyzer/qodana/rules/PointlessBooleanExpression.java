@@ -16,84 +16,85 @@ import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class PointlessBooleanExpression extends AbstractRefactoring {
 
-    private static final BadSmell POINTLESS_BOOLEAN_EXPRESSION = new BadSmell() {
+  private static final BadSmell POINTLESS_BOOLEAN_EXPRESSION =
+      new BadSmell() {
 
         @Override
         public MarkdownString getDescription() {
-            return MarkdownString.fromRaw("Boolean expressions shouldn't be overcomplex. ");
+          return MarkdownString.fromRaw("Boolean expressions shouldn't be overcomplex. ");
         }
 
         @Override
         public MarkdownString getName() {
-            return MarkdownString.fromRaw("PointlessBooleanExpression");
+          return MarkdownString.fromRaw("PointlessBooleanExpression");
         }
-    };
+      };
 
-    public PointlessBooleanExpression(AnalyzerResult result) {
-        super(result);
+  public PointlessBooleanExpression(AnalyzerResult result) {
+    super(result);
+  }
+
+  @Override
+  public void refactor(ChangeListener listener, CtType<?> type) {
+    if (type.isAnonymous() || !isSameType(type, Path.of(result.filePath()))) {
+      return;
     }
-
-    @Override
-    public void refactor(ChangeListener listener, CtType<?> type) {
-        if (type.isAnonymous() || !isSameType(type, Path.of(result.filePath()))) {
+    Position position = result.position();
+    for (CtExpression<?> ctExpression : type.getElements(new TypeFilter<>(CtExpression.class))) {
+      if (isBooleanType(ctExpression)
+          && hasSameStartLine(position, ctExpression)
+          && hasSameColumn(position, ctExpression)) {
+        var splitted = Splitter.on("'").omitEmptyStrings().splitToList(result.message());
+        if (splitted.size() == 3) {
+          String oldExpression = splitted.get(0);
+          String newExpression = splitted.get(2);
+          if (isAlreadyFixed(listener)) {
+            // allready fixed the issue
             return;
+          }
+
+          ctExpression.replace(createNewExpression(ctExpression, newExpression).clone());
+          ctExpression.setParent(null);
+          MarkdownString md =
+              MarkdownString.fromMarkdown(
+                  "Replaced %s with %s".formatted(oldExpression, newExpression),
+                  "Replaced `%s` with `%s`".formatted(oldExpression, newExpression));
+          Change change =
+              new Change(POINTLESS_BOOLEAN_EXPRESSION, md, type.getTopLevelType(), result);
+          listener.setChanged(type.getTopLevelType(), change);
         }
-        Position position = result.position();
-        for (CtExpression<?> ctExpression : type.getElements(new TypeFilter<>(CtExpression.class))) {
-            if (isBooleanType(ctExpression)
-                    && hasSameStartLine(position, ctExpression)
-                    && hasSameColumn(position, ctExpression)) {
-                var splitted = Splitter.on("'").omitEmptyStrings().splitToList(result.message());
-                if (splitted.size() == 3) {
-                    String oldExpression = splitted.get(0);
-                    String newExpression = splitted.get(2);
-                    if (isAlreadyFixed(listener)) {
-                        // allready fixed the issue
-                        return;
-                    }
-
-                    ctExpression.replace(
-                            createNewExpression(ctExpression, newExpression).clone());
-                    ctExpression.setParent(null);
-                    MarkdownString md = MarkdownString.fromMarkdown(
-                            "Replaced %s with %s".formatted(oldExpression, newExpression),
-                            "Replaced `%s` with `%s`".formatted(oldExpression, newExpression));
-                    Change change = new Change(POINTLESS_BOOLEAN_EXPRESSION, md, type.getTopLevelType(), result);
-                    listener.setChanged(type.getTopLevelType(), change);
-                }
-            }
-        }
+      }
     }
+  }
 
-    private boolean isAlreadyFixed(ChangeListener listener) {
-        return listener.getChangelog().getChanges().stream()
-                .anyMatch(v -> v.getAnalyzerResult().equals(result));
-    }
+  private boolean isAlreadyFixed(ChangeListener listener) {
+    return listener.getChangelog().getChanges().stream()
+        .anyMatch(v -> v.getAnalyzerResult().equals(result));
+  }
 
-    private CtExpression<Object> createNewExpression(CtExpression<?> ctExpression, String newExpression) {
-        return ctExpression.getFactory().createCodeSnippetExpression(newExpression);
-    }
+  private CtExpression<Object> createNewExpression(
+      CtExpression<?> ctExpression, String newExpression) {
+    return ctExpression.getFactory().createCodeSnippetExpression(newExpression);
+  }
 
-    private boolean hasSameColumn(Position position, CtExpression<?> ctExpression) {
-        return ctExpression.getPosition().getColumn() == position.startColumn();
-    }
+  private boolean hasSameColumn(Position position, CtExpression<?> ctExpression) {
+    return ctExpression.getPosition().getColumn() == position.startColumn();
+  }
 
-    private boolean hasSameStartLine(Position position, CtExpression<?> ctExpression) {
-        return ctExpression.getPosition().getLine() == position.startLine();
-    }
+  private boolean hasSameStartLine(Position position, CtExpression<?> ctExpression) {
+    return ctExpression.getPosition().getLine() == position.startLine();
+  }
 
-    private boolean isBooleanType(CtExpression<?> ctExpression) {
-        return ctExpression.getType() != null
-                && (ctExpression
-                                .getType()
-                                .equals(ctExpression.getFactory().Type().booleanType())
-                        || ctExpression
-                                .getType()
-                                .equals(ctExpression.getFactory().Type().booleanPrimitiveType()));
-    }
+  private boolean isBooleanType(CtExpression<?> ctExpression) {
+    return ctExpression.getType() != null
+        && (ctExpression.getType().equals(ctExpression.getFactory().Type().booleanType())
+            || ctExpression
+                .getType()
+                .equals(ctExpression.getFactory().Type().booleanPrimitiveType()));
+  }
 
-    @Override
-    public List<BadSmell> getHandledBadSmells() {
-        return List.of(POINTLESS_BOOLEAN_EXPRESSION);
-    }
+  @Override
+  public List<BadSmell> getHandledBadSmells() {
+    return List.of(POINTLESS_BOOLEAN_EXPRESSION);
+  }
 }

@@ -17,30 +17,32 @@ import xyz.keksdose.spoon.code_solver.transformations.TestAnalyzerResult;
 
 public class UnnecessaryToStringCallDiffTest {
 
-    @Test
-    void WhiteSpaceAfterToString() throws IllegalStateException, IOException, GitAPIException {
-        UnaryOperator<String> removeToString = s -> s.replace(".toString()", "");
-        Path path = Path.of("src/test/resources/projects/diffs/WhiteSpaceAfterToString.java");
-        Git git = DiffTestHelper.createTempGitRepo(path, removeToString);
-        TestAnalyzerResult result = new TestAnalyzerResult(
-                "UnnecessaryToStringCall",
-                "WhiteSpaceAfterToString.java",
-                new Position(8, 0, 0, 0, 0, 0),
-                "unnecessary toString call");
-        Change change = new Change(
-                new UnusedLabel(null).getHandledBadSmells().get(0),
-                null,
-                getFirstType(git.getRepository().getWorkTree().toPath()),
-                result,
-                List.of(DiffCleanModes.NO_WHITESPACE_ADD));
-        new DiffCleaner().clean(git.getRepository().getWorkTree().toPath(), change);
-    }
+  @Test
+  void WhiteSpaceAfterToString() throws IllegalStateException, IOException, GitAPIException {
+    UnaryOperator<String> removeToString = s -> s.replace(".toString()", "");
+    Path path = Path.of("src/test/resources/projects/diffs/WhiteSpaceAfterToString.java");
+    Git git = DiffTestHelper.createTempGitRepo(path, removeToString);
+    TestAnalyzerResult result =
+        new TestAnalyzerResult(
+            "UnnecessaryToStringCall",
+            "WhiteSpaceAfterToString.java",
+            new Position(8, 0, 0, 0, 0, 0),
+            "unnecessary toString call");
+    Change change =
+        new Change(
+            new UnusedLabel(null).getHandledBadSmells().get(0),
+            null,
+            getFirstType(git.getRepository().getWorkTree().toPath()),
+            result,
+            List.of(DiffCleanModes.NO_WHITESPACE_ADD));
+    new DiffCleaner().clean(git.getRepository().getWorkTree().toPath(), change);
+  }
 
-    private CtType<?> getFirstType(Path path) {
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(path.toString());
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
-        return model.getAllTypes().iterator().next();
-    }
+  private CtType<?> getFirstType(Path path) {
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(path.toString());
+    launcher.buildModel();
+    CtModel model = launcher.getModel();
+    return model.getAllTypes().iterator().next();
+  }
 }

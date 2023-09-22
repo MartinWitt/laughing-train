@@ -46,7 +46,7 @@ spotless {
 		target '*.gradle' // default target of groovyGradle
 	}
 	java {
-        palantirJavaFormat()
+            googleJavaFormat()
 	}
 }
 

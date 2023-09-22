@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CodeAnalyzerResult extends Serializable {
 
-    record Success(List<AnalyzerResult> results, Project project) implements CodeAnalyzerResult {}
+  record Success(List<AnalyzerResult> results, Project project) implements CodeAnalyzerResult {}
 
-    record Failure(String message) implements CodeAnalyzerResult {}
+  record Failure(String message) implements CodeAnalyzerResult {}
 }

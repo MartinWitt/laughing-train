@@ -8,105 +8,112 @@ import spoon.reflect.path.CtRole;
 import spoon.reflect.visitor.EarlyTerminatingScanner;
 
 /**
- * This class matches AST elements with a given position {@link Position}.
- * {@link PositionScanner#findLineOnly(CtElement, Position)} only matches elements that are on the same line as the given position.
- * {@link PositionScanner#find(CtElement, Position)} matches elements that are exactly on the given position.
+ * This class matches AST elements with a given position {@link Position}. {@link
+ * PositionScanner#findLineOnly(CtElement, Position)} only matches elements that are on the same
+ * line as the given position. {@link PositionScanner#find(CtElement, Position)} matches elements
+ * that are exactly on the given position.
  */
 public class PositionScanner extends EarlyTerminatingScanner<List<CtElement>> {
 
-    private int startLine;
-    private int startColumn;
-    private int endLine;
-    private int endColumn;
-    private int charOffset;
-    private int charLength;
-    /**
-     * Searches for all elements that are on the given position. This search visits the subtree of the given element.
-     * @param element  the element to search in. This element is also included in the result.
-     * @param position  the position to search for
-     * @return  a list of all elements that are on the given position. This list is never null.
-     */
-    public static List<CtElement> find(CtElement element, Position position) {
-        PositionScanner scanner = new PositionScanner(position);
-        scanner.scan(element);
-        return scanner.getResult();
-    }
-    /**
-     * Searches for all elements that are on the same line as the given position. This search visits the subtree of the given element.
-     * @param element  the element to search in. This element is also included in the result.
-     * @param position  the position to search for
-     * @return  a list of all elements that are on the same line as the given position. Never null.
-     */
-    public static List<CtElement> findLineOnly(CtElement element, Position position) {
-        PositionScanner scanner = new PositionScanner(position);
-        scanner.charOffset = 0;
-        scanner.charLength = 0;
-        scanner.startColumn = 0;
-        scanner.scan(element);
-        return scanner.getResult();
-    }
+  private int startLine;
+  private int startColumn;
+  private int endLine;
+  private int endColumn;
+  private int charOffset;
+  private int charLength;
 
-    private PositionScanner(Position position) {
-        this.startLine = position.startLine();
-        this.startColumn = position.startColumn();
-        this.endLine = position.endLine();
-        this.endColumn = position.endColumn();
-        this.charOffset = position.charOffset();
-        this.charLength = position.charLength();
-        setResult(new ArrayList<>());
-    }
+  /**
+   * Searches for all elements that are on the given position. This search visits the subtree of the
+   * given element.
+   *
+   * @param element the element to search in. This element is also included in the result.
+   * @param position the position to search for
+   * @return a list of all elements that are on the given position. This list is never null.
+   */
+  public static List<CtElement> find(CtElement element, Position position) {
+    PositionScanner scanner = new PositionScanner(position);
+    scanner.scan(element);
+    return scanner.getResult();
+  }
 
-    @Override
-    protected void onElement(CtRole role, CtElement element) {
-        if (hasValidPosition(element)
-                && matchesStartLine(element)
-                && matchesSourceStart(element)
-                && matchesEndLineIfSet(element)
-                && matchesColumn(element)
-                && matchesEndcolumn(element)
-                && matchesSourceEnd(element)) {
-            getResult().add(element);
-        } else {
-            if (hasValidPosition(element) && isAfterStartLine(element) && isBeforeEndLine(element)) {
-                getResult().add(element);
-            }
-        }
-        super.onElement(role, element);
-    }
+  /**
+   * Searches for all elements that are on the same line as the given position. This search visits
+   * the subtree of the given element.
+   *
+   * @param element the element to search in. This element is also included in the result.
+   * @param position the position to search for
+   * @return a list of all elements that are on the same line as the given position. Never null.
+   */
+  public static List<CtElement> findLineOnly(CtElement element, Position position) {
+    PositionScanner scanner = new PositionScanner(position);
+    scanner.charOffset = 0;
+    scanner.charLength = 0;
+    scanner.startColumn = 0;
+    scanner.scan(element);
+    return scanner.getResult();
+  }
 
-    private boolean isBeforeEndLine(CtElement element) {
-        return element.getPosition().getLine() <= endLine;
-    }
+  private PositionScanner(Position position) {
+    this.startLine = position.startLine();
+    this.startColumn = position.startColumn();
+    this.endLine = position.endLine();
+    this.endColumn = position.endColumn();
+    this.charOffset = position.charOffset();
+    this.charLength = position.charLength();
+    setResult(new ArrayList<>());
+  }
 
-    private boolean isAfterStartLine(CtElement element) {
-        return element.getPosition().getLine() >= startLine;
+  @Override
+  protected void onElement(CtRole role, CtElement element) {
+    if (hasValidPosition(element)
+        && matchesStartLine(element)
+        && matchesSourceStart(element)
+        && matchesEndLineIfSet(element)
+        && matchesColumn(element)
+        && matchesEndcolumn(element)
+        && matchesSourceEnd(element)) {
+      getResult().add(element);
+    } else {
+      if (hasValidPosition(element) && isAfterStartLine(element) && isBeforeEndLine(element)) {
+        getResult().add(element);
+      }
     }
+    super.onElement(role, element);
+  }
 
-    private boolean matchesSourceEnd(CtElement element) {
-        return element.getPosition().getSourceEnd() == charLength || charLength == 0;
-    }
+  private boolean isBeforeEndLine(CtElement element) {
+    return element.getPosition().getLine() <= endLine;
+  }
 
-    private boolean matchesEndcolumn(CtElement element) {
-        return element.getPosition().getEndColumn() == endColumn || endColumn == 0;
-    }
+  private boolean isAfterStartLine(CtElement element) {
+    return element.getPosition().getLine() >= startLine;
+  }
 
-    private boolean matchesColumn(CtElement element) {
-        return element.getPosition().getColumn() == startColumn || startColumn == 0;
-    }
+  private boolean matchesSourceEnd(CtElement element) {
+    return element.getPosition().getSourceEnd() == charLength || charLength == 0;
+  }
 
-    private boolean matchesSourceStart(CtElement element) {
-        return Math.abs(element.getPosition().getSourceStart() - charOffset) < 2 || charOffset == 0;
-    }
+  private boolean matchesEndcolumn(CtElement element) {
+    return element.getPosition().getEndColumn() == endColumn || endColumn == 0;
+  }
 
-    private boolean matchesEndLineIfSet(CtElement element) {
-        return element.getPosition().getEndLine() == endLine || endLine == 0;
-    }
+  private boolean matchesColumn(CtElement element) {
+    return element.getPosition().getColumn() == startColumn || startColumn == 0;
+  }
 
-    private boolean matchesStartLine(CtElement element) {
-        return element.getPosition().getLine() == startLine;
-    }
+  private boolean matchesSourceStart(CtElement element) {
+    return Math.abs(element.getPosition().getSourceStart() - charOffset) < 2 || charOffset == 0;
+  }
 
-    private boolean hasValidPosition(CtElement element) {
-        return element.getPosition().isValidPosition();
-    }
+  private boolean matchesEndLineIfSet(CtElement element) {
+    return element.getPosition().getEndLine() == endLine || endLine == 0;
+  }
+
+  private boolean matchesStartLine(CtElement element) {
+    return element.getPosition().getLine() == startLine;
+  }
+
+  private boolean hasValidPosition(CtElement element) {
+    return element.getPosition().isValidPosition();
+  }
 }

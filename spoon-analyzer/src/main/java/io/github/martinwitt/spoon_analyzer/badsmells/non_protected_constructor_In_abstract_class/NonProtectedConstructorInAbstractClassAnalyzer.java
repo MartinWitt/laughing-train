@@ -11,26 +11,26 @@ import spoon.reflect.declaration.ModifierKind;
 import spoon.reflect.visitor.filter.TypeFilter;
 
 public class NonProtectedConstructorInAbstractClassAnalyzer
-        implements LocalAnalyzer, LocalRefactor<NonProtectedConstructorInAbstractClass> {
+    implements LocalAnalyzer, LocalRefactor<NonProtectedConstructorInAbstractClass> {
 
-    @Override
-    public List<BadSmell> analyze(CtType<?> clazz) {
-        List<BadSmell> badSmells = new ArrayList<>();
-        if (!clazz.isAbstract()) {
-            return badSmells;
-        }
-        List<CtConstructor<?>> elements = clazz.getElements(new TypeFilter<>(CtConstructor.class));
-        for (CtConstructor<?> ctConstructor : elements) {
-            if (!ctConstructor.isProtected() && ctConstructor.isPublic() && !ctConstructor.isImplicit()) {
-                badSmells.add(new NonProtectedConstructorInAbstractClass(clazz, ctConstructor));
-            }
-        }
-        return badSmells;
+  @Override
+  public List<BadSmell> analyze(CtType<?> clazz) {
+    List<BadSmell> badSmells = new ArrayList<>();
+    if (!clazz.isAbstract()) {
+      return badSmells;
     }
+    List<CtConstructor<?>> elements = clazz.getElements(new TypeFilter<>(CtConstructor.class));
+    for (CtConstructor<?> ctConstructor : elements) {
+      if (!ctConstructor.isProtected() && ctConstructor.isPublic() && !ctConstructor.isImplicit()) {
+        badSmells.add(new NonProtectedConstructorInAbstractClass(clazz, ctConstructor));
+      }
+    }
+    return badSmells;
+  }
 
-    @Override
-    public void refactor(NonProtectedConstructorInAbstractClass badSmell) {
-        badSmell.getCtConstructor().removeModifier(ModifierKind.PUBLIC);
-        badSmell.getCtConstructor().addModifier(ModifierKind.PROTECTED);
-    }
+  @Override
+  public void refactor(NonProtectedConstructorInAbstractClass badSmell) {
+    badSmell.getCtConstructor().removeModifier(ModifierKind.PUBLIC);
+    badSmell.getCtConstructor().addModifier(ModifierKind.PROTECTED);
+  }
 }

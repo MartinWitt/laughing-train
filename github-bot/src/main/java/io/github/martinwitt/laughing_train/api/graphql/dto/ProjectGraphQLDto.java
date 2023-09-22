@@ -8,56 +8,56 @@ import org.eclipse.microprofile.graphql.Name;
 @Name("Project")
 public class ProjectGraphQLDto {
 
-    private String projectName;
-    private String projectUrl;
-    private List<String> commitHashes;
-    private List<GitHubCommit> commits;
+  private String projectName;
+  private String projectUrl;
+  private List<String> commitHashes;
+  private List<GitHubCommit> commits;
 
-    @SuppressWarnings("NullAway")
-    public ProjectGraphQLDto() {}
+  @SuppressWarnings("NullAway")
+  public ProjectGraphQLDto() {}
 
-    public ProjectGraphQLDto(RemoteProject project) {
-        this.projectName = project.getProjectName();
-        this.projectUrl = project.getProjectUrl();
-        this.commitHashes = project.getCommitHashes();
-        this.commits = project.getCommits();
-    }
+  public ProjectGraphQLDto(RemoteProject project) {
+    this.projectName = project.getProjectName();
+    this.projectUrl = project.getProjectUrl();
+    this.commitHashes = project.getCommitHashes();
+    this.commits = project.getCommits();
+  }
 
-    public String getProjectName() {
-        return this.projectName;
-    }
+  public String getProjectName() {
+    return this.projectName;
+  }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
-    }
+  public void setProjectName(String projectName) {
+    this.projectName = projectName;
+  }
 
-    public String getProjectUrl() {
-        return this.projectUrl;
-    }
+  public String getProjectUrl() {
+    return this.projectUrl;
+  }
 
-    public void setProjectUrl(String projectUrl) {
-        this.projectUrl = projectUrl;
-    }
+  public void setProjectUrl(String projectUrl) {
+    this.projectUrl = projectUrl;
+  }
 
-    public List<String> getCommitHashes() {
-        return this.commitHashes;
-    }
+  public List<String> getCommitHashes() {
+    return this.commitHashes;
+  }
 
-    public void setCommitHashes(List<String> commitHashes) {
-        this.commitHashes = commitHashes;
-    }
+  public void setCommitHashes(List<String> commitHashes) {
+    this.commitHashes = commitHashes;
+  }
 
-    /**
-     * @return the commits
-     */
-    public List<GitHubCommit> getCommits() {
-        return commits;
-    }
+  /**
+   * @return the commits
+   */
+  public List<GitHubCommit> getCommits() {
+    return commits;
+  }
 
-    /**
-     * @param commits the commits to set
-     */
-    public void setCommits(List<GitHubCommit> commits) {
-        this.commits = commits;
-    }
+  /**
+   * @param commits the commits to set
+   */
+  public void setCommits(List<GitHubCommit> commits) {
+    this.commits = commits;
+  }
 }

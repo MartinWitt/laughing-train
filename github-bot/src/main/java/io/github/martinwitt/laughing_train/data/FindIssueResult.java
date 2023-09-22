@@ -5,9 +5,9 @@ import java.util.List;
 
 public sealed interface FindIssueResult extends Serializable {
 
-    record SingleResult(Issue issue) implements FindIssueResult {}
+  record SingleResult(Issue issue) implements FindIssueResult {}
 
-    record MultipleResults(List<Issue> issues) implements FindIssueResult {}
+  record MultipleResults(List<Issue> issues) implements FindIssueResult {}
 
-    record NoResult() implements FindIssueResult {}
+  record NoResult() implements FindIssueResult {}
 }
