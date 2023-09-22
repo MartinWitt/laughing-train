@@ -47,7 +47,7 @@ jobs:
       - uses: actions/setup-java@cd89f46ac9d01407894225f350157564c9c7cee2 # v3
         with:
           distribution: 'temurin'
-          java-version: '19'
+          java-version: '21'
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign

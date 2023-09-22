@@ -6,7 +6,7 @@ RUN curl https://repo1.maven.org/maven2/io/fabric8/run-java-sh/${RUN_JAVA_VERSIO
 
 
 # FROM eclipse-temurin:11-jdk-alpine
-FROM eclipse-temurin:20-jdk-alpine
+FROM eclipse-temurin:21-jdk-alpine
 
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en'
 RUN mkdir /deployments \
@@ -20,8 +20,8 @@ RUN chown 1001 /deployments/run-java.sh \
   && chmod 540 /deployments/run-java.sh
 
 # Configure the JAVA_OPTIONS, you can add -XshowSettings:vm to also display the heap size.
-ENV GC_CONTAINER_OPTIONS="-XX:+UseZGC"
-ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager --enable-preview"
+ENV GC_CONTAINER_OPTIONS="-XX:+UseZGC -XX:+ZGenerational" 
+ENV JAVA_OPTIONS="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
 ENV JAVA_APP_JAR="/deployments/quarkus-run.jar"
 # We make four distinct layers so if there are application changes the library layers can be re-used
 COPY --chown=185 build/quarkus-app/lib/ /deployments/lib/
