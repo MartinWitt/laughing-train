@@ -6,18 +6,18 @@ import xyz.keksdose.spoon.code_solver.spoon.ImportAwareSniperPrinter;
 
 public class EnvironmentOptions {
 
-    private EnvironmentOptions() {
-        // no instance needed, only static methods
-    }
+  private EnvironmentOptions() {
+    // no instance needed, only static methods
+  }
 
-    public static Environment setEnvironmentOptions(Launcher launcher) {
-        Environment environment = launcher.getEnvironment();
-        environment.setIgnoreDuplicateDeclarations(true);
-        environment.setIgnoreSyntaxErrors(true);
-        environment.setNoClasspath(true);
-        environment.setComplianceLevel(17);
-        environment.setPreserveLineNumbers(true);
-        environment.setPrettyPrinterCreator(() -> new ImportAwareSniperPrinter(environment));
-        return environment;
-    }
+  public static Environment setEnvironmentOptions(Launcher launcher) {
+    Environment environment = launcher.getEnvironment();
+    environment.setIgnoreDuplicateDeclarations(true);
+    environment.setIgnoreSyntaxErrors(true);
+    environment.setNoClasspath(true);
+    environment.setComplianceLevel(17);
+    environment.setPreserveLineNumbers(true);
+    environment.setPrettyPrinterCreator(() -> new ImportAwareSniperPrinter(environment));
+    return environment;
+  }
 }

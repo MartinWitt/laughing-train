@@ -13,41 +13,41 @@ import spoon.support.compiler.VirtualFile;
 
 public class InnerClassMayBeStaticAnalyzerTest {
 
-    @Test
-    public void testAnalyzeSimpleClass() {
-        // Create a Spoon launcher
-        Launcher launcher = new Launcher();
-        String code = """
+  @Test
+  public void testAnalyzeSimpleClass() {
+    // Create a Spoon launcher
+    Launcher launcher = new Launcher();
+    String code = """
           public class SimpleClass {
 
           }
           """;
-        // Add the source directory to the classpath
-        launcher.addInputResource(new VirtualFile(code));
+    // Add the source directory to the classpath
+    launcher.addInputResource(new VirtualFile(code));
 
-        // Build the Spoon model
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
+    // Build the Spoon model
+    launcher.buildModel();
+    CtModel model = launcher.getModel();
 
-        // Get the CtClass object for the SimpleClass class
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    // Get the CtClass object for the SimpleClass class
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
 
-        // Create an instance of the InnerClassMayBeStaticAnalyzer class
-        LocalAnalyzer analyzer = new InnerClassMayBeStaticAnalyzer();
+    // Create an instance of the InnerClassMayBeStaticAnalyzer class
+    LocalAnalyzer analyzer = new InnerClassMayBeStaticAnalyzer();
 
-        // Analyze the SimpleClass class for bad smells
-        List<? super BadSmell> badSmells = analyzer.analyze(simpleClass);
+    // Analyze the SimpleClass class for bad smells
+    List<? super BadSmell> badSmells = analyzer.analyze(simpleClass);
 
-        // Check that no bad smells were found
-        assertEquals(0, badSmells.size());
-    }
+    // Check that no bad smells were found
+    assertEquals(0, badSmells.size());
+  }
 
-    @Test
-    public void testAnalyzeInnerSimpleClass() {
-        // Create a Spoon launcher
-        Launcher launcher = new Launcher();
-        String code =
-                """
+  @Test
+  public void testAnalyzeInnerSimpleClass() {
+    // Create a Spoon launcher
+    Launcher launcher = new Launcher();
+    String code =
+        """
           public class SimpleClass {
             class Foo {
               void bar {
@@ -57,32 +57,32 @@ public class InnerClassMayBeStaticAnalyzerTest {
 
           }
           """;
-        // Add the source directory to the classpath
-        launcher.addInputResource(new VirtualFile(code));
+    // Add the source directory to the classpath
+    launcher.addInputResource(new VirtualFile(code));
 
-        // Build the Spoon model
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
+    // Build the Spoon model
+    launcher.buildModel();
+    CtModel model = launcher.getModel();
 
-        // Get the CtClass object for the SimpleClass class
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    // Get the CtClass object for the SimpleClass class
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
 
-        // Create an instance of the InnerClassMayBeStaticAnalyzer class
-        LocalAnalyzer analyzer = new InnerClassMayBeStaticAnalyzer();
+    // Create an instance of the InnerClassMayBeStaticAnalyzer class
+    LocalAnalyzer analyzer = new InnerClassMayBeStaticAnalyzer();
 
-        // Analyze the SimpleClass class for bad smells
-        List<? super BadSmell> badSmells = analyzer.analyze(simpleClass);
+    // Analyze the SimpleClass class for bad smells
+    List<? super BadSmell> badSmells = analyzer.analyze(simpleClass);
 
-        // Check that no bad smells were found
-        assertEquals(1, badSmells.size());
-    }
+    // Check that no bad smells were found
+    assertEquals(1, badSmells.size());
+  }
 
-    @Test
-    public void testAnalyzeInnerDeepClass() {
-        // Create a Spoon launcher
-        Launcher launcher = new Launcher();
-        String code =
-                """
+  @Test
+  public void testAnalyzeInnerDeepClass() {
+    // Create a Spoon launcher
+    Launcher launcher = new Launcher();
+    String code =
+        """
 public class OuterClass {
     private static int staticField;
 
@@ -111,23 +111,23 @@ public class OuterClass {
     }
 }
           """;
-        // Add the source directory to the classpath
-        launcher.addInputResource(new VirtualFile(code));
+    // Add the source directory to the classpath
+    launcher.addInputResource(new VirtualFile(code));
 
-        // Build the Spoon model
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
+    // Build the Spoon model
+    launcher.buildModel();
+    CtModel model = launcher.getModel();
 
-        // Get the CtClass object for the SimpleClass class
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    // Get the CtClass object for the SimpleClass class
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
 
-        // Create an instance of the InnerClassMayBeStaticAnalyzer class
-        LocalAnalyzer analyzer = new InnerClassMayBeStaticAnalyzer();
+    // Create an instance of the InnerClassMayBeStaticAnalyzer class
+    LocalAnalyzer analyzer = new InnerClassMayBeStaticAnalyzer();
 
-        // Analyze the SimpleClass class for bad smells
-        List<? super BadSmell> badSmells = analyzer.analyze(simpleClass);
+    // Analyze the SimpleClass class for bad smells
+    List<? super BadSmell> badSmells = analyzer.analyze(simpleClass);
 
-        // Check that no bad smells were found
-        assertEquals(0, badSmells.size());
-    }
+    // Check that no bad smells were found
+    assertEquals(0, badSmells.size());
+  }
 }

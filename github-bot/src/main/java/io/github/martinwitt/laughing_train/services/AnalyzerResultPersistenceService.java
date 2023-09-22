@@ -13,47 +13,50 @@ import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class AnalyzerResultPersistenceService {
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    @Inject
-    BadSmellRepository badSmellRepository;
+  @Inject BadSmellRepository badSmellRepository;
 
-    void persistResults(QodanaResult result) {
-        if (result instanceof QodanaResult.Success success) {
-            Project project = success.project();
-            Multi.createFrom()
-                    .iterable(success.result())
-                    .map(badSmell -> new BadSmell(badSmell, project.name(), project.url(), project.commitHash()))
-                    .filter(v -> badSmellRepository
-                            .findByIdentifier(v.getIdentifier())
-                            .isEmpty())
-                    .map(badSmellRepository::save)
-                    .collect()
-                    .with(Collectors.counting())
-                    .subscribe()
-                    .with(badSmell -> logger.atInfo().log(
-                            "Persisted %d qodana bad smells for project %s", badSmell, project.name()));
-        }
+  void persistResults(QodanaResult result) {
+    if (result instanceof QodanaResult.Success success) {
+      Project project = success.project();
+      Multi.createFrom()
+          .iterable(success.result())
+          .map(
+              badSmell ->
+                  new BadSmell(badSmell, project.name(), project.url(), project.commitHash()))
+          .filter(v -> badSmellRepository.findByIdentifier(v.getIdentifier()).isEmpty())
+          .map(badSmellRepository::save)
+          .collect()
+          .with(Collectors.counting())
+          .subscribe()
+          .with(
+              badSmell ->
+                  logger.atInfo().log(
+                      "Persisted %d qodana bad smells for project %s", badSmell, project.name()));
     }
+  }
 
-    void persistResults(CodeAnalyzerResult result) {
-        if (result instanceof CodeAnalyzerResult.Success success) {
-            logger.atInfo().log(
-                    "Persisting %s results for project %s",
-                    success.results().size(), success.project().name());
-            Project project = success.project();
-            Multi.createFrom()
-                    .iterable(success.results())
-                    .map(badSmell -> new BadSmell(badSmell, project.name(), project.url(), project.commitHash()))
-                    .filter(v -> badSmellRepository
-                            .findByIdentifier(v.getIdentifier())
-                            .isEmpty())
-                    .map(badSmellRepository::save)
-                    .collect()
-                    .with(Collectors.counting())
-                    .subscribe()
-                    .with(badSmell ->
-                            logger.atInfo().log("Persisted %d bad smells for project %s", badSmell, project.name()));
-        }
+  void persistResults(CodeAnalyzerResult result) {
+    if (result instanceof CodeAnalyzerResult.Success success) {
+      logger.atInfo().log(
+          "Persisting %s results for project %s",
+          success.results().size(), success.project().name());
+      Project project = success.project();
+      Multi.createFrom()
+          .iterable(success.results())
+          .map(
+              badSmell ->
+                  new BadSmell(badSmell, project.name(), project.url(), project.commitHash()))
+          .filter(v -> badSmellRepository.findByIdentifier(v.getIdentifier()).isEmpty())
+          .map(badSmellRepository::save)
+          .collect()
+          .with(Collectors.counting())
+          .subscribe()
+          .with(
+              badSmell ->
+                  logger.atInfo().log(
+                      "Persisted %d bad smells for project %s", badSmell, project.name()));
     }
+  }
 }

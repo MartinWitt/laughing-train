@@ -4,5 +4,5 @@ import io.github.martinwitt.laughing_train.domain.value.RuleId;
 
 public interface AnalyzerRule {
 
-    RuleId getRuleId();
+  RuleId getRuleId();
 }

@@ -13,63 +13,63 @@ import spoon.support.compiler.VirtualFile;
 
 public class NonProtectedConstructorInAbstractClassAnalyzerTest {
 
-    @Test
-    public void testNonAbstractClass() {
-        // Create a Spoon launcher
-        Launcher launcher = new Launcher();
-        String code = """
+  @Test
+  public void testNonAbstractClass() {
+    // Create a Spoon launcher
+    Launcher launcher = new Launcher();
+    String code = """
             public  class SimpleClass {
             }
             """;
-        // Add the source directory to the classpath
-        launcher.addInputResource(new VirtualFile(code));
+    // Add the source directory to the classpath
+    launcher.addInputResource(new VirtualFile(code));
 
-        // Build the Spoon model
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
+    // Build the Spoon model
+    launcher.buildModel();
+    CtModel model = launcher.getModel();
 
-        // Get the CtClass object for the SimpleClass class
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    // Get the CtClass object for the SimpleClass class
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
 
-        // Create an instance of the InnerClassMayBeStaticAnalyzer class
-        LocalAnalyzer analyzer = new NonProtectedConstructorInAbstractClassAnalyzer();
+    // Create an instance of the InnerClassMayBeStaticAnalyzer class
+    LocalAnalyzer analyzer = new NonProtectedConstructorInAbstractClassAnalyzer();
 
-        // Analyze the SimpleClass class for bad smells
-        List<BadSmell> badSmells = analyzer.analyze(simpleClass);
+    // Analyze the SimpleClass class for bad smells
+    List<BadSmell> badSmells = analyzer.analyze(simpleClass);
 
-        // Check that no bad smells were found
-        assertEquals(0, badSmells.size());
-    }
+    // Check that no bad smells were found
+    assertEquals(0, badSmells.size());
+  }
 
-    @Test
-    public void testAbstractClass() {
-        // Create a Spoon launcher
-        Launcher launcher = new Launcher();
-        String code =
-                """
+  @Test
+  public void testAbstractClass() {
+    // Create a Spoon launcher
+    Launcher launcher = new Launcher();
+    String code =
+        """
                 public abstract class SimpleClass {
 
                   public SimpleClass() {
                   }
           }
           """;
-        // Add the source directory to the classpath
-        launcher.addInputResource(new VirtualFile(code));
+    // Add the source directory to the classpath
+    launcher.addInputResource(new VirtualFile(code));
 
-        // Build the Spoon model
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
+    // Build the Spoon model
+    launcher.buildModel();
+    CtModel model = launcher.getModel();
 
-        // Get the CtClass object for the SimpleClass class
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    // Get the CtClass object for the SimpleClass class
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
 
-        // Create an instance of the InnerClassMayBeStaticAnalyzer class
-        LocalAnalyzer analyzer = new NonProtectedConstructorInAbstractClassAnalyzer();
+    // Create an instance of the InnerClassMayBeStaticAnalyzer class
+    LocalAnalyzer analyzer = new NonProtectedConstructorInAbstractClassAnalyzer();
 
-        // Analyze the SimpleClass class for bad smells
-        List<BadSmell> badSmells = analyzer.analyze(simpleClass);
+    // Analyze the SimpleClass class for bad smells
+    List<BadSmell> badSmells = analyzer.analyze(simpleClass);
 
-        // Check that no bad smells were found
-        assertEquals(1, badSmells.size());
-    }
+    // Check that no bad smells were found
+    assertEquals(1, badSmells.size());
+  }
 }

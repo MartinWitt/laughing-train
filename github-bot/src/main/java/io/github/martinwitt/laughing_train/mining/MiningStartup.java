@@ -13,48 +13,55 @@ import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 public class MiningStartup {
 
-    public static final String SERVICE_NAME = "miningStartup";
+  public static final String SERVICE_NAME = "miningStartup";
 
-    final Vertx vertx;
-    final AnalyzerResultsPersistence persistence;
-    final ProjectSupplier projectSupplier;
-    final QodanaPeriodicMiner qodanaPeriodicMiner;
-    final SpoonPeriodicMiner spoonPeriodicMiner;
+  final Vertx vertx;
+  final AnalyzerResultsPersistence persistence;
+  final ProjectSupplier projectSupplier;
+  final QodanaPeriodicMiner qodanaPeriodicMiner;
+  final SpoonPeriodicMiner spoonPeriodicMiner;
 
-    @Inject
-    public MiningStartup(
-            Vertx vertx,
-            AnalyzerResultsPersistence persistence,
-            ProjectSupplier projectSupplier,
-            QodanaPeriodicMiner qodanaPeriodicMiner,
-            SpoonPeriodicMiner spoonPeriodicMiner) {
-        this.vertx = vertx;
-        this.persistence = persistence;
-        this.projectSupplier = projectSupplier;
-        this.qodanaPeriodicMiner = qodanaPeriodicMiner;
-        this.spoonPeriodicMiner = spoonPeriodicMiner;
-    }
+  @Inject
+  public MiningStartup(
+      Vertx vertx,
+      AnalyzerResultsPersistence persistence,
+      ProjectSupplier projectSupplier,
+      QodanaPeriodicMiner qodanaPeriodicMiner,
+      SpoonPeriodicMiner spoonPeriodicMiner) {
+    this.vertx = vertx;
+    this.persistence = persistence;
+    this.projectSupplier = projectSupplier;
+    this.qodanaPeriodicMiner = qodanaPeriodicMiner;
+    this.spoonPeriodicMiner = spoonPeriodicMiner;
+  }
 
-    void startup(@Observes StartupEvent event) {
-        DeploymentOptions options = new DeploymentOptions().setWorker(true);
-        Future.join(
-                        // vertx.deployVerticle(qodanaPeriodicMiner, options),
-                        vertx.deployVerticle(spoonPeriodicMiner, options),
-                        vertx.deployVerticle(persistence, options),
-                        vertx.deployVerticle(projectSupplier, options))
-                .onFailure(Throwable::printStackTrace)
-                .onComplete(v -> System.out.println("All verticles deployed"))
-                .onSuccess(v -> startMining());
-        vertx.eventBus().addInboundInterceptor(v -> {
-            System.out.println("Received message: " + v.toString());
-            v.next();
-        });
-    }
+  void startup(@Observes StartupEvent event) {
+    DeploymentOptions options = new DeploymentOptions().setWorker(true);
+    Future.join(
+            // vertx.deployVerticle(qodanaPeriodicMiner, options),
+            vertx.deployVerticle(spoonPeriodicMiner, options),
+            vertx.deployVerticle(persistence, options),
+            vertx.deployVerticle(projectSupplier, options))
+        .onFailure(Throwable::printStackTrace)
+        .onComplete(v -> System.out.println("All verticles deployed"))
+        .onSuccess(v -> startMining());
+    vertx
+        .eventBus()
+        .addInboundInterceptor(
+            v -> {
+              System.out.println("Received message: " + v.toString());
+              v.next();
+            });
+  }
 
-    private void startMining() {
-        // vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.eventBus()
-        //         .publish("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
-        vertx.setTimer(TimeUnit.MINUTES.toMillis(2), v -> vertx.eventBus()
+  private void startMining() {
+    // vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.eventBus()
+    //         .publish("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
+    vertx.setTimer(
+        TimeUnit.MINUTES.toMillis(2),
+        v ->
+            vertx
+                .eventBus()
                 .publish("miner", new MineNextProject(SpoonPeriodicMiner.ANALYZER_NAME)));
-    }
+  }
 }

@@ -20,84 +20,81 @@ import org.eclipse.microprofile.graphql.Query;
 @RequestScoped
 public class BadSmellGraphQL {
 
-    @Inject
-    BadSmellRepository badSmellRepository;
+  @Inject BadSmellRepository badSmellRepository;
 
-    @Inject
-    GetFixableBadSmells getFixableBadSmells;
+  @Inject GetFixableBadSmells getFixableBadSmells;
 
-    @Inject
-    ProjectRepository projectRepository;
+  @Inject ProjectRepository projectRepository;
 
-    @Query("byRuleID")
-    @Description("Gets all bad smells from the database by ruleID")
-    public List<BadSmellGraphQLDto> getAllBadSmellsByRuleID(@Name("ruleID") String ruleID) {
-        return badSmellRepository.findByRuleID(new RuleId(ruleID)).stream()
-                .map(this::mapToDto)
-                .toList();
+  @Query("byRuleID")
+  @Description("Gets all bad smells from the database by ruleID")
+  public List<BadSmellGraphQLDto> getAllBadSmellsByRuleID(@Name("ruleID") String ruleID) {
+    return badSmellRepository.findByRuleID(new RuleId(ruleID)).stream()
+        .map(this::mapToDto)
+        .toList();
+  }
+
+  @Query("byRuleIDAndAnalyzerAndCommitHash")
+  @Description("Gets all bad smells from the database by ruleID and analyzer and commitHash")
+  public List<BadSmellGraphQLDto> getBadSmellsByRuleIdAndAnalyzer(
+      @Name("ruleID") String ruleID,
+      @Name("analyzer") String analyzer,
+      @Name("commitHash") String commitHash) {
+    return badSmellRepository.findByCommitHash(commitHash, analyzer, ruleID).stream()
+        .map(this::mapToDto)
+        .toList();
+  }
+
+  @Query("byAndAnalyzerAndCommitHash")
+  @Description("Gets all bad smells from the database by analyzer and commitHash")
+  public List<BadSmellGraphQLDto> getBadSmellsByRuleIdAndAnalyzer(
+      @Name("analyzer") String analyzer, @Name("commitHash") String commitHash) {
+    return badSmellRepository.findByCommitHash(commitHash, analyzer).stream()
+        .map(this::mapToDto)
+        .toList();
+  }
+
+  @Query("byProjectName")
+  @Description("Gets all bad smells from the database by projectName")
+  public List<BadSmellGraphQLDto> getAllBadSmellsByProjectName(
+      @Name("projectName") String projectName) {
+    return badSmellRepository.findByProjectName(projectName).stream().map(this::mapToDto).toList();
+  }
+
+  @Query("byCommitHash")
+  @Description("Gets all bad smells from the database by commitHash")
+  public List<BadSmellGraphQLDto> getAllBadSmellsByCommitHash(
+      @Name("commitHash") String commitHash) {
+    return badSmellRepository.findByCommitHash(commitHash).stream().map(this::mapToDto).toList();
+  }
+
+  @Query("byIdentifier")
+  @Description("Gets all bad smells from the database by identifier")
+  public List<BadSmellGraphQLDto> getAllBadSmellsByIdentifier(
+      @Name("identifier") String identifier) {
+    return badSmellRepository.findByIdentifier(identifier).stream().map(this::mapToDto).toList();
+  }
+
+  @Query("fixableByProjectName")
+  @Description("Gets all fixable bad smells from the database by projectUrl")
+  public List<BadSmellGraphQLDto> getAllFixableBadSmellsByProjectUrl(
+      @Name("projectUrl") String projectUrl) {
+    var projects = projectRepository.findByProjectUrl(projectUrl);
+    if (projects.isEmpty()) {
+      return List.of();
     }
+    return getFixableBadSmells.getFixableBadSmells(projects.get(0)).stream()
+        .map(this::mapToDto)
+        .toList();
+  }
 
-    @Query("byRuleIDAndAnalyzerAndCommitHash")
-    @Description("Gets all bad smells from the database by ruleID and analyzer and commitHash")
-    public List<BadSmellGraphQLDto> getBadSmellsByRuleIdAndAnalyzer(
-            @Name("ruleID") String ruleID, @Name("analyzer") String analyzer, @Name("commitHash") String commitHash) {
-        return badSmellRepository.findByCommitHash(commitHash, analyzer, ruleID).stream()
-                .map(this::mapToDto)
-                .toList();
-    }
+  @Query("fixableBadSmells")
+  @Description("Gets all fixable bad smells rules")
+  public List<String> getAllFixableBadSmells() {
+    return Arrays.stream(SpoonRules.values()).map(SpoonRules::getRuleID).toList();
+  }
 
-    @Query("byAndAnalyzerAndCommitHash")
-    @Description("Gets all bad smells from the database by analyzer and commitHash")
-    public List<BadSmellGraphQLDto> getBadSmellsByRuleIdAndAnalyzer(
-            @Name("analyzer") String analyzer, @Name("commitHash") String commitHash) {
-        return badSmellRepository.findByCommitHash(commitHash, analyzer).stream()
-                .map(this::mapToDto)
-                .toList();
-    }
-
-    @Query("byProjectName")
-    @Description("Gets all bad smells from the database by projectName")
-    public List<BadSmellGraphQLDto> getAllBadSmellsByProjectName(@Name("projectName") String projectName) {
-        return badSmellRepository.findByProjectName(projectName).stream()
-                .map(this::mapToDto)
-                .toList();
-    }
-
-    @Query("byCommitHash")
-    @Description("Gets all bad smells from the database by commitHash")
-    public List<BadSmellGraphQLDto> getAllBadSmellsByCommitHash(@Name("commitHash") String commitHash) {
-        return badSmellRepository.findByCommitHash(commitHash).stream()
-                .map(this::mapToDto)
-                .toList();
-    }
-
-    @Query("byIdentifier")
-    @Description("Gets all bad smells from the database by identifier")
-    public List<BadSmellGraphQLDto> getAllBadSmellsByIdentifier(@Name("identifier") String identifier) {
-        return badSmellRepository.findByIdentifier(identifier).stream()
-                .map(this::mapToDto)
-                .toList();
-    }
-
-    @Query("fixableByProjectName")
-    @Description("Gets all fixable bad smells from the database by projectUrl")
-    public List<BadSmellGraphQLDto> getAllFixableBadSmellsByProjectUrl(@Name("projectUrl") String projectUrl) {
-        var projects = projectRepository.findByProjectUrl(projectUrl);
-        if (projects.isEmpty()) {
-            return List.of();
-        }
-        return getFixableBadSmells.getFixableBadSmells(projects.get(0)).stream()
-                .map(this::mapToDto)
-                .toList();
-    }
-
-    @Query("fixableBadSmells")
-    @Description("Gets all fixable bad smells rules")
-    public List<String> getAllFixableBadSmells() {
-        return Arrays.stream(SpoonRules.values()).map(SpoonRules::getRuleID).toList();
-    }
-
-    private BadSmellGraphQLDto mapToDto(BadSmell badSmell) {
-        return new BadSmellGraphQLDto(badSmell);
-    }
+  private BadSmellGraphQLDto mapToDto(BadSmell badSmell) {
+    return new BadSmellGraphQLDto(badSmell);
+  }
 }

@@ -5,21 +5,21 @@ import java.util.List;
 
 public interface ProjectRepository {
 
-    List<RemoteProject> getAll();
+  List<RemoteProject> getAll();
 
-    List<RemoteProject> findByProjectName(String projectName);
+  List<RemoteProject> findByProjectName(String projectName);
 
-    boolean existsByProjectName(String projectName);
+  boolean existsByProjectName(String projectName);
 
-    long deleteByProjectName(String projectName);
+  long deleteByProjectName(String projectName);
 
-    List<RemoteProject> findByProjectUrl(String projectUrl);
+  List<RemoteProject> findByProjectUrl(String projectUrl);
 
-    boolean existsByProjectUrl(String projectUrl);
+  boolean existsByProjectUrl(String projectUrl);
 
-    long deleteByProjectUrl(String projectUrl);
+  long deleteByProjectUrl(String projectUrl);
 
-    RemoteProject create(RemoteProject project);
+  RemoteProject create(RemoteProject project);
 
-    RemoteProject save(RemoteProject project);
+  RemoteProject save(RemoteProject project);
 }

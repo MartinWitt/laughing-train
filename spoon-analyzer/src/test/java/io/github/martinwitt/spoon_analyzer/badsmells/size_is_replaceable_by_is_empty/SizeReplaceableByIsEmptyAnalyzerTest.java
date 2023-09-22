@@ -9,10 +9,10 @@ import spoon.Launcher;
 import spoon.support.compiler.VirtualFile;
 
 public class SizeReplaceableByIsEmptyAnalyzerTest {
-    @Test
-    void simpleSizeIsZero() {
-        String code =
-                """
+  @Test
+  void simpleSizeIsZero() {
+    String code =
+        """
         class A {
           public void a() {
             List<String> list = new ArrayList<>();
@@ -22,11 +22,11 @@ public class SizeReplaceableByIsEmptyAnalyzerTest {
           }
         }
         """;
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        SizeReplaceableByIsEmptyAnalyzer analyzer = new SizeReplaceableByIsEmptyAnalyzer();
-        List<BadSmell> analyze =
-                analyzer.analyze(launcher.buildModel().getAllTypes().iterator().next());
-        Assertions.assertEquals(1, analyze.size());
-    }
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    SizeReplaceableByIsEmptyAnalyzer analyzer = new SizeReplaceableByIsEmptyAnalyzer();
+    List<BadSmell> analyze =
+        analyzer.analyze(launcher.buildModel().getAllTypes().iterator().next());
+    Assertions.assertEquals(1, analyze.size());
+  }
 }

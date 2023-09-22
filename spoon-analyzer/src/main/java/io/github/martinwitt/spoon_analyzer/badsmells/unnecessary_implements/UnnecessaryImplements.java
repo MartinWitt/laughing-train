@@ -7,66 +7,79 @@ import spoon.reflect.reference.CtTypeReference;
 
 public class UnnecessaryImplements implements BadSmell {
 
-    private final String name = "UnnecessaryImplements";
-    private final String description = "This class has 1 or more interfaces which are already implemented.";
+  private final String name = "UnnecessaryImplements";
+  private final String description =
+      "This class has 1 or more interfaces which are already implemented.";
 
-    private final CtTypeReference<?> lowerType;
-    private final CtTypeReference<?> notNeededImplements;
-    private final CtType<?> affectedType;
+  private final CtTypeReference<?> lowerType;
+  private final CtTypeReference<?> notNeededImplements;
+  private final CtType<?> affectedType;
 
-    public UnnecessaryImplements(
-            CtTypeReference<?> lowerType, CtTypeReference<?> notNeededImplements, CtType<?> affectedType) {
-        this.lowerType = lowerType;
-        this.notNeededImplements = notNeededImplements;
-        this.affectedType = affectedType;
-    }
+  public UnnecessaryImplements(
+      CtTypeReference<?> lowerType,
+      CtTypeReference<?> notNeededImplements,
+      CtType<?> affectedType) {
+    this.lowerType = lowerType;
+    this.notNeededImplements = notNeededImplements;
+    this.affectedType = affectedType;
+  }
 
-    @Override
-    public String getName() {
-        return name;
-    }
+  @Override
+  public String getName() {
+    return name;
+  }
 
-    @Override
-    public String getDescription() {
-        return description;
-    }
+  @Override
+  public String getDescription() {
+    return description;
+  }
 
-    @Override
-    public CtType<?> getAffectedType() {
-        return affectedType;
-    }
-    /**
-     * @return the lowerType
-     */
-    public CtTypeReference<?> getLowerType() {
-        return lowerType;
-    }
-    /**
-     * @return the notNeededImplements
-     */
-    public CtTypeReference<?> getNotNeededImplements() {
-        return notNeededImplements;
-    }
+  @Override
+  public CtType<?> getAffectedType() {
+    return affectedType;
+  }
 
-    @Override
-    public String toString() {
-        return "UnnecessaryImplements [name=" + name + ", description=" + description
-                + ", lowerType=" + lowerType + ", notNeededImplements=" + notNeededImplements
-                + ", affectedType=" + affectedType.getQualifiedName() + "]";
-    }
+  /**
+   * @return the lowerType
+   */
+  public CtTypeReference<?> getLowerType() {
+    return lowerType;
+  }
 
-    @Override
-    public void fix() {
-        new UnnecessaryImplementsAnalyzer().refactor(this);
-    }
+  /**
+   * @return the notNeededImplements
+   */
+  public CtTypeReference<?> getNotNeededImplements() {
+    return notNeededImplements;
+  }
 
-    @Override
-    public boolean isFixable() {
-        return true;
-    }
+  @Override
+  public String toString() {
+    return "UnnecessaryImplements [name="
+        + name
+        + ", description="
+        + description
+        + ", lowerType="
+        + lowerType
+        + ", notNeededImplements="
+        + notNeededImplements
+        + ", affectedType="
+        + affectedType.getQualifiedName()
+        + "]";
+  }
 
-    @Override
-    public <T> T accept(BadSmellVisitor<T> visitor) {
-        return visitor.visit(this);
-    }
+  @Override
+  public void fix() {
+    new UnnecessaryImplementsAnalyzer().refactor(this);
+  }
+
+  @Override
+  public boolean isFixable() {
+    return true;
+  }
+
+  @Override
+  public <T> T accept(BadSmellVisitor<T> visitor) {
+    return visitor.visit(this);
+  }
 }

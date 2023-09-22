@@ -33,102 +33,105 @@ import xyz.keksdose.spoon.code_solver.transformations.self.ThreadLocalWithInitia
 
 public class TransformationEngine {
 
-    private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
-    private List<Function<ChangeListener, TransformationProcessor<?>>> processors;
-    private IPrinting printing;
-    private ChangeListener changeListener;
+  private static final FluentLogger LOGGER = FluentLogger.forEnclosingClass();
+  private List<Function<ChangeListener, TransformationProcessor<?>>> processors;
+  private IPrinting printing;
+  private ChangeListener changeListener;
 
-    public TransformationEngine(List<Function<ChangeListener, TransformationProcessor<?>>> processors) {
-        this.processors = processors;
-    }
+  public TransformationEngine(
+      List<Function<ChangeListener, TransformationProcessor<?>>> processors) {
+    this.processors = processors;
+  }
 
-    public TransformationEngine() {
-        this.processors = List.of(
-                StringBuilderDirectUse::new,
-                ThreadLocalWithInitial::new,
-                TempoaryFolderAsParameter::new,
-                EmptyStringCheck::new,
-                ArraysToString::new,
-                Junit4AnnotationsTransformation::new,
-                TestAnnotation::new,
-                AssertionsTransformation::new,
-                AssertThatTransformation::new,
-                ExpectedExceptionRemoval::new,
-                StaticAccess::new,
-                InnerClassStatic::new,
-                PrimitiveToString::new);
-    }
+  public TransformationEngine() {
+    this.processors =
+        List.of(
+            StringBuilderDirectUse::new,
+            ThreadLocalWithInitial::new,
+            TempoaryFolderAsParameter::new,
+            EmptyStringCheck::new,
+            ArraysToString::new,
+            Junit4AnnotationsTransformation::new,
+            TestAnnotation::new,
+            AssertionsTransformation::new,
+            AssertThatTransformation::new,
+            ExpectedExceptionRemoval::new,
+            StaticAccess::new,
+            InnerClassStatic::new,
+            PrimitiveToString::new);
+  }
 
-    public void setChangeListener(ChangeListener changeListener) {
-        this.changeListener = changeListener;
-    }
+  public void setChangeListener(ChangeListener changeListener) {
+    this.changeListener = changeListener;
+  }
 
-    public TransformationEngine setPrinting(IPrinting printing) {
-        this.printing = printing;
-        return this;
-    }
+  public TransformationEngine setPrinting(IPrinting printing) {
+    this.printing = printing;
+    return this;
+  }
 
-    public Changelog applyToGivenPath(String path) {
-        LOGGER.atInfo().log("Applying transformations to %s with %s processors", path, processors.size());
-        Launcher launcher = new Launcher();
-        Environment environment = EnvironmentOptions.setEnvironmentOptions(launcher);
-        addInput(path, launcher);
-        CtModel model = launcher.buildModel();
-        LOGGER.atInfo().log("Model built");
-        PrinterCreation.setPrettyPrinter(environment, model);
-        if (printing == null) {
-            printing = new ChangedTypePrinting(environment.createPrettyPrinter());
-        }
-        if (changeListener == null) {
-            changeListener = new ChangeListener();
-        }
-        ProcessingManager pm = new RepeatingProcessingManager(launcher.getFactory(), changeListener);
-        addProcessors(pm, changeListener);
-        pm.process(model.getAllTypes());
-        Collection<CtType<?>> newTypes = model.getAllTypes();
-        LOGGER.atInfo().log("Applying transformations to %s done", path);
-        LOGGER.atInfo().log(
-                "%s Changes found", changeListener.getChangelog().getChanges().size());
-        printing.printChangedTypes(changeListener, newTypes);
-        return changeListener.getChangelog();
+  public Changelog applyToGivenPath(String path) {
+    LOGGER.atInfo().log(
+        "Applying transformations to %s with %s processors", path, processors.size());
+    Launcher launcher = new Launcher();
+    Environment environment = EnvironmentOptions.setEnvironmentOptions(launcher);
+    addInput(path, launcher);
+    CtModel model = launcher.buildModel();
+    LOGGER.atInfo().log("Model built");
+    PrinterCreation.setPrettyPrinter(environment, model);
+    if (printing == null) {
+      printing = new ChangedTypePrinting(environment.createPrettyPrinter());
     }
+    if (changeListener == null) {
+      changeListener = new ChangeListener();
+    }
+    ProcessingManager pm = new RepeatingProcessingManager(launcher.getFactory(), changeListener);
+    addProcessors(pm, changeListener);
+    pm.process(model.getAllTypes());
+    Collection<CtType<?>> newTypes = model.getAllTypes();
+    LOGGER.atInfo().log("Applying transformations to %s done", path);
+    LOGGER.atInfo().log("%s Changes found", changeListener.getChangelog().getChanges().size());
+    printing.printChangedTypes(changeListener, newTypes);
+    return changeListener.getChangelog();
+  }
 
-    protected void addInput(String path, Launcher launcher) {
-        launcher.addInputResource(path);
-    }
+  protected void addInput(String path, Launcher launcher) {
+    launcher.addInputResource(path);
+  }
 
-    private void addProcessors(ProcessingManager pm, ChangeListener listener) {
-        processors.forEach(p -> pm.addProcessor(p.apply(listener)));
-    }
+  private void addProcessors(ProcessingManager pm, ChangeListener listener) {
+    processors.forEach(p -> pm.addProcessor(p.apply(listener)));
+  }
 
-    public Changelog applyToGivenPath(String path, String typeName) {
-        LOGGER.atInfo().log("Applying transformations to %s with %s processors", path, processors.size());
-        Launcher launcher = new Launcher();
-        Environment environment = EnvironmentOptions.setEnvironmentOptions(launcher);
-        addInput(path, launcher);
-        CtModel model = launcher.buildModel();
-        PrinterCreation.setPrettyPrinter(environment, model);
-        if (printing == null) {
-            printing = new ChangedTypePrinting(environment.createPrettyPrinter());
-        }
-        if (changeListener == null) {
-            changeListener = new ChangeListener();
-        }
-        ProcessingManager pm = new RepeatingProcessingManager(launcher.getFactory(), changeListener);
-        Collection<CtType<?>> newTypes = getTypesWithName(typeName, model);
-        addProcessors(pm, changeListener);
-        pm.process(newTypes);
-        printing.printChangedTypes(changeListener, newTypes);
-        return changeListener.getChangelog();
+  public Changelog applyToGivenPath(String path, String typeName) {
+    LOGGER.atInfo().log(
+        "Applying transformations to %s with %s processors", path, processors.size());
+    Launcher launcher = new Launcher();
+    Environment environment = EnvironmentOptions.setEnvironmentOptions(launcher);
+    addInput(path, launcher);
+    CtModel model = launcher.buildModel();
+    PrinterCreation.setPrettyPrinter(environment, model);
+    if (printing == null) {
+      printing = new ChangedTypePrinting(environment.createPrettyPrinter());
     }
+    if (changeListener == null) {
+      changeListener = new ChangeListener();
+    }
+    ProcessingManager pm = new RepeatingProcessingManager(launcher.getFactory(), changeListener);
+    Collection<CtType<?>> newTypes = getTypesWithName(typeName, model);
+    addProcessors(pm, changeListener);
+    pm.process(newTypes);
+    printing.printChangedTypes(changeListener, newTypes);
+    return changeListener.getChangelog();
+  }
 
-    private static List<CtType<?>> getTypesWithName(String typeName, CtModel model) {
-        return model.getAllTypes().stream()
-                .filter(v -> v.getSimpleName().equals(typeName))
-                .collect(Collectors.toList());
-    }
+  private static List<CtType<?>> getTypesWithName(String typeName, CtModel model) {
+    return model.getAllTypes().stream()
+        .filter(v -> v.getSimpleName().equals(typeName))
+        .collect(Collectors.toList());
+  }
 
-    public void addProcessor(Function<ChangeListener, TransformationProcessor<?>> processor) {
-        processors.add(processor);
-    }
+  public void addProcessor(Function<ChangeListener, TransformationProcessor<?>> processor) {
+    processors.add(processor);
+  }
 }

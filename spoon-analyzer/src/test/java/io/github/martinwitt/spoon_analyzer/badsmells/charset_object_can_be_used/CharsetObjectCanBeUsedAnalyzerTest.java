@@ -10,10 +10,10 @@ import spoon.support.compiler.VirtualFile;
 
 public class CharsetObjectCanBeUsedAnalyzerTest {
 
-    @Test
-    void testMethodCalls() {
-        String code =
-                """
+  @Test
+  void testMethodCalls() {
+    String code =
+        """
           import java.io.ByteArrayOutputStream;
           import java.io.OutputStream;
           import java.net.URLDecoder;
@@ -33,19 +33,19 @@ public class CharsetObjectCanBeUsedAnalyzerTest {
                 }
             }
                 """;
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        var result = analyzer.analyze(simpleClass);
-        assertEquals(1, result.size());
-    }
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    var result = analyzer.analyze(simpleClass);
+    assertEquals(1, result.size());
+  }
 
-    @Test
-    void testByteArrayOutputStream() {
-        String code =
-                """
+  @Test
+  void testByteArrayOutputStream() {
+    String code =
+        """
           import java.io.ByteArrayOutputStream;
           import java.io.OutputStream;
           import java.net.URLDecoder;
@@ -68,19 +68,19 @@ public class CharsetObjectCanBeUsedAnalyzerTest {
                 }
             }
                 """;
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        var result = analyzer.analyze(simpleClass);
-        assertEquals(1, result.size());
-    }
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    var result = analyzer.analyze(simpleClass);
+    assertEquals(1, result.size());
+  }
 
-    @Test
-    void testURLDecoder() {
-        String code =
-                """
+  @Test
+  void testURLDecoder() {
+    String code =
+        """
           import java.io.ByteArrayOutputStream;
           import java.io.OutputStream;
           import java.net.URLDecoder;
@@ -100,19 +100,19 @@ public class CharsetObjectCanBeUsedAnalyzerTest {
                 }
             }
                 """;
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        var result = analyzer.analyze(simpleClass);
-        assertEquals(1, result.size());
-    }
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    var result = analyzer.analyze(simpleClass);
+    assertEquals(1, result.size());
+  }
 
-    @Test
-    void testUrlEncoder() {
-        String code =
-                """
+  @Test
+  void testUrlEncoder() {
+    String code =
+        """
           import java.io.ByteArrayOutputStream;
           import java.io.OutputStream;
           import java.net.URLDecoder;
@@ -133,19 +133,19 @@ public class CharsetObjectCanBeUsedAnalyzerTest {
                 }
             }
                 """;
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        var result = analyzer.analyze(simpleClass);
-        assertEquals(1, result.size());
-    }
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    var result = analyzer.analyze(simpleClass);
+    assertEquals(1, result.size());
+  }
 
-    @Test
-    void testNewWriter() {
-        String code =
-                """
+  @Test
+  void testNewWriter() {
+    String code =
+        """
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -167,19 +167,19 @@ import java.nio.channels.WritableByteChannel;
             }
         }
             """;
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        var result = analyzer.analyze(simpleClass);
-        assertEquals(1, result.size());
-    }
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    var result = analyzer.analyze(simpleClass);
+    assertEquals(1, result.size());
+  }
 
-    @Test
-    void teststoreToXML() {
-        String code =
-                """
+  @Test
+  void teststoreToXML() {
+    String code =
+        """
           import java.io.ByteArrayOutputStream;
           import java.io.OutputStream;
           import java.net.URLDecoder;
@@ -201,19 +201,19 @@ import java.nio.channels.WritableByteChannel;
                 }
             }
                 """;
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        var result = analyzer.analyze(simpleClass);
-        assertEquals(1, result.size());
-    }
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    var result = analyzer.analyze(simpleClass);
+    assertEquals(1, result.size());
+  }
 
-    @Test
-    void testFileWriter() {
-        String code =
-                """
+  @Test
+  void testFileWriter() {
+    String code =
+        """
                 import java.io.File;
                 import java.util.Scanner;
                 class Foo {
@@ -224,20 +224,20 @@ import java.nio.channels.WritableByteChannel;
                   }
                 }
                 """;
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        System.out.println(simpleClass);
-        var result = analyzer.analyze(simpleClass);
-        assertEquals(1, result.size());
-    }
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    System.out.println(simpleClass);
+    var result = analyzer.analyze(simpleClass);
+    assertEquals(1, result.size());
+  }
 
-    @Test
-    void testRefactorFileWriter() {
-        String code =
-                """
+  @Test
+  void testRefactorFileWriter() {
+    String code =
+        """
           import java.io.File;
           import java.util.Scanner;
           class Foo {
@@ -248,14 +248,15 @@ import java.nio.channels.WritableByteChannel;
             }
           }
           """;
-        Launcher launcher = new Launcher();
-        launcher.addInputResource(new VirtualFile(code));
-        var model = launcher.buildModel();
-        CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
-        var result = analyzer.analyze(simpleClass);
-        assertEquals(1, result.size());
-        result.get(0).fix();
-        Assertions.assertThat(simpleClass.toString()).contains("java.nio.charset.StandardCharsets.UTF_8");
-    }
+    Launcher launcher = new Launcher();
+    launcher.addInputResource(new VirtualFile(code));
+    var model = launcher.buildModel();
+    CharsetObjectCanBeUsedAnalyzer analyzer = new CharsetObjectCanBeUsedAnalyzer();
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    var result = analyzer.analyze(simpleClass);
+    assertEquals(1, result.size());
+    result.get(0).fix();
+    Assertions.assertThat(simpleClass.toString())
+        .contains("java.nio.charset.StandardCharsets.UTF_8");
+  }
 }

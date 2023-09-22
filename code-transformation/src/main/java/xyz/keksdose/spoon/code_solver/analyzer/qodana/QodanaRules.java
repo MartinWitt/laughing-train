@@ -29,49 +29,51 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.UtilityClassWithoutP
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public enum QodanaRules implements AnalyzerRule {
-    METHOD_MAY_BE_STATIC("MethodMayBeStatic", MethodMayBeStatic::new),
-    NON_PROTECTED_CONSTRUCTOR_IN_ABSTRACT_CLASS(
-            "NonProtectedConstructorInAbstractClass", NonProtectedConstructorInAbstractClass::new),
-    NON_STRICT_COMPARISON_CAN_BE_EQUALITY("NonStrictComparisonCanBeEquality", NonStrictComparisonCanBeEquality::new),
-    PARAMETER_NAME_DIFFERS_FROM_OVERRIDDEN_PARAMETER(
-            "ParameterNameDiffersFromOverriddenParameter", ParameterNameDiffersFromOverriddenParameter::new),
-    SIZE_REPLACEABLE_BY_IS_EMPTY("SizeReplaceableByIsEmpty", SizeReplaceableByIsEmpty::new),
-    UNNECESSARY_INTERFACE_MODIFIER("UnnecessaryInterfaceModifier", UnnecessaryInterfaceModifier::new),
-    UNNECESSARY_LOCAL_VARIABLE("UnnecessaryLocalVariable", UnnecessaryLocalVariable::new),
-    UNNECESSARY_RETURN("UnnecessaryReturn", UnnecessaryReturn::new),
-    UNNECESSARY_TO_STRING_CALL("UnnecessaryToStringCall", UnnecessaryToStringCall::new),
-    UNUSED_IMPORT("UnusedImport", UnusedImport::new),
-    PROTECTED_MEMBER_IN_FINAL_CLASS("ProtectedMemberInFinalClass", ProtectedMemberInFinalClass::new),
-    UNNECESSARY_MODIFIER("UnnecessaryModifier", UnnecessaryModifier::new),
-    POINTLESS_BOOLEAN_EXPRESSION("PointlessBooleanExpression", PointlessBooleanExpression::new),
-    INNER_CLASS_MAY_BE_STATIC("InnerClassMayBeStatic", InnerClassMayBeStatic::new),
-    TO_ARRAY_CALL_WITH_ZERO_LENGTH_ARRAY_ARGUMENT(
-            "ToArrayCallWithZeroLengthArrayArgument", ToArrayCallWithZeroLengthArrayArgument::new),
-    UNUSED_LABEL("UnusedLabel", UnusedLabel::new),
-    UTILITY_CLASS_WITHOUT_PRIVATE_CONSTRUCTOR(
-            "UtilityClassWithoutPrivateConstructor", UtilityClassWithoutPrivateConstructor::new),
-    CODE_BLOCK_2_EXPR("CodeBlock2Expr", CodeBlock2Expr::new),
-    REDUNDANT_ARRAY_CREATION("RedundantArrayCreation", RedundantArrayCreation::new),
-    UNNECESSARY_STRING_ESCAPE("UnnecessaryStringEscape", UnnecessaryStringEscape::new);
+  METHOD_MAY_BE_STATIC("MethodMayBeStatic", MethodMayBeStatic::new),
+  NON_PROTECTED_CONSTRUCTOR_IN_ABSTRACT_CLASS(
+      "NonProtectedConstructorInAbstractClass", NonProtectedConstructorInAbstractClass::new),
+  NON_STRICT_COMPARISON_CAN_BE_EQUALITY(
+      "NonStrictComparisonCanBeEquality", NonStrictComparisonCanBeEquality::new),
+  PARAMETER_NAME_DIFFERS_FROM_OVERRIDDEN_PARAMETER(
+      "ParameterNameDiffersFromOverriddenParameter",
+      ParameterNameDiffersFromOverriddenParameter::new),
+  SIZE_REPLACEABLE_BY_IS_EMPTY("SizeReplaceableByIsEmpty", SizeReplaceableByIsEmpty::new),
+  UNNECESSARY_INTERFACE_MODIFIER("UnnecessaryInterfaceModifier", UnnecessaryInterfaceModifier::new),
+  UNNECESSARY_LOCAL_VARIABLE("UnnecessaryLocalVariable", UnnecessaryLocalVariable::new),
+  UNNECESSARY_RETURN("UnnecessaryReturn", UnnecessaryReturn::new),
+  UNNECESSARY_TO_STRING_CALL("UnnecessaryToStringCall", UnnecessaryToStringCall::new),
+  UNUSED_IMPORT("UnusedImport", UnusedImport::new),
+  PROTECTED_MEMBER_IN_FINAL_CLASS("ProtectedMemberInFinalClass", ProtectedMemberInFinalClass::new),
+  UNNECESSARY_MODIFIER("UnnecessaryModifier", UnnecessaryModifier::new),
+  POINTLESS_BOOLEAN_EXPRESSION("PointlessBooleanExpression", PointlessBooleanExpression::new),
+  INNER_CLASS_MAY_BE_STATIC("InnerClassMayBeStatic", InnerClassMayBeStatic::new),
+  TO_ARRAY_CALL_WITH_ZERO_LENGTH_ARRAY_ARGUMENT(
+      "ToArrayCallWithZeroLengthArrayArgument", ToArrayCallWithZeroLengthArrayArgument::new),
+  UNUSED_LABEL("UnusedLabel", UnusedLabel::new),
+  UTILITY_CLASS_WITHOUT_PRIVATE_CONSTRUCTOR(
+      "UtilityClassWithoutPrivateConstructor", UtilityClassWithoutPrivateConstructor::new),
+  CODE_BLOCK_2_EXPR("CodeBlock2Expr", CodeBlock2Expr::new),
+  REDUNDANT_ARRAY_CREATION("RedundantArrayCreation", RedundantArrayCreation::new),
+  UNNECESSARY_STRING_ESCAPE("UnnecessaryStringEscape", UnnecessaryStringEscape::new);
 
-    private final RuleId ruleId;
-    private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
+  private final RuleId ruleId;
+  private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
 
-    QodanaRules(String ruleId, Function<AnalyzerResult, AbstractRefactoring> refactoring) {
-        this.ruleId = new RuleId(ruleId);
-        this.refactoring = refactoring;
-    }
+  QodanaRules(String ruleId, Function<AnalyzerResult, AbstractRefactoring> refactoring) {
+    this.ruleId = new RuleId(ruleId);
+    this.refactoring = refactoring;
+  }
 
-    @Override
-    public RuleId getRuleId() {
-        return ruleId;
-    }
+  @Override
+  public RuleId getRuleId() {
+    return ruleId;
+  }
 
-    Function<AnalyzerResult, AbstractRefactoring> getRefactoring() {
-        return refactoring;
-    }
+  Function<AnalyzerResult, AbstractRefactoring> getRefactoring() {
+    return refactoring;
+  }
 
-    List<BadSmell> getDescription() {
-        return getRefactoring().apply(null).getHandledBadSmells();
-    }
+  List<BadSmell> getDescription() {
+    return getRefactoring().apply(null).getHandledBadSmells();
+  }
 }

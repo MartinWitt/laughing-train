@@ -18,59 +18,59 @@ import java.util.Random;
 @ApplicationScoped
 public class ProjectSupplier extends AbstractVerticle {
 
-    public static final String SERVICE_NAME = "projectSupplier";
-    private static final Random random = new Random();
-    final SearchProjectService searchProjectService;
-    final ProjectRepository projectRepository;
-    final ProjectService projectService;
-    final Vertx vertx;
+  public static final String SERVICE_NAME = "projectSupplier";
+  private static final Random random = new Random();
+  final SearchProjectService searchProjectService;
+  final ProjectRepository projectRepository;
+  final ProjectService projectService;
+  final Vertx vertx;
 
-    @Produces
-    Random random() {
-        return new Random();
-    }
+  @Produces
+  Random random() {
+    return new Random();
+  }
 
-    ProjectSupplier(
-            SearchProjectService searchProjectService,
-            ProjectRepository projectRepository,
-            ProjectService projectService,
-            Vertx vertx) {
-        this.searchProjectService = searchProjectService;
-        this.projectRepository = projectRepository;
-        this.projectService = projectService;
-        this.vertx = vertx;
-    }
+  ProjectSupplier(
+      SearchProjectService searchProjectService,
+      ProjectRepository projectRepository,
+      ProjectService projectService,
+      Vertx vertx) {
+    this.searchProjectService = searchProjectService;
+    this.projectRepository = projectRepository;
+    this.projectService = projectService;
+    this.vertx = vertx;
+  }
 
-    @Override
-    public void start() throws Exception {
-        vertx.eventBus().<GetProject>consumer(SERVICE_NAME, v -> supplyProject(v));
-    }
+  @Override
+  public void start() throws Exception {
+    vertx.eventBus().<GetProject>consumer(SERVICE_NAME, v -> supplyProject(v));
+  }
 
-    void supplyProject(Message<GetProject> getProject) {
-        try {
-            RemoteProject project = getRandomProject();
-            ProjectResult checkoutProject = checkoutProject(project);
-            Log.info("Project %s checked out".formatted(project.getProjectUrl()));
-            getProject.reply(checkoutProject);
-        } catch (IOException e) {
-            getProject.reply(new ProjectResult.Error(e.getMessage()));
-        }
+  void supplyProject(Message<GetProject> getProject) {
+    try {
+      RemoteProject project = getRandomProject();
+      ProjectResult checkoutProject = checkoutProject(project);
+      Log.info("Project %s checked out".formatted(project.getProjectUrl()));
+      getProject.reply(checkoutProject);
+    } catch (IOException e) {
+      getProject.reply(new ProjectResult.Error(e.getMessage()));
     }
+  }
 
-    private ProjectResult checkoutProject(RemoteProject project) throws IOException {
-        return projectService.handleProjectRequest(new ProjectRequest.WithUrl(project.getProjectUrl()));
-    }
+  private ProjectResult checkoutProject(RemoteProject project) throws IOException {
+    return projectService.handleProjectRequest(new ProjectRequest.WithUrl(project.getProjectUrl()));
+  }
 
-    private RemoteProject getRandomProject() throws IOException {
-        if (random.nextBoolean()) {
-            return searchProjectService.searchProjectOnGithub();
-        } else {
-            return getKnownProject();
-        }
+  private RemoteProject getRandomProject() throws IOException {
+    if (random.nextBoolean()) {
+      return searchProjectService.searchProjectOnGithub();
+    } else {
+      return getKnownProject();
     }
+  }
 
-    private RemoteProject getKnownProject() {
-        var list = projectRepository.getAll();
-        return list.get(random.nextInt(list.size()));
-    }
+  private RemoteProject getKnownProject() {
+    var list = projectRepository.getAll();
+    return list.get(random.nextInt(list.size()));
+  }
 }

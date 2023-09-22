@@ -5,8 +5,8 @@ import spoon.support.reflect.declaration.CtImportImpl;
 
 public class NewlineImport extends CtImportImpl {
 
-    @Override
-    public CtImportKind getImportKind() {
-        return CtImportKind.UNRESOLVED;
-    }
+  @Override
+  public CtImportKind getImportKind() {
+    return CtImportKind.UNRESOLVED;
+  }
 }

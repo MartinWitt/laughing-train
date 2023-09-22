@@ -25,159 +25,176 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import org.bson.BsonDocument;
 
-/**
- * This class is used to migrate the database to the latest version.
- */
+/** This class is used to migrate the database to the latest version. */
 @ApplicationScoped
 public class DataBaseMigration {
 
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-    ProjectConfigRepository projectConfigRepository;
-    ProjectRepository projectRepository;
-    BadSmellRepository badSmellRepository;
-    // we use this for faster mongodb access
-    MongoBadSmellRepository badSmellRepositoryImpl;
-    MongoProjectRepository projectRepositoryImpl;
-    Vertx vertx;
+  ProjectConfigRepository projectConfigRepository;
+  ProjectRepository projectRepository;
+  BadSmellRepository badSmellRepository;
+  // we use this for faster mongodb access
+  MongoBadSmellRepository badSmellRepositoryImpl;
+  MongoProjectRepository projectRepositoryImpl;
+  Vertx vertx;
 
-    @Inject
-    public DataBaseMigration(
-            ProjectConfigRepository projectConfigRepository,
-            ProjectRepository projectRepository,
-            BadSmellRepository badSmellRepository,
-            MongoBadSmellRepository badSmellRepositoryImpl,
-            MongoProjectRepository projectRepositoryImpl,
-            Vertx vertx) {
-        this.projectConfigRepository = projectConfigRepository;
-        this.projectRepository = projectRepository;
-        this.badSmellRepository = badSmellRepository;
-        this.badSmellRepositoryImpl = badSmellRepositoryImpl;
-        this.projectRepositoryImpl = projectRepositoryImpl;
-        this.vertx = vertx;
+  @Inject
+  public DataBaseMigration(
+      ProjectConfigRepository projectConfigRepository,
+      ProjectRepository projectRepository,
+      BadSmellRepository badSmellRepository,
+      MongoBadSmellRepository badSmellRepositoryImpl,
+      MongoProjectRepository projectRepositoryImpl,
+      Vertx vertx) {
+    this.projectConfigRepository = projectConfigRepository;
+    this.projectRepository = projectRepository;
+    this.badSmellRepository = badSmellRepository;
+    this.badSmellRepositoryImpl = badSmellRepositoryImpl;
+    this.projectRepositoryImpl = projectRepositoryImpl;
+    this.vertx = vertx;
+  }
+
+  /** This method is called by the quarkus framework to migrate the database. */
+  public void onStart(@Observes StartupEvent event) {
+    checkPeriodic();
+  }
+
+  public void checkPeriodic() {
+    vertx.setPeriodic(
+        TimeUnit.MINUTES.toMillis(2),
+        TimeUnit.MINUTES.toMillis(60),
+        id ->
+            vertx
+                .executeBlocking(promise -> migrateDataBase(promise))
+                .onFailure(
+                    v -> logger.atSevere().withCause(v).log("Error while migrating database")));
+  }
+
+  private void migrateDataBase(Promise<Object> promise) {
+    logger.atInfo().log("Migrating database");
+    createIndexes();
+    createConfigsIfMissing();
+    removeProjectHashesWithoutResults();
+    removeProjectsWithOutHashes();
+    removeDuplicatedProjects();
+    removeRuleIdsWithSpaces();
+    removeBadSmellsWithWrongFolder();
+    deleteBadSmellWithManyFalsePositives();
+    logger.atInfo().log("Finished migrating database");
+    promise.complete();
+  }
+
+  public void createIndexes() {
+    try {
+      badSmellRepositoryImpl
+          .mongoCollection()
+          .createIndex(
+              BsonDocument.parse("{commitHash: 1}"), new IndexOptions().name("commitHash_idx"));
+      badSmellRepositoryImpl
+          .mongoCollection()
+          .createIndex(BsonDocument.parse("{ruleID: 1}"), new IndexOptions().name("ruleID_idx"));
+      badSmellRepositoryImpl
+          .mongoCollection()
+          .createIndex(
+              BsonDocument.parse("{commitHash: 1, ruleID: 1}"),
+              new IndexOptions().name("commitHash_ruleID_idx"));
+      badSmellRepositoryImpl
+          .mongoCollection()
+          .createIndex(
+              BsonDocument.parse("{identifier: 1}"), new IndexOptions().name("identifier_idx"));
+    } catch (Exception e) {
+
+      logger.atSevere().withCause(e).log("Error while creating indexes");
     }
+  }
 
-    /**
-     * This method is called by the quarkus framework to migrate the database.
-     */
-    public void onStart(@Observes StartupEvent event) {
-        checkPeriodic();
-    }
-
-    public void checkPeriodic() {
-        vertx.setPeriodic(TimeUnit.MINUTES.toMillis(2), TimeUnit.MINUTES.toMillis(60), id -> vertx.executeBlocking(
-                        promise -> migrateDataBase(promise))
-                .onFailure(v -> logger.atSevere().withCause(v).log("Error while migrating database")));
-    }
-
-    private void migrateDataBase(Promise<Object> promise) {
-        logger.atInfo().log("Migrating database");
-        createIndexes();
-        createConfigsIfMissing();
-        removeProjectHashesWithoutResults();
-        removeProjectsWithOutHashes();
-        removeDuplicatedProjects();
-        removeRuleIdsWithSpaces();
-        removeBadSmellsWithWrongFolder();
-        deleteBadSmellWithManyFalsePositives();
-        logger.atInfo().log("Finished migrating database");
-        promise.complete();
-    }
-
-    public void createIndexes() {
-        try {
-            badSmellRepositoryImpl
-                    .mongoCollection()
-                    .createIndex(BsonDocument.parse("{commitHash: 1}"), new IndexOptions().name("commitHash_idx"));
-            badSmellRepositoryImpl
-                    .mongoCollection()
-                    .createIndex(BsonDocument.parse("{ruleID: 1}"), new IndexOptions().name("ruleID_idx"));
-            badSmellRepositoryImpl
-                    .mongoCollection()
-                    .createIndex(
-                            BsonDocument.parse("{commitHash: 1, ruleID: 1}"),
-                            new IndexOptions().name("commitHash_ruleID_idx"));
-            badSmellRepositoryImpl
-                    .mongoCollection()
-                    .createIndex(BsonDocument.parse("{identifier: 1}"), new IndexOptions().name("identifier_idx"));
-        } catch (Exception e) {
-
-            logger.atSevere().withCause(e).log("Error while creating indexes");
-        }
-    }
-
-    private void removeProjectsWithOutHashes() {
-        logger.atInfo().log("Removing projects without commit hashes");
-        long value = projectRepository.getAll().stream()
-                .filter(project -> project.getCommitHashes().isEmpty())
-                .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
-                .count();
-        logger.atInfo().log("Removed %d projects without commit hashes", value);
-    }
-
-    private void createConfigsIfMissing() {
-        long value = projectRepository.getAll().stream()
-                .map(RemoteProject::getProjectUrl)
-                .filter(projectUrl ->
-                        projectConfigRepository.findByProjectUrl(projectUrl).isEmpty())
-                .map(v -> projectConfigRepository.create(ProjectConfig.ofProjectUrl(v)))
-                .count();
-        logger.atInfo().log("Created %d project configs", value);
-    }
-
-    private void removeProjectHashesWithoutResults() {
-        logger.atInfo().log("Removing project hashes without results");
-        for (RemoteProject project : projectRepository.getAll()) {
-            List<String> commitHashes = new ArrayList<>(project.getCommitHashes());
-            for (String commitHash : commitHashes) {
-                if (badSmellRepositoryImpl
-                                .mongoCollection()
-                                .find((Filters.eq("commitHash", commitHash)))
-                                .first()
-                        == null) {
-                    project.removeCommitHash(commitHash);
-                }
-            }
-            projectRepository.deleteByProjectUrl(project.getProjectUrl());
-            projectRepository.save(project);
-        }
-        logger.atInfo().log("Finished removing project hashes without results");
-    }
-
-    private void removeDuplicatedProjects() {
-        logger.atInfo().log("Removing duplicated projects");
+  private void removeProjectsWithOutHashes() {
+    logger.atInfo().log("Removing projects without commit hashes");
+    long value =
         projectRepository.getAll().stream()
-                .collect(Collectors.groupingBy(RemoteProject::getProjectUrl))
-                .entrySet()
-                .stream()
-                .filter(entry -> entry.getValue().size() > 1)
-                .peek(entry -> logger.atInfo().log(
-                        "Found %d projects with url %s", entry.getValue().size(), entry.getKey()))
-                .map(Map.Entry::getValue)
-                .flatMap(Collection::stream)
-                .forEach(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()));
-        logger.atInfo().log("Finished removing duplicated projects");
-    }
+            .filter(project -> project.getCommitHashes().isEmpty())
+            .map(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()))
+            .count();
+    logger.atInfo().log("Removed %d projects without commit hashes", value);
+  }
 
-    private void removeRuleIdsWithSpaces() {
-        DeleteResult deleteMany = badSmellRepositoryImpl
-                .mongoCollection()
-                .deleteMany(Filters.and(Filters.regex("ruleID", ".*\s.*"), Filters.eq("analyzer", "Spoon")));
-        logger.atInfo().log("Removed %d bad smells with ruleId containing spaces", deleteMany.getDeletedCount());
-    }
+  private void createConfigsIfMissing() {
+    long value =
+        projectRepository.getAll().stream()
+            .map(RemoteProject::getProjectUrl)
+            .filter(projectUrl -> projectConfigRepository.findByProjectUrl(projectUrl).isEmpty())
+            .map(v -> projectConfigRepository.create(ProjectConfig.ofProjectUrl(v)))
+            .count();
+    logger.atInfo().log("Created %d project configs", value);
+  }
 
-    private void removeBadSmellsWithWrongFolder() {
-        DeleteResult deleteMany = badSmellRepositoryImpl
+  private void removeProjectHashesWithoutResults() {
+    logger.atInfo().log("Removing project hashes without results");
+    for (RemoteProject project : projectRepository.getAll()) {
+      List<String> commitHashes = new ArrayList<>(project.getCommitHashes());
+      for (String commitHash : commitHashes) {
+        if (badSmellRepositoryImpl
                 .mongoCollection()
-                .deleteMany(Filters.and(Filters.regex("filePath", ".*/tmp/.*"), Filters.eq("analyzer", "Spoon")));
-        logger.atInfo().log("Removed %d bad smells with ruleId containing spaces", deleteMany.getDeletedCount());
+                .find((Filters.eq("commitHash", commitHash)))
+                .first()
+            == null) {
+          project.removeCommitHash(commitHash);
+        }
+      }
+      projectRepository.deleteByProjectUrl(project.getProjectUrl());
+      projectRepository.save(project);
     }
+    logger.atInfo().log("Finished removing project hashes without results");
+  }
 
-    private void deleteBadSmellWithManyFalsePositives() {
-        DeleteResult deleteMany = badSmellRepositoryImpl
-                .mongoCollection()
-                .deleteMany(
-                        Filters.and(Filters.eq("ruleID", "InnerClassMayBeStatic"), Filters.eq("analyzer", "Spoon")));
-        logger.atInfo().log("Removed %d bad smells for rule InnerClassMayBeStatic", deleteMany.getDeletedCount());
-    }
+  private void removeDuplicatedProjects() {
+    logger.atInfo().log("Removing duplicated projects");
+    projectRepository.getAll().stream()
+        .collect(Collectors.groupingBy(RemoteProject::getProjectUrl))
+        .entrySet()
+        .stream()
+        .filter(entry -> entry.getValue().size() > 1)
+        .peek(
+            entry ->
+                logger.atInfo().log(
+                    "Found %d projects with url %s", entry.getValue().size(), entry.getKey()))
+        .map(Map.Entry::getValue)
+        .flatMap(Collection::stream)
+        .forEach(project -> projectRepository.deleteByProjectUrl(project.getProjectUrl()));
+    logger.atInfo().log("Finished removing duplicated projects");
+  }
+
+  private void removeRuleIdsWithSpaces() {
+    DeleteResult deleteMany =
+        badSmellRepositoryImpl
+            .mongoCollection()
+            .deleteMany(
+                Filters.and(Filters.regex("ruleID", ".*\s.*"), Filters.eq("analyzer", "Spoon")));
+    logger.atInfo().log(
+        "Removed %d bad smells with ruleId containing spaces", deleteMany.getDeletedCount());
+  }
+
+  private void removeBadSmellsWithWrongFolder() {
+    DeleteResult deleteMany =
+        badSmellRepositoryImpl
+            .mongoCollection()
+            .deleteMany(
+                Filters.and(
+                    Filters.regex("filePath", ".*/tmp/.*"), Filters.eq("analyzer", "Spoon")));
+    logger.atInfo().log(
+        "Removed %d bad smells with ruleId containing spaces", deleteMany.getDeletedCount());
+  }
+
+  private void deleteBadSmellWithManyFalsePositives() {
+    DeleteResult deleteMany =
+        badSmellRepositoryImpl
+            .mongoCollection()
+            .deleteMany(
+                Filters.and(
+                    Filters.eq("ruleID", "InnerClassMayBeStatic"),
+                    Filters.eq("analyzer", "Spoon")));
+    logger.atInfo().log(
+        "Removed %d bad smells for rule InnerClassMayBeStatic", deleteMany.getDeletedCount());
+  }
 }

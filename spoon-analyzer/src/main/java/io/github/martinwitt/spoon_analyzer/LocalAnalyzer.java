@@ -4,5 +4,5 @@ import java.util.List;
 import spoon.reflect.declaration.CtType;
 
 public interface LocalAnalyzer {
-    List<BadSmell> analyze(CtType<?> clazz);
+  List<BadSmell> analyze(CtType<?> clazz);
 }

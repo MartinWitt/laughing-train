@@ -5,5 +5,5 @@ import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 
 public interface IPrinting {
 
-    void printChangedTypes(ChangeListener listener, Iterable<CtType<?>> newTypes);
+  void printChangedTypes(ChangeListener listener, Iterable<CtType<?>> newTypes);
 }

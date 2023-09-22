@@ -14,12 +14,12 @@ import spoon.support.compiler.VirtualFile;
 
 public class IndexOfReplaceableByContainsAnalyzerTest {
 
-    @Test
-    public void testAnalyzeInnerSimpleClass() {
-        // Create a Spoon launcher
-        Launcher launcher = new Launcher();
-        String code =
-                """
+  @Test
+  public void testAnalyzeInnerSimpleClass() {
+    // Create a Spoon launcher
+    Launcher launcher = new Launcher();
+    String code =
+        """
         public class SimpleClass {
             void bar {
               String foo = "foo";
@@ -27,33 +27,33 @@ public class IndexOfReplaceableByContainsAnalyzerTest {
           }
         }
         """;
-        // Add the source directory to the classpath
-        launcher.addInputResource(new VirtualFile(code));
+    // Add the source directory to the classpath
+    launcher.addInputResource(new VirtualFile(code));
 
-        // Build the Spoon model
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
+    // Build the Spoon model
+    launcher.buildModel();
+    CtModel model = launcher.getModel();
 
-        // Get the CtClass object for the SimpleClass class
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    // Get the CtClass object for the SimpleClass class
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
 
-        // Create an instance of the InnerClassMayBeStaticAnalyzer class
-        LocalAnalyzer analyzer = new IndexOfReplaceableByContainsAnalyzer();
+    // Create an instance of the InnerClassMayBeStaticAnalyzer class
+    LocalAnalyzer analyzer = new IndexOfReplaceableByContainsAnalyzer();
 
-        // Analyze the SimpleClass class for bad smells
-        List<BadSmell> badSmells = analyzer.analyze(simpleClass);
+    // Analyze the SimpleClass class for bad smells
+    List<BadSmell> badSmells = analyzer.analyze(simpleClass);
 
-        // Check that no bad smells were found
-        assertEquals(1, badSmells.size());
-        assertEquals("IndexOfReplaceableByContains", badSmells.get(0).getName());
-    }
+    // Check that no bad smells were found
+    assertEquals(1, badSmells.size());
+    assertEquals("IndexOfReplaceableByContains", badSmells.get(0).getName());
+  }
 
-    @Test
-    public void testAnalyzeInnerSimpleClassRefactor() {
-        // Create a Spoon launcher
-        Launcher launcher = new Launcher();
-        String code =
-                """
+  @Test
+  public void testAnalyzeInnerSimpleClassRefactor() {
+    // Create a Spoon launcher
+    Launcher launcher = new Launcher();
+    String code =
+        """
         public class SimpleClass {
             void bar() {
               String foo = "foo";
@@ -61,26 +61,26 @@ public class IndexOfReplaceableByContainsAnalyzerTest {
           }
         }
         """;
-        // Add the source directory to the classpath
-        launcher.addInputResource(new VirtualFile(code));
+    // Add the source directory to the classpath
+    launcher.addInputResource(new VirtualFile(code));
 
-        // Build the Spoon model
-        launcher.buildModel();
-        CtModel model = launcher.getModel();
+    // Build the Spoon model
+    launcher.buildModel();
+    CtModel model = launcher.getModel();
 
-        // Get the CtClass object for the SimpleClass class
-        CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
+    // Get the CtClass object for the SimpleClass class
+    CtType<?> simpleClass = model.getAllTypes().stream().findFirst().get();
 
-        // Create an instance of the InnerClassMayBeStaticAnalyzer class
-        LocalAnalyzer analyzer = new IndexOfReplaceableByContainsAnalyzer();
+    // Create an instance of the InnerClassMayBeStaticAnalyzer class
+    LocalAnalyzer analyzer = new IndexOfReplaceableByContainsAnalyzer();
 
-        // Analyze the SimpleClass class for bad smells
-        List<BadSmell> badSmells = analyzer.analyze(simpleClass);
+    // Analyze the SimpleClass class for bad smells
+    List<BadSmell> badSmells = analyzer.analyze(simpleClass);
 
-        // Check that no bad smells were found
-        assertEquals(1, badSmells.size());
-        badSmells.get(0).fix();
-        assertEquals("IndexOfReplaceableByContains", badSmells.get(0).getName());
-        Assertions.assertThat(simpleClass.toString()).contains("!foo.contains(\"f\");");
-    }
+    // Check that no bad smells were found
+    assertEquals(1, badSmells.size());
+    badSmells.get(0).fix();
+    assertEquals("IndexOfReplaceableByContains", badSmells.get(0).getName());
+    Assertions.assertThat(simpleClass.toString()).contains("!foo.contains(\"f\");");
+  }
 }

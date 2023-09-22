@@ -16,12 +16,13 @@ import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class ToArrayCallWithZeroLengthArrayArgument extends AbstractRefactoring {
 
-    private static BadSmell badSmell = new BadSmell() {
+  private static BadSmell badSmell =
+      new BadSmell() {
 
         @Override
         public MarkdownString getDescription() {
-            return MarkdownString.fromMarkdown(
-                    """
+          return MarkdownString.fromMarkdown(
+              """
         The performance of the empty array version is the same, and sometimes even better, compared
         to the pre-sized version. Also, passing a pre-sized array is dangerous for a concurrent or
         synchronized collection as a data race is possible between the <code>size</code> and <code>toArray</code>
@@ -33,52 +34,52 @@ public class ToArrayCallWithZeroLengthArrayArgument extends AbstractRefactoring 
 
         @Override
         public MarkdownString getName() {
-            return MarkdownString.fromMarkdown("ToArrayCallWithZeroLengthArrayArgument");
+          return MarkdownString.fromMarkdown("ToArrayCallWithZeroLengthArrayArgument");
         }
-    };
+      };
 
-    public ToArrayCallWithZeroLengthArrayArgument(AnalyzerResult result) {
-        super(result);
-    }
+  public ToArrayCallWithZeroLengthArrayArgument(AnalyzerResult result) {
+    super(result);
+  }
 
-    @Override
-    public void refactor(ChangeListener listener, CtType<?> type) {
-        if (!isSameType(type, Path.of(result.filePath()))) {
-            return;
-        }
-        for (CtNewArray<?> toArrayCall :
-                filterMatches(PositionScanner.findLineOnly(type, toStartLinePosition(result.position())))) {
-            var dimensionExpression = toArrayCall.getDimensionExpressions().get(0);
-            var zeroExpression = dimensionExpression.getFactory().createLiteral(0);
-            dimensionExpression.replace(zeroExpression);
-            String message = "Replaced " + toMarkdown(dimensionExpression) + " with " + zeroExpression;
-            String markdown = "Replaced " + toMarkdown(dimensionExpression) + " with " + zeroExpression;
-            Change change = new Change(badSmell, MarkdownString.fromMarkdown(message, markdown), type, result);
-            listener.setChanged(type, change);
-        }
+  @Override
+  public void refactor(ChangeListener listener, CtType<?> type) {
+    if (!isSameType(type, Path.of(result.filePath()))) {
+      return;
     }
+    for (CtNewArray<?> toArrayCall :
+        filterMatches(PositionScanner.findLineOnly(type, toStartLinePosition(result.position())))) {
+      var dimensionExpression = toArrayCall.getDimensionExpressions().get(0);
+      var zeroExpression = dimensionExpression.getFactory().createLiteral(0);
+      dimensionExpression.replace(zeroExpression);
+      String message = "Replaced " + toMarkdown(dimensionExpression) + " with " + zeroExpression;
+      String markdown = "Replaced " + toMarkdown(dimensionExpression) + " with " + zeroExpression;
+      Change change =
+          new Change(badSmell, MarkdownString.fromMarkdown(message, markdown), type, result);
+      listener.setChanged(type, change);
+    }
+  }
 
-    private Position toStartLinePosition(Position position) {
-        return new Position(position.startLine(), 0, 0, 0, 0, 0);
-    }
+  private Position toStartLinePosition(Position position) {
+    return new Position(position.startLine(), 0, 0, 0, 0, 0);
+  }
 
-    @SuppressWarnings("rawtypes")
-    private List<CtNewArray> filterMatches(List<CtElement> findLineOnly) {
-        return findLineOnly.stream()
-                .filter(CtNewArray.class::isInstance)
-                .map(CtNewArray.class::cast)
-                .filter(ctNewArray -> ctNewArray.getDimensionExpressions().size() == 1)
-                .filter(ctNewArray ->
-                        !ctNewArray.getDimensionExpressions().get(0).toString().equals("0"))
-                .toList();
-    }
+  @SuppressWarnings("rawtypes")
+  private List<CtNewArray> filterMatches(List<CtElement> findLineOnly) {
+    return findLineOnly.stream()
+        .filter(CtNewArray.class::isInstance)
+        .map(CtNewArray.class::cast)
+        .filter(ctNewArray -> ctNewArray.getDimensionExpressions().size() == 1)
+        .filter(ctNewArray -> !ctNewArray.getDimensionExpressions().get(0).toString().equals("0"))
+        .toList();
+  }
 
-    @Override
-    public List<BadSmell> getHandledBadSmells() {
-        return List.of(badSmell);
-    }
+  @Override
+  public List<BadSmell> getHandledBadSmells() {
+    return List.of(badSmell);
+  }
 
-    private String toMarkdown(Object input) {
-        return "`" + input + "`";
-    }
+  private String toMarkdown(Object input) {
+    return "`" + input + "`";
+  }
 }

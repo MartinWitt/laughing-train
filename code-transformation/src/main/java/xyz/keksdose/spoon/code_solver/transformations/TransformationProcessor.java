@@ -9,17 +9,17 @@ import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 
 public abstract class TransformationProcessor<T extends CtElement> extends AbstractProcessor<T> {
 
-    protected ChangeListener listener;
+  protected ChangeListener listener;
 
-    protected void setChanged(CtType<?> changedType, Change change) {
-        listener.setChanged(changedType, change);
-    }
+  protected void setChanged(CtType<?> changedType, Change change) {
+    listener.setChanged(changedType, change);
+  }
 
-    protected TransformationProcessor(ChangeListener listener) {
-        this.listener = listener;
-    }
+  protected TransformationProcessor(ChangeListener listener) {
+    this.listener = listener;
+  }
 
-    public List<BadSmell> getHandledBadSmells() {
-        return List.of();
-    }
+  public List<BadSmell> getHandledBadSmells() {
+    return List.of();
+  }
 }

@@ -21,59 +21,59 @@ import io.github.martinwitt.spoon_analyzer.badsmells.unnecessary_tostring.Unnece
  */
 public interface BadSmellVisitor<U> extends Visitor<BadSmell, U> {
 
-    default U visit(IndexOfReplaceableByContains badSmell) {
-        return emptyResult();
-    }
+  default U visit(IndexOfReplaceableByContains badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(AccessStaticViaInstance badSmell) {
-        return emptyResult();
-    }
+  default U visit(AccessStaticViaInstance badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(ArrayCanBeReplacedWithEnumValues badSmell) {
-        return emptyResult();
-    }
+  default U visit(ArrayCanBeReplacedWithEnumValues badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(CharsetObjectCanBeUsed badSmell) {
-        return emptyResult();
-    }
+  default U visit(CharsetObjectCanBeUsed badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(InnerClassMayBeStatic badSmell) {
-        return emptyResult();
-    }
+  default U visit(InnerClassMayBeStatic badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(NonProtectedConstructorInAbstractClass badSmell) {
-        return emptyResult();
-    }
+  default U visit(NonProtectedConstructorInAbstractClass badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(PrivateFinalMethod badSmell) {
-        return emptyResult();
-    }
+  default U visit(PrivateFinalMethod badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(SizeReplaceableByIsEmpty badSmell) {
-        return emptyResult();
-    }
+  default U visit(SizeReplaceableByIsEmpty badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(UnnecessaryImplements badSmell) {
-        return emptyResult();
-    }
+  default U visit(UnnecessaryImplements badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(UnnecessaryTostring badSmell) {
-        return emptyResult();
-    }
+  default U visit(UnnecessaryTostring badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(FinalStaticMethod badSmell) {
-        return emptyResult();
-    }
+  default U visit(FinalStaticMethod badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(EqualsHashcode badSmell) {
-        return emptyResult();
-    }
+  default U visit(EqualsHashcode badSmell) {
+    return emptyResult();
+  }
 
-    default U visit(ImplicitArrayToString badSmell) {
-        return emptyResult();
-    }
+  default U visit(ImplicitArrayToString badSmell) {
+    return emptyResult();
+  }
 
-    default U emptyResult() {
-        return null;
-    }
+  default U emptyResult() {
+    return null;
+  }
 }

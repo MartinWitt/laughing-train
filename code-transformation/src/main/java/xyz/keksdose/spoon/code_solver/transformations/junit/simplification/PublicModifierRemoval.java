@@ -10,20 +10,20 @@ import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
 
 public class PublicModifierRemoval extends TransformationProcessor<CtMethod<?>> {
 
-    public PublicModifierRemoval(ChangeListener listener) {
-        super(listener);
-    }
+  public PublicModifierRemoval(ChangeListener listener) {
+    super(listener);
+  }
 
-    @Override
-    public void process(CtMethod<?> element) {
-        if (element.isPublic() && JunitHelper.isJunit5TestMethod(element)) {
-            element.removeModifier(ModifierKind.PUBLIC);
-            setChanged(
-                    element.getParent(CtType.class),
-                    new Change(
-                            String.format("Removed public modifier from test method %s", element.getSimpleName()),
-                            "PublicModifierRemoval",
-                            element.getParent(CtType.class)));
-        }
+  @Override
+  public void process(CtMethod<?> element) {
+    if (element.isPublic() && JunitHelper.isJunit5TestMethod(element)) {
+      element.removeModifier(ModifierKind.PUBLIC);
+      setChanged(
+          element.getParent(CtType.class),
+          new Change(
+              String.format("Removed public modifier from test method %s", element.getSimpleName()),
+              "PublicModifierRemoval",
+              element.getParent(CtType.class)));
     }
+  }
 }

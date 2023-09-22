@@ -14,46 +14,46 @@ import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 public class UnnecessaryReturn extends AbstractRefactoring {
 
-    private static final BadSmell UNNECESSARY_RETURN = new BadSmell() {
+  private static final BadSmell UNNECESSARY_RETURN =
+      new BadSmell() {
         @Override
         public MarkdownString getName() {
-            return MarkdownString.fromRaw("Unnecessary Return");
+          return MarkdownString.fromRaw("Unnecessary Return");
         }
 
         @Override
         public MarkdownString getDescription() {
-            return MarkdownString.fromMarkdown(
-                    "return is unnecessary as the last statement in a void method",
-                    "`return` is unnecessary as the last statement in a `void` method");
+          return MarkdownString.fromMarkdown(
+              "return is unnecessary as the last statement in a void method",
+              "`return` is unnecessary as the last statement in a `void` method");
         }
-    };
+      };
 
-    public UnnecessaryReturn(AnalyzerResult result) {
-        super(result);
-    }
+  public UnnecessaryReturn(AnalyzerResult result) {
+    super(result);
+  }
 
-    @Override
-    public void refactor(ChangeListener listener, CtType<?> type) {
-        if (type.isAnonymous() || !isSameType(type, Path.of(result.filePath()))) {
-            return;
-        }
-        for (CtReturn<?> returnStatement : type.getElements(new TypeFilter<>(CtReturn.class))) {
-            if (returnStatement.getPosition().getSourceStart()
-                    == result.position().charOffset()) {
-                returnStatement.delete();
-                listener.setChanged(
-                        type.getTopLevelType(),
-                        new Change(
-                                UNNECESSARY_RETURN,
-                                MarkdownString.fromMarkdown(result.message(), result.messageMarkdown()),
-                                type.getTopLevelType(),
-                                result));
-            }
-        }
+  @Override
+  public void refactor(ChangeListener listener, CtType<?> type) {
+    if (type.isAnonymous() || !isSameType(type, Path.of(result.filePath()))) {
+      return;
     }
+    for (CtReturn<?> returnStatement : type.getElements(new TypeFilter<>(CtReturn.class))) {
+      if (returnStatement.getPosition().getSourceStart() == result.position().charOffset()) {
+        returnStatement.delete();
+        listener.setChanged(
+            type.getTopLevelType(),
+            new Change(
+                UNNECESSARY_RETURN,
+                MarkdownString.fromMarkdown(result.message(), result.messageMarkdown()),
+                type.getTopLevelType(),
+                result));
+      }
+    }
+  }
 
-    @Override
-    public List<BadSmell> getHandledBadSmells() {
-        return List.of(UNNECESSARY_RETURN);
-    }
+  @Override
+  public List<BadSmell> getHandledBadSmells() {
+    return List.of(UNNECESSARY_RETURN);
+  }
 }

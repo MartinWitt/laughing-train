@@ -11,13 +11,13 @@ import xyz.keksdose.spoon.code_solver.transformations.TestAnalyzerResult;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationTestUtils;
 
 public class CodeBlock2ExprTest {
-    @Test
-    void codeBlock2ExprWitchcraftJavaLogging(@TempDir File dir) throws IOException {
-        Position position = new Position(77, 78, 10, 0, 62, 8);
-        AnalyzerResult result = new TestAnalyzerResult("CombineWithLogVisitor.java", position);
-        String resourcePath = "projects/refactorings/CodeBlock2Expr/CombineWithLogVisitor.java";
-        var copy = TransformationTestUtils.transform(new CodeBlock2Expr(result), resourcePath, dir);
-        // FIXME: fix the comparison
-        // TransformationTestUtils.compareContentWithoutWhiteSpaces(copy, resourcePath);
-    }
+  @Test
+  void codeBlock2ExprWitchcraftJavaLogging(@TempDir File dir) throws IOException {
+    Position position = new Position(77, 78, 10, 0, 62, 8);
+    AnalyzerResult result = new TestAnalyzerResult("CombineWithLogVisitor.java", position);
+    String resourcePath = "projects/refactorings/CodeBlock2Expr/CombineWithLogVisitor.java";
+    var copy = TransformationTestUtils.transform(new CodeBlock2Expr(result), resourcePath, dir);
+    // FIXME: fix the comparison
+    // TransformationTestUtils.compareContentWithoutWhiteSpaces(copy, resourcePath);
+  }
 }

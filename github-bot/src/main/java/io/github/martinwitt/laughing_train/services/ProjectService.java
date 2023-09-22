@@ -21,68 +21,68 @@ import org.eclipse.jgit.lib.ObjectId;
 @ApplicationScoped
 public class ProjectService {
 
-    private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-    private static final Random random = new Random();
+  private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  private static final Random random = new Random();
 
-    @Inject
-    Vertx vertx;
+  @Inject Vertx vertx;
 
-    public ProjectResult handleProjectRequest(ProjectRequest request) {
-        try {
-            logger.atInfo().log("Received project request %s", request);
-            if (request instanceof ProjectRequest.WithUrl url) {
+  public ProjectResult handleProjectRequest(ProjectRequest request) {
+    try {
+      logger.atInfo().log("Received project request %s", request);
+      if (request instanceof ProjectRequest.WithUrl url) {
 
-                String repoName = StringUtils.substringAfterLast(url.url(), "/").replace(".git", "");
-                Path dir = Files.createTempDirectory("laughing-train-" + repoName + random.nextLong());
-                cleanAfter60min(dir);
-                Optional<Git> checkoutRepo = checkoutRepo(url, dir);
-                if (checkoutRepo.isEmpty()) {
-                    FileUtils.deleteQuietly(dir.toFile());
-                    return new ProjectResult.Error("Could not checkout repo");
-                }
-                Git git = checkoutRepo.get();
-                logger.atInfo().log("Cloned %s to %s", url.url(), dir);
-                return new ProjectResult.Success(new Project(repoName, url.url(), dir.toFile(), ".", getHash(git)));
-            }
-        } catch (Exception e) {
-            logger.atSevere().withCause(e).log("Error while handling project request %s", request);
-            return new ProjectResult.Error(e.getMessage());
+        String repoName = StringUtils.substringAfterLast(url.url(), "/").replace(".git", "");
+        Path dir = Files.createTempDirectory("laughing-train-" + repoName + random.nextLong());
+        cleanAfter60min(dir);
+        Optional<Git> checkoutRepo = checkoutRepo(url, dir);
+        if (checkoutRepo.isEmpty()) {
+          FileUtils.deleteQuietly(dir.toFile());
+          return new ProjectResult.Error("Could not checkout repo");
         }
-        return new ProjectResult.Error("Unknown request");
+        Git git = checkoutRepo.get();
+        logger.atInfo().log("Cloned %s to %s", url.url(), dir);
+        return new ProjectResult.Success(
+            new Project(repoName, url.url(), dir.toFile(), ".", getHash(git)));
+      }
+    } catch (Exception e) {
+      logger.atSevere().withCause(e).log("Error while handling project request %s", request);
+      return new ProjectResult.Error(e.getMessage());
     }
+    return new ProjectResult.Error("Unknown request");
+  }
 
-    private void cleanAfter60min(Path dir) {
-        vertx.setTimer(Duration.ofMinutes(30).toMillis(), v -> {
-            if (Files.exists(dir)) {
-                FileUtils.deleteQuietly(dir.toFile());
-                logger.atInfo().log("Deleted %s", dir);
-            }
+  private void cleanAfter60min(Path dir) {
+    vertx.setTimer(
+        Duration.ofMinutes(30).toMillis(),
+        v -> {
+          if (Files.exists(dir)) {
+            FileUtils.deleteQuietly(dir.toFile());
+            logger.atInfo().log("Deleted %s", dir);
+          }
         });
-    }
+  }
 
-    private String getHash(Git git) {
-        try {
-            return ObjectId.toString(git.log().call().iterator().next().getId());
-        } catch (GitAPIException e) {
-            return "Error while getting hash";
-        }
+  private String getHash(Git git) {
+    try {
+      return ObjectId.toString(git.log().call().iterator().next().getId());
+    } catch (GitAPIException e) {
+      return "Error while getting hash";
     }
+  }
 
-    private Optional<Git> checkoutRepo(ProjectRequest.WithUrl url, Path dir) {
-        return createAsyncRepo(url, dir);
-    }
+  private Optional<Git> checkoutRepo(ProjectRequest.WithUrl url, Path dir) {
+    return createAsyncRepo(url, dir);
+  }
 
-    private Optional<Git> createAsyncRepo(ProjectRequest.WithUrl url, Path dir) {
-        try {
-            FileUtils.deleteDirectory(dir.toFile());
-            Files.createDirectories(dir);
-            return Optional.ofNullable(Git.cloneRepository()
-                    .setURI(url.url())
-                    .setDirectory(dir.toFile())
-                    .call());
-        } catch (Exception e) {
-            logger.atSevere().withCause(e).log("Error while cloning %s to %s", url.url(), dir);
-            return Optional.empty();
-        }
+  private Optional<Git> createAsyncRepo(ProjectRequest.WithUrl url, Path dir) {
+    try {
+      FileUtils.deleteDirectory(dir.toFile());
+      Files.createDirectories(dir);
+      return Optional.ofNullable(
+          Git.cloneRepository().setURI(url.url()).setDirectory(dir.toFile()).call());
+    } catch (Exception e) {
+      logger.atSevere().withCause(e).log("Error while cloning %s to %s", url.url(), dir);
+      return Optional.empty();
     }
+  }
 }

@@ -8,73 +8,81 @@ import spoon.reflect.declaration.CtType;
 
 public class CharsetObjectCanBeUsed implements BadSmell {
 
-    private static final String NAME = "CharsetObjectCanBeUsed";
-    private static final String DESCRIPTION = "The Charset object can be used instead of the String object.";
+  private static final String NAME = "CharsetObjectCanBeUsed";
+  private static final String DESCRIPTION =
+      "The Charset object can be used instead of the String object.";
 
-    private final CtType<?> affectedType;
-    private CtInvocation<?> invocation;
-    private CtConstructorCall<?> ctorCall;
+  private final CtType<?> affectedType;
+  private CtInvocation<?> invocation;
+  private CtConstructorCall<?> ctorCall;
 
-    public CharsetObjectCanBeUsed(CtType<?> affectedType, CtInvocation<?> invocation) {
-        this.affectedType = affectedType;
-        this.invocation = invocation;
-    }
+  public CharsetObjectCanBeUsed(CtType<?> affectedType, CtInvocation<?> invocation) {
+    this.affectedType = affectedType;
+    this.invocation = invocation;
+  }
 
-    public CharsetObjectCanBeUsed(CtType<?> affectedType, CtConstructorCall<?> invocation) {
-        this.affectedType = affectedType;
-        this.ctorCall = invocation;
-    }
+  public CharsetObjectCanBeUsed(CtType<?> affectedType, CtConstructorCall<?> invocation) {
+    this.affectedType = affectedType;
+    this.ctorCall = invocation;
+  }
 
-    @Override
-    public String getName() {
-        return NAME;
-    }
+  @Override
+  public String getName() {
+    return NAME;
+  }
 
-    @Override
-    public String getDescription() {
-        return DESCRIPTION;
-    }
+  @Override
+  public String getDescription() {
+    return DESCRIPTION;
+  }
 
-    @Override
-    public CtType<?> getAffectedType() {
-        return affectedType;
-    }
+  @Override
+  public CtType<?> getAffectedType() {
+    return affectedType;
+  }
 
-    /**
-     * @return the invocation
-     */
-    public CtInvocation<?> getInvocation() {
-        return invocation;
-    }
-    /**
-     * @return the ctorCall
-     */
-    public CtConstructorCall<?> getCtorCall() {
-        return ctorCall;
-    }
+  /**
+   * @return the invocation
+   */
+  public CtInvocation<?> getInvocation() {
+    return invocation;
+  }
 
-    @Override
-    public void fix() {
-        new CharsetObjectCanBeUsedAnalyzer().refactor(this);
-    }
+  /**
+   * @return the ctorCall
+   */
+  public CtConstructorCall<?> getCtorCall() {
+    return ctorCall;
+  }
 
-    @Override
-    public boolean isFixable() {
-        return true;
-    }
+  @Override
+  public void fix() {
+    new CharsetObjectCanBeUsedAnalyzer().refactor(this);
+  }
 
-    @Override
-    public String toString() {
-        if (invocation == null) {
-            return "CharsetObjectCanBeUsed [affectedType=" + affectedType.getQualifiedName() + ", invocation="
-                    + ctorCall + "]";
-        }
-        return "CharsetObjectCanBeUsed [affectedType=" + affectedType.getQualifiedName() + ", invocation=" + invocation
-                + "]";
-    }
+  @Override
+  public boolean isFixable() {
+    return true;
+  }
 
-    @Override
-    public <T> T accept(BadSmellVisitor<T> visitor) {
-        return visitor.visit(this);
+  @Override
+  public String toString() {
+    if (invocation == null) {
+      return "CharsetObjectCanBeUsed [affectedType="
+          + affectedType.getQualifiedName()
+          + ", invocation="
+          + ctorCall
+          + "]";
     }
+    return "CharsetObjectCanBeUsed [affectedType="
+        + affectedType.getQualifiedName()
+        + ", invocation="
+        + invocation
+        + "]";
+  }
+
+  @Override
+  public <T> T accept(BadSmellVisitor<T> visitor) {
+    return visitor.visit(this);
+  }
 }
