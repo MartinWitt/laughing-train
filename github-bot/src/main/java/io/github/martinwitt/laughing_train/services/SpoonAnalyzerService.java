@@ -28,23 +28,26 @@ public class SpoonAnalyzerService {
   public CodeAnalyzerResult analyze(AnalyzerRequest request) {
     logger.atInfo().log("Received request %s", request);
     try {
-      if (request instanceof AnalyzerRequest.WithProject project) {
-        File folder = project.project().folder();
-        SpoonBasedAnalyzer analyzer = new SpoonBasedAnalyzer();
-        List<AnalyzerResult> analyze = analyzer.analyze(folder.toPath());
-        logger.atInfo().log(
-            "Spoon found %s results with the following rules: %s",
-            analyze.size(),
-            analyze.stream()
-                .map(v -> v.ruleID().toString())
-                .distinct()
-                .collect(Collectors.joining(",")));
-        CodeAnalyzerResult.Success success =
-            new CodeAnalyzerResult.Success(analyze, project.project());
-        analyzerResultPersistenceService.persistResults(success);
-        return success;
-      } else {
-        return new CodeAnalyzerResult.Failure("Unknown request type");
+      switch (request) {
+        case AnalyzerRequest.WithProject project -> {
+          File folder = project.project().folder();
+          SpoonBasedAnalyzer analyzer = new SpoonBasedAnalyzer();
+          List<AnalyzerResult> analyze = analyzer.analyze(folder.toPath());
+          logger.atFine().log(
+              "Spoon found %s results with the following rules: %s",
+              analyze.size(),
+              analyze.stream()
+                  .map(v -> v.ruleID().toString())
+                  .distinct()
+                  .collect(Collectors.joining(",")));
+          CodeAnalyzerResult.Success success =
+              new CodeAnalyzerResult.Success(analyze, project.project());
+          analyzerResultPersistenceService.persistResults(success);
+          return success;
+        }
+        default -> {
+          return new CodeAnalyzerResult.Failure("Unknown request type");
+        }
       }
     } catch (Throwable e) {
       logger.atSevere().log("Error while analyzing code analyzer %s", e.getMessage());
