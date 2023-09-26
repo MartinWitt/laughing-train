@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.5.0](https://github.com/MartinWitt/laughing-train/compare/v1.4.0...v1.5.0) (2023-09-26)
+
+
+### Features
+
+* **gradle:** ✨ Adjust build for ZGC and Java21 ([#1094](https://github.com/MartinWitt/laughing-train/issues/1094)) ([d44c63a](https://github.com/MartinWitt/laughing-train/commit/d44c63a0694f7b9a54e85fe1128bf31cff2b79da))
+* **quarkus:** 🐛 Use graalvm 21 base image from oracle ([36bf673](https://github.com/MartinWitt/laughing-train/commit/36bf673602088f03b844be37a77798fe4273a107))
+
+
+### Dependencies
+
+* :bookmark:(deps): update actions/checkout digest to 8ade135 ([#1095](https://github.com/MartinWitt/laughing-train/issues/1095)) ([965b555](https://github.com/MartinWitt/laughing-train/commit/965b555a12766dc4c3d71defe1105ed5ca167f05))
+* :bookmark:(deps): update github/codeql-action digest to 6a28655 ([#1080](https://github.com/MartinWitt/laughing-train/issues/1080)) ([97ec4bd](https://github.com/MartinWitt/laughing-train/commit/97ec4bde55cc47962f32bfc2e05f05bd313fd83a))
+* :bookmark:(deps): update gradle/gradle-build-action digest to b5126f3 ([#1098](https://github.com/MartinWitt/laughing-train/issues/1098)) ([ac5db22](https://github.com/MartinWitt/laughing-train/commit/ac5db228902f317c571dfd34a7403bc169e13030))
+* :bookmark:(deps): update sigstore/cosign-installer digest to 9c520b9 ([#1097](https://github.com/MartinWitt/laughing-train/issues/1097)) ([66322e0](https://github.com/MartinWitt/laughing-train/commit/66322e03816a2d8c4a0d5c90bcaf673f5d935edf))
+
 ## [1.4.0](https://github.com/MartinWitt/laughing-train/compare/v1.3.0...v1.4.0) (2023-09-16)
 
 
