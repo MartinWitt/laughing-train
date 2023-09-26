@@ -6,6 +6,7 @@ import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.services.RefactorService;
 import io.quarkus.security.Authenticated;
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import java.util.Arrays;
@@ -22,6 +23,7 @@ import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 
 @GraphQLApi
 @RequestScoped
+@RunOnVirtualThread
 public class RefactorGraphQL {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 

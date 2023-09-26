@@ -37,26 +37,14 @@ public class AnalyzerResultPersistenceService {
     }
   }
 
-  void persistResults(CodeAnalyzerResult result) {
-    if (result instanceof CodeAnalyzerResult.Success success) {
-      logger.atInfo().log(
-          "Persisting %s results for project %s",
-          success.results().size(), success.project().name());
-      Project project = success.project();
-      Multi.createFrom()
-          .iterable(success.results())
-          .map(
-              badSmell ->
-                  new BadSmell(badSmell, project.name(), project.url(), project.commitHash()))
-          .filter(v -> badSmellRepository.findByIdentifier(v.getIdentifier()).isEmpty())
-          .map(badSmellRepository::save)
-          .collect()
-          .with(Collectors.counting())
-          .subscribe()
-          .with(
-              badSmell ->
-                  logger.atInfo().log(
-                      "Persisted %d bad smells for project %s", badSmell, project.name()));
-    }
+  void persistResults(CodeAnalyzerResult.Success success) {
+    logger.atInfo().log(
+        "Persisting %s results for project %s", success.results().size(), success.project().name());
+    Project project = success.project();
+    success.results().stream()
+        .map(
+            badSmell -> new BadSmell(badSmell, project.name(), project.url(), project.commitHash()))
+        .filter(it -> badSmellRepository.findByIdentifier(it.getIdentifier()).isEmpty())
+        .forEach(badSmellRepository::save);
   }
 }

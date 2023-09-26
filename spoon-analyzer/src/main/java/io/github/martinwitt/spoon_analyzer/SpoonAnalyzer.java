@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 import spoon.Launcher;
 import spoon.reflect.declaration.CtType;
 
@@ -42,10 +43,8 @@ public class SpoonAnalyzer {
   public List<BadSmell> analyze(String path) {
 
     List<BadSmell> badSmells = new ArrayList<>();
-    try {
-      List<Path> files = Files.walk(Path.of(path)).filter(v -> Files.isDirectory(v)).toList();
-      files = PathUtils.filterResourcePaths(files);
-
+    try (Stream<Path> walk = Files.walk(Path.of(path))) {
+      List<Path> files = PathUtils.filterResourcePaths(walk.filter(Files::isDirectory).toList());
       Launcher launcher = new Launcher();
       for (Path p : files) {
         launcher.addInputResource(p.toString());

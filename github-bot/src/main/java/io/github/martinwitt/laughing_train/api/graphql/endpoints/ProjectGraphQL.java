@@ -12,7 +12,7 @@ import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigR
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.ProjectConfigService;
 import io.quarkus.security.Authenticated;
-import io.vertx.core.Vertx;
+import io.smallrye.common.annotation.RunOnVirtualThread;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import java.util.List;
@@ -24,11 +24,10 @@ import org.eclipse.microprofile.graphql.Query;
 
 @GraphQLApi
 @RequestScoped
+@RunOnVirtualThread
 public class ProjectGraphQL {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-
-  @Inject Vertx vertx;
 
   @Inject ProjectConfigService projectConfigService;
 

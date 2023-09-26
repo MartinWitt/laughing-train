@@ -5,6 +5,7 @@ import io.github.martinwitt.spoon_analyzer.BadSmell;
 import io.github.martinwitt.spoon_analyzer.SpoonAnalyzer;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Optional;
 
 public class SpoonBasedAnalyzer {
 
@@ -14,8 +15,8 @@ public class SpoonBasedAnalyzer {
     List<BadSmell> analyze = analyzer.analyze(sourceRoot.toAbsolutePath().toString());
     return analyze.stream()
         .map(analyzerResultVisitor::toAnalyzerResult)
-        .filter(v -> v.isPresent())
-        .map(v -> v.get())
+        .filter(Optional::isPresent)
+        .map(Optional::get)
         .toList();
   }
 }

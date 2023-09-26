@@ -57,6 +57,17 @@ public class ProjectSupplier extends AbstractVerticle {
     }
   }
 
+  public ProjectResult supplyProject() {
+    try {
+      RemoteProject project = getRandomProject();
+      ProjectResult checkoutProject = checkoutProject(project);
+      Log.info("Project %s checked out".formatted(project.getProjectUrl()));
+      return checkoutProject;
+    } catch (IOException e) {
+      return new ProjectResult.Error(e.getMessage());
+    }
+  }
+
   private ProjectResult checkoutProject(RemoteProject project) throws IOException {
     return projectService.handleProjectRequest(new ProjectRequest.WithUrl(project.getProjectUrl()));
   }
