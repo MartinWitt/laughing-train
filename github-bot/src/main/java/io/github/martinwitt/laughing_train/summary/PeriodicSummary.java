@@ -40,29 +40,25 @@ public class PeriodicSummary {
 
   @Scheduled(every = "2h", delay = 10, delayUnit = TimeUnit.MINUTES)
   public void createSummary() {
-    var summaryIssue = issueRequestService.getSummaryIssue();
-    if (summaryIssue instanceof FindIssueResult.SingleResult summary) {
-      updateContent(summary.issue());
-    } else if (summaryIssue instanceof FindIssueResult.NoResult noResult) {
-      logger.atInfo().log("No summary issue found, creating one");
-      createNewSummary();
-    } else if (summaryIssue instanceof FindIssueResult.MultipleResults multipleResults) {
-      updateContent(multipleResults.issues().get(0));
-    } else {
-      logger.atWarning().log("No summary issue found");
+    FindIssueResult summaryIssue = issueRequestService.getSummaryIssue();
+    switch (summaryIssue) {
+      case FindIssueResult.SingleResult summary -> updateContent(summary.issue());
+      case FindIssueResult.NoResult noResult -> {
+        logger.atInfo().log("No summary issue found, creating one");
+        createNewSummary();
+      }
+      case FindIssueResult.MultipleResults multipleResults -> updateContent(
+          multipleResults.issues().get(0));
+      default -> logger.atWarning().log("No summary issue found");
     }
   }
 
   private void createNewSummary() {
     try {
-      updateContent(createIssue());
+      updateContent(createNewIssue());
     } catch (Exception e) {
       logger.atSevere().withCause(e).log("Failed to create summary issue");
     }
-  }
-
-  private Issue createIssue() throws IOException {
-    return toIssue(createNewIssue());
   }
 
   /**
@@ -72,11 +68,12 @@ public class PeriodicSummary {
    * @return the created issue
    * @throws IOException if the issue could not be created
    */
-  private GHIssue createNewIssue() throws IOException {
-    return GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
-        .getRepository("martinwitt/laughing-train")
-        .createIssue("laughing-train-summary")
-        .create();
+  private Issue createNewIssue() throws IOException {
+    return toIssue(
+        GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+            .getRepository("martinwitt/laughing-train")
+            .createIssue("laughing-train-summary")
+            .create());
   }
 
   private void updateContent(Issue issue) {
