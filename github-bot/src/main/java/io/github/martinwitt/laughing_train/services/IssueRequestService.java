@@ -82,7 +82,7 @@ public class IssueRequestService {
       if (list.isEmpty()) {
         return new FindIssueResult.NoResult();
       }
-      return new FindIssueResult.MultipleResults(list.stream().map(v -> toIssue(v)).toList());
+      return new FindIssueResult.MultipleResults(list.stream().map(this::toIssue).toList());
     } catch (IOException e) {
       logger.atSevere().withCause(e).log("Error while searching for summary issue");
       return new FindIssueResult.NoResult();
@@ -93,7 +93,7 @@ public class IssueRequestService {
     return GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
         .getRepository("MartinWitt/laughing-train")
         .queryIssues()
-        .pageSize(1)
+        .pageSize(100)
         .label("laughing-train-summary")
         .state(GHIssueState.OPEN)
         .list()
