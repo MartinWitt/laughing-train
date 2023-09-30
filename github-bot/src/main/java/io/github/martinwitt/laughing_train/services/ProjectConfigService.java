@@ -23,4 +23,12 @@ public class ProjectConfigService {
     logger.atWarning().log("Unknown request type %s", request.getClass());
     return Uni.createFrom().failure(new IllegalArgumentException("Unknown request type"));
   }
+
+  public List<ProjectConfig> getProjectConfig(FindProjectConfigRequest request) {
+    if (request instanceof FindProjectConfigRequest.ByProjectUrl byProjectUrl) {
+      return projectConfigRepository.findByProjectUrl(byProjectUrl.projectUrl());
+    }
+    logger.atWarning().log("Unknown request type %s", request.getClass());
+    throw new IllegalArgumentException("Unknown request type");
+  }
 }
