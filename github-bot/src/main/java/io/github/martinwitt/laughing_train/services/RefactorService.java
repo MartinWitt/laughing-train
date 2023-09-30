@@ -3,21 +3,16 @@ package io.github.martinwitt.laughing_train.services;
 import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.Var;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
-import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
-import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.github.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.github.GitHubUtils;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.smallrye.health.api.AsyncHealthCheck;
 import io.smallrye.mutiny.Uni;
-import io.vertx.core.Promise;
-import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.EventBus;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.inject.Inject;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -30,6 +25,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Readiness;
+import org.kohsuke.github.GHPullRequest;
 import org.kohsuke.github.GHRef;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
@@ -44,41 +40,70 @@ public class RefactorService {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private static final String LABEL_NAME = "laughing-train-repair";
+  final BranchNameSupplier branchNameSupplier;
+  final ChangelogPrinter changelogPrinter;
+  final ProjectConfigService projectConfigService;
+  final ProjectService projectService;
+  final DiffCleaner diffCleaner;
 
-  @Inject Config config;
-
-  @Inject EventBus eventBus;
-
-  @Inject Vertx vertx;
-
-  @Inject BranchNameSupplier branchNameSupplier;
-
-  @Inject ChangelogPrinter changelogPrinter;
-
-  @Inject ProjectConfigService projectConfigService;
-
-  @Inject ProjectService projectService;
-
-  DiffCleaner diffCleaner;
-
-  public RefactorService() {
+  public RefactorService(
+      ProjectService projectService,
+      ProjectConfigService projectConfigService,
+      BranchNameSupplier branchNameSupplier,
+      ChangelogPrinter changelogPrinter) {
     diffCleaner = new DiffCleaner();
+    this.projectService = projectService;
+    this.projectConfigService = projectConfigService;
+    this.branchNameSupplier = branchNameSupplier;
+    this.changelogPrinter = changelogPrinter;
   }
 
-  public Uni<String> refactor(Collection<? extends BadSmell> badSmells) {
+  public String refactor(Collection<? extends BadSmell> badSmells) {
     logger.atInfo().log("Refactoring %d bad smells", badSmells.size());
     var badSmellByAnalyzer =
         badSmells.stream().collect(Collectors.groupingBy(BadSmell::getAnalyzer));
+    String url = "";
     for (var entry : badSmellByAnalyzer.entrySet()) {
       var analyzer = entry.getKey();
       var badSmellList = entry.getValue();
       switch (analyzer) {
         case "Qodana" -> refactorQodana(badSmellList);
+        case "Spoon" -> url = refactorSpoon(badSmellList);
         default -> logger.atWarning().log("Unknown analyzer %s", analyzer);
       }
       logger.atInfo().log("Refactoring");
     }
-    return Uni.createFrom().item("See log for details");
+    return url;
+  }
+
+  private String refactorSpoon(List<? extends BadSmell> badSmells) {
+    String projectUrl = badSmells.get(0).getProjectUrl();
+    var projectConfig =
+        projectConfigService.getProjectConfig(
+            new FindProjectConfigRequest.ByProjectUrl(projectUrl));
+    logger.atInfo().log("Found %s config ", projectConfig);
+    if (projectConfig.isEmpty()) {
+      logger.atWarning().log("No config found for %s", projectUrl);
+      return projectUrl;
+    }
+    ProjectResult projectResult =
+        projectService.handleProjectRequest(new ProjectRequest.WithUrl(projectUrl));
+    if (projectResult instanceof ProjectResult.Success success) {
+      File folder = success.project().folder();
+      try {
+        CodeRefactoring codeRefactoring = new CodeRefactoring();
+        Changelog log = codeRefactoring.refactorBadSmells(folder.toPath(), badSmells);
+
+        GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
+        GHRepository repository = createForkIfMissing(success, github);
+        GitHubUtils.createLabelIfMissing(repository);
+        return createSinglePullRequest(repository, folder.toPath(), log.getChanges(), badSmells);
+      } catch (Exception e) {
+        logger.atSevere().withCause(e).log("Failed to create pull request");
+        FileUtils.deleteQuietly(folder);
+      }
+    }
+    return "Error";
   }
 
   private void refactorQodana(List<? extends BadSmell> badSmells) {
@@ -88,7 +113,7 @@ public class RefactorService {
         projectConfigService.getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl));
     logger.atInfo().log("Found %s config ", projectConfig);
     projectConfig
-        .<ProjectConfig>flatMap(
+        .flatMap(
             list -> {
               if (list.isEmpty()) {
                 logger.atWarning().log("No config found for %s", projectUrl);
@@ -102,34 +127,35 @@ public class RefactorService {
             it -> {
               var result =
                   projectService.handleProjectRequest(new ProjectRequest.WithUrl(projectUrl));
-              createPullRequest(result, badSmells, it);
+              createPullRequest(result, badSmells);
             });
   }
 
-  private Promise<String> createPullRequest(
-      ProjectResult message, List<? extends BadSmell> badSmells, ProjectConfig config) {
+  private String createPullRequest(ProjectResult message, List<? extends BadSmell> badSmells) {
     if (message instanceof ProjectResult.Error error) {
       logger.atSevere().log("Failed to get project %s", error.message());
-      return Promise.promise();
+      return error.message();
     }
 
     if (message instanceof ProjectResult.Success success) {
+      File folder = success.project().folder();
       try {
         CodeRefactoring codeRefactoring = new CodeRefactoring();
-        Changelog log =
-            codeRefactoring.refactorBadSmells(success.project().folder().toPath(), badSmells);
+        Changelog log = codeRefactoring.refactorBadSmells(folder.toPath(), badSmells);
 
         GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
         GHRepository repository = createForkIfMissing(success, github);
         GitHubUtils.createLabelIfMissing(repository);
-        createSinglePullRequest(
-            repository, success.project().folder().toPath(), log.getChanges(), badSmells);
+        String pullRequestTitle =
+            createSinglePullRequest(repository, folder.toPath(), log.getChanges(), badSmells);
+        FileUtils.deleteQuietly(folder);
+        return pullRequestTitle;
       } catch (Exception e) {
         logger.atSevere().withCause(e).log("Failed to create pull request");
-        FileUtils.deleteQuietly(success.project().folder());
+        FileUtils.deleteQuietly(folder);
       }
     }
-    return Promise.promise();
+    return "Error";
   }
 
   private GHRepository createForkIfMissing(ProjectResult.Success success, GitHub github)
@@ -146,7 +172,7 @@ public class RefactorService {
     return repository;
   }
 
-  private void createSinglePullRequest(
+  private String createSinglePullRequest(
       GHRepository repo,
       Path dir,
       List<? extends Change> changes,
@@ -161,7 +187,7 @@ public class RefactorService {
     body.append(changelogPrinter.printBadSmellFingerPrints(badSmells));
     createCommit(repo, dir, changes, ref);
     body.append(changelogPrinter.printChangeLogShort(changes));
-    createPullRequest(repo, branchName, body.toString(), createPullRequestTitle(changes));
+    return createPullRequest(repo, branchName, body.toString(), createPullRequestTitle(changes));
   }
 
   private String createPullRequestTitle(List<? extends Change> changes) {
@@ -204,7 +230,7 @@ public class RefactorService {
 
   private String createCommitMessage(List<? extends Change> changes) {
     StringBuilder message = new StringBuilder();
-    if (changes.stream().map(v -> v.getBadSmell()).distinct().count() == 1) {
+    if (changes.stream().map(Change::getBadSmell).distinct().count() == 1) {
       message
           .append("Refactor bad smell ")
           .append(changes.get(0).getBadSmell().getName().asText())
@@ -235,25 +261,27 @@ public class RefactorService {
               .relativize(child.toRealPath(LinkOption.NOFOLLOW_LINKS));
       return relative.toString().replace('\\', '/');
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.atSevere().withCause(e).log("Failed to relativize %s", child);
     }
     return "";
   }
 
-  private void createPullRequest(
+  private String createPullRequest(
       GHRepository repo, String branchName, String body, String commitNameTitle)
       throws IOException {
-    repo.createPullRequest(commitNameTitle, branchName, repo.getDefaultBranch(), body)
-        .addLabels(LABEL_NAME);
+    GHPullRequest pullRequest =
+        repo.createPullRequest(commitNameTitle, branchName, repo.getDefaultBranch(), body);
+    pullRequest.addLabels(LABEL_NAME);
+    return pullRequest.getHtmlUrl().toString();
   }
 
   @Readiness
   @ApplicationScoped
-  private static class HealthCheck implements AsyncHealthCheck {
+  static class HealthCheck implements AsyncHealthCheck {
 
     @Override
     public Uni<HealthCheckResponse> call() {
-      return Uni.createFrom().item(HealthCheckResponse.named("Qodana Refactor").up().build());
+      return Uni.createFrom().item(HealthCheckResponse.named("Code Refactor").up().build());
     }
   }
 }
