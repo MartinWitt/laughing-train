@@ -21,7 +21,7 @@ public class BadSmell {
     this.links = List.of();
   }
 
-  public BadSmell(MarkdownString description, MarkdownString name) {
+  public BadSmell(MarkdownString name, MarkdownString description) {
     this.description = description;
     this.name = name;
     this.links = List.of();

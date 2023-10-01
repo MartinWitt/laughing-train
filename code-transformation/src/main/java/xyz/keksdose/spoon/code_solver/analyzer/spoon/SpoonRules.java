@@ -7,12 +7,19 @@ import java.util.function.Function;
 import xyz.keksdose.spoon.code_solver.analyzer.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.analyzer.AnalyzerRule;
 import xyz.keksdose.spoon.code_solver.analyzer.spoon.rules.AccessStaticViaInstance;
+import xyz.keksdose.spoon.code_solver.analyzer.spoon.rules.IndexOfReplaceableByContains;
+import xyz.keksdose.spoon.code_solver.analyzer.spoon.rules.UnnecessaryImplements;
+import xyz.keksdose.spoon.code_solver.analyzer.spoon.rules.UnnecessaryToString;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 /** Enum for all spoon based rules. */
 public enum SpoonRules implements AnalyzerRule {
-  Access_Static_Via_Instance("AccessStaticViaInstance", AccessStaticViaInstance::new);
-
+  ACCESS_STATIC_VIA_INSTANCE("AccessStaticViaInstance", AccessStaticViaInstance::new),
+  UNNECESSARY_TO_STRING("UnnecessaryToString", UnnecessaryToString::new),
+  UNNECESSARY_IMPLEMENTS("UnnecessaryImplements", UnnecessaryImplements::new),
+  INDEX_OF_REPLACEABLE_BY_CONTAINS(
+      "IndexOfReplaceableByContains", IndexOfReplaceableByContains::new),
+  ;
   private final RuleId ruleId;
   private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
 
