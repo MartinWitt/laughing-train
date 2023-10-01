@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.function.Function;
 import xyz.keksdose.spoon.code_solver.analyzer.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.analyzer.AnalyzerRule;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.rules.MethodMayBeStatic;
+import xyz.keksdose.spoon.code_solver.analyzer.spoon.rules.AccessStaticViaInstance;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 
 /** Enum for all spoon based rules. */
 public enum SpoonRules implements AnalyzerRule {
-  METHOD_MAY_BE_STATIC("MethodMayBeStatic", MethodMayBeStatic::new);
+  Access_Static_Via_Instance("AccessStaticViaInstance", AccessStaticViaInstance::new);
 
   private final RuleId ruleId;
   private final Function<AnalyzerResult, AbstractRefactoring> refactoring;
