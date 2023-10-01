@@ -2,11 +2,7 @@ package xyz.keksdose.spoon.code_solver.analyzer.spoon;
 
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.analyzer.AbstractRefactoring;
@@ -22,9 +18,10 @@ public class SpoonRefactor extends TransformationProcessor<CtType<?>> {
   private Map<RuleId, Function<AnalyzerResult, AbstractRefactoring>> ruleParser;
   private List<AbstractRefactoring> refactors;
 
-  public SpoonRefactor(ChangeListener changeListener, List<? extends AnalyzerResult> badSmells) {
+  public SpoonRefactor(ChangeListener changeListener, Iterable<? extends AnalyzerResult> badSmells) {
     super(changeListener);
     ruleParser = new HashMap<>();
+    refactors = new ArrayList<>();
     Arrays.stream(SpoonRules.values())
         .forEach(rule -> ruleParser.put(rule.getRuleId(), rule.getRefactoring()));
     for (AnalyzerResult result : badSmells) {

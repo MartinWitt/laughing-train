@@ -9,9 +9,35 @@ import xyz.keksdose.spoon.code_solver.history.MarkdownString;
  * bad smell and the description of the bad smell. A bad smell is a part of the source code, that
  * has some problems.
  */
-public abstract class BadSmell {
+public class BadSmell {
+
+  protected MarkdownString description;
+  protected MarkdownString name;
+  protected List<Link> links;
+
+  public BadSmell() {
+    this.description = MarkdownString.fromRaw("");
+    this.name = MarkdownString.fromRaw("");
+    this.links = List.of();
+  }
+
+  public BadSmell(MarkdownString description, MarkdownString name) {
+    this.description = description;
+    this.name = name;
+    this.links = List.of();
+  }
+
+  public BadSmell(MarkdownString description, MarkdownString name, List<Link> links) {
+    this.description = description;
+    this.name = name;
+    this.links = links;
+  }
 
   private static final class EmptyBadSmell extends BadSmell {
+    private EmptyBadSmell() {
+      super(MarkdownString.fromRaw(""), MarkdownString.fromRaw(""));
+    }
+
     @Override
     public MarkdownString getDescription() {
       return MarkdownString.fromRaw("");
@@ -30,7 +56,9 @@ public abstract class BadSmell {
    *
    * @return the description of the bad smell
    */
-  public abstract MarkdownString getDescription();
+  public MarkdownString getDescription() {
+    return description;
+  }
 
   /**
    * Returns the name of the bad smell. This name is encoded as {@link MarkdownString}. For the
@@ -39,7 +67,9 @@ public abstract class BadSmell {
    *
    * @return the name of the bad smell
    */
-  public abstract MarkdownString getName();
+  public MarkdownString getName() {
+    return name;
+  }
 
   /**
    * Returns an empty instance of BadSmell. This method exists to avoid null checks.
@@ -61,6 +91,6 @@ public abstract class BadSmell {
   }
 
   public List<Link> getLinks() {
-    return List.of();
+    return links;
   }
 }

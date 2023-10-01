@@ -3,6 +3,7 @@ package xyz.keksdose.spoon.code_solver.analyzer;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.nio.file.Path;
 import java.util.List;
+import spoon.reflect.cu.SourcePositionHolder;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeParameter;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
@@ -11,7 +12,7 @@ import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
 /**
  * This defines a refactoring of a reported {@link AnalyzerResult}. With the help of this class, the
  * refactoring can be applied to the source code. The refactoring is applied by calling the {@link
- * #apply(CtType)} method.
+ * #refactor(ChangeListener,CtType)} method.
  */
 public abstract class AbstractRefactoring {
 
@@ -30,7 +31,7 @@ public abstract class AbstractRefactoring {
    * Applies the refactoring to the given {@link CtType}.
    *
    * @param listener The listener which is used to report the changes.
-   * @param compilationUnit The type which contains the reported bad smell.
+   * @param type The type which contains the reported bad smell.
    */
   public abstract void refactor(ChangeListener listener, CtType<?> type);
 
@@ -44,14 +45,15 @@ public abstract class AbstractRefactoring {
   /**
    * Checks if the given {@link CtType} is the type which contains the reported bad smell.
    *
-   * @param type The type which should be checked.
+   * @param positionHolder The type which should be checked.
    * @param resultPath The path of the file which contains the reported bad smell.
    * @return True if the given {@link CtType} is the type which contains the reported bad smell.
    */
-  protected boolean isSameType(CtType<?> type, Path resultPath) {
-    return type.getPosition().isValidPosition()
-        && !(type instanceof CtTypeParameter)
-        && type.getPosition()
+  protected boolean isSameType(SourcePositionHolder positionHolder, Path resultPath) {
+    return positionHolder.getPosition().isValidPosition()
+        && !(positionHolder instanceof CtTypeParameter)
+        && positionHolder
+            .getPosition()
             .getCompilationUnit()
             .getFile()
             .toPath()
