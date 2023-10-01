@@ -18,7 +18,8 @@ public class SpoonRefactor extends TransformationProcessor<CtType<?>> {
   private Map<RuleId, Function<AnalyzerResult, AbstractRefactoring>> ruleParser;
   private List<AbstractRefactoring> refactors;
 
-  public SpoonRefactor(ChangeListener changeListener, Iterable<? extends AnalyzerResult> badSmells) {
+  public SpoonRefactor(
+      ChangeListener changeListener, Iterable<? extends AnalyzerResult> badSmells) {
     super(changeListener);
     ruleParser = new HashMap<>();
     refactors = new ArrayList<>();
