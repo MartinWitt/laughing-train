@@ -62,9 +62,9 @@ public record SpoonAnalyzerResult(
     }
   }
 
-  private static Optional<String> getRelativeFilePath(CtType<?> ctType, String rootPath) {
+  private static Optional<String> getRelativeFilePath(SourcePositionHolder positionHolder, String rootPath) {
     try {
-      File file = ctType.getPosition().getFile();
+      File file = positionHolder.getPosition().getFile();
       Path filePath = Paths.get(file.getAbsolutePath());
       Path rootPathObj = Paths.get(rootPath);
       // Get the relative path of the file relative to the root path
