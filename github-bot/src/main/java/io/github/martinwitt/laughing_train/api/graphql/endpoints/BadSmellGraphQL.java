@@ -7,8 +7,6 @@ import io.github.martinwitt.laughing_train.persistence.repository.BadSmellReposi
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.summary.GetFixableBadSmells;
 import io.github.martinwitt.spoon_analyzer.badsmells.SpoonRules;
-import io.smallrye.common.annotation.RunOnVirtualThread;
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import java.util.Arrays;
 import java.util.List;
@@ -18,8 +16,6 @@ import org.eclipse.microprofile.graphql.Name;
 import org.eclipse.microprofile.graphql.Query;
 
 @GraphQLApi
-@RequestScoped
-@RunOnVirtualThread
 public class BadSmellGraphQL {
 
   @Inject BadSmellRepository badSmellRepository;

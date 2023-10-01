@@ -62,7 +62,8 @@ public record SpoonAnalyzerResult(
     }
   }
 
-  private static Optional<String> getRelativeFilePath(SourcePositionHolder positionHolder, String rootPath) {
+  private static Optional<String> getRelativeFilePath(
+      SourcePositionHolder positionHolder, String rootPath) {
     try {
       File file = positionHolder.getPosition().getFile();
       Path filePath = Paths.get(file.getAbsolutePath());
