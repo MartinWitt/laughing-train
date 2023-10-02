@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.6.0](https://github.com/MartinWitt/laughing-train/compare/v1.5.0...v1.6.0) (2023-10-02)
+
+
+### Features
+
+* convert UnnecessaryImplements, UnnecessaryToString and IndexOfReplaceableByContains rules ([#1120](https://github.com/MartinWitt/laughing-train/issues/1120)) ([a0fbf40](https://github.com/MartinWitt/laughing-train/commit/a0fbf407f8bbee19dcd052fa1b59c239783e0c8a))
+
+
+### Bug Fixes
+
+* convert deprecated method to new API ([#1121](https://github.com/MartinWitt/laughing-train/issues/1121)) ([1ce765f](https://github.com/MartinWitt/laughing-train/commit/1ce765f64220dc5c59cb046a0fda6fa848860544))
+* **deps:** update dependency react-markdown to v9 ([#1110](https://github.com/MartinWitt/laughing-train/issues/1110)) ([ea73186](https://github.com/MartinWitt/laughing-train/commit/ea7318634f373a9d8443cc6141423c365699b4cf))
+* fix thread blocking issue ([#1119](https://github.com/MartinWitt/laughing-train/issues/1119)) ([20e8577](https://github.com/MartinWitt/laughing-train/commit/20e85778a11b8b07657f2103efca5d2b13c582eb))
+
+
+### Dependencies
+
+* :bookmark:(deps): update github/codeql-action digest to ddccb87 ([#1108](https://github.com/MartinWitt/laughing-train/issues/1108)) ([532d70e](https://github.com/MartinWitt/laughing-train/commit/532d70e7f4f9f67dd561687a5abf87ac22ea532f))
+* :bookmark:(deps): update gradle/gradle-build-action digest to 842c587 ([#1116](https://github.com/MartinWitt/laughing-train/issues/1116)) ([988435e](https://github.com/MartinWitt/laughing-train/commit/988435e3027b185f3d1629664853a6500d27fdf1))
+
 ## [1.5.0](https://github.com/MartinWitt/laughing-train/compare/v1.4.0...v1.5.0) (2023-09-26)
 
 
