@@ -6,8 +6,7 @@ import {
   Card,
   CardContent,
   CardHeader,
-  CircularProgress,
-  Divider,
+  Divider, LinearProgress,
 } from '@mui/material';
 import { Project } from '../data/Project';
 import Avatar from 'react-avatar';
@@ -82,7 +81,7 @@ function Statistics({ projects }: { projects: CardData[] }) {
 export function StatisticPage() {
   const { loading, error, data } = useQuery(fetchProjectQuery);
 
-  if (loading) return <PageLayout children={<CircularProgress />}></PageLayout>;
+  if (loading) return <PageLayout children={<LinearProgress />}></PageLayout>;
   if (error) return <p>Error :(</p>;
 
   const projects: CardData[] = data.getProjects.map((project: Project) => {
