@@ -17,7 +17,7 @@ import DashBoard from './pages/DashBoard';
 import LandingPage from './pages/PageLayout';
 import { ProjectConfigview } from './pages/ProjectConfigView';
 import { RefactorView } from './pages/RefactorView';
-import Resultview from './pages/Resultview';
+import ResultView from './pages/ResultView';
 import reportWebVitals from './reportWebVitals';
 import { StatisticPage } from './pages/StatisticsPage';
 const root = ReactDOM.createRoot(
@@ -57,11 +57,11 @@ const router = createBrowserRouter([
   },
   {
     path: 'resultview/:name',
-    element: <LandingPage children={<Resultview />} />,
+    element: <LandingPage children={<ResultView />} />,
     children: [
       {
         path: ':hash',
-        element: <Resultview />,
+        element: <ResultView />,
       },
     ],
   },

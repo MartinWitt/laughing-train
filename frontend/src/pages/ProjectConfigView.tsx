@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Alert, Box, Button, TextField, Typography } from '@mui/material';
+import {Alert, Box, Button, LinearProgress, TextField, Typography} from '@mui/material';
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import Headline from '../component/Headline';
@@ -22,7 +22,7 @@ export function ProjectConfigview() {
         <br />
         <Typography variant="h4">Project Config </Typography>
         <br />
-        {loading && <p>Loading...</p>}
+        {loading && <p><LinearProgress /></p>}
         {error && (
           <Alert severity="error">Can not fetch data. Are you logged in?</Alert>
         )}

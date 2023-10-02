@@ -5,7 +5,7 @@ import {
   AccordionSummary,
   Box,
   Card,
-  CircularProgress,
+  LinearProgress,
   Divider,
   Link,
   Stack,
@@ -44,7 +44,7 @@ export default function BadSmellList(project: Project) {
     console.error(error);
   }
   if (loading) {
-    return <CircularProgress />;
+    return <LinearProgress />;
   }
 
   return (

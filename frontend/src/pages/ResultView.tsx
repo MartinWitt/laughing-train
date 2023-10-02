@@ -1,8 +1,8 @@
 import {
   Button,
-  CircularProgress,
   Divider,
   Grid,
+  LinearProgress,
   Stack,
   Typography,
 } from '@mui/material';
@@ -15,7 +15,7 @@ import { Project } from '../data/Project';
 import { useQuery } from '@apollo/client';
 import BadSmellList from '../component/BadSmellList';
 
-function Resultview() {
+function ResultView() {
   let navigate = useNavigate();
   let params = useParams();
   const { data, loading, error } = useQuery(fetchProjectQuery);
@@ -24,7 +24,7 @@ function Resultview() {
   }
   console.log(params);
   if (loading) {
-    return <CircularProgress />;
+    return <LinearProgress  sx={{margin:5}}/>;
   }
   const project: Project | undefined = data.getProjects.find(
     (project: Project) => {
@@ -73,7 +73,7 @@ function Resultview() {
     </div>
   );
 }
-export default Resultview;
+export default ResultView;
 
 function projectWithSingleHash(
   project: Project,
