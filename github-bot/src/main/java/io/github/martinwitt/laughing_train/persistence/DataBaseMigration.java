@@ -12,14 +12,12 @@ import io.github.martinwitt.laughing_train.persistence.repository.BadSmellReposi
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.runtime.StartupEvent;
-import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -30,6 +28,7 @@ import org.bson.BsonDocument;
 public class DataBaseMigration {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
+  public static final int DELAY_BETWEEN = 60;
 
   ProjectConfigRepository projectConfigRepository;
   ProjectRepository projectRepository;
@@ -62,16 +61,25 @@ public class DataBaseMigration {
 
   public void checkPeriodic() {
     vertx.setPeriodic(
-        TimeUnit.MINUTES.toMillis(2),
-        TimeUnit.MINUTES.toMillis(60),
-        id ->
+        getInitialDelay(),
+        getDelay(),
+        unused ->
             vertx
-                .executeBlocking(promise -> migrateDataBase(promise))
+                .executeBlocking(this::migrateDataBase)
                 .onFailure(
-                    v -> logger.atSevere().withCause(v).log("Error while migrating database")));
+                    v -> logger.atSevere().withCause(v).log("Error while migrating database"))
+                .onSuccess(v -> logger.atInfo().log("Finished migrating database")));
   }
 
-  private void migrateDataBase(Promise<Object> promise) {
+  private static long getDelay() {
+    return TimeUnit.MINUTES.toMillis(DELAY_BETWEEN);
+  }
+
+  private static long getInitialDelay() {
+    return TimeUnit.MINUTES.toMillis(2);
+  }
+
+  private boolean migrateDataBase() {
     logger.atInfo().log("Migrating database");
     createIndexes();
     createConfigsIfMissing();
@@ -81,8 +89,7 @@ public class DataBaseMigration {
     removeRuleIdsWithSpaces();
     removeBadSmellsWithWrongFolder();
     deleteBadSmellWithManyFalsePositives();
-    logger.atInfo().log("Finished migrating database");
-    promise.complete();
+    return true;
   }
 
   public void createIndexes() {
@@ -132,7 +139,7 @@ public class DataBaseMigration {
   private void removeProjectHashesWithoutResults() {
     logger.atInfo().log("Removing project hashes without results");
     for (RemoteProject project : projectRepository.getAll()) {
-      List<String> commitHashes = new ArrayList<>(project.getCommitHashes());
+      Iterable<String> commitHashes = new ArrayList<>(project.getCommitHashes());
       for (String commitHash : commitHashes) {
         if (badSmellRepositoryImpl
                 .mongoCollection()
@@ -170,7 +177,7 @@ public class DataBaseMigration {
         badSmellRepositoryImpl
             .mongoCollection()
             .deleteMany(
-                Filters.and(Filters.regex("ruleID", ".*\s.*"), Filters.eq("analyzer", "Spoon")));
+                Filters.and(Filters.regex("ruleID", ".* .*"), Filters.eq("analyzer", "Spoon")));
     logger.atInfo().log(
         "Removed %d bad smells with ruleId containing spaces", deleteMany.getDeletedCount());
   }
