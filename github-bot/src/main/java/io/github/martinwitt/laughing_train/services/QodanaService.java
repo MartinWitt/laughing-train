@@ -128,8 +128,10 @@ public class QodanaService {
   }
 
   private Uni<List<ProjectConfig>> getProjectConfig(WithProject item) {
-    return projectConfigService.getConfig(
-        new FindProjectConfigRequest.ByProjectUrl(item.project().url()));
+    return Uni.createFrom()
+        .item(
+            projectConfigService.getProjectConfig(
+                new FindProjectConfigRequest.ByProjectUrl(item.project().url())));
   }
 
   private void persistResults(QodanaResult result) {

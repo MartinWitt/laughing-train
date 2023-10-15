@@ -108,27 +108,9 @@ public class RefactorService {
 
   private void refactorQodana(List<? extends BadSmell> badSmells) {
     String projectUrl = badSmells.get(0).getProjectUrl();
-
-    var projectConfig =
-        projectConfigService.getConfig(new FindProjectConfigRequest.ByProjectUrl(projectUrl));
-    logger.atInfo().log("Found %s config ", projectConfig);
-    projectConfig
-        .flatMap(
-            list -> {
-              if (list.isEmpty()) {
-                logger.atWarning().log("No config found for %s", projectUrl);
-                return Uni.createFrom()
-                    .failure(new RuntimeException("No config found for " + projectUrl));
-              }
-              return Uni.createFrom().item(list.get(0));
-            })
-        .subscribe()
-        .with(
-            it -> {
-              var result =
-                  projectService.handleProjectRequest(new ProjectRequest.WithUrl(projectUrl));
-              createPullRequest(result, badSmells);
-            });
+    ProjectResult projectResult =
+        projectService.handleProjectRequest(new ProjectRequest.WithUrl(projectUrl));
+    createPullRequest(projectResult, badSmells);
   }
 
   private String createPullRequest(ProjectResult message, List<? extends BadSmell> badSmells) {

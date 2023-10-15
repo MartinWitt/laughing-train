@@ -13,7 +13,8 @@ dependencies {
 	implementation 'io.quarkus:quarkus-arc'
 	implementation "io.quarkus:quarkus-scheduler"
 	implementation 'io.quarkus:quarkus-smallrye-health'
-	testImplementation 'io.quarkus:quarkus-junit5'
+    implementation project(path: ':spoon-analyzer')
+    testImplementation 'io.quarkus:quarkus-junit5'
 	implementation project(":code-transformation")
 	implementation 'io.quarkus:quarkus-mongodb-panache:3.4.3'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
