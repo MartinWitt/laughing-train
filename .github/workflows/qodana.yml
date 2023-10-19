@@ -18,6 +18,7 @@ jobs:
         uses: JetBrains/qodana-action@95ecb19ba27e308153723e54a790e4ad908b13a0 # v2023.2.8
         with:
           args: "--fail-threshold,0"
+          upload-result: "true"
       - uses: github/codeql-action/upload-sarif@0116bc2df50751f9724a2e35ef1f24d22f90e4e1 # v2
         if: always()
         with:
