@@ -20,7 +20,7 @@ dependencies {
 	errorprone("com.google.errorprone:error_prone_core:2.22.0")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
 	annotationProcessor "com.uber.nullaway:nullaway:+"
-	testImplementation "org.instancio:instancio-junit:3.3.1"
+	testImplementation "org.instancio:instancio-junit:3.3.2"
 }
 testing {
     suites {
