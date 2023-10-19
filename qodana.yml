@@ -1,9 +1,10 @@
 profile:
   name: qodana.recommended
 version: "1.0"
+projectJDK: "21"
 linter: jetbrains/qodana-jvm-community:2023.2
 groups:
-  - groupId: IncludedPaths
+  - groupId: IncludedPathss
     groups:
           - "category:Java"
           - "GLOBAL"
