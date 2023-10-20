@@ -9,8 +9,6 @@ import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.github.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.github.GitHubUtils;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
-import io.smallrye.health.api.AsyncHealthCheck;
-import io.smallrye.mutiny.Uni;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.io.File;
 import java.io.IOException;
@@ -23,8 +21,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
-import org.eclipse.microprofile.health.HealthCheckResponse;
-import org.eclipse.microprofile.health.Readiness;
 import org.kohsuke.github.GHPullRequest;
 import org.kohsuke.github.GHRef;
 import org.kohsuke.github.GHRepository;
@@ -255,15 +251,5 @@ public class RefactorService {
         repo.createPullRequest(commitNameTitle, branchName, repo.getDefaultBranch(), body);
     pullRequest.addLabels(LABEL_NAME);
     return pullRequest.getHtmlUrl().toString();
-  }
-
-  @Readiness
-  @ApplicationScoped
-  static class HealthCheck implements AsyncHealthCheck {
-
-    @Override
-    public Uni<HealthCheckResponse> call() {
-      return Uni.createFrom().item(HealthCheckResponse.named("Code Refactor").up().build());
-    }
   }
 }
