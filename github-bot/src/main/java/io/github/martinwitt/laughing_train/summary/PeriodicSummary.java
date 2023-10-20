@@ -8,7 +8,7 @@ import io.github.martinwitt.laughing_train.data.FindPullRequestResult;
 import io.github.martinwitt.laughing_train.data.GitHubState;
 import io.github.martinwitt.laughing_train.data.Issue;
 import io.github.martinwitt.laughing_train.data.PullRequest;
-import io.github.martinwitt.laughing_train.services.IssueRequestService;
+import io.github.martinwitt.laughing_train.services.GitHubIssueSearch;
 import io.quarkus.scheduler.Scheduled;
 import java.io.IOException;
 import java.util.Collections;
@@ -32,9 +32,9 @@ public class PeriodicSummary {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  IssueRequestService issueRequestService;
+  GitHubIssueSearch issueRequestService;
 
-  PeriodicSummary(IssueRequestService issueRequestService) {
+  PeriodicSummary(GitHubIssueSearch issueRequestService) {
     this.issueRequestService = issueRequestService;
   }
 
