@@ -27,6 +27,7 @@ dependencies {
 	implementation project(":commons")
 	implementation "io.quarkiverse.loggingmanager:quarkus-logging-manager:3.0.2"
 	testImplementation 'org.mockito:mockito-core:5.6.0'
+	implementation 'com.fasterxml.jackson.core:jackson-dataformat-yaml:2.13.0'
 }
 
 
