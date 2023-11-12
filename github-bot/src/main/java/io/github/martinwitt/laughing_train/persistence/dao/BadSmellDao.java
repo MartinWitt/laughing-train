@@ -2,11 +2,15 @@ package io.github.martinwitt.laughing_train.persistence.dao;
 
 import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import io.quarkus.mongodb.panache.common.MongoEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
-@MongoEntity(database = "Laughing-Train", collection = "BadSmell")
+@Entity
 @SuppressWarnings("NullAway")
 public class BadSmellDao extends PanacheMongoEntity {
+
+  @Id @GeneratedValue private Long id;
   private String analyzer;
   private String identifier;
   private String ruleID;
@@ -177,42 +181,11 @@ public class BadSmellDao extends PanacheMongoEntity {
     this.position = position;
   }
 
-  @Override
-  public String toString() {
-    return "{"
-        + " analyzer='"
-        + getAnalyzer()
-        + "'"
-        + ", identifier='"
-        + getIdentifier()
-        + "'"
-        + ", ruleID='"
-        + getRuleID()
-        + "'"
-        + ", filePath='"
-        + getFilePath()
-        + "'"
-        + ", message='"
-        + getMessage()
-        + "'"
-        + ", messageMarkdown='"
-        + getMessageMarkdown()
-        + "'"
-        + ", snippet='"
-        + getSnippet()
-        + "'"
-        + ", projectName='"
-        + getProjectName()
-        + "'"
-        + ", projectUrl='"
-        + getProjectUrl()
-        + "'"
-        + ", commitHash='"
-        + getCommitHash()
-        + "'"
-        + ", position='"
-        + getPosition()
-        + "'"
-        + "}";
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 }

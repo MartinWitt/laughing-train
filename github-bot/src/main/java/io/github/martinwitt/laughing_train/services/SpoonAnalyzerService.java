@@ -15,14 +15,10 @@ import xyz.keksdose.spoon.code_solver.analyzer.spoon.SpoonBasedAnalyzer;
 public class SpoonAnalyzerService {
 
   final AnalyzerResultPersistenceService analyzerResultPersistenceService;
-  final ProjectConfigService projectConfigService;
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  SpoonAnalyzerService(
-      AnalyzerResultPersistenceService analyzerResultPersistenceService,
-      ProjectConfigService projectConfigService) {
+  SpoonAnalyzerService(AnalyzerResultPersistenceService analyzerResultPersistenceService) {
     this.analyzerResultPersistenceService = analyzerResultPersistenceService;
-    this.projectConfigService = projectConfigService;
   }
 
   public CodeAnalyzerResult analyze(AnalyzerRequest request) {

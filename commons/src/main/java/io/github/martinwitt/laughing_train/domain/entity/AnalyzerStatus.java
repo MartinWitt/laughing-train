@@ -15,7 +15,7 @@ public class AnalyzerStatus implements Serializable {
     // for JPA
   }
 
-  AnalyzerStatus(
+  public AnalyzerStatus(
       String analyzerName,
       Status status,
       int numberOfIssues,
@@ -38,7 +38,7 @@ public class AnalyzerStatus implements Serializable {
         analyzerName, Status.FAILURE, numberOfIssues, commitHash, LocalDateTime.now());
   }
 
-  enum Status {
+  public enum Status {
     SUCCESS,
     FAILURE
   }

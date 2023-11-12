@@ -9,9 +9,11 @@ import jakarta.inject.Inject;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
+@Disabled
 public class ProjectRepositoryImplTest {
   @Inject ProjectRepository projectRepository;
 

@@ -4,10 +4,8 @@ import com.google.common.base.Strings;
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.Config;
 import io.github.martinwitt.laughing_train.Constants;
-import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.data.request.AnalyzerRequest;
-import io.github.martinwitt.laughing_train.data.request.AnalyzerRequest.WithProject;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.smallrye.mutiny.Uni;
@@ -33,17 +31,14 @@ public class QodanaService {
 
   final Config config;
   final ThreadPoolManager threadPoolManager;
-  final ProjectConfigService projectConfigService;
   final AnalyzerResultPersistenceService analyzerResultPersistenceService;
 
   QodanaService(
       Config config,
       ThreadPoolManager threadPoolManager,
-      ProjectConfigService projectConfigService,
       AnalyzerResultPersistenceService analyzerResultPersistenceService) {
     this.config = config;
     this.threadPoolManager = threadPoolManager;
-    this.projectConfigService = projectConfigService;
     this.analyzerResultPersistenceService = analyzerResultPersistenceService;
   }
 
@@ -108,27 +103,13 @@ public class QodanaService {
   }
 
   private Uni<QodanaResult> runQodanaWithConfig(AnalyzerRequest.WithProject project) {
-    return getProjectConfig(project)
-        .flatMap(
-            list -> {
-              if (list.isEmpty()) {
-                return Uni.createFrom().failure(new RuntimeException("No config found"));
-              } else {
-                return Uni.createFrom().item(list.get(0));
-              }
-            })
+    return Uni.createFrom()
+        .item(ProjectConfig.ofProjectUrl(project.project().url()))
         .emitOn(Infrastructure.getDefaultExecutor())
         .map(config -> invokeQodana(project, config))
         .invoke(this::persistResults)
         .onFailure()
         .recoverWithItem(e -> new QodanaResult.Failure(Strings.nullToEmpty(e.getMessage())));
-  }
-
-  private Uni<List<ProjectConfig>> getProjectConfig(WithProject item) {
-    return Uni.createFrom()
-        .item(
-            projectConfigService.getProjectConfig(
-                new FindProjectConfigRequest.ByProjectUrl(item.project().url())));
   }
 
   private void persistResults(QodanaResult result) {

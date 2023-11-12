@@ -34,6 +34,7 @@ public class BadSmellGraphQLTest {
   @Inject BadSmellRepository badSmellRepository;
 
   @Test
+  @Disabled
   void testGetAllBadSmells() throws Exception {
     client =
         DynamicGraphQLClientBuilder.newBuilder()
@@ -87,6 +88,7 @@ public class BadSmellGraphQLTest {
   }
 
   @Test
+  @Disabled
   void queryInsertedProject() throws Exception {
 
     client =

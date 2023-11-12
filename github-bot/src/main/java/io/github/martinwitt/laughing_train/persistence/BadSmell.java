@@ -7,30 +7,30 @@ import java.util.Objects;
 
 public class BadSmell implements AnalyzerResult {
 
-  private String analyzer;
-  private String identifier;
-  private String ruleID;
-  private String filePath;
-  private String message;
-  private String messageMarkdown;
-  private String snippet;
-  private String projectName;
-  private String projectUrl;
-  private String commitHash;
-  private Position position;
+  private final String analyzer;
+  private final String identifier;
+  private final String ruleID;
+  private final String filePath;
+  private final String message;
+  private final String messageMarkdown;
+  private final String snippet;
+  private final String projectName;
+  private final String projectUrl;
+  private final String commitHash;
+  private final Position position;
 
   public BadSmell(AnalyzerResult result, String projectName, String projectUrl, String commitHash) {
-    this.position = result.position();
-    this.ruleID = result.ruleID().id();
-    this.filePath = result.filePath();
-    this.message = result.message();
-    this.messageMarkdown = result.messageMarkdown();
-    this.snippet = result.snippet();
+    position = result.position();
+    ruleID = result.ruleID().id();
+    filePath = result.filePath();
+    message = result.message();
+    messageMarkdown = result.messageMarkdown();
+    snippet = result.snippet();
     this.projectName = projectName;
     this.projectUrl = projectUrl;
     this.commitHash = commitHash;
-    this.identifier = generateIdentifier(result, projectName, commitHash);
-    this.analyzer = result.getAnalyzer();
+    identifier = generateIdentifier(result, projectName, commitHash);
+    analyzer = result.getAnalyzer();
   }
 
   public static String generateIdentifier(
@@ -163,9 +163,5 @@ public class BadSmell implements AnalyzerResult {
             position.endColumn(),
             position.charOffset(),
             position.charLength());
-  }
-
-  public BadSmell withProjectUrl(String projectUrl) {
-    return new BadSmell(this, projectName, projectUrl, commitHash);
   }
 }
