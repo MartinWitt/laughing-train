@@ -2,6 +2,7 @@ package io.github.martinwitt.laughing_train.persistence.dao;
 
 import io.github.martinwitt.laughing_train.domain.value.Position;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 @Entity
@@ -14,7 +15,10 @@ public class BadSmellDao extends PanacheEntity {
   private String filePath;
   private String message;
   private String messageMarkdown;
+
+  @Column(columnDefinition = "TEXT", length = 100000)
   private String snippet;
+
   private String projectName;
   private String projectUrl;
   private String commitHash;
