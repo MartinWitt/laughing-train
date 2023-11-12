@@ -5,16 +5,15 @@ plugins {
 }
 
 dependencies {
-  implementation 'io.quarkiverse.jgit:quarkus-jgit:3.0.5'
+  	implementation 'io.quarkiverse.jgit:quarkus-jgit:3.0.5'
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
 	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.316.0'
 	implementation 'io.quarkus:quarkus-arc'
 	implementation "io.quarkus:quarkus-scheduler"
 	implementation 'io.quarkus:quarkus-smallrye-health'
-  implementation project(path: ':spoon-analyzer')
-  testImplementation 'io.quarkus:quarkus-junit5'
+  	implementation project(path: ':spoon-analyzer')
+  	testImplementation 'io.quarkus:quarkus-junit5'
 	implementation project(":code-transformation")
-	implementation 'io.quarkus:quarkus-mongodb-panache:3.5.1'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-smallrye-graphql")
 	implementation("io.quarkus:quarkus-smallrye-graphql-client")
@@ -28,6 +27,9 @@ dependencies {
 	implementation "io.quarkiverse.loggingmanager:quarkus-logging-manager:3.0.2"
 	testImplementation 'org.mockito:mockito-core:5.7.0'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.3'
+	annotationProcessor("io.quarkus:quarkus-panache-common")
+	implementation("io.quarkus:quarkus-hibernate-orm-panache")
+	implementation("io.quarkus:quarkus-jdbc-mariadb")
 }
 
 

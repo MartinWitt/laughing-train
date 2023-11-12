@@ -1,9 +1,7 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
-import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -28,14 +26,11 @@ public class SearchProjectService {
   private final Random random = new Random();
   List<String> orgs;
   ProjectRepository projectRepository;
-  ProjectConfigRepository projectConfigRepository;
 
   public SearchProjectService(
       ProjectRepository projectRepository,
-      ProjectConfigRepository projectConfigRepository,
       @ConfigProperty(name = "mining.github.search.orgs") List<String> orgs) {
     this.projectRepository = projectRepository;
-    this.projectConfigRepository = projectConfigRepository;
     this.orgs = orgs;
   }
 
@@ -91,10 +86,6 @@ public class SearchProjectService {
 
   private void persistProjectConfigIfMissing(RemoteProject project) {
     String projectUrl = project.getProjectUrl();
-    var projectConfig = projectConfigRepository.findByProjectUrl(projectUrl);
-    if (projectConfig.isEmpty()) {
-      projectConfigRepository.create(ProjectConfig.ofProjectUrl(projectUrl));
-    }
   }
 
   private @Nullable GHRepository findRandomRepositoryOnGithub() {

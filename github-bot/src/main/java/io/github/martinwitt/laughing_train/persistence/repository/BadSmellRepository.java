@@ -3,7 +3,6 @@ package io.github.martinwitt.laughing_train.persistence.repository;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import java.util.List;
-import java.util.stream.Stream;
 
 public interface BadSmellRepository {
 
@@ -24,6 +23,4 @@ public interface BadSmellRepository {
   long deleteByIdentifier(String identifier);
 
   BadSmell save(BadSmell badSmell);
-
-  Stream<BadSmell> getAll();
 }

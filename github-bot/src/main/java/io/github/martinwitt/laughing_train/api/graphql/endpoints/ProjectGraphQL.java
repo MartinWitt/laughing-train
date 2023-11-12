@@ -1,16 +1,13 @@
 package io.github.martinwitt.laughing_train.api.graphql.endpoints;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLDto;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLDtoInput;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectGraphQLDto;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.mining.QodanaPeriodicMiner;
-import io.github.martinwitt.laughing_train.persistence.repository.ProjectConfigRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
-import io.github.martinwitt.laughing_train.services.ProjectConfigService;
 import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
 import java.util.List;
@@ -25,11 +22,7 @@ public class ProjectGraphQL {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  @Inject ProjectConfigService projectConfigService;
-
   @Inject ProjectRepository projectRepository;
-
-  @Inject ProjectConfigRepository projectConfigRepository;
 
   @Inject QodanaPeriodicMiner periodicMiner;
 
@@ -95,34 +88,6 @@ public class ProjectGraphQL {
   @Description("Logins the user")
   public String login(@DefaultValue("defaultValue") String notNeeded) {
     return "login successful";
-  }
-
-  @Query("getProjectConfig")
-  @Description("Gets the project config for a project")
-  public ProjectConfigGraphQLDto getProjectConfig(String projectUrl) {
-    return projectConfigRepository.findByProjectUrl(projectUrl).stream()
-        .findFirst()
-        .map(ProjectConfigGraphQLDto::new)
-        .orElseThrow();
-  }
-
-  @Mutation
-  @Authenticated
-  @Description("Sets the project config for a project")
-  public ProjectConfigGraphQLDto setProjectConfig(ProjectConfigGraphQLDtoInput projectConfig) {
-    var existingConfig =
-        projectConfigRepository.findByProjectUrl(projectConfig.getProjectUrl()).stream()
-            .findFirst();
-    if (existingConfig.isPresent()) {
-      var config = createConfigFromInput(projectConfig);
-      projectConfigRepository.deleteByProjectUrl(projectConfig.getProjectUrl());
-      projectConfigRepository.create(config);
-      return new ProjectConfigGraphQLDto(config);
-    } else {
-      var config = createConfigFromInput(projectConfig);
-      projectConfigRepository.create(config);
-      return new ProjectConfigGraphQLDto(config);
-    }
   }
 
   private ProjectConfig createConfigFromInput(ProjectConfigGraphQLDtoInput projectConfig) {

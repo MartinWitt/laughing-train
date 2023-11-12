@@ -1,6 +1,8 @@
 package io.github.martinwitt.laughing_train.domain.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class GitHubCommit implements Serializable {
@@ -9,6 +11,7 @@ public class GitHubCommit implements Serializable {
   private List<AnalyzerStatus> analyzerStatuses;
 
   public GitHubCommit() {
+    analyzerStatuses = new ArrayList<>();
     // for JPA
   }
 
@@ -59,8 +62,10 @@ public class GitHubCommit implements Serializable {
               analyzerStatuses.remove(v);
               analyzerStatuses.add(analyzerStatus);
             },
-            () -> {
-              analyzerStatuses.add(analyzerStatus);
-            });
+            () -> analyzerStatuses.add(analyzerStatus));
+    if (analyzerStatuses.size() > 10) {
+      analyzerStatuses.sort(Comparator.comparing(AnalyzerStatus::getLocalDateTime));
+      analyzerStatuses.removeFirst();
+    }
   }
 }

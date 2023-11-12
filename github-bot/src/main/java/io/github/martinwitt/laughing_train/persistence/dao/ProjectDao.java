@@ -1,18 +1,19 @@
 package io.github.martinwitt.laughing_train.persistence.dao;
 
-import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import io.quarkus.mongodb.panache.common.MongoEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-@MongoEntity(database = "Laughing-Train", collection = "Project")
+@Entity
 @SuppressWarnings("NullAway")
-public class ProjectDao extends PanacheMongoEntity {
+public class ProjectDao extends PanacheEntity {
+
   private String projectName;
   private String projectUrl;
-  private List<String> commitHashes = new ArrayList<>();
-  private List<GitHubCommit> commits = new ArrayList<>();
+
+  @OneToMany private List<AnalyzerRunDao> commits = new ArrayList<>();
 
   public ProjectDao() {
 
@@ -48,45 +49,16 @@ public class ProjectDao extends PanacheMongoEntity {
   }
 
   /**
-   * @return the commitHashes
-   */
-  public List<String> getCommitHashes() {
-    return commitHashes;
-  }
-
-  /**
-   * @param commitHashes the commitHashes to set
-   */
-  public void setCommitHashes(List<String> commitHashes) {
-    this.commitHashes = commitHashes;
-  }
-
-  /**
    * @return the commits
    */
-  public List<GitHubCommit> getCommits() {
+  public List<AnalyzerRunDao> getCommits() {
     return commits;
   }
 
   /**
    * @param commits the commits to set
    */
-  public void setCommits(List<GitHubCommit> commits) {
+  public void setCommits(List<AnalyzerRunDao> commits) {
     this.commits = commits;
-  }
-
-  @Override
-  public String toString() {
-    return "{"
-        + " projectName='"
-        + getProjectName()
-        + "'"
-        + ", projectUrl='"
-        + getProjectUrl()
-        + "'"
-        + ", commitHashes='"
-        + getCommitHashes()
-        + "'"
-        + "}";
   }
 }

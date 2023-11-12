@@ -3,7 +3,6 @@ package io.github.martinwitt.laughing_train.services;
 import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.Var;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
-import io.github.martinwitt.laughing_train.data.FindProjectConfigRequest;
 import io.github.martinwitt.laughing_train.data.ProjectRequest;
 import io.github.martinwitt.laughing_train.data.ProjectResult;
 import io.github.martinwitt.laughing_train.github.BranchNameSupplier;
@@ -38,18 +37,15 @@ public class RefactorService {
   private static final String LABEL_NAME = "laughing-train-repair";
   final BranchNameSupplier branchNameSupplier;
   final ChangelogPrinter changelogPrinter;
-  final ProjectConfigService projectConfigService;
   final ProjectService projectService;
   final DiffCleaner diffCleaner;
 
   public RefactorService(
       ProjectService projectService,
-      ProjectConfigService projectConfigService,
       BranchNameSupplier branchNameSupplier,
       ChangelogPrinter changelogPrinter) {
     diffCleaner = new DiffCleaner();
     this.projectService = projectService;
-    this.projectConfigService = projectConfigService;
     this.branchNameSupplier = branchNameSupplier;
     this.changelogPrinter = changelogPrinter;
   }
@@ -74,14 +70,7 @@ public class RefactorService {
 
   private String refactorSpoon(List<? extends BadSmell> badSmells) {
     String projectUrl = badSmells.get(0).getProjectUrl();
-    var projectConfig =
-        projectConfigService.getProjectConfig(
-            new FindProjectConfigRequest.ByProjectUrl(projectUrl));
-    logger.atInfo().log("Found %s config ", projectConfig);
-    if (projectConfig.isEmpty()) {
-      logger.atWarning().log("No config found for %s", projectUrl);
-      return projectUrl;
-    }
+
     ProjectResult projectResult =
         projectService.handleProjectRequest(new ProjectRequest.WithUrl(projectUrl));
     if (projectResult instanceof ProjectResult.Success success) {

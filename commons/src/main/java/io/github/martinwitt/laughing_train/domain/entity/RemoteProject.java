@@ -54,6 +54,7 @@ public class RemoteProject implements Serializable {
   }
 
   public boolean addCommitHash(GitHubCommit commit) {
+    addCommitHash(commit.getCommitHash());
     return commits.add(commit);
   }
 
