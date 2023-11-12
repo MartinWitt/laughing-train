@@ -12,7 +12,6 @@ import java.util.List;
 @SuppressWarnings("NullAway")
 public class ProjectDao extends PanacheEntity {
 
-  @Id @GeneratedValue private Long id;
   private String projectName;
   private String projectUrl;
 
