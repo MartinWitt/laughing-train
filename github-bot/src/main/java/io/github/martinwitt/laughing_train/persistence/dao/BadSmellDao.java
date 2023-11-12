@@ -1,14 +1,14 @@
 package io.github.martinwitt.laughing_train.persistence.dao;
 
 import io.github.martinwitt.laughing_train.domain.value.Position;
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
 @SuppressWarnings("NullAway")
-public class BadSmellDao extends PanacheMongoEntity {
+public class BadSmellDao extends PanacheEntity {
 
   @Id @GeneratedValue private Long id;
   private String analyzer;

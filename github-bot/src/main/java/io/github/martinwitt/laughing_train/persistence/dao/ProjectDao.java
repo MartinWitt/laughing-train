@@ -1,7 +1,5 @@
 package io.github.martinwitt.laughing_train.persistence.dao;
 
-import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import io.quarkus.mongodb.panache.common.MongoEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -9,10 +7,9 @@ import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-@MongoEntity(database = "Laughing-Train", collection = "Project")
 @Entity
 @SuppressWarnings("NullAway")
-public class ProjectDao extends PanacheMongoEntity {
+public class ProjectDao {
 
   @Id @GeneratedValue private Long id;
   private String projectName;
