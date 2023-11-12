@@ -30,16 +30,6 @@ public class AnalyzerRunDao extends PanacheEntity {
     this.localDateTime = localDateTime;
   }
 
-  public static AnalyzerRunDao success(String analyzerName, int numberOfIssues, String commitHash) {
-    return new AnalyzerRunDao(
-        analyzerName, "success", numberOfIssues, commitHash, LocalDateTime.now());
-  }
-
-  public static AnalyzerRunDao failure(String analyzerName, int numberOfIssues, String commitHash) {
-    return new AnalyzerRunDao(
-        analyzerName, "failure", numberOfIssues, commitHash, LocalDateTime.now());
-  }
-
   @Override
   public String toString() {
     return "AnalyzerRunDao{analyzerName='%s', status='%s', numberOfIssues=%d, commitHash='%s', localDateTime=%s}"
