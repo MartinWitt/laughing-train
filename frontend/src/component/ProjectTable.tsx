@@ -28,7 +28,7 @@ function ProjectTable(props: ProjectTableProps) {
   const [sortConfig, setSortConfig] = useState<{
     key: string;
     direction: string;
-  }>({ key: '', direction: '' });
+  }>({ key: 'analyzerDate', direction: 'descending' });
 
   const sortedProjects = projects.sort((a, b) => {
     const aStatus = getSpoonAnalyzerResult(a);
@@ -96,7 +96,7 @@ function ProjectTable(props: ProjectTableProps) {
               sortKey="projectUrl"
             />
             <SortableTableCell
-              label="Date of Analyzer"
+              label="Time since run"
               sortConfig={sortConfig}
               requestSort={requestSort}
               sortKey="analyzerDate"
