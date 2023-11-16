@@ -25,7 +25,7 @@ dependencies {
 	implementation project(":commons")
 	implementation "io.quarkiverse.loggingmanager:quarkus-logging-manager:3.0.3"
 	testImplementation 'org.mockito:mockito-core:5.7.0'
-	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.3'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.0'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-hibernate-orm-panache")
 	implementation("io.quarkus:quarkus-jdbc-mariadb")
