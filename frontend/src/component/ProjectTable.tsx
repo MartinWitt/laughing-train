@@ -87,7 +87,7 @@ function ProjectTable(props: ProjectTableProps) {
   return (
     <TableContainer sx={{ overflow: 'hidden' }}>
       <Table>
-        <TableHead sx={{fontSize:"Medium"}}>
+        <TableHead sx={{ fontSize: 'Medium' }}>
           <TableRow>
             <SortableTableCell
               label="Project"
@@ -148,7 +148,15 @@ function SortableTableCell(props: SortableTableCellProps) {
   const theme = useTheme();
 
   return (
-    <TableCell onClick={() => requestSort(sortKey)} style={{ fontWeight: 'bold', fontSize: '16px', color: 'white', backgroundColor: theme.palette.secondary.main }}>
+    <TableCell
+      onClick={() => requestSort(sortKey)}
+      style={{
+        fontWeight: 'bold',
+        fontSize: '16px',
+        color: 'white',
+        backgroundColor: theme.palette.secondary.main,
+      }}
+    >
       {label}
       {isSorted && <span>{direction === 'ascending' ? ' ▲' : ' ▼'}</span>}
     </TableCell>

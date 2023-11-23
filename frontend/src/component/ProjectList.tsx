@@ -3,7 +3,7 @@ import { fetchProjectQuery } from '../ProjectData';
 import { Project } from '../data/Project';
 import React, { useMemo } from 'react';
 import ProjectTable from './ProjectTable';
-import {LinearProgress} from "@mui/material";
+import { LinearProgress } from '@mui/material';
 
 export function ProjectList({ filter }: { filter: string }) {
   const { data, loading, error } = useQuery(fetchProjectQuery);
@@ -21,7 +21,11 @@ export function ProjectList({ filter }: { filter: string }) {
     console.error(error);
   }
   if (loading) {
-    return <div><LinearProgress /></div>;
+    return (
+      <div>
+        <LinearProgress />
+      </div>
+    );
   }
   return <ProjectTable projects={filteredProjects} />;
 }
