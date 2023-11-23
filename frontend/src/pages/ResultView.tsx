@@ -24,7 +24,7 @@ function ResultView() {
   }
   console.log(params);
   if (loading) {
-    return <LinearProgress  sx={{margin:5}}/>;
+    return <LinearProgress sx={{ margin: 5 }} />;
   }
   const project: Project | undefined = data.getProjects.find(
     (project: Project) => {

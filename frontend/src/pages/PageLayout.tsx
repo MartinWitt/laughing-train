@@ -12,8 +12,6 @@ import {
 import { LoginButton } from '../component/LoginButton';
 import { useNavigate } from 'react-router';
 
-
-
 interface NameProps {
   name: string;
 }
@@ -58,7 +56,7 @@ interface NavigationProps {
 
 export default function PageLayout({ children }: PageLayoutProps) {
   const navigationItems: Link[] = [
-    { name: 'Home', href: '/'},
+    { name: 'Home', href: '/' },
     { name: 'Statistics', href: '/statistics' },
   ];
   return (
@@ -68,10 +66,7 @@ export default function PageLayout({ children }: PageLayoutProps) {
         spacing={2}
         style={{ height: 'calc(100%) ', flexWrap: 'nowrap' }}
       >
-        <Grid
-          item
-          sx={{ width: '200px'}}
-        >
+        <Grid item sx={{ width: '200px' }}>
           <Box
             sx={{
               height: '100%',
@@ -80,7 +75,11 @@ export default function PageLayout({ children }: PageLayoutProps) {
               position: 'fixed',
             }}
           >
-            <AppBar position="static" elevation={0} sx={{ bgcolor: '#272727', marginTop:"10px", marginLeft:"10px"}}>
+            <AppBar
+              position="static"
+              elevation={0}
+              sx={{ bgcolor: '#272727', marginTop: '10px', marginLeft: '10px' }}
+            >
               <Name name="Laughing-Train" />
               <Toolbar>
                 <Navigation links={navigationItems} />

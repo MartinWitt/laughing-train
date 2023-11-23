@@ -6,7 +6,8 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Divider, LinearProgress,
+  Divider,
+  LinearProgress,
 } from '@mui/material';
 import { Project } from '../data/Project';
 import Avatar from 'react-avatar';
