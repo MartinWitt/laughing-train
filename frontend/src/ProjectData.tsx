@@ -4,7 +4,7 @@ import { Project } from './data/Project';
 
 export const fetchProjectQuery = gql`
   query getProjects {
-    getProjects {
+    getRecentProjects(size: 30) {
       projectName
       projectUrl
       commitHashes
