@@ -89,4 +89,9 @@ public class SqlProjectRepository implements ProjectRepository, PanacheRepositor
     }
     return project;
   }
+
+  @Override
+  public List<RemoteProject> getRecent(int size) {
+    return findAll().page(0, size).stream().map(projectDaoConverter::convertToEntity).toList();
+  }
 }

@@ -39,8 +39,9 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
-    "dev": "vite preview",
+    "dev": "vite",
     "prettier": "prettier --write \"src/**/*.tsx\""
+
   },
   "eslintConfig": {
     "extends": [

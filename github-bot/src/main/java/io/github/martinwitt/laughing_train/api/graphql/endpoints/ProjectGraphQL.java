@@ -32,6 +32,12 @@ public class ProjectGraphQL {
     return projectRepository.getAll().stream().map(this::mapToDto).toList();
   }
 
+  @Query("getRecentProjects")
+  @Description("Gets all projects from the database with a limit")
+  public List<ProjectGraphQLDto> getRecentProjects(int size) {
+    return projectRepository.getRecent(size).stream().map(this::mapToDto).toList();
+  }
+
   @Query("getProjectWithName")
   @Description("Gets project with given name from the database")
   public ProjectGraphQLDto getProject(String projectName) {
