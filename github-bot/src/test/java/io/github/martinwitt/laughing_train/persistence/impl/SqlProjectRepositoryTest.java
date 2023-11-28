@@ -24,4 +24,13 @@ class SqlProjectRepositoryTest {
         sqlProjectRepository.findByProjectName(remoteProject.getProjectName());
     assertThat(byProjectName).isNotEmpty();
   }
+
+  @Test
+  void getRecent() {
+    RemoteProject remoteProject = Instancio.create(RemoteProject.class);
+    sqlProjectRepository.save(remoteProject);
+    assertThat(sqlProjectRepository.getRecent(1)).isNotEmpty();
+    List<RemoteProject> recent = sqlProjectRepository.getRecent(1);
+    assertThat(recent).isNotEmpty();
+  }
 }

@@ -1,22 +1,21 @@
 import { useQuery } from '@apollo/client';
-import { fetchProjectQuery } from '../ProjectData';
 import { Project } from '../data/Project';
 import React, { useMemo } from 'react';
 import ProjectTable from './ProjectTable';
 import { LinearProgress } from '@mui/material';
+import { fetchRecentProjectQuery } from '../ProjectData';
 
 export function ProjectList({ filter }: { filter: string }) {
-  const { data, loading, error } = useQuery(fetchProjectQuery);
+  const { data, loading, error } = useQuery(fetchRecentProjectQuery);
 
   const filteredProjects = useMemo(() => {
     if (!data) {
       return [];
     }
-    return data.getProjects.filter((project: Project) => {
+    return data.getRecentProjects.filter((project: Project) => {
       return project.projectName.toLowerCase().match(filter.toLowerCase());
     });
   }, [data, filter]);
-
   if (error) {
     console.error(error);
   }
