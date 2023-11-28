@@ -31,7 +31,7 @@ function Navigation({ links }: NavigationProps) {
       {links.map((link) => (
         <>
           <ListItem
-            key={link.href}
+            key={link.name}
             onClick={() => navigate(link.href, { replace: true })}
           >
             <ListItemText primary={link.name} />

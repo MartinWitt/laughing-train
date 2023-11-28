@@ -1,9 +1,28 @@
-import { gql } from '@apollo/client';
-import { BadSmell } from './data/BadSmell';
-import { Project } from './data/Project';
+import {gql} from '@apollo/client';
+import {BadSmell} from './data/BadSmell';
+import {Project} from './data/Project';
 
 export const fetchProjectQuery = gql`
   query getProjects {
+    getProjects {
+      projectName
+      projectUrl
+      commitHashes
+      commits {
+        analyzerStatuses {
+          analyzerName
+          commitHash
+          localDateTime
+          numberOfIssues
+          status
+        }
+        commitHash
+      }
+    }
+  }
+`;
+export const fetchRecentProjectQuery = gql`
+  query getRecentProjects {
     getRecentProjects(size: 30) {
       projectName
       projectUrl
@@ -75,10 +94,9 @@ export function filterDuplicateBadSmells(params: BadSmell[]) {
     return badSmell.snippet != null;
   });
   const ids = params.map((o) => o.snippet);
-  const filtered = params.filter(
-    ({ snippet }, index) => !ids.includes(snippet, index + 1)
+  return params.filter(
+      ({snippet}, index) => !ids.includes(snippet, index + 1)
   );
-  return filtered;
 }
 
 export const fetchProjectConfigQuery = gql`

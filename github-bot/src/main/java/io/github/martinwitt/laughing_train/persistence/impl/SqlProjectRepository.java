@@ -5,6 +5,7 @@ import io.github.martinwitt.laughing_train.persistence.converter.ProjectDaoConve
 import io.github.martinwitt.laughing_train.persistence.dao.ProjectDao;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
+import io.quarkus.panache.common.Sort;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -92,6 +93,8 @@ public class SqlProjectRepository implements ProjectRepository, PanacheRepositor
 
   @Override
   public List<RemoteProject> getRecent(int size) {
-    return findAll().page(0, size).stream().map(projectDaoConverter::convertToEntity).toList();
+    return findAll(Sort.by("latestRun").descending()).page(0, size).stream()
+        .map(projectDaoConverter::convertToEntity)
+        .toList();
   }
 }

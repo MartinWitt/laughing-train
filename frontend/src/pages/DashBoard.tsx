@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router';
 import { ProjectList } from '../component/ProjectList';
 
 export default function DashBoard() {
-  const navigate = useNavigate();
-
   const [filter, setFilter] = React.useState('');
 
   return (
@@ -22,13 +20,7 @@ export default function DashBoard() {
             />
           </Grid>
           <Grid item xs={4} md={2} lg={1} marginLeft="auto">
-            <Button
-              onClick={() => navigate('/mutation/addproject')}
-              variant="contained"
-              sx={{ width: '100%' }}
-            >
-              Add Project
-            </Button>
+            <AddProjectButton />
           </Grid>
         </Grid>
       </Box>
@@ -40,5 +32,18 @@ export default function DashBoard() {
         </Grid>
       </Box>
     </div>
+  );
+}
+
+function AddProjectButton() {
+  const navigate = useNavigate();
+  return (
+    <Button
+      onClick={() => navigate('/mutation/addproject')}
+      variant="contained"
+      sx={{ width: '100%' }}
+    >
+      Add Project
+    </Button>
   );
 }

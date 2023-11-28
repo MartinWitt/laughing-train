@@ -22,6 +22,11 @@ public class ProjectDaoConverter implements DaoConverter<RemoteProject, ProjectD
             .flatMap(List::stream)
             .toList();
     dao.setCommits(list);
+    list.stream()
+        .reduce(
+            (first, second) -> first.localDateTime.isAfter(second.localDateTime) ? first : second)
+        .map(v -> v.localDateTime)
+        .ifPresent(dao::setLatestRun);
     return dao;
   }
 
