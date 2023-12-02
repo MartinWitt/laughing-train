@@ -7,6 +7,7 @@ import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +15,8 @@ import org.junit.jupiter.api.Test;
 class SqlProjectRepositoryTest {
 
   @Inject SqlProjectRepository sqlProjectRepository;
+
+  @Inject SqlAnalyzerRunRepository sqlAnalyzerRunRepository;
 
   @Test
   void insertProject() {
@@ -23,6 +26,11 @@ class SqlProjectRepositoryTest {
     List<RemoteProject> byProjectName =
         sqlProjectRepository.findByProjectName(remoteProject.getProjectName());
     assertThat(byProjectName).isNotEmpty();
+    Integer expectedSize =
+        remoteProject.getCommits().stream()
+            .map(v -> v.getAnalyzerStatuses())
+            .collect(Collectors.summingInt(v -> v.size()));
+    assertThat(sqlAnalyzerRunRepository.findRecent(expectedSize)).hasSize(expectedSize);
   }
 
   @Test

@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.persistence.dao;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
@@ -15,7 +16,8 @@ public class ProjectDao extends PanacheEntity {
   private String projectUrl;
   private LocalDateTime latestRun;
 
-  @OneToMany private List<AnalyzerRunDao> commits = new ArrayList<>();
+  @OneToMany(cascade = CascadeType.ALL)
+  private List<AnalyzerRunDao> commits = new ArrayList<>();
 
   public ProjectDao() {
 

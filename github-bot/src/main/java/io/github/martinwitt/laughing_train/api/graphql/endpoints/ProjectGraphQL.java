@@ -1,12 +1,14 @@
 package io.github.martinwitt.laughing_train.api.graphql.endpoints;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.api.graphql.dto.AnalyzerRunGraphQlDto;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLDtoInput;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectGraphQLDto;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.mining.QodanaPeriodicMiner;
+import io.github.martinwitt.laughing_train.persistence.impl.SqlAnalyzerRunRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
@@ -26,16 +28,20 @@ public class ProjectGraphQL {
 
   @Inject QodanaPeriodicMiner periodicMiner;
 
+  @Inject SqlAnalyzerRunRepository sqlAnalyzerRunRepository;
+
   @Query("getProjects")
   @Description("Gets all projects from the database")
   public List<ProjectGraphQLDto> getAllProjects() {
     return projectRepository.getAll().stream().map(this::mapToDto).toList();
   }
 
-  @Query("getRecentProjects")
-  @Description("Gets all projects from the database with a limit")
-  public List<ProjectGraphQLDto> getRecentProjects(int size) {
-    return projectRepository.getRecent(size).stream().map(this::mapToDto).toList();
+  @Query("recentAnalyzerRuns")
+  @Description("Returns a sorted by date list of recent analyzer runs")
+  public List<AnalyzerRunGraphQlDto> recentAnalyzerRuns(int size) {
+    return sqlAnalyzerRunRepository.findRecent(size).stream()
+        .map(AnalyzerRunGraphQlDto::new)
+        .toList();
   }
 
   @Query("getProjectWithName")

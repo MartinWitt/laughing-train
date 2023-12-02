@@ -3,17 +3,18 @@ import { Project } from '../data/Project';
 import React, { useMemo } from 'react';
 import ProjectTable from './ProjectTable';
 import { LinearProgress } from '@mui/material';
-import { fetchRecentProjectQuery } from '../ProjectData';
+import { recentAnalyzerRuns } from '../ProjectData';
+import { AnalyzerRun } from '../data/AnalyzerRun';
 
 export function ProjectList({ filter }: { filter: string }) {
-  const { data, loading, error } = useQuery(fetchRecentProjectQuery);
+  const { data, loading, error } = useQuery(recentAnalyzerRuns);
 
   const filteredProjects = useMemo(() => {
     if (!data) {
       return [];
     }
-    return data.getRecentProjects.filter((project: Project) => {
-      return project.projectName.toLowerCase().match(filter.toLowerCase());
+    return data.recentAnalyzerRuns.filter((analyzerRun: AnalyzerRun) => {
+      return analyzerRun.projectName.toLowerCase().match(filter.toLowerCase());
     });
   }, [data, filter]);
   if (error) {
