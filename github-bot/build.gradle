@@ -24,7 +24,7 @@ dependencies {
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
 	implementation project(":commons")
 	implementation "io.quarkiverse.loggingmanager:quarkus-logging-manager:3.0.3"
-	testImplementation 'org.mockito:mockito-core:5.7.0'
+	testImplementation 'org.mockito:mockito-core:5.8.0'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.0'
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-hibernate-orm-panache")
