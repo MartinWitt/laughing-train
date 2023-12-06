@@ -16,7 +16,7 @@ jar {
 }
 dependencies {
 	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.8.0.202311291450-r'
-	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ssh.apache', version: '6.7.0.202309050840-r'
+	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ssh.apache', version: '6.8.0.202311291450-r'
     implementation project(path: ':matcher')
 	testImplementation "com.google.truth:truth:1.1.5"
 	implementation "com.github.docker-java:docker-java-core:+"
