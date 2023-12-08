@@ -2,6 +2,7 @@ package io.github.martinwitt.laughing_train.persistence.dao;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Entity
@@ -12,27 +13,9 @@ public class AnalyzerRunDao extends PanacheEntity {
   public int numberOfIssues;
   public String commitHash;
   public LocalDateTime localDateTime;
+  @ManyToOne public ProjectDao projectDao;
 
   public AnalyzerRunDao() {
     // for JPA
-  }
-
-  private AnalyzerRunDao(
-      String analyzerName,
-      String status,
-      int numberOfIssues,
-      String commitHash,
-      LocalDateTime localDateTime) {
-    this.analyzerName = analyzerName;
-    this.status = status;
-    this.numberOfIssues = numberOfIssues;
-    this.commitHash = commitHash;
-    this.localDateTime = localDateTime;
-  }
-
-  @Override
-  public String toString() {
-    return "AnalyzerRunDao{analyzerName='%s', status='%s', numberOfIssues=%d, commitHash='%s', localDateTime=%s}"
-        .formatted(analyzerName, status, numberOfIssues, commitHash, localDateTime);
   }
 }

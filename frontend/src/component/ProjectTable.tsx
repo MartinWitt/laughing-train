@@ -49,7 +49,7 @@ function ProjectTable(props: ProjectTableProps) {
         }
         return 0;
       }
-      if (sortConfig.key === 'resultCount') {
+      if (sortConfig.key === 'numberOfIssues') {
         if (aStatus && bStatus) {
           return aStatus.numberOfIssues > bStatus.numberOfIssues ? 1 : -1;
         }
@@ -66,7 +66,7 @@ function ProjectTable(props: ProjectTableProps) {
         }
         return 0;
       }
-      if (sortConfig.key === 'resultCount') {
+      if (sortConfig.key === 'numberOfIssues') {
         if (aStatus && bStatus) {
           return aStatus.numberOfIssues < bStatus.numberOfIssues ? 1 : -1;
         }
@@ -105,7 +105,7 @@ function ProjectTable(props: ProjectTableProps) {
               label="Number of Results"
               sortConfig={sortConfig}
               requestSort={requestSort}
-              sortKey="resultCount"
+              sortKey="numberOfIssues"
             />
           </TableRow>
         </TableHead>
