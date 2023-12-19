@@ -14,9 +14,10 @@ automations:
             Type must be one of the following:
 
              * build
-             * ci 
+             * ci
+             * chore
              * docs
-             * feature
+             * feat
              * fix
 
             Scope must be one of the following:
@@ -27,4 +28,4 @@ automations:
              * forms
              * http 
 titlePolicy:
-    titleRegex: r/\b(build|ci|chore|docs|feature|fix)\b\s*\((common|core|elements|forms|http)\)?:\s*\w+.*/
+    titleRegex: r/\b(build|ci|chore|docs|feat|fix)\b\s*\((common|core|elements|forms|http)\)?:\s*\w+.*/
