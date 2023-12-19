@@ -2,25 +2,24 @@ package io.github.martinwitt.laughing_train.summary;
 
 import com.google.common.base.Strings;
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.data.FindIssueRequest;
-import io.github.martinwitt.laughing_train.data.FindIssueResult;
-import io.github.martinwitt.laughing_train.data.FindPullRequestResult;
-import io.github.martinwitt.laughing_train.data.GitHubState;
-import io.github.martinwitt.laughing_train.data.Issue;
-import io.github.martinwitt.laughing_train.data.PullRequest;
-import io.github.martinwitt.laughing_train.services.GitHubIssueSearch;
+import io.github.martinwitt.laughing_train.commons.result.Result;
+import io.github.martinwitt.laughing_train.github.GitHubIssueSearch;
+import io.github.martinwitt.laughing_train.github.GitHubState;
+import io.github.martinwitt.laughing_train.github.Issue;
+import io.github.martinwitt.laughing_train.github.PullRequest;
 import io.quarkus.scheduler.Scheduled;
+import org.apache.commons.lang3.StringUtils;
+import org.kohsuke.github.GHIssue;
+import org.kohsuke.github.GHIssueState;
+import org.kohsuke.github.GitHub;
+
 import java.io.IOException;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import org.apache.commons.lang3.StringUtils;
-import org.kohsuke.github.GHIssue;
-import org.kohsuke.github.GHIssueState;
-import org.kohsuke.github.GitHub;
 
 /**
  * This class is responsible for creating a summary issue on GitHub. It is triggered every 2 hours.
@@ -32,7 +31,7 @@ public class PeriodicSummary {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  GitHubIssueSearch issueRequestService;
+  private GitHubIssueSearch issueRequestService;
 
   PeriodicSummary(GitHubIssueSearch issueRequestService) {
     this.issueRequestService = issueRequestService;
@@ -40,16 +39,18 @@ public class PeriodicSummary {
 
   @Scheduled(every = "2h", delay = 10, delayUnit = TimeUnit.MINUTES)
   public void createSummary() {
-    FindIssueResult summaryIssue = issueRequestService.getSummaryIssue();
-    switch (summaryIssue) {
-      case FindIssueResult.SingleResult summary -> updateContent(summary.issue());
-      case FindIssueResult.NoResult noResult -> {
-        logger.atInfo().log("No summary issue found, creating one");
-        createNewSummary();
-      }
-      case FindIssueResult.MultipleResults multipleResults -> updateContent(
-          multipleResults.issues().get(0));
-      default -> logger.atWarning().log("No summary issue found");
+    Result<Issue> summaryIssue = issueRequestService.findSummaryIssue();
+    if (summaryIssue.isError()) {
+      logger.atSevere().log(
+          "Error while searching for summary issue." + summaryIssue.getError().getMessage());
+      return;
+    }
+    Issue issue = summaryIssue.get();
+    if (issue == null) {
+      logger.atInfo().log("No summary issue found, creating one");
+      createNewSummary();
+    } else {
+      updateContent(issue);
     }
   }
 
@@ -70,7 +71,7 @@ public class PeriodicSummary {
    */
   private Issue createNewIssue() throws IOException {
     return toIssue(
-        GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+        authenticateWithGitHub()
             .getRepository("martinwitt/laughing-train")
             .createIssue("laughing-train-summary")
             .create());
@@ -78,33 +79,33 @@ public class PeriodicSummary {
 
   private void updateContent(Issue issue) {
     logger.atInfo().log("Updating summary issue");
-    FindPullRequestResult test =
-        issueRequestService.findPullRequests(new FindIssueRequest.WithUserName("MartinWitt"));
-    if (test instanceof FindPullRequestResult.MultipleResults multipleResults) {
-      logger.atInfo().log("Found multiple results %s", multipleResults.pullRequests().size());
-      updateBody(issue, multipleResults);
-    } else if (test instanceof FindPullRequestResult.NoResult noResult) {
-      logger.atInfo().log("Found no results %s", noResult);
-    } else {
-      logger.atInfo().log("Found single result %s", test);
+    Result<List<PullRequest>> issues = issueRequestService.findPullRequests("MartinWitt");
+    if (issues.isError()) {
+      logger.atSevere().log(
+          "Error while searching for pull requests." + issues.getError().getMessage());
+      return;
     }
+    updateBody(issue, issues.get());
   }
 
-  private void updateBody(Issue issue, FindPullRequestResult.MultipleResults multipleResults) {
+  private void updateBody(Issue issue, Collection<PullRequest> pullRequests) {
     try {
-      GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+      authenticateWithGitHub()
           .getRepository("martinwitt/laughing-train")
           .getIssue(issue.number())
           .setBody(
               createSummaryBody(
-                  multipleResults.pullRequests().stream()
-                      .collect(Collectors.groupingBy(PullRequest::repo))));
+                  pullRequests.stream().collect(Collectors.groupingBy(PullRequest::repo))));
     } catch (Exception e) {
       logger.atSevere().withCause(e).log("Error while creating summary");
     }
   }
 
-  private String createSummaryBody(Map<String, List<PullRequest>> prsByGHRepo) {
+  private static GitHub authenticateWithGitHub() throws IOException {
+    return GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
+  }
+
+  private String createSummaryBody(Map<String, ? extends List<PullRequest>> prsByGHRepo) {
     var sb = new StringBuilder();
     sb.append("# Summary\n");
     for (var entry : prsByGHRepo.entrySet()) {
@@ -113,7 +114,7 @@ public class PeriodicSummary {
       sb.append("|------|------|------| \n");
       var prs = entry.getValue();
 
-      Collections.sort(prs, Comparator.comparing(PullRequest::state));
+      prs.sort(Comparator.comparing(PullRequest::state));
       for (var pr : prs) {
         sb.append("| %s | %s | %s | %n".formatted(findRuleID(pr.body()), pr.url(), pr.state()));
       }
@@ -130,7 +131,7 @@ public class PeriodicSummary {
             .replace("\n", "")
             .replace("\"", "")
             .trim();
-    if (result == null || result.isEmpty()) {
+    if (result.isEmpty()) {
       return "Multiple rules";
     } else {
       return result;
