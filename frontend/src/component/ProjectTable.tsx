@@ -110,7 +110,7 @@ function ProjectTable(props: ProjectTableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {sortedProjects.map((project) => tableCell(project))}
+          {sortedProjects.map((gitProject) => tableCell(gitProject))}
         </TableBody>
       </Table>
     </TableContainer>
@@ -124,17 +124,17 @@ interface SortableTableCellProps {
   sortKey: string;
 }
 
-function tableCell(project: Project) {
-  const status = getSpoonAnalyzerResult(project);
+function tableCell(gitProject: Project) {
+  const status = getSpoonAnalyzerResult(gitProject);
   if (status === undefined) {
     return <></>;
   }
   return (
     <TableRow
-      key={project.projectUrl}
-      onClick={() => (window.location.href = toLink(project))}
+      key={gitProject.projectUrl}
+      onClick={() => (window.location.href = toLink(gitProject))}
     >
-      <TableCell>{project.projectUrl}</TableCell>
+      <TableCell>{gitProject.projectUrl}</TableCell>
       <TableCell>{toDateTime(status.localDateTime)}</TableCell>
       <TableCell>{status.numberOfIssues}</TableCell>
     </TableRow>
@@ -165,11 +165,11 @@ function SortableTableCell(props: SortableTableCellProps) {
 
 export default ProjectTable;
 
-function getSpoonAnalyzerResult(project: Project): AnalyzerStatus | undefined {
-  if (project.commits.length === 0) {
+function getSpoonAnalyzerResult(gitProject: Project): AnalyzerStatus | undefined {
+  if (gitProject.commits.length === 0) {
     return undefined;
   }
-  const lastCommit = project.commits[project.commits.length - 1];
+  const lastCommit = gitProject.commits[gitProject.commits.length - 1];
   if (
     lastCommit.analyzerStatuses === undefined ||
     lastCommit.analyzerStatuses === null
@@ -191,6 +191,6 @@ function toDateTime(date: string) {
   return <Typography>{hours} hours ago</Typography>;
 }
 
-function toLink(project: Project): string {
-  return '/resultview/' + project.projectName;
+function toLink(gitProject: Project): string {
+  return '/resultview/' + gitProject.projectName;
 }

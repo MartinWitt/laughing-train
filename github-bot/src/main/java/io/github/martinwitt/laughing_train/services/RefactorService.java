@@ -3,10 +3,11 @@ package io.github.martinwitt.laughing_train.services;
 import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.Var;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
-import io.github.martinwitt.laughing_train.data.ProjectRequest;
-import io.github.martinwitt.laughing_train.data.ProjectResult;
+import io.github.martinwitt.laughing_train.commons.result.Result;
 import io.github.martinwitt.laughing_train.github.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.github.GitHubUtils;
+import io.github.martinwitt.laughing_train.gitprojects.GitProject;
+import io.github.martinwitt.laughing_train.gitprojects.ProjectService;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.io.File;
@@ -71,16 +72,15 @@ public class RefactorService {
   private String refactorSpoon(List<? extends BadSmell> badSmells) {
     String projectUrl = badSmells.get(0).getProjectUrl();
 
-    ProjectResult projectResult =
-        projectService.handleProjectRequest(new ProjectRequest.WithUrl(projectUrl));
-    if (projectResult instanceof ProjectResult.Success success) {
-      File folder = success.project().folder();
+    Result<GitProject> project = projectService.processProjectRequest(projectUrl);
+    if (project.isOk()) {
+      File folder = project.get().folder();
       try {
         CodeRefactoring codeRefactoring = new CodeRefactoring();
         Changelog log = codeRefactoring.refactorBadSmells(folder.toPath(), badSmells);
 
         GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
-        GHRepository repository = createForkIfMissing(success, github);
+        GHRepository repository = createForkIfMissing(project.get(), github);
         GitHubUtils.createLabelIfMissing(repository);
         return createSinglePullRequest(repository, folder.toPath(), log.getChanges(), badSmells);
       } catch (Exception e) {
@@ -93,48 +93,46 @@ public class RefactorService {
 
   private void refactorQodana(List<? extends BadSmell> badSmells) {
     String projectUrl = badSmells.get(0).getProjectUrl();
-    ProjectResult projectResult =
-        projectService.handleProjectRequest(new ProjectRequest.WithUrl(projectUrl));
+    Result<GitProject> projectResult = projectService.processProjectRequest(projectUrl);
     createPullRequest(projectResult, badSmells);
   }
 
-  private String createPullRequest(ProjectResult message, List<? extends BadSmell> badSmells) {
-    if (message instanceof ProjectResult.Error error) {
-      logger.atSevere().log("Failed to get project %s", error.message());
-      return error.message();
+  private String createPullRequest(Result<GitProject> project, List<? extends BadSmell> badSmells) {
+    if (project.isError()) {
+      logger.atSevere().log("Failed to get project %s", project.getError().getMessage());
+      return project.getError().getMessage();
     }
 
-    if (message instanceof ProjectResult.Success success) {
-      File folder = success.project().folder();
-      try {
-        CodeRefactoring codeRefactoring = new CodeRefactoring();
-        Changelog log = codeRefactoring.refactorBadSmells(folder.toPath(), badSmells);
+    File folder = project.get().folder();
+    try {
+      CodeRefactoring codeRefactoring = new CodeRefactoring();
+      Changelog log = codeRefactoring.refactorBadSmells(folder.toPath(), badSmells);
 
-        GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
-        GHRepository repository = createForkIfMissing(success, github);
-        GitHubUtils.createLabelIfMissing(repository);
-        String pullRequestTitle =
-            createSinglePullRequest(repository, folder.toPath(), log.getChanges(), badSmells);
-        FileUtils.deleteQuietly(folder);
-        return pullRequestTitle;
-      } catch (Exception e) {
-        logger.atSevere().withCause(e).log("Failed to create pull request");
-        FileUtils.deleteQuietly(folder);
-      }
+      GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
+      GHRepository repository = createForkIfMissing(project.get(), github);
+      GitHubUtils.createLabelIfMissing(repository);
+      String pullRequestTitle =
+          createSinglePullRequest(repository, folder.toPath(), log.getChanges(), badSmells);
+      FileUtils.deleteQuietly(folder);
+      return pullRequestTitle;
+    } catch (Exception e) {
+      logger.atSevere().withCause(e).log("Failed to create pull request");
+      FileUtils.deleteQuietly(folder);
     }
+
     return "Error";
   }
 
-  private GHRepository createForkIfMissing(ProjectResult.Success success, GitHub github)
+  private GHRepository createForkIfMissing(GitProject gitProject, GitHub github)
       throws IOException {
-    logger.atInfo().log("Creating fork for %s", success.project().getOwnerRepoName());
-    @Var GHRepository repository = github.getRepository(success.project().getOwnerRepoName());
-    if (github.getMyself().getRepository(success.project().name()) == null) {
-      logger.atInfo().log("Forking %s", success.project().getOwnerRepoName());
+    logger.atInfo().log("Creating fork for %s", gitProject.getOwnerRepoName());
+    @Var GHRepository repository = github.getRepository(gitProject.getOwnerRepoName());
+    if (github.getMyself().getRepository(gitProject.name()) == null) {
+      logger.atInfo().log("Forking %s", gitProject.getOwnerRepoName());
       repository = repository.fork();
     } else {
-      logger.atInfo().log("Found fork %s", success.project().name());
-      repository = github.getMyself().getRepository(success.project().name());
+      logger.atInfo().log("Found fork %s", gitProject.name());
+      repository = github.getMyself().getRepository(gitProject.name());
     }
     return repository;
   }

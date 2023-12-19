@@ -104,7 +104,7 @@ public class QodanaService {
 
   private Uni<QodanaResult> runQodanaWithConfig(AnalyzerRequest.WithProject project) {
     return Uni.createFrom()
-        .item(ProjectConfig.ofProjectUrl(project.project().url()))
+        .item(ProjectConfig.ofProjectUrl(project.gitProject().url()))
         .emitOn(Infrastructure.getDefaultExecutor())
         .map(config -> invokeQodana(project, config))
         .invoke(this::persistResults)
@@ -125,8 +125,8 @@ public class QodanaService {
               () ->
                   new QodanaResult.Success(
                       runQodana(
-                          project.project().folder().toPath(), projectConfig.getSourceFolder()),
-                      project.project()))
+                          project.gitProject().folder().toPath(), projectConfig.getSourceFolder()),
+                      project.gitProject()))
           .get();
     } catch (Exception e) {
       return new QodanaResult.Failure(Strings.nullToEmpty(e.getMessage()));

@@ -12,7 +12,7 @@ The website is built with react and the backend is written with Quarkus.
 - Code analysis with Qodana(JetBrains IntelliJ headless)
 - Minimal Diffs with Spoon
 - Git/GitHub integration
-- easy deployment extensionable with new analyzers
+- easy deployment extensible with new analyzers
 
 ## Examples:
 - See [website](https://laughing-train.keksdose.xyz/) for an overview of mining results.
@@ -26,7 +26,7 @@ The schema is <b>not</b> final and <b>can change</b> anytime.
 
 ## FAQ:
 ### Why would you ever write something already solved?
-TL;DR; This project is currently a nice, refreshing side project while writing my master thesis.
+TL;DR; This gitProject is currently a nice, refreshing side gitProject while writing my master thesis.
 
 I contribute to spoon on a regular schedule, and writing code for spoon helped my expanding my coding skills. In Spoon exists multiple bad smell, which are not hard to fix, but someone has to do it. If you have a Java parser at hand, it was a straightforward idea by me to fix bad smells this way. The biggest problem in spoon is/was the mix of JUnit 4 and JUnit 5. Currently, laughing-train can convert them automatically and speeds the migration process up by magnitudes.
 

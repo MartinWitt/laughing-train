@@ -1,9 +1,9 @@
 package io.github.martinwitt.laughing_train.services;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
+import io.github.martinwitt.laughing_train.gitprojects.GitProject;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.smallrye.mutiny.Multi;
@@ -19,12 +19,13 @@ public class AnalyzerResultPersistenceService {
 
   void persistResults(QodanaResult result) {
     if (result instanceof QodanaResult.Success success) {
-      Project project = success.project();
+      GitProject gitProject = success.gitProject();
       Multi.createFrom()
           .iterable(success.result())
           .map(
               badSmell ->
-                  new BadSmell(badSmell, project.name(), project.url(), project.commitHash()))
+                  new BadSmell(
+                      badSmell, gitProject.name(), gitProject.url(), gitProject.commitHash()))
           .filter(v -> badSmellRepository.findByIdentifier(v.getIdentifier()).isEmpty())
           .map(badSmellRepository::save)
           .collect()
@@ -33,17 +34,21 @@ public class AnalyzerResultPersistenceService {
           .with(
               badSmell ->
                   logger.atInfo().log(
-                      "Persisted %d qodana bad smells for project %s", badSmell, project.name()));
+                      "Persisted %d qodana bad smells for project %s",
+                      badSmell, gitProject.name()));
     }
   }
 
   void persistResults(CodeAnalyzerResult.Success success) {
     logger.atInfo().log(
-        "Persisting %s results for project %s", success.results().size(), success.project().name());
-    Project project = success.project();
+        "Persisting %s results for project %s",
+        success.results().size(), success.gitProject().name());
+    GitProject gitProject = success.gitProject();
     success.results().stream()
         .map(
-            badSmell -> new BadSmell(badSmell, project.name(), project.url(), project.commitHash()))
+            badSmell ->
+                new BadSmell(
+                    badSmell, gitProject.name(), gitProject.url(), gitProject.commitHash()))
         .filter(it -> badSmellRepository.findByIdentifier(it.getIdentifier()).isEmpty())
         .forEach(badSmellRepository::save);
   }
