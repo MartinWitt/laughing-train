@@ -1,13 +1,13 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.data.Project;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult.Failure;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult.Success;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
+import io.github.martinwitt.laughing_train.gitprojects.GitProject;
 import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.vertx.core.AbstractVerticle;
@@ -37,16 +37,17 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
    * @param storeResults the results to persist in the database never null.
    */
   void persistResults(StoreResults storeResults) {
-    Project project = storeResults.project();
+    GitProject gitProject = storeResults.gitProject();
     CodeAnalyzerResult result = storeResults.result();
-    addOrUpdateCommitHash(project, result, storeResults.analyzerName());
+    addOrUpdateCommitHash(gitProject, result, storeResults.analyzerName());
     String resultString =
         switch (result) {
           case Success __ -> "success";
           case Failure __ -> "failure";
         };
     logger.atInfo().log(
-        "Analyzer %s %s for project %s", storeResults.analyzerName(), resultString, project.name());
+        "Analyzer %s %s for project %s",
+        storeResults.analyzerName(), resultString, gitProject.name());
   }
 
   private AnalyzerStatus getAnalyzerStatus(
@@ -58,13 +59,13 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
   }
 
   private void addOrUpdateCommitHash(
-      Project project, CodeAnalyzerResult spoonResult, String analyzerName) {
-    String name = project.name();
-    String commitHash = project.commitHash();
-    List<RemoteProject> list = projectRepository.findByProjectUrl(project.url());
+      GitProject gitProject, CodeAnalyzerResult spoonResult, String analyzerName) {
+    String name = gitProject.name();
+    String commitHash = gitProject.commitHash();
+    List<RemoteProject> list = projectRepository.findByProjectUrl(gitProject.url());
     AnalyzerStatus analyzerStatus = getAnalyzerStatus(spoonResult, analyzerName, commitHash);
     if (list.isEmpty()) {
-      createNewProject(name, project, commitHash, analyzerStatus);
+      createNewProject(name, gitProject, commitHash, analyzerStatus);
     } else {
       addAnalyzerRun(name, list, commitHash, analyzerStatus);
     }
@@ -84,8 +85,8 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
   }
 
   private void createNewProject(
-      String name, Project project, String commitHash, AnalyzerStatus analyzerStatus) {
-    RemoteProject newProject = new RemoteProject(name, project.url());
+      String name, GitProject gitProject, String commitHash, AnalyzerStatus analyzerStatus) {
+    RemoteProject newProject = new RemoteProject(name, gitProject.url());
     newProject.addCommitHash(commitHash);
     List<GitHubCommit> commits = newProject.getCommits();
     var selectedCommit =

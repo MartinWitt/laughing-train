@@ -18,7 +18,6 @@ public class MiningStartup {
   final Vertx vertx;
   final AnalyzerResultsPersistence persistence;
   final ProjectSupplier projectSupplier;
-  final QodanaPeriodicMiner qodanaPeriodicMiner;
   final SpoonPeriodicMiner spoonPeriodicMiner;
 
   @Inject
@@ -26,12 +25,10 @@ public class MiningStartup {
       Vertx vertx,
       AnalyzerResultsPersistence persistence,
       ProjectSupplier projectSupplier,
-      QodanaPeriodicMiner qodanaPeriodicMiner,
       SpoonPeriodicMiner spoonPeriodicMiner) {
     this.vertx = vertx;
     this.persistence = persistence;
     this.projectSupplier = projectSupplier;
-    this.qodanaPeriodicMiner = qodanaPeriodicMiner;
     this.spoonPeriodicMiner = spoonPeriodicMiner;
   }
 

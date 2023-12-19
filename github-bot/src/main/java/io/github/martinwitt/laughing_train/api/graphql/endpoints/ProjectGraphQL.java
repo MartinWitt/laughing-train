@@ -7,7 +7,6 @@ import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectGraphQLDto;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
-import io.github.martinwitt.laughing_train.mining.QodanaPeriodicMiner;
 import io.github.martinwitt.laughing_train.persistence.impl.SqlAnalyzerRunRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.security.Authenticated;
@@ -25,8 +24,6 @@ public class ProjectGraphQL {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   @Inject ProjectRepository projectRepository;
-
-  @Inject QodanaPeriodicMiner periodicMiner;
 
   @Inject SqlAnalyzerRunRepository sqlAnalyzerRunRepository;
 

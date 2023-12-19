@@ -171,7 +171,7 @@ public class DiffCleaner {
         }
       }
     }
-    return System.getProperty("line.separator");
+    return System.lineSeparator();
   }
 
   /**

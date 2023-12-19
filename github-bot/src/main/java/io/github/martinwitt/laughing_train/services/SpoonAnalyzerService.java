@@ -26,7 +26,7 @@ public class SpoonAnalyzerService {
     try {
       switch (request) {
         case AnalyzerRequest.WithProject project -> {
-          File folder = project.project().folder();
+          File folder = project.gitProject().folder();
           SpoonBasedAnalyzer analyzer = new SpoonBasedAnalyzer();
           List<AnalyzerResult> analyze = analyzer.analyze(folder.toPath());
           logger.atFine().log(
@@ -37,7 +37,7 @@ public class SpoonAnalyzerService {
                   .distinct()
                   .collect(Collectors.joining(",")));
           CodeAnalyzerResult.Success success =
-              new CodeAnalyzerResult.Success(analyze, project.project());
+              new CodeAnalyzerResult.Success(analyze, project.gitProject());
           analyzerResultPersistenceService.persistResults(success);
           return success;
         }

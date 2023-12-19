@@ -36,7 +36,7 @@ local.properties
 .target
 
 # Tern plugin
-.tern-project
+.tern-gitProject
 
 # TeXlipse plugin
 .texlipse
@@ -56,9 +56,9 @@ local.properties
 .scala_dependencies
 .worksheet
 
-# Uncomment this line if you wish to ignore the project description file.
+# Uncomment this line if you wish to ignore the gitProject description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
-#.project
+#.gitProject
 
 ### Eclipse Patch ###
 # Spring Boot Tooling
@@ -115,7 +115,7 @@ gradle-app.setting
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
-# Cache of project
+# Cache of gitProject
 .gradletasknamecache
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
@@ -126,7 +126,7 @@ gradle-app.setting
 
 # Eclipse Gradle plugin generated files
 # Eclipse Core
-.project
+.gitProject
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
