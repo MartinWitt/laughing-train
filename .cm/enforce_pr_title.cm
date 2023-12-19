@@ -19,13 +19,5 @@ automations:
              * docs
              * feat
              * fix
-
-            Scope must be one of the following:
-
-             * common
-             * core
-             * elements
-             * forms
-             * http 
 titlePolicy:
-    titleRegex: r/\b(build|ci|chore|docs|feat|fix)\b\s*\((common|core|elements|forms|http)\)?:\s*\w+.*/
+    titleRegex: r/\b(build|ci|chore|docs|feat|fix)\b\s*\((.*|common|core|elements|forms|http)\)?:\s*\w+.*/
