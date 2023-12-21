@@ -1,16 +1,18 @@
 package io.github.martinwitt.laughing_train.github;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.commons.GitHubConnector;
 import io.github.martinwitt.laughing_train.commons.result.Result;
 import jakarta.enterprise.context.ApplicationScoped;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueSearchBuilder;
 import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GitHub;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class GitHubIssueSearch {
@@ -37,7 +39,11 @@ public class GitHubIssueSearch {
   }
 
   private List<GHIssue> getGitHubIssues(String... queries) throws IOException {
-    GitHub gitHub = connectToGitHubUsingOAuth();
+    Result<GitHub> githubConnectionResult = GitHubConnector.connectOAuth();
+    if (githubConnectionResult.isError()) {
+      throw new IOException(githubConnectionResult.getError());
+    }
+    GitHub gitHub = githubConnectionResult.get();
     GHIssueSearchBuilder issueQueryBuilder = gitHub.searchIssues();
     for (String query : queries) {
       issueQueryBuilder = issueQueryBuilder.q(query);
@@ -45,10 +51,6 @@ public class GitHubIssueSearch {
     return issueQueryBuilder.list().toList().stream()
         .filter(v -> !v.getRepository().isFork())
         .toList();
-  }
-
-  private static GitHub connectToGitHubUsingOAuth() throws IOException {
-    return GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
   }
 
   private PullRequest toPullRequest(GHIssue issue) {
@@ -81,7 +83,12 @@ public class GitHubIssueSearch {
   }
 
   private GHIssue getFirstIssue(String label) throws IOException {
-    return connectToGitHubUsingOAuth()
+    Result<GitHub> githubConnectionResult = GitHubConnector.connectOAuth();
+    if (githubConnectionResult.isError()) {
+      throw new IOException(githubConnectionResult.getError());
+    }
+    GitHub gitHub = githubConnectionResult.get();
+    return gitHub
         .getRepository("MartinWitt/laughing-train")
         .queryIssues()
         .pageSize(100)

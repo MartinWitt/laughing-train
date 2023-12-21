@@ -1,18 +1,22 @@
 package io.github.martinwitt.laughing_train.summary;
 
+import io.github.martinwitt.laughing_train.commons.GitHubConnector;
+import io.github.martinwitt.laughing_train.commons.result.Result;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.scheduler.Scheduled;
+import org.kohsuke.github.GHIssue;
+import org.kohsuke.github.GHIssueState;
+import org.kohsuke.github.GitHub;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import org.kohsuke.github.GHIssue;
-import org.kohsuke.github.GHIssueState;
-import org.kohsuke.github.GitHub;
+
 
 public class PeriodicRefactoringSummary {
 
@@ -73,8 +77,13 @@ public class PeriodicRefactoringSummary {
    * @return the summary issue on github never null
    */
   private GHIssue searchSummaryIssueOnGithub() throws IOException {
+    Result<GitHub> githubConnectionResult = GitHubConnector.connectOAuth();
+    if (githubConnectionResult.isError()) {
+      throw new IOException("Could not connect to github");
+    }
     var list =
-        GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"))
+        githubConnectionResult
+            .get()
             .getRepository("MartinWitt/laughing-train")
             .queryIssues()
             .pageSize(1)

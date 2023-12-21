@@ -1,6 +1,8 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.commons.GitHubConnector;
+import io.github.martinwitt.laughing_train.commons.result.Result;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.logging.Log;
@@ -91,9 +93,13 @@ public class SearchProjectService {
   private @Nullable GHRepository findRandomRepositoryOnGithub() {
 
     try {
-      GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
+      Result<GitHub> githubConnectionResult = GitHubConnector.connectOAuth();
+      if (githubConnectionResult.isError()) {
+        return null;
+      }
+      GitHub gitHub = githubConnectionResult.get();
       var repos =
-          github
+          gitHub
               .searchRepositories()
               .q("language:java")
               .org(getRandomOrgName())
