@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train.services;
 import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.Var;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
+import io.github.martinwitt.laughing_train.commons.GitHubConnector;
 import io.github.martinwitt.laughing_train.commons.result.Result;
 import io.github.martinwitt.laughing_train.github.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.github.GitHubUtils;
@@ -78,8 +79,11 @@ public class RefactorService {
       try {
         CodeRefactoring codeRefactoring = new CodeRefactoring();
         Changelog log = codeRefactoring.refactorBadSmells(folder.toPath(), badSmells);
-
-        GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
+        Result<GitHub> githubConnectionResult = GitHubConnector.connectOAuth();
+        if (githubConnectionResult.isError()) {
+          throw new RuntimeException(githubConnectionResult.getError());
+        }
+        GitHub github = githubConnectionResult.get();
         GHRepository repository = createForkIfMissing(project.get(), github);
         GitHubUtils.createLabelIfMissing(repository);
         return createSinglePullRequest(repository, folder.toPath(), log.getChanges(), badSmells);
@@ -107,8 +111,11 @@ public class RefactorService {
     try {
       CodeRefactoring codeRefactoring = new CodeRefactoring();
       Changelog log = codeRefactoring.refactorBadSmells(folder.toPath(), badSmells);
-
-      GitHub github = GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
+      Result<GitHub> githubConnectionResult = GitHubConnector.connectOAuth();
+      if (githubConnectionResult.isError()) {
+        throw new RuntimeException(githubConnectionResult.getError());
+      }
+      GitHub github = githubConnectionResult.get();
       GHRepository repository = createForkIfMissing(project.get(), github);
       GitHubUtils.createLabelIfMissing(repository);
       String pullRequestTitle =

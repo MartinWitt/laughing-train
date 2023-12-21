@@ -2,17 +2,13 @@ package io.github.martinwitt.laughing_train.summary;
 
 import com.google.common.base.Strings;
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.commons.GitHubConnector;
 import io.github.martinwitt.laughing_train.commons.result.Result;
 import io.github.martinwitt.laughing_train.github.GitHubIssueSearch;
 import io.github.martinwitt.laughing_train.github.GitHubState;
 import io.github.martinwitt.laughing_train.github.Issue;
 import io.github.martinwitt.laughing_train.github.PullRequest;
 import io.quarkus.scheduler.Scheduled;
-import org.apache.commons.lang3.StringUtils;
-import org.kohsuke.github.GHIssue;
-import org.kohsuke.github.GHIssueState;
-import org.kohsuke.github.GitHub;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Comparator;
@@ -20,6 +16,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
+import org.kohsuke.github.GHIssue;
+import org.kohsuke.github.GHIssueState;
+import org.kohsuke.github.GitHub;
 
 /**
  * This class is responsible for creating a summary issue on GitHub. It is triggered every 2 hours.
@@ -70,8 +70,13 @@ public class PeriodicSummary {
    * @throws IOException if the issue could not be created
    */
   private Issue createNewIssue() throws IOException {
+    Result<GitHub> githubConnectionResult = GitHubConnector.connectOAuth();
+    if (githubConnectionResult.isError()) {
+      throw new IOException(githubConnectionResult.getError());
+    }
     return toIssue(
-        authenticateWithGitHub()
+        githubConnectionResult
+            .get()
             .getRepository("martinwitt/laughing-train")
             .createIssue("laughing-train-summary")
             .create());
@@ -90,7 +95,15 @@ public class PeriodicSummary {
 
   private void updateBody(Issue issue, Collection<PullRequest> pullRequests) {
     try {
-      authenticateWithGitHub()
+      Result<GitHub> githubConnectionResult = GitHubConnector.connectOAuth();
+      if (githubConnectionResult.isError()) {
+        logger.atSevere().log(
+            "Error while connecting to github." + githubConnectionResult.getError().getMessage());
+        return;
+      }
+
+      githubConnectionResult
+          .get()
           .getRepository("martinwitt/laughing-train")
           .getIssue(issue.number())
           .setBody(
@@ -99,10 +112,6 @@ public class PeriodicSummary {
     } catch (Exception e) {
       logger.atSevere().withCause(e).log("Error while creating summary");
     }
-  }
-
-  private static GitHub authenticateWithGitHub() throws IOException {
-    return GitHub.connectUsingOAuth(System.getenv("GITHUB_TOKEN"));
   }
 
   private String createSummaryBody(Map<String, ? extends List<PullRequest>> prsByGHRepo) {
