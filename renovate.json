@@ -3,7 +3,7 @@
     "config:recommended",
     "helpers:pinGitHubActionDigests"
   ],
-  "semanticCommitType": "deps:",
+  "ignoreDeps": ["google-github-actions/release-please-action"],
   "semanticCommits": "auto",
   "packageRules": [
     {
