@@ -4,15 +4,14 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.commons.GitHubConnector;
 import io.github.martinwitt.laughing_train.commons.result.Result;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.kohsuke.github.GHIssue;
-import org.kohsuke.github.GHIssueSearchBuilder;
-import org.kohsuke.github.GHIssueState;
-import org.kohsuke.github.GitHub;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.kohsuke.github.GHIssue;
+import org.kohsuke.github.GHIssueSearchBuilder;
+import org.kohsuke.github.GHIssueState;
+import org.kohsuke.github.GitHub;
 
 @ApplicationScoped
 public class GitHubIssueSearch {

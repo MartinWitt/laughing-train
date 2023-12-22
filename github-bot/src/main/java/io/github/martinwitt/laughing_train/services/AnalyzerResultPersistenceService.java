@@ -1,9 +1,9 @@
 package io.github.martinwitt.laughing_train.services;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.commons.GitProject;
 import io.github.martinwitt.laughing_train.data.QodanaResult;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
-import io.github.martinwitt.laughing_train.gitprojects.GitProject;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.smallrye.mutiny.Multi;

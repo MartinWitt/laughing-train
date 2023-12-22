@@ -1,9 +1,9 @@
 package io.github.martinwitt.laughing_train.mining;
 
+import io.github.martinwitt.laughing_train.commons.GitProject;
+import io.github.martinwitt.laughing_train.commons.GitRepoHandler;
 import io.github.martinwitt.laughing_train.commons.result.Result;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
-import io.github.martinwitt.laughing_train.gitprojects.GitProject;
-import io.github.martinwitt.laughing_train.gitprojects.ProjectService;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.logging.Log;
 import io.vertx.core.AbstractVerticle;
@@ -18,20 +18,15 @@ public class ProjectSupplier extends AbstractVerticle {
   private static final Random random = new Random();
   private final SearchProjectService searchProjectService;
   private final ProjectRepository projectRepository;
-  private final ProjectService projectService;
 
   @Produces
   Random random() {
     return new Random();
   }
 
-  ProjectSupplier(
-      SearchProjectService searchProjectService,
-      ProjectRepository projectRepository,
-      ProjectService projectService) {
+  ProjectSupplier(SearchProjectService searchProjectService, ProjectRepository projectRepository) {
     this.searchProjectService = searchProjectService;
     this.projectRepository = projectRepository;
-    this.projectService = projectService;
   }
 
   Result<GitProject> supplyProject() {
@@ -46,7 +41,7 @@ public class ProjectSupplier extends AbstractVerticle {
   }
 
   private Result<GitProject> checkoutProject(RemoteProject project) throws IOException {
-    return projectService.processProjectRequest(project.getProjectUrl());
+    return GitRepoHandler.cloneGitProject(project.getProjectUrl());
   }
 
   private RemoteProject getRandomProject() throws IOException {

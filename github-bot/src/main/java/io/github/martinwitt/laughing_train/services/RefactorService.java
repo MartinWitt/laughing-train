@@ -4,11 +4,11 @@ import com.google.common.flogger.FluentLogger;
 import com.google.errorprone.annotations.Var;
 import io.github.martinwitt.laughing_train.ChangelogPrinter;
 import io.github.martinwitt.laughing_train.commons.GitHubConnector;
+import io.github.martinwitt.laughing_train.commons.GitProject;
+import io.github.martinwitt.laughing_train.commons.GitRepoHandler;
 import io.github.martinwitt.laughing_train.commons.result.Result;
 import io.github.martinwitt.laughing_train.github.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.github.GitHubUtils;
-import io.github.martinwitt.laughing_train.gitprojects.GitProject;
-import io.github.martinwitt.laughing_train.gitprojects.ProjectService;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.io.File;
@@ -39,15 +39,10 @@ public class RefactorService {
   private static final String LABEL_NAME = "laughing-train-repair";
   final BranchNameSupplier branchNameSupplier;
   final ChangelogPrinter changelogPrinter;
-  final ProjectService projectService;
   final DiffCleaner diffCleaner;
 
-  public RefactorService(
-      ProjectService projectService,
-      BranchNameSupplier branchNameSupplier,
-      ChangelogPrinter changelogPrinter) {
+  public RefactorService(BranchNameSupplier branchNameSupplier, ChangelogPrinter changelogPrinter) {
     diffCleaner = new DiffCleaner();
-    this.projectService = projectService;
     this.branchNameSupplier = branchNameSupplier;
     this.changelogPrinter = changelogPrinter;
   }
@@ -73,7 +68,7 @@ public class RefactorService {
   private String refactorSpoon(List<? extends BadSmell> badSmells) {
     String projectUrl = badSmells.get(0).getProjectUrl();
 
-    Result<GitProject> project = projectService.processProjectRequest(projectUrl);
+    Result<GitProject> project = GitRepoHandler.cloneGitProject(projectUrl);
     if (project.isOk()) {
       File folder = project.get().folder();
       try {
@@ -97,7 +92,7 @@ public class RefactorService {
 
   private void refactorQodana(List<? extends BadSmell> badSmells) {
     String projectUrl = badSmells.get(0).getProjectUrl();
-    Result<GitProject> projectResult = projectService.processProjectRequest(projectUrl);
+    Result<GitProject> projectResult = GitRepoHandler.cloneGitProject(projectUrl);
     createPullRequest(projectResult, badSmells);
   }
 
