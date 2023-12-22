@@ -21,4 +21,4 @@ automations:
              * fix
              * refactor
 titlePolicy:
-    titleRegex: r/\b(build|ci|chore|deps|docs|feat|fix|refactor)\b\s*\((.*|common|core|elements|forms|http)\)?:\s*\w+.*/
+    titleRegex: r/\b(build|ci|chore|deps|docs|feat|fix|refactor)\b\s*(\((.*|common|core|elements|forms|http)\))?:\s*\w+.*/
