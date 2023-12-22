@@ -1,13 +1,13 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.commons.GitProject;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult.Failure;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult.Success;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
-import io.github.martinwitt.laughing_train.gitprojects.GitProject;
 import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.vertx.core.AbstractVerticle;

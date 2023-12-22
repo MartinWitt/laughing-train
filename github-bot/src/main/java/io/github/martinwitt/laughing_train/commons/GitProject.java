@@ -1,4 +1,4 @@
-package io.github.martinwitt.laughing_train.gitprojects;
+package io.github.martinwitt.laughing_train.commons;
 
 import java.io.File;
 import java.io.Serializable;

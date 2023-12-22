@@ -1,7 +1,7 @@
 package io.github.martinwitt.laughing_train.data.result;
 
+import io.github.martinwitt.laughing_train.commons.GitProject;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
-import io.github.martinwitt.laughing_train.gitprojects.GitProject;
 import java.io.Serializable;
 import java.util.List;
 

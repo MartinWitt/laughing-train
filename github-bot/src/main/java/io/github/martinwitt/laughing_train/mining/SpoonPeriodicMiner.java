@@ -1,10 +1,10 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.commons.GitProject;
 import io.github.martinwitt.laughing_train.commons.result.Result;
 import io.github.martinwitt.laughing_train.data.request.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
-import io.github.martinwitt.laughing_train.gitprojects.GitProject;
 import io.github.martinwitt.laughing_train.mining.requests.MineNextProject;
 import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
 import io.github.martinwitt.laughing_train.services.SpoonAnalyzerService;
