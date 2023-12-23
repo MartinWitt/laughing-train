@@ -3,6 +3,7 @@ package io.github.martinwitt.laughing_train.persistence.converter;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.persistence.dao.AnalyzerRunDao;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class AnalyzerRunConverter implements DaoConverter<GitHubCommit, List<Ana
       dao.status = analyzerStatus.getStatus().name();
       dao.numberOfIssues = analyzerStatus.getNumberOfIssues();
       dao.commitHash = entity.getCommitHash();
-      dao.localDateTime = analyzerStatus.getLocalDateTime();
+      dao.localDateTime = LocalDateTime.parse(analyzerStatus.getLocalDateTime());
       list.add(dao);
     }
     return list;

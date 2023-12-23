@@ -165,7 +165,9 @@ function SortableTableCell(props: SortableTableCellProps) {
 
 export default ProjectTable;
 
-function getSpoonAnalyzerResult(gitProject: Project): AnalyzerStatus | undefined {
+function getSpoonAnalyzerResult(
+  gitProject: Project
+): AnalyzerStatus | undefined {
   if (gitProject.commits.length === 0) {
     return undefined;
   }

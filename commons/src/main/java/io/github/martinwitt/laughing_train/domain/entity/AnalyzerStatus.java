@@ -9,7 +9,8 @@ public class AnalyzerStatus implements Serializable {
   private Status status;
   private int numberOfIssues;
   private String commitHash;
-  private LocalDateTime localDateTime;
+
+  private String localDateTime;
 
   public AnalyzerStatus() {
     // for JPA
@@ -25,7 +26,7 @@ public class AnalyzerStatus implements Serializable {
     this.status = status;
     this.numberOfIssues = numberOfIssues;
     this.commitHash = commitHash;
-    this.localDateTime = localDateTime;
+    this.localDateTime = localDateTime.toString();
   }
 
   public static AnalyzerStatus success(String analyzerName, int numberOfIssues, String commitHash) {
@@ -102,7 +103,7 @@ public class AnalyzerStatus implements Serializable {
   /**
    * @return the localDateTime
    */
-  public LocalDateTime getLocalDateTime() {
+  public String getLocalDateTime() {
     return localDateTime;
   }
 
@@ -110,6 +111,6 @@ public class AnalyzerStatus implements Serializable {
    * @param localDateTime the localDateTime to set
    */
   public void setLocalDateTime(LocalDateTime localDateTime) {
-    this.localDateTime = localDateTime;
+    this.localDateTime = localDateTime.toString();
   }
 }

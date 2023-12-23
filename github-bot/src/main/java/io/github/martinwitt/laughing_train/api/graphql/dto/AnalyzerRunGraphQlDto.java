@@ -1,7 +1,6 @@
 package io.github.martinwitt.laughing_train.api.graphql.dto;
 
 import io.github.martinwitt.laughing_train.persistence.dao.AnalyzerRunDao;
-import java.time.LocalDateTime;
 import org.eclipse.microprofile.graphql.Name;
 
 @Name("AnalyzerRun")
@@ -13,7 +12,9 @@ public class AnalyzerRunGraphQlDto {
   private String status;
   private int numberOfIssues;
   private String commitHash;
-  private LocalDateTime localDateTime;
+
+  @Name("timestamp")
+  private String localDateTime;
 
   public AnalyzerRunGraphQlDto(AnalyzerRunDao dao) {
     this.projectName = dao.projectDao.getProjectName();
@@ -22,7 +23,7 @@ public class AnalyzerRunGraphQlDto {
     this.status = dao.status;
     this.numberOfIssues = dao.numberOfIssues;
     this.commitHash = dao.commitHash;
-    this.localDateTime = dao.localDateTime;
+    this.localDateTime = dao.localDateTime.toString();
   }
 
   /**
@@ -37,13 +38,6 @@ public class AnalyzerRunGraphQlDto {
    */
   public String getCommitHash() {
     return commitHash;
-  }
-
-  /**
-   * @return the localDateTime
-   */
-  public LocalDateTime getLocalDateTime() {
-    return localDateTime;
   }
 
   /**
@@ -72,5 +66,9 @@ public class AnalyzerRunGraphQlDto {
    */
   public String getStatus() {
     return status;
+  }
+
+  public String getLocalDateTime() {
+    return localDateTime;
   }
 }

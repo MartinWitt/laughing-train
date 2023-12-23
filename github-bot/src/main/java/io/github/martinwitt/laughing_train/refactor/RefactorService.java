@@ -10,14 +10,6 @@ import io.github.martinwitt.laughing_train.github.BranchNameSupplier;
 import io.github.martinwitt.laughing_train.github.GitHubUtils;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.apache.commons.io.FileUtils;
-import org.kohsuke.github.*;
-import spoon.reflect.cu.SourcePositionHolder;
-import spoon.reflect.declaration.CtType;
-import xyz.keksdose.spoon.code_solver.api.CodeRefactoring;
-import xyz.keksdose.spoon.code_solver.history.Change;
-import xyz.keksdose.spoon.code_solver.history.Changelog;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,6 +21,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.commons.io.FileUtils;
+import org.kohsuke.github.*;
+import spoon.reflect.cu.SourcePositionHolder;
+import spoon.reflect.declaration.CtType;
+import xyz.keksdose.spoon.code_solver.api.CodeRefactoring;
+import xyz.keksdose.spoon.code_solver.history.Change;
+import xyz.keksdose.spoon.code_solver.history.Changelog;
 
 /**
  * This class provides the functionality to refactor bad smells in a codebase and create a pull

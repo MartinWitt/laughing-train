@@ -4,7 +4,7 @@ import { Project } from './data/Project';
 
 export const fetchProjectQuery = gql`
   query getProjects {
-    getRecentProjects(size: 30) {
+    getProjects {
       projectName
       projectUrl
       commitHashes
@@ -24,14 +24,13 @@ export const fetchProjectQuery = gql`
 export const recentAnalyzerRuns = gql`
   query recentAnalyzerRuns {
     recentAnalyzerRuns(size: 30) {
-        analyzerName
-        commitHash
-        "ISO-8601"
-        localDateTime
-        numberOfIssues
-        projectName
-        projectUrl
-        status
+      analyzerName
+      commitHash
+      timestamp
+      numberOfIssues
+      projectName
+      projectUrl
+      status
     }
   }
 `;
@@ -93,23 +92,6 @@ export function filterDuplicateBadSmells(params: BadSmell[]) {
     ({ snippet }, index) => !ids.includes(snippet, index + 1)
   );
 }
-
-export const fetchProjectConfigQuery = gql`
-  query getProjectConfig($projectUrl: String!) {
-    getProjectConfig(projectUrl: $projectUrl) {
-      projectUrl
-      sourceFolder
-    }
-  }
-`;
-export const addProjectConfigQuery = gql`
-  mutation addProjectConfig($projectConfig: ProjectConfig!) {
-    addProjectConfig(projectConfig: $projectConfig) {
-      projectUrl
-      sourceFolder
-    }
-  }
-`;
 
 export const getGitHubCommitsQuery = gql`
   query getGitHubCommitsForProject($projectName: String!) {
