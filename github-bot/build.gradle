@@ -16,6 +16,7 @@ dependencies {
 	implementation project(":code-transformation")
 	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-smallrye-graphql")
+	testImplementation("io.quarkus:quarkus-smallrye-graphql-client")
 	implementation 'io.quarkiverse.quinoa:quarkus-quinoa:2.3.1'
 	implementation("io.quarkus:quarkus-oidc")
 	implementation("io.quarkus:quarkus-keycloak-authorization")
