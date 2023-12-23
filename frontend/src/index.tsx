@@ -15,7 +15,6 @@ import PrivateRoute from './PrivateRoute';
 import { AddProjectView } from './pages/AddProjectView';
 import DashBoard from './pages/DashBoard';
 import LandingPage from './pages/PageLayout';
-import { ProjectConfigview } from './pages/ProjectConfigView';
 import { RefactorView } from './pages/RefactorView';
 import ResultView from './pages/ResultView';
 import reportWebVitals from './reportWebVitals';
@@ -44,14 +43,6 @@ const router = createBrowserRouter([
       <PrivateRoute>
         {' '}
         <LandingPage children={<RefactorView />} />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: '/mutation/projectconfig/:projectUrl',
-    element: (
-      <PrivateRoute>
-        <ProjectConfigview />
       </PrivateRoute>
     ),
   },

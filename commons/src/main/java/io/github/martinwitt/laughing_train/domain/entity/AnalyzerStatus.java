@@ -103,7 +103,7 @@ public class AnalyzerStatus implements Serializable {
   /**
    * @return the localDateTime
    */
-  public String timestamp() {
+  public String getLocalDateTime() {
     return localDateTime;
   }
 

@@ -7,12 +7,14 @@ import {
   CardHeader,
   Divider,
   LinearProgress,
+  Typography,
 } from '@mui/material';
 import Avatar from 'react-avatar';
 import { FancyText } from '../styled/FancyText';
-import { fetchProjectQuery } from '../ProjectData';
-import { Project } from '../gql/graphql';
+import { GetProjectsQuery, Project } from '../gql/graphql';
 import { Error } from '@mui/icons-material';
+import { graphql } from '../gql';
+import { useGetProjectsQuery } from '../gql/graphql-types';
 
 function toCard(card: CardData[]) {
   const { owner, url } = card[0];
@@ -80,26 +82,54 @@ function Statistics({ projects }: { projects: CardData[] }) {
   );
 }
 
+const postsQueryDocument = graphql(`
+  query getProjects {
+    getProjects {
+      projectName
+      projectUrl
+      commitHashes
+      commits {
+        analyzerStatuses {
+          analyzerName
+          commitHash
+          localDateTime
+          numberOfIssues
+          status
+        }
+        commitHash
+      }
+    }
+  }
+`);
 export function StatisticPage() {
-  const { loading, error, data } = useQuery<Project[]>(fetchProjectQuery);
+  const { loading, error, data } = useGetProjectsQuery();
 
   if (loading) return <PageLayout children={<LinearProgress />}></PageLayout>;
   if (error)
     return (
-        <PageLayout>
+      <PageLayout>
         <Error>
           console.error(error);
           {error.message}
         </Error>
-        </PageLayout>
+      </PageLayout>
     );
-
-  const projects: CardData[] = data!.map((project: Project) => {
-    const urlParts = project.projectUrl!.split('/');
+  if (!data || data.getProjects?.length === 0) {
+    return (
+      <PageLayout>
+        <Box padding={5} display="flex" flexDirection="row" alignItems="center">
+          <Error />
+          <Typography variant="h5">No Data found </Typography>
+        </Box>
+      </PageLayout>
+    );
+  }
+  const projects: CardData[] = data.getProjects!.map((project) => {
+    const urlParts = project!.projectUrl!.split('/');
     const owner = urlParts[urlParts.length - 2];
     const name = urlParts[urlParts.length - 1];
     const url = urlParts.join('/');
-    const commitHashes = project.commitHashes;
+    const commitHashes = project!.commitHashes;
     return { owner, name, url, commitHashes } as CardData;
   });
 

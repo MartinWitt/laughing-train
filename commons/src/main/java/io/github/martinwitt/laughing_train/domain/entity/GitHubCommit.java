@@ -65,7 +65,7 @@ public class GitHubCommit implements Serializable {
             },
             () -> analyzerStatuses.add(analyzerStatus));
     if (analyzerStatuses.size() > 10) {
-      analyzerStatuses.sort(Comparator.comparing(v -> LocalDateTime.parse(v.timestamp())));
+      analyzerStatuses.sort(Comparator.comparing(v -> LocalDateTime.parse(v.getLocalDateTime())));
       analyzerStatuses.removeFirst();
     }
   }
