@@ -17,7 +17,7 @@ public class AnalyzerRunConverter implements DaoConverter<GitHubCommit, List<Ana
       dao.status = analyzerStatus.getStatus().name();
       dao.numberOfIssues = analyzerStatus.getNumberOfIssues();
       dao.commitHash = entity.getCommitHash();
-      dao.localDateTime = LocalDateTime.parse(analyzerStatus.timestamp());
+      dao.localDateTime = LocalDateTime.parse(analyzerStatus.getLocalDateTime());
       list.add(dao);
     }
     return list;
