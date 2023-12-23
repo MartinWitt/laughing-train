@@ -1,5 +1,6 @@
-package io.github.martinwitt.laughing_train.github;
+package io.github.martinwitt.laughing_train.github.internal;
 
+import io.github.martinwitt.laughing_train.github.BranchNameSupplier;
 import jakarta.enterprise.context.ApplicationScoped;
 import java.util.Random;
 
