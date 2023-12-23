@@ -1,13 +1,13 @@
 package io.github.martinwitt.laughing_train.persistence.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
+import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 
@@ -26,16 +26,20 @@ class SqlProjectRepositoryTest {
     List<RemoteProject> byProjectName =
         sqlProjectRepository.findByProjectName(remoteProject.getProjectName());
     assertThat(byProjectName).isNotEmpty();
-    Integer expectedSize =
+    int expectedSize =
         remoteProject.getCommits().stream()
-            .map(v -> v.getAnalyzerStatuses())
-            .collect(Collectors.summingInt(v -> v.size()));
+            .map(GitHubCommit::getAnalyzerStatuses)
+            .mapToInt(List::size)
+            .sum();
     assertThat(sqlAnalyzerRunRepository.findRecent(expectedSize)).hasSize(expectedSize);
   }
 
   @Test
   void getRecent() {
-    RemoteProject remoteProject = Instancio.create(RemoteProject.class);
+    RemoteProject remoteProject = Instancio.of(RemoteProject.class).assign().create();
+    remoteProject.getCommits().stream()
+        .flatMap(v -> v.getAnalyzerStatuses().stream())
+        .forEach(v -> v.setLocalDateTime(LocalDateTime.now()));
     sqlProjectRepository.save(remoteProject);
     assertThat(sqlProjectRepository.getRecent(1)).isNotEmpty();
     List<RemoteProject> recent = sqlProjectRepository.getRecent(1);
