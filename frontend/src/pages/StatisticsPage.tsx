@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-import { fetchProjectQuery } from '../ProjectData';
 import PageLayout from './PageLayout';
 import {
   Box,
@@ -9,9 +8,11 @@ import {
   Divider,
   LinearProgress,
 } from '@mui/material';
-import { Project } from '../data/Project';
 import Avatar from 'react-avatar';
 import { FancyText } from '../styled/FancyText';
+import { fetchProjectQuery } from '../ProjectData';
+import { Project } from '../gql/graphql';
+import { Error } from '@mui/icons-material';
 
 function toCard(card: CardData[]) {
   const { owner, url } = card[0];
@@ -80,13 +81,21 @@ function Statistics({ projects }: { projects: CardData[] }) {
 }
 
 export function StatisticPage() {
-  const { loading, error, data } = useQuery(fetchProjectQuery);
+  const { loading, error, data } = useQuery<Project[]>(fetchProjectQuery);
 
   if (loading) return <PageLayout children={<LinearProgress />}></PageLayout>;
-  if (error) return <p>Error :(</p>;
+  if (error)
+    return (
+        <PageLayout>
+        <Error>
+          console.error(error);
+          {error.message}
+        </Error>
+        </PageLayout>
+    );
 
-  const projects: CardData[] = data.getProjects.map((project: Project) => {
-    const urlParts = project.projectUrl.split('/');
+  const projects: CardData[] = data!.map((project: Project) => {
+    const urlParts = project.projectUrl!.split('/');
     const owner = urlParts[urlParts.length - 2];
     const name = urlParts[urlParts.length - 1];
     const url = urlParts.join('/');

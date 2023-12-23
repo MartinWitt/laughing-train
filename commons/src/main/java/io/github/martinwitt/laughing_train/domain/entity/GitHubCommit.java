@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.domain.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -64,7 +65,7 @@ public class GitHubCommit implements Serializable {
             },
             () -> analyzerStatuses.add(analyzerStatus));
     if (analyzerStatuses.size() > 10) {
-      analyzerStatuses.sort(Comparator.comparing(AnalyzerStatus::getLocalDateTime));
+      analyzerStatuses.sort(Comparator.comparing(v -> LocalDateTime.parse(v.timestamp())));
       analyzerStatuses.removeFirst();
     }
   }

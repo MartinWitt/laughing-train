@@ -24,14 +24,13 @@ export const fetchProjectQuery = gql`
 export const recentAnalyzerRuns = gql`
   query recentAnalyzerRuns {
     recentAnalyzerRuns(size: 30) {
-        analyzerName
-        commitHash
-        "ISO-8601"
-        localDateTime
-        numberOfIssues
-        projectName
-        projectUrl
-        status
+      analyzerName
+      commitHash
+      localDateTime
+      numberOfIssues
+      projectName
+      projectUrl
+      status
     }
   }
 `;

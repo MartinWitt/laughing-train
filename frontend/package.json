@@ -6,6 +6,7 @@
     "@apollo/client": "3.8.8",
     "@emotion/react": "11.11.1",
     "@emotion/styled": "11.11.0",
+    "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@js-joda/core": "^5.5.3",
     "@mui/icons-material": "5.15.1",
     "@mui/lab": "5.0.0-alpha.157",
@@ -21,7 +22,8 @@
     "@types/react-router": "5.1.20",
     "@types/react-syntax-highlighter": "15.5.11",
     "@vitejs/plugin-react": "^4.2.0",
-    "graphql": "16.8.1",
+    "graphql": "^16.8.1",
+    "graphql-scalars": "^1.22.4",
     "react": "18.2.0",
     "react-avatar": "5.0.3",
     "react-code-blocks": "^0.1.5",
@@ -30,7 +32,6 @@
     "react-markdown": "9.0.1",
     "react-router-dom": "6.21.1",
     "react-syntax-highlighter": "15.5.0",
-    "typescript": "5.3.3",
     "typography": "0.16.24",
     "vite": "^5.0.2",
     "vite-tsconfig-paths": "^4.2.1",
@@ -40,8 +41,8 @@
     "start": "vite",
     "build": "tsc && vite build",
     "dev": "vite",
-    "prettier": "prettier --write \"src/**/*.tsx\""
-
+    "prettier": "prettier --write \"src/**/*.tsx\"",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "eslintConfig": {
     "extends": [
@@ -62,7 +63,11 @@
     ]
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/client-preset": "4.1.0",
+    "@graphql-codegen/introspection": "4.0.0",
     "@types/babel__core": "^7.1.20",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "typescript": "^5.3.3"
   }
 }
