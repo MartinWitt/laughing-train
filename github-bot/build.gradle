@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    implementation 'io.quarkus:quarkus-info'
   implementation 'io.quarkiverse.jgit:quarkus-jgit:3.0.6'
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
 	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.318.0'

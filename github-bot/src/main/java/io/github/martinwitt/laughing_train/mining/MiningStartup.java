@@ -1,6 +1,7 @@
 package io.github.martinwitt.laughing_train.mining;
 
 import io.github.martinwitt.laughing_train.mining.requests.MineNextProject;
+import io.quarkus.logging.Log;
 import io.quarkus.runtime.StartupEvent;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
@@ -13,12 +14,10 @@ import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 public class MiningStartup {
 
-  public static final String SERVICE_NAME = "miningStartup";
-
-  final Vertx vertx;
-  final AnalyzerResultsPersistence persistence;
-  final ProjectSupplier projectSupplier;
-  final SpoonPeriodicMiner spoonPeriodicMiner;
+  private final Vertx vertx;
+  private final AnalyzerResultsPersistence persistence;
+  private final ProjectSupplier projectSupplier;
+  private final SpoonPeriodicMiner spoonPeriodicMiner;
 
   @Inject
   public MiningStartup(
@@ -40,20 +39,12 @@ public class MiningStartup {
             vertx.deployVerticle(persistence, options),
             vertx.deployVerticle(projectSupplier, options))
         .onFailure(Throwable::printStackTrace)
-        .onComplete(v -> System.out.println("All verticles deployed"))
+        .onComplete(v -> Log.info("All verticles deployed"))
         .onSuccess(v -> startMining());
-    vertx
-        .eventBus()
-        .addInboundInterceptor(
-            v -> {
-              System.out.println("Received message: " + v.toString());
-              v.next();
-            });
+    vertx.exceptionHandler(v -> Log.error("Exception in vertx", v));
   }
 
   private void startMining() {
-    // vertx.setTimer(TimeUnit.MINUTES.toMillis(3), v -> vertx.eventBus()
-    //         .publish("miner", new MineNextProject(QodanaPeriodicMiner.ANALYZER_NAME)));
     vertx.setTimer(
         TimeUnit.MINUTES.toMillis(2),
         v ->
