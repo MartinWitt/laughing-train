@@ -1,9 +1,9 @@
-import { Button, Typography } from '@mui/material';
+import { Button, SxProps, Theme, Typography } from '@mui/material';
 import React from 'react';
 import { useKeycloak } from '@react-keycloak/web';
 
 interface LoginButtonProps {
-  sx: any;
+  sx: SxProps<Theme>;
 }
 
 export function LoginButton({ sx }: LoginButtonProps) {
