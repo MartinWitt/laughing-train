@@ -10,7 +10,7 @@ class Headline extends React.Component {
         <Toolbar>
           {buttons(pages)}
           <div />
-          <LoginButton />
+          <LoginButton sx={{}} />
         </Toolbar>
       </AppBar>
     );
