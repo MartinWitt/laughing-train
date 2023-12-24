@@ -40,7 +40,6 @@ function ListItems(props: ListItemsProps) {
 }
 
 function Sidebar(props: Props) {
-  const { links } = props;
   return (
     <Box sx={{ width: 250, bgcolor: '#272727', height: '100vh' }}>
       <Typography

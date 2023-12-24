@@ -11,6 +11,8 @@
     "@mui/icons-material": "5.15.1",
     "@mui/lab": "5.0.0-alpha.157",
     "@mui/material": "5.15.1",
+    "@react-buddy/ide-toolbox": "^2.4.0",
+    "@react-buddy/palette-mui": "^5.0.1",
     "@react-keycloak/web": "^3.4.0",
     "@testing-library/jest-dom": "6.1.5",
     "@testing-library/react": "14.1.2",
@@ -35,15 +37,14 @@
     "typography": "0.16.24",
     "vite": "^5.0.2",
     "vite-tsconfig-paths": "^4.2.1",
-    "web-vitals": "3.5.0",
-    "@react-buddy/ide-toolbox": "^2.4.0",
-    "@react-buddy/palette-mui": "^5.0.1"
+    "web-vitals": "3.5.0"
   },
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
     "dev": "vite",
     "prettier": "prettier --write \"src/**/*.tsx\"",
+    "lint": "eslint . --ext .tsx",
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "eslintConfig": {
@@ -70,6 +71,7 @@
     "@graphql-codegen/introspection": "4.0.0",
     "@types/babel__core": "^7.1.20",
     "prettier": "^3.0.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "eslint": "^8.56.0"
   }
 }
