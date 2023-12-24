@@ -48,9 +48,15 @@
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "src/**/*.tsx"
+        ]
+      }
+    ],
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -70,8 +76,10 @@
     "@graphql-codegen/client-preset": "4.1.0",
     "@graphql-codegen/introspection": "4.0.0",
     "@types/babel__core": "^7.1.20",
+    "eslint": "^8.56.0",
+    "eslint-config-react-app": "^7.0.1",
     "prettier": "^3.0.0",
     "typescript": "^5.3.3",
-    "eslint": "^8.56.0"
+    "vite-plugin-eslint": "^1.8.1"
   }
 }
