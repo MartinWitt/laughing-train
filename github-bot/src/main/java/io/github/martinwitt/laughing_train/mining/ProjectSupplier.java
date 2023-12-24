@@ -54,6 +54,9 @@ public class ProjectSupplier extends AbstractVerticle {
 
   private RemoteProject getKnownProject() {
     var list = projectRepository.getAll();
+    if (list.isEmpty()) {
+      throw new IllegalStateException("No known projects found");
+    }
     return list.get(random.nextInt(list.size()));
   }
 }
