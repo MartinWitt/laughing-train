@@ -77,6 +77,7 @@ const themeOptions: ThemeOptions = {
     },
   },
   spacing: 8,
+
   components: {
     MuiCard: {
       styleOverrides: {

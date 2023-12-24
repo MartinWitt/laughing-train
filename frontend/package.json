@@ -11,6 +11,8 @@
     "@mui/icons-material": "5.15.1",
     "@mui/lab": "5.0.0-alpha.157",
     "@mui/material": "5.15.1",
+    "@react-buddy/ide-toolbox": "^2.4.0",
+    "@react-buddy/palette-mui": "^5.0.1",
     "@react-keycloak/web": "^3.4.0",
     "@testing-library/jest-dom": "6.1.5",
     "@testing-library/react": "14.1.2",
@@ -42,12 +44,19 @@
     "build": "tsc && vite build",
     "dev": "vite",
     "prettier": "prettier --write \"src/**/*.tsx\"",
+    "lint": "eslint . --ext .tsx",
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "eslintConfig": {
+    "overrides": [
+      {
+        "files": [
+          "src/**/*.tsx"
+        ]
+      }
+    ],
     "extends": [
-      "react-app",
-      "react-app/jest"
+      "react-app"
     ]
   },
   "browserslist": {
@@ -63,11 +72,14 @@
     ]
   },
   "devDependencies": {
+    "eslint-config-react-app": "^7.0.1",
     "@graphql-codegen/cli": "5.0.0",
     "@graphql-codegen/client-preset": "4.1.0",
     "@graphql-codegen/introspection": "4.0.0",
     "@types/babel__core": "^7.1.20",
+    "eslint": "^8.56.0",
     "prettier": "^3.0.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vite-plugin-eslint": "^1.8.1"
   }
 }

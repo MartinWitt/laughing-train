@@ -1,8 +1,12 @@
-import { Button, Typography } from '@mui/material';
+import { Button, SxProps, Theme, Typography } from '@mui/material';
 import React from 'react';
 import { useKeycloak } from '@react-keycloak/web';
 
-export function LoginButton() {
+interface LoginButtonProps {
+  sx: SxProps<Theme>;
+}
+
+export function LoginButton({ sx }: LoginButtonProps) {
   const { keycloak } = useKeycloak();
 
   const handleAuth = () => {
@@ -32,7 +36,7 @@ export function LoginButton() {
   };
 
   return (
-    <Button onClick={handleAuth} sx={{ margin: '5px' }}>
+    <Button onClick={handleAuth} sx={{ ...sx }}>
       <Typography sx={{ color: 'white' }}>{getButtonText()}</Typography>
     </Button>
   );
