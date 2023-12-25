@@ -7,7 +7,6 @@ export const fetchProjectQuery = gql`
     getProjects {
       projectName
       projectUrl
-      commitHashes
       commits {
         analyzerStatuses {
           analyzerName
@@ -26,11 +25,24 @@ export const recentAnalyzerRuns = gql`
     recentAnalyzerRuns(size: 30) {
       analyzerName
       commitHash
-      timestamp
       numberOfIssues
       projectName
       projectUrl
       status
+      timestamp
+    }
+  }
+`;
+export const recentRuns = gql`
+  query recentRuns {
+    recentRuns(size: 30) {
+      analyzerName
+      commitHash
+      numberOfIssues
+      projectName
+      projectUrl
+      status
+      timestamp
     }
   }
 `;

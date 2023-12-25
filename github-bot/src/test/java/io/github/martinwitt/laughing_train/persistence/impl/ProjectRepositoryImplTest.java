@@ -1,6 +1,6 @@
 package io.github.martinwitt.laughing_train.persistence.impl;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
@@ -20,14 +20,14 @@ public class ProjectRepositoryImplTest {
   @Test
   void testCreate() {
     RemoteProject project = createMockProject();
-    assertThat(projectRepository.create(project)).isEqualTo(project);
+    assertThat(projectRepository.save(project)).isEqualTo(project);
   }
 
   @Test
   void testDeleteByProjectUrl() {
     assertThat(projectRepository.getAll()).isEmpty();
     RemoteProject project = createMockProject();
-    projectRepository.create(project);
+    projectRepository.save(project);
     assertThat(projectRepository.getAll()).isNotEmpty();
     assertThat(projectRepository.deleteByProjectUrl(project.getProjectUrl())).isEqualTo(1);
 
@@ -37,7 +37,7 @@ public class ProjectRepositoryImplTest {
   @Test
   void testFindByProjectUrl() {
     RemoteProject project = createMockProject();
-    projectRepository.create(project);
+    projectRepository.save(project);
 
     assertThat(projectRepository.findByProjectUrl(project.getProjectUrl()))
         .hasSize(1)
@@ -46,18 +46,6 @@ public class ProjectRepositoryImplTest {
 
   private RemoteProject createMockProject() {
     return Instancio.create(RemoteProject.class);
-  }
-
-  @Test
-  void addCommitHashTest() {
-    RemoteProject project = createMockProject();
-    assertThat(projectRepository.create(project)).isEqualTo(project);
-    project.addCommitHash("aaaa231adasdas");
-    projectRepository.save(project);
-
-    assertThat(projectRepository.findByProjectUrl(project.getProjectUrl()))
-        .hasSize(1)
-        .allMatch(v -> v.getCommitHashes().contains(project.getCommitHashes().get(0)));
   }
 
   @BeforeEach

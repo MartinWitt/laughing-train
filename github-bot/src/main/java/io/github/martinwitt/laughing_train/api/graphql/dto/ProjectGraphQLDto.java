@@ -10,7 +10,6 @@ public class ProjectGraphQLDto {
 
   private String projectName;
   private String projectUrl;
-  private List<String> commitHashes;
   private List<GitHubCommit> commits;
 
   @SuppressWarnings("NullAway")
@@ -19,7 +18,6 @@ public class ProjectGraphQLDto {
   public ProjectGraphQLDto(RemoteProject project) {
     this.projectName = project.getProjectName();
     this.projectUrl = project.getProjectUrl();
-    this.commitHashes = project.getCommitHashes();
     this.commits = project.getCommits();
   }
 
@@ -37,14 +35,6 @@ public class ProjectGraphQLDto {
 
   public void setProjectUrl(String projectUrl) {
     this.projectUrl = projectUrl;
-  }
-
-  public List<String> getCommitHashes() {
-    return this.commitHashes;
-  }
-
-  public void setCommitHashes(List<String> commitHashes) {
-    this.commitHashes = commitHashes;
   }
 
   /**

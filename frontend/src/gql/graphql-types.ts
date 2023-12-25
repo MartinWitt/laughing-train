@@ -67,6 +67,7 @@ export type Mutation = {
   addProject?: Maybe<Project>;
   /** Deletes a project from the database */
   deleteProject?: Maybe<Array<Maybe<Project>>>;
+  mineProject: Scalars['Boolean']['output'];
   /** Refactoring the given bad smells */
   refactor?: Maybe<Scalars['String']['output']>;
 };
@@ -82,6 +83,12 @@ export type MutationAddProjectArgs = {
 /** Mutation root */
 export type MutationDeleteProjectArgs = {
   projectName?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Mutation root */
+export type MutationMineProjectArgs = {
+  url?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -102,7 +109,6 @@ export type Position = {
 
 export type Project = {
   __typename?: 'Project';
-  commitHashes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   commits?: Maybe<Array<Maybe<GitHubCommit>>>;
   projectName?: Maybe<Scalars['String']['output']>;
   projectUrl?: Maybe<Scalars['String']['output']>;
@@ -150,12 +156,8 @@ export type Query = {
   byRuleIDAndAnalyzerAndCommitHash?: Maybe<Array<Maybe<BadSmell>>>;
   /** Gets all fixable bad smells rules */
   fixableBadSmells?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  /** Gets all fixable bad smells from the database by projectUrl */
-  fixableByProjectName?: Maybe<Array<Maybe<BadSmell>>>;
   /** Returns all github commits for a project from the database */
   getGitHubCommitsForProject?: Maybe<Array<Maybe<GitHubCommit>>>;
-  /** Gets all commit hashes for a project from the database */
-  getHashesForProject?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   /** Gets project with given name from the database */
   getProjectWithName?: Maybe<Project>;
   /** Gets all projects from the database */
@@ -164,6 +166,7 @@ export type Query = {
   login?: Maybe<Scalars['String']['output']>;
   /** Returns a sorted by date list of recent analyzer runs */
   recentAnalyzerRuns?: Maybe<Array<Maybe<AnalyzerRun>>>;
+  recentRuns?: Maybe<Array<Maybe<AnalyzerRun>>>;
 };
 
 
@@ -207,19 +210,7 @@ export type QueryByRuleIdAndAnalyzerAndCommitHashArgs = {
 
 
 /** Query root */
-export type QueryFixableByProjectNameArgs = {
-  projectUrl?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Query root */
 export type QueryGetGitHubCommitsForProjectArgs = {
-  projectName?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Query root */
-export type QueryGetHashesForProjectArgs = {
   projectName?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -238,6 +229,12 @@ export type QueryLoginArgs = {
 
 /** Query root */
 export type QueryRecentAnalyzerRunsArgs = {
+  size: Scalars['Int']['input'];
+};
+
+
+/** Query root */
+export type QueryRecentRunsArgs = {
   size: Scalars['Int']['input'];
 };
 
@@ -261,12 +258,17 @@ export enum Status {
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProjectsQuery = { __typename?: 'Query', getProjects?: Array<{ __typename?: 'Project', projectName?: string | null, projectUrl?: string | null, commitHashes?: Array<string | null> | null, commits?: Array<{ __typename?: 'GitHubCommit', commitHash?: string | null, analyzerStatuses?: Array<{ __typename?: 'AnalyzerStatus', analyzerName?: string | null, commitHash?: string | null, localDateTime?: string | null, numberOfIssues: number, status?: Status | null } | null> | null } | null> | null } | null> | null };
+export type GetProjectsQuery = { __typename?: 'Query', getProjects?: Array<{ __typename?: 'Project', projectName?: string | null, projectUrl?: string | null, commits?: Array<{ __typename?: 'GitHubCommit', commitHash?: string | null, analyzerStatuses?: Array<{ __typename?: 'AnalyzerStatus', analyzerName?: string | null, commitHash?: string | null, localDateTime?: string | null, numberOfIssues: number, status?: Status | null } | null> | null } | null> | null } | null> | null };
 
 export type RecentAnalyzerRunsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RecentAnalyzerRunsQuery = { __typename?: 'Query', recentAnalyzerRuns?: Array<{ __typename?: 'AnalyzerRun', analyzerName?: string | null, commitHash?: string | null, timestamp?: string | null, numberOfIssues: number, projectName?: string | null, projectUrl?: string | null, status?: string | null } | null> | null };
+export type RecentAnalyzerRunsQuery = { __typename?: 'Query', recentAnalyzerRuns?: Array<{ __typename?: 'AnalyzerRun', analyzerName?: string | null, commitHash?: string | null, numberOfIssues: number, projectName?: string | null, projectUrl?: string | null, status?: string | null, timestamp?: string | null } | null> | null };
+
+export type RecentRunsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RecentRunsQuery = { __typename?: 'Query', recentRuns?: Array<{ __typename?: 'AnalyzerRun', analyzerName?: string | null, commitHash?: string | null, numberOfIssues: number, projectName?: string | null, projectUrl?: string | null, status?: string | null, timestamp?: string | null } | null> | null };
 
 export type GetAvailableRefactoringsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -315,7 +317,6 @@ export const GetProjectsDocument = gql`
   getProjects {
     projectName
     projectUrl
-    commitHashes
     commits {
       analyzerStatuses {
         analyzerName
@@ -366,11 +367,11 @@ export const RecentAnalyzerRunsDocument = gql`
   recentAnalyzerRuns(size: 30) {
     analyzerName
     commitHash
-    timestamp
     numberOfIssues
     projectName
     projectUrl
     status
+    timestamp
   }
 }
     `;
@@ -406,6 +407,51 @@ export type RecentAnalyzerRunsQueryHookResult = ReturnType<typeof useRecentAnaly
 export type RecentAnalyzerRunsLazyQueryHookResult = ReturnType<typeof useRecentAnalyzerRunsLazyQuery>;
 export type RecentAnalyzerRunsSuspenseQueryHookResult = ReturnType<typeof useRecentAnalyzerRunsSuspenseQuery>;
 export type RecentAnalyzerRunsQueryResult = Apollo.QueryResult<RecentAnalyzerRunsQuery, RecentAnalyzerRunsQueryVariables>;
+export const RecentRunsDocument = gql`
+    query recentRuns {
+  recentRuns(size: 30) {
+    analyzerName
+    commitHash
+    numberOfIssues
+    projectName
+    projectUrl
+    status
+    timestamp
+  }
+}
+    `;
+
+/**
+ * __useRecentRunsQuery__
+ *
+ * To run a query within a React component, call `useRecentRunsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useRecentRunsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useRecentRunsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useRecentRunsQuery(baseOptions?: Apollo.QueryHookOptions<RecentRunsQuery, RecentRunsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<RecentRunsQuery, RecentRunsQueryVariables>(RecentRunsDocument, options);
+      }
+export function useRecentRunsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<RecentRunsQuery, RecentRunsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<RecentRunsQuery, RecentRunsQueryVariables>(RecentRunsDocument, options);
+        }
+export function useRecentRunsSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<RecentRunsQuery, RecentRunsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<RecentRunsQuery, RecentRunsQueryVariables>(RecentRunsDocument, options);
+        }
+export type RecentRunsQueryHookResult = ReturnType<typeof useRecentRunsQuery>;
+export type RecentRunsLazyQueryHookResult = ReturnType<typeof useRecentRunsLazyQuery>;
+export type RecentRunsSuspenseQueryHookResult = ReturnType<typeof useRecentRunsSuspenseQuery>;
+export type RecentRunsQueryResult = Apollo.QueryResult<RecentRunsQuery, RecentRunsQueryVariables>;
 export const GetAvailableRefactoringsDocument = gql`
     query getAvailableRefactorings {
   availableRefactorings {

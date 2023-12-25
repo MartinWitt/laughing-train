@@ -47,8 +47,8 @@ public class MiningGraphQL {
 
   @Authenticated
   @Mutation
-  public void mineProject(String url) {
+  public boolean mineProject(String url) {
     // TODO: Not Implemented
-
+    return false;
   }
 }

@@ -8,6 +8,7 @@ import io.github.martinwitt.laughing_train.github.GitHubIssueSearch;
 import io.github.martinwitt.laughing_train.github.GitHubState;
 import io.github.martinwitt.laughing_train.github.Issue;
 import io.github.martinwitt.laughing_train.github.PullRequest;
+import io.quarkus.arc.Unremovable;
 import io.quarkus.scheduler.Scheduled;
 import java.io.IOException;
 import java.util.Collection;
@@ -27,6 +28,7 @@ import org.kohsuke.github.GitHub;
  * updated. The summary issue contains a list of all open issues and pull requests with their
  * status.
  */
+@Unremovable
 public class PeriodicSummary {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();

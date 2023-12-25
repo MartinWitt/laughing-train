@@ -7,8 +7,6 @@ public interface ProjectRepository {
 
   List<RemoteProject> getAll();
 
-  List<RemoteProject> getRecent(int size);
-
   List<RemoteProject> findByProjectName(String projectName);
 
   boolean existsByProjectName(String projectName);
@@ -20,8 +18,6 @@ public interface ProjectRepository {
   boolean existsByProjectUrl(String projectUrl);
 
   long deleteByProjectUrl(String projectUrl);
-
-  RemoteProject create(RemoteProject project);
 
   RemoteProject save(RemoteProject project);
 }
