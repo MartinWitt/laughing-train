@@ -1,29 +1,29 @@
-package io.github.martinwitt.laughing_train.api.graphql.dto;
+package io.github.martinwitt.laughing_train.mining;
 
-import io.github.martinwitt.laughing_train.persistence.dao.AnalyzerRunDao;
+import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunDao;
 import org.eclipse.microprofile.graphql.Name;
 
 @Name("AnalyzerRun")
 public class AnalyzerRunGraphQlDto {
 
-  private String projectName;
-  private String projectUrl;
-  private String analyzerName;
-  private String status;
-  private int numberOfIssues;
-  private String commitHash;
+  private final String projectName;
+  private final String projectUrl;
+  private final String analyzerName;
+  private final String status;
+  private final int numberOfIssues;
+  private final String commitHash;
 
   @Name("timestamp")
-  private String localDateTime;
+  private final String localDateTime;
 
   public AnalyzerRunGraphQlDto(AnalyzerRunDao dao) {
-    this.projectName = dao.projectDao.getProjectName();
-    this.projectUrl = dao.projectDao.getProjectUrl();
-    this.analyzerName = dao.analyzerName;
-    this.status = dao.status;
-    this.numberOfIssues = dao.numberOfIssues;
-    this.commitHash = dao.commitHash;
-    this.localDateTime = dao.localDateTime.toString();
+    projectName = dao.projectDao.getProjectName();
+    projectUrl = dao.projectDao.getProjectUrl();
+    analyzerName = dao.analyzerName;
+    status = dao.status;
+    numberOfIssues = dao.numberOfIssues;
+    commitHash = dao.commitHash;
+    localDateTime = dao.localDateTime.toString();
   }
 
   /**

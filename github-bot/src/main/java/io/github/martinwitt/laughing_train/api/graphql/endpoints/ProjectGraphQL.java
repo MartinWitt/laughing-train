@@ -1,22 +1,19 @@
 package io.github.martinwitt.laughing_train.api.graphql.endpoints;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.api.graphql.dto.AnalyzerRunGraphQlDto;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLDtoInput;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectGraphQLDto;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
-import io.github.martinwitt.laughing_train.persistence.impl.SqlAnalyzerRunRepository;
+import io.github.martinwitt.laughing_train.mining.AnalyzerRunGraphQlDto;
+import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
+import org.eclipse.microprofile.graphql.*;
+
 import java.util.List;
-import org.eclipse.microprofile.graphql.DefaultValue;
-import org.eclipse.microprofile.graphql.Description;
-import org.eclipse.microprofile.graphql.GraphQLApi;
-import org.eclipse.microprofile.graphql.Mutation;
-import org.eclipse.microprofile.graphql.Query;
 
 @GraphQLApi
 public class ProjectGraphQL {
@@ -25,7 +22,7 @@ public class ProjectGraphQL {
 
   @Inject ProjectRepository projectRepository;
 
-  @Inject SqlAnalyzerRunRepository sqlAnalyzerRunRepository;
+  @Inject AnalyzerRunRepository sqlAnalyzerRunRepository;
 
   @Query("getProjects")
   @Description("Gets all projects from the database")

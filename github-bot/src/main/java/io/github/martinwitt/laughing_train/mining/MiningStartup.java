@@ -34,7 +34,6 @@ public class MiningStartup {
   void startup(@Observes StartupEvent event) {
     DeploymentOptions options = new DeploymentOptions().setWorker(true);
     Future.join(
-            // vertx.deployVerticle(qodanaPeriodicMiner, options),
             vertx.deployVerticle(spoonPeriodicMiner, options),
             vertx.deployVerticle(persistence, options),
             vertx.deployVerticle(projectSupplier, options))

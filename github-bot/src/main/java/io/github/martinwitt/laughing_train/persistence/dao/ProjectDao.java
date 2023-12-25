@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.persistence.dao;
 
+import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunDao;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

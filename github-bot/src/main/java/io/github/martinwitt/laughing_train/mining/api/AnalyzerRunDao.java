@@ -1,5 +1,6 @@
-package io.github.martinwitt.laughing_train.persistence.dao;
+package io.github.martinwitt.laughing_train.mining.api;
 
+import io.github.martinwitt.laughing_train.persistence.dao.ProjectDao;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
