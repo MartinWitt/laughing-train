@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
+import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunRepository;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import java.time.LocalDateTime;
@@ -16,7 +17,7 @@ class SqlProjectRepositoryTest {
 
   @Inject SqlProjectRepository sqlProjectRepository;
 
-  @Inject SqlAnalyzerRunRepository sqlAnalyzerRunRepository;
+  @Inject AnalyzerRunRepository sqlAnalyzerRunRepository;
 
   @Test
   void insertProject() {

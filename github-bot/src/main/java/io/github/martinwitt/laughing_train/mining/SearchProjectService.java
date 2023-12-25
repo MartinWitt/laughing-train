@@ -7,14 +7,16 @@ import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHRepositorySearchBuilder.Sort;
 import org.kohsuke.github.GitHub;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
+import java.util.random.RandomGenerator;
 
 /**
  * This service handles searches for random java projects on github. Use this service to get a
@@ -25,15 +27,15 @@ public class SearchProjectService {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
-  private final Random random = new Random();
-  List<String> orgs;
-  ProjectRepository projectRepository;
+  private static final RandomGenerator RANDOM_GENERATOR = new Random();
+  private final List<String> githubOrganizations;
+  private final ProjectRepository projectRepository;
 
   public SearchProjectService(
       ProjectRepository projectRepository,
-      @ConfigProperty(name = "mining.github.search.orgs") List<String> orgs) {
+      @ConfigProperty(name = "mining.github.search.orgs") List<String> githubOrganizations) {
     this.projectRepository = projectRepository;
-    this.orgs = orgs;
+    this.githubOrganizations = githubOrganizations;
   }
 
   /**
@@ -41,7 +43,7 @@ public class SearchProjectService {
    * projects from the config property {@code mining.github.search.orgs} are considered.
    *
    * @return a random project from github as a {@link RemoteProject}
-   * @throws IOException
+   * @throws IOException if no project is found
    */
   public RemoteProject searchProjectOnGithub() throws IOException {
     var repo = findRandomRepositoryOnGithub();
@@ -50,9 +52,7 @@ public class SearchProjectService {
     }
     logger.atInfo().log(
         "Found project %s on github now starting mining it", repo.getHttpTransportUrl());
-    var project = persistProject(getProject(repo));
-    persistProjectConfigIfMissing(project);
-    return project;
+    return persistProject(getProject(repo));
   }
 
   /**
@@ -86,10 +86,6 @@ public class SearchProjectService {
     }
   }
 
-  private void persistProjectConfigIfMissing(RemoteProject project) {
-    String projectUrl = project.getProjectUrl();
-  }
-
   private @Nullable GHRepository findRandomRepositoryOnGithub() {
 
     try {
@@ -108,7 +104,7 @@ public class SearchProjectService {
               .withPageSize(50)
               .iterator()
               .nextPage();
-      return repos.get(random.nextInt(repos.size()));
+      return repos.get(RANDOM_GENERATOR.nextInt(repos.size()));
     } catch (Exception e) {
       Log.error("Error while searching for project on github", e);
       return null;
@@ -116,7 +112,7 @@ public class SearchProjectService {
   }
 
   private String getRandomOrgName() {
-    String org = orgs.get(random.nextInt(orgs.size()));
+    String org = githubOrganizations.get(RANDOM_GENERATOR.nextInt(githubOrganizations.size()));
     logger.atInfo().log("Searching for project in org %s", org);
     return org;
   }

@@ -1,7 +1,8 @@
 package io.github.martinwitt.laughing_train.persistence.converter;
 
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
-import io.github.martinwitt.laughing_train.persistence.dao.AnalyzerRunDao;
+import io.github.martinwitt.laughing_train.mining.AnalyzerRunConverter;
+import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunDao;
 import io.github.martinwitt.laughing_train.persistence.dao.ProjectDao;
 import java.util.List;
 import java.util.Map;

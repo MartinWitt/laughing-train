@@ -1,8 +1,9 @@
-package io.github.martinwitt.laughing_train.persistence.converter;
+package io.github.martinwitt.laughing_train.mining;
 
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
-import io.github.martinwitt.laughing_train.persistence.dao.AnalyzerRunDao;
+import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunDao;
+import io.github.martinwitt.laughing_train.persistence.converter.DaoConverter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
