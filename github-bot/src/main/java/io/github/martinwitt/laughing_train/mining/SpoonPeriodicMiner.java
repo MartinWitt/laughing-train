@@ -24,7 +24,6 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
   private final Vertx vertx;
   private final SpoonAnalyzerService spoonAnalyzerService;
   private final ProjectSupplier projectSupplier;
-  private final ProjectRepository projectRepository;
 
   public SpoonPeriodicMiner(
       Vertx vertx,
@@ -34,7 +33,6 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
     this.vertx = vertx;
     this.spoonAnalyzerService = spoonAnalyzerService;
     this.projectSupplier = projectSupplier;
-    this.projectRepository = projectRepository;
   }
 
   private CodeAnalyzerResult analyzeProjectWithSpoon(GitProject gitProject) {
