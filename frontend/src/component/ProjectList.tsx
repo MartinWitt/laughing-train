@@ -1,5 +1,4 @@
 import { useQuery } from '@apollo/client';
-import { Project } from '../data/Project';
 import React, { useMemo } from 'react';
 import ProjectTable from './ProjectTable';
 import { LinearProgress } from '@mui/material';

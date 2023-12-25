@@ -107,9 +107,9 @@ const themeOptions: ThemeOptions = {
             '& .MuiTableCell-root': {
               color: '#000000', // on hover text color for TableCell
             },
-          }
-        }
-      }
+          },
+        },
+      },
     },
     MuiTableCell: {
       styleOverrides: {
@@ -120,8 +120,8 @@ const themeOptions: ThemeOptions = {
         head: {
           fontSize: 16, // Increased the font size from 14 to 16
           color: '#000000', // Change font color to black
-        }
-      }
+        },
+      },
     },
     MuiTypography: {
       styleOverrides: {
@@ -132,18 +132,17 @@ const themeOptions: ThemeOptions = {
         h5: {
           fontSize: '1.4rem',
           fontWeight: 500,
-        }
-      }
+        },
+      },
     },
     MuiTableHead: {
       styleOverrides: {
         root: {
           backgroundColor: '#b3e5fc', // light blue color for table header background
           textColor: '#000000', // on hover text color for TableCell
-        }
-      }
+        },
+      },
     },
-
   },
 };
 const theme = createTheme(themeOptions);
