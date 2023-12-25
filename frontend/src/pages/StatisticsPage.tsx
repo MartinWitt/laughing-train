@@ -1,7 +1,9 @@
 import PageLayout from './PageLayout';
 import {
-  Box, Breadcrumbs, Grid,
-  LinearProgress, Link,
+  Box,
+  Breadcrumbs,
+  LinearProgress,
+  Link,
   Paper,
   Table,
   TableBody,
@@ -13,6 +15,7 @@ import {
 } from '@mui/material';
 import { Error } from '@mui/icons-material';
 import { useGetProjectsQuery, GetProjectsQuery } from '../gql/graphql-types';
+import Avatar from 'react-avatar';
 
 type OrgStats = {
   name: string;
@@ -71,20 +74,22 @@ export const OrgStatsTable: React.FC<OrgStatsTableProps> = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {Object.values(organizations).map(
-            (org) => (
-              (
-                <TableRow key={org.name}>
-                  <TableCell component="th" scope="row">
-                    {org.name}
-                  </TableCell>
-                  <TableCell align="right">{org.projectCount}</TableCell>
-                  <TableCell align="right">{org.commitCount}</TableCell>
-                  <TableCell align="right">{org.issuesCount}</TableCell>
-                </TableRow>
-              )
-            )
-          )}
+          {Object.values(organizations).map((org) => (
+            <TableRow key={org.name}>
+              <TableCell component="th" scope="row">
+                <Avatar
+                  githubHandle={org.name}
+                  alt={org.name}
+                  size={'50'}
+                  style={{ marginRight: '10px' }}
+                />
+                {org.name}
+              </TableCell>
+              <TableCell align="right">{org.projectCount}</TableCell>
+              <TableCell align="right">{org.commitCount}</TableCell>
+              <TableCell align="right">{org.issuesCount}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
     </TableContainer>
@@ -103,18 +108,24 @@ export function StatisticPage() {
         </Error>
       </PageLayout>
     );
-  console.log(data)
+  console.log(data);
   if (!data || data.getProjects?.length === 0) {
     return (
       <PageLayout>
-        <Grid container component={Paper} style={{backgroundColor: '#3f51b5', padding: '10px', margin: '20px'}}>
+        <Paper
+          style={{
+            backgroundColor: '#3f51b5',
+            padding: '10px',
+            margin: '20px',
+          }}
+        >
           <Breadcrumbs aria-label="breadcrumb">
             <Link color="inherit" href="/">
               Home
             </Link>
             <Typography color="textPrimary">Statistics</Typography>
           </Breadcrumbs>
-        </Grid>
+        </Paper>
         <Box
           padding="5px"
           display="flex"
@@ -131,14 +142,12 @@ export function StatisticPage() {
 
   return (
     <PageLayout>
-      <Grid container component={Paper} style={{backgroundColor: '#3f51b5', padding: '10px', margin: '20px'}}>
-        <Breadcrumbs aria-label="breadcrumb">
-          <Link color="inherit" href="/">
-            Home
-          </Link>
-          <Typography color="textPrimary">Statistics</Typography>
-        </Breadcrumbs>
-      </Grid>
+      <Breadcrumbs aria-label="breadcrumb" sx={{ paddingTop: '10px' }}>
+        <Link color="inherit" href="/">
+          Home
+        </Link>
+        <Typography color="textPrimary">Statistics</Typography>
+      </Breadcrumbs>
       <OrgStatsTable organizations={organizations} />
     </PageLayout>
   );

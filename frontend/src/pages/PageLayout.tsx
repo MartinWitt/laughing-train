@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  Grid,
-} from '@mui/material';
+import { Grid } from '@mui/material';
 import Sidebar, { LinkType } from '../component/Sidebar';
 
 interface PageLayoutProps {
