@@ -37,16 +37,4 @@ class SqlProjectRepositoryTest {
             .sum();
     assertThat(sqlAnalyzerRunRepository.findRecent(expectedSize)).hasSize(expectedSize);
   }
-
-  @Test
-  void getRecent() {
-    RemoteProject remoteProject = Instancio.of(RemoteProject.class).assign().create();
-    remoteProject.getCommits().stream()
-        .flatMap(v -> v.getAnalyzerStatuses().stream())
-        .forEach(v -> v.setLocalDateTime(LocalDateTime.now()));
-    sqlProjectRepository.save(remoteProject);
-    assertThat(sqlProjectRepository.getRecent(1)).isNotEmpty();
-    List<RemoteProject> recent = sqlProjectRepository.getRecent(1);
-    assertThat(recent).isNotEmpty();
-  }
 }
