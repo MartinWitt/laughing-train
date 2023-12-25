@@ -19,6 +19,7 @@ import { RefactorView } from './pages/RefactorView';
 import ResultView from './pages/ResultView';
 import reportWebVitals from './reportWebVitals';
 import { StatisticPage } from './pages/StatisticsPage';
+import { LiveViewPage } from './pages/LiveViewPage';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -33,6 +34,12 @@ const router = createBrowserRouter([
     element: <LandingPage children={<DashBoard />} />,
     errorElement: <LandingPage children={<DashBoard />} />,
   },
+  {
+    path: '/livefeed',
+    element: <LiveViewPage />,
+    errorElement: <LandingPage children={<DashBoard />} />,
+  },
+
   {
     path: '/mutation/addproject',
     element: <AddProjectView />,

@@ -20,14 +20,14 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
 
   public static final String SERVICE_NAME = "analyzerResultsPersistence";
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
-  ProjectRepository projectRepository;
+  private final ProjectRepository projectRepository;
 
   public AnalyzerResultsPersistence(ProjectRepository projectRepository) {
     this.projectRepository = projectRepository;
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
     vertx.eventBus().<StoreResults>consumer(SERVICE_NAME, v -> persistResults(v.body()));
   }
 
@@ -75,7 +75,6 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
       String name, List<RemoteProject> list, String commitHash, AnalyzerStatus analyzerStatus) {
     logger.atInfo().log("Updating commit hash for %s", name);
     RemoteProject oldProject = list.getFirst();
-    oldProject.addCommitHash(commitHash);
     List<GitHubCommit> commits = oldProject.getCommits();
     GitHubCommit gitHubCommit = new GitHubCommit(commitHash, new ArrayList<>());
     commits.add(gitHubCommit);
@@ -87,7 +86,6 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
   private void createNewProject(
       String name, GitProject gitProject, String commitHash, AnalyzerStatus analyzerStatus) {
     RemoteProject newProject = new RemoteProject(name, gitProject.url());
-    newProject.addCommitHash(commitHash);
     List<GitHubCommit> commits = newProject.getCommits();
     var selectedCommit =
         commits.stream().filter(v -> v.getCommitHash().equals(commitHash)).findFirst();
@@ -96,7 +94,14 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
       logger.atInfo().log(
           "Adding new commit hash for %s with status %s for analyzer %s",
           name, analyzerStatus.getStatus(), analyzerStatus.getAnalyzerName());
+    } else {
+      GitHubCommit gitHubCommit = new GitHubCommit(commitHash, new ArrayList<>());
+      gitHubCommit.addAnalyzerStatus(analyzerStatus);
+      newProject.addCommitHash(gitHubCommit);
+      logger.atInfo().log(
+          "Adding new commit hash for %s with status %s for analyzer %s",
+          name, analyzerStatus.getStatus(), analyzerStatus.getAnalyzerName());
     }
-    projectRepository.create(newProject);
+    projectRepository.save(newProject);
   }
 }

@@ -7,6 +7,7 @@ import io.github.martinwitt.laughing_train.data.request.AnalyzerRequest;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
 import io.github.martinwitt.laughing_train.mining.requests.MineNextProject;
 import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
+import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.laughing_train.services.SpoonAnalyzerService;
 import io.quarkus.arc.Unremovable;
 import io.vertx.core.AbstractVerticle;
@@ -23,12 +24,17 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
   private final Vertx vertx;
   private final SpoonAnalyzerService spoonAnalyzerService;
   private final ProjectSupplier projectSupplier;
+  private final ProjectRepository projectRepository;
 
   public SpoonPeriodicMiner(
-      Vertx vertx, SpoonAnalyzerService spoonAnalyzerService, ProjectSupplier projectSupplier) {
+      Vertx vertx,
+      SpoonAnalyzerService spoonAnalyzerService,
+      ProjectSupplier projectSupplier,
+      ProjectRepository projectRepository) {
     this.vertx = vertx;
     this.spoonAnalyzerService = spoonAnalyzerService;
     this.projectSupplier = projectSupplier;
+    this.projectRepository = projectRepository;
   }
 
   private CodeAnalyzerResult analyzeProjectWithSpoon(GitProject gitProject) {

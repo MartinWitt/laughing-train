@@ -21,7 +21,5 @@ public interface ProjectRepository {
 
   long deleteByProjectUrl(String projectUrl);
 
-  RemoteProject create(RemoteProject project);
-
   RemoteProject save(RemoteProject project);
 }

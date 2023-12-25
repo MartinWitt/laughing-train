@@ -7,16 +7,15 @@ import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
+import java.util.random.RandomGenerator;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHRepositorySearchBuilder.Sort;
 import org.kohsuke.github.GitHub;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
-import java.util.random.RandomGenerator;
 
 /**
  * This service handles searches for random java projects on github. Use this service to get a
@@ -65,7 +64,7 @@ public class SearchProjectService {
   private RemoteProject getProject(GHRepository ghRepo) {
     var list = projectRepository.findByProjectUrl(ghRepo.getHtmlUrl().toString());
     if (list.isEmpty()) {
-      return projectRepository.create(toProject(ghRepo));
+      return projectRepository.save(toProject(ghRepo));
     } else {
       return list.get(0);
     }
@@ -80,7 +79,7 @@ public class SearchProjectService {
   private RemoteProject persistProject(RemoteProject project) {
     var list = projectRepository.findByProjectUrl(project.getProjectUrl());
     if (list.isEmpty()) {
-      return projectRepository.create(project);
+      return projectRepository.save(project);
     } else {
       return project;
     }

@@ -58,22 +58,10 @@ public class SqlProjectRepository implements ProjectRepository, PanacheRepositor
   }
 
   @Override
-  public RemoteProject create(RemoteProject project) {
-    var list = findByProjectUrl(project.getProjectUrl());
-    if (list.isEmpty()) {
-      persist(projectDaoConverter.convertToDao(project));
-      return project;
-    } else {
-      return list.getFirst();
-    }
-  }
-
-  @Override
   public RemoteProject save(RemoteProject project) {
     ProjectDao projectDao = projectDaoConverter.convertToDao(project);
     if (find("projectUrl", projectDao.getProjectUrl()).stream().findFirst().isEmpty()) {
       ProjectDao dao = projectDaoConverter.convertToDao(project);
-      // sqlAnalyzerRunRepository.persist(dao.getCommits());
       persist(dao);
     } else {
       var dao = projectDaoConverter.convertToDao(project);
@@ -81,7 +69,6 @@ public class SqlProjectRepository implements ProjectRepository, PanacheRepositor
       databaseEntry.setProjectName(dao.getProjectName());
       databaseEntry.setProjectUrl(dao.getProjectUrl());
       databaseEntry.setCommits(dao.getCommits());
-      // sqlAnalyzerRunRepository.persist(databaseEntry.getCommits());
       persist(databaseEntry);
     }
     return project;

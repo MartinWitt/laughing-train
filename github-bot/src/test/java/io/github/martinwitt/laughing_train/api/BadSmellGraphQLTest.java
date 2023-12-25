@@ -97,8 +97,6 @@ public class BadSmellGraphQLTest {
             .url("http://localhost:8081/graphql")
             .build();
     RemoteProject project = new RemoteProject("aaa", "bbb");
-    projectRepository.create(project);
-    project.addCommitHash("aaaa");
     projectRepository.save(project);
 
     assertTrue(

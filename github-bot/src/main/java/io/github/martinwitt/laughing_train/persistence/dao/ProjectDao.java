@@ -5,17 +5,14 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@SuppressWarnings("NullAway")
 public class ProjectDao extends PanacheEntity {
 
   private String projectName;
   private String projectUrl;
-  private LocalDateTime latestRun;
 
   @OneToMany(cascade = CascadeType.ALL)
   private List<AnalyzerRunDao> commits = new ArrayList<>();
@@ -65,16 +62,5 @@ public class ProjectDao extends PanacheEntity {
    */
   public void setCommits(List<AnalyzerRunDao> commits) {
     this.commits = commits;
-  }
-
-  public LocalDateTime getLatestRun() {
-    if (null == latestRun) {
-      latestRun = LocalDateTime.MIN;
-    }
-    return latestRun;
-  }
-
-  public void setLatestRun(LocalDateTime localDateTime) {
-    latestRun = localDateTime;
   }
 }

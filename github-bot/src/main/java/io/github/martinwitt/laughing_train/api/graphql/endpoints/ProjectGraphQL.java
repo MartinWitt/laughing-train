@@ -46,15 +46,6 @@ public class ProjectGraphQL {
         .orElseThrow();
   }
 
-  @Query("getHashesForProject")
-  @Description("Gets all commit hashes for a project from the database")
-  public List<String> getHashesForProject(String projectName) {
-    return projectRepository.findByProjectName(projectName).stream()
-        .findFirst()
-        .map(RemoteProject::getCommitHashes)
-        .orElseThrow();
-  }
-
   @Query("getGitHubCommitsForProject")
   @Description("Returns all github commits for a project from the database")
   public List<GitHubCommit> getGitHubCommitsForProject(String projectName) {
@@ -72,7 +63,7 @@ public class ProjectGraphQL {
     if (!projectRepository.existsByProjectUrl(projectUrl)) {
       logger.atInfo().log("Project does not exist yet, creating it");
       RemoteProject project = new RemoteProject(projectUrl, projectName);
-      return mapToDto(projectRepository.create(project));
+      return mapToDto(projectRepository.save(project));
     } else {
       logger.atInfo().log("Project %s already exists", projectName);
       throw new RuntimeException("Project already exists");
