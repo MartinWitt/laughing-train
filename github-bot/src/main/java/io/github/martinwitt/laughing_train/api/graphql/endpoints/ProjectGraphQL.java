@@ -11,9 +11,8 @@ import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
-import org.eclipse.microprofile.graphql.*;
-
 import java.util.List;
+import org.eclipse.microprofile.graphql.*;
 
 @GraphQLApi
 public class ProjectGraphQL {

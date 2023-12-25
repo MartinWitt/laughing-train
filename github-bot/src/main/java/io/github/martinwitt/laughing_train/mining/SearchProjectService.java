@@ -7,15 +7,16 @@ import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
-import java.io.IOException;
-import java.util.List;
-import java.util.Random;
-import java.util.random.RandomGenerator;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHRepositorySearchBuilder.Sort;
 import org.kohsuke.github.GitHub;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Random;
+import java.util.random.RandomGenerator;
 
 /**
  * This service handles searches for random java projects on github. Use this service to get a
@@ -27,8 +28,8 @@ public class SearchProjectService {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   private static final RandomGenerator RANDOM_GENERATOR = new Random();
-  private List<String> githubOrganizations;
-  private ProjectRepository projectRepository;
+  private final List<String> githubOrganizations;
+  private final ProjectRepository projectRepository;
 
   public SearchProjectService(
       ProjectRepository projectRepository,
