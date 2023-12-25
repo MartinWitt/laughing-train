@@ -20,9 +20,9 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
 
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   public static final String ANALYZER_NAME = "spoon-analyzer";
-  final Vertx vertx;
-  final SpoonAnalyzerService spoonAnalyzerService;
-  final ProjectSupplier projectSupplier;
+  private final Vertx vertx;
+  private final SpoonAnalyzerService spoonAnalyzerService;
+  private final ProjectSupplier projectSupplier;
 
   public SpoonPeriodicMiner(
       Vertx vertx, SpoonAnalyzerService spoonAnalyzerService, ProjectSupplier projectSupplier) {
@@ -40,7 +40,7 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
   }
 
   @Override
-  public void start() throws Exception {
+  public void start() {
     vertx.eventBus().<MineNextProject>consumer("miner", v -> mineWithSpoon(v.body()));
   }
 
@@ -50,7 +50,7 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
     }
     logger.atInfo().log("Start mining with spoon");
     handleProjectResult();
-    publishToEventBus();
+    mineNextProject();
   }
 
   private void handleProjectResult() {
@@ -71,7 +71,7 @@ public class SpoonPeriodicMiner extends AbstractVerticle {
     }
   }
 
-  private void publishToEventBus() {
+  private void mineNextProject() {
     vertx.eventBus().publish("miner", new MineNextProject(ANALYZER_NAME));
   }
 

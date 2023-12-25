@@ -5,24 +5,18 @@ import io.github.martinwitt.laughing_train.commons.GitRepoHandler;
 import io.github.martinwitt.laughing_train.commons.result.Result;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
-import io.quarkus.logging.Log;
 import io.vertx.core.AbstractVerticle;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
 import java.io.IOException;
 import java.util.Random;
+import java.util.random.RandomGenerator;
 
 @ApplicationScoped
 public class ProjectSupplier extends AbstractVerticle {
 
-  private static final Random random = new Random();
+  private static final RandomGenerator RANDOM_GENERATOR = new Random();
   private final SearchProjectService searchProjectService;
   private final ProjectRepository projectRepository;
-
-  @Produces
-  Random random() {
-    return new Random();
-  }
 
   ProjectSupplier(SearchProjectService searchProjectService, ProjectRepository projectRepository) {
     this.searchProjectService = searchProjectService;
@@ -32,20 +26,18 @@ public class ProjectSupplier extends AbstractVerticle {
   Result<GitProject> supplyProject() {
     try {
       RemoteProject project = getRandomProject();
-      Result<GitProject> checkoutProject = checkoutProject(project);
-      Log.info("Project %s checked out".formatted(project.getProjectUrl()));
-      return checkoutProject;
-    } catch (IOException e) {
+      return checkoutProject(project);
+    } catch (Exception e) {
       return Result.error(e);
     }
   }
 
-  private Result<GitProject> checkoutProject(RemoteProject project) throws IOException {
+  private Result<GitProject> checkoutProject(RemoteProject project) {
     return GitRepoHandler.cloneGitProject(project.getProjectUrl());
   }
 
   private RemoteProject getRandomProject() throws IOException {
-    if (random.nextBoolean()) {
+    if (RANDOM_GENERATOR.nextBoolean()) {
       return searchProjectService.searchProjectOnGithub();
     } else {
       return getKnownProject();
@@ -57,6 +49,6 @@ public class ProjectSupplier extends AbstractVerticle {
     if (list.isEmpty()) {
       throw new IllegalStateException("No known projects found");
     }
-    return list.get(random.nextInt(list.size()));
+    return list.get(RANDOM_GENERATOR.nextInt(list.size()));
   }
 }

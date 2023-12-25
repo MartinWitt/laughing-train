@@ -77,7 +77,13 @@ const themeOptions: ThemeOptions = {
     },
   },
   spacing: 8,
-
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontSize: 14,
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+  },
   components: {
     MuiCard: {
       styleOverrides: {
@@ -93,6 +99,51 @@ const themeOptions: ThemeOptions = {
         },
       },
     },
+    MuiTable: {
+      styleOverrides: {
+        root: {
+          '& .MuiTableRow-root:hover': {
+            backgroundColor: '#eceff1', // on hover background color for TableRow
+            '& .MuiTableCell-root': {
+              color: '#000000', // on hover text color for TableCell
+            },
+          }
+        }
+      }
+    },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          paddingTop: '12px',
+          paddingBottom: '12px',
+        },
+        head: {
+          fontSize: 16, // Increased the font size from 14 to 16
+          color: '#000000', // Change font color to black
+        }
+      }
+    },
+    MuiTypography: {
+      styleOverrides: {
+        h4: {
+          fontSize: '1.6rem',
+          fontWeight: 500,
+        },
+        h5: {
+          fontSize: '1.4rem',
+          fontWeight: 500,
+        }
+      }
+    },
+    MuiTableHead: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#b3e5fc', // light blue color for table header background
+          textColor: '#000000', // on hover text color for TableCell
+        }
+      }
+    },
+
   },
 };
 const theme = createTheme(themeOptions);

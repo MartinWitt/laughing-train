@@ -1,26 +1,9 @@
 import React from 'react';
 import {
   Grid,
-  AppBar,
-  Toolbar,
-  List,
-  ListItem,
-  ListItemText,
-  Box,
-  Divider,
 } from '@mui/material';
-import { LoginButton } from '../component/LoginButton';
-import { useNavigate } from 'react-router';
 import Sidebar, { LinkType } from '../component/Sidebar';
 
-interface NameProps {
-  name: string;
-}
-
-interface Link {
-  name: string;
-  href: string;
-}
 interface PageLayoutProps {
   children: React.ReactNode;
 }
@@ -35,15 +18,15 @@ export default function PageLayout({ children }: PageLayoutProps) {
       <Grid
         container
         spacing={2}
+        justifyContent="flex-start" // added this
         style={{ height: 'calc(100%) ', flexWrap: 'nowrap' }}
       >
-        <Grid item sx={{ width: '200px' }}>
+        <Grid item xs={2.5}>
           <Sidebar links={navigationItems} />
         </Grid>
-        <Grid item xs={9} sx={{}}>
+        <Grid item xs={9} style={{ overflow: 'auto' }}>
           {children}
         </Grid>
-        <Grid item xs={1}></Grid>
       </Grid>
     </div>
   );
