@@ -20,6 +20,7 @@ import ResultView from './pages/ResultView';
 import reportWebVitals from './reportWebVitals';
 import { StatisticPage } from './pages/StatisticsPage';
 import { LiveViewPage } from './pages/LiveViewPage';
+import AboutPage from './pages/Aboutpage';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
@@ -39,7 +40,11 @@ const router = createBrowserRouter([
     element: <LiveViewPage />,
     errorElement: <LandingPage children={<DashBoard />} />,
   },
-
+  {
+    path: '/about',
+    element: <AboutPage />,
+    errorElement: <LandingPage children={<DashBoard />} />,
+  },
   {
     path: '/mutation/addproject',
     element: <AddProjectView />,
