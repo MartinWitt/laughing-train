@@ -17,7 +17,7 @@ export function LiveViewPage() {
   const { data, loading, error } = useRecentRunsQuery({});
   if (loading || error) {
     return (
-      <>
+        <PageLayout>
         <Breadcrumbs aria-label="breadcrumb">
           <Link color="inherit" href="/">
             Home
@@ -25,9 +25,10 @@ export function LiveViewPage() {
           <Typography color="textPrimary">LiveView</Typography>
         </Breadcrumbs>
         <LinearProgress sx={{ paddingTop: '5px' }} />
-      </>
+      </PageLayout>
     );
   }
+  console.log(data);
   if (!data?.recentRuns || data.recentRuns.length === 0) {
     return (
       <PageLayout>
