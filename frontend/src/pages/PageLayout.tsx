@@ -7,10 +7,6 @@ interface PageLayoutProps {
 }
 
 export default function PageLayout({ children }: PageLayoutProps) {
-  const navigationItems: LinkType[] = [
-    { title: 'Home', url: '/' },
-    { title: 'Statistics', url: '/statistics' },
-  ];
   return (
     <div style={{ height: '100vh' }}>
       <Grid
@@ -20,7 +16,7 @@ export default function PageLayout({ children }: PageLayoutProps) {
         style={{ height: 'calc(100%) ', flexWrap: 'nowrap' }}
       >
         <Grid item xs={2.5}>
-          <Sidebar links={navigationItems} />
+          <Sidebar />
         </Grid>
         <Grid item xs={9} style={{ overflow: 'auto' }}>
           {children}
