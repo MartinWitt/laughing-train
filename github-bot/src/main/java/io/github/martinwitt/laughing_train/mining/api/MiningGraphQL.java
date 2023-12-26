@@ -2,10 +2,11 @@ package io.github.martinwitt.laughing_train.mining.api;
 
 import io.github.martinwitt.laughing_train.mining.AnalyzerRunGraphQlDto;
 import io.quarkus.security.Authenticated;
-import java.util.List;
 import org.eclipse.microprofile.graphql.GraphQLApi;
 import org.eclipse.microprofile.graphql.Mutation;
 import org.eclipse.microprofile.graphql.Query;
+
+import java.util.List;
 
 /** This class provides GraphQL endpoints for querying and retrieving analyzer run data. */
 @GraphQLApi
@@ -42,7 +43,7 @@ public class MiningGraphQL {
    * @return A list of AnalyzerRunDao objects.
    */
   private List<AnalyzerRunDao> fetchAnalyzerRuns(int limit) {
-    return AnalyzerRunDao.find("ORDER BY localDateTime DESC LIMIT").page(0, limit).list();
+    return AnalyzerRunDao.find("ORDER BY localDateTime DESC").page(0, limit).list();
   }
 
   @Authenticated
