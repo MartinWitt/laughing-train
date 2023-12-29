@@ -12,6 +12,12 @@ import java.util.List;
 @GraphQLApi
 public class MiningGraphQL {
 
+  private AnalyzerRunRepository analyzerRunRepository;
+
+    public MiningGraphQL(AnalyzerRunRepository analyzerRunRepository) {
+        this.analyzerRunRepository = analyzerRunRepository;
+    }
+
   /**
    * Retrieves a list of recent analyzer runs.
    *
@@ -43,7 +49,7 @@ public class MiningGraphQL {
    * @return A list of AnalyzerRunDao objects.
    */
   private List<AnalyzerRunDao> fetchAnalyzerRuns(int limit) {
-    return AnalyzerRunDao.find("ORDER BY localDateTime DESC").page(0, limit).list();
+    return analyzerRunRepository.findRecent(limit);
   }
 
   @Authenticated

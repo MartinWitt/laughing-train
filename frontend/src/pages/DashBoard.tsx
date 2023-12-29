@@ -1,7 +1,6 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { useNavigate } from 'react-router';
-import { ProjectList } from '../component/ProjectList';
 
 export default function DashBoard() {
   const [filter, setFilter] = React.useState('');
@@ -27,7 +26,6 @@ export default function DashBoard() {
       <Box>
         <Grid container marginLeft={'5%'}>
           <Grid item xs={12}>
-            <ProjectList filter={filter} />
           </Grid>
         </Grid>
       </Box>
