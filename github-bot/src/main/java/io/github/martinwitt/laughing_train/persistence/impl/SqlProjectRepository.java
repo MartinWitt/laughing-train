@@ -1,13 +1,14 @@
 package io.github.martinwitt.laughing_train.persistence.impl;
 
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
-import io.github.martinwitt.laughing_train.persistence.converter.ProjectDaoConverter;
 import io.github.martinwitt.laughing_train.persistence.dao.ProjectDao;
+import io.github.martinwitt.laughing_train.persistence.dao.ProjectDaoConverter;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @ApplicationScoped
@@ -59,17 +60,19 @@ public class SqlProjectRepository implements ProjectRepository, PanacheRepositor
   @Override
   public RemoteProject save(RemoteProject project) {
     ProjectDao projectDao = projectDaoConverter.convertToDao(project);
-    if (find("projectUrl", projectDao.getProjectUrl()).stream().findFirst().isEmpty()) {
-      ProjectDao dao = projectDaoConverter.convertToDao(project);
-      persist(dao);
+    Optional<ProjectDao> existingProjectDao =
+        find("projectUrl", projectDao.getProjectUrl()).singleResultOptional();
+
+    if (existingProjectDao.isEmpty()) {
+      persist(projectDao);
     } else {
-      var dao = projectDaoConverter.convertToDao(project);
-      ProjectDao databaseEntry = find("projectUrl", dao.getProjectUrl()).stream().findFirst().get();
-      databaseEntry.setProjectName(dao.getProjectName());
-      databaseEntry.setProjectUrl(dao.getProjectUrl());
-      databaseEntry.setCommits(dao.getCommits());
-      persist(databaseEntry);
+      ProjectDao daoToUpdate = existingProjectDao.get();
+      daoToUpdate.setProjectName(projectDao.getProjectName());
+      daoToUpdate.setProjectUrl(projectDao.getProjectUrl());
+      daoToUpdate.setCommits(projectDao.getCommits());
+      persist(daoToUpdate);
     }
+
     return project;
   }
 }

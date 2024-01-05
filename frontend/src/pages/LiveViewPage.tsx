@@ -15,6 +15,7 @@ import React from 'react';
 
 export function LiveViewPage() {
   const { data, loading, error } = useRecentRunsQuery({});
+  console.log(error);
   if (loading || error) {
     return (
         <PageLayout>

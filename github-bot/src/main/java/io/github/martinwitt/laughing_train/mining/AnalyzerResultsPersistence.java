@@ -5,14 +5,14 @@ import io.github.martinwitt.laughing_train.commons.GitProject;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult.Failure;
 import io.github.martinwitt.laughing_train.data.result.CodeAnalyzerResult.Success;
-import io.github.martinwitt.laughing_train.domain.entity.AnalyzerStatus;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
+import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunRepository;
 import io.github.martinwitt.laughing_train.mining.requests.StoreResults;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.vertx.core.AbstractVerticle;
 import jakarta.enterprise.context.ApplicationScoped;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -21,9 +21,12 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
   public static final String SERVICE_NAME = "analyzerResultsPersistence";
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private final ProjectRepository projectRepository;
+  private final AnalyzerRunRepository analyzerRunRepository;
 
-  public AnalyzerResultsPersistence(ProjectRepository projectRepository) {
+  public AnalyzerResultsPersistence(
+      ProjectRepository projectRepository, AnalyzerRunRepository analyzerRunRepository) {
     this.projectRepository = projectRepository;
+    this.analyzerRunRepository = analyzerRunRepository;
   }
 
   @Override
@@ -50,58 +53,41 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
         storeResults.analyzerName(), resultString, gitProject.name());
   }
 
-  private AnalyzerStatus getAnalyzerStatus(
-      CodeAnalyzerResult spoonResult, String name, String commitHash) {
-    return switch (spoonResult) {
-      case Success success -> AnalyzerStatus.success(name, success.results().size(), commitHash);
-      case Failure __ -> AnalyzerStatus.failure(name, 0, commitHash);
-    };
-  }
-
   private void addOrUpdateCommitHash(
       GitProject gitProject, CodeAnalyzerResult spoonResult, String analyzerName) {
     String name = gitProject.name();
     String commitHash = gitProject.commitHash();
     List<RemoteProject> list = projectRepository.findByProjectUrl(gitProject.url());
-    AnalyzerStatus analyzerStatus = getAnalyzerStatus(spoonResult, analyzerName, commitHash);
     if (list.isEmpty()) {
-      createNewProject(name, gitProject, commitHash, analyzerStatus);
-    } else {
-      addAnalyzerRun(name, list, commitHash, analyzerStatus);
-    }
-  }
-
-  private void addAnalyzerRun(
-      String name, List<RemoteProject> list, String commitHash, AnalyzerStatus analyzerStatus) {
-    logger.atInfo().log("Updating commit hash for %s", name);
-    RemoteProject oldProject = list.getFirst();
-    List<GitHubCommit> commits = oldProject.getCommits();
-    GitHubCommit gitHubCommit = new GitHubCommit(commitHash, new ArrayList<>());
-    commits.add(gitHubCommit);
-    gitHubCommit.addAnalyzerStatus(analyzerStatus);
-    oldProject.addCommitHash(gitHubCommit);
-    projectRepository.save(oldProject);
-  }
-
-  private void createNewProject(
-      String name, GitProject gitProject, String commitHash, AnalyzerStatus analyzerStatus) {
-    RemoteProject newProject = new RemoteProject(name, gitProject.url());
-    List<GitHubCommit> commits = newProject.getCommits();
-    var selectedCommit =
-        commits.stream().filter(v -> v.getCommitHash().equals(commitHash)).findFirst();
-    if (selectedCommit.isPresent()) {
-      selectedCommit.get().addAnalyzerStatus(analyzerStatus);
-      logger.atInfo().log(
-          "Adding new commit hash for %s with status %s for analyzer %s",
-          name, analyzerStatus.getStatus(), analyzerStatus.getAnalyzerName());
-    } else {
-      GitHubCommit gitHubCommit = new GitHubCommit(commitHash, new ArrayList<>());
-      gitHubCommit.addAnalyzerStatus(analyzerStatus);
+      RemoteProject newProject = new RemoteProject(name, gitProject.url());
+      GitHubCommit gitHubCommit = new GitHubCommit(commitHash);
       newProject.addCommitHash(gitHubCommit);
-      logger.atInfo().log(
-          "Adding new commit hash for %s with status %s for analyzer %s",
-          name, analyzerStatus.getStatus(), analyzerStatus.getAnalyzerName());
+      projectRepository.save(newProject);
+    } else {
+      list.getFirst().addCommitHash(new GitHubCommit(commitHash));
     }
-    projectRepository.save(newProject);
+    if (spoonResult instanceof Success success) {
+      AnalyzerRun analyzerRun =
+          new AnalyzerRun(
+              name,
+              gitProject.url(),
+              analyzerName,
+              AnalyzerRun.RunStatus.SUCCESS.name(),
+              success.results().size(),
+              commitHash,
+              LocalDateTime.now());
+      analyzerRunRepository.save(analyzerRun);
+    } else {
+      AnalyzerRun analyzerRun =
+          new AnalyzerRun(
+              name,
+              gitProject.url(),
+              analyzerName,
+              AnalyzerRun.RunStatus.FAILURE.name(),
+              0,
+              commitHash,
+              LocalDateTime.now());
+      analyzerRunRepository.save(analyzerRun);
+    }
   }
 }

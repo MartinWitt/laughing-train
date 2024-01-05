@@ -1,28 +1,18 @@
 package io.github.martinwitt.laughing_train.domain.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.Objects;
 
 public class GitHubCommit implements Serializable {
 
   private String commitHash;
-  private List<AnalyzerStatus> analyzerStatuses;
 
   public GitHubCommit() {
-    analyzerStatuses = new ArrayList<>();
     // for JPA
   }
 
-  /**
-   * @param commitHash
-   * @param analyzerStatuses
-   */
-  public GitHubCommit(String commitHash, List<AnalyzerStatus> analyzerStatuses) {
+  public GitHubCommit(String commitHash) {
     this.commitHash = commitHash;
-    this.analyzerStatuses = analyzerStatuses;
   }
 
   /**
@@ -39,34 +29,21 @@ public class GitHubCommit implements Serializable {
     this.commitHash = commitHash;
   }
 
-  /**
-   * @return the analyzerStatuses
-   */
-  public List<AnalyzerStatus> getAnalyzerStatuses() {
-    return analyzerStatuses;
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GitHubCommit that = (GitHubCommit) o;
+    return Objects.equals(commitHash, that.commitHash);
   }
 
-  /**
-   * @param analyzerStatuses the analyzerStatuses to set
-   */
-  public void setAnalyzerStatuses(List<AnalyzerStatus> analyzerStatuses) {
-    this.analyzerStatuses = analyzerStatuses;
+  @Override
+  public int hashCode() {
+    return Objects.hash(commitHash);
   }
 
-  public void addAnalyzerStatus(AnalyzerStatus analyzerStatus) {
-    analyzerStatuses.stream()
-        .filter(v -> v.getCommitHash().equals(analyzerStatus.getCommitHash()))
-        .filter(v -> v.getAnalyzerName().equals(analyzerStatus.getAnalyzerName()))
-        .findFirst()
-        .ifPresentOrElse(
-            v -> {
-              analyzerStatuses.remove(v);
-              analyzerStatuses.add(analyzerStatus);
-            },
-            () -> analyzerStatuses.add(analyzerStatus));
-    if (analyzerStatuses.size() > 10) {
-      analyzerStatuses.sort(Comparator.comparing(v -> LocalDateTime.parse(v.getLocalDateTime())));
-      analyzerStatuses.removeFirst();
-    }
+  @Override
+  public String toString() {
+    return "GitHubCommit{" + "commitHash='" + commitHash + '\'' + '}';
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import Sidebar, { LinkType } from '../component/Sidebar';
+import Sidebar from '../component/Sidebar';
 
 interface PageLayoutProps {
   children: React.ReactNode;

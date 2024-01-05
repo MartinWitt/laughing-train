@@ -1,6 +1,5 @@
 package io.github.martinwitt.laughing_train.persistence.dao;
 
-import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunDao;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -14,8 +13,8 @@ public class ProjectDao extends PanacheEntity {
   private String projectName;
   private String projectUrl;
 
-  @OneToMany(cascade = CascadeType.ALL)
-  private List<AnalyzerRunDao> commits = new ArrayList<>();
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<GitHubCommitDao> commits = new ArrayList<>();
 
   public ProjectDao() {
 
@@ -53,14 +52,14 @@ public class ProjectDao extends PanacheEntity {
   /**
    * @return the commits
    */
-  public List<AnalyzerRunDao> getCommits() {
+  public List<GitHubCommitDao> getCommits() {
     return commits;
   }
 
   /**
    * @param commits the commits to set
    */
-  public void setCommits(List<AnalyzerRunDao> commits) {
+  public void setCommits(List<GitHubCommitDao> commits) {
     this.commits = commits;
   }
 }
