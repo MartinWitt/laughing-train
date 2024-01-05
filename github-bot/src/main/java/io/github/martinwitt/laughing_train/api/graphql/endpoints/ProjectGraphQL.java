@@ -7,9 +7,8 @@ import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
-import org.eclipse.microprofile.graphql.*;
-
 import java.util.List;
+import org.eclipse.microprofile.graphql.*;
 
 @GraphQLApi
 public class ProjectGraphQL {
@@ -17,7 +16,6 @@ public class ProjectGraphQL {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
 
   @Inject ProjectRepository projectRepository;
-
 
   @Query("getProjects")
   @Description("Gets all projects from the database")

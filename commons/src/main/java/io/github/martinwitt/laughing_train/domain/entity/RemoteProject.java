@@ -42,31 +42,19 @@ public class RemoteProject implements Serializable {
     commits.add(commit);
   }
 
-  /**
-   * (non-Javadoc)
-   *
-   * @see Object#hashCode()
-   */
-  @Override
-  public int hashCode() {
-    return Objects.hash(projectName, projectUrl);
-  }
-
-  /**
-   * (non-Javadoc)
-   *
-   * @see Object#equals(Object)
-   */
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj instanceof RemoteProject project) {
-      return Objects.equals(projectName, project.projectName)
-          && Objects.equals(projectUrl, project.projectUrl);
-    }
-    return false;
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    RemoteProject that = (RemoteProject) obj;
+    return Objects.equals(projectName, that.projectName)
+        && Objects.equals(projectUrl, that.projectUrl)
+        && Objects.equals(commits, that.commits);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(projectName, projectUrl, commits);
   }
 
   public RemoteProject withProjectUrl(String projectUrl) {
