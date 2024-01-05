@@ -8,13 +8,6 @@ export const fetchProjectQuery = gql`
       projectName
       projectUrl
       commits {
-        analyzerStatuses {
-          analyzerName
-          commitHash
-          localDateTime
-          numberOfIssues
-          status
-        }
         commitHash
       }
     }
@@ -22,7 +15,7 @@ export const fetchProjectQuery = gql`
 `;
 export const recentAnalyzerRuns = gql`
   query recentAnalyzerRuns {
-    recentAnalyzerRuns(size: 30) {
+    recentRuns(size: 30) {
       analyzerName
       commitHash
       numberOfIssues
@@ -105,17 +98,3 @@ export function filterDuplicateBadSmells(params: BadSmell[]) {
   );
 }
 
-export const getGitHubCommitsQuery = gql`
-  query getGitHubCommitsForProject($projectName: String!) {
-    getGitHubCommitsForProject(projectName: $projectName) {
-      analyzerStatuses {
-        analyzerName
-        commitHash
-        localDateTime
-        numberOfIssues
-        status
-      }
-      commitHash
-    }
-  }
-`;

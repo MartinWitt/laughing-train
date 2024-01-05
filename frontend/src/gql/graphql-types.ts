@@ -32,15 +32,6 @@ export type AnalyzerRun = {
   timestamp?: Maybe<Scalars['String']['output']>;
 };
 
-export type AnalyzerStatus = {
-  __typename?: 'AnalyzerStatus';
-  analyzerName?: Maybe<Scalars['String']['output']>;
-  commitHash?: Maybe<Scalars['String']['output']>;
-  localDateTime?: Maybe<Scalars['String']['output']>;
-  numberOfIssues: Scalars['Int']['output'];
-  status?: Maybe<Status>;
-};
-
 export type BadSmell = {
   __typename?: 'BadSmell';
   analyzer?: Maybe<Scalars['String']['output']>;
@@ -56,7 +47,6 @@ export type BadSmell = {
 
 export type GitHubCommit = {
   __typename?: 'GitHubCommit';
-  analyzerStatuses?: Maybe<Array<Maybe<AnalyzerStatus>>>;
   commitHash?: Maybe<Scalars['String']['output']>;
 };
 
@@ -164,8 +154,6 @@ export type Query = {
   getProjects?: Maybe<Array<Maybe<Project>>>;
   /** Logins the user */
   login?: Maybe<Scalars['String']['output']>;
-  /** Returns a sorted by date list of recent analyzer runs */
-  recentAnalyzerRuns?: Maybe<Array<Maybe<AnalyzerRun>>>;
   recentRuns?: Maybe<Array<Maybe<AnalyzerRun>>>;
 };
 
@@ -228,12 +216,6 @@ export type QueryLoginArgs = {
 
 
 /** Query root */
-export type QueryRecentAnalyzerRunsArgs = {
-  size: Scalars['Int']['input'];
-};
-
-
-/** Query root */
 export type QueryRecentRunsArgs = {
   size: Scalars['Int']['input'];
 };
@@ -250,20 +232,15 @@ export enum SpoonRules {
   UnnecessaryToString = 'UNNECESSARY_TO_STRING'
 }
 
-export enum Status {
-  Failure = 'FAILURE',
-  Success = 'SUCCESS'
-}
-
 export type GetProjectsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProjectsQuery = { __typename?: 'Query', getProjects?: Array<{ __typename?: 'Project', projectName?: string | null, projectUrl?: string | null, commits?: Array<{ __typename?: 'GitHubCommit', commitHash?: string | null, analyzerStatuses?: Array<{ __typename?: 'AnalyzerStatus', analyzerName?: string | null, commitHash?: string | null, localDateTime?: string | null, numberOfIssues: number, status?: Status | null } | null> | null } | null> | null } | null> | null };
+export type GetProjectsQuery = { __typename?: 'Query', getProjects?: Array<{ __typename?: 'Project', projectName?: string | null, projectUrl?: string | null, commits?: Array<{ __typename?: 'GitHubCommit', commitHash?: string | null } | null> | null } | null> | null };
 
 export type RecentAnalyzerRunsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RecentAnalyzerRunsQuery = { __typename?: 'Query', recentAnalyzerRuns?: Array<{ __typename?: 'AnalyzerRun', analyzerName?: string | null, commitHash?: string | null, numberOfIssues: number, projectName?: string | null, projectUrl?: string | null, status?: string | null, timestamp?: string | null } | null> | null };
+export type RecentAnalyzerRunsQuery = { __typename?: 'Query', recentRuns?: Array<{ __typename?: 'AnalyzerRun', analyzerName?: string | null, commitHash?: string | null, numberOfIssues: number, projectName?: string | null, projectUrl?: string | null, status?: string | null, timestamp?: string | null } | null> | null };
 
 export type RecentRunsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -304,13 +281,6 @@ export type LoginQueryVariables = Exact<{
 
 export type LoginQuery = { __typename?: 'Query', login?: string | null };
 
-export type GetGitHubCommitsForProjectQueryVariables = Exact<{
-  projectName: Scalars['String']['input'];
-}>;
-
-
-export type GetGitHubCommitsForProjectQuery = { __typename?: 'Query', getGitHubCommitsForProject?: Array<{ __typename?: 'GitHubCommit', commitHash?: string | null, analyzerStatuses?: Array<{ __typename?: 'AnalyzerStatus', analyzerName?: string | null, commitHash?: string | null, localDateTime?: string | null, numberOfIssues: number, status?: Status | null } | null> | null } | null> | null };
-
 
 export const GetProjectsDocument = gql`
     query getProjects {
@@ -318,13 +288,6 @@ export const GetProjectsDocument = gql`
     projectName
     projectUrl
     commits {
-      analyzerStatuses {
-        analyzerName
-        commitHash
-        localDateTime
-        numberOfIssues
-        status
-      }
       commitHash
     }
   }
@@ -364,7 +327,7 @@ export type GetProjectsSuspenseQueryHookResult = ReturnType<typeof useGetProject
 export type GetProjectsQueryResult = Apollo.QueryResult<GetProjectsQuery, GetProjectsQueryVariables>;
 export const RecentAnalyzerRunsDocument = gql`
     query recentAnalyzerRuns {
-  recentAnalyzerRuns(size: 30) {
+  recentRuns(size: 30) {
     analyzerName
     commitHash
     numberOfIssues
@@ -644,50 +607,3 @@ export type LoginQueryHookResult = ReturnType<typeof useLoginQuery>;
 export type LoginLazyQueryHookResult = ReturnType<typeof useLoginLazyQuery>;
 export type LoginSuspenseQueryHookResult = ReturnType<typeof useLoginSuspenseQuery>;
 export type LoginQueryResult = Apollo.QueryResult<LoginQuery, LoginQueryVariables>;
-export const GetGitHubCommitsForProjectDocument = gql`
-    query getGitHubCommitsForProject($projectName: String!) {
-  getGitHubCommitsForProject(projectName: $projectName) {
-    analyzerStatuses {
-      analyzerName
-      commitHash
-      localDateTime
-      numberOfIssues
-      status
-    }
-    commitHash
-  }
-}
-    `;
-
-/**
- * __useGetGitHubCommitsForProjectQuery__
- *
- * To run a query within a React component, call `useGetGitHubCommitsForProjectQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetGitHubCommitsForProjectQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetGitHubCommitsForProjectQuery({
- *   variables: {
- *      projectName: // value for 'projectName'
- *   },
- * });
- */
-export function useGetGitHubCommitsForProjectQuery(baseOptions: Apollo.QueryHookOptions<GetGitHubCommitsForProjectQuery, GetGitHubCommitsForProjectQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetGitHubCommitsForProjectQuery, GetGitHubCommitsForProjectQueryVariables>(GetGitHubCommitsForProjectDocument, options);
-      }
-export function useGetGitHubCommitsForProjectLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetGitHubCommitsForProjectQuery, GetGitHubCommitsForProjectQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetGitHubCommitsForProjectQuery, GetGitHubCommitsForProjectQueryVariables>(GetGitHubCommitsForProjectDocument, options);
-        }
-export function useGetGitHubCommitsForProjectSuspenseQuery(baseOptions?: Apollo.SuspenseQueryHookOptions<GetGitHubCommitsForProjectQuery, GetGitHubCommitsForProjectQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<GetGitHubCommitsForProjectQuery, GetGitHubCommitsForProjectQueryVariables>(GetGitHubCommitsForProjectDocument, options);
-        }
-export type GetGitHubCommitsForProjectQueryHookResult = ReturnType<typeof useGetGitHubCommitsForProjectQuery>;
-export type GetGitHubCommitsForProjectLazyQueryHookResult = ReturnType<typeof useGetGitHubCommitsForProjectLazyQuery>;
-export type GetGitHubCommitsForProjectSuspenseQueryHookResult = ReturnType<typeof useGetGitHubCommitsForProjectSuspenseQuery>;
-export type GetGitHubCommitsForProjectQueryResult = Apollo.QueryResult<GetGitHubCommitsForProjectQuery, GetGitHubCommitsForProjectQueryVariables>;
