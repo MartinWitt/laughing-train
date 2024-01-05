@@ -116,4 +116,28 @@ public class AnalyzerRun {
     result = 31 * result + (localDateTime != null ? localDateTime.hashCode() : 0);
     return result;
   }
+
+  @Override
+  public String toString() {
+    return "AnalyzerRun{"
+        + "projectName='"
+        + projectName
+        + '\''
+        + ", projectUrl='"
+        + projectUrl
+        + '\''
+        + ", analyzerName='"
+        + analyzerName
+        + '\''
+        + ", status="
+        + status
+        + ", numberOfIssues="
+        + numberOfIssues
+        + ", commitHash='"
+        + commitHash
+        + '\''
+        + ", localDateTime="
+        + localDateTime
+        + '}';
+  }
 }
