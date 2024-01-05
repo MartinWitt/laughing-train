@@ -16,6 +16,7 @@ import {
 import { Error } from '@mui/icons-material';
 import { useGetProjectsQuery, GetProjectsQuery } from '../gql/graphql-types';
 import Avatar from 'react-avatar';
+import React from 'react';
 
 type OrgStats = {
   name: string;
@@ -34,11 +35,6 @@ export function calculateOrganizationStats(data: GetProjectsQuery): OrgData {
     const owner = urlParts[urlParts.length - 2];
     let commitCount = project!.commits?.length || 0;
     let issuesCount = 0;
-    project!.commits?.forEach((commit) => {
-      commit?.analyzerStatuses?.forEach((status) => {
-        issuesCount += status?.numberOfIssues || 0;
-      });
-    });
     if (!organizations[owner]) {
       organizations[owner] = {
         name: owner,
