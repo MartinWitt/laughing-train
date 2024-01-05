@@ -1,6 +1,5 @@
 package io.github.martinwitt.laughing_train.mining;
 
-import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunDao;
 import org.eclipse.microprofile.graphql.Name;
 
 @Name("AnalyzerRun")
@@ -16,14 +15,15 @@ public class AnalyzerRunGraphQlDto {
   @Name("timestamp")
   private final String localDateTime;
 
-  public AnalyzerRunGraphQlDto(AnalyzerRunDao dao) {
-    projectName = dao.projectDao.getProjectName();
-    projectUrl = dao.projectDao.getProjectUrl();
-    analyzerName = dao.analyzerName;
-    status = dao.status;
-    numberOfIssues = dao.numberOfIssues;
-    commitHash = dao.commitHash;
-    localDateTime = dao.localDateTime.toString();
+  public AnalyzerRunGraphQlDto(AnalyzerRun dao) {
+
+    projectName = dao.getProjectName();
+    projectUrl = dao.getProjectUrl();
+    analyzerName = dao.getAnalyzerName();
+    status = dao.getStatus().name();
+    numberOfIssues = dao.getNumberOfIssues();
+    commitHash = dao.getCommitHash();
+    localDateTime = dao.getLocalDateTime().toString();
   }
 
   /**

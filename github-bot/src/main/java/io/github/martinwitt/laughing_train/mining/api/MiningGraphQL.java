@@ -1,5 +1,6 @@
 package io.github.martinwitt.laughing_train.mining.api;
 
+import io.github.martinwitt.laughing_train.mining.AnalyzerRun;
 import io.github.martinwitt.laughing_train.mining.AnalyzerRunGraphQlDto;
 import io.quarkus.security.Authenticated;
 import org.eclipse.microprofile.graphql.GraphQLApi;
@@ -14,9 +15,9 @@ public class MiningGraphQL {
 
   private AnalyzerRunRepository analyzerRunRepository;
 
-    public MiningGraphQL(AnalyzerRunRepository analyzerRunRepository) {
-        this.analyzerRunRepository = analyzerRunRepository;
-    }
+  public MiningGraphQL(AnalyzerRunRepository analyzerRunRepository) {
+    this.analyzerRunRepository = analyzerRunRepository;
+  }
 
   /**
    * Retrieves a list of recent analyzer runs.
@@ -27,7 +28,7 @@ public class MiningGraphQL {
    */
   @Query
   public List<AnalyzerRunGraphQlDto> recentRuns(int size) {
-    List<AnalyzerRunDao> recentAnalyzerRuns = fetchAnalyzerRuns(size);
+    List<AnalyzerRun> recentAnalyzerRuns = fetchAnalyzerRuns(size);
     return constructAnalyzerRunGraphQlDtos(recentAnalyzerRuns);
   }
 
@@ -38,7 +39,7 @@ public class MiningGraphQL {
    * @return the list of AnalyzerRunGraphQlDto objects
    */
   private List<AnalyzerRunGraphQlDto> constructAnalyzerRunGraphQlDtos(
-      List<? extends AnalyzerRunDao> analyzerRuns) {
+      List<? extends AnalyzerRun> analyzerRuns) {
     return analyzerRuns.stream().map(AnalyzerRunGraphQlDto::new).toList();
   }
 
@@ -48,7 +49,7 @@ public class MiningGraphQL {
    * @param limit The maximum number of AnalyzerRunDao objects to fetch.
    * @return A list of AnalyzerRunDao objects.
    */
-  private List<AnalyzerRunDao> fetchAnalyzerRuns(int limit) {
+  private List<AnalyzerRun> fetchAnalyzerRuns(int limit) {
     return analyzerRunRepository.findRecent(limit);
   }
 

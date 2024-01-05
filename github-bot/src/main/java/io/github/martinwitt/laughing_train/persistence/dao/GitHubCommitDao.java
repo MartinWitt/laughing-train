@@ -1,17 +1,15 @@
-package io.github.martinwitt.laughing_train.domain.entity;
+package io.github.martinwitt.laughing_train.persistence.dao;
 
-import java.io.Serializable;
+import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Entity;
 
-public class GitHubCommit implements Serializable {
+@Entity
+public class GitHubCommitDao extends PanacheEntity {
 
   private String commitHash;
 
-  public GitHubCommit() {
+  public GitHubCommitDao() {
     // for JPA
-  }
-
-  public GitHubCommit(String commitHash) {
-    this.commitHash = commitHash;
   }
 
   /**

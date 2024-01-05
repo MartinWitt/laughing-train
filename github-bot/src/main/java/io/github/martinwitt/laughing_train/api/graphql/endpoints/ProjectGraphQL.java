@@ -1,18 +1,15 @@
 package io.github.martinwitt.laughing_train.api.graphql.endpoints;
 
 import com.google.common.flogger.FluentLogger;
-import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectConfigGraphQLDtoInput;
 import io.github.martinwitt.laughing_train.api.graphql.dto.ProjectGraphQLDto;
 import io.github.martinwitt.laughing_train.domain.entity.GitHubCommit;
-import io.github.martinwitt.laughing_train.domain.entity.ProjectConfig;
 import io.github.martinwitt.laughing_train.domain.entity.RemoteProject;
-import io.github.martinwitt.laughing_train.mining.AnalyzerRunGraphQlDto;
-import io.github.martinwitt.laughing_train.mining.api.AnalyzerRunRepository;
 import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
-import java.util.List;
 import org.eclipse.microprofile.graphql.*;
+
+import java.util.List;
 
 @GraphQLApi
 public class ProjectGraphQL {
@@ -21,20 +18,11 @@ public class ProjectGraphQL {
 
   @Inject ProjectRepository projectRepository;
 
-  @Inject AnalyzerRunRepository sqlAnalyzerRunRepository;
 
   @Query("getProjects")
   @Description("Gets all projects from the database")
   public List<ProjectGraphQLDto> getAllProjects() {
     return projectRepository.getAll().stream().map(this::mapToDto).toList();
-  }
-
-  @Query("recentAnalyzerRuns")
-  @Description("Returns a sorted by date list of recent analyzer runs")
-  public List<AnalyzerRunGraphQlDto> recentAnalyzerRuns(int size) {
-    return sqlAnalyzerRunRepository.findRecent(size).stream()
-        .map(AnalyzerRunGraphQlDto::new)
-        .toList();
   }
 
   @Query("getProjectWithName")
@@ -84,12 +72,6 @@ public class ProjectGraphQL {
   @Description("Logins the user")
   public String login(@DefaultValue("defaultValue") String notNeeded) {
     return "login successful";
-  }
-
-  private ProjectConfig createConfigFromInput(ProjectConfigGraphQLDtoInput projectConfig) {
-    var config = ProjectConfig.ofProjectUrl(projectConfig.getProjectUrl());
-    config.setSourceFolder(config.getSourceFolder());
-    return config;
   }
 
   private ProjectGraphQLDto mapToDto(RemoteProject project) {
