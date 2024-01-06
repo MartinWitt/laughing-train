@@ -14,7 +14,6 @@ public class AnalyzerResultPersistenceService {
 
   @Inject BadSmellRepository badSmellRepository;
 
-
   void persistResults(CodeAnalyzerResult.Success success) {
     logger.atInfo().log(
         "Persisting %s results for project %s",
