@@ -5,31 +5,38 @@ plugins {
 }
 
 dependencies {
-    implementation 'io.quarkus:quarkus-info'
-  implementation 'io.quarkiverse.jgit:quarkus-jgit:3.0.6'
 	implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+
+	implementation 'io.quarkus:quarkus-info'
+  	implementation 'io.quarkiverse.jgit:quarkus-jgit:3.0.6'
 	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.318.0'
 	implementation 'io.quarkus:quarkus-arc'
 	implementation "io.quarkus:quarkus-scheduler"
 	implementation 'io.quarkus:quarkus-smallrye-health'
-  implementation project(path: ':spoon-analyzer')
-  testImplementation 'io.quarkus:quarkus-junit5'
-	implementation project(":code-transformation")
-	annotationProcessor("io.quarkus:quarkus-panache-common")
+
 	implementation("io.quarkus:quarkus-smallrye-graphql")
-	testImplementation("io.quarkus:quarkus-smallrye-graphql-client")
 	implementation 'io.quarkiverse.quinoa:quarkus-quinoa:2.3.2'
 	implementation("io.quarkus:quarkus-oidc")
 	implementation("io.quarkus:quarkus-keycloak-authorization")
 	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
-	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.1'
-	implementation project(":commons")
 	implementation "io.quarkiverse.loggingmanager:quarkus-logging-manager:3.0.3"
-	testImplementation 'org.mockito:mockito-core:5.8.0'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.1'
-	annotationProcessor("io.quarkus:quarkus-panache-common")
 	implementation("io.quarkus:quarkus-hibernate-orm-panache")
 	implementation("io.quarkus:quarkus-jdbc-mariadb")
+	implementation("io.quarkus:quarkus-opentelemetry")
+
+	implementation project(":commons")
+	implementation project(path: ':spoon-analyzer')
+	implementation project(":code-transformation")
+
+	testImplementation 'org.mockito:mockito-core:5.8.0'
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.1'
+	testImplementation 'io.quarkus:quarkus-junit5'
+	testImplementation("io.quarkus:quarkus-smallrye-graphql-client")
+
+	annotationProcessor("io.quarkus:quarkus-panache-common")
+	annotationProcessor("io.quarkus:quarkus-panache-common")
+
 }
 
 
