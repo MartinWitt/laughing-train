@@ -60,6 +60,7 @@ public class ProjectDao extends PanacheEntity {
    * @param commits the commits to set
    */
   public void setCommits(List<GitHubCommitDao> commits) {
+    commits.forEach(it -> it.setProjectDao(this));
     this.commits = commits;
   }
 }
