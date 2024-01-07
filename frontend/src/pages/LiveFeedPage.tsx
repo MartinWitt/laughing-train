@@ -2,6 +2,7 @@ import PageLayout from './PageLayout';
 import {
   Box,
   LinearProgress,
+  Link,
   Table,
   TableBody,
   TableCell,
@@ -14,6 +15,7 @@ import { Error } from '@mui/icons-material';
 import React from 'react';
 import AppBreadcrumbs from '../component/StyledBreadCrumb';
 import { DateTimeFormatter, LocalDateTime } from '@js-joda/core';
+import { useNavigate } from 'react-router-dom';
 
 const breadcrumbItems = [{ text: 'Home', href: '/home' }, { text: 'LiveFeed' }];
 
@@ -85,7 +87,7 @@ export function LiveFeedPage() {
                 )}
               >
                 <TableCell>{run?.projectName}</TableCell>
-                <TableCell>{run?.projectUrl}</TableCell>
+                <TableCell>{ClickableTableCell(run!.projectUrl!)}</TableCell>
                 <TableCell>{stripCommitHash(run?.commitHash)}</TableCell>
                 <TableCell>{run?.analyzerName}</TableCell>
                 <TableCell>{run?.numberOfIssues}</TableCell>
@@ -110,3 +112,32 @@ const formatTimestamp = (timestamp: string): string => {
   const dateTime = LocalDateTime.parse(timestamp);
   return dateTime.format(DateTimeFormatter.ofPattern(' d/M/yyyy HH:mm'));
 };
+
+function ClickableTableCell(url: string) {
+  const navigate = useNavigate();
+
+  return (
+    <TableCell>
+      <Link
+        sx={{
+          color: 'white',
+          '&:hover': {
+            color: 'black',
+          },
+        }}
+      >
+        <a
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(event) => {
+            event.preventDefault();
+            navigate(url);
+          }}
+        >
+          {url}
+        </a>
+      </Link>
+    </TableCell>
+  );
+}
