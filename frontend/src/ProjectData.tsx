@@ -97,4 +97,3 @@ export function filterDuplicateBadSmells(params: BadSmell[]) {
     ({ snippet }, index) => !ids.includes(snippet, index + 1)
   );
 }
-

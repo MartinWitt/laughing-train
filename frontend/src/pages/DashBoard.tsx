@@ -25,8 +25,7 @@ export default function DashBoard() {
       </Box>
       <Box>
         <Grid container marginLeft={'5%'}>
-          <Grid item xs={12}>
-          </Grid>
+          <Grid item xs={12}></Grid>
         </Grid>
       </Box>
     </div>
