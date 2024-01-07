@@ -19,7 +19,7 @@ import { RefactorView } from './pages/RefactorView';
 import ResultView from './pages/ResultView';
 import reportWebVitals from './reportWebVitals';
 import { StatisticPage } from './pages/StatisticsPage';
-import { LiveViewPage } from './pages/LiveViewPage';
+import { LiveFeedPage } from './pages/LiveFeedPage';
 import AboutPage from './pages/Aboutpage';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/livefeed',
-    element: <LiveViewPage />,
+    element: <LiveFeedPage />,
     errorElement: <LandingPage children={<DashBoard />} />,
   },
   {
