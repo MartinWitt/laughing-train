@@ -18,7 +18,7 @@ import LandingPage from './pages/PageLayout';
 import { RefactorView } from './pages/RefactorView';
 import ResultView from './pages/ResultView';
 import reportWebVitals from './reportWebVitals';
-import { StatisticPage } from './pages/StatisticsPage';
+import { OrganizationStatisticPage } from './pages/OrganizationStatisticPage';
 import { LiveFeedPage } from './pages/LiveFeedPage';
 import AboutPage from './pages/Aboutpage';
 const root = ReactDOM.createRoot(
@@ -27,8 +27,8 @@ const root = ReactDOM.createRoot(
 
 const router = createBrowserRouter([
   {
-    path: '/statistics',
-    element: <StatisticPage />,
+    path: '/statistics/organizations/',
+    element: <OrganizationStatisticPage />,
   },
   {
     path: '/',

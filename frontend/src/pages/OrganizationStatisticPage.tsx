@@ -100,7 +100,7 @@ function ErrorComponent() {
   );
 }
 
-export function StatisticPage() {
+export function OrganizationStatisticPage() {
   const { loading, error, data } = useGetProjectsQuery();
   if (loading) {
     return (
