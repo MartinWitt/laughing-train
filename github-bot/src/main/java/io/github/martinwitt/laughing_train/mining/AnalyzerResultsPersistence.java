@@ -64,7 +64,9 @@ public class AnalyzerResultsPersistence extends AbstractVerticle {
       newProject.addCommitHash(gitHubCommit);
       projectRepository.save(newProject);
     } else {
-      list.getFirst().addCommitHash(new GitHubCommit(commitHash));
+      RemoteProject remoteProject = list.getFirst();
+      remoteProject.addCommitHash(new GitHubCommit(commitHash));
+      projectRepository.save(remoteProject);
     }
     if (spoonResult instanceof Success success) {
       AnalyzerRun analyzerRun =

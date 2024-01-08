@@ -1,9 +1,7 @@
 import PageLayout from './PageLayout';
 import {
   Box,
-  Breadcrumbs,
   LinearProgress,
-  Link,
   Paper,
   Table,
   TableBody,
@@ -14,40 +12,41 @@ import {
   Typography,
 } from '@mui/material';
 import { Error } from '@mui/icons-material';
-import { useGetProjectsQuery, GetProjectsQuery } from '../gql/graphql-types';
+import { GetProjectsQuery, useGetProjectsQuery } from '../gql/graphql-types';
 import Avatar from 'react-avatar';
 import React from 'react';
+import AppBreadcrumbs from '../component/StyledBreadCrumb';
+
+const breadcrumbItems = [
+  { text: 'Statistics', href: '/statistics' },
+  { text: 'Organizations' },
+];
 
 type OrgStats = {
   name: string;
   projectCount: number;
   commitCount: number;
-  issuesCount: number;
 };
 type OrgData = {
   [key: string]: OrgStats;
 };
 
-export function calculateOrganizationStats(data: GetProjectsQuery): OrgData {
+function calculateOrganizationStats(data: GetProjectsQuery): OrgData {
   const organizations: OrgData = {};
   data.getProjects!.forEach((project) => {
     const urlParts = project!.projectUrl!.split('/');
     const owner = urlParts[urlParts.length - 2];
     let commitCount = project!.commits?.length || 0;
-    let issuesCount = 0;
     if (!organizations[owner]) {
       organizations[owner] = {
         name: owner,
         projectCount: 0,
         commitCount: 0,
-        issuesCount: 0,
       };
     }
     organizations[owner].projectCount += 1;
     organizations[owner].commitCount += commitCount;
-    organizations[owner].issuesCount += issuesCount;
   });
-  console.log(organizations);
   return organizations;
 }
 
@@ -55,9 +54,8 @@ type OrgStatsTableProps = {
   organizations: OrgData;
 };
 
-export const OrgStatsTable: React.FC<OrgStatsTableProps> = ({
-  organizations,
-}) => {
+function OrgStatsTable(props: OrgStatsTableProps) {
+  let { organizations } = props;
   return (
     <TableContainer component={Paper}>
       <Table aria-label="simple table">
@@ -66,7 +64,6 @@ export const OrgStatsTable: React.FC<OrgStatsTableProps> = ({
             <TableCell>Organization</TableCell>
             <TableCell align="right">Project Count</TableCell>
             <TableCell align="right">Commit Count</TableCell>
-            <TableCell align="right">Issues Count</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -83,67 +80,47 @@ export const OrgStatsTable: React.FC<OrgStatsTableProps> = ({
               </TableCell>
               <TableCell align="right">{org.projectCount}</TableCell>
               <TableCell align="right">{org.commitCount}</TableCell>
-              <TableCell align="right">{org.issuesCount}</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
-};
+}
+
+function ErrorComponent() {
+  return (
+    <PageLayout>
+      <AppBreadcrumbs items={breadcrumbItems} />
+      <Box padding="5px" display="flex" flexDirection="row" alignItems="center">
+        <Error />
+        <Typography variant="h5">No Data found </Typography>
+      </Box>
+    </PageLayout>
+  );
+}
 
 export function StatisticPage() {
   const { loading, error, data } = useGetProjectsQuery();
-  if (loading) return <PageLayout children={<LinearProgress />}></PageLayout>;
-  if (error)
+  if (loading) {
     return (
       <PageLayout>
-        <Error>
-          console.error(error);
-          {error.message}
-        </Error>
+        <AppBreadcrumbs items={breadcrumbItems} />
+        <LinearProgress />
       </PageLayout>
     );
-  console.log(data);
+  }
+  if (error) {
+    return <ErrorComponent />;
+  }
   if (!data || data.getProjects?.length === 0) {
-    return (
-      <PageLayout>
-        <Paper
-          style={{
-            backgroundColor: '#3f51b5',
-            padding: '10px',
-            margin: '20px',
-          }}
-        >
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link color="inherit" href="/">
-              Home
-            </Link>
-            <Typography color="textPrimary">Statistics</Typography>
-          </Breadcrumbs>
-        </Paper>
-        <Box
-          padding="5px"
-          display="flex"
-          flexDirection="row"
-          alignItems="center"
-        >
-          <Error />
-          <Typography variant="h5">No Data found </Typography>
-        </Box>
-      </PageLayout>
-    );
+    return <ErrorComponent />;
   }
   const organizations = calculateOrganizationStats(data);
 
   return (
     <PageLayout>
-      <Breadcrumbs aria-label="breadcrumb" sx={{ paddingTop: '10px' }}>
-        <Link color="inherit" href="/">
-          Home
-        </Link>
-        <Typography color="textPrimary">Statistics</Typography>
-      </Breadcrumbs>
+      <AppBreadcrumbs items={breadcrumbItems} />
       <OrgStatsTable organizations={organizations} />
     </PageLayout>
   );
