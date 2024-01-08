@@ -1,5 +1,53 @@
 # Changelog
 
+## [1.8.0](https://github.com/MartinWitt/laughing-train/compare/v1.7.0...v1.8.0) (2024-01-08)
+
+
+### Features
+
+* Add GraphQL support to code generation and enhance Java backend ([#1395](https://github.com/MartinWitt/laughing-train/issues/1395)) ([9bd6ae4](https://github.com/MartinWitt/laughing-train/commit/9bd6ae476fa79fa15ebefa1d775e24c32fa51a3d))
+* Add Sidebar component and update dependencies ([#1398](https://github.com/MartinWitt/laughing-train/issues/1398)) ([95a3820](https://github.com/MartinWitt/laughing-train/commit/95a38208bf12890ff97ad8dd2d382be1bda9da3c))
+* make project URL clickable ([#1429](https://github.com/MartinWitt/laughing-train/issues/1429)) ([c48cd2b](https://github.com/MartinWitt/laughing-train/commit/c48cd2b7644e1aee62d7cf66fc54299ad7e8f390))
+* Refactor code and improve UI for statistics ([#1400](https://github.com/MartinWitt/laughing-train/issues/1400)) ([337128d](https://github.com/MartinWitt/laughing-train/commit/337128d00237738940a73288530fe1b91b3741be))
+* Refactor database handling for analyzer logic ([#1423](https://github.com/MartinWitt/laughing-train/issues/1423)) ([43efc59](https://github.com/MartinWitt/laughing-train/commit/43efc59b8bdc169d0bf23a42493ef3560aedbd27))
+* Refactor mining-related classes, delete redundant artifacts ([#1402](https://github.com/MartinWitt/laughing-train/issues/1402)) ([cfa79df](https://github.com/MartinWitt/laughing-train/commit/cfa79df630e1bc7b75eda8638c491d1624b10e03))
+* Refactor RefactorService and update related classes ([#1393](https://github.com/MartinWitt/laughing-train/issues/1393)) ([94766b6](https://github.com/MartinWitt/laughing-train/commit/94766b6c54985b94586fbc9516d32f62654207a0))
+* Refactor Sidebar component and add AboutPage ([#1406](https://github.com/MartinWitt/laughing-train/issues/1406)) ([ad66d22](https://github.com/MartinWitt/laughing-train/commit/ad66d228b17b6c20a657720f089298b839a2889a))
+* Remove unused legacy methods and refactor project ([#1404](https://github.com/MartinWitt/laughing-train/issues/1404)) ([05fdf9c](https://github.com/MartinWitt/laughing-train/commit/05fdf9cef03ef43b357c0d2bfec0c252680356db))
+* Replace LiveViewPage with LiveFeedPage and update dependencies ([#1427](https://github.com/MartinWitt/laughing-train/issues/1427)) ([e84dead](https://github.com/MartinWitt/laughing-train/commit/e84dead6305d183784d871133faa33a30084422c))
+
+
+### Bug Fixes
+
+* bi-directional relationship between ProjectDao and GitHubCommitDao ([#1425](https://github.com/MartinWitt/laughing-train/issues/1425)) ([06c63e9](https://github.com/MartinWitt/laughing-train/commit/06c63e959f3eb8ffdb51f3ebda873c910b95e01f))
+* **deps:** update dependency @emotion/react to v11.11.3 ([#1396](https://github.com/MartinWitt/laughing-train/issues/1396)) ([128f0e9](https://github.com/MartinWitt/laughing-train/commit/128f0e9c2f0c3b972bc0ce545e0678f2f10c80d5))
+* **deps:** update dependency @testing-library/jest-dom to v6.1.6 ([#1407](https://github.com/MartinWitt/laughing-train/issues/1407)) ([d173562](https://github.com/MartinWitt/laughing-train/commit/d17356208f629c6cabc4b737a2ce94d131c966e3))
+* **deps:** update dependency @testing-library/jest-dom to v6.2.0 ([#1417](https://github.com/MartinWitt/laughing-train/issues/1417)) ([8d06de4](https://github.com/MartinWitt/laughing-train/commit/8d06de4e8a25b0063d487c8f7f0f411d2eb74664))
+* **deps:** update dependency @testing-library/user-event to v14.5.2 ([#1411](https://github.com/MartinWitt/laughing-train/issues/1411)) ([27da5b3](https://github.com/MartinWitt/laughing-train/commit/27da5b30a20ed630a45e39f0eb649f729b9effea))
+* **deps:** update dependency @types/node to v20.10.6 ([#1412](https://github.com/MartinWitt/laughing-train/issues/1412)) ([41e7f5c](https://github.com/MartinWitt/laughing-train/commit/41e7f5c31df1b1da1ee3218ace581859a3f2526f))
+* **deps:** update dependency @types/node to v20.10.7 ([#1428](https://github.com/MartinWitt/laughing-train/issues/1428)) ([c21abf9](https://github.com/MartinWitt/laughing-train/commit/c21abf9104721781860ddc5bf9439ccd9bf3af03))
+* **deps:** update dependency @types/react to v18.2.46 ([#1409](https://github.com/MartinWitt/laughing-train/issues/1409)) ([ca07d71](https://github.com/MartinWitt/laughing-train/commit/ca07d71456a9bfdb64ecd102cd202313d219d73c))
+* **deps:** update dependency @types/react to v18.2.47 ([#1424](https://github.com/MartinWitt/laughing-train/issues/1424)) ([4b226e3](https://github.com/MartinWitt/laughing-train/commit/4b226e3c4e202f08b075526c488195e03ba2302f))
+* **deps:** update dependency com.fasterxml.jackson.dataformat:jackson-dataformat-yaml to v2.16.1 ([#1397](https://github.com/MartinWitt/laughing-train/issues/1397)) ([6d795a8](https://github.com/MartinWitt/laughing-train/commit/6d795a813a6d0808efb0d1089f9d24c7031d9034))
+* **deps:** update dependency com.google.truth:truth to v1.2.0 ([#1381](https://github.com/MartinWitt/laughing-train/issues/1381)) ([1ec5cdf](https://github.com/MartinWitt/laughing-train/commit/1ec5cdfc86f58f1c5f246ac9253b5606f0f080da))
+* **deps:** update dependency io.quarkiverse.quinoa:quarkus-quinoa to v2.3.1 ([#1375](https://github.com/MartinWitt/laughing-train/issues/1375)) ([380ff28](https://github.com/MartinWitt/laughing-train/commit/380ff2872cd5626b05e4a24d79f564f8eb7694c1))
+* **deps:** update dependency io.quarkiverse.quinoa:quarkus-quinoa to v2.3.2 ([#1420](https://github.com/MartinWitt/laughing-train/issues/1420)) ([8c4026e](https://github.com/MartinWitt/laughing-train/commit/8c4026ee93fe73ea152b089d07a875eb05d149f6))
+* **deps:** update dependency io.quarkus.platform:quarkus-bom to v3.6.4 ([#1383](https://github.com/MartinWitt/laughing-train/issues/1383)) ([c00781e](https://github.com/MartinWitt/laughing-train/commit/c00781e7ee045c7bfd9a4a18db0b21c98c764790))
+* **deps:** update dependency org.assertj:assertj-core to v3.25.0 ([#1413](https://github.com/MartinWitt/laughing-train/issues/1413)) ([0fcad33](https://github.com/MartinWitt/laughing-train/commit/0fcad33193265c966957cd68b97827864494d5df))
+* **deps:** update dependency org.assertj:assertj-core to v3.25.1 ([#1414](https://github.com/MartinWitt/laughing-train/issues/1414)) ([800ee76](https://github.com/MartinWitt/laughing-train/commit/800ee76d7b9aacfc7e9c4b7608f7f83f522dc4d8))
+* **deps:** update dependency react-router-dom to v6.21.1 ([#1386](https://github.com/MartinWitt/laughing-train/issues/1386)) ([d79d062](https://github.com/MartinWitt/laughing-train/commit/d79d06286ec13d50b710e09a07c6753369fe3183))
+* **deps:** update dependency vite to v5.0.11 ([#1422](https://github.com/MartinWitt/laughing-train/issues/1422)) ([1146e13](https://github.com/MartinWitt/laughing-train/commit/1146e13d46319db57e8ae11a5cb211211f28d068))
+* **deps:** update dependency vite-tsconfig-paths to v4.2.3 ([#1410](https://github.com/MartinWitt/laughing-train/issues/1410)) ([c9e1130](https://github.com/MartinWitt/laughing-train/commit/c9e1130fbed16f626f1f8b4fe20aa4f448fa2c4a))
+* **deps:** update dependency web-vitals to v3.5.1 ([#1408](https://github.com/MartinWitt/laughing-train/issues/1408)) ([2b18804](https://github.com/MartinWitt/laughing-train/commit/2b188043b54bce4d19574ae6347d8d3031a75fc6))
+* **deps:** update material-ui monorepo ([#1403](https://github.com/MartinWitt/laughing-train/issues/1403)) ([ee49f78](https://github.com/MartinWitt/laughing-train/commit/ee49f784fe0e4f1eb5e2886aa65acb80aee168e2))
+* **deps:** update material-ui monorepo ([#1415](https://github.com/MartinWitt/laughing-train/issues/1415)) ([0e5b09e](https://github.com/MartinWitt/laughing-train/commit/0e5b09e67bde3fa76e81f3e47bfb23aa5438b77f))
+* Remove sensitive GitHub app keys and MongoDB configuration ([#1394](https://github.com/MartinWitt/laughing-train/issues/1394)) ([7ba7d8b](https://github.com/MartinWitt/laughing-train/commit/7ba7d8bd44542fb491d34ccabf3490fce9b1c00d))
+* restore old release-please config ([#1390](https://github.com/MartinWitt/laughing-train/issues/1390)) ([e08630b](https://github.com/MartinWitt/laughing-train/commit/e08630b75a819bbce881474b19b93f0b3a6e2349))
+* Update exception handling and improve logging ([#1399](https://github.com/MartinWitt/laughing-train/issues/1399)) ([aa6bd8e](https://github.com/MartinWitt/laughing-train/commit/aa6bd8e3adc1cd58f115f442595532b1c41e6d50))
+* Update Gradle dependencies and remove unused code ([#1426](https://github.com/MartinWitt/laughing-train/issues/1426)) ([1deabde](https://github.com/MartinWitt/laughing-train/commit/1deabdea5e9831cb258f495dbf4bfc9894714b65))
+* Update LiveViewPage layout and adjust AnalyzerRuns fetch method ([#1405](https://github.com/MartinWitt/laughing-train/issues/1405)) ([d01d7a9](https://github.com/MartinWitt/laughing-train/commit/d01d7a91ec018a913a0710d7a5dbe68e94ae658c))
+* Update release-please workflow and add JSON config file ([#1378](https://github.com/MartinWitt/laughing-train/issues/1378)) ([ac1f038](https://github.com/MartinWitt/laughing-train/commit/ac1f038ac0e7519594074c853d0e3dea629e3a8a))
+
 ## [1.7.0](https://github.com/MartinWitt/laughing-train/compare/v1.6.1...v1.7.0) (2023-12-19)
 
 
