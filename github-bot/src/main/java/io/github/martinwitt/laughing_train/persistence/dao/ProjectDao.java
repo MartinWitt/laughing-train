@@ -4,7 +4,6 @@ import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,8 +12,8 @@ public class ProjectDao extends PanacheEntity {
   private String projectName;
   private String projectUrl;
 
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<GitHubCommitDao> commits = new ArrayList<>();
+  @OneToMany(cascade = CascadeType.ALL)
+  private List<GitHubCommitDao> commits;
 
   public ProjectDao() {
 
@@ -60,7 +59,6 @@ public class ProjectDao extends PanacheEntity {
    * @param commits the commits to set
    */
   public void setCommits(List<GitHubCommitDao> commits) {
-    commits.forEach(it -> it.setProjectDao(this));
     this.commits = commits;
   }
 }
