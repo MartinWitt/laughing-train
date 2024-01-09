@@ -1,13 +1,16 @@
 package io.github.martinwitt.laughing_train.persistence.dao;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class GitHubCommitDao extends PanacheEntity {
 
-  @ManyToOne private ProjectDao projectDao;
+  @ManyToOne(cascade = CascadeType.ALL)
+  private ProjectDao projectDao;
+
   private String commitHash;
 
   public GitHubCommitDao() {
