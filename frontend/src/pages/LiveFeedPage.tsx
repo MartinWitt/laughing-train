@@ -13,7 +13,7 @@ import {
 import { useRecentRunsQuery } from '../gql/graphql-types';
 import { Error } from '@mui/icons-material';
 import React from 'react';
-import AppBreadcrumbs from '../component/StyledBreadCrumb';
+import AppBreadcrumbs from '../component/AppBreadcrumbs';
 import { DateTimeFormatter, LocalDateTime } from '@js-joda/core';
 import { useNavigate } from 'react-router-dom';
 

@@ -12,18 +12,9 @@ import { useNavigate } from 'react-router-dom';
 import { Project } from '../data/Project';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
-class ProjectCard extends React.Component<Project> {
-  render() {
-    return (
-      <div>
-        <ProjectListItem {...this.props} />
-      </div>
-    );
-  }
-}
-
-function ProjectListItem(project: Project) {
+export function AppProjectCard({ project }: ProjectCardProps) {
   const navigate = useNavigate();
+  console.log(project);
   return (
     <>
       <Card
@@ -74,6 +65,7 @@ function ProjectListItem(project: Project) {
     </>
   );
 }
+
 function urlToGitHubHandle(params: string) {
   if (params === undefined) {
     return '';
@@ -83,8 +75,11 @@ function urlToGitHubHandle(params: string) {
   url.pop();
   return url.pop();
 }
-export default ProjectCard;
+export default AppProjectCard;
 
 function toLink(project: Project): string {
   return '/resultview/' + project.projectName;
+}
+interface ProjectCardProps {
+  project: Project;
 }

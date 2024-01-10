@@ -67,7 +67,10 @@ function Sidebar() {
     {
       title: 'Statistics',
       url: '/statistics',
-      subLinks: [{ title: 'Organizations', url: '/statistics/organizations' }, { title: 'About', url: '/about' }],
+      subLinks: [
+        { title: 'Organizations', url: '/statistics/organizations' },
+        { title: 'About', url: '/about' },
+      ],
     },
   ];
 
