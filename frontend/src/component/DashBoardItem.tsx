@@ -21,7 +21,7 @@ function DashBoardItem(project: Project) {
           </Box>
           <Box marginLeft={5} display={'inline-block'} alignSelf={'flex-end'}>
             <Typography variant="body1">
-              {project.commitHashes.length} Commits
+              {project.commits.length} Commits
             </Typography>
           </Box>
         </CardActionArea>
