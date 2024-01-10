@@ -59,7 +59,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: 'resultview/:name',
+    path: 'results/:name',
     element: <LandingPage children={<ResultView />} />,
     children: [
       {

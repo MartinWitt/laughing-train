@@ -15,7 +15,7 @@ import { Error } from '@mui/icons-material';
 import { GetProjectsQuery, useGetProjectsQuery } from '../gql/graphql-types';
 import Avatar from 'react-avatar';
 import React from 'react';
-import AppBreadcrumbs from '../component/StyledBreadCrumb';
+import AppBreadcrumbs from '../component/AppBreadcrumbs';
 
 const breadcrumbItems = [
   { text: 'Statistics', href: '/statistics' },

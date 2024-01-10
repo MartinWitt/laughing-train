@@ -97,3 +97,14 @@ export function filterDuplicateBadSmells(params: BadSmell[]) {
     ({ snippet }, index) => !ids.includes(snippet, index + 1)
   );
 }
+export const getProject = gql`
+  query getProject($projectName: String!) {
+    getProjectWithName(projectName: $projectName) {
+      projectName
+      projectUrl
+      commits {
+        commitHash
+      }
+    }
+  }
+`;

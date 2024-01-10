@@ -5,7 +5,6 @@ import {
   AccordionSummary,
   Box,
   Card,
-  LinearProgress,
   Divider,
   Link,
   Stack,
@@ -17,13 +16,14 @@ import { fetchBadSmellsforHashQuery } from '../ProjectData';
 import JavaCodeBlock from './JavaCodeBlock';
 import React, { useMemo, useState } from 'react';
 import { StyledDivider } from './StyledDivider';
+import { AppLoadingBar } from './AppLoadingBar';
 
-export default function BadSmellList(project: Project) {
+export default function BadSmellList({ project, hash }: BadSmellListProps) {
   const [badSmellFilter] = useState(['']);
 
   const { data, error, loading } = useQuery(fetchBadSmellsforHashQuery, {
     variables: {
-      hash: project.commitHashes[0],
+      hash: hash,
     },
   });
   const filteredBadSmells = useMemo(() => {
@@ -44,7 +44,7 @@ export default function BadSmellList(project: Project) {
     console.error(error);
   }
   if (loading) {
-    return <LinearProgress />;
+    return <AppLoadingBar />;
   }
 
   return (
@@ -55,7 +55,11 @@ export default function BadSmellList(project: Project) {
       <br />
       <Box display={'flex'} flexDirection={'row'}>
         <Box display="inline-block" width={'100%'}>
-          <BadSmellBlocks badSmells={filteredBadSmells} project={project} />
+          <BadSmellBlocks
+            badSmells={filteredBadSmells}
+            project={project}
+            hash={hash}
+          />
         </Box>
       </Box>
     </div>
@@ -65,13 +69,15 @@ export default function BadSmellList(project: Project) {
 function BadSmellBlocks({
   badSmells,
   project,
+  hash,
 }: {
   badSmells: BadSmell[];
   project: Project;
+  hash: string;
 }) {
-  return <>{CodeBlocks(badSmells, project)}</>;
+  return <>{CodeBlocks(badSmells, project, hash)}</>;
 }
-function CodeBlocks(params: BadSmell[], project: Project) {
+function CodeBlocks(params: BadSmell[], project: Project, hash: string) {
   return Array.from(groupByRuleID(params)).map((badSmell) => {
     return (
       <div key={badSmell[0].toString()}>
@@ -101,7 +107,11 @@ function CodeBlocks(params: BadSmell[], project: Project) {
                       {badSmell.messageMarkdown}
                     </Typography>
                     <JavaCodeBlock code={badSmell.snippet} />
-                    <BadSmellCardFooter badSmell={badSmell} project={project} />
+                    <BadSmellCardFooter
+                      badSmell={badSmell}
+                      project={project}
+                      hash={hash}
+                    />
                     <StyledDivider
                       thickness={2}
                       color="orange"
@@ -118,11 +128,11 @@ function CodeBlocks(params: BadSmell[], project: Project) {
   });
 }
 
-function createGithubLink(badSmell: BadSmell, project: Project) {
+function createGithubLink(badSmell: BadSmell, project: Project, hash: string) {
   return (
     project.projectUrl +
     '/tree/' +
-    project.commitHashes[0] +
+    hash +
     '/' +
     badSmell.filePath +
     '#L' +
@@ -162,9 +172,11 @@ function BadSmellCardHeader(badSmell: BadSmell) {
 function BadSmellCardFooter({
   badSmell,
   project,
+  hash,
 }: {
   badSmell: BadSmell;
   project: Project;
+  hash: string;
 }) {
   return (
     <>
@@ -172,18 +184,22 @@ function BadSmellCardFooter({
       <Typography padding="10px" fontSize={18}>
         In file {badSmell.filePath} at line {badSmell.position.startLine}
       </Typography>
-      {GitHubLink(badSmell, project)}
+      {GitHubLink(badSmell, project, hash)}
     </>
   );
 }
-function GitHubLink(badSmell: BadSmell, project: Project) {
+function GitHubLink(badSmell: BadSmell, project: Project, hash: string) {
   return (
     <Link
       padding="10px"
-      href={createGithubLink(badSmell, project)}
+      href={createGithubLink(badSmell, project, hash)}
       underline="hover"
     >
       See on GitHub
     </Link>
   );
+}
+interface BadSmellListProps {
+  project: Project;
+  hash: string;
 }

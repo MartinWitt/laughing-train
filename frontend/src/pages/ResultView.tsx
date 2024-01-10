@@ -1,103 +1,102 @@
-import {
-  Button,
-  Divider,
-  Grid,
-  LinearProgress,
-  Stack,
-  Typography,
-} from '@mui/material';
-import React from 'react';
-import ProjectCard from '../component/ProjectCard';
-import { useNavigate, useParams } from 'react-router-dom';
-import { fetchProjectQuery } from '../ProjectData';
+import { Button, Divider, Grid, Stack, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import AppProjectCard from '../component/AppProjectCard';
+import { useParams } from 'react-router-dom';
 import HashSelector from '../component/HashSelector';
 import { Project } from '../data/Project';
-import { useQuery } from '@apollo/client';
 import BadSmellList from '../component/BadSmellList';
+import AppBreadcrumbs from '../component/AppBreadcrumbs';
+import { AppErrorMessage } from '../component/AppErrorMessage';
+import { AppLoadingBar } from '../component/AppLoadingBar';
+import { useGetProjectQuery } from '../gql/graphql-types';
 
-function ResultView() {
-  let navigate = useNavigate();
-  let params = useParams();
-  const { data, loading, error } = useQuery(fetchProjectQuery);
-  if (error) {
-    console.error(error);
-  }
-  console.log(params);
-  if (loading) {
-    return <LinearProgress sx={{ margin: 5 }} />;
-  }
-  const project: Project | undefined = data.getProjects.find(
-    (project: Project) => {
-      return project.projectName === params.name;
-    }
+const breadcrumbItems = [{ text: 'Home', href: '/home' }, { text: 'Results' }];
+
+function RefactorButton(props: { project: Project; hash: string }) {
+  return (
+    <Button
+      variant="contained"
+      href={
+        '/mutation/refactor/' + props.project.projectName + '/' + props.hash
+      }
+    >
+      Refactor
+    </Button>
   );
+}
+
+export function ResultView() {
+  const [hash, setHash] = useState('');
+  function setHashLogged(hash: string) {
+    console.log('Changing: ' + hash);
+    return setHash(hash);
+  }
+  const params = useParams();
+  const { data, loading, error } = useGetProjectQuery({
+    variables: { projectName: params.name! },
+  });
+  console.log(data);
+  if (error) {
+    return (
+      <>
+        <AppBreadcrumbs items={breadcrumbItems} />
+        <AppErrorMessage message={error.message} />
+      </>
+    );
+  }
+  if (loading) {
+    return (
+      <>
+        <AppBreadcrumbs items={breadcrumbItems} />
+        <AppLoadingBar />
+      </>
+    );
+  }
+  const project: Project = {
+    projectName: data?.getProjectWithName?.projectName!,
+    projectUrl: data?.getProjectWithName?.projectUrl!,
+    commits: (data?.getProjectWithName?.commits || []).map((commit: any) => ({
+      commitHash: commit.commitHash,
+    })),
+  };
+
   if (!project) {
-    return <div>Project not found</div>;
+    return (
+      <>
+        <AppBreadcrumbs items={breadcrumbItems} />
+        <AppErrorMessage message={'Project not found'} />
+      </>
+    );
   }
   return (
-    <div>
-      <br />
-      <ProjectCard {...project} />
-      <br />
-      {addHashIfPresent(params.hash)}
+    <>
+      <AppProjectCard project={project} />
+      <HashDisplay hash={hash} />
       <Divider />
-      <br />
-      <HashSelector {...project} />
-      <br />
+      <HashSelector project={project} hash={hash} setHash={setHashLogged} />
       <Divider />
       <Grid container spacing={2}>
         <Grid item xs={10}>
-          <BadSmellList {...projectWithSingleHash(project, params.hash)} />
+          <BadSmellList project={project} hash={hash} />
         </Grid>
         <Divider />
-        <br />
         <Grid item xs={2}>
           <Stack direction="column" spacing={2}>
-            <Button
-              variant="contained"
-              href={
-                '/mutation/refactor/' + project.projectName + '/' + params.hash
-              }
-            >
-              Refactor
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => navigate(generateProjectConfigLink(project))}
-            >
-              Config
-            </Button>
+            <RefactorButton project={project} hash={hash} />
           </Stack>
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 }
 export default ResultView;
 
-function projectWithSingleHash(
-  project: Project,
-  hash: string | undefined
-): Project {
-  if (hash) {
-    return {
-      projectName: project.projectName,
-      commitHashes: [hash],
-      projectUrl: project.projectUrl,
-      commits: project.commits,
-    };
-  }
-  return project;
-}
-function addHashIfPresent(hash: string | undefined) {
+function HashDisplay({ hash }: HashDisplayProps) {
   if (hash) {
     return <Typography>Current selected hash: {hash}</Typography>;
   }
   return <Typography>No hash selected</Typography>;
 }
-function toBase64(str: string) {
-  return btoa(str);
-}
-function generateProjectConfigLink(project: Project) {
-  return '/mutation/projectconfig/' + toBase64(project.projectUrl);
+interface HashDisplayProps {
+  hash: string | undefined;
 }
