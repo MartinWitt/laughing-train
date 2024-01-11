@@ -28,7 +28,6 @@ function RefactorButton(props: { project: Project; hash: string }) {
 export function ResultView() {
   const [hash, setHash] = useState('');
   function setHashLogged(hash: string) {
-    console.log('Changing: ' + hash);
     return setHash(hash);
   }
   const params = useParams();
