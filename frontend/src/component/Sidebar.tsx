@@ -62,7 +62,10 @@ function Sidebar() {
     {
       title: 'Home',
       url: '/',
-      subLinks: [{ title: 'LiveFeed', url: '/livefeed' }],
+      subLinks: [
+        { title: 'Dashboard', url: '/' },
+        { title: 'LiveFeed', url: '/livefeed' },
+      ],
     },
     {
       title: 'Statistics',

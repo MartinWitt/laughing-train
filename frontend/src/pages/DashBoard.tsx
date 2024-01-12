@@ -51,10 +51,16 @@ export default function DashBoard() {
   }
   const projects: Project[] =
     data?.getProjects?.map((project: any) => toProject(project)) || [];
+  const filteredProjects = projects.filter(
+    (project) =>
+      project.projectName.includes(filter) ||
+      project.projectUrl.includes(filter) ||
+      filter === ''
+  );
   return (
-    <div>
+    <>
       <AppBreadcrumbs items={breadcrumbItems} />
-      <Box sx={{ top: 0, zIndex: 1 }}>
+      <Box flexDirection={'row'} display={'flex'} alignItems={'center'}>
         <SearchField
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
@@ -62,14 +68,15 @@ export default function DashBoard() {
         <AddProjectButton />
       </Box>
       <Box>
-        <Grid container marginLeft={'5%'}>
-          {projects.map((project: Project) => (
-            <DashBoardItem project={project} />
+        <Grid item xs={12}>
+          {filteredProjects.map((project: Project) => (
+            <Grid container sx={{ padding: '5px' }}>
+              <DashBoardItem project={project} />
+            </Grid>
           ))}
-          <Grid item xs={12}></Grid>
         </Grid>
       </Box>
-    </div>
+    </>
   );
 }
 
