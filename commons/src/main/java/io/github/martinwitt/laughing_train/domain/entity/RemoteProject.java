@@ -38,14 +38,27 @@ public class RemoteProject implements Serializable {
     return commits;
   }
 
+  /**
+   * Adds a GitHub commit to the list of commits in the RemoteProject. If the commit is already in
+   * the list, it is not added.
+   *
+   * @param commit the GitHub commit to add.
+   */
   public void addCommitHash(GitHubCommit commit) {
+    if (commits.contains(commit)) {
+      return;
+    }
     commits.add(commit);
   }
 
   @Override
   public boolean equals(Object obj) {
-    if (this == obj) return true;
-    if (obj == null || getClass() != obj.getClass()) return false;
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
     RemoteProject that = (RemoteProject) obj;
     return Objects.equals(projectName, that.projectName)
         && Objects.equals(projectUrl, that.projectUrl)
@@ -59,5 +72,19 @@ public class RemoteProject implements Serializable {
 
   public RemoteProject withProjectUrl(String projectUrl) {
     return new RemoteProject(projectName, projectUrl);
+  }
+
+  @Override
+  public String toString() {
+    return "RemoteProject{"
+        + "projectName='"
+        + projectName
+        + '\''
+        + ", projectUrl='"
+        + projectUrl
+        + '\''
+        + ", commits="
+        + commits
+        + '}';
   }
 }
