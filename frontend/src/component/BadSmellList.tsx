@@ -49,7 +49,7 @@ export default function BadSmellList({ project, hash }: BadSmellListProps) {
 
   return (
     <div>
-      <Typography variant="h2" align="center">
+      <Typography variant="h3" align="center" margin={2}>
         Bad Smells
       </Typography>
       <br />

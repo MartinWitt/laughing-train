@@ -69,6 +69,7 @@ export function ResultView() {
   }
   return (
     <>
+      <AppBreadcrumbs items={breadcrumbItems} />
       <AppProjectCard project={project} />
       <HashDisplay hash={hash} />
       <Divider />
