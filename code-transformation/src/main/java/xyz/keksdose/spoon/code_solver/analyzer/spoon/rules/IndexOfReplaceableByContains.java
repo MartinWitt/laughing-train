@@ -2,8 +2,6 @@ package xyz.keksdose.spoon.code_solver.analyzer.spoon.rules;
 
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.spoonutils.InvocationMatcher;
-import java.util.ArrayList;
-import java.util.List;
 import spoon.reflect.code.*;
 import spoon.reflect.declaration.CtElement;
 import spoon.reflect.declaration.CtType;
@@ -16,6 +14,9 @@ import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
 import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IndexOfReplaceableByContains extends SpoonRefactoring {
 
@@ -111,7 +112,7 @@ public class IndexOfReplaceableByContains extends SpoonRefactoring {
     return false;
   }
 
-  record ResultRecord(CtExpression<?> indexOfCall, CtExpression<?> minusOne) {}
+  private record ResultRecord(CtExpression<?> indexOfCall, CtExpression<?> minusOne) {}
 
   private List<ResultRecord> getIndexMinusOnePairs(CtElement clazz) {
     List<ResultRecord> resultRecords = new ArrayList<>();
