@@ -15,10 +15,10 @@ export default function PageLayout({ children }: PageLayoutProps) {
         justifyContent="flex-start" // added this
         style={{ height: 'calc(100%) ', flexWrap: 'nowrap' }}
       >
-        <Grid item xs={2.5}>
+        <Grid item xs={2}>
           <Sidebar />
         </Grid>
-        <Grid item xs={9} style={{ overflow: 'auto' }}>
+        <Grid item xs={10} style={{ overflow: 'auto' }}>
           {children}
         </Grid>
       </Grid>
