@@ -8,7 +8,7 @@ import java.util.List;
 public sealed interface CodeAnalyzerResult extends Serializable
     permits CodeAnalyzerResult.Success, CodeAnalyzerResult.Failure {
 
-  record Success(List<AnalyzerResult> results, GitProject gitProject)
+  record Success(List<? extends AnalyzerResult> results, GitProject gitProject)
       implements CodeAnalyzerResult {}
 
   record Failure(String message) implements CodeAnalyzerResult {}

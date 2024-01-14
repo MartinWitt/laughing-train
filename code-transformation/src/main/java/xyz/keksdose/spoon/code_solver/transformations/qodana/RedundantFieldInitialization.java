@@ -8,13 +8,13 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class RedundantFieldInitialization extends TransformationProcessor<CtField<?>> {
 
-  private static final BadSmell REDUNDANT_FIELD_INITIALIZATION =
-      new BadSmell() {
+  private static final CodeIssue REDUNDANT_FIELD_INITIALIZATION =
+      new CodeIssue() {
 
         @Override
         public MarkdownString getDescription() {
@@ -99,7 +99,7 @@ public class RedundantFieldInitialization extends TransformationProcessor<CtFiel
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(REDUNDANT_FIELD_INITIALIZATION);
   }
 }

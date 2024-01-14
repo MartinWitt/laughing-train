@@ -15,7 +15,7 @@ import spoon.reflect.declaration.CtType;
 import spoon.reflect.visitor.filter.TypeFilter;
 import xyz.keksdose.spoon.code_solver.analyzer.AbstractRefactoring;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class DocGen {
@@ -33,7 +33,7 @@ public class DocGen {
       }
     }
     StringBuilder sb = new StringBuilder();
-    List<BadSmell> badSmells = new ArrayList<>();
+    List<CodeIssue> codeIssues = new ArrayList<>();
     for (CtType<?> type : transformations) {
       List<CtMethod<?>> getHandledBadSmells = type.getMethodsByName("getHandledBadSmells");
       if (getHandledBadSmells.size() == 0) {
@@ -43,14 +43,14 @@ public class DocGen {
       Method md = getHandledBadSmellsMethod.getReference().getActualMethod();
       var foo = type.getActualClass().getDeclaredConstructor(ChangeListener.class);
       var bar = foo.newInstance(new Object[] {null});
-      badSmells.addAll((List<BadSmell>) md.invoke(bar));
+      codeIssues.addAll((List<CodeIssue>) md.invoke(bar));
     }
-    badSmells.sort((a, b) -> a.getName().asText().compareTo(b.getName().asText()));
-    for (BadSmell badSmell : badSmells) {
-      sb.append("## ").append(badSmell.getName().asMarkdown()).append("\n");
-      sb.append(badSmell.getDescription().asMarkdown()).append("\n");
-      if (!badSmell.getLinks().isEmpty()) {
-        sb.append(badSmell.getLinks()).append("\n");
+    codeIssues.sort((a, b) -> a.getName().asText().compareTo(b.getName().asText()));
+    for (CodeIssue codeIssue : codeIssues) {
+      sb.append("## ").append(codeIssue.getName().asMarkdown()).append("\n");
+      sb.append(codeIssue.getDescription().asMarkdown()).append("\n");
+      if (!codeIssue.getLinks().isEmpty()) {
+        sb.append(codeIssue.getLinks()).append("\n");
       }
       sb.append("\n");
     }
@@ -73,7 +73,7 @@ public class DocGen {
     }
     StringBuilder sb = new StringBuilder();
     sb.append("# Qodana Rules\n");
-    List<BadSmell> badSmells = new ArrayList<>();
+    List<CodeIssue> codeIssues = new ArrayList<>();
     for (CtType<?> type : transformations) {
       List<CtMethod<?>> getHandledBadSmells = type.getMethodsByName("getHandledBadSmells");
       if (getHandledBadSmells.size() == 0) {
@@ -83,14 +83,14 @@ public class DocGen {
       Method md = getHandledBadSmellsMethod.getReference().getActualMethod();
       var resultObject = type.getActualClass().getDeclaredConstructor(Result.class);
       var refactoring = resultObject.newInstance(new Object[] {null});
-      badSmells.addAll((List<BadSmell>) md.invoke(refactoring));
+      codeIssues.addAll((List<CodeIssue>) md.invoke(refactoring));
     }
-    badSmells.sort((a, b) -> a.getName().asText().compareTo(b.getName().asText()));
-    for (BadSmell badSmell : badSmells) {
-      sb.append("## ").append(badSmell.getName().asMarkdown()).append("\n");
-      sb.append(badSmell.getDescription().asMarkdown()).append("\n");
-      if (!badSmell.getLinks().isEmpty()) {
-        sb.append(badSmell.getLinks()).append("\n");
+    codeIssues.sort((a, b) -> a.getName().asText().compareTo(b.getName().asText()));
+    for (CodeIssue codeIssue : codeIssues) {
+      sb.append("## ").append(codeIssue.getName().asMarkdown()).append("\n");
+      sb.append(codeIssue.getDescription().asMarkdown()).append("\n");
+      if (!codeIssue.getLinks().isEmpty()) {
+        sb.append(codeIssue.getLinks()).append("\n");
       }
       sb.append("\n");
     }

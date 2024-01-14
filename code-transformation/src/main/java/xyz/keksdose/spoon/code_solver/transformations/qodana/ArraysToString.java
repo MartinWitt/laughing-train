@@ -9,15 +9,15 @@ import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Link;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 import xyz.keksdose.spoon.code_solver.util.Nullsafe;
 
 public class ArraysToString extends TransformationProcessor<CtInvocation<?>> {
 
-  private static final BadSmell BAD_SMELL =
-      new BadSmell() {
+  private static final CodeIssue BAD_SMELL =
+      new CodeIssue() {
         @Override
         public MarkdownString getDescription() {
           String rawText =
@@ -95,7 +95,7 @@ public class ArraysToString extends TransformationProcessor<CtInvocation<?>> {
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(BAD_SMELL);
   }
 }

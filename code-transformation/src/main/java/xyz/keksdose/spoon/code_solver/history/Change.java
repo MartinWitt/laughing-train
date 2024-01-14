@@ -6,14 +6,14 @@ import java.util.Objects;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.diffs.DiffCleanModes;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 
 public class Change {
 
   private MarkdownString text;
   private String issue;
   private CtType<?> affectedType;
-  private BadSmell badsmell = BadSmell.emptyRule();
+  private CodeIssue badsmell = CodeIssue.emptyRule();
   private AnalyzerResult analyzerResult;
   private List<DiffCleanModes> modes = List.of();
 
@@ -23,29 +23,29 @@ public class Change {
     this.affectedType = getMostOuterType(affectedType);
   }
 
-  public Change(BadSmell badSmell, MarkdownString text, CtType<?> affectedType) {
+  public Change(CodeIssue codeIssue, MarkdownString text, CtType<?> affectedType) {
     this.text = text;
-    this.issue = badSmell.getName().asText();
-    this.badsmell = badSmell;
+    this.issue = codeIssue.getName().asText();
+    this.badsmell = codeIssue;
     this.affectedType = getMostOuterType(affectedType);
   }
 
   public Change(
-      BadSmell badSmell,
+      CodeIssue codeIssue,
       MarkdownString text,
       CtType<?> affectedType,
       AnalyzerResult analyzerResult) {
-    this(badSmell, text, affectedType);
+    this(codeIssue, text, affectedType);
     this.analyzerResult = analyzerResult;
   }
 
   public Change(
-      BadSmell badSmell,
+      CodeIssue codeIssue,
       MarkdownString text,
       CtType<?> affectedType,
       AnalyzerResult analyzerResult,
       List<DiffCleanModes> modes) {
-    this(badSmell, text, affectedType);
+    this(codeIssue, text, affectedType);
     this.analyzerResult = analyzerResult;
     this.modes = modes;
   }
@@ -72,7 +72,7 @@ public class Change {
     return issue;
   }
 
-  public BadSmell getBadSmell() {
+  public CodeIssue getBadSmell() {
     return badsmell;
   }
 

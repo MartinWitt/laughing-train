@@ -5,9 +5,6 @@ plugins {
 }
 
 jar {
-	manifest {
-		// attributes "Main-Class": "xyz.keksdose.spoon.code_solver.TransformationEngine"
-	}
 	from {
 		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 	}
@@ -24,7 +21,6 @@ dependencies {
 	implementation "com.contrastsecurity:java-sarif:+"
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.1'
 	implementation project(":commons")
-	implementation project(":spoon-analyzer")
 	implementation 'io.github.java-diff-utils:java-diff-utils:4.12'
 }
 

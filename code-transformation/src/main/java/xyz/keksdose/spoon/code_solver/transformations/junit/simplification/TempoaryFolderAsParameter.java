@@ -12,13 +12,13 @@ import spoon.reflect.visitor.filter.VariableAccessFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class TempoaryFolderAsParameter extends TransformationProcessor<CtType<?>> {
 
-  private static final BadSmell BAD_SMELL =
-      new BadSmell() {
+  private static final CodeIssue BAD_SMELL =
+      new CodeIssue() {
         @Override
         public MarkdownString getName() {
           return MarkdownString.fromRaw("TempoaryFolderAsParameter");
@@ -102,7 +102,7 @@ public class TempoaryFolderAsParameter extends TransformationProcessor<CtType<?>
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(BAD_SMELL);
   }
 }

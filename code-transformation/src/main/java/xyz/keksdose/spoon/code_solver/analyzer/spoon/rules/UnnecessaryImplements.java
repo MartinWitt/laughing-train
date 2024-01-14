@@ -13,27 +13,18 @@ import xyz.keksdose.spoon.code_solver.analyzer.spoon.SpoonRefactoring;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 
 public class UnnecessaryImplements extends SpoonRefactoring {
 
-  private static final BadSmell BAD_SMELL =
-      new BadSmell(
+  private static final CodeIssue BAD_SMELL =
+      new CodeIssue(
           MarkdownString.fromRaw("UnnecessaryImplements"),
           MarkdownString.fromRaw(
               "This class has 1 or more interfaces which are already implemented."));
 
-  /**
-   * Creates a new refactoring with a given result.
-   *
-   * @param result the result of an analysis run.
-   */
-  public UnnecessaryImplements(AnalyzerResult result) {
-    super(result);
-  }
-
   @Override
-  public void refactor(ChangeListener listener, CtType<?> type) {
+  public void refactor(ChangeListener listener, CtType<?> type, AnalyzerResult result) {
     // TODO: Check if the equals real works here
     for (CtTypeReference<?> unnecessaryImplement : getUnnecessaryImplements(type)) {
       if (toPosition(unnecessaryImplement.getPosition()).equals(result.position())) {
@@ -51,8 +42,8 @@ public class UnnecessaryImplements extends SpoonRefactoring {
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
-    return List.of(BAD_SMELL);
+  public CodeIssue getHandledBadSmells() {
+    return BAD_SMELL;
   }
 
   @Override

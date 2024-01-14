@@ -39,8 +39,8 @@ public class PathUtils {
    * @param paths the list of paths to filter
    * @return a new list of paths without resources or test files
    */
-  public static List<Path> filterResourcePaths(List<Path> paths) {
-    return paths.stream().filter(path -> filterNonSourcePath(path)).collect(Collectors.toList());
+  public static List<Path> filterResourcePaths(List<? extends Path> paths) {
+    return paths.stream().filter(PathUtils::filterNonSourcePath).collect(Collectors.toList());
   }
 
   private static boolean filterNonSourcePath(Path path) {

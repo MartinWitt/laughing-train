@@ -9,7 +9,7 @@ import org.instancio.Instancio;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-class SqlBadSmellRepositoryTest {
+class SqlCodeIssueRepositoryTest {
 
   @Inject SqlBadSmellRepository sqlBadSmellRepository;
 

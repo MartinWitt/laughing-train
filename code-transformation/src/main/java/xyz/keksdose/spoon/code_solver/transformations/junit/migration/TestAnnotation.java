@@ -15,7 +15,7 @@ import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
@@ -31,8 +31,8 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
   private static final String JUNIT5_TIMEOUT = "org.junit.jupiter.api.Timeout";
   private static final String JAVA_UTIL_CONCURRENT_TIME_UNIT = "java.util.concurrent.TimeUnit";
 
-  private static final BadSmell TEST_RULE =
-      new BadSmell() {
+  private static final CodeIssue TEST_RULE =
+      new CodeIssue() {
 
         @Override
         public MarkdownString getDescription() {
@@ -114,7 +114,7 @@ public class TestAnnotation extends TransformationProcessor<CtAnnotation<?>> {
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(TEST_RULE);
   }
 }

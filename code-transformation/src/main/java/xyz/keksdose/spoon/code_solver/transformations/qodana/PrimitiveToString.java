@@ -11,13 +11,13 @@ import spoon.reflect.reference.CtTypeReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class PrimitiveToString extends TransformationProcessor<CtBinaryOperator<?>> {
 
-  private static final BadSmell STRING_VALUE_OF =
-      new BadSmell() {
+  private static final CodeIssue STRING_VALUE_OF =
+      new CodeIssue() {
         @Override
         public MarkdownString getName() {
           return MarkdownString.fromRaw("String-ValueOf-Primitive");
@@ -83,7 +83,7 @@ public class PrimitiveToString extends TransformationProcessor<CtBinaryOperator<
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(STRING_VALUE_OF);
   }
 }

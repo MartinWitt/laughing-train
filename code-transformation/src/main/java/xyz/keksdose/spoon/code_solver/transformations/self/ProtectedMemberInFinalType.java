@@ -9,13 +9,13 @@ import spoon.reflect.declaration.ModifierKind;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class ProtectedMemberInFinalType extends TransformationProcessor<CtType<?>> {
 
-  private static final BadSmell badSmell =
-      new BadSmell() {
+  private static final CodeIssue CODE_ISSUE =
+      new CodeIssue() {
 
         @Override
         public MarkdownString getDescription() {
@@ -54,13 +54,13 @@ public class ProtectedMemberInFinalType extends TransformationProcessor<CtType<?
                 + type.getSimpleName()
                 + "`";
         setChanged(
-            type, new Change(badSmell, MarkdownString.fromMarkdown(message, markdown), type));
+            type, new Change(CODE_ISSUE, MarkdownString.fromMarkdown(message, markdown), type));
       }
     }
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
-    return List.of(badSmell);
+  public List<CodeIssue> getHandledBadSmells() {
+    return List.of(CODE_ISSUE);
   }
 }

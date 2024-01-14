@@ -39,7 +39,7 @@ import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
 import xyz.keksdose.spoon.code_solver.history.Link;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 
 public class PullRequest {
 
@@ -190,7 +190,7 @@ public class PullRequest {
         return Stream.of(change)
                 .map(Change::getBadSmell)
                 .filter(Objects::nonNull)
-                .map(BadSmell::getName)
+                .map(CodeIssue::getName)
                 .map(MarkdownString::asText)
                 .distinct()
                 .collect(Collectors.joining("\n"));
@@ -200,7 +200,7 @@ public class PullRequest {
         return change.stream()
                 .map(Change::getBadSmell)
                 .filter(Objects::nonNull)
-                .map(BadSmell::getName)
+                .map(CodeIssue::getName)
                 .map(MarkdownString::asText)
                 .distinct()
                 .collect(Collectors.joining("\n"));
@@ -254,16 +254,16 @@ public class PullRequest {
 
     private static void appendBadSmells(Change changelog, StringBuilder sb) {
         sb.append("The following bad smells are refactored:\n");
-        List<BadSmell> badSmells = Stream.of(changelog)
+        List<CodeIssue> codeIssues = Stream.of(changelog)
                 .map(Change::getBadSmell)
                 .filter(v -> !v.isEmptyRule())
                 .distinct()
                 .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
                 .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
+        for (CodeIssue codeIssue : codeIssues) {
+            sb.append("## " + codeIssue.getName().asText() + "\n");
+            sb.append(codeIssue.getDescription().asMarkdown() + "\n");
+            for (Link link : codeIssue.getLinks()) {
                 sb.append("- " + link + "\n");
             }
         }
@@ -272,16 +272,16 @@ public class PullRequest {
 
     private static void appendBadSmells(Collection<Change> changelog, StringBuilder sb) {
         sb.append("The following bad smells are refactored:\n");
-        List<BadSmell> badSmells = changelog.stream()
+        List<CodeIssue> codeIssues = changelog.stream()
                 .map(Change::getBadSmell)
                 .filter(v -> !v.isEmptyRule())
                 .distinct()
                 .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
                 .collect(Collectors.toList());
-        for (BadSmell badSmell : badSmells) {
-            sb.append("## " + badSmell.getName().asText() + "\n");
-            sb.append(badSmell.getDescription().asMarkdown() + "\n");
-            for (Link link : badSmell.getLinks()) {
+        for (CodeIssue codeIssue : codeIssues) {
+            sb.append("## " + codeIssue.getName().asText() + "\n");
+            sb.append(codeIssue.getDescription().asMarkdown() + "\n");
+            for (Link link : codeIssue.getLinks()) {
                 sb.append("- " + link + "\n");
             }
         }

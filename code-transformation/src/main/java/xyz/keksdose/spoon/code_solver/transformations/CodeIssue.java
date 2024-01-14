@@ -9,32 +9,32 @@ import xyz.keksdose.spoon.code_solver.history.MarkdownString;
  * bad smell and the description of the bad smell. A bad smell is a part of the source code, that
  * has some problems.
  */
-public class BadSmell {
+public class CodeIssue {
 
   protected MarkdownString description;
   protected MarkdownString name;
   protected List<Link> links;
 
-  public BadSmell() {
+  public CodeIssue() {
     this.description = MarkdownString.fromRaw("");
     this.name = MarkdownString.fromRaw("");
     this.links = List.of();
   }
 
-  public BadSmell(MarkdownString name, MarkdownString description) {
+  public CodeIssue(MarkdownString name, MarkdownString description) {
     this.description = description;
     this.name = name;
     this.links = List.of();
   }
 
-  public BadSmell(MarkdownString description, MarkdownString name, List<Link> links) {
+  public CodeIssue(MarkdownString description, MarkdownString name, List<Link> links) {
     this.description = description;
     this.name = name;
     this.links = links;
   }
 
-  private static final class EmptyBadSmell extends BadSmell {
-    private EmptyBadSmell() {
+  private static final class EmptyCodeIssue extends CodeIssue {
+    private EmptyCodeIssue() {
       super(MarkdownString.fromRaw(""), MarkdownString.fromRaw(""));
     }
 
@@ -76,8 +76,8 @@ public class BadSmell {
    *
    * @return the empty bad smell
    */
-  public static BadSmell emptyRule() {
-    return new EmptyBadSmell();
+  public static CodeIssue emptyRule() {
+    return new EmptyCodeIssue();
   }
 
   /**
@@ -87,7 +87,7 @@ public class BadSmell {
    * @return true if the BadSmell is an EmptyBadSmell instance, false otherwise.
    */
   public boolean isEmptyRule() {
-    return this instanceof EmptyBadSmell;
+    return this instanceof EmptyCodeIssue;
   }
 
   public List<Link> getLinks() {

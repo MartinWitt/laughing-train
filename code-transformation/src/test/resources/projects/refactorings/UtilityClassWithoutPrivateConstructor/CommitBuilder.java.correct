@@ -17,7 +17,7 @@ import xyz.keksdose.spoon.code_solver.config.ConfigStore;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
 import xyz.keksdose.spoon.code_solver.history.Link;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 
 public class CommitBuilder {
 

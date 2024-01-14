@@ -18,13 +18,13 @@ import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Link;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class ThreadLocalWithInitial extends TransformationProcessor<CtNewClass<?>> {
 
-  private static final BadSmell threadLocalWithInitalValue =
-      new BadSmell() {
+  private static final CodeIssue threadLocalWithInitalValue =
+      new CodeIssue() {
         @Override
         public MarkdownString getName() {
           return MarkdownString.fromRaw("ThreadLocalWithInitialValue");
@@ -139,7 +139,7 @@ public class ThreadLocalWithInitial extends TransformationProcessor<CtNewClass<?
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(threadLocalWithInitalValue);
   }
 }

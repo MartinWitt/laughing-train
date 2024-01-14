@@ -10,7 +10,7 @@ import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 import xyz.keksdose.spoon.code_solver.util.Nullsafe;
 
@@ -20,8 +20,8 @@ public class StaticAccess extends TransformationProcessor<CtInvocation<?>> {
       "Method %s was accessed via the instance variable %s.";
   private static final String MARKDOWN_CHANGE_LOG =
       "Method `%s` was accessed via the instance variable `%s`.";
-  private static final BadSmell NON_STATIC_ACCESS =
-      new BadSmell() {
+  private static final CodeIssue NON_STATIC_ACCESS =
+      new CodeIssue() {
         @Override
         public MarkdownString getName() {
           return MarkdownString.fromRaw("NonStaticAccess");
@@ -80,7 +80,7 @@ public class StaticAccess extends TransformationProcessor<CtInvocation<?>> {
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(NON_STATIC_ACCESS);
   }
 }
