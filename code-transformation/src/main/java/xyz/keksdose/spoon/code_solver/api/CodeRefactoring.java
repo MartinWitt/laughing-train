@@ -4,13 +4,10 @@ import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import xyz.keksdose.spoon.code_solver.TransformationEngine;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRefactor;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 import xyz.keksdose.spoon.code_solver.analyzer.spoon.SpoonRefactor;
 import xyz.keksdose.spoon.code_solver.diffs.DiffCleaner;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
@@ -30,7 +27,6 @@ public class CodeRefactoring {
       refactor = new ArrayList<>();
 
   public CodeRefactoring() {
-    refactor.add((u, v) -> new QodanaRefactor(EnumSet.allOf(QodanaRules.class), u, v));
     refactor.add((u, v) -> new SpoonRefactor(u, v));
   }
 

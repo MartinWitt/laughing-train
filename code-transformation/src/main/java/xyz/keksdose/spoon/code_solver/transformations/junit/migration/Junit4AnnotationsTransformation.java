@@ -16,7 +16,7 @@ import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
@@ -28,11 +28,11 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
   private static final String JUNIT4_BEFORE = "org.junit.Before";
   private static final String JUNIT5_BEFORE_ALL = "org.junit.jupiter.api.BeforeAll";
   private static final String JUNIT4_BEFORE_CLASS = "org.junit.BeforeClass";
-  private static final BadSmell JUNIT4_BEFORE_CLASS_BADSMELL = new BeforeClassBadSmell();
-  private static final BadSmell JUNIT4_BEFORE_BADSMELL = new BeforeBadSmell();
-  private static final BadSmell JUNIT4_AFTER_BADSMELL = new AfterBadSmell();
-  private static final BadSmell JUNIT4_AFTER_CLASS_BADSMELL = new AfterClassBadSmell();
-  private static final BadSmell JUNIT4_IGNORE_BADSMELL = new IgnoreBadSmell();
+  private static final CodeIssue JUNIT_4_BEFORE_CLASS_BADSMELL = new BeforeClassCodeIssue();
+  private static final CodeIssue JUNIT_4_BEFORE_BADSMELL = new BeforeCodeIssue();
+  private static final CodeIssue JUNIT_4_AFTER_BADSMELL = new AfterCodeIssue();
+  private static final CodeIssue JUNIT_4_AFTER_CLASS_BADSMELL = new AfterClassCodeIssue();
+  private static final CodeIssue JUNIT_4_IGNORE_BADSMELL = new IgnoreCodeIssue();
 
   public Junit4AnnotationsTransformation(ChangeListener listener) {
     super(listener);
@@ -65,7 +65,7 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
       notifyChangeListener(
           method.getTopLevelType(),
           fromMarkdown(changeText, markdownText),
-          JUNIT4_BEFORE_CLASS_BADSMELL);
+          JUNIT_4_BEFORE_CLASS_BADSMELL);
     }
   }
 
@@ -82,8 +82,8 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
   }
 
   private void notifyChangeListener(
-      CtType<?> declaringType, MarkdownString description, BadSmell badSmell) {
-    setChanged(declaringType, new Change(badSmell, description, declaringType));
+      CtType<?> declaringType, MarkdownString description, CodeIssue codeIssue) {
+    setChanged(declaringType, new Change(codeIssue, description, declaringType));
   }
 
   private void refactorBefore(CtMethod<?> method) {
@@ -100,7 +100,9 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
               "Replaced `@Before` annotation with `@BeforeEach` at method `%s`",
               method.getSimpleName());
       notifyChangeListener(
-          method.getTopLevelType(), fromMarkdown(changeText, markdownText), JUNIT4_BEFORE_BADSMELL);
+          method.getTopLevelType(),
+          fromMarkdown(changeText, markdownText),
+          JUNIT_4_BEFORE_BADSMELL);
     }
   }
 
@@ -123,7 +125,7 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
               "Replaced `@After` annotation with `@AfterEach` at method `%s`",
               method.getSimpleName());
       notifyChangeListener(
-          method.getTopLevelType(), fromMarkdown(changeText, markdownText), JUNIT4_AFTER_BADSMELL);
+          method.getTopLevelType(), fromMarkdown(changeText, markdownText), JUNIT_4_AFTER_BADSMELL);
     }
   }
 
@@ -148,7 +150,7 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
       notifyChangeListener(
           method.getTopLevelType(),
           fromMarkdown(changeText, markdownText),
-          JUNIT4_AFTER_CLASS_BADSMELL);
+          JUNIT_4_AFTER_CLASS_BADSMELL);
     }
   }
 
@@ -174,7 +176,9 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
               "Replaced `@Ignore` annotation with `@Disabled` at method `%s`",
               method.getSimpleName());
       notifyChangeListener(
-          method.getTopLevelType(), fromMarkdown(changeText, markdownText), JUNIT4_IGNORE_BADSMELL);
+          method.getTopLevelType(),
+          fromMarkdown(changeText, markdownText),
+          JUNIT_4_IGNORE_BADSMELL);
     }
   }
 
@@ -184,7 +188,7 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
         "org.junit.jupiter.api.Disabled", false, method.getPosition().getCompilationUnit());
   }
 
-  private static final class BeforeClassBadSmell extends BadSmell {
+  private static final class BeforeClassCodeIssue extends CodeIssue {
     @Override
     public MarkdownString getDescription() {
       String rawText =
@@ -200,7 +204,7 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
     }
   }
 
-  private static final class BeforeBadSmell extends BadSmell {
+  private static final class BeforeCodeIssue extends CodeIssue {
     @Override
     public MarkdownString getDescription() {
       String rawText =
@@ -216,7 +220,7 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
     }
   }
 
-  private static final class AfterBadSmell extends BadSmell {
+  private static final class AfterCodeIssue extends CodeIssue {
     @Override
     public MarkdownString getDescription() {
       String rawText =
@@ -232,7 +236,7 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
     }
   }
 
-  private static final class AfterClassBadSmell extends BadSmell {
+  private static final class AfterClassCodeIssue extends CodeIssue {
     @Override
     public MarkdownString getDescription() {
       String rawText =
@@ -248,7 +252,7 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
     }
   }
 
-  private static final class IgnoreBadSmell extends BadSmell {
+  private static final class IgnoreCodeIssue extends CodeIssue {
 
     @Override
     public MarkdownString getDescription() {
@@ -266,12 +270,12 @@ public class Junit4AnnotationsTransformation extends TransformationProcessor<CtM
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(
-        JUNIT4_BEFORE_CLASS_BADSMELL,
-        JUNIT4_BEFORE_BADSMELL,
-        JUNIT4_AFTER_BADSMELL,
-        JUNIT4_AFTER_CLASS_BADSMELL,
-        JUNIT4_IGNORE_BADSMELL);
+        JUNIT_4_BEFORE_CLASS_BADSMELL,
+        JUNIT_4_BEFORE_BADSMELL,
+        JUNIT_4_AFTER_BADSMELL,
+        JUNIT_4_AFTER_CLASS_BADSMELL,
+        JUNIT_4_IGNORE_BADSMELL);
   }
 }

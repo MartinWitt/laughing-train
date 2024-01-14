@@ -18,7 +18,7 @@ import spoon.reflect.reference.CtTypeReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 import xyz.keksdose.spoon.code_solver.transformations.junit.JunitHelper;
@@ -28,8 +28,8 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
   private static final String CHANGE_TEXT_RAW = "Removed expected annotation from test method %s";
   private static final String CHANGE_TEXT_MARKDOWN =
       "Removed expected annotation from test method `%s`";
-  private static final BadSmell EXPECTED_EXCEPTION_BADSMELL =
-      new BadSmell() {
+  private static final CodeIssue EXPECTED_EXCEPTION_BADSMELL =
+      new CodeIssue() {
 
         @Override
         public MarkdownString getDescription() {
@@ -113,7 +113,7 @@ public class ExpectedExceptionRemoval extends TransformationProcessor<CtMethod<?
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(EXPECTED_EXCEPTION_BADSMELL);
   }
 }

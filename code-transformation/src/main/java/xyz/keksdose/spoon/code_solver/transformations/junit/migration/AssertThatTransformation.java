@@ -8,15 +8,15 @@ import spoon.reflect.reference.CtExecutableReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.ImportHelper;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class AssertThatTransformation extends TransformationProcessor<CtInvocation<?>> {
 
   private static final String ORG_HAMCREST_MATCHER_ASSERT = "org.hamcrest.MatcherAssert";
-  private static final BadSmell ASSERT_THAT_BAD_SMELL =
-      new BadSmell() {
+  private static final CodeIssue ASSERT_THAT_BAD_SMELL =
+      new CodeIssue() {
 
         @Override
         public MarkdownString getDescription() {
@@ -82,7 +82,7 @@ public class AssertThatTransformation extends TransformationProcessor<CtInvocati
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(ASSERT_THAT_BAD_SMELL);
   }
 }

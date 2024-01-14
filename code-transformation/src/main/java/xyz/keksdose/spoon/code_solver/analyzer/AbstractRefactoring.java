@@ -2,30 +2,13 @@ package xyz.keksdose.spoon.code_solver.analyzer;
 
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.nio.file.Path;
-import java.util.List;
 import spoon.reflect.cu.SourcePositionHolder;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.declaration.CtTypeParameter;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 
-/**
- * This defines a refactoring of a reported {@link AnalyzerResult}. With the help of this class, the
- * refactoring can be applied to the source code. The refactoring is applied by calling the {@link
- * #refactor(ChangeListener,CtType)} method.
- */
 public abstract class AbstractRefactoring {
-
-  protected AnalyzerResult result;
-
-  /**
-   * Creates a new refactoring with a given result.
-   *
-   * @param result the result of an analysis run.
-   */
-  protected AbstractRefactoring(AnalyzerResult result) {
-    this.result = result;
-  }
 
   /**
    * Applies the refactoring to the given {@link CtType}.
@@ -33,14 +16,14 @@ public abstract class AbstractRefactoring {
    * @param listener The listener which is used to report the changes.
    * @param type The type which contains the reported bad smell.
    */
-  public abstract void refactor(ChangeListener listener, CtType<?> type);
+  public abstract void refactor(ChangeListener listener, CtType<?> type, AnalyzerResult result);
 
   /**
-   * Returns a list of all {@link BadSmell}s which are refactored by this refactoring.
+   * Returns the handled bad smells by the implementing class.
    *
-   * @return A list of all {@link BadSmell}s which are refactored by this refactoring. Never null.
+   * @return the handled bad smells
    */
-  public abstract List<BadSmell> getHandledBadSmells();
+  public abstract CodeIssue getHandledBadSmells();
 
   /**
    * Checks if the given {@link CtType} is the type which contains the reported bad smell.

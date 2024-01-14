@@ -15,13 +15,13 @@ import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.Link;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class LambdaToExecutableReference extends TransformationProcessor<CtLambda<?>> {
 
-  private static final BadSmell lambdaInsteadOfExecutableReference =
-      new BadSmell() {
+  private static final CodeIssue lambdaInsteadOfExecutableReference =
+      new CodeIssue() {
         @Override
         public MarkdownString getName() {
           return MarkdownString.fromRaw("LambdaInsteadOfExecutableReference");
@@ -83,7 +83,7 @@ public class LambdaToExecutableReference extends TransformationProcessor<CtLambd
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(lambdaInsteadOfExecutableReference);
   }
 }

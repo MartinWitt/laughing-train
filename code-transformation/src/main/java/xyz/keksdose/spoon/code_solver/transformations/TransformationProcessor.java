@@ -19,7 +19,7 @@ public abstract class TransformationProcessor<T extends CtElement> extends Abstr
     this.listener = listener;
   }
 
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of();
   }
 }

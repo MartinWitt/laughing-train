@@ -11,14 +11,14 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 import xyz.keksdose.spoon.code_solver.util.Nullsafe;
 
 public class EmptyStringCheck extends TransformationProcessor<CtInvocation<?>> {
 
-  private static final BadSmell badSmell =
-      new BadSmell() {
+  private static final CodeIssue CODE_ISSUE =
+      new CodeIssue() {
         @Override
         public MarkdownString getName() {
           return MarkdownString.fromRaw("EmptyStringCheck");
@@ -104,7 +104,7 @@ public class EmptyStringCheck extends TransformationProcessor<CtInvocation<?>> {
 
   private Change createChange(CtInvocation<?> invocation, String rawText, String markdown) {
     return new Change(
-        badSmell,
+        CODE_ISSUE,
         MarkdownString.fromMarkdown(rawText, markdown),
         invocation.getParent(CtType.class));
   }
@@ -129,7 +129,7 @@ public class EmptyStringCheck extends TransformationProcessor<CtInvocation<?>> {
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
-    return List.of(badSmell);
+  public List<CodeIssue> getHandledBadSmells() {
+    return List.of(CODE_ISSUE);
   }
 }

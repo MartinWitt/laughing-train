@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-public class BadSmellGraphQLTest {
+public class CodeIssueGraphQLTest {
 
   DynamicGraphQLClient client;
 

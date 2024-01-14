@@ -1,6 +1,9 @@
 package xyz.keksdose.spoon.code_solver.analyzer.spoon.rules;
 
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import spoon.reflect.code.CtInvocation;
 import spoon.reflect.declaration.CtType;
 import spoon.reflect.visitor.Filter;
@@ -10,30 +13,17 @@ import xyz.keksdose.spoon.code_solver.analyzer.spoon.SpoonRefactoring;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 
 public class UnnecessaryToString extends SpoonRefactoring {
 
-  private static final BadSmell BAD_SMELL =
-      new BadSmell(
+  private static final CodeIssue BAD_SMELL =
+      new CodeIssue(
           MarkdownString.fromRaw("UnnecessaryToString"),
-          MarkdownString.fromRaw("Unnecessary toString() call on String object."));
-
-  /**
-   * Creates a new refactoring with a given result.
-   *
-   * @param result the result of an analysis run.
-   */
-  public UnnecessaryToString(AnalyzerResult result) {
-    super(result);
-  }
+          MarkdownString.fromRaw("Calling to String on a String object is unnecessary."));
 
   @Override
-  public void refactor(ChangeListener listener, CtType<?> type) {
+  public void refactor(ChangeListener listener, CtType<?> type, AnalyzerResult result) {
     if (!isSameType(type, Path.of(result.filePath()))) {
       return;
     }
@@ -54,8 +44,8 @@ public class UnnecessaryToString extends SpoonRefactoring {
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
-    return List.of(BAD_SMELL);
+  public CodeIssue getHandledBadSmells() {
+    return BAD_SMELL;
   }
 
   @Override

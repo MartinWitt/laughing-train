@@ -1,7 +1,8 @@
 package xyz.keksdose.spoon.code_solver.transformations;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -31,10 +32,12 @@ public class TransformationTestUtils {
    * @return the path to the transformed resource
    * @throws IOException if the resource cannot be read or the temporary file cannot be written
    */
-  public static File transform(AbstractRefactoring refactoring, String resourcePath, File tempRoot)
+  public static File transform(
+      AbstractRefactoring refactoring, AnalyzerResult result, String resourcePath, File tempRoot)
       throws IOException {
     ChangeListener listener = new ChangeListener();
-    Function<ChangeListener, TransformationProcessor<?>> processor = convertToFunction(refactoring);
+    Function<ChangeListener, TransformationProcessor<?>> processor =
+        convertToFunction(refactoring, result);
     TransformationEngine engine = new TransformationEngine(List.of(processor));
     engine.setChangeListener(listener);
     File copy =
@@ -45,13 +48,13 @@ public class TransformationTestUtils {
   }
 
   private static Function<ChangeListener, TransformationProcessor<?>> convertToFunction(
-      AbstractRefactoring refactoring) {
+      AbstractRefactoring refactoring, AnalyzerResult result) {
     return v ->
         new TransformationProcessor<CtType<?>>(v) {
 
           @Override
           public void process(CtType<?> element) {
-            refactoring.refactor(v, element);
+            refactoring.refactor(v, element, result);
           }
         };
   }

@@ -21,13 +21,13 @@ import spoon.support.util.ModelList;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class AssertionsTransformation extends TransformationProcessor<CtMethod<?>> {
 
-  private static final BadSmell JUNIT4_ASSERTION =
-      new BadSmell() {
+  private static final CodeIssue JUNIT4_ASSERTION =
+      new CodeIssue() {
         @Override
         public MarkdownString getName() {
           return MarkdownString.fromRaw("JUnit4Assertion");
@@ -217,7 +217,7 @@ public class AssertionsTransformation extends TransformationProcessor<CtMethod<?
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(JUNIT4_ASSERTION);
   }
 }

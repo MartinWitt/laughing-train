@@ -8,14 +8,14 @@ import spoon.reflect.reference.CtTypeReference;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 import xyz.keksdose.spoon.code_solver.util.Nullsafe;
 
 public class StringBuilderDirectUse extends TransformationProcessor<CtInvocation<?>> {
 
-  private static final BadSmell directStringBuilderUse =
-      new BadSmell() {
+  private static final CodeIssue directStringBuilderUse =
+      new CodeIssue() {
         @Override
         public MarkdownString getName() {
           String name = "StringBuilderDirectUse";
@@ -78,7 +78,7 @@ public class StringBuilderDirectUse extends TransformationProcessor<CtInvocation
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(directStringBuilderUse);
   }
 }

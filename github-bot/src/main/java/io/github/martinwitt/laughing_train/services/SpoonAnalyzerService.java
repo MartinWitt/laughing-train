@@ -28,7 +28,7 @@ public class SpoonAnalyzerService {
         case AnalyzerRequest.WithProject project -> {
           File folder = project.gitProject().folder();
           SpoonBasedAnalyzer analyzer = new SpoonBasedAnalyzer();
-          List<AnalyzerResult> analyze = analyzer.analyze(folder.toPath());
+          List<? extends AnalyzerResult> analyze = analyzer.analyze(folder.toPath());
           logger.atFine().log(
               "Spoon found %s results with the following rules: %s",
               analyze.size(),

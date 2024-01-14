@@ -14,13 +14,13 @@ import spoon.reflect.visitor.filter.TypeFilter;
 import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.history.MarkdownString;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
 public class CollectionEmptyCheck extends TransformationProcessor<CtBinaryOperator<?>> {
 
-  private static final BadSmell COLLECTION_EMPTY_CHECK =
-      new BadSmell() {
+  private static final CodeIssue COLLECTION_EMPTY_CHECK =
+      new CodeIssue() {
 
         @Override
         public MarkdownString getDescription() {
@@ -114,7 +114,7 @@ public class CollectionEmptyCheck extends TransformationProcessor<CtBinaryOperat
   }
 
   @Override
-  public List<BadSmell> getHandledBadSmells() {
+  public List<CodeIssue> getHandledBadSmells() {
     return List.of(COLLECTION_EMPTY_CHECK);
   }
 }

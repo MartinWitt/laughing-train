@@ -3,9 +3,9 @@ package xyz.keksdose.spoon.code_solver.analyzer.spoon;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import java.util.*;
-import java.util.function.Function;
 import spoon.reflect.declaration.CtType;
 import xyz.keksdose.spoon.code_solver.analyzer.AbstractRefactoring;
+import xyz.keksdose.spoon.code_solver.analyzer.spoon.api.SpoonRules;
 import xyz.keksdose.spoon.code_solver.history.ChangeListener;
 import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
 
@@ -15,26 +15,27 @@ import xyz.keksdose.spoon.code_solver.transformations.TransformationProcessor;
  */
 public class SpoonRefactor extends TransformationProcessor<CtType<?>> {
 
-  private Map<RuleId, Function<AnalyzerResult, AbstractRefactoring>> ruleParser;
-  private List<AbstractRefactoring> refactors;
+  private final Map<RuleId, AbstractRefactoring> ruleParser;
+  private final List<RefactorInput> refactors;
 
-  public SpoonRefactor(
-      ChangeListener changeListener, Iterable<? extends AnalyzerResult> badSmells) {
-    super(changeListener);
+  public SpoonRefactor(ChangeListener listener, Iterable<? extends AnalyzerResult> badSmells) {
+    super(listener);
     ruleParser = new HashMap<>();
     refactors = new ArrayList<>();
     Arrays.stream(SpoonRules.values())
-        .forEach(rule -> ruleParser.put(rule.getRuleId(), rule.getRefactoring()));
+        .forEach(rule -> ruleParser.put(rule.ruleId(), rule.getRefactoring()));
     for (AnalyzerResult result : badSmells) {
       Optional.ofNullable(ruleParser.get(result.ruleID()))
-          .ifPresent(v -> refactors.add(v.apply(result)));
+          .ifPresent(v -> refactors.add(new RefactorInput(v, result)));
     }
   }
 
   @Override
   public void process(CtType<?> element) {
-    for (AbstractRefactoring refactoring : refactors) {
-      refactoring.refactor(listener, element);
+    for (RefactorInput refactoring : refactors) {
+      refactoring.refactoring().refactor(listener, element, refactoring.result);
     }
   }
+
+  private record RefactorInput(AbstractRefactoring refactoring, AnalyzerResult result) {}
 }

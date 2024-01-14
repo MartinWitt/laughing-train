@@ -17,7 +17,7 @@ import xyz.keksdose.spoon.code_solver.history.Change;
 import xyz.keksdose.spoon.code_solver.history.Changelog;
 import xyz.keksdose.spoon.code_solver.history.Link;
 import xyz.keksdose.spoon.code_solver.printing.NoOpPrinter;
-import xyz.keksdose.spoon.code_solver.transformations.BadSmell;
+import xyz.keksdose.spoon.code_solver.transformations.CodeIssue;
 
 public class Experimentation {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
@@ -86,17 +86,17 @@ public class Experimentation {
 
   private static void appendBadSmells(Changelog changelog, StringBuilder sb) {
     sb.append("The following bad smells are refactored:\n");
-    List<BadSmell> badSmells =
+    List<CodeIssue> codeIssues =
         changelog.getChanges().stream()
             .map(Change::getBadSmell)
             .filter(v -> !v.isEmptyRule())
             .distinct()
             .sorted((o1, o2) -> o1.getName().asText().compareTo(o2.getName().asText()))
             .collect(Collectors.toList());
-    for (BadSmell badSmell : badSmells) {
-      sb.append("## " + badSmell.getName().asText() + "\n");
-      sb.append(badSmell.getDescription().asMarkdown() + "\n");
-      for (Link link : badSmell.getLinks()) {
+    for (CodeIssue codeIssue : codeIssues) {
+      sb.append("## " + codeIssue.getName().asText() + "\n");
+      sb.append(codeIssue.getDescription().asMarkdown() + "\n");
+      for (Link link : codeIssue.getLinks()) {
         sb.append("- " + link + "\n");
       }
     }

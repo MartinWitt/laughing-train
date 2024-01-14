@@ -35,8 +35,6 @@ dependencies {
 	testImplementation("io.quarkus:quarkus-smallrye-graphql-client")
 
 	annotationProcessor("io.quarkus:quarkus-panache-common")
-	annotationProcessor("io.quarkus:quarkus-panache-common")
-
 }
 
 
