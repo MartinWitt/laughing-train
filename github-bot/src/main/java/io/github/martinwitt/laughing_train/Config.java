@@ -10,13 +10,7 @@ import com.google.errorprone.annotations.Var;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-import xyz.keksdose.spoon.code_solver.analyzer.qodana.QodanaRules;
 
 @ApplicationScoped
 public class Config {
@@ -26,7 +20,6 @@ public class Config {
   private static final FluentLogger logger = FluentLogger.forEnclosingClass();
   private String srcFolder = "src/main/java";
   private int maximumNumberOfPrs = 10;
-  private Map<QodanaRules, Boolean> rules = new EnumMap<>(QodanaRules.class);
   private List<String> allowedUsers = new ArrayList<>();
   private boolean groupyByType = true;
 
@@ -34,7 +27,6 @@ public class Config {
 
   public Config() {
     allowedUsers.add("MartinWitt");
-    Arrays.stream(QodanaRules.values()).forEach(v -> rules.put(v, true));
   }
 
   /**
@@ -55,7 +47,6 @@ public class Config {
     this.srcFolder = config.getSrcFolder();
     this.maximumNumberOfPrs = config.getMaximumNumberOfPrs();
     this.allowedUsers = config.getAllowedUsers();
-    this.rules = new EnumMap<>(config.rules);
     this.groupyByType = config.groupyByType;
   }
 
@@ -69,15 +60,8 @@ public class Config {
       return MAPPER.writeValueAsString(this);
     } catch (JsonProcessingException e) {
       logger.atWarning().withCause(e).log("Could not serialize config");
-      return "Config [rules=" + rules + ", srcFolder=" + srcFolder + "]";
+      return "";
     }
-  }
-
-  /**
-   * @return the rules
-   */
-  public Map<QodanaRules, Boolean> getRules() {
-    return rules;
   }
 
   /** {@return the maxNumberPRs} */
@@ -97,14 +81,6 @@ public class Config {
    */
   public void setMaximumNumberOfPrs(int maximumNumberOfPrs) {
     this.maximumNumberOfPrs = maximumNumberOfPrs;
-  }
-
-  @JsonIgnore
-  public List<QodanaRules> getActiveRules() {
-    return rules.entrySet().stream()
-        .filter(Entry::getValue)
-        .map(Entry::getKey)
-        .collect(Collectors.toList());
   }
 
   @JsonIgnore
