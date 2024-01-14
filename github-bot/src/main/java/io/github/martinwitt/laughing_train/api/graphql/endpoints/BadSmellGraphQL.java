@@ -4,7 +4,6 @@ import io.github.martinwitt.laughing_train.api.graphql.dto.BadSmellGraphQLDto;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
-import io.github.martinwitt.laughing_train.persistence.repository.ProjectRepository;
 import io.github.martinwitt.spoon_analyzer.badsmells.SpoonRules;
 import jakarta.inject.Inject;
 import java.util.Arrays;
@@ -18,8 +17,6 @@ import org.eclipse.microprofile.graphql.Query;
 public class BadSmellGraphQL {
 
   @Inject BadSmellRepository badSmellRepository;
-
-  @Inject ProjectRepository projectRepository;
 
   @Query("byRuleID")
   @Description("Gets all bad smells from the database by ruleID")

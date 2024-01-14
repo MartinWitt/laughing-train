@@ -1,24 +1,23 @@
 package io.github.martinwitt.laughing_train.api.graphql.endpoints;
 
 import com.google.common.flogger.FluentLogger;
+import io.github.martinwitt.laughing_train.api.graphql.dto.AnalyzerRuleDto;
 import io.github.martinwitt.laughing_train.domain.value.RuleId;
 import io.github.martinwitt.laughing_train.persistence.BadSmell;
 import io.github.martinwitt.laughing_train.persistence.repository.BadSmellRepository;
 import io.github.martinwitt.laughing_train.refactor.RefactorService;
 import io.quarkus.security.Authenticated;
 import jakarta.inject.Inject;
-import org.eclipse.microprofile.graphql.Description;
-import org.eclipse.microprofile.graphql.GraphQLApi;
-import org.eclipse.microprofile.graphql.Mutation;
-import org.eclipse.microprofile.graphql.Query;
-import xyz.keksdose.spoon.code_solver.analyzer.AnalyzerRule;
-import xyz.keksdose.spoon.code_solver.analyzer.spoon.api.SpoonRules;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.eclipse.microprofile.graphql.Description;
+import org.eclipse.microprofile.graphql.GraphQLApi;
+import org.eclipse.microprofile.graphql.Mutation;
+import org.eclipse.microprofile.graphql.Query;
+import xyz.keksdose.spoon.code_solver.analyzer.spoon.api.SpoonRules;
 
 @GraphQLApi
 public class RefactorGraphQL {
@@ -30,8 +29,8 @@ public class RefactorGraphQL {
 
   @Query
   @Description("Returns a list of all available refactorings")
-  public List<? extends AnalyzerRule> getAvailableRefactorings() {
-    return Arrays.stream(SpoonRules.values()).toList();
+  public List<AnalyzerRuleDto> getAvailableRefactorings() {
+    return Arrays.stream(SpoonRules.values()).map(AnalyzerRuleDto::new).toList();
   }
 
   @Mutation
