@@ -38,8 +38,6 @@ export function LiveFeedPage() {
       </PageLayout>
     );
   }
-  console.log(data);
-
   if (!data?.recentRuns || data.recentRuns.length === 0) {
     return (
       <PageLayout>
