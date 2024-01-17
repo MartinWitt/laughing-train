@@ -2,6 +2,12 @@ package xyz.keksdose.spoon.code_solver.analyzer.spoon;
 
 import com.google.common.flogger.FluentLogger;
 import io.github.martinwitt.laughing_train.domain.entity.AnalyzerResult;
+import spoon.Launcher;
+import spoon.SpoonAPI;
+import spoon.reflect.CtModel;
+import spoon.reflect.declaration.CtType;
+import xyz.keksdose.spoon.code_solver.analyzer.spoon.api.SpoonRules;
+
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,11 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import spoon.Launcher;
-import spoon.SpoonAPI;
-import spoon.reflect.CtModel;
-import spoon.reflect.declaration.CtType;
-import xyz.keksdose.spoon.code_solver.analyzer.spoon.api.SpoonRules;
 
 public class SpoonBasedAnalyzer {
 
@@ -30,7 +31,7 @@ public class SpoonBasedAnalyzer {
       launcher.getEnvironment().setAutoImports(true);
       launcher.getEnvironment().setIgnoreDuplicateDeclarations(true);
       launcher.getEnvironment().setNoClasspath(true);
-      launcher.getEnvironment().setComplianceLevel(20);
+      launcher.getEnvironment().setComplianceLevel(17);
       launcher.getEnvironment().setIgnoreSyntaxErrors(true);
       launcher.getEnvironment().setLevel("ERROR");
       CtModel model = launcher.buildModel();
