@@ -8,7 +8,7 @@
     "@emotion/styled": "11.11.0",
     "@graphql-codegen/typescript-react-apollo": "^4.1.0",
     "@js-joda/core": "^5.5.3",
-    "@mui/icons-material": "5.15.4",
+    "@mui/icons-material": "5.15.5",
     "@mui/lab": "5.0.0-alpha.161",
     "@mui/material": "5.15.5",
     "@react-buddy/ide-toolbox": "^2.4.0",
