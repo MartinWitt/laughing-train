@@ -9,18 +9,11 @@ interface PageLayoutProps {
 export default function PageLayout({ children }: PageLayoutProps) {
   return (
     <div style={{ height: '100vh' }}>
-      <Grid
-        container
-        spacing={2}
-        justifyContent="flex-start" // added this
-        style={{ height: 'calc(100%) ', flexWrap: 'nowrap' }}
-      >
-        <Grid item xs={2}>
+      <Grid container spacing={2}>
+        <Grid item style={{ width: '400px' }}>
           <Sidebar />
         </Grid>
-        <Grid item xs={10} style={{ overflow: 'auto' }}>
-          {children}
-        </Grid>
+        <Grid item>{children}</Grid>
       </Grid>
     </div>
   );
