@@ -19,7 +19,7 @@ dependencies {
 	implementation "com.github.docker-java:docker-java-core:+"
 	implementation "com.github.docker-java:docker-java-transport-httpclient5:+"
 	implementation "com.contrastsecurity:java-sarif:+"
-	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.1'
+	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.2'
 	implementation project(":commons")
 	implementation 'io.github.java-diff-utils:java-diff-utils:4.12'
 }
