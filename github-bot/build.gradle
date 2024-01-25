@@ -29,7 +29,7 @@ dependencies {
 	implementation project(path: ':spoon-analyzer')
 	implementation project(":code-transformation")
 
-	testImplementation 'org.mockito:mockito-core:5.9.0'
+	testImplementation 'org.mockito:mockito-core:5.10.0'
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.2'
 	testImplementation 'io.quarkus:quarkus-junit5'
 	testImplementation("io.quarkus:quarkus-smallrye-graphql-client")
