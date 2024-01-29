@@ -37,7 +37,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@4a8703fa348fe99fdb9d2ac233732f7dccea5437 # v3
+        uses: gradle/gradle-build-action@d4bd442194a6478e8ac205108cae29e76bf9b787 # v3
         with:
           gradle-version: release-candidate
       - name: Setup Node.js
