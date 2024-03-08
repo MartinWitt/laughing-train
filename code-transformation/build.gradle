@@ -12,7 +12,7 @@ jar {
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 dependencies {
-	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.8.0.202311291450-r'
+	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit', version: '6.9.0.202403050737-r'
 	implementation group: 'org.eclipse.jgit', name: 'org.eclipse.jgit.ssh.apache', version: '6.8.0.202311291450-r'
     implementation project(path: ':matcher')
 	testImplementation "com.google.truth:truth:1.4.2"
