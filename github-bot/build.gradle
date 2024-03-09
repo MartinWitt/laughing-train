@@ -20,7 +20,7 @@ dependencies {
 	implementation("io.quarkus:quarkus-keycloak-authorization")
 	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
 	implementation "io.quarkiverse.loggingmanager:quarkus-logging-manager:3.0.3"
-	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.1'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.2'
 	implementation("io.quarkus:quarkus-hibernate-orm-panache")
 	implementation("io.quarkus:quarkus-jdbc-mariadb")
 	implementation("io.quarkus:quarkus-opentelemetry")
