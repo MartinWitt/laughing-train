@@ -17,7 +17,7 @@ dependencies {
 	implementation 'com.google.flogger:flogger:0.8'
 	implementation 'com.google.flogger:flogger-system-backend:0.8'
 	implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.5.3'
-	errorprone("com.google.errorprone:error_prone_core:2.26.0")
+	errorprone("com.google.errorprone:error_prone_core:2.26.1")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.3'
 	annotationProcessor "com.uber.nullaway:nullaway:+"
 	testImplementation "org.instancio:instancio-junit:4.4.0"
