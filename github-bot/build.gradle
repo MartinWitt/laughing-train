@@ -9,7 +9,7 @@ dependencies {
 
 	implementation 'io.quarkus:quarkus-info'
   	implementation 'io.quarkiverse.jgit:quarkus-jgit:3.1.0'
-	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.319.0'
+	implementation 'io.quarkiverse.githubapi:quarkus-github-api:1.320.0'
 	implementation 'io.quarkus:quarkus-arc'
 	implementation "io.quarkus:quarkus-scheduler"
 	implementation 'io.quarkus:quarkus-smallrye-health'
