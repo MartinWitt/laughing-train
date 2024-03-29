@@ -24,6 +24,7 @@ dependencies {
 	implementation("io.quarkus:quarkus-hibernate-orm-panache")
 	implementation("io.quarkus:quarkus-jdbc-mariadb")
 	implementation("io.quarkus:quarkus-opentelemetry")
+	implementation 'org.jetbrains:annotations:24.1.0'
 
 	implementation project(":commons")
 	implementation project(path: ':spoon-analyzer')
