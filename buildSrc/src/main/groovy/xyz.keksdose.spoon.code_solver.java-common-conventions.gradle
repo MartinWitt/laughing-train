@@ -13,7 +13,7 @@ dependencies {
 		// Use JUnit Jupiter for testing.
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
 	implementation 'com.google.guava:guava:33.1.0-jre'
-	implementation 'fr.inria.gforge.spoon:spoon-core:10.4.2'
+	implementation 'fr.inria.gforge.spoon:spoon-core:11.0.0'
 	implementation 'com.google.flogger:flogger:0.8'
 	implementation 'com.google.flogger:flogger-system-backend:0.8'
 	implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.5.3'
