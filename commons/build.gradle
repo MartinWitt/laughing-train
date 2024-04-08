@@ -1,5 +1,5 @@
 plugins {
 	id "xyz.keksdose.spoon.code_solver.java-library-conventions"
 	id "java"
-	id "io.smallrye.graphql" version "2.8.1"
+	id "io.smallrye.graphql" version "2.8.2"
 }
