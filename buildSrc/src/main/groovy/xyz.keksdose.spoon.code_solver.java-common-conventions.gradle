@@ -16,7 +16,7 @@ dependencies {
 	implementation 'fr.inria.gforge.spoon:spoon-core:11.0.0'
 	implementation 'com.google.flogger:flogger:0.8'
 	implementation 'com.google.flogger:flogger-system-backend:0.8'
-	implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.5.3'
+	implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.5.4'
 	errorprone("com.google.errorprone:error_prone_core:2.26.1")
 	testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.25.3'
 	annotationProcessor "com.uber.nullaway:nullaway:+"
