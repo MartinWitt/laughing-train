@@ -35,7 +35,7 @@
     "react-router-dom": "6.23.1",
     "react-syntax-highlighter": "15.5.0",
     "typography": "0.16.24",
-    "vite": "^5.0.2",
+    "vite": "^5.2.14",
     "vite-tsconfig-paths": "^4.2.1",
     "web-vitals": "3.5.2"
   },
