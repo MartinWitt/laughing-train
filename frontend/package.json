@@ -37,7 +37,7 @@
     "typography": "0.16.24",
     "vite": "^5.0.2",
     "vite-tsconfig-paths": "^4.2.1",
-    "web-vitals": "3.5.2"
+    "web-vitals": "4.2.4"
   },
   "scripts": {
     "start": "vite",
