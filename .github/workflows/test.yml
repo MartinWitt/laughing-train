@@ -9,7 +9,7 @@ on:
 
 jobs:
   run-spotless:
-    uses: martinwitt/unreusable-workflows/.github/workflows/spotless-gradle.yaml@master
+    uses: martinwitt/unreusable-workflows/.github/workflows/spotless-gradle.yaml@a306c22371abee4418f2e21d6def94844446223c # master
     with:
       java-version: '21'
       distribution: 'oracle'
@@ -17,15 +17,15 @@ jobs:
   qodana-scan:
     permissions:
       security-events: write
-    uses: martinwitt/unreusable-workflows/.github/workflows/qodana-scan.yaml@master
+    uses: martinwitt/unreusable-workflows/.github/workflows/qodana-scan.yaml@a306c22371abee4418f2e21d6def94844446223c # master
   junit:
-    uses: martinwitt/unreusable-workflows/.github/workflows/gradle-tests.yaml@master
+    uses: martinwitt/unreusable-workflows/.github/workflows/gradle-tests.yaml@a306c22371abee4418f2e21d6def94844446223c # master
     with:
       java-version: '21'
       distribution: 'oracle'
       working-dir: './'
   build:
-    uses: martinwitt/unreusable-workflows/.github/workflows/gradle-build.yaml@master
+    uses: martinwitt/unreusable-workflows/.github/workflows/gradle-build.yaml@a306c22371abee4418f2e21d6def94844446223c # master
     with:
       java-version: '21'
       distribution: 'oracle'
